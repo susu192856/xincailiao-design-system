@@ -1,0 +1,141 @@
+import DocsTable from "../../components/docs/DocsTable";
+import { SectionHeading } from "../../components/docs/ComponentDoc";
+import PageHeader from "../../components/docs/PageHeader";
+
+const spacingTokens = [
+  {
+    token: "spacing-xs",
+    variable: "--spacing-xs",
+    value: "4px",
+    usage: "图标与文字的极小间距、表单提示与字段的贴近关系",
+    advice: "用于需要紧密关联的元素，避免在大范围布局中使用。",
+  },
+  {
+    token: "spacing-sm",
+    variable: "--spacing-sm",
+    value: "8px",
+    usage: "按钮内部元素间距、标签内边距、小组件间距",
+    advice: "适合小型组件内部的基础留白，保持元素之间可辨识。",
+  },
+  {
+    token: "spacing-md",
+    variable: "--spacing-md",
+    value: "16px",
+    usage: "表单项间距、卡片基础内边距、列表单元间距",
+    advice: "作为组件和列表的常规间距，适合高频后台界面。",
+  },
+  {
+    token: "spacing-lg",
+    variable: "--spacing-lg",
+    value: "24px",
+    usage: "卡片内容区内边距、模块内部区块间距",
+    advice: "用于模块内部的信息分组，让内容层级更清晰。",
+  },
+  {
+    token: "spacing-xl",
+    variable: "--spacing-xl",
+    value: "32px",
+    usage: "页面区块之间的常规间距",
+    advice: "适合页面主体区块之间的常规分隔。",
+  },
+  {
+    token: "spacing-2xl",
+    variable: "--spacing-2xl",
+    value: "48px",
+    usage: "大模块之间的分隔，例如页面主区块上下间距",
+    advice: "用于承接较大内容模块，建立明显但克制的分区。",
+  },
+  {
+    token: "spacing-3xl",
+    variable: "--spacing-3xl",
+    value: "64px",
+    usage: "官网首页大区块间距、Hero 与内容区分隔",
+    advice: "适合官网和门户页面的大段落节奏控制。",
+  },
+  {
+    token: "spacing-4xl",
+    variable: "--spacing-4xl",
+    value: "96px",
+    usage: "官网大型视觉区块、专题页首屏与内容分隔",
+    advice: "用于视觉展示型页面的大尺度留白，后台产品中谨慎使用。",
+  },
+];
+
+export default function SpacingPage() {
+  return (
+    <div className="space-y-20">
+      <PageHeader
+        title="间距系统"
+        description="用于定义页面布局、组件内边距、区块间距和信息层级，保证官网、门户和后台产品界面的空间秩序统一。"
+      />
+
+      <section>
+        <SectionHeading
+          eyebrow="Spacing Tokens"
+          title="间距 Token"
+          description="间距用于建立信息之间的亲疏关系。后台优先保证密度与效率，官网和门户通过更大的区块间距建立叙事节奏。"
+        />
+        <DocsTable>
+          <thead className="bg-zinc-50 text-sm font-semibold text-zinc-900">
+            <tr className="border-b border-zinc-200">
+              <th className="px-6 py-3 font-semibold">Token</th>
+              <th className="px-6 py-3 font-semibold">数值</th>
+              <th className="px-6 py-3 font-semibold">用途</th>
+              <th className="px-6 py-3 font-semibold">使用建议</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-zinc-200 bg-white">
+            {spacingTokens.map((item) => (
+              <tr key={item.token}>
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-zinc-600">
+                  {item.token}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-zinc-600">
+                  {item.value}
+                </td>
+                <td className="px-6 py-4 text-sm text-zinc-700">{item.usage}</td>
+                <td className="px-6 py-4 text-sm leading-relaxed text-zinc-600">
+                  {item.advice}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Spacing Preview"
+          title="间距视觉示例"
+          description="用横向尺度展示不同间距 token 的视觉差异，便于判断组件内部留白和页面区块节奏。"
+        />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {spacingTokens.map((item) => (
+            <div key={item.variable} className="bg-white p-5">
+              <div className="mb-4 flex h-12 items-center rounded-[2px] bg-zinc-50 px-4">
+                <div
+                  className="h-3 bg-zinc-400"
+                  style={{ width: `var(${item.variable})` }}
+                />
+              </div>
+              <div className="font-mono text-xs text-zinc-600">{item.token}</div>
+              <div className="mt-1 font-mono text-xs text-zinc-500">{item.value}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <div className="bg-white p-6">
+          <ul className="space-y-3 text-sm leading-relaxed text-zinc-700">
+            <li>• 组件内部优先使用 spacing-xs、spacing-sm、spacing-md。</li>
+            <li>• 内容模块内部使用 spacing-lg，页面区块之间使用 spacing-xl 或 spacing-2xl。</li>
+            <li>• 官网和门户的大型视觉区块可以使用 spacing-3xl、spacing-4xl 拉开节奏。</li>
+            <li>• 同一页面中应保持间距等级稳定，避免相近层级出现过多不同数值。</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  );
+}
