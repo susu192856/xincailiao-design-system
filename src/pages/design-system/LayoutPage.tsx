@@ -262,7 +262,7 @@ export default function LayoutPage() {
                   <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">{strategy.title}</h3>
                   <p className="mt-3 max-w-xl text-sm leading-7 text-[var(--neutral-600)]">{strategy.summary}</p>
                 </div>
-                <span className={`mt-1 h-2 w-2 ${strategy.title === "官网/门户" ? "bg-[#FF112D]" : "bg-[var(--product-blue-500)]"}`} />
+                <span className={`mt-1 h-2 w-2 ${strategy.title === "官网/门户" ? "bg-[var(--brand-600)]" : "bg-[var(--product-blue-500)]"}`} />
               </div>
 
               <div className="mb-6 grid grid-cols-2 gap-px bg-[var(--neutral-100)]">
@@ -332,6 +332,41 @@ export default function LayoutPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Layout Tokens"
+          title="布局 Token"
+          description="以下 CSS 变量可直接在开发中使用，保持官网与后台布局的一致性。"
+        />
+        <div className="overflow-hidden rounded-none border border-[var(--neutral-200)]">
+          <table className="w-full border-collapse text-left text-sm">
+            <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+              <tr className="border-b border-[var(--neutral-200)]">
+                <th className="px-6 py-3 font-semibold">Token</th>
+                <th className="px-6 py-3 font-semibold">值</th>
+                <th className="px-6 py-3 font-semibold">说明</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+              {[
+                ["--layout-website-width", "1920px", "官网设计稿宽度"],
+                ["--layout-website-content", "1400px", "官网内容最大宽度"],
+                ["--layout-website-nav-height", "64px", "官网顶部导航高度"],
+                ["--layout-backend-width", "1440px", "后台设计稿宽度"],
+                ["--layout-backend-sidebar-expanded", "240px", "后台侧边栏展开宽度"],
+                ["--layout-backend-sidebar-collapsed", "56px", "后台侧边栏收起宽度"],
+              ].map(([token, value, desc]) => (
+                <tr key={token}>
+                  <td className="px-6 py-4 font-mono text-xs text-[var(--neutral-700)]">{token}</td>
+                  <td className="px-6 py-4 font-mono text-xs text-[var(--neutral-900)]">{value}</td>
+                  <td className="px-6 py-4 text-sm text-[var(--neutral-600)]">{desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
