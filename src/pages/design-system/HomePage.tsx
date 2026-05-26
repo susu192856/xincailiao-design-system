@@ -5,7 +5,7 @@ import {
   Square, CaretDown, Table, Cards,
   Tag, FileText, ChartBar,
 } from "@phosphor-icons/react";
-import PageHeader from "../../components/docs/PageHeader";
+import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
 
 interface CardLink {
   title: string;
@@ -134,10 +134,15 @@ const productLayers = [
 
 function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="mb-6 flex items-center gap-3">
-      <span className="h-3 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{eyebrow}</p>
-      <div className="h-px flex-1 bg-[var(--neutral-200)]" />
+    <div className="mb-6">
+      <div className="flex items-center gap-3">
+        <span className="h-4 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--neutral-400)]">{eyebrow}</p>
+          <h2 className="text-lg font-semibold text-[var(--neutral-900)]">{title}</h2>
+        </div>
+        <div className="h-px flex-1 bg-[var(--neutral-200)]" />
+      </div>
     </div>
   );
 }
@@ -145,12 +150,49 @@ function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
 export default function HomePage() {
   return (
     <div className="space-y-16">
-      {/* Brand Intro */}
-      <PageHeader
-        title="设计系统"
-        description="新材道全线产品的统一设计规范。在统一的品牌识别和设计语言下，为不同产品类型和业务场景提供清晰、一致的视觉表达边界。"
-        version="v1.0"
-      />
+      {/* Hero */}
+      <section className="grid min-h-[340px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div>
+          <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
+            2026 · 新材道设计系统
+          </div>
+          <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--neutral-900)]">
+            设计系统
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--neutral-600)]">
+            新材道全线产品的统一设计规范。在统一的品牌识别和设计语言下，
+            为不同产品类型和业务场景提供清晰、一致的视觉表达边界。
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {["AI+材料", "工业数据", "产业智能化"].map((tag) => (
+              <span key={tag} className="rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-sm text-[var(--neutral-700)]">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+          <div className="mb-4 flex items-center border-b border-[var(--neutral-200)] pb-4">
+            <img src={xincailiaoLogo} alt="新材道 XINCAILIAO" className="h-9 w-auto object-contain" />
+          </div>
+          <div className="space-y-3">
+            {[
+              ["Brand", "官网门户 / 品牌传播", "bg-[var(--brand-600)]"],
+              ["Product", "数据空间 / 材库 / AI 工具", "bg-[var(--product-blue-500)]"],
+              ["System", "后台配置 / 管理系统", "bg-[var(--neutral-900)]"],
+            ].map(([title, description, color]) => (
+              <div key={title} className="flex items-center gap-3 rounded-sm bg-[var(--neutral-50)] px-3 py-3.5">
+                <span className={`h-3 w-3 flex-shrink-0 ${color}`} />
+                <div>
+                  <div className="font-mono text-xs text-[var(--neutral-500)]">{title}</div>
+                  <div className="mt-0.5 text-sm font-medium text-[var(--neutral-900)]">{description}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Brand Color Roles */}
       <section>
