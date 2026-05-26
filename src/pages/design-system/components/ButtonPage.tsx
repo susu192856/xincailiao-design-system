@@ -45,7 +45,7 @@ function SpecCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white p-6 md:p-7">
+    <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
       <h3 className="mb-5 text-base font-semibold text-[var(--neutral-900)]">{title}</h3>
       {children}
     </div>

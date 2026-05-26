@@ -108,7 +108,7 @@ export default function ShadowPage() {
                 {shadow.elevation} · {shadow.blur}
               </p>
 
-              <div className="flex min-h-[200px] items-center justify-center rounded-[2px] bg-[var(--neutral-50)] p-8">
+              <div className="flex min-h-[200px] items-center justify-center rounded-sm bg-[var(--neutral-50)] p-8">
                 <div
                   className="flex h-32 w-40 items-center justify-center rounded-none bg-white p-6"
                   style={{ boxShadow: shadow.value }}
@@ -190,7 +190,7 @@ export default function ShadowPage() {
             </h3>
             <div className="rounded-none bg-white p-6" style={{ boxShadow: shadows[3].value }}>
               <div className="mb-3 flex items-start gap-3">
-                <div className="rounded-[2px] bg-[var(--neutral-900)] p-2 text-white">
+                <div className="rounded-sm bg-[var(--neutral-900)] p-2 text-white">
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -207,7 +207,7 @@ export default function ShadowPage() {
                   </p>
                 </div>
               </div>
-              <button className="w-full rounded-[2px] bg-[var(--neutral-900)] px-4 py-2 text-xs text-white">
+              <button className="w-full rounded-sm bg-[var(--neutral-900)] px-4 py-2 text-xs text-white">
                 立即查看
               </button>
             </div>

@@ -341,7 +341,7 @@ export default function TypographyPage() {
                   <span className="text-base font-bold text-green-600">✓</span>
                   <span className="ml-1 text-[var(--neutral-500)]">标题：行高 1.2（紧凑）</span>
                 </p>
-                <div className="rounded-[2px] bg-[var(--neutral-50)] p-3.5">
+                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
                   <h3
                     className="text-2xl font-semibold text-[var(--neutral-900)]"
                     style={{ lineHeight: "1.2" }}
@@ -357,7 +357,7 @@ export default function TypographyPage() {
                   <span className="text-base font-bold text-red-600">✗</span>
                   <span className="ml-1 text-[var(--neutral-500)]">标题：行高 1.8（过于松散）</span>
                 </p>
-                <div className="rounded-[2px] bg-[var(--neutral-50)] p-3.5">
+                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
                   <h3
                     className="text-2xl font-semibold text-[var(--neutral-900)]"
                     style={{ lineHeight: "1.8" }}
@@ -373,7 +373,7 @@ export default function TypographyPage() {
                   <span className="text-base font-bold text-green-600">✓</span>
                   <span className="ml-1 text-[var(--neutral-500)]">正文：行高 1.6（舒适）</span>
                 </p>
-                <div className="rounded-[2px] bg-[var(--neutral-50)] p-3.5">
+                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
                   <p className="text-sm text-[var(--neutral-900)]" style={{ lineHeight: "1.6" }}>
                     新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发提供支持。
                   </p>
@@ -384,7 +384,7 @@ export default function TypographyPage() {
                   <span className="text-base font-bold text-red-600">✗</span>
                   <span className="ml-1 text-[var(--neutral-500)]">正文：行高 1.2（过于紧凑）</span>
                 </p>
-                <div className="rounded-[2px] bg-[var(--neutral-50)] p-3.5">
+                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
                   <p className="text-sm text-[var(--neutral-900)]" style={{ lineHeight: "1.2" }}>
                     新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发提供支持。
                   </p>
@@ -443,7 +443,7 @@ export default function TypographyPage() {
                     <span className="text-base font-bold text-green-600">✓</span>
                     <span className="ml-1 text-[var(--neutral-500)]">推荐行长（~700px）</span>
                   </p>
-                  <div className="max-w-[700px] rounded-[2px] bg-[var(--neutral-50)] p-3.5">
+                  <div className="max-w-[700px] rounded-sm bg-[var(--neutral-50)] p-3.5">
                     <p className="text-sm leading-relaxed text-[var(--neutral-900)]">
                       新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发、生产制造和应用提供全方位的数据支持和智能化解决方案，推动新材料产业数字化转型升级。
                     </p>
@@ -454,7 +454,7 @@ export default function TypographyPage() {
                     <span className="text-base font-bold text-red-600">✗</span>
                     <span className="ml-1 text-[var(--neutral-500)]">行长过长（影响阅读）</span>
                   </p>
-                  <div className="rounded-[2px] bg-[var(--neutral-50)] p-3.5">
+                  <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
                     <p className="text-sm leading-relaxed text-[var(--neutral-900)]">
                       新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发、生产制造和应用提供全方位的数据支持和智能化解决方案，推动新材料产业数字化转型升级。
                     </p>

@@ -81,7 +81,7 @@ export default function ListTemplatePage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2px] border border-[var(--neutral-200)]">
+          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)]">
             <Table>
               <TableHeader>
                 <TableRow>

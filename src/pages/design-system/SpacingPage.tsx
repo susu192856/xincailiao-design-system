@@ -112,7 +112,7 @@ export default function SpacingPage() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {spacingTokens.map((item) => (
             <div key={item.variable} className="bg-white p-5">
-              <div className="mb-4 flex h-12 items-center rounded-[2px] bg-[var(--neutral-50)] px-4">
+              <div className="mb-4 flex h-12 items-center rounded-sm bg-[var(--neutral-50)] px-4">
                 <div
                   className="h-3 bg-[var(--neutral-400)]"
                   style={{ width: `var(${item.variable})` }}

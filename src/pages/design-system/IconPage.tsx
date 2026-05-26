@@ -461,7 +461,7 @@ export default function IconPage() {
                     onClick={() => copySvg(item)}
                     title={isCopied ? "已复制" : "复制 SVG"}
                     aria-label={isCopied ? "已复制" : "复制 SVG"}
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
                   >
                     {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
                   </button>
@@ -470,12 +470,12 @@ export default function IconPage() {
                     onClick={() => downloadCommonSvg(item)}
                     title="下载 SVG"
                     aria-label="下载 SVG"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
                   >
                     <DownloadSimple size={14} weight="regular" />
                   </button>
                 </div>
-                <div className="mb-3 flex h-16 items-center justify-center rounded-[2px] bg-[var(--neutral-50)] text-[var(--neutral-800)]">
+                <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-800)]">
                   <Icon size={24} weight="regular" />
                 </div>
                 <div className="text-center">
@@ -486,7 +486,7 @@ export default function IconPage() {
             );
           })}
           <div className="bg-white p-4">
-            <div className="mb-3 flex h-16 items-center justify-center rounded-[2px] bg-[var(--neutral-50)] text-[var(--neutral-500)]">
+            <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-500)]">
               <Plus size={24} weight="regular" />
             </div>
             <div className="text-center">
@@ -557,7 +557,7 @@ export default function IconPage() {
                     onClick={() => copyDecorativeSvg(item)}
                     title={isCopied ? "已复制" : "复制 SVG"}
                     aria-label={isCopied ? "已复制" : "复制 SVG"}
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
                   >
                     {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
                   </button>
@@ -566,7 +566,7 @@ export default function IconPage() {
                     onClick={() => downloadDecorativeSvg(item)}
                     title="下载 SVG"
                     aria-label="下载 SVG"
-                    className="flex h-7 w-7 items-center justify-center rounded-[2px] bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
                   >
                     <DownloadSimple size={14} weight="regular" />
                   </button>

@@ -38,12 +38,12 @@ function SectionHeading({
 
 function WebsiteLayoutExample() {
   return (
-    <div className="rounded-[2px] bg-white p-6">
+    <div className="rounded-sm bg-white p-6">
       <div className="mb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Website</p>
         <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">官网/门户布局</h3>
       </div>
-      <div className="overflow-hidden rounded-[2px] bg-[var(--neutral-50)]">
+      <div className="overflow-hidden rounded-sm bg-[var(--neutral-50)]">
         <div className="h-10 bg-[var(--neutral-900)]" />
         <div className="px-8 py-6">
           <div className="mx-auto max-w-[70%]">
@@ -64,12 +64,12 @@ function WebsiteLayoutExample() {
 
 function BackendLayoutExample() {
   return (
-    <div className="rounded-[2px] bg-white p-6">
+    <div className="rounded-sm bg-white p-6">
       <div className="mb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Product</p>
         <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">后台/B端布局</h3>
       </div>
-      <div className="overflow-hidden rounded-[2px] bg-[var(--neutral-50)]">
+      <div className="overflow-hidden rounded-sm bg-[var(--neutral-50)]">
         <div className="h-10 bg-[var(--neutral-100)]" />
         <div className="flex h-36">
           <div className="w-16 bg-[var(--neutral-900)]" />
@@ -90,7 +90,7 @@ function BackendLayoutExample() {
 
 function GridSystemExample() {
   return (
-    <div className="rounded-[2px] bg-white p-6">
+    <div className="rounded-sm bg-white p-6">
       <div className="mb-5 flex items-end justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">12 Columns</p>
@@ -124,7 +124,7 @@ function ResponsiveExample() {
   ];
 
   return (
-    <div className="rounded-[2px] bg-white p-6">
+    <div className="rounded-sm bg-white p-6">
       <div className="mb-5">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Responsive</p>
         <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">响应式布局示例</h3>
@@ -255,7 +255,7 @@ export default function LayoutPage() {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {layoutStrategies.map((strategy) => (
-            <div key={strategy.title} className="bg-white p-7">
+            <div key={strategy.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
               <div className="mb-6 flex items-start justify-between gap-5">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{strategy.eyebrow}</p>
@@ -326,7 +326,7 @@ export default function LayoutPage() {
           <GridSystemExample />
           <div className="grid grid-cols-1 gap-4">
             {gridReasons.map((reason) => (
-              <div key={reason.title} className="rounded-[2px] bg-white p-5">
+              <div key={reason.title} className="rounded-sm bg-white p-5">
                 <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{reason.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{reason.text}</p>
               </div>
@@ -344,7 +344,7 @@ export default function LayoutPage() {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           {breakpoints.map((bp) => (
-            <div key={bp.name} className="rounded-[2px] bg-white p-5">
+            <div key={bp.name} className="rounded-sm bg-white p-5">
               <div className="mb-5 flex items-start justify-between">
                 <div>
                   <p className="font-mono text-xs text-[var(--neutral-500)]">{bp.name}</p>
@@ -366,7 +366,7 @@ export default function LayoutPage() {
           <ResponsiveExample />
           <div className="grid grid-cols-1 gap-4">
             {responsiveRules.map((rule) => (
-              <div key={rule.title} className="rounded-[2px] bg-white p-5">
+              <div key={rule.title} className="rounded-sm bg-white p-5">
                 <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{rule.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{rule.text}</p>
               </div>
@@ -379,7 +379,7 @@ export default function LayoutPage() {
         <SectionHeading eyebrow="Best Practices" title="布局最佳实践" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           {bestPractices.map((practice, index) => (
-            <div key={practice} className="rounded-[2px] bg-white p-5">
+            <div key={practice} className="rounded-sm bg-white p-5">
               <div className="mb-5 font-mono text-3xl font-semibold text-[var(--neutral-100)]">
                 {String(index + 1).padStart(2, "0")}
               </div>

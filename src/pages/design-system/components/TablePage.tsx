@@ -19,7 +19,7 @@ export default function TablePage() {
       <section>
         <SectionHeading eyebrow="Data Table" title="基础表格" />
         <ExampleCard title="数据资产列表" description="表格应保持清晰边界、稳定列宽和可预测操作入口。">
-          <div className="overflow-hidden rounded-[2px] border border-[var(--neutral-200)]">
+          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)]">
             <Table>
               <TableHeader>
                 <TableRow>
