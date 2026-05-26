@@ -154,17 +154,14 @@ export default function HomePage() {
             2026 · 新材道设计系统
           </div>
           <h1 className="mt-6 text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-[var(--neutral-900)]">
-            可信数据空间 · 统一设计语言
-            <br />
-            覆盖新材道全产品矩阵
+            设计系统
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--neutral-600)]">
-            本设计系统服务于新材道全产品矩阵，涵盖品牌官网门户、新材料可信数据空间、材库数据管理、
-            材小模AI平台及智能选材等工具型产品。在统一的品牌识别和设计语言下，
+            新材道全线产品的统一设计规范。在统一的品牌识别和设计语言下，
             为不同产品类型和业务场景提供清晰、一致的视觉表达边界。
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {["新材料可信数据空间", "AI+材料", "工业数据治理"].map((tag) => (
+            {["AI+材料", "工业数据", "产业智能化"].map((tag) => (
               <span key={tag} className="rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-sm text-[var(--neutral-700)]">
                 {tag}
               </span>
