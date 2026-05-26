@@ -90,10 +90,10 @@ const sections = [
     eyebrow: "Principles",
     title: "设计原则",
     items: [
-      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: "品牌红只用于关键节点，不做大面积装饰。界面减少无关视觉噪音，让数据、流程和结论成为主体。" },
-      { icon: <PrincipleIcon type="clarity" />, title: "清晰", desc: "面对复杂业务，优先建立明确的信息层级和可预测的交互路径，帮助用户快速理解系统。" },
-      { icon: <PrincipleIcon type="trust" />, title: "可信", desc: "通过稳定结构、明确边界、状态反馈，建立数据治理的可靠感与流程可追溯的信任感。" },
-      { icon: <PrincipleIcon type="efficiency" />, title: "高效", desc: "面向专业用户，将高频操作和关键决策结果前置，让专业判断更快发生。" },
+      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: "品牌红 #FF112D 只用于关键节点、激活状态和决策结果，不做大面积装饰。界面减少无关视觉噪音，让数据、流程和结论成为主体。" },
+      { icon: <PrincipleIcon type="clarity" />, title: "清晰", desc: "面对数据空间、材库、AI应用等复杂业务，优先建立明确的信息层级。通过稳定的版式结构和可预测的交互路径，帮助用户快速理解系统。" },
+      { icon: <PrincipleIcon type="trust" />, title: "可信", desc: "通过稳定结构、明确边界、状态反馈和权限标识，建立数据治理的可靠感。以流程追踪和链上存证感的视觉表达，传达数据流通与AI决策的可信。" },
+      { icon: <PrincipleIcon type="efficiency" />, title: "高效", desc: "面向材料工程师、工艺师、数据运营方和管理者等专业用户，减少无效步骤。将高频操作、关键指标和决策结果前置，让专业判断更快发生。" },
     ],
   },
 ] as const;
