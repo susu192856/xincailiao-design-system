@@ -35,7 +35,7 @@
 | `--neutral-600` | `#6F7785` | 辅助文字 |
 | `--neutral-700` | `#4B5563` | 次标题 |
 | `--neutral-800` | `#2B313A` | 主正文 |
-| `--neutral-900` | `#1A1D21` | 标题/主行动 |
+| `--neutral-900` | `#1A1A1A` | 标题/主行动 |
 | `--success-text` | `#10B981` | 成功文字 |
 | `--success-bg` | `#D1FAE5` | 成功背景 |
 | `--success-tag` | `#A7F3D0` | 成功标签 |
@@ -118,7 +118,7 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#2B313A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-800` = #2B313A
 
-<span style="display:inline-block;width:16px;height:16px;background:#1A1D21;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-900` = #1A1D21
+<span style="display:inline-block;width:16px;height:16px;background:#1A1A1A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-900` = #1A1A1A
 
 <span style="display:inline-block;width:16px;height:16px;background:#10B981;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-text` = #10B981
 

@@ -153,7 +153,7 @@ export default function ButtonPage() {
                 </ButtonStack>
                 <TokenNote
                   items={[
-                    "默认: neutral-900 (#1A1D21)",
+                    "默认: neutral-900 (#1A1A1A)",
                     "悬停: neutral-800 (#2B313A)",
                     "按下: neutral-700 (#4B5563)",
                   ]}

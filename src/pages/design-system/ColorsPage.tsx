@@ -412,7 +412,7 @@ export default function ColorsPage() {
     { name: "neutral-600", hex: "#6F7785", label: "正文辅助文字" },
     { name: "neutral-700", hex: "#4B5563", label: "次标题/导航文字" },
     { name: "neutral-800", hex: "#2B313A", label: "主正文/深色UI文字" },
-    { name: "neutral-900", hex: "#1A1D21", label: "标题/主按钮/深背景" },
+    { name: "neutral-900", hex: "#1A1A1A", label: "标题/主按钮/深背景" },
   ];
 
   const semanticColors: SemanticColor[] = [
@@ -461,8 +461,8 @@ export default function ColorsPage() {
     },
     {
       semantic: "标题文字",
-      website: { color: "#1A1D21", display: "neutral-900" },
-      backend: { color: "#1A1D21", display: "neutral-900" },
+      website: { color: "#1A1A1A", display: "neutral-900" },
+      backend: { color: "#1A1A1A", display: "neutral-900" },
       variable: "color/text/title",
       usage: "一级标题、模块标题和关键数据标题统一使用 neutral-900。",
     },
@@ -489,8 +489,8 @@ export default function ColorsPage() {
     },
     {
       semantic: "主行动按钮",
-      website: { color: "#1A1D21", display: "neutral-900" },
-      backend: { color: "#1A1D21", display: "neutral-900" },
+      website: { color: "#1A1A1A", display: "neutral-900" },
+      backend: { color: "#1A1A1A", display: "neutral-900" },
       variable: "color/action/primary",
       usage: "主行动优先使用 neutral-900，黑色承担最重要确认与提交。",
     },
@@ -544,8 +544,8 @@ export default function ColorsPage() {
           <RoleCard
             eyebrow="Neutral System"
             title="中性灰"
-            color="#1A1D21"
-            hex="#1A1D21"
+            color="#1A1A1A"
+            hex="#1A1A1A"
             description="用于文字、背景、边框、分割线和主行动按钮，建立专业、稳定、可长期阅读的产品气质。"
             items={[
               "突出：标题、主正文、主行动、结构边界",
@@ -584,7 +584,7 @@ export default function ColorsPage() {
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {[
-            ["主行动", "neutral-900", "#1A1D21", "确认、提交、页面最重要操作。官网与后台都可使用。"],
+            ["主行动", "neutral-900", "#1A1A1A", "确认、提交、页面最重要操作。官网与后台都可使用。"],
             ["产品功能", "product-blue-500", "#006DEA", "保存、下载、筛选、链接、焦点态。主要用于业务系统。"],
             ["品牌强调", "brand-600", "#FF112D", "官网营销、品牌露出、关键转化。避免在后台常规操作中滥用。"],
           ].map(([title, token, color, usage]) => (

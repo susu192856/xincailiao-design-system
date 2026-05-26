@@ -106,7 +106,7 @@ export default function DocsSidebar() {
                         flex items-center gap-3 rounded-[2px] px-3 py-2 text-sm transition-colors
                         ${
                           isActive
-                            ? "bg-[#1A1D21] !text-white [&_svg]:!text-white"
+                            ? "bg-[#1A1A1A] !text-white [&_svg]:!text-white"
                             : "text-zinc-700 hover:bg-zinc-100"
                         }
                       `}
