@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { Dna, StackPlus, FigmaLogo, FlowArrow } from "@phosphor-icons/react";
 import {
   Palette, TextT, Smiley, Rows, Circle, Cube, Layout,
   Square, CaretDown, Table, Cards,
   Tag, FileText, ChartBar,
 } from "@phosphor-icons/react";
+import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
 
 interface CardLink {
   title: string;
@@ -34,26 +36,110 @@ const componentLinks: CardLink[] = [
   { title: "分页", path: "/components/pagination", icon: <ChartBar size={24} weight="regular" />, desc: "简洁分页导航" },
 ];
 
-const principles = [
+function PrincipleIcon({ type }: { type: "restraint" | "clarity" | "trust" | "efficiency" }) {
+  if (type === "restraint") {
+    return (
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true">
+        <path d="M27 9L45 27L27 45L9 27L27 9Z" stroke="#1A1A1A" strokeWidth="2" strokeLinejoin="miter" />
+        <path d="M30 27H42" stroke="#FF112D" strokeWidth="2" />
+      </svg>
+    );
+  }
+  if (type === "clarity") {
+    return (
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true">
+        <path d="M10 31H18L24 18L32 39L38 27H44" stroke="#1A1A1A" strokeWidth="2" strokeLinejoin="miter" />
+        <path d="M39 27H46" stroke="#FF112D" strokeWidth="2" />
+      </svg>
+    );
+  }
+  if (type === "trust") {
+    return (
+      <svg width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true">
+        <path d="M27 10L41 16V27C41 36 35.5 42 27 45C18.5 42 13 36 13 27V16L27 10Z" stroke="#1A1A1A" strokeWidth="2" />
+        <path d="M21 27L25 31L34 22" stroke="#1A1A1A" strokeWidth="2" />
+        <rect x="37" y="15" width="4" height="4" fill="#FF112D" />
+      </svg>
+    );
+  }
+  return (
+    <svg width="54" height="54" viewBox="0 0 54 54" fill="none" aria-hidden="true">
+      <path d="M27 9V18" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M27 36V45" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M9 27H18" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M36 27H45" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M14.3 14.3L20.7 20.7" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M33.3 33.3L39.7 39.7" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M39.7 14.3L33.3 20.7" stroke="#1A1A1A" strokeWidth="2" />
+      <path d="M20.7 33.3L14.3 39.7" stroke="#1A1A1A" strokeWidth="2" />
+      <rect x="24" y="24" width="6" height="6" fill="#FF112D" />
+    </svg>
+  );
+}
+
+const principlesData = [
   {
-    number: "01",
+    index: "01",
     title: "克制",
-    desc: "品牌红只用于关键节点，不做大面积装饰。界面减少无关视觉噪音，让数据、流程和结论成为主体。",
+    type: "restraint" as const,
+    points: [
+      { label: "关键节点", text: "品牌红 #FF112D 只用于关键节点、激活状态、决策结果和重点提示，不做大面积装饰。" },
+      { label: "主体聚焦", text: "界面应减少无关视觉噪音，让数据、流程和结论成为主体。" },
+    ],
   },
   {
-    number: "02",
+    index: "02",
     title: "清晰",
-    desc: "面对数据空间、材库、AI应用等复杂业务，优先建立明确的信息层级和可预测的交互路径。",
+    type: "clarity" as const,
+    points: [
+      { label: "复杂业务", text: "面对数据空间、材库、AI应用等复杂业务，优先建立明确的信息层级。" },
+      { label: "可预测路径", text: "通过稳定的版式结构和可预测的交互路径，帮助用户快速理解系统。" },
+    ],
   },
   {
-    number: "03",
+    index: "03",
     title: "可信",
-    desc: "通过稳定结构、明确边界、状态反馈，建立数据治理的可靠感与流程可追溯的信任感。",
+    type: "trust" as const,
+    points: [
+      { label: "可靠结构", text: "通过稳定结构、明确边界、状态反馈和权限标识，建立数据治理的可靠感。" },
+      { label: "流程可追踪", text: "以流程追踪和链上存证感的视觉表达，传达数据流通与AI决策的可信。" },
+    ],
   },
   {
-    number: "04",
+    index: "04",
     title: "高效",
-    desc: "面向材料工程师、数据运营方等专业用户，将高频操作和关键决策结果前置，减少无效步骤。",
+    type: "efficiency" as const,
+    points: [
+      { label: "专业用户", text: "面向材料工程师、工艺师、数据运营方和管理者等专业用户，减少无效步骤。" },
+      { label: "结果前置", text: "将高频操作、关键指标和决策结果前置，让专业判断更快发生。" },
+    ],
+  },
+];
+
+const productLayers = [
+  {
+    title: "品牌叙事层",
+    feature: "页面少、信息密度低、强视觉叙事",
+    focus: "建立品牌信任，讲清楚价值主张，引导用户进入下一层",
+    products: ["新材道官网"],
+  },
+  {
+    title: "数据服务层",
+    feature: "数据看板、卡片列表、详情预览、轻量操作入口",
+    focus: "数据可读性优先，操作轻量化，让用户快速获取价值",
+    products: ["新材料可信数据空间", "材库"],
+  },
+  {
+    title: "专业工具层",
+    feature: "复杂表单、可视化画布、多步骤流程、结果呈现",
+    focus: "操作效率最大化，路径最短化，反馈即时化",
+    products: ["材小模", "智能拆单", "智能相图", "智能选材"],
+  },
+  {
+    title: "系统管理层",
+    feature: "筛选框、列表、表单、详情页、操作日志",
+    focus: "标准化、可预测，降低运维学习成本",
+    products: ["用户中心/账号管理", "各产品的后台配置"],
   },
 ];
 
@@ -61,26 +147,49 @@ export default function HomePage() {
   return (
     <div className="space-y-24">
       {/* Hero */}
-      <section className="pt-8">
-        <div className="mb-2 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
-          2026 · 新材道设计系统
+      <section className="grid min-h-[460px] grid-cols-1 items-center gap-12 pt-8 lg:grid-cols-[minmax(0,1fr)_400px]">
+        <div>
+          <div className="mb-2 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
+            2026 · 新材道设计系统
+          </div>
+          <h1 className="mt-6 text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-[var(--neutral-900)]">
+            统一的视觉语言
+            <br />
+            高效的协作基础
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--neutral-600)]">
+            本规范统一新材道在品牌传播、官网门户、产品展示和业务系统中的基础视觉表达。
+            在统一品牌识别和设计语言的前提下，为不同产品类型提供明确的表达边界。
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {["可信数据空间", "AI+材料", "工业数据治理"].map((tag) => (
+              <span key={tag} className="rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-sm text-[var(--neutral-700)]">
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
-        <h1 className="mt-6 text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-[var(--neutral-900)]">
-          统一的视觉语言
-          <br />
-          高效的协作基础
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--neutral-600)]">
-          本规范统一新材道在品牌传播、官网门户、产品展示和业务系统中的基础视觉表达。
-          在统一品牌识别和设计语言的前提下，为不同产品类型提供明确的表达边界。
-        </p>
-        <div className="mt-8 flex flex-wrap gap-2">
-          {["可信数据空间", "AI+材料", "工业数据治理"].map((tag) => (
-            <span key={tag} className="rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-sm text-[var(--neutral-700)]">
-              {tag}
-            </span>
-          ))}
+
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+          <div className="mb-5 flex items-center border-b border-[var(--neutral-200)] pb-4">
+            <img src={xincailiaoLogo} alt="新材道 XINCAILIAO" className="h-9 w-auto object-contain" />
+          </div>
+          <div className="space-y-3">
+            {[
+              ["Brand", "品牌传播 / 官网门户", "bg-[var(--brand-600)]"],
+              ["Product", "产品展示 / 业务系统", "bg-[var(--product-blue-500)]"],
+              ["System", "组件规范 / 对外物料", "bg-[var(--neutral-900)]"],
+            ].map(([title, description, color]) => (
+              <div key={title} className="flex items-center gap-3 rounded-sm bg-[var(--neutral-50)] px-4 py-4">
+                <span className={`h-3 w-3 flex-shrink-0 ${color}`} />
+                <div>
+                  <div className="font-mono text-xs text-[var(--neutral-500)]">{title}</div>
+                  <div className="mt-0.5 text-sm font-medium text-[var(--neutral-900)]">{description}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -136,26 +245,133 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Principles */}
+      {/* Design Objectives */}
       <section>
-        <div className="mb-6 flex items-center gap-3">
-          <h2 className="text-2xl font-semibold text-[var(--neutral-900)]">设计原则</h2>
-          <div className="h-px flex-1 bg-[var(--neutral-200)]" />
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
+              Objective
+            </p>
+            <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">设计目标</h2>
+          </div>
+          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {principles.map((p) => (
-            <div key={p.title} className="relative rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-              <span className="absolute right-5 top-4 font-mono text-4xl font-semibold leading-none text-[var(--neutral-100)]">
-                {p.number}
-              </span>
-              <h3 className="relative text-lg font-semibold text-[var(--neutral-900)]">{p.title}</h3>
-              <p className="relative mt-3 text-sm leading-6 text-[var(--neutral-600)]">{p.desc}</p>
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {[
+            {
+              title: "建立统一的「视觉DNA」",
+              description: "将品牌心智转化为可执行的代码级规范，确保全局一改全改",
+              icon: <Dna size={20} />,
+            },
+            {
+              title: "精准区分与快速搭建",
+              description: "在同一套规范下，快速拼装出四层产品的不同形态",
+              icon: <StackPlus size={20} />,
+            },
+            {
+              title: "高还原度交付",
+              description: "规范即文档，Figma原型直接成为开发的验收标准",
+              icon: <FigmaLogo size={20} />,
+            },
+            {
+              title: "高效迭代与协作",
+              description: "这套规范是活的系统，能够持续生长和演进",
+              icon: <FlowArrow size={20} />,
+            },
+          ].map((item) => (
+            <li key={item.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-900)]">
+                {item.icon}
+              </div>
+              <div className="text-sm leading-relaxed text-[var(--neutral-600)]">
+                <span className="mb-1 block font-semibold text-[var(--neutral-900)]">{item.title}</span>
+                {item.description}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Product Layers */}
+      <section>
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
+              Product Layers
+            </p>
+            <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">产品分层</h2>
+          </div>
+          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {productLayers.map((layer) => (
+            <div key={layer.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+              <h3 className="text-lg font-semibold text-[var(--neutral-900)]">{layer.title}</h3>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--neutral-600)]">{layer.feature}</p>
+              <div className="mb-3 mt-4">
+                <h4 className="mb-1 text-xs font-semibold text-[var(--neutral-700)]">设计重点</h4>
+                <p className="text-sm text-[var(--neutral-600)]">{layer.focus}</p>
+              </div>
+              <div className="border-t border-[var(--neutral-200)] pt-3">
+                <h4 className="mb-2 text-xs font-semibold text-[var(--neutral-700)]">对应产品</h4>
+                <div className="flex flex-wrap gap-2">
+                  {layer.products.map((product) => (
+                    <span
+                      key={product}
+                      className="rounded-sm border border-[var(--brand-200)] bg-[var(--brand-50)] px-3 py-1 text-xs font-normal text-[var(--brand-700)]"
+                    >
+                      {product}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Footer info */}
+      {/* Design Principles */}
+      <section>
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
+              Principles
+            </p>
+            <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">设计原则</h2>
+          </div>
+          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
+        </div>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {principlesData.map((principle) => (
+            <div
+              key={principle.title}
+              className="group relative min-h-[240px] overflow-hidden rounded-sm border border-[var(--neutral-200)] bg-white p-6"
+            >
+              <div className="absolute inset-x-0 top-0 h-0.5 bg-[var(--neutral-900)]" />
+              <div className="absolute right-0 top-0 h-0.5 w-16 bg-[var(--brand-600)]" />
+              <div className="absolute right-6 top-6 font-mono text-5xl font-semibold leading-none text-[var(--neutral-100)]">
+                {principle.index}
+              </div>
+              <div className="relative flex h-full flex-col">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center">
+                  <PrincipleIcon type={principle.type} />
+                </div>
+                <h3 className="text-2xl font-semibold text-[var(--neutral-900)]">{principle.title}</h3>
+                <div className="mt-4 space-y-4">
+                  {principle.points.map((point) => (
+                    <div key={point.label} className="grid gap-2 md:grid-cols-[96px_minmax(0,1fr)]">
+                      <div className="text-sm font-semibold text-[var(--neutral-900)]">{point.label}</div>
+                      <p className="text-sm leading-6 text-[var(--neutral-600)]">{point.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
       <section className="border-t border-[var(--neutral-200)] py-8 text-center text-xs text-[var(--neutral-500)]">
         <p>2026 新材道设计系统 · 由 Codex 维护 · 通过 GitHub Pages 发布</p>
       </section>
