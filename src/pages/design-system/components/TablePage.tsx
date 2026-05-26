@@ -54,7 +54,39 @@ export default function TablePage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+              <section>
+        <SectionHeading eyebrow="Patterns" title="表格常见模式" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">操作栏设计</h3>
+            <p className="mb-3 text-sm leading-6 text-[var(--neutral-600)]">
+              操作项 ≤ 3 个：使用文字按钮（Text variant）<br />
+              操作项 4-5 个：使用图标按钮 + Tooltip<br />
+              操作项 &gt; 5 个：收起为「更多」下拉菜单
+            </p>
+            <div className="flex items-center gap-3 rounded-sm bg-[var(--neutral-50)] p-3 text-xs">
+              <span className="text-[var(--product-blue-500)]">查看</span>
+              <span className="text-[var(--neutral-300)]">|</span>
+              <span className="text-[var(--product-blue-500)]">编辑</span>
+              <span className="text-[var(--neutral-300)]">|</span>
+              <span className="text-[var(--error-text)]">删除</span>
+            </div>
+          </div>
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">内容截断</h3>
+            <p className="mb-3 text-sm leading-6 text-[var(--neutral-600)]">
+              长文本自动截断显示省略号，悬停展示完整内容。建议结合响应式断点控制列显隐。
+            </p>
+            <div className="rounded-sm bg-[var(--neutral-50)] p-3 text-sm">
+              <div className="truncate text-[var(--neutral-700)]" title="这是完整的新材料牌号数据描述文本内容">
+                这是完整的新材料牌号数据描述文本内容
+              </div>
+              <div className="mt-1 text-xs text-[var(--neutral-500)]">宽度不足时显示「设计宽度 ≥ 内容宽度」</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <SpecList
           items={[
             "表格用于高密度数据，不应用卡片替代表格承载批量字段。",

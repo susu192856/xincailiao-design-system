@@ -34,7 +34,28 @@ export default function TagPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+              <section>
+        <SectionHeading eyebrow="Color System" title="颜色使用规则" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">预置 6 色 · 满足 90% 场景</h3>
+            <p className="text-sm leading-6 text-[var(--neutral-600)]">
+              neutral：默认分类<br />
+              brand：品牌标签、营销标记<br />
+              product：产品功能、模块标识<br />
+              success/warning/error：状态反馈
+            </p>
+          </div>
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">自定义颜色 · 剩余 10% 场景</h3>
+            <p className="text-sm leading-6 text-[var(--neutral-600)]">
+              需要更多颜色时（如数据标签多分类），使用 data 色阶（data-01 ~ data-12），
+              保持与图表数据色一致。
+            </p>
+          </div>
+        </div>
+      </section>
+      <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <SpecList
           items={[
             "品牌红标签仅用于关键节点、激活状态、决策结果和重点提示。",

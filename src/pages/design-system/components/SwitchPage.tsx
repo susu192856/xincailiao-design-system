@@ -38,6 +38,16 @@ export default function SwitchPage() {
           </table>
         </div>
       </section>
+
+      <section>
+        <SectionHeading eyebrow="Note" title="颜色语义" />
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+          <p className="text-sm leading-6 text-[var(--neutral-600)]">
+            Switch 开启态使用 <strong>产品蓝 #006DEA</strong>，表示功能已激活。不使用纯黑避免「黑色=关闭」的歧义。
+            关闭态使用 <strong>neutral-300 (#D5DAE1)</strong>，表示功能未启用。
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

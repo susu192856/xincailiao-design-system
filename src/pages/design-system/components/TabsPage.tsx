@@ -39,7 +39,34 @@ export default function TabsPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+              <section>
+        <SectionHeading eyebrow="Variants" title="Tabs 变体" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">线型 Tabs（当前实现）</h3>
+            <p className="text-sm leading-6 text-[var(--neutral-600)]">
+              适用于页面级内容切换，底部强调线表示当前激活项。默认样式，推荐作为首选。
+            </p>
+            <div className="mt-3 flex border-b border-[var(--neutral-200)]">
+              {["Tab 1", "Tab 2", "Tab 3"].map((t, i) => (
+                <div key={t} className={`border-b-2 px-4 py-2 text-sm ${i === 0 ? "border-[var(--neutral-900)] text-[var(--neutral-900)]" : "border-transparent text-[var(--neutral-500)]"}`}>{t}</div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">卡片式 Tabs</h3>
+            <p className="text-sm leading-6 text-[var(--neutral-600)]">
+              适用于卡片容器内的次级切换，激活项以白底+边框区分。可用于两级 Tabs 嵌套中的第二级。
+            </p>
+            <div className="mt-3 flex gap-1">
+              {["明细", "日志", "配置"].map((t, i) => (
+                <div key={t} className={`rounded-sm px-4 py-2 text-sm ${i === 0 ? "border border-[var(--neutral-200)] bg-white text-[var(--neutral-900)]" : "text-[var(--neutral-500)]"}`}>{t}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <SpecList
           items={[
             "Tabs 内容必须是同级关系，不应用于主流程步骤。",

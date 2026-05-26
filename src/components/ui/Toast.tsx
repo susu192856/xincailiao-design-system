@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import type { ReactNode } from "react";
 
 type ToastVariant = "success" | "error" | "warning" | "info";
 
@@ -17,31 +16,18 @@ export function toast(props: Omit<ToastItem, "id">) {
   addToastFn?.(props);
 }
 
-const iconMap: Record<ToastVariant, ReactNode> = {
-  success: (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="9" fill="#10B981" />
-      <path d="M5 9L7.5 11.5L13 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-  error: (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="9" fill="#EF4444" />
-      <path d="M6 6L12 12M12 6L6 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  ),
-  warning: (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="9" fill="#F59E0B" />
-      <path d="M9 5V10M9 12.5V13" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  ),
-  info: (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="9" fill="#006DEA" />
-      <path d="M9 8.5V12M9 6V6.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  ),
+const borderColorMap: Record<ToastVariant, string> = {
+  success: "border-l-[var(--success-text)]",
+  error: "border-l-[var(--error-text)]",
+  warning: "border-l-[var(--warning-text)]",
+  info: "border-l-[var(--info-text)]",
+};
+
+const dotColorMap: Record<ToastVariant, string> = {
+  success: "bg-[var(--success-text)]",
+  error: "bg-[var(--error-text)]",
+  warning: "bg-[var(--warning-text)]",
+  info: "bg-[var(--info-text)]",
 };
 
 export function ToastContainer() {
@@ -65,9 +51,9 @@ export function ToastContainer() {
       {items.map((item) => (
         <div
           key={item.id}
-          className="flex w-80 items-start gap-3 rounded-sm border border-[var(--neutral-200)] bg-white p-4 shadow-lg"
+          className={["flex w-80 items-start gap-3 rounded-sm border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-lg", borderColorMap[item.variant]].join(" ")}
         >
-          <span className="mt-0.5 shrink-0">{iconMap[item.variant]}</span>
+          <span className={["mt-1.5 h-2 w-2 shrink-0 rounded-full", dotColorMap[item.variant]].join(" ")} />
           <div className="min-w-0">
             <p className="text-sm font-semibold text-[var(--neutral-900)]">{item.title}</p>
             {item.description ? (

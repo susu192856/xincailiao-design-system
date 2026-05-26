@@ -28,7 +28,7 @@ export function Switch({ label, size = "md", disabled, className = "", id, ...pr
       <span className="relative">
         <input type="checkbox" id={switchId} disabled={disabled} className="peer sr-only" role="switch" {...props} />
         <span className={[
-          "block rounded-full bg-[var(--neutral-300)] transition-colors peer-checked:bg-[var(--neutral-900)]",
+          "block rounded-full bg-[var(--neutral-300)] transition-colors peer-checked:bg-[var(--product-blue-500)]",
           "peer-disabled:opacity-40 peer-disabled:cursor-not-allowed",
           trackSizes[size],
         ].join(" ")} />
