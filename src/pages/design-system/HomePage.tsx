@@ -154,16 +154,17 @@ export default function HomePage() {
             2026 · 新材道设计系统
           </div>
           <h1 className="mt-6 text-[2.75rem] font-semibold leading-[1.1] tracking-tight text-[var(--neutral-900)]">
-            统一的视觉语言
+            可信数据空间 · 统一设计语言
             <br />
-            高效的协作基础
+            覆盖新材道全产品矩阵
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--neutral-600)]">
-            本规范统一新材道在品牌传播、官网门户、产品展示和业务系统中的基础视觉表达。
-            在统一品牌识别和设计语言的前提下，为不同产品类型提供明确的表达边界。
+            本设计系统服务于新材道全产品矩阵，涵盖品牌官网门户、新材料可信数据空间、材库数据管理、
+            材小模AI平台及智能选材等工具型产品。在统一的品牌识别和设计语言下，
+            为不同产品类型和业务场景提供清晰、一致的视觉表达边界。
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {["可信数据空间", "AI+材料", "工业数据治理"].map((tag) => (
+            {["新材料可信数据空间", "AI+材料", "工业数据治理"].map((tag) => (
               <span key={tag} className="rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-sm text-[var(--neutral-700)]">
                 {tag}
               </span>
@@ -177,9 +178,9 @@ export default function HomePage() {
           </div>
           <div className="space-y-3">
             {[
-              ["Brand", "品牌传播 / 官网门户", "bg-[var(--brand-600)]"],
-              ["Product", "产品展示 / 业务系统", "bg-[var(--product-blue-500)]"],
-              ["System", "组件规范 / 对外物料", "bg-[var(--neutral-900)]"],
+              ["Brand", "官网门户 / 品牌传播", "bg-[var(--brand-600)]"],
+              ["Product", "数据空间 / 材库 / AI 工具", "bg-[var(--product-blue-500)]"],
+              ["System", "后台配置 / 管理系统", "bg-[var(--neutral-900)]"],
             ].map(([title, description, color]) => (
               <div key={title} className="flex items-center gap-3 rounded-sm bg-[var(--neutral-50)] px-4 py-4">
                 <span className={`h-3 w-3 flex-shrink-0 ${color}`} />
@@ -260,22 +261,22 @@ export default function HomePage() {
           {[
             {
               title: "建立统一的「视觉DNA」",
-              description: "将品牌心智转化为可执行的代码级规范，确保全局一改全改",
+              description: "将品牌心智转化为可执行的代码级规范，覆盖官网、数据空间、材库、材小模等全线产品",
               icon: <Dna size={20} />,
             },
             {
               title: "精准区分与快速搭建",
-              description: "在同一套规范下，快速拼装出四层产品的不同形态",
+              description: "在同一套规范下，快速拼装品牌叙事、数据服务、专业工具、系统管理四层产品",
               icon: <StackPlus size={20} />,
             },
             {
               title: "高还原度交付",
-              description: "规范即文档，Figma原型直接成为开发的验收标准",
+              description: "设计规范即验收标准，Figma 组件与开发实现保持同一套 Token 体系",
               icon: <FigmaLogo size={20} />,
             },
             {
-              title: "高效迭代与协作",
-              description: "这套规范是活的系统，能够持续生长和演进",
+              title: "持续迭代与同步",
+              description: "Token 由 Codex 维护，自动生成 .md 文档、Figma tokens 和部署网站",
               icon: <FlowArrow size={20} />,
             },
           ].map((item) => (
