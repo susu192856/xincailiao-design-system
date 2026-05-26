@@ -292,44 +292,6 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* Product Layers */}
-      <section>
-        <div className="mb-8 flex items-end justify-between gap-6">
-          <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
-              Product Layers
-            </p>
-            <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">产品分层</h2>
-          </div>
-          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {productLayers.map((layer) => (
-            <div key={layer.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-              <h3 className="text-lg font-semibold text-[var(--neutral-900)]">{layer.title}</h3>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--neutral-600)]">{layer.feature}</p>
-              <div className="mb-3 mt-4">
-                <h4 className="mb-1 text-xs font-semibold text-[var(--neutral-700)]">设计重点</h4>
-                <p className="text-sm text-[var(--neutral-600)]">{layer.focus}</p>
-              </div>
-              <div className="border-t border-[var(--neutral-200)] pt-3">
-                <h4 className="mb-2 text-xs font-semibold text-[var(--neutral-700)]">对应产品</h4>
-                <div className="flex flex-wrap gap-2">
-                  {layer.products.map((product) => (
-                    <span
-                      key={product}
-                      className="rounded-sm border border-[var(--brand-200)] bg-[var(--brand-50)] px-3 py-1 text-xs font-normal text-[var(--brand-700)]"
-                    >
-                      {product}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Design Principles */}
       <section>
         <div className="mb-8 flex items-end justify-between gap-6">
@@ -363,6 +325,44 @@ export default function HomePage() {
                       <div className="text-sm font-semibold text-[var(--neutral-900)]">{point.label}</div>
                       <p className="text-sm leading-6 text-[var(--neutral-600)]">{point.text}</p>
                     </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Product Layers */}
+      <section>
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
+              Product Layers
+            </p>
+            <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">产品分层</h2>
+          </div>
+          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {productLayers.map((layer) => (
+            <div key={layer.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+              <h3 className="text-lg font-semibold text-[var(--neutral-900)]">{layer.title}</h3>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[var(--neutral-600)]">{layer.feature}</p>
+              <div className="mb-3 mt-4">
+                <h4 className="mb-1 text-xs font-semibold text-[var(--neutral-700)]">设计重点</h4>
+                <p className="text-sm text-[var(--neutral-600)]">{layer.focus}</p>
+              </div>
+              <div className="border-t border-[var(--neutral-200)] pt-3">
+                <h4 className="mb-2 text-xs font-semibold text-[var(--neutral-700)]">对应产品</h4>
+                <div className="flex flex-wrap gap-2">
+                  {layer.products.map((product) => (
+                    <span
+                      key={product}
+                      className="rounded-sm border border-[var(--brand-200)] bg-[var(--brand-50)] px-3 py-1 text-xs font-normal text-[var(--brand-700)]"
+                    >
+                      {product}
+                    </span>
                   ))}
                 </div>
               </div>
