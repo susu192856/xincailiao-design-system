@@ -12,11 +12,14 @@ export function SectionHeading({
   return (
     <div className="mb-8">
       <div className="mb-4 flex items-end justify-between gap-6">
-        <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
-            {eyebrow}
-          </p>
-          <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">{title}</h2>
+        <div className="flex items-center gap-3">
+          <span className="h-3 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
+              {eyebrow}
+            </p>
+            <h2 className="mt-1 text-2xl font-semibold text-[var(--neutral-900)]">{title}</h2>
+          </div>
         </div>
         <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
       </div>

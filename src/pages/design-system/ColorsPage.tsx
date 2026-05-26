@@ -507,7 +507,7 @@ export default function ColorsPage() {
     <div className="space-y-20">
       <PageHeader
         title="色彩系统"
-        description="色彩系统用于建立新材道在品牌传播、数据空间、材库和 AI 应用中的统一视觉语义。品牌红是关键节点，产品蓝是功能焦点，中性灰承载秩序和阅读。"
+        description="色彩系统用于建立新材道在品牌传播、数据空间、材库和 AI 应用中的统一视觉语义。品牌红 #FF112D 只用于品牌识别与关键强调，不替代错误色、不用于普通标签、不向后台操作泛化。产品蓝 #006DEA 承载功能操作，中性灰承载秩序和阅读。"
       />
 
       <section>

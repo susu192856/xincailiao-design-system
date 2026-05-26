@@ -18,7 +18,10 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: var(--neutral-50);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(0, 109, 234, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(255, 17, 45, 0.015) 0%, transparent 50%),
+    var(--neutral-50);
   color: var(--neutral-900);
   font-family:
     "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",
@@ -52,4 +55,36 @@ a {
 
 *::-webkit-scrollbar-thumb:hover {
   background: var(--neutral-400);
+}
+
+/* ============================================
+   Code / Token / 值 统一样式
+   ============================================ */
+
+code, .token-value {
+  font-family: "SF Mono", "Cascadia Code", "JetBrains Mono", ui-monospace, "D-DIN-Pro", monospace;
+}
+
+code:not(pre code) {
+  background: var(--neutral-100);
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-size: 0.8125rem;
+  color: var(--neutral-800);
+}
+
+pre {
+  border-radius: 2px;
+}
+
+/* ============================================
+   极淡工业网格背景（仅增强秩序感）
+   ============================================ */
+
+.docs-grid-bg {
+  background-image:
+    linear-gradient(to right, var(--neutral-200) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--neutral-200) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.3;
 }

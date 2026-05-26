@@ -17,12 +17,15 @@
 | `--layout-backend-sidebar-expanded` | `240px` | backend sidebar expanded |
 | `--layout-backend-sidebar-collapsed` | `56px` | backend sidebar collapsed |
 | `--docs-bg` | `var(--neutral-50)` | bg |
+| `--docs-bg-card` | `#FFFFFF` | bg card |
 | `--docs-fg` | `var(--neutral-900)` | fg |
 | `--docs-muted` | `var(--neutral-600)` | muted |
 | `--docs-border` | `var(--neutral-200)` | border |
 | `--docs-hover-bg` | `var(--neutral-100)` | hover bg |
 | `--docs-active-bg` | `var(--neutral-900)` | active bg |
 | `--docs-active-fg` | `#FFFFFF` | active fg |
+| `--docs-accent` | `var(--brand-600)` | accent |
+| `--docs-code-bg` | `var(--neutral-100)` | code bg |
 
 ## CSS 使用方式
 

@@ -196,10 +196,13 @@
 /* Current docs shell aliases */
 :root {
   --docs-bg: var(--neutral-50);
+  --docs-bg-card: #FFFFFF;
   --docs-fg: var(--neutral-900);
   --docs-muted: var(--neutral-600);
   --docs-border: var(--neutral-200);
   --docs-hover-bg: var(--neutral-100);
   --docs-active-bg: var(--neutral-900);
   --docs-active-fg: #FFFFFF;
+  --docs-accent: var(--brand-600);
+  --docs-code-bg: var(--neutral-100);
 }
