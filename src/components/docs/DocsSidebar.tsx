@@ -79,6 +79,11 @@ export default function DocsSidebar() {
           path: "/components/pagination",
           icon: <BarChart3 className="h-4 w-4" />,
         },
+        { name: "开关", path: "/components/switch", icon: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="1" y="4" width="14" height="8" rx="4"/><circle cx="8" cy="8" r="2"/></svg> },
+        { name: "复选框", path: "/components/checkbox", icon: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M5 8L7 10L11 6"/></svg> },
+        { name: "单选框", path: "/components/radio", icon: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="8" cy="8" r="6"/><circle cx="8" cy="8" r="3"/></svg> },
+        { name: "文本域", path: "/components/textarea", icon: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M5 11V7M5 7H8M5 7L10 11"/></svg> },
+        { name: "消息提示", path: "/components/toast", icon: <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 2C4.5 2 2 4.5 2 8C2 11.5 4.5 14 8 14C11.5 14 14 11.5 14 8"/><path d="M8 5.5V8.5M8 10V10.5"/></svg> },
       ],
     },
   ];
