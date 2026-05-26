@@ -611,7 +611,7 @@ export default function ColorsPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Brand</p>
                 <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">品牌红色阶</h3>
               </div>
-              <span className="h-2 w-2 bg-[#FF112D]" />
+              <span className="h-2 w-2 bg-[var(--brand-600)]" />
             </div>
             <div className="overflow-x-auto bg-white p-4">
               <ColorScaleGrid colors={brandColors} className="min-w-[980px]" />
