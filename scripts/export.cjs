@@ -391,7 +391,7 @@ const components = [
       { type: "dont", text: "不要用 Toast 展示需要用户确认的信息" },
     ],
   },
-,  {
+  {
     name: "Button",
     title: "按钮 Button",
     desc: "按钮用于触发操作。有 solid / outline / ghost / text 四种层级和 neutral / product / brand / danger 四种色彩语义。",
