@@ -320,6 +320,78 @@ function getSampleProp(cat) {
 // ============================================================
 const components = [
   {
+    name: "Switch",
+    title: "开关 Switch",
+    desc: "用于切换开关状态，常用于功能启停、权限开关等二选一场景。",
+    props: [
+      ["label", "string", "—", "标签文字"],
+      ["size", "'sm' | 'md'", "'md'", "尺寸"],
+      ["disabled", "boolean", "false", "禁用"],
+    ],
+    guidelines: [
+      { type: "do", text: "Switch 用于二选一场景，不需要额外的确认按钮" },
+      { type: "dont", text: "不要用 Switch 代替提交操作，它应该立即生效" },
+    ],
+  },
+  {
+    name: "Checkbox",
+    title: "复选框 Checkbox",
+    desc: "用于多选场景，支持选中、未选中和禁用状态。",
+    props: [
+      ["label", "string", "—", "标签文字"],
+      ["defaultChecked", "boolean", "false", "默认选中"],
+      ["disabled", "boolean", "false", "禁用"],
+    ],
+    guidelines: [
+      { type: "do", text: "Checkbox 用于多选，同一组中可选中多个" },
+      { type: "dont", text: "不要用 Checkbox 代替 Switch（开关动作）" },
+    ],
+  },
+  {
+    name: "Radio",
+    title: "单选框 Radio",
+    desc: "用于单选场景，同一组中只能选择一个选项。",
+    props: [
+      ["name", "string", "—", "互斥组名称"],
+      ["label", "string", "—", "标签文字"],
+      ["disabled", "boolean", "false", "禁用"],
+    ],
+    guidelines: [
+      { type: "do", text: "同一 name 的 Radio 自动形成互斥组" },
+      { type: "dont", text: "选项少于 3 个时建议使用 Select 代替" },
+    ],
+  },
+  {
+    name: "Textarea",
+    title: "文本域 Textarea",
+    desc: "用于多行文本输入，支持 label、helper text 和 error 态。",
+    props: [
+      ["label", "string", "—", "标签文字"],
+      ["inputSize", "'sm' | 'md' | 'lg'", "'md'", "尺寸"],
+      ["helperText", "string", "—", "帮助文字"],
+      ["error", "string", "—", "错误提示"],
+      ["disabled", "boolean", "false", "禁用"],
+    ],
+    guidelines: [
+      { type: "do", text: "Textarea 用于超过一行文本的输入场景" },
+      { type: "dont", text: "单行输入使用 Input 组件而非 Textarea" },
+    ],
+  },
+  {
+    name: "Toast",
+    title: "消息提示 Toast",
+    desc: "用于操作后的轻量反馈，自动消失，不打断用户操作流程。",
+    props: [
+      ["variant", "'success' | 'error' | 'warning' | 'info'", "—", "类型"],
+      ["title", "string", "—", "标题"],
+      ["description", "string", "—", "描述"],
+    ],
+    guidelines: [
+      { type: "do", text: "Toast 用于操作结果反馈，自动 4 秒消失" },
+      { type: "dont", text: "不要用 Toast 展示需要用户确认的信息" },
+    ],
+  },
+,  {
     name: "Button",
     title: "按钮 Button",
     desc: "按钮用于触发操作。有 solid / outline / ghost / text 四种层级和 neutral / product / brand / danger 四种色彩语义。",

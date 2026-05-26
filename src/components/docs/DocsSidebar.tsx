@@ -16,7 +16,7 @@ import {
   Square,
   Table,
   Tag,
-  TextCursor,
+  Text,
   Type,
 } from "lucide-react";
 
@@ -55,7 +55,7 @@ export default function DocsSidebar() {
       title: "组件",
       items: [
         { name: "按钮", path: "/components/button", icon: <Square className="h-4 w-4" /> },
-        { name: "输入框", path: "/components/input", icon: <TextCursor className="h-4 w-4" /> },
+        { name: "输入框", path: "/components/input", icon: <Text className="h-4 w-4" /> },
         {
           name: "选择器",
           path: "/components/select",

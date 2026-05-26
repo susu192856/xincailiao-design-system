@@ -9,6 +9,12 @@ import PaginationPage from "../pages/design-system/components/PaginationPage";
 import SelectPage from "../pages/design-system/components/SelectPage";
 import TablePage from "../pages/design-system/components/TablePage";
 import TabsPage from "../pages/design-system/components/TabsPage";
+import SwitchPage from "../pages/design-system/components/SwitchPage";
+import CheckboxPage from "../pages/design-system/components/CheckboxPage";
+import RadioPage from "../pages/design-system/components/RadioPage";
+import TextareaPage from "../pages/design-system/components/TextareaPage";
+import ToastPage from "../pages/design-system/components/ToastPage";
+
 import TagPage from "../pages/design-system/components/TagPage";
 import HomePage from "../pages/design-system/HomePage";
 import IconPage from "../pages/design-system/IconPage";
@@ -71,6 +77,21 @@ export default function App() {
       </Route>
       <Route path="/components/pagination" element={<DocsLayout />}>
         <Route index element={<PaginationPage />} />
+      </Route>
+      <Route path="/components/switch" element={<DocsLayout />}>
+        <Route index element={<SwitchPage />} />
+      </Route>
+      <Route path="/components/checkbox" element={<DocsLayout />}>
+        <Route index element={<CheckboxPage />} />
+      </Route>
+      <Route path="/components/radio" element={<DocsLayout />}>
+        <Route index element={<RadioPage />} />
+      </Route>
+      <Route path="/components/textarea" element={<DocsLayout />}>
+        <Route index element={<TextareaPage />} />
+      </Route>
+      <Route path="/components/toast" element={<DocsLayout />}>
+        <Route index element={<ToastPage />} />
       </Route>
     </Routes>
   );

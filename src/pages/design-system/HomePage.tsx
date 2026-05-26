@@ -33,6 +33,11 @@ const componentLinks: CardLink[] = [
   { title: "弹窗", path: "/components/modal", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 20V8a2 2 0 012-2h12a2 2 0 012 2v6a2 2 0 01-2 2H8l-4 4z"/></svg>, desc: "标题/描述/内容/底部操作" },
   { title: "标签", path: "/components/tag", icon: <Tag size={24} weight="regular" />, desc: "6 种状态色彩" },
   { title: "Tabs", path: "/components/tabs", icon: <FileText size={24} weight="regular" />, desc: "受控切换，支持禁用项" },
+  { title: "开关", path: "/components/switch", icon: <Square size={24} weight="regular" />, desc: "切换开关，支持 sm/md 尺寸" },
+  { title: "复选框", path: "/components/checkbox", icon: <Square size={24} weight="regular" />, desc: "多选，支持选中/禁用状态" },
+  { title: "单选框", path: "/components/radio", icon: <Circle size={24} weight="regular" />, desc: "单选，同一 name 自动互斥" },
+  { title: "文本域", path: "/components/textarea", icon: <TextT size={24} weight="regular" />, desc: "多行输入，支持错误态" },
+  { title: "消息提示", path: "/components/toast", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 3C7 3 3 7 3 12C3 17 7 21 12 21C17 21 21 17 21 12"/><path d="M12 8V13M12 15V15.5"/></svg>, desc: "操作反馈，自动消失" },
   { title: "分页", path: "/components/pagination", icon: <ChartBar size={24} weight="regular" />, desc: "简洁分页导航" },
 ];
 
@@ -222,7 +227,7 @@ export default function HomePage() {
       <section>
         <SectionHeader eyebrow="Components" title="UI 组件" />
         <p className="-mt-4 mb-6 max-w-2xl text-sm leading-7 text-[var(--neutral-600)]">
-          当前共 9 个基础组件。开发参考以下规范用 Vue 3 实现，设计师在 Figma 中保持对应。
+          当前共 14 个基础组件。开发参考以下规范用 Vue 3 实现，设计师在 Figma 中保持对应。
         </p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {componentLinks.map((link) => (
