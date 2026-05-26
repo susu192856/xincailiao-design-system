@@ -32,7 +32,7 @@ interface MenuItem {
 /**
  * DocsSidebar 组件
  * 设计规范文档的侧边栏导航
- * 包含基础、组件、模板三个分类
+ * 包含基础、组件两个分类
  */
 export default function DocsSidebar() {
   const location = useLocation();
@@ -77,19 +77,6 @@ export default function DocsSidebar() {
         {
           name: "分页",
           path: "/components/pagination",
-          icon: <BarChart3 className="h-4 w-4" />,
-        },
-      ],
-    },
-    {
-      title: "模板",
-      items: [
-        { name: "列表页", path: "/templates/list", icon: <Table className="h-4 w-4" /> },
-        { name: "详情页", path: "/templates/detail", icon: <FileText className="h-4 w-4" /> },
-        { name: "表单页", path: "/templates/form", icon: <Square className="h-4 w-4" /> },
-        {
-          name: "仪表盘页",
-          path: "/templates/dashboard",
           icon: <BarChart3 className="h-4 w-4" />,
         },
       ],
