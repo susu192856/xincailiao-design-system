@@ -22,15 +22,15 @@ function SectionHeading({
     <div className="mb-8">
       <div className="mb-4 flex items-end justify-between gap-6">
         <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
             {eyebrow}
           </p>
-          <h2 className="text-3xl font-semibold text-zinc-950">{title}</h2>
+          <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">{title}</h2>
         </div>
-        <div className="hidden h-px flex-1 bg-zinc-200 md:block" />
+        <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
       </div>
       {description ? (
-        <p className="max-w-4xl text-sm leading-7 text-zinc-600">{description}</p>
+        <p className="max-w-4xl text-sm leading-7 text-[var(--neutral-600)]">{description}</p>
       ) : null}
     </div>
   );
