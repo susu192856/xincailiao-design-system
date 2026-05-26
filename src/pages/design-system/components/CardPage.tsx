@@ -37,8 +37,8 @@ export default function CardPage() {
               <CardDescription>用于指标、任务和流程概览。</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="font-mono text-3xl font-semibold text-zinc-900">128</div>
-              <p className="mt-1 text-sm text-zinc-600">本周新增数据集</p>
+              <div className="font-mono text-3xl font-semibold text-[var(--neutral-900)]">128</div>
+              <p className="mt-1 text-sm text-[var(--neutral-600)]">本周新增数据集</p>
             </CardContent>
           </Card>
         </div>

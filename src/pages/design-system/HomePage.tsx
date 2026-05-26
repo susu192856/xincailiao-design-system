@@ -266,7 +266,7 @@ export default function HomePage() {
                 <p className="mb-2 text-xs font-semibold text-[var(--neutral-700)]">对应产品</p>
                 <div className="flex flex-wrap gap-2">
                   {layer.products.map((product) => (
-                    <span key={product} className="rounded-sm border border-[var(--brand-200)] bg-[var(--brand-50)] px-2.5 py-1 text-xs text-[var(--brand-700)]">
+                    <span key={product} className="rounded-sm border border-[var(--neutral-200)] bg-[var(--neutral-50)] px-2.5 py-1 text-xs text-[var(--brand-700)]">
                       {product}
                     </span>
                   ))}

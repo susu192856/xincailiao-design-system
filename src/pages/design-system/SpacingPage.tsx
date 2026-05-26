@@ -76,25 +76,25 @@ export default function SpacingPage() {
           description="间距用于建立信息之间的亲疏关系。后台优先保证密度与效率，官网和门户通过更大的区块间距建立叙事节奏。"
         />
         <DocsTable>
-          <thead className="bg-zinc-50 text-sm font-semibold text-zinc-900">
-            <tr className="border-b border-zinc-200">
+          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+            <tr className="border-b border-[var(--neutral-200)]">
               <th className="px-6 py-3 font-semibold">Token</th>
               <th className="px-6 py-3 font-semibold">数值</th>
               <th className="px-6 py-3 font-semibold">用途</th>
               <th className="px-6 py-3 font-semibold">使用建议</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200 bg-white">
+          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
             {spacingTokens.map((item) => (
               <tr key={item.token}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-zinc-600">
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
                   {item.token}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-zinc-600">
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
                   {item.value}
                 </td>
-                <td className="px-6 py-4 text-sm text-zinc-700">{item.usage}</td>
-                <td className="px-6 py-4 text-sm leading-relaxed text-zinc-600">
+                <td className="px-6 py-4 text-sm text-[var(--neutral-700)]">{item.usage}</td>
+                <td className="px-6 py-4 text-sm leading-relaxed text-[var(--neutral-600)]">
                   {item.advice}
                 </td>
               </tr>
@@ -112,14 +112,14 @@ export default function SpacingPage() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {spacingTokens.map((item) => (
             <div key={item.variable} className="bg-white p-5">
-              <div className="mb-4 flex h-12 items-center rounded-[2px] bg-zinc-50 px-4">
+              <div className="mb-4 flex h-12 items-center rounded-[2px] bg-[var(--neutral-50)] px-4">
                 <div
-                  className="h-3 bg-zinc-400"
+                  className="h-3 bg-[var(--neutral-400)]"
                   style={{ width: `var(${item.variable})` }}
                 />
               </div>
-              <div className="font-mono text-xs text-zinc-600">{item.token}</div>
-              <div className="mt-1 font-mono text-xs text-zinc-500">{item.value}</div>
+              <div className="font-mono text-xs text-[var(--neutral-600)]">{item.token}</div>
+              <div className="mt-1 font-mono text-xs text-[var(--neutral-500)]">{item.value}</div>
             </div>
           ))}
         </div>
@@ -128,7 +128,7 @@ export default function SpacingPage() {
       <section>
         <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <div className="bg-white p-6">
-          <ul className="space-y-3 text-sm leading-relaxed text-zinc-700">
+          <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
             <li>• 组件内部优先使用 spacing-xs、spacing-sm、spacing-md。</li>
             <li>• 内容模块内部使用 spacing-lg，页面区块之间使用 spacing-xl 或 spacing-2xl。</li>
             <li>• 官网和门户的大型视觉区块可以使用 spacing-3xl、spacing-4xl 拉开节奏。</li>

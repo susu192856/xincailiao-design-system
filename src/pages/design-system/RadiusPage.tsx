@@ -69,25 +69,25 @@ export default function RadiusPage() {
           description="圆角用于控制界面气质。交互控件统一使用 2px 微圆角，保持工业数据产品的精确感和品牌识别度；容器层使用 4-8px 建立视觉层级。同一组件类型应保持圆角一致。"
         />
         <DocsTable>
-          <thead className="bg-zinc-50 text-sm font-semibold text-zinc-900">
-            <tr className="border-b border-zinc-200">
+          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+            <tr className="border-b border-[var(--neutral-200)]">
               <th className="px-6 py-3 font-semibold">Token</th>
               <th className="px-6 py-3 font-semibold">数值</th>
               <th className="px-6 py-3 font-semibold">用途</th>
               <th className="px-6 py-3 font-semibold">使用建议</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200 bg-white">
+          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
             {radiusTokens.map((item) => (
               <tr key={item.token}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-zinc-600">
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
                   {item.token}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-zinc-600">
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
                   {item.value}
                 </td>
-                <td className="px-6 py-4 text-sm text-zinc-700">{item.usage}</td>
-                <td className="px-6 py-4 text-sm leading-relaxed text-zinc-600">
+                <td className="px-6 py-4 text-sm text-[var(--neutral-700)]">{item.usage}</td>
+                <td className="px-6 py-4 text-sm leading-relaxed text-[var(--neutral-600)]">
                   {item.advice}
                 </td>
               </tr>
@@ -106,11 +106,11 @@ export default function RadiusPage() {
           {radiusTokens.map((item) => (
             <div key={item.variable} className="bg-white p-5">
               <div
-                className="mb-4 h-24 bg-zinc-50"
+                className="mb-4 h-24 bg-[var(--neutral-50)]"
                 style={{ borderRadius: `var(${item.variable})` }}
               />
-              <div className="font-mono text-xs text-zinc-600">{item.token}</div>
-              <div className="mt-1 font-mono text-xs text-zinc-500">{item.value}</div>
+              <div className="font-mono text-xs text-[var(--neutral-600)]">{item.token}</div>
+              <div className="mt-1 font-mono text-xs text-[var(--neutral-500)]">{item.value}</div>
             </div>
           ))}
         </div>
@@ -119,7 +119,7 @@ export default function RadiusPage() {
       <section>
         <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <div className="bg-white p-6">
-          <ul className="space-y-3 text-sm leading-relaxed text-zinc-700">
+          <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
             <li>• 交互控件（按钮、输入框、选择器、标签）统一使用 <strong>radius-sm (2px)</strong>，保持工业数据产品的精确感。</li>
             <li>• 容器层（卡片、弹窗）使用 <strong>radius-md (4px)</strong> 或 <strong>radius-lg (8px)</strong>，层级越高圆角越大。</li>
             <li>• radius-xl (12px) 和 radius-2xl (16px) 仅限官网营销展示场景，后台慎用。</li>

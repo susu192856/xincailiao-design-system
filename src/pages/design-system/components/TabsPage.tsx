@@ -17,9 +17,9 @@ export default function TabsPage() {
             value={value}
             onValueChange={setValue}
             items={[
-              { value: "overview", label: "概览", content: <p className="text-sm leading-6 text-zinc-600">展示材料数据资产的核心摘要、更新时间和可信状态。</p> },
-              { value: "process", label: "工艺参数", content: <p className="text-sm leading-6 text-zinc-600">展示温度、压力、时间等工艺参数和实验批次。</p> },
-              { value: "history", label: "流转记录", content: <p className="text-sm leading-6 text-zinc-600">展示数据授权、审核、发布和调用记录。</p> },
+              { value: "overview", label: "概览", content: <p className="text-sm leading-6 text-[var(--neutral-600)]">展示材料数据资产的核心摘要、更新时间和可信状态。</p> },
+              { value: "process", label: "工艺参数", content: <p className="text-sm leading-6 text-[var(--neutral-600)]">展示温度、压力、时间等工艺参数和实验批次。</p> },
+              { value: "history", label: "流转记录", content: <p className="text-sm leading-6 text-[var(--neutral-600)]">展示数据授权、审核、发布和调用记录。</p> },
             ]}
           />
         </ExampleCard>
@@ -31,7 +31,7 @@ export default function TabsPage() {
           <Tabs
             value="base"
             items={[
-              { value: "base", label: "基础信息", content: <p className="text-sm text-zinc-600">当前可用内容。</p> },
+              { value: "base", label: "基础信息", content: <p className="text-sm text-[var(--neutral-600)]">当前可用内容。</p> },
               { value: "model", label: "模型结果", content: "disabled", disabled: true },
             ]}
           />

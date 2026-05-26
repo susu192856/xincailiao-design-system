@@ -27,7 +27,7 @@ export default function ModalPage() {
               </>
             }
           >
-            <div className="space-y-2 text-sm text-zinc-600">
+            <div className="space-y-2 text-sm text-[var(--neutral-600)]">
               <p>数据集：高温合金数据集</p>
               <p>权限范围：组织内可见</p>
               <p>状态：待发布</p>

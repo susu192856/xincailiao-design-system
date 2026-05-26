@@ -40,11 +40,11 @@ function WebsiteLayoutExample() {
   return (
     <div className="rounded-[2px] bg-white p-6">
       <div className="mb-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Website</p>
-        <h3 className="mt-2 text-lg font-semibold text-zinc-900">官网/门户布局</h3>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Website</p>
+        <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">官网/门户布局</h3>
       </div>
-      <div className="overflow-hidden rounded-[2px] bg-zinc-50">
-        <div className="h-10 bg-zinc-900" />
+      <div className="overflow-hidden rounded-[2px] bg-[var(--neutral-50)]">
+        <div className="h-10 bg-[var(--neutral-900)]" />
         <div className="px-8 py-6">
           <div className="mx-auto max-w-[70%]">
             <div className="mb-4 h-16 bg-white" />
@@ -55,7 +55,7 @@ function WebsiteLayoutExample() {
           </div>
         </div>
       </div>
-      <p className="mt-4 text-sm leading-6 text-zinc-600">
+      <p className="mt-4 text-sm leading-6 text-[var(--neutral-600)]">
         内容居中、留白宽松、强调首屏视觉与转化入口。
       </p>
     </div>
@@ -66,13 +66,13 @@ function BackendLayoutExample() {
   return (
     <div className="rounded-[2px] bg-white p-6">
       <div className="mb-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Product</p>
-        <h3 className="mt-2 text-lg font-semibold text-zinc-900">后台/B端布局</h3>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Product</p>
+        <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">后台/B端布局</h3>
       </div>
-      <div className="overflow-hidden rounded-[2px] bg-zinc-50">
-        <div className="h-10 bg-zinc-100" />
+      <div className="overflow-hidden rounded-[2px] bg-[var(--neutral-50)]">
+        <div className="h-10 bg-[var(--neutral-100)]" />
         <div className="flex h-36">
-          <div className="w-16 bg-zinc-900" />
+          <div className="w-16 bg-[var(--neutral-900)]" />
           <div className="grid flex-1 grid-cols-3 gap-3 p-4">
             <div className="bg-white" />
             <div className="bg-white" />
@@ -81,7 +81,7 @@ function BackendLayoutExample() {
           </div>
         </div>
       </div>
-      <p className="mt-4 text-sm leading-6 text-zinc-600">
+      <p className="mt-4 text-sm leading-6 text-[var(--neutral-600)]">
         侧边导航、信息密度高、充分利用横向空间承载操作。
       </p>
     </div>
@@ -93,24 +93,24 @@ function GridSystemExample() {
     <div className="rounded-[2px] bg-white p-6">
       <div className="mb-5 flex items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">12 Columns</p>
-          <h3 className="mt-2 text-lg font-semibold text-zinc-900">12列网格示例</h3>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">12 Columns</p>
+          <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">12列网格示例</h3>
         </div>
         <span className="h-2 w-2 bg-[#FF112D]" />
       </div>
       <div className="grid grid-cols-12 gap-2">
         {Array.from({ length: 12 }).map((_, index) => (
-          <div key={index} className="flex h-24 items-center justify-center bg-zinc-100 text-xs text-zinc-500">
+          <div key={index} className="flex h-24 items-center justify-center bg-[var(--neutral-100)] text-xs text-[var(--neutral-500)]">
             {index + 1}
           </div>
         ))}
       </div>
       <div className="mt-4 grid grid-cols-12 gap-2">
-        <div className="col-span-8 h-12 bg-zinc-900" />
-        <div className="col-span-4 h-12 bg-zinc-200" />
-        <div className="col-span-4 h-12 bg-zinc-100" />
-        <div className="col-span-4 h-12 bg-zinc-100" />
-        <div className="col-span-4 h-12 bg-zinc-100" />
+        <div className="col-span-8 h-12 bg-[var(--neutral-900)]" />
+        <div className="col-span-4 h-12 bg-[var(--neutral-200)]" />
+        <div className="col-span-4 h-12 bg-[var(--neutral-100)]" />
+        <div className="col-span-4 h-12 bg-[var(--neutral-100)]" />
+        <div className="col-span-4 h-12 bg-[var(--neutral-100)]" />
       </div>
     </div>
   );
@@ -126,19 +126,19 @@ function ResponsiveExample() {
   return (
     <div className="rounded-[2px] bg-white p-6">
       <div className="mb-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Responsive</p>
-        <h3 className="mt-2 text-lg font-semibold text-zinc-900">响应式布局示例</h3>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Responsive</p>
+        <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">响应式布局示例</h3>
       </div>
       <div className="space-y-5">
         {rows.map((row) => (
           <div key={row.label}>
-            <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
+            <div className="mb-2 flex items-center justify-between text-xs text-[var(--neutral-500)]">
               <span>{row.label}</span>
               <span>{row.width}</span>
             </div>
             <div className={`grid gap-2 ${row.cols === 4 ? "grid-cols-4" : row.cols === 8 ? "grid-cols-8" : "grid-cols-12"}`}>
               {Array.from({ length: row.cols }).map((_, index) => (
-                <div key={index} className="h-8 bg-zinc-100" />
+                <div key={index} className="h-8 bg-[var(--neutral-100)]" />
               ))}
             </div>
           </div>
@@ -258,38 +258,38 @@ export default function LayoutPage() {
             <div key={strategy.title} className="bg-white p-7">
               <div className="mb-6 flex items-start justify-between gap-5">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">{strategy.eyebrow}</p>
-                  <h3 className="mt-2 text-2xl font-semibold text-zinc-950">{strategy.title}</h3>
-                  <p className="mt-3 max-w-xl text-sm leading-7 text-zinc-600">{strategy.summary}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{strategy.eyebrow}</p>
+                  <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">{strategy.title}</h3>
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-[var(--neutral-600)]">{strategy.summary}</p>
                 </div>
                 <span className={`mt-1 h-2 w-2 ${strategy.title === "官网/门户" ? "bg-[#FF112D]" : "bg-[var(--product-blue-500)]"}`} />
               </div>
 
-              <div className="mb-6 grid grid-cols-2 gap-px bg-zinc-100">
+              <div className="mb-6 grid grid-cols-2 gap-px bg-[var(--neutral-100)]">
                 {strategy.specs.map(([label, value]) => (
-                  <div key={label} className="bg-zinc-50 p-4">
-                    <p className="text-xs text-zinc-500">{label}</p>
-                    <p className="mt-2 font-mono text-lg font-semibold text-zinc-950">{value}</p>
+                  <div key={label} className="bg-[var(--neutral-50)] p-4">
+                    <p className="text-xs text-[var(--neutral-500)]">{label}</p>
+                    <p className="mt-2 font-mono text-lg font-semibold text-[var(--neutral-900)]">{value}</p>
                   </div>
                 ))}
               </div>
 
               <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="bg-zinc-50 p-4">
-                  <p className="mb-3 text-sm font-semibold text-zinc-900">优先突出</p>
+                <div className="bg-[var(--neutral-50)] p-4">
+                  <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">优先突出</p>
                   <div className="flex flex-wrap gap-2">
                     {strategy.highlight.map((item) => (
-                      <span key={item} className="bg-white px-2.5 py-1 text-xs text-zinc-900">
+                      <span key={item} className="bg-white px-2.5 py-1 text-xs text-[var(--neutral-900)]">
                         {item}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="bg-zinc-50/60 p-4">
-                  <p className="mb-3 text-sm font-semibold text-zinc-500">需要弱化</p>
+                <div className="bg-[var(--neutral-50)]/60 p-4">
+                  <p className="mb-3 text-sm font-semibold text-[var(--neutral-500)]">需要弱化</p>
                   <div className="flex flex-wrap gap-2">
                     {strategy.weaken.map((item) => (
-                      <span key={item} className="bg-white px-2.5 py-1 text-xs text-zinc-500">
+                      <span key={item} className="bg-white px-2.5 py-1 text-xs text-[var(--neutral-500)]">
                         {item}
                       </span>
                     ))}
@@ -300,8 +300,8 @@ export default function LayoutPage() {
               <div className="space-y-4 text-sm">
                 {strategy.rows.map(([label, text]) => (
                   <div key={label} className="grid gap-2 md:grid-cols-[96px_1fr]">
-                    <p className="font-semibold text-zinc-900">{label}</p>
-                    <p className="leading-6 text-zinc-600">{text}</p>
+                    <p className="font-semibold text-[var(--neutral-900)]">{label}</p>
+                    <p className="leading-6 text-[var(--neutral-600)]">{text}</p>
                   </div>
                 ))}
               </div>
@@ -327,8 +327,8 @@ export default function LayoutPage() {
           <div className="grid grid-cols-1 gap-4">
             {gridReasons.map((reason) => (
               <div key={reason.title} className="rounded-[2px] bg-white p-5">
-                <h3 className="text-sm font-semibold text-zinc-900">{reason.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">{reason.text}</p>
+                <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{reason.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{reason.text}</p>
               </div>
             ))}
           </div>
@@ -347,16 +347,16 @@ export default function LayoutPage() {
             <div key={bp.name} className="rounded-[2px] bg-white p-5">
               <div className="mb-5 flex items-start justify-between">
                 <div>
-                  <p className="font-mono text-xs text-zinc-500">{bp.name}</p>
-                  <h3 className="mt-2 text-lg font-semibold text-zinc-950">{bp.cols}</h3>
+                  <p className="font-mono text-xs text-[var(--neutral-500)]">{bp.name}</p>
+                  <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">{bp.cols}</h3>
                 </div>
-                <span className="h-2 w-2 bg-zinc-900" />
+                <span className="h-2 w-2 bg-[var(--neutral-900)]" />
               </div>
-              <div className="space-y-2 text-sm text-zinc-600">
+              <div className="space-y-2 text-sm text-[var(--neutral-600)]">
                 <p>{bp.size}</p>
                 <p>Gutter {bp.gutter}</p>
                 <p>Margin {bp.margin}</p>
-                <p className="pt-2 text-xs font-semibold text-zinc-500">{bp.usage}</p>
+                <p className="pt-2 text-xs font-semibold text-[var(--neutral-500)]">{bp.usage}</p>
               </div>
             </div>
           ))}
@@ -367,8 +367,8 @@ export default function LayoutPage() {
           <div className="grid grid-cols-1 gap-4">
             {responsiveRules.map((rule) => (
               <div key={rule.title} className="rounded-[2px] bg-white p-5">
-                <h3 className="text-sm font-semibold text-zinc-900">{rule.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">{rule.text}</p>
+                <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{rule.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{rule.text}</p>
               </div>
             ))}
           </div>
@@ -380,10 +380,10 @@ export default function LayoutPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           {bestPractices.map((practice, index) => (
             <div key={practice} className="rounded-[2px] bg-white p-5">
-              <div className="mb-5 font-mono text-3xl font-semibold text-zinc-100">
+              <div className="mb-5 font-mono text-3xl font-semibold text-[var(--neutral-100)]">
                 {String(index + 1).padStart(2, "0")}
               </div>
-              <p className="text-sm leading-6 text-zinc-700">{practice}</p>
+              <p className="text-sm leading-6 text-[var(--neutral-700)]">{practice}</p>
             </div>
           ))}
         </div>

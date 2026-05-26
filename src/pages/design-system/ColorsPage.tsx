@@ -28,7 +28,7 @@ type DataColor = {
 function ColorChip({ color, label }: { color: string; label?: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="h-8 w-8 border border-zinc-200 bg-white" style={{ backgroundColor: color }} />
+      <span className="h-8 w-8 border border-[var(--neutral-200)] bg-white" style={{ backgroundColor: color }} />
       <CopyableColorValue value={color} display={label ?? color} className="whitespace-nowrap" />
     </div>
   );
@@ -53,13 +53,13 @@ function RoleCard({
     <div className="bg-white p-6">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">{eyebrow}</p>
-          <h3 className="mt-2 text-2xl font-semibold text-zinc-950">{title}</h3>
-          <p className="mt-3 max-w-[34rem] text-sm leading-7 text-zinc-600">{description}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{eyebrow}</p>
+          <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">{title}</h3>
+          <p className="mt-3 max-w-[34rem] text-sm leading-7 text-[var(--neutral-600)]">{description}</p>
         </div>
         <span className="mt-1 h-2 w-2" style={{ backgroundColor: color }} />
       </div>
-      <div className="mb-6 bg-zinc-50 p-3">
+      <div className="mb-6 bg-[var(--neutral-50)] p-3">
         <div className="flex h-24 items-center justify-center" style={{ backgroundColor: color }}>
           <button
             type="button"
@@ -71,11 +71,11 @@ function RoleCard({
           </button>
         </div>
       </div>
-      <div className="space-y-3 text-sm text-zinc-700">
+      <div className="space-y-3 text-sm text-[var(--neutral-700)]">
         {items.map((item) => (
           <div key={item} className="grid gap-2 md:grid-cols-[80px_1fr]">
-            <span className="font-semibold text-zinc-900">{item.split("：")[0]}</span>
-            <span className="leading-6 text-zinc-600">{item.split("：").slice(1).join("：")}</span>
+            <span className="font-semibold text-[var(--neutral-900)]">{item.split("：")[0]}</span>
+            <span className="leading-6 text-[var(--neutral-600)]">{item.split("：").slice(1).join("：")}</span>
           </div>
         ))}
       </div>
@@ -89,8 +89,8 @@ function DataColorCard({ color }: { color: DataColor }) {
       <div className="mb-3 h-14" style={{ backgroundColor: color.hex }} />
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="font-mono text-sm font-semibold text-zinc-950">{color.name}</h3>
-          <p className="mt-1 text-xs leading-5 text-zinc-500">{color.usage}</p>
+          <h3 className="font-mono text-sm font-semibold text-[var(--neutral-900)]">{color.name}</h3>
+          <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{color.usage}</p>
         </div>
         <CopyableColorValue value={color.hex} />
       </div>
@@ -102,7 +102,7 @@ function CopySvgButton({ svg }: { svg: string }) {
   return (
     <button
       type="button"
-      className="text-xs font-medium text-zinc-500 transition-colors hover:text-zinc-950"
+      className="text-xs font-medium text-[var(--neutral-500)] transition-colors hover:text-[var(--neutral-900)]"
       onClick={() => navigator.clipboard.writeText(svg)}
     >
       复制 SVG
@@ -127,13 +127,13 @@ function ChartExampleCard({
     <div className="bg-white p-6">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">{eyebrow}</p>
-          <h3 className="mt-2 text-lg font-semibold text-zinc-950">{title}</h3>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{eyebrow}</p>
+          <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">{title}</h3>
         </div>
         <CopySvgButton svg={svg} />
       </div>
-      <div className="bg-zinc-50 p-4">{children}</div>
-      <p className="mt-4 text-sm leading-6 text-zinc-600">{description}</p>
+      <div className="bg-[var(--neutral-50)] p-4">{children}</div>
+      <p className="mt-4 text-sm leading-6 text-[var(--neutral-600)]">{description}</p>
     </div>
   );
 }
@@ -331,20 +331,20 @@ function CoreRuleRow({
   usage: string;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-4 border-b border-zinc-100 px-5 py-5 text-sm last:border-b-0 lg:grid-cols-[150px_180px_190px_190px_minmax(0,1fr)] lg:items-center">
+    <div className="grid grid-cols-1 gap-4 border-b border-[var(--neutral-100)] px-5 py-5 text-sm last:border-b-0 lg:grid-cols-[150px_180px_190px_190px_minmax(0,1fr)] lg:items-center">
       <div>
-        <h3 className="font-semibold text-zinc-950">{semantic}</h3>
+        <h3 className="font-semibold text-[var(--neutral-900)]">{semantic}</h3>
       </div>
-      <div className="font-mono text-xs text-zinc-500">{variable}</div>
+      <div className="font-mono text-xs text-[var(--neutral-500)]">{variable}</div>
       <div>
-        <p className="mb-2 text-xs font-semibold text-zinc-500 lg:hidden">官网/门户</p>
+        <p className="mb-2 text-xs font-semibold text-[var(--neutral-500)] lg:hidden">官网/门户</p>
         <ColorChip color={website.color} label={website.display} />
       </div>
       <div>
-        <p className="mb-2 text-xs font-semibold text-zinc-500 lg:hidden">后台产品</p>
+        <p className="mb-2 text-xs font-semibold text-[var(--neutral-500)] lg:hidden">后台产品</p>
         <ColorChip color={backend.color} label={backend.display} />
       </div>
-      <p className="text-sm leading-6 text-zinc-600">{usage}</p>
+      <p className="text-sm leading-6 text-[var(--neutral-600)]">{usage}</p>
     </div>
   );
 }
@@ -353,21 +353,21 @@ function SemanticCard({ color }: { color: SemanticColor }) {
   return (
     <div className="bg-white p-5">
       <div className="mb-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">{color.name}</p>
-        <h3 className="mt-2 text-lg font-semibold text-zinc-950">{color.label}</h3>
-        <p className="mt-2 text-sm leading-6 text-zinc-600">{color.usage}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{color.name}</p>
+        <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">{color.label}</h3>
+        <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{color.usage}</p>
       </div>
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4">
-          <span className="text-xs text-zinc-500">文字色</span>
+          <span className="text-xs text-[var(--neutral-500)]">文字色</span>
           <ColorChip color={color.text} />
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-xs text-zinc-500">背景</span>
+          <span className="text-xs text-[var(--neutral-500)]">背景</span>
           <ColorChip color={color.background} />
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-xs text-zinc-500">标签</span>
+          <span className="text-xs text-[var(--neutral-500)]">标签</span>
           <ColorChip color={color.tag} />
         </div>
       </div>
@@ -563,7 +563,7 @@ export default function ColorsPage() {
           description="同一语义在官网和后台中可以使用不同深浅，但必须保持角色一致：背景承载、文字阅读、边框分隔、行动触发。"
         />
         <div className="overflow-hidden bg-white">
-          <div className="hidden grid-cols-[150px_180px_190px_190px_minmax(0,1fr)] bg-zinc-50 px-5 py-3 text-xs font-semibold text-zinc-500 lg:grid">
+          <div className="hidden grid-cols-[150px_180px_190px_190px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--neutral-500)] lg:grid">
             <div>语义</div>
             <div>变量</div>
             <div>官网/门户</div>
@@ -590,9 +590,9 @@ export default function ColorsPage() {
           ].map(([title, token, color, usage]) => (
             <div key={title} className="bg-white p-6">
               <div className="mb-5 h-16" style={{ backgroundColor: color }} />
-              <h3 className="text-lg font-semibold text-zinc-950">{title}</h3>
-              <p className="mt-2 font-mono text-xs text-zinc-500">{token}</p>
-              <p className="mt-4 text-sm leading-6 text-zinc-600">{usage}</p>
+              <h3 className="text-lg font-semibold text-[var(--neutral-900)]">{title}</h3>
+              <p className="mt-2 font-mono text-xs text-[var(--neutral-500)]">{token}</p>
+              <p className="mt-4 text-sm leading-6 text-[var(--neutral-600)]">{usage}</p>
             </div>
           ))}
         </div>
@@ -608,8 +608,8 @@ export default function ColorsPage() {
           <div>
             <div className="mb-4 flex items-end justify-between gap-6">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Brand</p>
-                <h3 className="mt-2 text-2xl font-semibold text-zinc-950">品牌红色阶</h3>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Brand</p>
+                <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">品牌红色阶</h3>
               </div>
               <span className="h-2 w-2 bg-[#FF112D]" />
             </div>
@@ -621,8 +621,8 @@ export default function ColorsPage() {
           <div>
             <div className="mb-4 flex items-end justify-between gap-6">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Product</p>
-                <h3 className="mt-2 text-2xl font-semibold text-zinc-950">产品蓝色阶</h3>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Product</p>
+                <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">产品蓝色阶</h3>
               </div>
               <span className="h-2 w-2 bg-[var(--product-blue-500)]" />
             </div>
@@ -634,10 +634,10 @@ export default function ColorsPage() {
           <div>
             <div className="mb-4 flex items-end justify-between gap-6">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Neutral</p>
-                <h3 className="mt-2 text-2xl font-semibold text-zinc-950">中性灰色阶</h3>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Neutral</p>
+                <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">中性灰色阶</h3>
               </div>
-              <span className="h-2 w-2 bg-zinc-900" />
+              <span className="h-2 w-2 bg-[var(--neutral-900)]" />
             </div>
             <div className="overflow-x-auto bg-white p-4">
               <ColorScaleGrid colors={neutralColors} className="min-w-[980px]" />
@@ -677,12 +677,12 @@ export default function ColorsPage() {
           <BarChartExample />
         </div>
 
-        <div className="mt-6 bg-zinc-50 p-5">
-          <h3 className="mb-3 text-base font-semibold text-zinc-950">数据色使用原则</h3>
-          <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-zinc-700 md:grid-cols-3">
-            <p><span className="font-semibold text-zinc-950">顺序稳定：</span>同一业务指标在不同图表中保持相同颜色，避免用户重新学习。</p>
-            <p><span className="font-semibold text-zinc-950">重点克制：</span>品牌红不进入普通序列，只在关键阈值、异常结果或决策点中出现。</p>
-            <p><span className="font-semibold text-zinc-950">数量控制：</span>曲线图 2-4 色、饼图 3-5 色、柱状图优先同色系深浅或少量对比色。</p>
+        <div className="mt-6 bg-[var(--neutral-50)] p-5">
+          <h3 className="mb-3 text-base font-semibold text-[var(--neutral-900)]">数据色使用原则</h3>
+          <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--neutral-700)] md:grid-cols-3">
+            <p><span className="font-semibold text-[var(--neutral-900)]">顺序稳定：</span>同一业务指标在不同图表中保持相同颜色，避免用户重新学习。</p>
+            <p><span className="font-semibold text-[var(--neutral-900)]">重点克制：</span>品牌红不进入普通序列，只在关键阈值、异常结果或决策点中出现。</p>
+            <p><span className="font-semibold text-[var(--neutral-900)]">数量控制：</span>曲线图 2-4 色、饼图 3-5 色、柱状图优先同色系深浅或少量对比色。</p>
           </div>
         </div>
       </section>
@@ -691,8 +691,8 @@ export default function ColorsPage() {
         <SectionHeading eyebrow="Guidelines" title="使用原则" />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="bg-white p-6">
-            <h3 className="mb-4 text-lg font-semibold text-zinc-950">推荐做法</h3>
-            <ul className="space-y-3 text-sm leading-6 text-zinc-700">
+            <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">推荐做法</h3>
+            <ul className="space-y-3 text-sm leading-6 text-[var(--neutral-700)]">
               <li>• 先判断色彩语义，再选择具体色阶。</li>
               <li>• 主行动优先使用 neutral-900，保持专业与稳定。</li>
               <li>• 后台功能操作使用产品蓝，帮助用户识别可交互行为。</li>
@@ -700,8 +700,8 @@ export default function ColorsPage() {
             </ul>
           </div>
           <div className="bg-white p-6">
-            <h3 className="mb-4 text-lg font-semibold text-zinc-950">避免做法</h3>
-            <ul className="space-y-3 text-sm leading-6 text-zinc-700">
+            <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">避免做法</h3>
+            <ul className="space-y-3 text-sm leading-6 text-[var(--neutral-700)]">
               <li>• 不要把品牌红当作常规后台按钮色。</li>
               <li>• 不要把产品蓝命名为次按钮，蓝色是业务色彩语义。</li>
               <li>• 不要用相近但未定义的临时色破坏 token 一致性。</li>

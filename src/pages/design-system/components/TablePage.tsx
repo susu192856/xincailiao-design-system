@@ -19,7 +19,7 @@ export default function TablePage() {
       <section>
         <SectionHeading eyebrow="Data Table" title="基础表格" />
         <ExampleCard title="数据资产列表" description="表格应保持清晰边界、稳定列宽和可预测操作入口。">
-          <div className="overflow-hidden rounded-[2px] border border-zinc-200">
+          <div className="overflow-hidden rounded-[2px] border border-[var(--neutral-200)]">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -33,7 +33,7 @@ export default function TablePage() {
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.name}>
-                    <TableCell className="font-medium text-zinc-900">{row.name}</TableCell>
+                    <TableCell className="font-medium text-[var(--neutral-900)]">{row.name}</TableCell>
                     <TableCell>{row.type}</TableCell>
                     <TableCell>
                       <Tag variant={row.status === "已发布" ? "success" : row.status === "待审核" ? "warning" : "error"} size="sm">

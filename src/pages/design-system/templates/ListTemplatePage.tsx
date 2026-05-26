@@ -81,7 +81,7 @@ export default function ListTemplatePage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2px] border border-zinc-200">
+          <div className="overflow-hidden rounded-[2px] border border-[var(--neutral-200)]">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -96,7 +96,7 @@ export default function ListTemplatePage() {
               <TableBody>
                 {dataAssets.map((item) => (
                   <TableRow key={item.name}>
-                    <TableCell className="font-medium text-zinc-900">{item.name}</TableCell>
+                    <TableCell className="font-medium text-[var(--neutral-900)]">{item.name}</TableCell>
                     <TableCell>{item.category}</TableCell>
                     <TableCell>
                       <Tag variant={statusVariant[item.status as keyof typeof statusVariant]} size="sm">
@@ -117,7 +117,7 @@ export default function ListTemplatePage() {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <p className="text-xs text-zinc-500">共 128 条数据，当前展示 1-10 条</p>
+            <p className="text-xs text-[var(--neutral-500)]">共 128 条数据，当前展示 1-10 条</p>
             <Pagination page={1} total={5} />
           </div>
         </ExampleCard>
