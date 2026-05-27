@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>新材道设计系统</title>
+  <script>
+    // GitHub Pages SPA redirect: load index.html from the same path
+    sessionStorage.redirect = location.href;
+  </script>
+  <meta http-equiv="refresh" content="0;URL='/'">
+</head>
+<body>
+  <script>
+    // Fallback: if the meta refresh didn't work
+    if (sessionStorage.redirect) {
+      location.href = '/';
+    }
+  </script>
+</body>
+</html>
