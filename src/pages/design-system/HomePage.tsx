@@ -3,8 +3,9 @@ import { Dna, StackPlus, FigmaLogo, FlowArrow } from "@phosphor-icons/react";
 import {
   Palette, TextT, Smiley, Rows, Circle, Cube, Layout,
   Square, CaretDown, Table, Cards,
-  Tag, FileText, ChartBar,
+  Tag as TagIcon, FileText, ChartBar,
 } from "@phosphor-icons/react";
+import { Tag } from "../../components/ui/Tag";
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
 
 interface CardLink {
@@ -31,7 +32,7 @@ const componentLinks: CardLink[] = [
   { title: "表格", path: "/components/table", icon: <Table size={20} weight="regular" />, desc: "组合式 Table 组件" },
   { title: "卡片", path: "/components/card", icon: <Cards size={20} weight="regular" />, desc: "Header/Content/Footer 分块" },
   { title: "弹窗", path: "/components/modal", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 20V8a2 2 0 012-2h12a2 2 0 012 2v6a2 2 0 01-2 2H8l-4 4z"/></svg>, desc: "标题/描述/内容/底部操作" },
-  { title: "标签", path: "/components/tag", icon: <Tag size={20} weight="regular" />, desc: "6 种状态色彩" },
+  { title: "标签", path: "/components/tag", icon: <TagIcon size={20} weight="regular" />, desc: "6 种状态色彩" },
   { title: "Tabs", path: "/components/tabs", icon: <FileText size={20} weight="regular" />, desc: "受控切换，支持禁用项" },
   { title: "开关", path: "/components/switch", icon: <Square size={20} weight="regular" />, desc: "切换开关" },
   { title: "复选框", path: "/components/checkbox", icon: <Square size={20} weight="regular" />, desc: "多选，支持禁用" },
@@ -79,12 +80,6 @@ function PrincipleIcon({ type }: { type: "restraint" | "clarity" | "trust" | "ef
     </svg>
   );
 }
-
-const colorRoles = [
-  { name: "品牌红", hex: "#FF112D", token: "brand-600", role: "品牌识别、关键状态、当前选中、重点强调", usage: "小面积精确使用，不做大面积铺色" },
-  { name: "产品蓝", hex: "#006DEA", token: "product-blue-500", role: "链接、信息提示、科技感辅助、交互态", usage: "不与品牌红形成高饱和冲突" },
-  { name: "中性黑", hex: "#1A1A1A", token: "neutral-900", role: "主标题、核心文本、主要操作按钮", usage: "保持高级、稳定、理性的视觉基调" },
-];
 
 const sections = [
   {
@@ -135,12 +130,12 @@ const productLayers = [
 function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="mb-6">
-      <div className="flex items-center gap-3">
-        <span className="h-4 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--neutral-400)]">{eyebrow}</p>
-          <h2 className="text-lg font-semibold text-[var(--neutral-900)]">{title}</h2>
-        </div>
+      <div>
+        <p className="ml-3.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--neutral-400)]">{eyebrow}</p>
+      </div>
+      <div className="mt-0.5 flex items-center gap-3">
+        <span className="h-5 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
+        <h2 className="text-lg font-semibold leading-6 text-[var(--neutral-900)]">{title}</h2>
         <div className="h-px flex-1 bg-[var(--neutral-200)]" />
       </div>
     </div>
@@ -178,74 +173,31 @@ export default function HomePage() {
           </div>
           <div className="space-y-3">
             {[
-              ["Brand", "官网门户 / 品牌传播", "bg-[var(--brand-600)]"],
-              ["Product", "数据空间 / 材库 / AI 工具", "bg-[var(--product-blue-500)]"],
-              ["System", "后台配置 / 管理系统", "bg-[var(--neutral-900)]"],
+              ["Brand", "官网门户 / 品牌传播", "brand"],
+              ["Product", "数据空间 / 材库 / AI 工具", "product"],
+              ["System", "后台配置 / 管理系统", "product"],
             ].map(([title, description, color]) => (
-              <div key={title} className="flex items-center gap-3 rounded-sm bg-[var(--neutral-50)] px-3 py-3.5">
-                <span className={`h-3 w-3 flex-shrink-0 ${color}`} />
-                <div>
+              <div key={title} className="flex items-start gap-3 rounded-sm bg-white px-3 py-3.5">
+                <div className="min-w-0 flex-1">
                   <div className="font-mono text-xs text-[var(--neutral-500)]">{title}</div>
                   <div className="mt-0.5 text-sm font-medium text-[var(--neutral-900)]">{description}</div>
                 </div>
+                {color === "brand" ? (
+                  <span className="mt-[22px] grid h-1.5 w-8 flex-shrink-0 grid-cols-2 overflow-hidden">
+                    <span className="bg-[var(--neutral-900)]" />
+                    <span className="bg-[var(--brand-600)]" />
+                  </span>
+                ) : color === "product" ? (
+                  <span className="mt-[22px] grid h-1.5 w-8 flex-shrink-0 grid-cols-2 overflow-hidden">
+                    <span className="bg-[var(--neutral-900)]" />
+                    <span className="bg-[var(--product-blue-500)]" />
+                  </span>
+                ) : (
+                  <span className={`mt-[22px] h-1.5 w-8 flex-shrink-0 ${color}`} />
+                )}
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Brand Color Roles */}
-      <section>
-        <SectionHeader eyebrow="Color Roles" title="色彩角色" />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {colorRoles.map((c) => (
-            <div key={c.name} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <div className="mb-4 flex items-center gap-3">
-                <span className="h-6 w-6 rounded-sm" style={{ backgroundColor: c.hex }} />
-                <div>
-                  <p className="text-sm font-semibold text-[var(--neutral-900)]">{c.name}</p>
-                  <p className="font-mono text-[10px] text-[var(--neutral-500)]">{c.token} · {c.hex}</p>
-                </div>
-              </div>
-              <p className="mb-2 text-xs leading-5 text-[var(--neutral-700)]">{c.role}</p>
-              <p className="text-xs text-[var(--neutral-500)]">{c.usage}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Design Tokens */}
-      <section>
-        <SectionHeader eyebrow="Tokens" title="设计 Token" />
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {tokenLinks.map((link) => (
-            <Link key={link.path} to={link.path} className="group rounded-sm border border-[var(--neutral-200)] bg-white p-5 transition-colors hover:border-[var(--neutral-300)]">
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
-                {link.icon}
-              </div>
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{link.title}</h3>
-              <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{link.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* UI Components */}
-      <section>
-        <SectionHeader eyebrow="Components" title="UI 组件" />
-        <p className="-mt-5 mb-6 text-sm leading-7 text-[var(--neutral-600)]">
-          当前共 14 个基础组件。开发用 Vue 3 实现，设计师在 Figma 中保持对应。
-        </p>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {componentLinks.map((link) => (
-            <Link key={link.path} to={link.path} className="group rounded-sm border border-[var(--neutral-200)] bg-white p-5 transition-colors hover:border-[var(--neutral-300)]">
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
-                {link.icon}
-              </div>
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{link.title}</h3>
-              <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{link.desc}</p>
-            </Link>
-          ))}
         </div>
       </section>
 
@@ -277,13 +229,59 @@ export default function HomePage() {
               <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{layer.feature}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {layer.products.map((product) => (
-                  <span key={product} className="rounded-sm border border-[var(--neutral-200)] bg-[var(--neutral-50)] px-2 py-0.5 text-[10px] text-[var(--neutral-600)]">
+                  <Tag key={product} variant="brand" size="sm">
                     {product}
-                  </span>
+                  </Tag>
                 ))}
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Index */}
+      <section>
+        <SectionHeader eyebrow="Index" title="索引" />
+        <div className="space-y-6">
+          <div>
+            <div className="mb-3 flex items-center justify-between gap-4">
+              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">设计 Token</h3>
+              <p className="text-xs text-[var(--neutral-500)]">颜色、字体、图标、间距、圆角、阴影与布局</p>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {tokenLinks.map((link) => (
+                <Link key={link.path} to={link.path} className="group flex items-start gap-3 rounded-sm border border-[var(--neutral-200)] bg-white p-3.5 transition-colors hover:border-[var(--neutral-300)]">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
+                    {link.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-semibold leading-5 text-[var(--neutral-900)]">{link.title}</h3>
+                    <p className="mt-0.5 text-xs leading-4 text-[var(--neutral-500)]">{link.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-3 flex items-center justify-between gap-4">
+              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">UI 组件</h3>
+              <p className="text-xs text-[var(--neutral-500)]">当前共 14 个基础组件，作为开发与 Figma 同步的组件入口</p>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {componentLinks.map((link) => (
+                <Link key={link.path} to={link.path} className="group flex items-start gap-3 rounded-sm border border-[var(--neutral-200)] bg-white p-3.5 transition-colors hover:border-[var(--neutral-300)]">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
+                    {link.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-semibold leading-5 text-[var(--neutral-900)]">{link.title}</h3>
+                    <p className="mt-0.5 text-xs leading-4 text-[var(--neutral-500)]">{link.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

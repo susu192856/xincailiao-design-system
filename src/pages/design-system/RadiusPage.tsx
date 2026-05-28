@@ -104,7 +104,7 @@ export default function RadiusPage() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {radiusTokens.map((item) => (
-            <div key={item.variable} className="bg-white p-5">
+            <div key={item.variable} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
               <div
                 className="mb-4 h-24 bg-[var(--neutral-50)]"
                 style={{ borderRadius: `var(${item.variable})` }}
@@ -118,7 +118,7 @@ export default function RadiusPage() {
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="使用建议" />
-        <div className="bg-white p-6">
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
             <li>• 交互控件（按钮、输入框、选择器、标签）统一使用 <strong>radius-sm (2px)</strong>，保持工业数据产品的精确感。</li>
             <li>• 容器层（卡片、弹窗）使用 <strong>radius-md (4px)</strong> 或 <strong>radius-lg (8px)</strong>，层级越高圆角越大。</li>

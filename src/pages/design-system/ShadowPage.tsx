@@ -102,7 +102,7 @@ export default function ShadowPage() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {shadows.map((shadow, idx) => (
-            <div key={idx} className="bg-white p-6">
+            <div key={idx} className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
               <p className="mb-1 text-xs font-semibold text-[var(--neutral-900)]">{shadow.name}</p>
               <p className="mb-4 text-xs text-[var(--neutral-600)]">
                 {shadow.elevation} · {shadow.blur}
@@ -139,7 +139,7 @@ export default function ShadowPage() {
         />
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               默认卡片（Shadow/SM）
             </h3>
@@ -162,7 +162,7 @@ export default function ShadowPage() {
             </p>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               悬停卡片（Shadow/MD）
             </h3>
@@ -174,7 +174,7 @@ export default function ShadowPage() {
               <p className="mb-4 text-sm text-[var(--neutral-600)]">
                 鼠标悬停时从 Shadow/SM 提升到 Shadow/MD，提供视觉反馈，增强交互感知。
               </p>
-              <div className="flex items-center gap-2 text-xs text-blue-600">
+              <div className="flex items-center gap-2 text-xs text-[var(--product-blue-500)]">
                 <span>查看详情</span>
                 <span>→</span>
               </div>
@@ -184,7 +184,7 @@ export default function ShadowPage() {
             </p>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               强调卡片（Shadow/LG）
             </h3>
@@ -216,7 +216,7 @@ export default function ShadowPage() {
             </p>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               模态框（Shadow/XL）
             </h3>
@@ -247,7 +247,7 @@ export default function ShadowPage() {
         <SectionHeading eyebrow="Principles" title="阴影使用原则" />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">官网/门户场景</h3>
             <div className="space-y-3.5 text-sm text-[var(--neutral-700)]">
               <div>
@@ -269,7 +269,7 @@ export default function ShadowPage() {
             </div>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">后台/B端场景</h3>
             <div className="space-y-3.5 text-sm text-[var(--neutral-700)]">
               <div>
@@ -296,38 +296,38 @@ export default function ShadowPage() {
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <div className="bg-white p-5">
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
           <ul className="space-y-3 text-sm text-[var(--neutral-700)]">
             <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-blue-600">•</span>
+              <span className="shrink-0 font-semibold text-[var(--product-blue-500)]">•</span>
               <div>
                 <span className="font-semibold text-[var(--neutral-900)]">保持一致性：</span>
                 同类组件使用相同等级阴影，避免同一页面出现过多阴影等级
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-blue-600">•</span>
+              <span className="shrink-0 font-semibold text-[var(--product-blue-500)]">•</span>
               <div>
                 <span className="font-semibold text-[var(--neutral-900)]">层级递进：</span>
                 从无阴影到 XS/SM/MD，逐级提升，避免跨越式使用（如从无阴影直接跳到 LG）
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-blue-600">•</span>
+              <span className="shrink-0 font-semibold text-[var(--product-blue-500)]">•</span>
               <div>
                 <span className="font-semibold text-[var(--neutral-900)]">交互反馈：</span>
                 悬停状态可提升1-2个等级（如 SM→MD），按下状态可降低或移除阴影
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-blue-600">•</span>
+              <span className="shrink-0 font-semibold text-[var(--product-blue-500)]">•</span>
               <div>
                 <span className="font-semibold text-[var(--neutral-900)]">浅色背景优先：</span>
                 阴影在浅色背景下效果最佳，深色背景下可减少不透明度或使用描边
               </div>
             </li>
             <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-blue-600">•</span>
+              <span className="shrink-0 font-semibold text-[var(--product-blue-500)]">•</span>
               <div>
                 <span className="font-semibold text-[var(--neutral-900)]">性能考虑：</span>
                 避免在列表中大量使用 XL/2XL 阴影，优先使用 SM/MD 确保渲染性能

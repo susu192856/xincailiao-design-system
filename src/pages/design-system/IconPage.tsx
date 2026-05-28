@@ -275,7 +275,7 @@ export default function IconPage() {
               href="https://phosphoricons.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-sm text-blue-600 hover:text-blue-700"
+              className="font-mono text-sm text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
             >
               Phosphor Icons
             </a>
@@ -396,7 +396,7 @@ export default function IconPage() {
                 <DownloadSimple size={16} weight="regular" />
                 导出报告
               </button>
-              <button className="flex items-center gap-2 text-sm text-blue-600">
+              <button className="flex items-center gap-2 text-sm text-[var(--product-blue-500)]">
                 <FileText size={16} weight="regular" />
                 查看详情
               </button>
@@ -442,7 +442,7 @@ export default function IconPage() {
               href="https://phosphoricons.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-700"
+              className="text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
             >
               Phosphor Icons
             </a>{" "}

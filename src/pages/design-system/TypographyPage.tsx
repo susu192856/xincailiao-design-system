@@ -96,13 +96,13 @@ export default function TypographyPage() {
           description="字体系统以系统默认中文字体为基础，保证加载稳定、阅读清晰；关键数字使用等宽数字字体强化数据感。"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">苹果系统字体</h3>
             <p className="mb-1 text-sm text-[var(--neutral-900)]">PingFang SC</p>
             <p className="text-sm text-[var(--neutral-600)]">苹方</p>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               Windows系统字体
             </h3>
@@ -110,7 +110,7 @@ export default function TypographyPage() {
             <p className="text-sm text-[var(--neutral-600)]">微软雅黑</p>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               备用字体（免费商用）
             </h3>
@@ -118,7 +118,7 @@ export default function TypographyPage() {
             <p className="text-sm text-[var(--neutral-600)]">思源黑体</p>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               特殊数字字体（免费商用）
             </h3>
@@ -189,7 +189,7 @@ export default function TypographyPage() {
         </div>
 
         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               一、Web（官网/门户）
             </h3>
@@ -225,7 +225,7 @@ export default function TypographyPage() {
             </div>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               二、Product（后台/B端）
             </h3>
@@ -261,7 +261,7 @@ export default function TypographyPage() {
             </div>
           </div>
 
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               三、Dashboard（数据可视化）
             </h3>
@@ -297,7 +297,7 @@ export default function TypographyPage() {
           title="行高规范"
           description="标题行高控制视觉冲击，正文行高控制阅读效率。官网更强调呼吸感，后台更强调密度和稳定扫描。"
         />
-        <div className="bg-white p-5">
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
           <div className="mb-5 space-y-5 text-sm text-[var(--neutral-700)]">
             <div>
               <p className="mb-2 font-semibold text-[var(--neutral-900)]">标题类（Display / H1 / H2 / H3）</p>
@@ -338,7 +338,7 @@ export default function TypographyPage() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-green-600">✓</span>
+                  <span className="text-base font-bold text-[var(--success-text)]">✓</span>
                   <span className="ml-1 text-[var(--neutral-500)]">标题：行高 1.2（紧凑）</span>
                 </p>
                 <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
@@ -354,7 +354,7 @@ export default function TypographyPage() {
               </div>
               <div>
                 <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-red-600">✗</span>
+                  <span className="text-base font-bold text-[var(--error-text)]">✗</span>
                   <span className="ml-1 text-[var(--neutral-500)]">标题：行高 1.8（过于松散）</span>
                 </p>
                 <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
@@ -370,7 +370,7 @@ export default function TypographyPage() {
               </div>
               <div>
                 <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-green-600">✓</span>
+                  <span className="text-base font-bold text-[var(--success-text)]">✓</span>
                   <span className="ml-1 text-[var(--neutral-500)]">正文：行高 1.6（舒适）</span>
                 </p>
                 <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
@@ -381,7 +381,7 @@ export default function TypographyPage() {
               </div>
               <div>
                 <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-red-600">✗</span>
+                  <span className="text-base font-bold text-[var(--error-text)]">✗</span>
                   <span className="ml-1 text-[var(--neutral-500)]">正文：行高 1.2（过于紧凑）</span>
                 </p>
                 <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
@@ -406,7 +406,7 @@ export default function TypographyPage() {
           <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
             行长限制（Line Length）
           </h3>
-          <div className="bg-white p-5">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <p className="mb-4 text-sm text-[var(--neutral-700)]">
               过长的行宽会增加视线换行的负担，降低阅读效率。研究表明，最佳行长能够显著提升阅读速度和理解度。
             </p>
@@ -440,7 +440,7 @@ export default function TypographyPage() {
               <div className="space-y-3.5">
                 <div>
                   <p className="mb-2.5 text-xs">
-                    <span className="text-base font-bold text-green-600">✓</span>
+                    <span className="text-base font-bold text-[var(--success-text)]">✓</span>
                     <span className="ml-1 text-[var(--neutral-500)]">推荐行长（~700px）</span>
                   </p>
                   <div className="max-w-[700px] rounded-sm bg-[var(--neutral-50)] p-3.5">
@@ -451,7 +451,7 @@ export default function TypographyPage() {
                 </div>
                 <div>
                   <p className="mb-2.5 text-xs">
-                    <span className="text-base font-bold text-red-600">✗</span>
+                    <span className="text-base font-bold text-[var(--error-text)]">✗</span>
                     <span className="ml-1 text-[var(--neutral-500)]">行长过长（影响阅读）</span>
                   </p>
                   <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
@@ -468,7 +468,7 @@ export default function TypographyPage() {
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <div className="bg-white p-5">
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
           <ul className="space-y-3 text-sm text-[var(--neutral-700)]">
             <li className="flex items-start gap-3">
               <span className="shrink-0 font-semibold text-[var(--neutral-400)]">•</span>

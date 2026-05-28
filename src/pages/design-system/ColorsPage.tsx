@@ -25,6 +25,30 @@ type DataColor = {
   usage: string;
 };
 
+const colorRoles = [
+  {
+    name: "品牌红",
+    hex: "#FF112D",
+    token: "brand-600",
+    role: "品牌识别、关键状态、当前选中、重点强调",
+    usage: "小面积精确使用，不做大面积铺色",
+  },
+  {
+    name: "产品蓝",
+    hex: "#006DEA",
+    token: "product-blue-500",
+    role: "链接、信息提示、科技感辅助、交互态",
+    usage: "不与品牌红形成高饱和冲突",
+  },
+  {
+    name: "中性黑",
+    hex: "#1A1A1A",
+    token: "neutral-900",
+    role: "主标题、核心文本、主要操作按钮",
+    usage: "保持高级、稳定、理性的视觉基调",
+  },
+];
+
 function ColorChip({ color, label }: { color: string; label?: string }) {
   return (
     <div className="flex items-center gap-2">
@@ -54,7 +78,7 @@ function RoleCard({
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{eyebrow}</p>
-          <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">{title}</h3>
+          <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">{title}</h3>
           <p className="mt-3 max-w-[34rem] text-sm leading-7 text-[var(--neutral-600)]">{description}</p>
         </div>
         <span className="mt-1 h-2 w-2" style={{ backgroundColor: color }} />
@@ -176,7 +200,7 @@ function LineChartExample() {
           <line x1="64" y1="240" x2="520" y2="240" />
           <line x1="64" y1="40" x2="64" y2="240" />
         </g>
-        <g className="font-mono text-[11px] fill-zinc-500">
+        <g className="font-mono text-[11px] fill-[var(--neutral-500)]">
           <text x="34" y="52">100</text>
           <text x="40" y="148">50</text>
           <text x="47" y="244">0</text>
@@ -195,7 +219,7 @@ function LineChartExample() {
         ].map(([label, color, x]) => (
           <g key={label}>
             <rect x={Number(x)} y="24" width="10" height="10" fill={String(color)} />
-            <text x={Number(x) + 16} y="34" className="text-[11px] font-medium fill-zinc-600">{label}</text>
+            <text x={Number(x) + 16} y="34" className="text-[11px] font-medium fill-[var(--neutral-600)]">{label}</text>
           </g>
         ))}
       </svg>
@@ -240,13 +264,13 @@ function DonutChartExample() {
           <circle r="72" fill="none" stroke="#64748B" strokeWidth="28" strokeDasharray="40 452" strokeDashoffset="-422" />
         </g>
         <circle cx="168" cy="150" r="45" fill="#F7F8FA" />
-        <text x="168" y="145" textAnchor="middle" className="text-2xl font-semibold fill-zinc-950">5</text>
-        <text x="168" y="168" textAnchor="middle" className="text-xs fill-zinc-500">类数据</text>
+        <text x="168" y="145" textAnchor="middle" className="text-lg font-semibold fill-[var(--neutral-900)]">5</text>
+        <text x="168" y="168" textAnchor="middle" className="text-xs fill-[var(--neutral-500)]">类数据</text>
         {legend.map(([label, value, color], index) => (
           <g key={label} transform={`translate(310 ${74 + index * 36})`}>
             <rect width="12" height="12" fill={color} />
-            <text x="22" y="11" className="text-sm font-medium fill-zinc-700">{label}</text>
-            <text x="162" y="11" textAnchor="end" className="text-sm font-mono fill-zinc-500">{value}</text>
+            <text x="22" y="11" className="text-sm font-medium fill-[var(--neutral-700)]">{label}</text>
+            <text x="162" y="11" textAnchor="end" className="text-sm font-mono fill-[var(--neutral-500)]">{value}</text>
           </g>
         ))}
       </svg>
@@ -294,7 +318,7 @@ function BarChartExample() {
           <line x1="64" y1="242" x2="520" y2="242" />
           <line x1="64" y1="50" x2="64" y2="242" />
         </g>
-        <g className="font-mono text-[11px] fill-zinc-500">
+        <g className="font-mono text-[11px] fill-[var(--neutral-500)]">
           <text x="34" y="62">100</text>
           <text x="40" y="154">50</text>
           <text x="47" y="246">0</text>
@@ -309,7 +333,7 @@ function BarChartExample() {
         ].map(([label, x, y, h, color]) => (
           <g key={label}>
             <rect x={Number(x)} y={Number(y)} width="42" height={Number(h)} fill={String(color)} />
-            <text x={Number(x) + 21} y="270" textAnchor="middle" className="text-[11px] fill-zinc-500">{label}</text>
+            <text x={Number(x) + 21} y="270" textAnchor="middle" className="text-[11px] fill-[var(--neutral-500)]">{label}</text>
           </g>
         ))}
       </svg>
@@ -512,6 +536,31 @@ export default function ColorsPage() {
 
       <section>
         <SectionHeading
+          eyebrow="Color Roles"
+          title="色彩角色"
+          description="色彩角色用于快速建立颜色的业务分工：品牌红负责识别与关键节点，产品蓝负责功能交互，中性灰负责阅读秩序。"
+        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {colorRoles.map((color) => (
+            <div key={color.name} className="bg-white p-5">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="h-6 w-6 rounded-sm" style={{ backgroundColor: color.hex }} />
+                <div>
+                  <p className="text-sm font-semibold text-[var(--neutral-900)]">{color.name}</p>
+                  <p className="font-mono text-[10px] text-[var(--neutral-500)]">
+                    {color.token} · {color.hex}
+                  </p>
+                </div>
+              </div>
+              <p className="mb-2 text-xs leading-5 text-[var(--neutral-700)]">{color.role}</p>
+              <p className="text-xs text-[var(--neutral-500)]">{color.usage}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           eyebrow="Color Semantics"
           title="色彩语义模型"
           description="不要先从“好看”选择颜色，而要先判断颜色承担的业务语义：品牌识别、产品功能、信息层级或状态反馈。"
@@ -609,7 +658,7 @@ export default function ColorsPage() {
             <div className="mb-4 flex items-end justify-between gap-6">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Brand</p>
-                <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">品牌红色阶</h3>
+                <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">品牌红色阶</h3>
               </div>
               <span className="h-2 w-2 bg-[var(--brand-600)]" />
             </div>
@@ -622,7 +671,7 @@ export default function ColorsPage() {
             <div className="mb-4 flex items-end justify-between gap-6">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Product</p>
-                <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">产品蓝色阶</h3>
+                <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">产品蓝色阶</h3>
               </div>
               <span className="h-2 w-2 bg-[var(--product-blue-500)]" />
             </div>
@@ -635,7 +684,7 @@ export default function ColorsPage() {
             <div className="mb-4 flex items-end justify-between gap-6">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">Neutral</p>
-                <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">中性灰色阶</h3>
+                <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">中性灰色阶</h3>
               </div>
               <span className="h-2 w-2 bg-[var(--neutral-900)]" />
             </div>

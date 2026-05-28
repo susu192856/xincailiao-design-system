@@ -20,14 +20,15 @@ function SectionHeading({
 }) {
   return (
     <div className="mb-8">
-      <div className="mb-4 flex items-end justify-between gap-6">
-        <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
-            {eyebrow}
-          </p>
-          <h2 className="text-3xl font-semibold text-[var(--neutral-900)]">{title}</h2>
+      <div className="mb-4">
+        <p className="ml-3.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--neutral-400)]">
+          {eyebrow}
+        </p>
+        <div className="mt-0.5 flex items-center gap-3">
+          <span className="h-5 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
+          <h2 className="text-lg font-semibold leading-6 text-[var(--neutral-900)]">{title}</h2>
+          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
         </div>
-        <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
       </div>
       {description ? (
         <p className="max-w-4xl text-sm leading-7 text-[var(--neutral-600)]">{description}</p>
@@ -259,7 +260,7 @@ export default function LayoutPage() {
               <div className="mb-6 flex items-start justify-between gap-5">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{strategy.eyebrow}</p>
-                  <h3 className="mt-2 text-2xl font-semibold text-[var(--neutral-900)]">{strategy.title}</h3>
+                  <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">{strategy.title}</h3>
                   <p className="mt-3 max-w-xl text-sm leading-7 text-[var(--neutral-600)]">{strategy.summary}</p>
                 </div>
                 <span className={`mt-1 h-2 w-2 ${strategy.title === "官网/门户" ? "bg-[var(--brand-600)]" : "bg-[var(--product-blue-500)]"}`} />

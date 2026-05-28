@@ -111,7 +111,7 @@ export default function SpacingPage() {
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {spacingTokens.map((item) => (
-            <div key={item.variable} className="bg-white p-5">
+            <div key={item.variable} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
               <div className="mb-4 flex h-12 items-center rounded-sm bg-[var(--neutral-50)] px-4">
                 <div
                   className="h-3 bg-[var(--neutral-400)]"
@@ -127,7 +127,7 @@ export default function SpacingPage() {
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="使用建议" />
-        <div className="bg-white p-6">
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
             <li>• 组件内部优先使用 spacing-xs、spacing-sm、spacing-md。</li>
             <li>• 内容模块内部使用 spacing-lg，页面区块之间使用 spacing-xl 或 spacing-2xl。</li>
