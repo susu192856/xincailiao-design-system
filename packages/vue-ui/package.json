@@ -1,0 +1,14 @@
+{
+  "name": "@xincailiao/vue-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "新材道设计系统 Vue 3 组件源码包",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  }
+}

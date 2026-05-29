@@ -1,0 +1,9 @@
+@import "../../../src/styles/tokens.css";
+
+:where(.xc-button, .xc-input, .xc-tag, .xc-card, .xc-select, .xc-tabs, .xc-pagination, .xc-table) {
+  box-sizing: border-box;
+  font-family:
+    "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
