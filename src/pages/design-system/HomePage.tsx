@@ -7,7 +7,6 @@ import {
 } from "@phosphor-icons/react";
 import { Tag } from "../../components/ui/Tag";
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
-import heroBg from "../../assets/hero-bg.png";
 
 interface CardLink {
   title: string;
@@ -144,12 +143,8 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-sm border border-[var(--neutral-200)] bg-white">
-        <div className="absolute inset-0 z-0 opacity-[0.04]">
-          <img src={heroBg} alt="" className="h-full w-full object-cover" aria-hidden="true" />
-        </div>
-        <div className="absolute inset-0 z-0 bg-gradient-to-r from-white via-white/95 to-white/80" />
-        <div className="relative z-10 grid min-h-[320px] grid-cols-1 items-center gap-10 p-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+      <section className="relative overflow-hidden">
+        <div className="relative z-10 grid min-h-[320px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div>
           <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
