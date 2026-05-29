@@ -4,17 +4,12 @@
   <meta charset="utf-8">
   <title>新材道设计系统</title>
   <script>
-    // GitHub Pages SPA redirect: load index.html from the same path
-    sessionStorage.redirect = location.href;
+    var repoBase = '/xincailiao-design-system';
+    var currentPath = location.pathname + location.search + location.hash;
+    sessionStorage.setItem('xincailiao-design-system-redirect', currentPath);
+    location.replace(repoBase + '/');
   </script>
-  <meta http-equiv="refresh" content="0;URL='/'">
 </head>
 <body>
-  <script>
-    // Fallback: if the meta refresh didn't work
-    if (sessionStorage.redirect) {
-      location.href = '/';
-    }
-  </script>
 </body>
 </html>
