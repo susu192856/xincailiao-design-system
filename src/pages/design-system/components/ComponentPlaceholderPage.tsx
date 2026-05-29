@@ -15,9 +15,6 @@ export default function ComponentPlaceholderPage({
 
       <section>
         <div className="bg-white p-6">
-          <div className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[var(--neutral-500)]">
-            COMPONENT SPEC
-          </div>
           <h2 className="mb-3 text-xl font-semibold text-[var(--neutral-900)]">
             组件规范待补齐
           </h2>

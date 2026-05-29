@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
 export function SectionHeading({
-  eyebrow,
   title,
   description,
 }: {
@@ -12,10 +11,7 @@ export function SectionHeading({
   return (
     <div className="mb-8">
       <div className="mb-4">
-        <p className="ml-3.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--neutral-400)]">
-          {eyebrow}
-        </p>
-        <div className="mt-0.5 flex items-center gap-3">
+        <div className="flex items-center gap-3">
           <span className="h-5 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
           <h2 className="text-lg font-semibold leading-6 text-[var(--neutral-900)]">{title}</h2>
           <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
