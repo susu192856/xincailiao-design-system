@@ -1,25 +1,98 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 type TabItem = {
   value: string;
-  label: string;
-  content: ReactNode;
+  label: ReactNode;
+  content?: ReactNode;
   disabled?: boolean;
+  badge?: ReactNode;
+  icon?: ReactNode;
 };
 
-type TabsProps = {
+export type TabsProps = {
   items: TabItem[];
-  value: string;
+  value?: string;
+  defaultValue?: string;
   onValueChange?: (value: string) => void;
+  variant?: "line" | "card" | "segment";
+  size?: "sm" | "md";
   className?: string;
+  listClassName?: string;
+  panelClassName?: string;
 };
 
-export function Tabs({ items, value, onValueChange, className = "" }: TabsProps) {
-  const activeItem = items.find((item) => item.value === value) ?? items[0];
+const sizeClass = {
+  sm: "px-3 py-1.5 text-xs",
+  md: "px-4 py-2 text-sm",
+};
+
+function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean, size: NonNullable<TabsProps["size"]>) {
+  const base = [
+    "inline-flex items-center gap-1.5 whitespace-nowrap transition-colors",
+    "disabled:cursor-not-allowed disabled:opacity-50",
+    sizeClass[size],
+  ];
+
+  if (variant === "card") {
+    base.push(
+      "border border-[var(--neutral-200)]",
+      active
+        ? "bg-white text-[var(--neutral-900)]"
+        : "bg-[var(--neutral-50)] text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
+    );
+  } else if (variant === "segment") {
+    base.push(
+      "rounded-sm",
+      active
+        ? "bg-white text-[var(--neutral-900)] shadow-[var(--shadow-xs)]"
+        : "text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
+    );
+  } else {
+    base.push(
+      "border-b-2",
+      active
+        ? "border-[var(--neutral-900)] text-[var(--neutral-900)]"
+        : "border-transparent text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
+    );
+  }
+
+  return base.join(" ");
+}
+
+export function Tabs({
+  items,
+  value,
+  defaultValue,
+  onValueChange,
+  variant = "line",
+  size = "md",
+  className = "",
+  listClassName = "",
+  panelClassName = "",
+}: TabsProps) {
+  const [internalValue, setInternalValue] = useState(defaultValue ?? items[0]?.value ?? "");
+  const currentValue = value ?? internalValue;
+  const activeItem = items.find((item) => item.value === currentValue) ?? items[0];
+
+  function handleChange(nextValue: string) {
+    if (value === undefined) {
+      setInternalValue(nextValue);
+    }
+    onValueChange?.(nextValue);
+  }
 
   return (
     <div className={className}>
-      <div className="flex border-b border-[var(--neutral-200)]">
+      <div
+        className={[
+          "flex overflow-x-auto",
+          variant === "line" ? "border-b border-[var(--neutral-200)]" : "",
+          variant === "segment" ? "w-fit rounded-sm bg-[var(--neutral-100)] p-1" : "",
+          variant === "card" ? "gap-1" : "",
+          listClassName,
+        ].join(" ")}
+        role="tablist"
+      >
         {items.map((item) => {
           const active = item.value === activeItem.value;
           return (
@@ -27,20 +100,19 @@ export function Tabs({ items, value, onValueChange, className = "" }: TabsProps)
               key={item.value}
               type="button"
               disabled={item.disabled}
-              onClick={() => onValueChange?.(item.value)}
-              className={[
-                "border-b-2 px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50",
-                active
-                  ? "border-[var(--neutral-900)] text-[var(--neutral-900)]"
-                  : "border-transparent text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
-              ].join(" ")}
+              onClick={() => handleChange(item.value)}
+              className={getTabClass(variant, active, size)}
+              role="tab"
+              aria-selected={active}
             >
+              {item.icon}
               {item.label}
+              {item.badge ? <span className="text-[11px] text-[var(--neutral-500)]">{item.badge}</span> : null}
             </button>
           );
         })}
       </div>
-      <div className="pt-4">{activeItem.content}</div>
+      {activeItem?.content ? <div className={["pt-4", panelClassName].join(" ")}>{activeItem.content}</div> : null}
     </div>
   );
 }

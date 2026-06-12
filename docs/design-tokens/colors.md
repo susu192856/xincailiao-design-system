@@ -48,6 +48,18 @@
 | `--info-text` | `#006DEA` | 信息文字 |
 | `--info-bg` | `#DBEAFE` | 信息背景 |
 | `--info-tag` | `#BFDBFE` | 信息标签 |
+| `--data-01` | `#006DEA` | 主数据序列 |
+| `--data-02` | `#14B8A6` | 对比序列 |
+| `--data-03` | `#8B5CF6` | 模型/算法 |
+| `--data-04` | `#F59E0B` | 警戒/阈值 |
+| `--data-05` | `#10B981` | 增长/完成 |
+| `--data-06` | `#EF4444` | 风险/异常 |
+| `--data-07` | `#64748B` | 基准/其他 |
+| `--data-08` | `#0EA5E9` | 辅助蓝 |
+| `--data-09` | `#A855F7` | 辅助紫 |
+| `--data-10` | `#84CC16` | 正向辅助 |
+| `--data-11` | `#F97316` | 热度/阶段 |
+| `--data-12` | `#475569` | 低强调序列 |
 
 ## CSS 使用方式
 
@@ -143,4 +155,28 @@
 <span style="display:inline-block;width:16px;height:16px;background:#DBEAFE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-bg` = #DBEAFE
 
 <span style="display:inline-block;width:16px;height:16px;background:#BFDBFE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-tag` = #BFDBFE
+
+<span style="display:inline-block;width:16px;height:16px;background:#006DEA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-01` = #006DEA
+
+<span style="display:inline-block;width:16px;height:16px;background:#14B8A6;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-02` = #14B8A6
+
+<span style="display:inline-block;width:16px;height:16px;background:#8B5CF6;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-03` = #8B5CF6
+
+<span style="display:inline-block;width:16px;height:16px;background:#F59E0B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-04` = #F59E0B
+
+<span style="display:inline-block;width:16px;height:16px;background:#10B981;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-05` = #10B981
+
+<span style="display:inline-block;width:16px;height:16px;background:#EF4444;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-06` = #EF4444
+
+<span style="display:inline-block;width:16px;height:16px;background:#64748B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-07` = #64748B
+
+<span style="display:inline-block;width:16px;height:16px;background:#0EA5E9;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-08` = #0EA5E9
+
+<span style="display:inline-block;width:16px;height:16px;background:#A855F7;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-09` = #A855F7
+
+<span style="display:inline-block;width:16px;height:16px;background:#84CC16;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-10` = #84CC16
+
+<span style="display:inline-block;width:16px;height:16px;background:#F97316;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-11` = #F97316
+
+<span style="display:inline-block;width:16px;height:16px;background:#475569;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-12` = #475569
 

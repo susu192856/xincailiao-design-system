@@ -22,3 +22,10 @@
 }
 ```
 
+## 使用规则
+
+- 普通卡片、表格容器、页面分区默认不使用阴影，优先使用白底、1px 中性边框和间距建立层级。
+- `--shadow-xs` / `--shadow-sm` 用于按钮悬停、输入框聚焦、可点击卡片等轻交互反馈。
+- `--shadow-md` / `--shadow-lg` 用于 Dropdown、Popover、Tooltip、Drawer 等脱离页面流的浮层。
+- `--shadow-xl` / `--shadow-2xl` 仅用于 Modal、全屏预览、重要确认等最高层级任务。
+- 不要在列表和后台数据卡片中大面积使用 `--shadow-xl` 或 `--shadow-2xl`。

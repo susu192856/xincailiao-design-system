@@ -33,3 +33,12 @@
 - Figma 目前只有 Token 导入文件，组件同步仍需手动或后续用 Figma API 生成。
 - 组件测试还没有覆盖交互行为、可访问性和视觉回归。
 - 变更记录尚未建立，后续建议增加 `CHANGELOG.md`。
+
+## 专业度审计
+
+后续优化基础规范页和组件页时，先阅读：
+
+- `docs/DESIGN_SYSTEM_PROFESSIONAL_REVIEW.md`
+- `docs/COMPONENT_DELIVERY_AUDIT.md`
+
+前者用于判断视觉专业度、业务场景和规则完整性；后者用于确认组件在网页、React、Vue、Figma 清单和 Markdown 文档中的交付链路是否完整。

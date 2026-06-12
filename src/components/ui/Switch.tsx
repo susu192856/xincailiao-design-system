@@ -1,7 +1,10 @@
 import type { InputHTMLAttributes } from "react";
 
-type SwitchProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> & {
+export type SwitchProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> & {
   label?: string;
+  description?: string;
+  helperText?: string;
+  error?: string;
   size?: "sm" | "md";
 };
 
@@ -20,25 +23,55 @@ const translateX = {
   md: "peer-checked:translate-x-5",
 };
 
-export function Switch({ label, size = "md", disabled, className = "", id, ...props }: SwitchProps) {
+export function Switch({
+  label,
+  description,
+  helperText,
+  error,
+  size = "md",
+  disabled,
+  className = "",
+  id,
+  ...props
+}: SwitchProps) {
   const switchId = id ?? props.name;
 
   return (
-    <label className={["inline-flex items-center gap-3", disabled ? "cursor-not-allowed" : "cursor-pointer", className].join(" ")}>
-      <span className="relative">
-        <input type="checkbox" id={switchId} disabled={disabled} className="peer sr-only" role="switch" {...props} />
-        <span className={[
-          "block rounded-full bg-[var(--neutral-300)] transition-colors peer-checked:bg-[var(--product-blue-500)]",
-          "peer-disabled:opacity-40 peer-disabled:cursor-not-allowed",
-          trackSizes[size],
-        ].join(" ")} />
-        <span className={[
-          "absolute left-0.5 top-0.5 rounded-full bg-white transition-transform",
-          thumbSizes[size],
-          translateX[size],
-        ].join(" ")} />
-      </span>
-      {label ? <span className="text-sm text-[var(--neutral-700)]">{label}</span> : null}
-    </label>
+    <div className={className}>
+      <label className={["inline-flex items-start gap-3", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
+        <span className="relative mt-0.5 shrink-0">
+          <input
+            type="checkbox"
+            id={switchId}
+            disabled={disabled}
+            aria-invalid={error ? true : undefined}
+            className="peer sr-only"
+            role="switch"
+            {...props}
+          />
+          <span className={[
+            "block rounded-full transition-colors peer-checked:bg-[var(--product-blue-500)]",
+            error ? "bg-[var(--error-bg)] ring-1 ring-[var(--error-border)]" : "bg-[var(--neutral-300)]",
+            "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-400)]",
+            "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",
+            trackSizes[size],
+          ].join(" ")} />
+          <span className={[
+            "absolute left-0.5 top-0.5 rounded-full bg-white transition-transform",
+            thumbSizes[size],
+            translateX[size],
+          ].join(" ")} />
+        </span>
+        <span className="min-w-0">
+          {label ? <span className="block text-sm text-[var(--neutral-800)]">{label}</span> : null}
+          {description ? <span className="mt-1 block text-xs leading-5 text-[var(--neutral-500)]">{description}</span> : null}
+        </span>
+      </label>
+      {error ? (
+        <p className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
+      ) : helperText ? (
+        <p className="mt-1.5 text-xs leading-5 text-[var(--neutral-500)]">{helperText}</p>
+      ) : null}
+    </div>
   );
 }

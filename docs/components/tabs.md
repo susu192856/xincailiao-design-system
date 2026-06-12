@@ -1,24 +1,69 @@
-# 标签页 Tabs
+# 菜单标签页 Tabs
 
-> 用于在同一区域内切换不同视图。
+> 用于在同一区域切换平级内容，适合详情分区、数据视图和配置面板。
+
+- 规范页面：`/components/tabs`
+- React 源码：`src/components/ui/Tabs.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcTabs.vue`
+- Figma 组件名：`Tabs`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `items` | `TabItem[]` | `[]` | 标签项 { value, label, content, disabled? } |
-| `value` | `string` | `—` | 当前激活值（受控） |
-| `onValueChange` | `function` | `—` | 切换回调 |
+| `variant` | `string` | `default` | 组件视觉层级或结构类型。 |
+| `size` | `string` | `md` | 组件尺寸，需匹配官网或后台场景。 |
+| `items` | `array` | `—` | 组件条目数据。 |
+| `activeKey` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
+
+## 组件属性
+
+### Variants
+
+- `line`
+- `card`
+- `segment`
+
+### Tones
+
+- `neutral`
+- `product`
+
+### Sizes
+
+- `sm`
+- `md`
+- `lg`
+
+### States
+
+- `default`
+- `active`
+- `hover`
+- `disabled`
+- `with-icon`
+- `with-badge`
+
 
 ## 使用指南
 
-### 推荐做法
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ Tabs 数量控制在 3-7 个，超过建议用 dropdown 收纳
+## Vue 3 引用示例
 
-### 避免做法
+```ts
+import { XcTabs } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
+```
 
-- ❌ 不要嵌套 Tabs，会导致视觉混乱
+## Figma 同步要求
+
+- Figma 组件命名使用 `Tabs`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 

@@ -19,7 +19,7 @@
 import { computed } from "vue";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "text";
-type ButtonTone = "neutral" | "product" | "brand" | "danger";
+type ButtonTone = "neutral" | "product" | "brand" | "danger" | "success" | "warning";
 type ButtonSize = "sm" | "md" | "lg" | "xl" | "2xl";
 type ButtonType = "button" | "submit" | "reset";
 
@@ -62,7 +62,7 @@ const buttonClasses = computed(() => [
   gap: 8px;
   border: 0;
   border-radius: var(--radius-sm);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
@@ -143,6 +143,24 @@ const buttonClasses = computed(() => [
   background: #dc2626;
 }
 
+.xc-button--solid.xc-button--success {
+  background: var(--success-text);
+  color: #fff;
+}
+
+.xc-button--solid.xc-button--success:hover:not(:disabled) {
+  background: #059669;
+}
+
+.xc-button--solid.xc-button--warning {
+  background: var(--warning-text);
+  color: #fff;
+}
+
+.xc-button--solid.xc-button--warning:hover:not(:disabled) {
+  background: #d97706;
+}
+
 .xc-button--outline {
   border: 1px solid currentColor;
   background: #fff;
@@ -168,6 +186,16 @@ const buttonClasses = computed(() => [
   color: var(--error-text);
 }
 
+.xc-button--outline.xc-button--success,
+.xc-button--text.xc-button--success {
+  color: var(--success-text);
+}
+
+.xc-button--outline.xc-button--warning,
+.xc-button--text.xc-button--warning {
+  color: var(--warning-text);
+}
+
 .xc-button--outline.xc-button--neutral:hover:not(:disabled),
 .xc-button--text.xc-button--neutral:hover:not(:disabled) {
   background: var(--neutral-50);
@@ -186,6 +214,16 @@ const buttonClasses = computed(() => [
 .xc-button--outline.xc-button--danger:hover:not(:disabled),
 .xc-button--text.xc-button--danger:hover:not(:disabled) {
   background: var(--error-bg);
+}
+
+.xc-button--outline.xc-button--success:hover:not(:disabled),
+.xc-button--text.xc-button--success:hover:not(:disabled) {
+  background: var(--success-bg);
+}
+
+.xc-button--outline.xc-button--warning:hover:not(:disabled),
+.xc-button--text.xc-button--warning:hover:not(:disabled) {
+  background: var(--warning-bg);
 }
 
 .xc-button--ghost.xc-button--neutral {
@@ -222,6 +260,24 @@ const buttonClasses = computed(() => [
 
 .xc-button--ghost.xc-button--danger:hover:not(:disabled) {
   background: var(--error-tag);
+}
+
+.xc-button--ghost.xc-button--success {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.xc-button--ghost.xc-button--success:hover:not(:disabled) {
+  background: var(--success-tag);
+}
+
+.xc-button--ghost.xc-button--warning {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.xc-button--ghost.xc-button--warning:hover:not(:disabled) {
+  background: var(--warning-tag);
 }
 
 .xc-button--text {

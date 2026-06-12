@@ -1,24 +1,67 @@
 # 开关 Switch
 
-> 用于切换开关状态，常用于功能启停、权限开关等二选一场景。
+> 用于即时启停类二元状态，适合权限、配置和功能开关。
+
+- 规范页面：`/components/switch`
+- React 源码：`src/components/ui/Switch.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcSwitch.vue`
+- Figma 组件名：`Switch`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `label` | `string` | `—` | 标签文字 |
-| `size` | `'sm' | 'md'` | `'md'` | 尺寸 |
-| `disabled` | `boolean` | `false` | 禁用 |
+| `checked` | `boolean` | `false` | 当前是否选中。 |
+| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
+| `error` | `boolean | string` | `—` | 错误状态或错误提示。 |
+| `size` | `string` | `md` | 组件尺寸，需匹配官网或后台场景。 |
+| `label` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+
+## 组件属性
+
+### Variants
+
+- `basic`
+- `with-label`
+
+### Tones
+
+- `neutral`
+- `product`
+- `danger`
+
+### Sizes
+
+- `sm`
+- `md`
+
+### States
+
+- `off`
+- `on`
+- `error`
+- `disabled`
+- `disabled-on`
+
 
 ## 使用指南
 
-### 推荐做法
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ Switch 用于二选一场景，不需要额外的确认按钮
+## Vue 3 引用示例
 
-### 避免做法
+```ts
+import { XcSwitch } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
+```
 
-- ❌ 不要用 Switch 代替提交操作，它应该立即生效
+## Figma 同步要求
+
+- Figma 组件命名使用 `Switch`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 

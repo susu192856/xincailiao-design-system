@@ -66,7 +66,7 @@ export default function RadiusPage() {
         <SectionHeading
           eyebrow="Radius Tokens"
           title="圆角 Token"
-          description="圆角用于控制界面气质。交互控件统一使用 2px 微圆角，保持工业数据产品的精确感和品牌识别度；容器层使用 4-8px 建立视觉层级。同一组件类型应保持圆角一致。"
+          description="圆角用于控制界面气质。后台与数据产品优先使用 0-4px，交互控件统一使用 2px，卡片与弹窗内容区优先使用 4px；8px 以上只用于官网展示或大面积品牌容器。同一组件类型应保持圆角一致。"
         />
         <DocsTable>
           <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
@@ -121,7 +121,7 @@ export default function RadiusPage() {
         <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
             <li>• 交互控件（按钮、输入框、选择器、标签）统一使用 <strong>radius-sm (2px)</strong>，保持工业数据产品的精确感。</li>
-            <li>• 容器层（卡片、弹窗）使用 <strong>radius-md (4px)</strong> 或 <strong>radius-lg (8px)</strong>，层级越高圆角越大。</li>
+            <li>• 后台容器层（卡片、弹窗、抽屉内容区）优先使用 <strong>radius-md (4px)</strong>，避免大圆角削弱系统秩序。</li>
             <li>• radius-xl (12px) 和 radius-2xl (16px) 仅限官网营销展示场景，后台慎用。</li>
             <li>• 同一组件类型应保持圆角一致，避免在相同层级中混用多个圆角等级。</li>
             <li>• radius-full 仅用于胶囊标签、头像、圆形按钮等明确形态。</li>

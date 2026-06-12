@@ -1,10 +1,11 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { SpinnerGap } from "@phosphor-icons/react";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "text";
-type ButtonTone = "neutral" | "product" | "brand" | "danger";
+type ButtonTone = "neutral" | "product" | "brand" | "danger" | "success" | "warning";
 type ButtonSize = "sm" | "md" | "lg" | "xl" | "2xl";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   tone?: ButtonTone;
   size?: ButtonSize;
@@ -29,6 +30,8 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
       "bg-[var(--product-blue-500)] text-white hover:bg-[var(--product-blue-600)] active:bg-[var(--product-blue-700)]",
     brand: "bg-[var(--brand-600)] text-white hover:bg-[var(--brand-700)] active:bg-[var(--brand-800)]",
     danger: "bg-[var(--error-text)] text-white hover:bg-red-600 active:bg-red-700",
+    success: "bg-[var(--success-text)] text-white hover:bg-emerald-600 active:bg-emerald-700",
+    warning: "bg-[var(--warning-text)] text-white hover:bg-amber-600 active:bg-amber-700",
   },
   outline: {
     neutral:
@@ -39,6 +42,10 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
       "border border-[var(--brand-600)] bg-white text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",
     danger:
       "border border-[var(--error-text)] bg-white text-[var(--error-text)] hover:bg-[var(--error-bg)] active:bg-red-100",
+    success:
+      "border border-[var(--success-text)] bg-white text-[var(--success-text)] hover:bg-[var(--success-bg)] active:bg-emerald-100",
+    warning:
+      "border border-[var(--warning-text)] bg-white text-[var(--warning-text)] hover:bg-[var(--warning-bg)] active:bg-amber-100",
   },
   ghost: {
     neutral:
@@ -48,6 +55,10 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     brand:
       "bg-[var(--brand-50)] text-[var(--brand-600)] hover:bg-[var(--brand-100)] active:bg-[var(--brand-200)]",
     danger: "bg-[var(--error-bg)] text-[var(--error-text)] hover:bg-red-100 active:bg-red-200",
+    success:
+      "bg-[var(--success-bg)] text-[var(--success-text)] hover:bg-[var(--success-tag)] active:bg-emerald-200",
+    warning:
+      "bg-[var(--warning-bg)] text-[var(--warning-text)] hover:bg-[var(--warning-tag)] active:bg-amber-200",
   },
   text: {
     neutral: "text-[var(--neutral-900)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
@@ -55,6 +66,8 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
       "text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] active:bg-[var(--product-blue-100)]",
     brand: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",
     danger: "text-[var(--error-text)] hover:bg-[var(--error-bg)] active:bg-red-100",
+    success: "text-[var(--success-text)] hover:bg-[var(--success-bg)] active:bg-emerald-100",
+    warning: "text-[var(--warning-text)] hover:bg-[var(--warning-bg)] active:bg-amber-100",
   },
 };
 
@@ -71,19 +84,14 @@ export function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  const loadingIcon = (
-    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" opacity="0.25" />
-      <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-    </svg>
-  );
+  const loadingIcon = <SpinnerGap className="h-4 w-4 animate-spin" weight="regular" aria-hidden="true" />;
 
   return (
     <button
       type={type}
       disabled={disabled || loading}
       className={[
-        "inline-flex items-center justify-center gap-2 rounded-[var(--radius-sm)] font-medium transition-colors",
+        "inline-flex items-center justify-center gap-2 rounded-[var(--radius-sm)] font-normal transition-colors",
         "whitespace-nowrap",
         "disabled:cursor-not-allowed disabled:opacity-50",
         sizeClasses[size],

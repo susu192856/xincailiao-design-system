@@ -126,6 +126,59 @@ export default function SpacingPage() {
       </section>
 
       <section>
+        <SectionHeading
+          eyebrow="Spacing Recipes"
+          title="场景间距配方"
+          description="将 token 转译为常见页面的可执行间距，减少设计稿和代码实现中的随意取值。"
+        />
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+          {[
+            {
+              title: "后台表单",
+              description: "适合数据录入、参数配置和审批流页面。",
+              rows: [
+                ["字段与字段", "16px"],
+                ["分组与分组", "24px"],
+                ["底部按钮组", "12px"],
+              ],
+            },
+            {
+              title: "后台列表",
+              description: "适合筛选、工具栏、表格和分页组合。",
+              rows: [
+                ["筛选项间距", "12px"],
+                ["工具栏到表格", "12px-16px"],
+                ["表格到分页", "16px"],
+              ],
+            },
+            {
+              title: "官网/门户",
+              description: "适合首页、聚合页、专题页的叙事节奏。",
+              rows: [
+                ["标题到正文", "16px-24px"],
+                ["卡片栅格", "24px-32px"],
+                ["页面大区块", "64px-96px"],
+              ],
+            },
+          ].map((recipe) => (
+            <div key={recipe.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+              <p className="text-base font-semibold text-[var(--neutral-900)]">{recipe.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-600)]">{recipe.description}</p>
+              <div className="mt-5 divide-y divide-[var(--neutral-200)] border-y border-[var(--neutral-200)]">
+                {recipe.rows.map(([label, value]) => (
+                  <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-3 text-sm">
+                    <span className="text-[var(--neutral-700)]">{label}</span>
+                    <span className="font-mono text-xs text-[var(--neutral-900)]">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
         <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">

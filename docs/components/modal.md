@@ -1,27 +1,74 @@
 # 弹窗 Modal
 
-> 用于承载需要用户关注或确认的内容，支持 title、description、footer 区域。
+> 用于承载需要用户确认或专注处理的任务，覆盖普通、危险、警告和成功反馈。
+
+- 规范页面：`/components/modal`
+- React 源码：`src/components/ui/Modal.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcModal.vue`
+- Figma 组件名：`Modal`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `open` | `boolean` | `false` | 是否显示 |
-| `title` | `string` | `—` | 标题 |
-| `description` | `string` | `—` | 描述文字 |
-| `footer` | `slot` | `—` | 底部操作区 |
-| `onClose` | `function` | `—` | 关闭回调 |
+| `size` | `string` | `md` | 组件尺寸，需匹配官网或后台场景。 |
+| `tone` | `string` | `neutral` | 业务色彩语义，不等同于视觉层级。 |
+| `open` | `boolean` | `false` | 浮层或面板是否展开。 |
+| `loading` | `boolean` | `false` | 加载或提交中状态，防止重复操作。 |
+| `closable` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `footer` | `ReactNode / slot` | `—` | 气泡底部操作区。 |
+
+## 组件属性
+
+### Variants
+
+- `basic`
+- `confirm`
+- `danger`
+- `warning`
+- `success`
+
+### Tones
+
+- `neutral`
+- `danger`
+- `warning`
+- `success`
+
+### Sizes
+
+- `sm`
+- `md`
+- `lg`
+- `xl`
+
+### States
+
+- `open`
+- `submitting`
+- `without-close`
+- `danger-confirm`
+- `success`
+
 
 ## 使用指南
 
-### 推荐做法
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ 弹窗标题 + 描述保持简洁，不超过 3 行
-- ✅ footer 左侧放取消、右侧放确认，符合用户习惯
+## Vue 3 引用示例
 
-### 避免做法
+```ts
+import { XcModal } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
+```
 
-- ❌ 不要在一个页面同时打开多个弹窗
+## Figma 同步要求
+
+- Figma 组件命名使用 `Modal`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 

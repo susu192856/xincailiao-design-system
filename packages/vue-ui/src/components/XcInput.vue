@@ -1,25 +1,28 @@
 <template>
-  <label class="xc-input">
-    <span v-if="label" class="xc-input__label">{{ label }}</span>
-    <span class="xc-input__control-wrap">
-      <span v-if="$slots.icon" class="xc-input__icon" aria-hidden="true">
-        <slot name="icon" />
+  <label class="xc-input" :class="rootClasses">
+    <span v-if="label" class="xc-input__label" :style="labelStyle">{{ label }}</span>
+    <span class="xc-input__body">
+      <span class="xc-input__control-wrap">
+        <span v-if="$slots.icon" class="xc-input__icon" aria-hidden="true">
+          <slot name="icon" />
+        </span>
+        <input
+          class="xc-input__control"
+          :class="inputClasses"
+          :type="type"
+          :name="name"
+          :autocomplete="autocomplete"
+          :value="modelValue"
+          :disabled="disabled"
+          :readonly="readOnly"
+          :placeholder="placeholder"
+          :aria-invalid="Boolean(error)"
+          @input="handleInput"
+        />
       </span>
-      <input
-        class="xc-input__control"
-        :class="inputClasses"
-        :type="type"
-        :name="name"
-        :autocomplete="autocomplete"
-        :value="modelValue"
-        :disabled="disabled"
-        :placeholder="placeholder"
-        :aria-invalid="Boolean(error)"
-        @input="handleInput"
-      />
-    </span>
-    <span v-if="error || helperText" class="xc-input__message" :class="{ 'xc-input__message--error': error }">
-      {{ error || helperText }}
+      <span v-if="error || helperText" class="xc-input__message" :class="{ 'xc-input__message--error': error }">
+        {{ error || helperText }}
+      </span>
     </span>
   </label>
 </template>
@@ -28,6 +31,7 @@
 import { computed, useSlots } from "vue";
 
 type InputSize = "sm" | "md" | "lg";
+type LabelPosition = "top" | "left";
 
 const props = withDefaults(
   defineProps<{
@@ -37,7 +41,10 @@ const props = withDefaults(
     error?: string;
     placeholder?: string;
     size?: InputSize;
+    labelPosition?: LabelPosition;
+    labelWidth?: number | string;
     disabled?: boolean;
+    readOnly?: boolean;
     type?: string;
     name?: string;
     autocomplete?: string;
@@ -45,7 +52,10 @@ const props = withDefaults(
   {
     modelValue: "",
     size: "md",
+    labelPosition: "top",
+    labelWidth: 96,
     disabled: false,
+    readOnly: false,
     type: "text",
   },
 );
@@ -55,6 +65,17 @@ const emit = defineEmits<{
 }>();
 
 const slots = useSlots();
+
+const rootClasses = computed(() => ({
+  "xc-input--horizontal": props.labelPosition === "left",
+}));
+
+const labelStyle = computed(() => {
+  if (props.labelPosition !== "left") return undefined;
+  return {
+    width: typeof props.labelWidth === "number" ? `${props.labelWidth}px` : props.labelWidth,
+  };
+});
 
 const inputClasses = computed(() => [
   `xc-input__control--${props.size}`,
@@ -74,12 +95,31 @@ function handleInput(event: Event) {
   display: block;
 }
 
+.xc-input--horizontal {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
 .xc-input__label {
   display: block;
   margin-bottom: 6px;
   color: var(--neutral-900);
   font-size: 14px;
   font-weight: 500;
+}
+
+.xc-input--horizontal .xc-input__label {
+  flex-shrink: 0;
+  margin-bottom: 0;
+  padding-top: 6px;
+  text-align: right;
+}
+
+.xc-input__body {
+  display: block;
+  min-width: 0;
+  flex: 1;
 }
 
 .xc-input__control-wrap {
@@ -127,26 +167,31 @@ function handleInput(event: Event) {
   color: var(--neutral-400);
 }
 
+.xc-input__control:read-only:not(:disabled) {
+  background: var(--neutral-50);
+  color: var(--neutral-600);
+}
+
 .xc-input__control--error {
   border-color: var(--error-text);
 }
 
 .xc-input__control--sm {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.xc-input__control--md {
   height: 32px;
   padding: 0 12px;
   font-size: 14px;
 }
 
-.xc-input__control--md {
+.xc-input__control--lg {
   height: 36px;
   padding: 0 12px;
   font-size: 14px;
-}
-
-.xc-input__control--lg {
-  height: 40px;
-  padding: 0 16px;
-  font-size: 16px;
 }
 
 .xc-input__control--with-icon {

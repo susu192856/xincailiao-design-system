@@ -11,8 +11,10 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "export": "node scripts/export.cjs",
+    "audit:components": "node scripts/audit-components.cjs",
+    "verify:components": "node scripts/verify-components.cjs",
     "verify:vue-ui": "node scripts/verify-vue-ui.cjs",
-    "verify": "npm run verify:vue-ui && npm run build"
+    "verify": "npm run verify:components && npm run verify:vue-ui && npm run build"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

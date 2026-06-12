@@ -1,12 +1,16 @@
 import type { HTMLAttributes, ReactNode } from "react";
+import { X } from "@phosphor-icons/react";
 
 type TagVariant = "neutral" | "brand" | "product" | "success" | "warning" | "error";
 type TagSize = "sm" | "md";
 
-type TagProps = HTMLAttributes<HTMLSpanElement> & {
+export type TagProps = HTMLAttributes<HTMLSpanElement> & {
   variant?: TagVariant;
   size?: TagSize;
   icon?: ReactNode;
+  closable?: boolean;
+  disabled?: boolean;
+  onClose?: () => void;
 };
 
 const variantClasses: Record<TagVariant, string> = {
@@ -23,11 +27,22 @@ const sizeClasses: Record<TagSize, string> = {
   md: "px-3 py-1 text-xs",
 };
 
-export function Tag({ variant = "neutral", size = "md", icon, children, className = "", ...props }: TagProps) {
+export function Tag({
+  variant = "neutral",
+  size = "md",
+  icon,
+  closable = false,
+  disabled = false,
+  onClose,
+  children,
+  className = "",
+  ...props
+}: TagProps) {
   return (
     <span
       className={[
         "inline-flex items-center gap-1.5 rounded-[var(--radius-sm)] border font-normal",
+        disabled ? "opacity-50" : "",
         variantClasses[variant],
         sizeClasses[size],
         className,
@@ -36,6 +51,20 @@ export function Tag({ variant = "neutral", size = "md", icon, children, classNam
     >
       {icon}
       {children}
+      {closable ? (
+        <button
+          type="button"
+          disabled={disabled}
+          aria-label="移除标签"
+          onClick={(event) => {
+            event.stopPropagation();
+            onClose?.();
+          }}
+          className="-mr-0.5 inline-flex h-3.5 w-3.5 items-center justify-center rounded-sm disabled:cursor-not-allowed"
+        >
+          <X size={10} weight="bold" />
+        </button>
+      ) : null}
     </span>
   );
 }

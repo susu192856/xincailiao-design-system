@@ -149,11 +149,11 @@ export default function ShadowPage() {
                 这是一个普通卡片的示例，使用 Shadow/SM 提供轻微的悬浮感，适合静态卡片、列表项等场景。
               </p>
               <div className="flex gap-3">
-                <button className="rounded-none bg-[var(--neutral-900)] px-4 py-2 text-xs text-white">
-                  主要操作
-                </button>
                 <button className="rounded-none border border-[var(--neutral-300)] px-4 py-2 text-xs text-[var(--neutral-700)]">
                   次要操作
+                </button>
+                <button className="rounded-none bg-[var(--neutral-900)] px-4 py-2 text-xs text-white">
+                  主要操作
                 </button>
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function ShadowPage() {
             </h3>
             <div className="rounded-none bg-white p-6" style={{ boxShadow: shadows[3].value }}>
               <div className="mb-3 flex items-start gap-3">
-                <div className="rounded-sm bg-[var(--neutral-900)] p-2 text-white">
+                <div className="rounded-sm bg-[var(--warning-bg)] p-2 text-[var(--warning-text)]">
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -207,9 +207,14 @@ export default function ShadowPage() {
                   </p>
                 </div>
               </div>
-              <button className="w-full rounded-sm bg-[var(--neutral-900)] px-4 py-2 text-xs text-white">
-                立即查看
-              </button>
+              <div className="flex justify-end gap-3">
+                <button className="rounded-sm border border-[var(--neutral-300)] px-4 py-2 text-xs text-[var(--neutral-700)]">
+                  稍后处理
+                </button>
+                <button className="rounded-sm bg-[var(--neutral-900)] px-4 py-2 text-xs text-white">
+                  立即查看
+                </button>
+              </div>
             </div>
             <p className="mt-3 text-xs text-[var(--neutral-600)]">
               <span className="font-semibold text-[var(--neutral-900)]">使用：</span>通知卡片、重要提示、推荐内容
@@ -291,6 +296,52 @@ export default function ShadowPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Usage Matrix"
+          title="阴影层级矩阵"
+          description="新材道界面优先通过边框、背景和间距建立层级。阴影只用于交互反馈和浮层，不作为普通卡片的默认装饰。"
+        />
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+          {[
+            {
+              level: "无阴影",
+              title: "默认承载",
+              usage: "普通卡片、表格容器、页面分区",
+              rule: "使用 1px 中性边框和白底即可。",
+            },
+            {
+              level: "XS / SM",
+              title: "轻反馈",
+              usage: "按钮悬停、输入框聚焦、可点击卡片",
+              rule: "只在交互状态出现，避免静态堆叠。",
+            },
+            {
+              level: "MD / LG",
+              title: "常规浮层",
+              usage: "Dropdown、Popover、Tooltip、Drawer",
+              rule: "用于脱离页面流的组件，表达覆盖关系。",
+            },
+            {
+              level: "XL / 2XL",
+              title: "最高层级",
+              usage: "Modal、全屏预览、重要确认浮层",
+              rule: "仅用于打断式任务，不进入常规页面模块。",
+            },
+          ].map((item) => (
+            <div key={item.level} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+              <p className="font-mono text-xs text-[var(--neutral-500)]">{item.level}</p>
+              <p className="mt-2 text-base font-semibold text-[var(--neutral-900)]">{item.title}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--neutral-700)]">{item.usage}</p>
+              <p className="mt-4 border-t border-[var(--neutral-200)] pt-3 text-xs leading-relaxed text-[var(--neutral-600)]">
+                {item.rule}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 

@@ -1,78 +1,129 @@
+import { ChartLineUp, ClockCounterClockwise, Database, ShieldCheck } from "@phosphor-icons/react";
 import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { Badge } from "../../../components/ui/Badge";
 import { Tabs } from "../../../components/ui/Tabs";
+import { Tag } from "../../../components/ui/Tag";
+
+const detailItems = [
+  {
+    value: "overview",
+    label: "概览",
+    icon: <Database size={16} />,
+    content: (
+      <p className="text-sm leading-6 text-[var(--neutral-600)]">
+        展示材料数据资产的核心摘要、更新时间、可信状态和主要责任方。
+      </p>
+    ),
+  },
+  {
+    value: "process",
+    label: "工艺参数",
+    icon: <ChartLineUp size={16} />,
+    content: (
+      <p className="text-sm leading-6 text-[var(--neutral-600)]">
+        展示温度、压力、时间等工艺参数，以及实验批次和参数变化轨迹。
+      </p>
+    ),
+  },
+  {
+    value: "history",
+    label: "流转记录",
+    icon: <ClockCounterClockwise size={16} />,
+    badge: "12",
+    content: (
+      <p className="text-sm leading-6 text-[var(--neutral-600)]">
+        展示数据授权、审核、发布、调用和链上存证记录。
+      </p>
+    ),
+  },
+];
 
 export default function TabsPage() {
   const [value, setValue] = useState("overview");
 
   return (
     <div className="space-y-16">
-      <PageHeader title="Tabs" description="Tabs 用于在同一页面区域内切换同级内容，适合详情页信息分组、数据看板分区和配置面板。" />
+      <PageHeader title="菜单标签页" description="菜单标签页用于在同一页面区域内切换同级内容，适合详情页信息分组、数据看板分区和配置面板。" />
 
       <section>
         <SectionHeading eyebrow="Usage" title="基础切换" />
-        <ExampleCard title="详情页分组">
-          <Tabs
-            value={value}
-            onValueChange={setValue}
-            items={[
-              { value: "overview", label: "概览", content: <p className="text-sm leading-6 text-[var(--neutral-600)]">展示材料数据资产的核心摘要、更新时间和可信状态。</p> },
-              { value: "process", label: "工艺参数", content: <p className="text-sm leading-6 text-[var(--neutral-600)]">展示温度、压力、时间等工艺参数和实验批次。</p> },
-              { value: "history", label: "流转记录", content: <p className="text-sm leading-6 text-[var(--neutral-600)]">展示数据授权、审核、发布和调用记录。</p> },
-            ]}
-          />
+        <ExampleCard title="详情页内容分组" description="详情页 Tabs 只承载同级内容，不用于表达流程步骤。">
+          <Tabs value={value} onValueChange={setValue} items={detailItems} />
         </ExampleCard>
       </section>
 
       <section>
-        <SectionHeading eyebrow="States" title="状态示例" />
-        <ExampleCard title="禁用标签">
-          <Tabs
-            value="base"
-            items={[
-              { value: "base", label: "基础信息", content: <p className="text-sm text-[var(--neutral-600)]">当前可用内容。</p> },
-              { value: "model", label: "模型结果", content: "disabled", disabled: true },
-            ]}
-          />
-        </ExampleCard>
-      </section>
-
-      <section>
-              <section>
-        <SectionHeading eyebrow="Variants" title="Tabs 变体" />
+        <SectionHeading eyebrow="Patterns" title="后台常用模式" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">线型 Tabs（当前实现）</h3>
-            <p className="text-sm leading-6 text-[var(--neutral-600)]">
-              适用于页面级内容切换，底部强调线表示当前激活项。默认样式，推荐作为首选。
-            </p>
-            <div className="mt-3 flex border-b border-[var(--neutral-200)]">
-              {["Tab 1", "Tab 2", "Tab 3"].map((t, i) => (
-                <div key={t} className={`border-b-2 px-4 py-2 text-sm ${i === 0 ? "border-[var(--neutral-900)] text-[var(--neutral-900)]" : "border-transparent text-[var(--neutral-500)]"}`}>{t}</div>
-              ))}
+          <ExampleCard title="状态分组">
+            <Tabs
+              defaultValue="all"
+              size="sm"
+              items={[
+                { value: "all", label: "全部", badge: <Badge tone="neutral" count={128} size="sm" />, content: <p className="text-sm text-[var(--neutral-600)]">展示全部数据。</p> },
+                { value: "pending", label: "待审核", badge: <Badge tone="warning" count={8} size="sm" />, content: <p className="text-sm text-[var(--neutral-600)]">需要人工复核的数据。</p> },
+                { value: "risk", label: "异常", badge: <Badge tone="danger" count={3} size="sm" />, content: <p className="text-sm text-[var(--neutral-600)]">存在异常或调用失败的数据。</p> },
+              ]}
+            />
+          </ExampleCard>
+
+          <ExampleCard title="卡片内次级分组">
+            <Tabs
+              defaultValue="base"
+              variant="card"
+              size="sm"
+              items={[
+                { value: "base", label: "基础信息", content: <p className="text-sm text-[var(--neutral-600)]">字段、类型、来源和责任人。</p> },
+                { value: "permission", label: "权限", icon: <ShieldCheck size={14} />, content: <p className="text-sm text-[var(--neutral-600)]">查看、编辑、调用和导出权限。</p> },
+                { value: "model", label: "模型结果", content: <p className="text-sm text-[var(--neutral-500)]">模型结果暂未生成。</p>, disabled: true },
+              ]}
+            />
+          </ExampleCard>
+
+          <ExampleCard title="分段切换">
+            <Tabs
+              defaultValue="space"
+              variant="segment"
+              size="sm"
+              items={[
+                { value: "space", label: "数据空间", content: <p className="text-sm text-[var(--neutral-600)]">偏规则、权限、合约和审计。</p> },
+                { value: "library", label: "材库", content: <p className="text-sm text-[var(--neutral-600)]">偏数据接入、治理、图谱和资产化。</p> },
+                { value: "ai", label: "AI 应用", content: <p className="text-sm text-[var(--neutral-600)]">偏预测、推荐、优化和结果决策。</p> },
+              ]}
+            />
+          </ExampleCard>
+
+          <ExampleCard title="标签组合与禁用">
+            <div className="space-y-4">
+              <Tabs
+                defaultValue="valid"
+                items={[
+                  { value: "valid", label: "有效数据", content: null },
+                  { value: "archived", label: "归档数据", content: null },
+                  { value: "deleted", label: "已删除", content: null, disabled: true },
+                ]}
+              />
+              <div className="flex flex-wrap gap-2">
+                <Tag size="sm" variant="product">当前分组可编辑</Tag>
+                <Tag size="sm" variant="neutral">禁用项保留可见</Tag>
+              </div>
             </div>
-          </div>
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">卡片式 Tabs</h3>
-            <p className="text-sm leading-6 text-[var(--neutral-600)]">
-              适用于卡片容器内的次级切换，激活项以白底+边框区分。可用于两级 Tabs 嵌套中的第二级。
-            </p>
-            <div className="mt-3 flex gap-1">
-              {["明细", "日志", "配置"].map((t, i) => (
-                <div key={t} className={`rounded-sm px-4 py-2 text-sm ${i === 0 ? "border border-[var(--neutral-200)] bg-white text-[var(--neutral-900)]" : "text-[var(--neutral-500)]"}`}>{t}</div>
-              ))}
-            </div>
-          </div>
+          </ExampleCard>
         </div>
       </section>
-      <SectionHeading eyebrow="Guidelines" title="使用建议" />
+
+      <section>
+        <SectionHeading eyebrow="Guidelines" title="使用建议" />
         <SpecList
           items={[
-            "Tabs 内容必须是同级关系，不应用于主流程步骤。",
-            "标签数量建议 2-5 个，过多时应考虑二级导航或筛选。",
-            "当前激活项用黑色下划线表达，不额外使用大面积色块。",
-            "后台详情页可用 Tabs 承载基础信息、参数、记录、权限等分组。",
+            "Tabs 内容必须是同级关系，不应用于主流程步骤；流程应使用步骤条或状态流转。",
+            "详情页推荐 2-5 个标签，超过 5 个时优先改为侧边导航或二级菜单。",
+            "页面级切换优先使用线型 Tabs；卡片内容内部切换可使用 card；小范围条件切换可使用 segment。",
+            "当前激活项默认使用中性黑，不用品牌红；红色只用于异常数量、风险提示等语义状态。",
+            "禁用标签必须可见但不可交互，避免用户误以为内容消失。",
+            "Figma 和前端组件需要同步提供 line、card、segment 变体，以及 icon、badge、disabled、active 状态，方便详情页和工作台直接调用。",
           ]}
         />
       </section>

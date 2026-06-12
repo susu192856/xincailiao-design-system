@@ -1,24 +1,68 @@
 # 复选框 Checkbox
 
-> 用于多选场景，支持选中、未选中和禁用状态。
+> 用于多选决策，适合列表选择、批量操作和权限勾选。
+
+- 规范页面：`/components/checkbox`
+- React 源码：`src/components/ui/Checkbox.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcCheckbox.vue`
+- Figma 组件名：`Checkbox`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `label` | `string` | `—` | 标签文字 |
-| `defaultChecked` | `boolean` | `false` | 默认选中 |
-| `disabled` | `boolean` | `false` | 禁用 |
+| `checked` | `boolean` | `false` | 当前是否选中。 |
+| `indeterminate` | `boolean` | `false` | 组件属性，具体使用以规范页面和源码为准。 |
+| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
+| `error` | `boolean | string` | `—` | 错误状态或错误提示。 |
+| `helperText` | `string` | `—` | 辅助说明文案。 |
+
+## 组件属性
+
+### Variants
+
+- `single`
+- `group`
+- `table-selection`
+
+### Tones
+
+- `neutral`
+- `product`
+- `danger`
+
+### Sizes
+
+- `md`
+
+### States
+
+- `unchecked`
+- `checked`
+- `indeterminate`
+- `error`
+- `disabled`
+- `disabled-checked`
+
 
 ## 使用指南
 
-### 推荐做法
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ Checkbox 用于多选，同一组中可选中多个
+## Vue 3 引用示例
 
-### 避免做法
+```ts
+import { XcCheckbox } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
+```
 
-- ❌ 不要用 Checkbox 代替 Switch（开关动作）
+## Figma 同步要求
+
+- Figma 组件命名使用 `Checkbox`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 

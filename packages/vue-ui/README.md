@@ -6,14 +6,32 @@
 
 ## 当前组件
 
+- `XcAvatar`
+- `XcBadge`
+- `XcBreadcrumb`
 - `XcButton`
-- `XcInput`
-- `XcSelect`
-- `XcTag`
 - `XcCard`
+- `XcCheckbox`
+- `XcCollapse`
+- `XcDescriptionList`
+- `XcEmpty`
+- `XcForm`
+- `XcIcon`
+- `XcImage`
+- `XcInput`
+- `XcMenu`
+- `XcModal`
+- `XcPagination`
+- `XcRadio`
+- `XcSelect`
+- `XcSwitch`
+- `XcTag`
 - `XcTabs`
 - `XcTable`
-- `XcPagination`
+- `XcTextarea`
+- `XcToast`
+- `XcTransfer`
+- `XcTree`
 
 ## 使用方式
 
@@ -21,14 +39,32 @@
 
 ```ts
 import {
+  XcAvatar,
+  XcBadge,
+  XcBreadcrumb,
   XcButton,
   XcCard,
+  XcCheckbox,
+  XcCollapse,
+  XcDescriptionList,
+  XcEmpty,
+  XcForm,
+  XcIcon,
+  XcImage,
   XcInput,
+  XcMenu,
+  XcModal,
   XcPagination,
+  XcRadio,
   XcSelect,
+  XcSwitch,
   XcTable,
   XcTabs,
   XcTag,
+  XcTextarea,
+  XcToast,
+  XcTransfer,
+  XcTree,
 } from "@xincailiao/vue-ui";
 import "@xincailiao/vue-ui/styles.css";
 ```

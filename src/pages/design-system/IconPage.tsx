@@ -30,16 +30,17 @@ import {
   WarningCircle,
   XCircle,
 } from "@phosphor-icons/react";
-import type { Icon } from "@phosphor-icons/react";
+import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import DocsTable from "../../components/docs/DocsTable";
 import { SectionHeading } from "../../components/docs/ComponentDoc";
 import PageHeader from "../../components/docs/PageHeader";
+import { Icon as SystemIcon } from "../../components/ui";
 
 type CommonIconItem = {
   name: string;
   zhName: string;
-  icon: Icon;
+  icon: PhosphorIcon;
   svg: string;
 };
 
@@ -71,7 +72,7 @@ const createSvg = (name: string) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" data-phosphor-icon="${name}"><title>${name}</title><path d="M216,48V208H40V48ZM56,192H200V64H56Z"/></svg>`;
 
 const createDecorativeSvg = (title: string, content: string) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54" fill="none" role="img" aria-label="${title}"><title>${title}</title>${content}</svg>`;
+  `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 54 54" fill="none" role="img" aria-label="${title}"><title>${title}</title>${content.replaceAll('stroke-width="3"', 'stroke-width="2"')}</svg>`;
 
 const commonIcons: CommonIconItem[] = [
   { name: "House", zhName: "首页", icon: House, svg: createSvg("House") },
@@ -105,9 +106,9 @@ const commonIcons: CommonIconItem[] = [
 ];
 
 const decorativeIconStandards = [
-  { item: "制作画布", standard: "54px × 54px，图形主体控制在 36px × 36px 内，四周保留约 8px 安全边距。" },
-  { item: "线条风格", standard: "黑色线性几何轮廓，默认描边 3px，端点尽量使用方形或平直收口。" },
-  { item: "品牌点缀", standard: "每个图标仅保留 1 个红色点缀，使用 brand-600 (#FF112D)，面积控制在整体 5% 以内。" },
+  { item: "制作画布", standard: "48px × 48px，图形主体控制在 32px–36px 内，四周保留约 6px 安全边距。" },
+  { item: "线条风格", standard: "黑色线性几何轮廓，默认描边 2px，端点尽量使用方形或平直收口。" },
+  { item: "品牌点缀", standard: "每个图标仅保留 1 个红色点缀，使用 brand-600 (#FF112D)，面积控制在整体 5% 以内，不作为状态色使用。" },
   { item: "使用场景", standard: "用于首页、设计原则、空状态、模块入口、品牌展示等低频表达，不作为功能操作图标。" },
   { item: "输出格式", standard: "优先输出 SVG，保持可编辑、可缩放；进入 Figma 后需保持图层命名和同尺寸画板。" },
 ];
@@ -370,15 +371,15 @@ export default function IconPage() {
           title="图标使用示例"
           description="图标必须辅助识别和操作。状态图标需要配合文字或标签，不应只依赖颜色传达信息。"
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
           <div className="bg-white p-5">
             <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">A. 单独使用</h3>
             <div className="mb-4 flex gap-3">
               <button className="flex h-10 w-10 items-center justify-center rounded-none border border-[var(--neutral-300)] text-[var(--neutral-800)]">
-                <MagnifyingGlass size={20} weight="regular" />
+                <SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />
               </button>
               <button className="flex h-10 w-10 items-center justify-center rounded-none border border-[var(--neutral-300)] text-[var(--neutral-800)]">
-                <GearSix size={20} weight="regular" />
+                <SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />
               </button>
             </div>
             <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
@@ -389,15 +390,15 @@ export default function IconPage() {
             <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">B. 图标 + 文字</h3>
             <div className="mb-4 space-y-3">
               <button className="flex items-center gap-2 bg-[var(--neutral-900)] px-4 py-2 text-sm text-white">
-                <Plus size={16} weight="regular" />
+                <SystemIcon as={Plus} size={16} weight="regular" className="text-white" label="新增" />
                 新建数据
               </button>
               <button className="flex items-center gap-2 rounded-none border border-[var(--neutral-300)] px-4 py-2 text-sm text-[var(--neutral-700)]">
-                <DownloadSimple size={16} weight="regular" />
+                <SystemIcon as={DownloadSimple} size={16} weight="regular" tone="neutral" label="导出" />
                 导出报告
               </button>
               <button className="flex items-center gap-2 text-sm text-[var(--product-blue-500)]">
-                <FileText size={16} weight="regular" />
+                <SystemIcon as={FileText} size={16} weight="regular" tone="product" label="详情" />
                 查看详情
               </button>
             </div>
@@ -409,24 +410,44 @@ export default function IconPage() {
             <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">C. 状态图标</h3>
             <div className="mb-4 space-y-3 text-sm">
               <div className="flex items-center gap-2 text-[var(--neutral-700)]">
-                <CheckCircle size={18} weight="regular" style={{ color: "var(--success-text)" }} />
+                <SystemIcon as={CheckCircle} size={20} weight="regular" tone="success" label="成功" />
                 成功：操作已完成
               </div>
               <div className="flex items-center gap-2 text-[var(--neutral-700)]">
-                <WarningCircle size={18} weight="regular" style={{ color: "var(--warning-text)" }} />
+                <SystemIcon as={WarningCircle} size={20} weight="regular" tone="warning" label="警告" />
                 警告：请检查配置
               </div>
               <div className="flex items-center gap-2 text-[var(--neutral-700)]">
-                <XCircle size={18} weight="regular" style={{ color: "var(--error-text)" }} />
+                <SystemIcon as={XCircle} size={20} weight="regular" tone="danger" label="错误" />
                 错误：提交失败
               </div>
               <div className="flex items-center gap-2 text-[var(--neutral-700)]">
-                <Info size={18} weight="regular" style={{ color: "var(--info-text)" }} />
+                <SystemIcon as={Info} size={20} weight="regular" tone="product" label="信息" />
                 信息：系统提示
               </div>
             </div>
             <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
               状态图标必须和文字或状态标签配合使用，避免只依赖颜色传达信息。
+            </p>
+          </div>
+          <div className="bg-white p-5">
+            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">D. 组件状态</h3>
+            <div className="mb-4 space-y-3 text-sm">
+              {[
+                { label: "默认", helper: "neutral / regular", icon: <SystemIcon as={Square} size={20} weight="regular" tone="neutral" label="默认图标" /> },
+                { label: "激活", helper: "product / regular", icon: <SystemIcon as={Square} size={20} weight="regular" tone="product" label="激活图标" /> },
+                { label: "关键节点", helper: "neutral + redMark", icon: <SystemIcon as={Square} size={20} weight="regular" tone="neutral" redMark label="关键节点图标" /> },
+                { label: "禁用", helper: "disabled opacity", icon: <SystemIcon as={Square} size={20} weight="regular" tone="neutral" disabled label="禁用图标" /> },
+              ].map((item) => (
+                <div key={item.label} className="grid grid-cols-[24px_64px_1fr] items-center gap-3">
+                  {item.icon}
+                  <span className="font-medium text-[var(--neutral-900)]">{item.label}</span>
+                  <span className="text-xs text-[var(--neutral-500)]">{item.helper}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
+              组件状态应由 tone、disabled、redMark 明确表达。红色短线只表示关键节点，不替代错误、警告或成功语义。
             </p>
           </div>
         </div>
@@ -541,7 +562,7 @@ export default function IconPage() {
               ))}
             </div>
             <p className="mt-5 text-xs leading-relaxed text-[var(--neutral-600)]">
-              同一组装饰性图标需保持画布、描边和红色点缀比例一致，避免出现插画化、面性填充或过度细节。
+              同一组装饰性图标需保持 48px 画布、2px 描边和红色点缀比例一致，避免出现插画化、面性填充或过度细节。
             </p>
           </div>
         </div>

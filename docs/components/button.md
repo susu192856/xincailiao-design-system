@@ -1,116 +1,81 @@
 # 按钮 Button
 
-> 按钮用于触发操作。有 solid / outline / ghost / text 四种层级和 neutral / product / brand / danger 四种色彩语义。
+> 用于触发操作，区分组件层级和业务色彩语义，覆盖官网转化、后台功能和风险操作。
+
+- 规范页面：`/components/button`
+- React 源码：`src/components/ui/Button.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcButton.vue`
+- Figma 组件名：`Button`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `variant` | `'solid' | 'outline' | 'ghost' | 'text'` | `'solid'` | 视觉层级 |
-| `tone` | `'neutral' | 'product' | 'brand' | 'danger'` | `'neutral'` | 色彩语义 |
-| `size` | `'sm' | 'md' | 'lg' | 'xl' | '2xl'` | `'md'` | 尺寸 |
-| `disabled` | `boolean` | `false` | 禁用状态 |
-| `loading` | `boolean` | `false` | 加载状态 |
-| `iconPosition` | `'left' | 'right'` | `'left'` | 图标位置 |
+| `variant` | `string` | `default` | 组件视觉层级或结构类型。 |
+| `tone` | `string` | `neutral` | 业务色彩语义，不等同于视觉层级。 |
+| `size` | `string` | `md` | 组件尺寸，需匹配官网或后台场景。 |
+| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
+| `loading` | `boolean` | `false` | 加载或提交中状态，防止重复操作。 |
+| `icon` | `ReactNode / slot` | `—` | 图标插槽，图标来源遵循基础图标规范。 |
+| `iconPosition` | `'left' | 'right'` | `—` | 图标相对文字的位置。 |
+
+## 组件属性
+
+### Variants
+
+- `solid`
+- `outline`
+- `ghost`
+- `text`
+
+### Tones
+
+- `neutral`
+- `product`
+- `brand`
+- `danger`
+- `warning`
+- `success`
+
+### Sizes
+
+- `sm`
+- `md`
+- `lg`
+- `xl`
+- `2xl`
+
+### States
+
+- `default`
+- `hover`
+- `active`
+- `disabled`
+- `loading`
+- `icon-only`
+
 
 ## 使用指南
 
-### 推荐做法
+- 按钮文字使用常规字重；主要、次要、弱按钮、文字按钮是层级，neutral、product、brand、danger、warning、success 是业务语义。
+- 后台功能操作可使用 product，但不能把蓝色等同于次按钮。
+- warning / success 仅用于状态反馈或流程结果，不替代常规主按钮。
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ 每个区域只放一个主按钮（solid），突出最重要操作
-- ✅ 使用动词开头文案，如「提交订单」「新建项目」
-- ✅ 黑色用于主行动，产品蓝用于功能，品牌红仅限官网营销
+## Vue 3 引用示例
 
-### 避免做法
-
-- ❌ 不要在同一组中混用多种颜色的主按钮
-- ❌ 不要把 product 称为「次按钮」——蓝色是业务语义，不是层级
-- ❌ 不要在后台常规操作中滥用品牌红
-
-## Vue 3 示例代码
-
-```vue
-<template>
-  <button
-    class="btn"
-    :class="[variantClass, toneClass, sizeClass, { loading, disabled: disabled || loading }]"
-    :disabled="disabled || loading"
-    :type="type"
-    @click="$emit('click', $event)"
-  >
-    <svg v-if="loading" class="spinner" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
-      <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-    </svg>
-    <slot v-if="iconPosition !== 'right'" name="icon" />
-    <span v-if="$slots.default"><slot /></span>
-    <slot v-if="iconPosition === 'right'" name="icon" />
-  </button>
-</template>
-
-<script setup>
-defineProps({
-  variant: { type: String, default: 'solid' },
-  tone: { type: String, default: 'neutral' },
-  size: { type: String, default: 'md' },
-  disabled: Boolean,
-  loading: Boolean,
-  iconPosition: { type: String, default: 'left' },
-  type: { type: String, default: 'button' },
-});
-defineEmits(['click']);
-</script>
-
-<style scoped>
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: var(--radius-sm);
-  font-weight: 500;
-  white-space: nowrap;
-  transition: all 0.15s ease;
-  cursor: pointer;
-  border: none;
-  line-height: 1;
-}
-.btn.disabled { opacity: 0.5; cursor: not-allowed; }
-.btn.loading { cursor: wait; }
-.spinner { width: 16px; height: 16px; animation: spin 0.6s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* 尺寸 */
-.size-sm { height: 28px; padding: 0 12px; font-size: 14px; }
-.size-md { height: 32px; padding: 0 16px; font-size: 14px; }
-.size-lg { height: 36px; padding: 0 20px; font-size: 14px; }
-
-/* 类型: solid */
-.variant-solid.tone-neutral { background: var(--neutral-900); color: #fff; }
-.variant-solid.tone-neutral:hover { background: var(--neutral-800); }
-.variant-solid.tone-product { background: var(--product-blue-500); color: #fff; }
-.variant-solid.tone-product:hover { background: var(--product-blue-600); }
-.variant-solid.tone-brand { background: var(--brand-600); color: #fff; }
-.variant-solid.tone-brand:hover { background: var(--brand-700); }
-.variant-solid.tone-danger { background: var(--error-text); color: #fff; }
-
-/* 类型: outline */
-.variant-outline {
-  background: #fff;
-  border: 1px solid var(--neutral-900);
-  color: var(--neutral-900);
-}
-.variant-outline.tone-product { border-color: var(--product-blue-500); color: var(--product-blue-500); }
-.variant-outline.tone-brand { border-color: var(--brand-600); color: var(--brand-600); }
-
-/* 类型: ghost */
-.variant-ghost.tone-neutral { background: var(--neutral-100); color: var(--neutral-900); }
-
-/* 类型: text */
-.variant-text.tone-neutral { background: transparent; color: var(--neutral-900); }
-.variant-text.tone-text:hover { background: var(--neutral-50); }
-</style>
+```ts
+import { XcButton } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
 ```
+
+## Figma 同步要求
+
+- Figma 组件命名使用 `Button`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 
@@ -137,3 +102,10 @@ defineEmits(['click']);
 | `--brand-800` | 颜色 Token |
 | `--error-text` | 语义色 |
 | `--error-bg` | 语义色 |
+| `--error-tag` | 语义色 |
+| `--success-text` | 语义色 |
+| `--success-bg` | 语义色 |
+| `--success-tag` | 语义色 |
+| `--warning-text` | 语义色 |
+| `--warning-bg` | 语义色 |
+| `--warning-tag` | 语义色 |

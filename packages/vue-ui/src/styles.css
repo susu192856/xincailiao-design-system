@@ -1,6 +1,33 @@
 @import "../../../src/styles/tokens.css";
 
-:where(.xc-button, .xc-input, .xc-tag, .xc-card, .xc-select, .xc-tabs, .xc-pagination, .xc-table) {
+:where(
+  .xc-avatar,
+  .xc-badge,
+  .xc-breadcrumb,
+  .xc-button,
+  .xc-card,
+  .xc-checkbox,
+  .xc-collapse,
+  .xc-description-list,
+  .xc-empty,
+  .xc-form,
+  .xc-icon,
+  .xc-image,
+  .xc-input,
+  .xc-menu,
+  .xc-modal,
+  .xc-pagination,
+  .xc-radio,
+  .xc-select,
+  .xc-switch,
+  .xc-table,
+  .xc-tabs,
+  .xc-tag,
+  .xc-textarea,
+  .xc-toast,
+  .xc-transfer,
+  .xc-tree
+) {
   box-sizing: border-box;
   font-family:
     "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",

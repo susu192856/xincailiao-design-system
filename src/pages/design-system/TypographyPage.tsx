@@ -467,6 +467,49 @@ export default function TypographyPage() {
       </section>
 
       <section>
+        <SectionHeading
+          eyebrow="Usage Rules"
+          title="排版使用规则"
+          description="字体不只决定字号层级，也决定数据、长文本和中英文混排的可读性。以下规则用于指导页面落地和组件设计。"
+        />
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+            <p className="mb-2 text-base font-semibold text-[var(--neutral-900)]">长文本行宽</p>
+            <p className="text-sm leading-relaxed text-[var(--neutral-700)]">
+              官网和门户的正文行宽建议控制在 56-72 个中文字符；后台说明文字优先控制在 48-64 个中文字符，避免跨越整屏阅读。
+            </p>
+            <div className="mt-4 rounded-sm bg-[var(--neutral-50)] p-3 text-xs leading-relaxed text-[var(--neutral-600)]">
+              推荐：正文容器 max-width 680px-760px；说明文字 max-width 520px-680px。
+            </div>
+          </div>
+
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+            <p className="mb-2 text-base font-semibold text-[var(--neutral-900)]">数据与数字</p>
+            <p className="text-sm leading-relaxed text-[var(--neutral-700)]">
+              指标、金额、编号、材料参数等数据优先使用等宽数字，并在表格中按数值列右对齐，保证扫描和比较效率。
+            </p>
+            <div className="mt-4 grid grid-cols-2 gap-2 rounded-sm bg-[var(--neutral-50)] p-3 font-mono text-xs text-[var(--neutral-700)]">
+              <span>屈服强度</span>
+              <span className="text-right text-[var(--neutral-900)]">512 MPa</span>
+              <span>成本变化</span>
+              <span className="text-right text-[var(--neutral-900)]">+8.24%</span>
+            </div>
+          </div>
+
+          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+            <p className="mb-2 text-base font-semibold text-[var(--neutral-900)]">中英文混排</p>
+            <p className="text-sm leading-relaxed text-[var(--neutral-700)]">
+              页面正文使用中文系统字体。Token、变量名、代码片段和文件路径使用等宽字体；不要把整段说明文字设置为等宽字体。
+            </p>
+            <div className="mt-4 rounded-sm bg-[var(--neutral-50)] p-3 text-xs leading-relaxed text-[var(--neutral-600)]">
+              示例：按钮使用 <span className="font-mono text-[var(--neutral-900)]">variant="solid"</span> 与 <span className="font-mono text-[var(--neutral-900)]">tone="product"</span> 区分层级和语义。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
           <ul className="space-y-3 text-sm text-[var(--neutral-700)]">

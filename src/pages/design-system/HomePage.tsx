@@ -1,46 +1,8 @@
 import { Link } from "react-router-dom";
 import { Dna, StackPlus, FigmaLogo, FlowArrow } from "@phosphor-icons/react";
-import {
-  Palette, TextT, Smiley, Rows, Circle, Cube, Layout,
-  Square, CaretDown, Table, Cards,
-  Tag as TagIcon, FileText, ChartBar,
-} from "@phosphor-icons/react";
 import { Tag } from "../../components/ui/Tag";
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
-
-interface CardLink {
-  title: string;
-  path: string;
-  icon: React.ReactNode;
-  desc: string;
-}
-
-const tokenLinks: CardLink[] = [
-  { title: "色彩系统", path: "/design-system/colors", icon: <Palette size={20} weight="regular" />, desc: "品牌红、产品蓝、中性灰、语义色" },
-  { title: "字体系统", path: "/typography", icon: <TextT size={20} weight="regular" />, desc: "字号层级、行高规范、字体栈" },
-  { title: "图标系统", path: "/icon", icon: <Smiley size={20} weight="regular" />, desc: "Phosphor Icons 常用图标库" },
-  { title: "间距系统", path: "/spacing", icon: <Rows size={20} weight="regular" />, desc: "4px 基准的间距体系" },
-  { title: "圆角系统", path: "/radius", icon: <Circle size={20} weight="regular" />, desc: "2px 起的多层级圆角" },
-  { title: "阴影系统", path: "/shadow", icon: <Cube size={20} weight="regular" />, desc: "6 级阴影高度" },
-  { title: "布局系统", path: "/layout", icon: <Layout size={20} weight="regular" />, desc: "官网与后台布局规范" },
-];
-
-const componentLinks: CardLink[] = [
-  { title: "按钮", path: "/components/button", icon: <Square size={20} weight="regular" />, desc: "4 种变体 × 4 种色彩语义" },
-  { title: "输入框", path: "/components/input", icon: <TextT size={20} weight="regular" />, desc: "3 种尺寸，支持标签/错误态" },
-  { title: "选择器", path: "/components/select", icon: <CaretDown size={20} weight="regular" />, desc: "下拉选择，支持占位/禁用" },
-  { title: "表格", path: "/components/table", icon: <Table size={20} weight="regular" />, desc: "组合式 Table 组件" },
-  { title: "卡片", path: "/components/card", icon: <Cards size={20} weight="regular" />, desc: "Header/Content/Footer 分块" },
-  { title: "弹窗", path: "/components/modal", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 20V8a2 2 0 012-2h12a2 2 0 012 2v6a2 2 0 01-2 2H8l-4 4z"/></svg>, desc: "标题/描述/内容/底部操作" },
-  { title: "标签", path: "/components/tag", icon: <TagIcon size={20} weight="regular" />, desc: "6 种状态色彩" },
-  { title: "Tabs", path: "/components/tabs", icon: <FileText size={20} weight="regular" />, desc: "受控切换，支持禁用项" },
-  { title: "开关", path: "/components/switch", icon: <Square size={20} weight="regular" />, desc: "切换开关" },
-  { title: "复选框", path: "/components/checkbox", icon: <Square size={20} weight="regular" />, desc: "多选，支持禁用" },
-  { title: "单选框", path: "/components/radio", icon: <Circle size={20} weight="regular" />, desc: "单选互斥" },
-  { title: "文本域", path: "/components/textarea", icon: <TextT size={20} weight="regular" />, desc: "多行输入" },
-  { title: "消息提示", path: "/components/toast", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3C7 3 3 7 3 12C3 17 7 21 12 21C17 21 21 17 21 12"/><path d="M12 8V13M12 15V15.5"/></svg>, desc: "操作反馈" },
-  { title: "分页", path: "/components/pagination", icon: <ChartBar size={20} weight="regular" />, desc: "分页导航" },
-];
+import heroBg from "../../assets/hero-bg.png";
 
 function PrincipleIcon({ type }: { type: "restraint" | "clarity" | "trust" | "efficiency" }) {
   const color = "var(--neutral-900)";
@@ -96,35 +58,19 @@ const sections = [
     eyebrow: "Principles",
     title: "设计原则",
     items: [
-      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: "品牌红只用于关键节点，不做大面积装饰。界面减少无关视觉噪音。" },
-      { icon: <PrincipleIcon type="clarity" />, title: "清晰", desc: "面对数据空间、材库、AI应用等复杂业务，优先建立明确的信息层级。" },
-      { icon: <PrincipleIcon type="trust" />, title: "可信", desc: "通过稳定结构、明确边界、状态反馈和权限标识，建立数据治理的可靠感。" },
-      { icon: <PrincipleIcon type="efficiency" />, title: "高效", desc: "面向材料工程师、工艺师、数据运营方等专业用户，减少无效步骤。" },
+      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: <><p className="font-medium text-[var(--neutral-800)]">色彩克制</p><p>品牌红仅作为品牌签名出现，产品蓝仅用于可交互元素，大面积使用白色和灰阶构建界面。</p><p className="mt-3 font-medium text-[var(--neutral-800)]">装饰克制</p><p>以信息传达为优先，减少无关视觉噪声。官网等品牌叙事层允许适度的视觉强化，装饰元素遵循统一数值梯度。</p></> },
+      { icon: <PrincipleIcon type="clarity" />, title: "清晰", desc: <><p className="font-medium text-[var(--neutral-800)]">信息层级清晰</p><p>通过严格的字号、字重、灰度体系，确保用户快速建立信息浏览动线。</p><p className="mt-3 font-medium text-[var(--neutral-800)]">操作路径清晰</p><p>视觉权重递进明确，用户能无歧义地找到主行动点。</p></> },
+      { icon: <PrincipleIcon type="trust" />, title: "可信", desc: <><p className="font-medium text-[var(--neutral-800)]">结构可信</p><p>通过稳定结构和明确边界，建立数据治理的可靠感。</p><p className="mt-3 font-medium text-[var(--neutral-800)]">反馈可信</p><p>状态反馈及时准确，权限标识清晰可辨，操作结果可预期。</p></> },
+      { icon: <PrincipleIcon type="efficiency" />, title: "高效", desc: <><p className="font-medium text-[var(--neutral-800)]">操作高效</p><p>面向材料工程师、工艺师、数据运营方等专业用户，减少无效步骤。</p><p className="mt-3 font-medium text-[var(--neutral-800)]">信息密度高效</p><p>紧凑而有序地呈现高密度数据，减少不必要的留白和滚动。</p></> },
     ],
   },
 ] as const;
 
 const productLayers = [
-  {
-    title: "品牌叙事层",
-    feature: "页面少、信息密度低、强视觉叙事",
-    products: ["新材道官网"],
-  },
-  {
-    title: "数据服务层",
-    feature: "数据看板、卡片列表、详情预览、轻量操作入口",
-    products: ["新材料可信数据空间", "材库"],
-  },
-  {
-    title: "专业工具层",
-    feature: "复杂表单、可视化画布、多步骤流程、结果呈现",
-    products: ["材小模", "智能拆单", "智能相图", "智能选材"],
-  },
-  {
-    title: "系统管理层",
-    feature: "筛选框、列表、表单、详情页、操作日志",
-    products: ["用户中心/账号管理", "各产品的后台配置"],
-  },
+  { title: "品牌叙事层", feature: "页面少、信息密度低、强视觉叙事", products: ["新材道官网"] },
+  { title: "数据服务层", feature: "数据看板、卡片列表、详情预览、轻量操作入口", products: ["新材料可信数据空间", "材库"] },
+  { title: "专业工具层", feature: "复杂表单、可视化画布、多步骤流程、结果呈现", products: ["材小模", "智能拆单", "智能相图", "智能选材"] },
+  { title: "系统管理层", feature: "筛选框、列表、表单、详情页、操作日志", products: ["用户中心/账号管理", "各产品的后台配置"] },
 ];
 
 function SectionHeader({ title }: { eyebrow: string; title: string }) {
@@ -132,8 +78,7 @@ function SectionHeader({ title }: { eyebrow: string; title: string }) {
     <div className="mb-6">
       <div className="flex items-center gap-3">
         <span className="h-5 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
-        <h2 className="text-lg font-semibold leading-6 text-[var(--neutral-900)]">{title}</h2>
-        <div className="h-px flex-1 bg-[var(--neutral-200)]" />
+        <h2 className="text-2xl font-medium leading-8 text-[var(--neutral-900)]">{title}</h2>
       </div>
     </div>
   );
@@ -143,62 +88,67 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="relative z-10 grid min-h-[320px] grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div>
-          <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
-            2026 · 新材道设计系统
+      <section
+        className="relative -mt-12"
+        style={{
+          width: "calc(100vw - 256px)",
+          marginLeft: "calc(-50vw + 50% + 128px)",
+        }}
+      >
+        <img
+          src={heroBg}
+          alt=""
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-32"
+          style={{ background: "linear-gradient(to bottom, transparent, white)" }}
+        />
+        <div className="relative z-10 mx-auto grid min-h-[400px] max-w-[1024px] grid-cols-1 items-start gap-16 px-8 pt-20 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
+              新材道设计系统
+            </div>
+            <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--neutral-900)]">设计系统</h1>
+            <p className="mt-4 max-w-xl text-sm leading-[22px] text-[var(--neutral-700)]">
+              覆盖官网门户、可信数据空间、材库、材小模等全线产品的统一设计语言。<br />
+              基于 Token 驱动的色彩、字体、间距、圆角、阴影体系，从 Figma 设计<br />稿到 Vue 3 组件代码保持同一套设计变量，确保品牌识别一致、研发交付高效。
+            </p>
           </div>
-          <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--neutral-900)]">
-            设计系统
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-8 text-[var(--neutral-600)]">
-            新材道全线产品的统一设计规范。在统一的品牌识别和设计语言下，
-            为不同产品类型和业务场景提供清晰、一致的视觉表达边界。
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {["AI+材料", "工业数据", "产业智能化"].map((tag) => (
-              <span key={tag} className="rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-sm text-[var(--neutral-700)]">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-          <div className="mb-4 flex items-center border-b border-[var(--neutral-200)] pb-4">
-            <img src={xincailiaoLogo} alt="新材道 XINCAILIAO" className="h-9 w-auto object-contain" />
-          </div>
-          <div className="space-y-3">
-            {[
-              ["Brand", "官网门户 / 品牌传播", "brand"],
-              ["Product", "数据空间 / 材库 / AI 工具", "product"],
-              ["System", "后台配置 / 管理系统", "product"],
-            ].map(([title, description, color]) => (
-              <div key={title} className="flex items-start gap-3 rounded-sm bg-white px-3 py-3.5">
-                <div className="min-w-0 flex-1">
-                  <div className="font-mono text-xs text-[var(--neutral-500)]">{title}</div>
-                  <div className="mt-0.5 text-sm font-medium text-[var(--neutral-900)]">{description}</div>
+          <div className="rounded-sm border border-white/20 bg-white/40 backdrop-blur-lg p-5">
+            <div className="mb-4 flex items-center border-b border-[var(--neutral-200)] pb-4">
+              <img src={xincailiaoLogo} alt="新材道 XINCAILIAO" className="h-9 w-auto object-contain" />
+            </div>
+            <div className="space-y-3">
+              {[
+                ["Brand", "官网门户 / 品牌传播", "brand"],
+                ["Product", "数据空间 / 材库 / AI 工具", "product"],
+              ].map(([title, description, color]) => (
+                <div key={title} className="flex items-start gap-3 rounded-sm px-3 py-3.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="font-mono text-xs text-[var(--neutral-500)]">{title}</div>
+                    <div className="mt-0.5 text-sm font-medium text-[var(--neutral-900)]">{description}</div>
+                  </div>
+                  {color === "brand" ? (
+                    <span className="mt-1 grid h-8 w-1.5 flex-shrink-0 grid-rows-2 overflow-hidden">
+                      <span className="bg-[var(--neutral-900)]" />
+                      <span className="bg-[var(--brand-600)]" />
+                    </span>
+                  ) : color === "product" ? (
+                    <span className="mt-1 grid h-8 w-1.5 flex-shrink-0 grid-rows-2 overflow-hidden">
+                      <span className="bg-[var(--neutral-900)]" />
+                      <span className="bg-[var(--product-blue-500)]" />
+                    </span>
+                  ) : (
+                    <span className={`mt-1 h-1.5 w-8 flex-shrink-0 ${color}`} />
+                  )}
                 </div>
-                {color === "brand" ? (
-                  <span className="mt-[22px] grid h-1.5 w-8 flex-shrink-0 grid-cols-2 overflow-hidden">
-                    <span className="bg-[var(--neutral-900)]" />
-                    <span className="bg-[var(--brand-600)]" />
-                  </span>
-                ) : color === "product" ? (
-                  <span className="mt-[22px] grid h-1.5 w-8 flex-shrink-0 grid-cols-2 overflow-hidden">
-                    <span className="bg-[var(--neutral-900)]" />
-                    <span className="bg-[var(--product-blue-500)]" />
-                  </span>
-                ) : (
-                  <span className={`mt-[22px] h-1.5 w-8 flex-shrink-0 ${color}`} />
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-</section>
+      </section>
 
       {/* Objectives + Principles */}
       {sections.map((section) => (
@@ -206,12 +156,12 @@ export default function HomePage() {
           <SectionHeader eyebrow={section.eyebrow} title={section.title} />
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {section.items.map((item) => (
-              <div key={item.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-                <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
+              <div key={item.title} className="rounded-sm bg-[var(--neutral-50)] p-5">
+                <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-sm bg-white text-[var(--neutral-700)]">
                   {item.icon}
                 </div>
-                <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{item.title}</h3>
-                <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{item.desc}</p>
+                <h3 className="text-lg font-medium leading-[26px] text-[var(--neutral-900)]">{item.title}</h3>
+                <div className="mt-3 space-y-1 text-sm leading-[22px] text-[var(--neutral-600)]">{item.desc}</div>
               </div>
             ))}
           </div>
@@ -220,67 +170,21 @@ export default function HomePage() {
 
       {/* Product Layers */}
       <section>
-        <SectionHeader eyebrow="Product Layers" title="产品分层" />
+        <SectionHeader eyebrow="Product Layers" title="产品分层设计" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {productLayers.map((layer) => (
-            <div key={layer.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{layer.title}</h3>
-              <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{layer.feature}</p>
+            <div key={layer.title} className="rounded-sm bg-[var(--neutral-50)] p-5">
+              <h3 className="text-lg font-medium leading-[26px] text-[var(--neutral-900)]">{layer.title}</h3>
+              <p className="mt-1 text-sm leading-[22px] text-[var(--neutral-600)]">{layer.feature}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {layer.products.map((product) => (
-                  <Tag key={product} variant="brand" size="sm">
+                  <Tag key={product} variant="neutral" size="sm" className="bg-white">
                     {product}
                   </Tag>
                 ))}
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Index */}
-      <section>
-        <SectionHeader eyebrow="Index" title="索引" />
-        <div className="space-y-6">
-          <div>
-            <div className="mb-3 flex items-center justify-between gap-4">
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">设计 Token</h3>
-              <p className="text-xs text-[var(--neutral-500)]">颜色、字体、图标、间距、圆角、阴影与布局</p>
-            </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {tokenLinks.map((link) => (
-                <Link key={link.path} to={link.path} className="group flex items-start gap-3 rounded-sm border border-[var(--neutral-200)] bg-white p-3.5 transition-colors hover:border-[var(--neutral-300)]">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
-                    {link.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-sm font-semibold leading-5 text-[var(--neutral-900)]">{link.title}</h3>
-                    <p className="mt-0.5 text-xs leading-4 text-[var(--neutral-500)]">{link.desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="mb-3 flex items-center justify-between gap-4">
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">UI 组件</h3>
-              <p className="text-xs text-[var(--neutral-500)]">当前共 14 个基础组件，作为开发与 Figma 同步的组件入口</p>
-            </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {componentLinks.map((link) => (
-                <Link key={link.path} to={link.path} className="group flex items-start gap-3 rounded-sm border border-[var(--neutral-200)] bg-white p-3.5 transition-colors hover:border-[var(--neutral-300)]">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-[var(--neutral-200)] text-[var(--neutral-600)]">
-                    {link.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-sm font-semibold leading-5 text-[var(--neutral-900)]">{link.title}</h3>
-                    <p className="mt-0.5 text-xs leading-4 text-[var(--neutral-500)]">{link.desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 

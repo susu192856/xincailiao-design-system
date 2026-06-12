@@ -254,6 +254,18 @@ function describeToken(name, value, cat) {
     "info-text": "信息文字",
     "info-bg": "信息背景",
     "info-tag": "信息标签",
+    "data-01": "主数据序列",
+    "data-02": "对比序列",
+    "data-03": "模型/算法",
+    "data-04": "警戒/阈值",
+    "data-05": "增长/完成",
+    "data-06": "风险/异常",
+    "data-07": "基准/其他",
+    "data-08": "辅助蓝",
+    "data-09": "辅助紫",
+    "data-10": "正向辅助",
+    "data-11": "热度/阶段",
+    "data-12": "低强调序列",
     "z-dropdown": "下拉菜单",
     "z-sticky": "粘性定位",
     "z-overlay": "遮罩层",
@@ -433,7 +445,7 @@ defineEmits(['click']);
   justify-content: center;
   gap: 8px;
   border-radius: var(--radius-sm);
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
   transition: all 0.15s ease;
   cursor: pointer;
@@ -458,6 +470,8 @@ defineEmits(['click']);
 .variant-solid.tone-brand { background: var(--brand-600); color: #fff; }
 .variant-solid.tone-brand:hover { background: var(--brand-700); }
 .variant-solid.tone-danger { background: var(--error-text); color: #fff; }
+.variant-solid.tone-success { background: var(--success-text); color: #fff; }
+.variant-solid.tone-warning { background: var(--warning-text); color: #fff; }
 
 /* 类型: outline */
 .variant-outline {
@@ -467,17 +481,30 @@ defineEmits(['click']);
 }
 .variant-outline.tone-product { border-color: var(--product-blue-500); color: var(--product-blue-500); }
 .variant-outline.tone-brand { border-color: var(--brand-600); color: var(--brand-600); }
+.variant-outline.tone-danger { border-color: var(--error-text); color: var(--error-text); }
+.variant-outline.tone-success { border-color: var(--success-text); color: var(--success-text); }
+.variant-outline.tone-warning { border-color: var(--warning-text); color: var(--warning-text); }
 
 /* 类型: ghost */
 .variant-ghost.tone-neutral { background: var(--neutral-100); color: var(--neutral-900); }
+.variant-ghost.tone-product { background: var(--product-blue-50); color: var(--product-blue-500); }
+.variant-ghost.tone-brand { background: var(--brand-50); color: var(--brand-600); }
+.variant-ghost.tone-danger { background: var(--error-bg); color: var(--error-text); }
+.variant-ghost.tone-success { background: var(--success-bg); color: var(--success-text); }
+.variant-ghost.tone-warning { background: var(--warning-bg); color: var(--warning-text); }
 
 /* 类型: text */
 .variant-text.tone-neutral { background: transparent; color: var(--neutral-900); }
-.variant-text.tone-text:hover { background: var(--neutral-50); }
+.variant-text.tone-product { color: var(--product-blue-500); }
+.variant-text.tone-brand { color: var(--brand-600); }
+.variant-text.tone-danger { color: var(--error-text); }
+.variant-text.tone-success { color: var(--success-text); }
+.variant-text.tone-warning { color: var(--warning-text); }
+.variant-text:hover { background: var(--neutral-50); }
 </style>`,
     props: [
       ["variant", "'solid' | 'outline' | 'ghost' | 'text'", "'solid'", "视觉层级"],
-      ["tone", "'neutral' | 'product' | 'brand' | 'danger'", "'neutral'", "色彩语义"],
+      ["tone", "'neutral' | 'product' | 'brand' | 'danger' | 'warning' | 'success'", "'neutral'", "色彩语义"],
       ["size", "'sm' | 'md' | 'lg' | 'xl' | '2xl'", "'md'", "尺寸"],
       ["disabled", "boolean", "false", "禁用状态"],
       ["loading", "boolean", "false", "加载状态"],
@@ -625,37 +652,53 @@ defineEmits(['click']);
 
 function generateComponentMD() {
   const docDir = path.join(ROOT, "docs/components");
+  const manifestPath = path.join(ROOT, "figma/components.manifest.json");
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
 
-  for (const comp of components) {
-    const slug = comp.name.toLowerCase();
-    let md = `# ${comp.title}\n\n`;
-    md += `> ${comp.desc}\n\n`;
+  for (const comp of manifest.components) {
+    const slug = comp.route.replace("/components/", "");
+    const chineseName = getComponentChineseName(comp.name);
+    const description = getComponentDescription(comp.name);
+    let md = `# ${chineseName} ${comp.name}\n\n`;
+    md += `> ${description}\n\n`;
+    md += `- 规范页面：\`${comp.route}\`\n`;
+    md += `- React 源码：\`${comp.reactSource}\`\n`;
+    md += `- Vue 源码：${comp.vueSource ? `\`${comp.vueSource}\`` : "暂未提供独立 Vue 源码，当前以 React 规范站源码为实现参考"}\n`;
+    md += `- Figma 组件名：\`${comp.figmaName}\`\n\n`;
 
-    // Props table
     md += "## Props\n\n";
     md += "| 属性 | 类型 | 默认值 | 说明 |\n|------|------|--------|------|\n";
-    for (const [name, type, def, desc] of comp.props) {
-      md += `| \`${name}\` | \`${type}\` | \`${def || "—"}\` | ${desc} |\n`;
+    for (const prop of comp.props || []) {
+      md += `| \`${prop}\` | \`${describePropType(prop)}\` | \`${describePropDefault(prop)}\` | ${describePropUsage(prop)} |\n`;
     }
 
-    // Guidelines
+    md += "\n## 组件属性\n\n";
+    md += makeListSection("Variants", comp.variants);
+    md += makeListSection("Tones", comp.tones);
+    md += makeListSection("Sizes", comp.sizes);
+    md += makeListSection("States", comp.states);
+
     md += "\n## 使用指南\n\n";
-    md += "### 推荐做法\n\n";
-    for (const g of comp.guidelines.filter((g) => g.type === "do")) {
-      md += `- ✅ ${g.text}\n`;
-    }
-    md += "\n### 避免做法\n\n";
-    for (const g of comp.guidelines.filter((g) => g.type === "dont")) {
-      md += `- ❌ ${g.text}\n`;
+    for (const line of getComponentGuidelines(comp.name)) {
+      md += `- ${line}\n`;
     }
 
-    // Vue 3 example
-    if (comp.vueCode) {
-      md += `\n## Vue 3 示例代码\n\n`;
-      md += "```vue\n" + comp.vueCode.trim() + "\n```\n";
+    if (comp.vueSource) {
+      md += `\n## Vue 3 引用示例\n\n`;
+      md += "```ts\n";
+      md += `import { ${getVueExportName(comp.name)} } from "@xincailiao/vue-ui";\n`;
+      md += `import "@xincailiao/vue-ui/styles.css";\n`;
+      md += "```\n";
+    } else {
+      md += `\n## 开发实现说明\n\n`;
+      md += `当前组件已在 React 规范站中实现并展示状态，前端开发可先参考 \`${comp.reactSource}\` 的 API、状态和 token 用法；Vue 版本后续按本清单补齐。\n`;
     }
 
-    // CSS 变量引用
+    md += `\n## Figma 同步要求\n\n`;
+    md += `- Figma 组件命名使用 \`${comp.figmaName}\`。\n`;
+    md += `- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。\n`;
+    md += `- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。\n`;
+
     md += `\n## 依赖 Token\n\n`;
     md += "组件使用的设计变量（CSS Custom Properties）：\n\n";
     md += "| Token | 来源 |\n|-------|------|\n";
@@ -667,6 +710,202 @@ function generateComponentMD() {
     fs.writeFileSync(path.join(docDir, `${slug}.md`), md, "utf-8");
     console.log(`  ✓ docs/components/${slug}.md`);
   }
+}
+
+function makeListSection(title, values) {
+  if (!values || values.length === 0) return `### ${title}\n\n- 无\n\n`;
+  return `### ${title}\n\n${values.map((value) => `- \`${value}\``).join("\n")}\n\n`;
+}
+
+function getComponentChineseName(name) {
+  const map = {
+    Avatar: "头像",
+    Badge: "徽标数",
+    Breadcrumb: "面包屑",
+    Button: "按钮",
+    Card: "卡片",
+    Checkbox: "复选框",
+    Collapse: "折叠面板",
+    DescriptionList: "描述列表",
+    Drawer: "抽屉",
+    Empty: "空状态",
+    Form: "表单",
+    Icon: "图标",
+    Image: "图片",
+    Input: "输入框",
+    Menu: "菜单",
+    Modal: "弹窗",
+    Pagination: "分页码",
+    Popover: "气泡弹窗",
+    Radio: "单选框",
+    Select: "选择器",
+    Switch: "开关",
+    Table: "表格",
+    Tabs: "菜单标签页",
+    Tag: "标签",
+    Textarea: "文本域",
+    Toast: "提示反馈",
+    Tooltip: "文字提示",
+    Transfer: "穿梭框",
+    Tree: "树",
+  };
+  return map[name] || name;
+}
+
+function getComponentDescription(name) {
+  const map = {
+    Button: "用于触发操作，区分组件层级和业务色彩语义，覆盖官网转化、后台功能和风险操作。",
+    Icon: "用于表达操作、导航、状态和装饰语义，来源优先遵循 Phosphor Icons，并保持统一线宽。",
+    Input: "用于单行文本录入，覆盖聚焦、错误、禁用、只读、必填和帮助信息等后台常见状态。",
+    Textarea: "用于多行文本录入，适合备注、说明、审核意见和长文本表单。",
+    Form: "用于组织数据录入流程，覆盖分组、校验、只读、权限锁定、提交中和错误反馈。",
+    DescriptionList: "用于展示字段和值的结构化信息，适合详情页、审核页和数据资产摘要。",
+    Drawer: "用于在不离开当前页面的情况下承载详情、筛选、配置和短流程编辑。",
+    Collapse: "用于收纳高密度内容，适合筛选条件、权限规则、历史记录和分组信息。",
+    Select: "用于从选项中选择数据，覆盖单选、多选、搜索、禁用项、加载和错误状态。",
+    Tree: "用于层级数据导航和选择，适合目录、组织、权限和材料分类结构。",
+    Transfer: "用于在两个集合之间移动数据，适合权限、字段、角色和数据集选择。",
+    Table: "用于承载高密度结构化数据，覆盖筛选、选择、加载、空状态、错误和分页组合。",
+    Card: "用于承载一组相关业务内容，适合指标、入口、列表项和状态摘要。",
+    Menu: "用于导航和功能入口组织，覆盖侧栏、顶部菜单、分组和折叠状态。",
+    Tabs: "用于在同一区域切换平级内容，适合详情分区、数据视图和配置面板。",
+    Modal: "用于承载需要用户确认或专注处理的任务，覆盖普通、危险、警告和成功反馈。",
+    Radio: "用于单选决策，适合少量互斥选项和配置项。",
+    Checkbox: "用于多选决策，适合列表选择、批量操作和权限勾选。",
+    Tag: "用于分类、状态和轻量标记，区分中性、产品、品牌和语义反馈。",
+    Avatar: "用于展示用户、组织或系统身份，覆盖图片、缩写、状态和徽标组合。",
+    Badge: "用于数量、状态和提醒标记，适合消息、任务、异常和待办提示。",
+    Image: "用于展示图片、图谱、材料图片和预览内容，覆盖加载、错误和空态。",
+    Breadcrumb: "用于表达当前位置和层级路径，适合二级及更深页面。",
+    Switch: "用于即时启停类二元状态，适合权限、配置和功能开关。",
+    Pagination: "用于长列表分页，适合表格、卡片列表和搜索结果。",
+    Tooltip: "用于解释图标、字段或被截断内容，只承载短文本，不打断当前操作。",
+    Popover: "用于承载轻量说明、快捷信息和少量操作，适合不打断流程的局部补充。",
+    Toast: "用于轻量操作反馈，不阻断当前任务。",
+    Empty: "用于无数据、无结果、无权限、错误和首次使用引导。",
+  };
+  return map[name] || "用于新材道设计系统中的标准组件场景。";
+}
+
+function describePropType(prop) {
+  const p = prop.split(":")[0].trim();
+  const map = {
+    variant: "string",
+    tone: "string",
+    size: "string",
+    disabled: "boolean",
+    loading: "boolean",
+    icon: "ReactNode / slot",
+    iconPosition: "'left' | 'right'",
+    columns: "array / number",
+    data: "array",
+    items: "array",
+    open: "boolean",
+    placement: "'top' | 'right' | 'bottom' | 'left'",
+    content: "ReactNode / slot",
+    title: "string",
+    footer: "ReactNode / slot",
+    checked: "boolean",
+    indeterminate: "boolean",
+    error: "boolean | string",
+    helperText: "string",
+    required: "boolean",
+    readOnly: "boolean",
+  };
+  return map[p] || "string | boolean | array";
+}
+
+function describePropDefault(prop) {
+  const p = prop.split(":")[0].trim();
+  const map = {
+    variant: "default",
+    tone: "neutral",
+    size: "md",
+    disabled: "false",
+    loading: "false",
+    open: "false",
+    placement: "top / bottom",
+    checked: "false",
+    indeterminate: "false",
+  };
+  return map[p] || "—";
+}
+
+function describePropUsage(prop) {
+  const p = prop.split(":")[0].trim();
+  const map = {
+    variant: "组件视觉层级或结构类型。",
+    tone: "业务色彩语义，不等同于视觉层级。",
+    size: "组件尺寸，需匹配官网或后台场景。",
+    disabled: "禁用状态，保留可见但不可操作。",
+    loading: "加载或提交中状态，防止重复操作。",
+    icon: "图标插槽，图标来源遵循基础图标规范。",
+    iconPosition: "图标相对文字的位置。",
+    columns: "字段列数或表格列定义。",
+    data: "组件展示的数据源。",
+    items: "组件条目数据。",
+    open: "浮层或面板是否展开。",
+    placement: "浮层相对触发对象的位置。",
+    content: "提示或气泡主体内容。",
+    title: "气泡标题，用于说明信息主题。",
+    footer: "气泡底部操作区。",
+    checked: "当前是否选中。",
+    error: "错误状态或错误提示。",
+    helperText: "辅助说明文案。",
+    required: "必填标记。",
+    readOnly: "只读状态。",
+  };
+  return map[p] || "组件属性，具体使用以规范页面和源码为准。";
+}
+
+function getComponentGuidelines(name) {
+  const base = [
+    "优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。",
+    "后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。",
+    "Figma 属性、网页示例和前端源码 API 需要保持同名同义。",
+  ];
+  const special = {
+    Button: [
+      "按钮文字使用常规字重；主要、次要、弱按钮、文字按钮是层级，neutral、product、brand、danger 是业务语义。",
+      "后台功能操作可使用 product，但不能把蓝色等同于次按钮。",
+    ],
+    Table: [
+      "表格必须优先覆盖后台高密度场景：筛选、排序、选择、空状态、分页、加载和权限受限。",
+    ],
+    Form: [
+      "表单必须同时说明录入、校验、只读、提交中、保存失败和权限锁定状态。",
+    ],
+    Icon: [
+      "通用图标优先使用 Phosphor Icons regular 线性风格，装饰图标只小面积点缀。",
+    ],
+    Tooltip: [
+      "只放短文本，不放按钮、链接、表单和复杂说明；需要操作时使用 Popover。",
+      "触发方式必须同时支持 hover 与 keyboard focus。",
+    ],
+    Popover: [
+      "用于局部补充信息和少量快捷操作，不用于复杂表单或强确认流程。",
+      "需要阻断任务或二次确认时，应升级为 Modal。",
+    ],
+    Drawer: [
+      "用于详情预览、筛选、配置和短编辑，复杂长流程应进入独立页面。",
+      "右侧抽屉为后台默认方向，左侧抽屉只用于临时导航或低频工具面板。",
+    ],
+  };
+  return [...(special[name] || []), ...base];
+}
+
+function getVueExportName(name) {
+  const map = {
+    Button: "XcButton",
+    Card: "XcCard",
+    Input: "XcInput",
+    Pagination: "XcPagination",
+    Select: "XcSelect",
+    Table: "XcTable",
+    Tabs: "XcTabs",
+    Tag: "XcTag",
+  };
+  return map[name] || `Xc${name}`;
 }
 
 function getComponentTokens(name) {
@@ -703,6 +942,22 @@ function getComponentTokens(name) {
       ["neutral-600", "颜色 Token"],
     ];
   }
+  if (name === "Drawer") {
+    return [
+      ...shared,
+      ["z-modal", "Z-index Token"],
+      ["neutral-600", "颜色 Token"],
+      ["neutral-200", "颜色 Token"],
+    ];
+  }
+  if (name === "Tooltip" || name === "Popover") {
+    return [
+      ...shared,
+      ["z-tooltip", "Z-index Token"],
+      ["shadow-md", "阴影 Token"],
+      ["shadow-lg", "阴影 Token"],
+    ];
+  }
   return shared;
 }
 
@@ -731,6 +986,8 @@ function generateFigmaTokens(categories) {
           const subCat = name.split("-")[0];
           const subName = name.split("-").slice(1).join("-");
           tokens[`color/${subCat}/${subName}`] = { value: v.value, type: "color" };
+        } else if (name.startsWith("data-")) {
+          tokens[`color/data/${name.replace("data-", "")}`] = { value: v.value, type: "color" };
         } else if (name.startsWith("brand-") || name.startsWith("product-blue-") || name.startsWith("neutral-")) {
           const parts = name.split("-");
           const cat = parts[0] === "product" ? "product-blue" : parts[0];

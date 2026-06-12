@@ -1,14 +1,16 @@
 import {
   ArrowRight,
+  CheckCircle,
   DownloadSimple,
   FloppyDisk,
   PencilSimple,
   Plus,
   Trash,
+  WarningCircle,
   X,
 } from "@phosphor-icons/react";
 import PageHeader from "../../../components/docs/PageHeader";
-import { SectionHeading } from "../../../components/docs/ComponentDoc";
+import { SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import { Button } from "../../../components/ui/Button";
 
 function TokenNote({
@@ -315,9 +317,7 @@ export default function ButtonPage() {
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性文字</p>
                 <ButtonStack>
                   <Button variant="text">查看详情</Button>
-                  <Button variant="text" icon={<ArrowRight className="h-4 w-4" weight="regular" />} iconPosition="right">
-                    了解更多
-                  </Button>
+                  <Button variant="text">了解更多</Button>
                   <Button variant="text" disabled>
                     禁用状态
                   </Button>
@@ -378,6 +378,42 @@ export default function ButtonPage() {
                 <span className="font-semibold text-[var(--neutral-900)]">使用场景：</span>
                 删除、取消等不可逆或高风险操作，建议添加二次确认。
               </p>
+            </div>
+            <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="bg-[var(--warning-bg)] p-4">
+                <ButtonGroup>
+                  <Button tone="warning" icon={<WarningCircle className="h-4 w-4" weight="regular" />}>
+                    警告操作
+                  </Button>
+                  <Button variant="outline" tone="warning">
+                    查看风险
+                  </Button>
+                  <Button variant="text" tone="warning">
+                    暂缓处理
+                  </Button>
+                </ButtonGroup>
+                <p className="mt-3 text-xs leading-6 text-[var(--neutral-700)]">
+                  <span className="font-semibold text-[var(--neutral-900)]">警告按钮：</span>
+                  用于临界状态、风险确认、需要用户关注但尚未造成错误的操作，不用于普通提醒。
+                </p>
+              </div>
+              <div className="bg-[var(--success-bg)] p-4">
+                <ButtonGroup>
+                  <Button tone="success" icon={<CheckCircle className="h-4 w-4" weight="regular" />}>
+                    完成操作
+                  </Button>
+                  <Button variant="outline" tone="success">
+                    查看结果
+                  </Button>
+                  <Button variant="text" tone="success">
+                    继续配置
+                  </Button>
+                </ButtonGroup>
+                <p className="mt-3 text-xs leading-6 text-[var(--neutral-700)]">
+                  <span className="font-semibold text-[var(--neutral-900)]">成功按钮：</span>
+                  用于已完成、已通过、正向确认后的后续操作。普通提交仍优先使用 neutral 或 product。
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -705,11 +741,17 @@ export default function ButtonPage() {
                 <p className="mb-3 text-xs leading-5 text-[var(--neutral-500)]">
                   仅保留图标本身，适合编辑、下载、关闭、删除等高频操作；必须配置 title 或 aria-label。
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button variant="outline" icon={<PencilSimple className="h-4 w-4" weight="regular" />} aria-label="编辑" title="编辑" className="h-9 w-9 min-w-9 px-0" />
-                  <Button variant="outline" tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />} aria-label="下载" title="下载" className="h-9 w-9 min-w-9 px-0" />
-                  <Button variant="outline" icon={<X className="h-4 w-4" weight="regular" />} aria-label="关闭" title="关闭" className="h-9 w-9 min-w-9 px-0" />
-                  <Button variant="outline" tone="danger" icon={<Trash className="h-4 w-4" weight="regular" />} aria-label="删除" title="删除" className="h-9 w-9 min-w-9 px-0" />
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button variant="outline" icon={<PencilSimple className="h-4 w-4" weight="regular" />} aria-label="编辑" title="编辑" className="h-8 w-8 min-w-8 px-0" />
+                  <Button variant="outline" tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />} aria-label="下载" title="下载" className="h-8 w-8 min-w-8 px-0" />
+                  <Button variant="outline" icon={<X className="h-4 w-4" weight="regular" />} aria-label="关闭" title="关闭" className="h-8 w-8 min-w-8 px-0" />
+                  <Button variant="outline" tone="danger" icon={<Trash className="h-4 w-4" weight="regular" />} aria-label="删除" title="删除" className="h-8 w-8 min-w-8 px-0" />
+                  <Button variant="outline" disabled icon={<PencilSimple className="h-4 w-4" weight="regular" />} aria-label="禁用编辑" title="禁用编辑" className="h-8 w-8 min-w-8 px-0" />
+                </div>
+                <div className="mt-3 grid grid-cols-1 gap-2 text-xs leading-5 text-[var(--neutral-600)] sm:grid-cols-3">
+                  <p><span className="font-semibold text-[var(--neutral-900)]">尺寸：</span>32×32px，图标 16px。</p>
+                  <p><span className="font-semibold text-[var(--neutral-900)]">状态：</span>默认、悬停、禁用必须可区分。</p>
+                  <p><span className="font-semibold text-[var(--neutral-900)]">来源：</span>Phosphor regular，线性风格。</p>
                 </div>
               </div>
             </div>
@@ -749,6 +791,20 @@ export default function ButtonPage() {
             </div>
           </SpecCard>
         </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Handoff" title="开发与 Figma 交付检查" />
+        <SpecList
+          items={[
+            "Figma 组件需要覆盖 solid、outline、ghost、text 四种视觉层级，以及 neutral、product、brand、danger 四类业务色彩语义。",
+            "代码 API 使用 variant 表达按钮层级，使用 tone 表达业务颜色；不要把 product 蓝绑定为“次按钮”。",
+            "尺寸需要覆盖 sm、md、lg、xl、2xl；后台默认使用 sm/md，官网 CTA 使用 lg/xl/2xl。",
+            "状态需要覆盖 default、hover、active、disabled、loading、icon-only、icon-left、icon-right，且 loading 仍应保持禁用交互。",
+            "按钮图标遵循基础图标规范：统一使用 Phosphor Icons，默认 regular 粗细，常规按钮文字使用正常字重。",
+            "危险、警告、成功按钮属于状态语义，不能替代 neutral/product/brand 的常规操作分工。",
+          ]}
+        />
       </section>
 
       <section>

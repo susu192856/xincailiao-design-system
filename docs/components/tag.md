@@ -1,25 +1,70 @@
 # 标签 Tag
 
-> 用于标记、分类和状态展示。支持 6 种色彩变体和 2 种尺寸。
+> 用于分类、状态和轻量标记，区分中性、产品、品牌和语义反馈。
+
+- 规范页面：`/components/tag`
+- React 源码：`src/components/ui/Tag.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcTag.vue`
+- Figma 组件名：`Tag`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `variant` | `'neutral' | 'brand' | 'product' | 'success' | 'warning' | 'error'` | `'neutral'` | 色彩变体 |
-| `size` | `'sm' | 'md'` | `'md'` | 尺寸 |
-| `icon` | `slot` | `—` | 前置图标 |
+| `tone` | `string` | `neutral` | 业务色彩语义，不等同于视觉层级。 |
+| `size` | `string` | `md` | 组件尺寸，需匹配官网或后台场景。 |
+| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
+| `closable` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `icon` | `ReactNode / slot` | `—` | 图标插槽，图标来源遵循基础图标规范。 |
+
+## 组件属性
+
+### Variants
+
+- `solid`
+- `soft`
+- `outline`
+
+### Tones
+
+- `neutral`
+- `product`
+- `brand`
+- `danger`
+- `warning`
+- `success`
+
+### Sizes
+
+- `sm`
+- `md`
+
+### States
+
+- `default`
+- `disabled`
+- `closable`
+- `with-icon`
+
 
 ## 使用指南
 
-### 推荐做法
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ success / warning / error 用于状态反馈
-- ✅ Tag 内部文字保持简洁，不超过 6 个字
+## Vue 3 引用示例
 
-### 避免做法
+```ts
+import { XcTag } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
+```
 
-- ❌ 不要用 brand 红色 Tag 替代 error 语义
+## Figma 同步要求
+
+- Figma 组件命名使用 `Tag`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 

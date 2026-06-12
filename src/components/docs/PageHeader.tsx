@@ -17,7 +17,7 @@ export default function PageHeader({ title, description, version }: PageHeaderPr
           ) : null}
         </div>
         {description ? (
-          <p className="mt-2 max-w-3xl text-base leading-8 text-[var(--neutral-600)]">
+          <p className="mt-2 max-w-[700px] text-base leading-7 text-[var(--neutral-600)]">
             {description}
           </p>
         ) : null}

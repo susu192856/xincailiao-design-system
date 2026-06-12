@@ -1,25 +1,70 @@
-# 分页 Pagination
+# 分页码 Pagination
 
-> 用于长列表分页导航。
+> 用于长列表分页，适合表格、卡片列表和搜索结果。
+
+- 规范页面：`/components/pagination`
+- React 源码：`src/components/ui/Pagination.tsx`
+- Vue 源码：`packages/vue-ui/src/components/XcPagination.vue`
+- Figma 组件名：`Pagination`
 
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `page` | `number` | `1` | 当前页码 |
-| `total` | `number` | `—` | 总页数 |
-| `onPageChange` | `function` | `—` | 翻页回调 |
-| `disabled` | `boolean` | `false` | 禁用 |
+| `page` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `total` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `pageSize` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
+| `showJumper` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+| `showSizeChanger` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
+
+## 组件属性
+
+### Variants
+
+- `short`
+- `long`
+- `compact`
+- `with-jumper`
+- `with-size-changer`
+
+### Tones
+
+- `neutral`
+- `product`
+
+### Sizes
+
+- `sm`
+- `md`
+
+### States
+
+- `default`
+- `active`
+- `hover`
+- `disabled`
+- `ellipsis`
+
 
 ## 使用指南
 
-### 推荐做法
+- 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
+- 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
+- Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
-- ✅ 总页数超过 10 页时考虑省略号截断
+## Vue 3 引用示例
 
-### 避免做法
+```ts
+import { XcPagination } from "@xincailiao/vue-ui";
+import "@xincailiao/vue-ui/styles.css";
+```
 
-- ❌ 不要在移动端展示完整页码列表，用上一页/下一页即可
+## Figma 同步要求
+
+- Figma 组件命名使用 `Pagination`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
+- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
 
 ## 依赖 Token
 

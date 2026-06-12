@@ -2,23 +2,25 @@ import type { TextareaHTMLAttributes } from "react";
 
 type TextareaSize = "sm" | "md" | "lg";
 
-type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
   helperText?: string;
   error?: string;
+  size?: TextareaSize;
   inputSize?: TextareaSize;
 };
 
 const sizeClasses: Record<TextareaSize, string> = {
-  sm: "min-h-[60px] text-sm",
-  md: "min-h-[80px] text-sm",
-  lg: "min-h-[100px] text-base",
+  sm: "min-h-[60px] px-3 py-2 text-sm",
+  md: "min-h-[80px] px-3 py-2 text-sm",
+  lg: "min-h-[100px] px-4 py-3 text-base",
 };
 
 export function Textarea({
   label,
   helperText,
   error,
+  size,
   inputSize = "md",
   disabled,
   className = "",
@@ -26,11 +28,15 @@ export function Textarea({
   ...props
 }: TextareaProps) {
   const textareaId = id ?? props.name;
+  const resolvedSize = size ?? inputSize;
 
   return (
     <label className="block">
       {label ? (
-        <span className="mb-1.5 block text-sm font-medium text-[var(--neutral-900)]">{label}</span>
+        <span className="mb-1.5 block text-sm font-medium text-[var(--neutral-900)]">
+          {label}
+          {props.required ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
+        </span>
       ) : null}
       <textarea
         id={textareaId}
@@ -38,12 +44,12 @@ export function Textarea({
         aria-invalid={Boolean(error)}
         className={[
           "w-full rounded-sm border bg-white text-[var(--neutral-900)] outline-none transition-colors",
-          "placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+          "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--neutral-600)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
           "resize-y",
           error
             ? "border-[var(--error-text)] focus:border-[var(--error-text)]"
             : "border-[var(--neutral-300)] hover:border-[var(--neutral-400)] focus:border-[var(--neutral-900)]",
-          sizeClasses[inputSize],
+          sizeClasses[resolvedSize],
           className,
         ].join(" ")}
         {...props}
