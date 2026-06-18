@@ -45,7 +45,7 @@ export function Card({
   return (
     <div
       className={[
-        "relative rounded-[var(--radius-sm)]",
+        "relative rounded-[var(--radius-sm)] overflow-hidden",
         sizeClasses[size],
         variantClasses[variant],
         status !== "default" ? "before:absolute before:left-0 before:top-0 before:h-0.5 before:w-full" : "",

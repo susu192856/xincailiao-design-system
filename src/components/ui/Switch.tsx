@@ -51,8 +51,8 @@ export function Switch({
           />
           <span className={[
             "block rounded-full transition-colors peer-checked:bg-[var(--product-blue-500)]",
-            error ? "bg-[var(--error-bg)] ring-1 ring-[var(--error-border)]" : "bg-[var(--neutral-300)]",
-            "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-400)]",
+            error ? "bg-[var(--error-bg)] ring-1 ring-[var(--error-text)]" : "bg-[var(--neutral-300)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
             "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",
             trackSizes[size],
           ].join(" ")} />

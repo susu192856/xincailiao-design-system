@@ -68,7 +68,7 @@ function renderItems({
         title={collapsed && typeof item.label === "string" ? item.label : undefined}
         onClick={() => onSelect?.(item.key)}
         className={[
-          "inline-flex items-center gap-2 rounded-[var(--radius-sm)] font-normal transition-colors disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
+          "inline-flex items-center gap-2 rounded-[var(--radius-sm)] font-normal transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
           mode === "vertical"
             ? collapsed
               ? `${sizeClass[size].vertical} w-full justify-center px-0`

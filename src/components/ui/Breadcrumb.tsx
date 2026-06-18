@@ -34,7 +34,7 @@ export function Breadcrumb({ items, maxItems, className = "", ...props }: Breadc
             <li key={index} className="flex items-center gap-1">
               {index > 0 ? <CaretRight size={12} weight="regular" className="text-[var(--neutral-400)]" /> : null}
               {item.href && !isLast && !isDisabled ? (
-                <a href={item.href} className="transition-colors hover:text-[var(--neutral-900)]">
+                <a href={item.href} className="rounded-[var(--radius-sm)] transition-colors hover:text-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]">
                   {item.label}
                 </a>
               ) : (

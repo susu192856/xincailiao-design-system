@@ -52,20 +52,24 @@
 /* 语义色 (Semantic Colors) */
 :root {
   --success-text: #10B981;
-  --success-bg: #D1FAE5;
-  --success-tag: #A7F3D0;
+  --success-bg: #ECFDF5;
+  --success-tag: #ECFDF5;
+  --success-border: #A7F3D0;
 
   --warning-text: #F59E0B;
-  --warning-bg: #FEF3C7;
-  --warning-tag: #FDE68A;
+  --warning-bg: #FFFBEB;
+  --warning-tag: #FFFBEB;
+  --warning-border: #FDE68A;
 
   --error-text: #EF4444;
-  --error-bg: #FEE2E2;
-  --error-tag: #FECACA;
+  --error-bg: #FEF2F2;
+  --error-tag: #FEF2F2;
+  --error-border: #FECACA;
 
   --info-text: #006DEA;
-  --info-bg: #DBEAFE;
-  --info-tag: #BFDBFE;
+  --info-bg: #EFF6FF;
+  --info-tag: #EFF6FF;
+  --info-border: #BFDBFE;
 }
 
 /* 数据色 (Data Visualization Colors) */
@@ -82,6 +86,25 @@
   --data-10: #84CC16;
   --data-11: #F97316;
   --data-12: #475569;
+}
+
+/* 分类色 (Category Colors) — 标签分类专用，不与品牌色、产品蓝、语义色冲突 */
+:root {
+  --category-teal-text: #0F766E;
+  --category-teal-bg: #F0FDFA;
+  --category-teal-border: #99F6E4;
+
+  --category-violet-text: #6D28D9;
+  --category-violet-bg: #F5F3FF;
+  --category-violet-border: #C4B5FD;
+
+  --category-slate-text: #1E40AF;
+  --category-slate-bg: #EFF6FF;
+  --category-slate-border: #93C5FD;
+
+  --category-cyan-text: #0E7490;
+  --category-cyan-bg: #ECFEFF;
+  --category-cyan-border: #A5F3FC;
 }
 
 /* ============================================
@@ -132,6 +155,13 @@
   --type-caption-size: 12px;
   --type-caption-line-height: 18px;
   --type-caption-weight: 400;
+
+  /* Weight variants — 用于强调文本、卡片标签、区块标题等需要字重区分但字号不变场景 */
+  --type-body-l-weight-semibold: 600;
+  --type-body-m-weight-medium: 500;
+  --type-body-m-weight-semibold: 600;
+  --type-body-s-weight-semibold: 600;
+  --type-caption-weight-semibold: 600;
 }
 
 /* ============================================

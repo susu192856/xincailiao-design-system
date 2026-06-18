@@ -140,7 +140,7 @@ export function Tree({
   }
 
   return (
-    <div className={["w-72 border border-[var(--neutral-200)] bg-white p-2", className].join(" ")}>
+    <div className={["w-72 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-2", className].join(" ")}>
       {loading ? (
         <div className="space-y-2 p-2">
           {[0, 1, 2].map((item) => (

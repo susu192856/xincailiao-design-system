@@ -29,6 +29,7 @@ const sizeClass = {
 function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean, size: NonNullable<TabsProps["size"]>) {
   const base = [
     "inline-flex items-center gap-1.5 whitespace-nowrap transition-colors",
+    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
     sizeClass[size],
   ];
@@ -42,7 +43,7 @@ function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean
     );
   } else if (variant === "segment") {
     base.push(
-      "rounded-sm",
+      "rounded-[var(--radius-sm)]",
       active
         ? "bg-white text-[var(--neutral-900)] shadow-[var(--shadow-xs)]"
         : "text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
@@ -87,7 +88,7 @@ export function Tabs({
         className={[
           "flex overflow-x-auto",
           variant === "line" ? "border-b border-[var(--neutral-200)]" : "",
-          variant === "segment" ? "w-fit rounded-sm bg-[var(--neutral-100)] p-1" : "",
+          variant === "segment" ? "w-fit rounded-[var(--radius-sm)] bg-[var(--neutral-100)] p-1" : "",
           variant === "card" ? "gap-1" : "",
           listClassName,
         ].join(" ")}

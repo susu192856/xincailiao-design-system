@@ -164,7 +164,7 @@ export default function TypographyPage() {
           description="统一的字体规范体系覆盖官网展示、产品界面、后台系统等全场景。Display 用于大屏视觉冲击，Heading 建立信息层级，Body 保证内容可读性。"
         />
 
-        <div className="overflow-hidden rounded-none border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-none)] border border-[var(--neutral-200)] bg-white">
           <div className="grid grid-cols-12 gap-4 border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-6 py-3 text-sm font-semibold text-[var(--neutral-900)]">
             <div className="col-span-2">Token</div>
             <div className="col-span-2">字号</div>

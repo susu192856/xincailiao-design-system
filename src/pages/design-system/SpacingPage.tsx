@@ -127,6 +127,37 @@ export default function SpacingPage() {
 
       <section>
         <SectionHeading
+          eyebrow="Vertical Spacing"
+          title="纵向间距对比"
+          description="纵向间距直接影响内容的阅读节奏和信息密度。以下是相同内容在不同纵向间距下的视觉差异。"
+        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {[
+            { grade: "紧凑", gap: "8px", token: "spacing-sm", desc: "适合后台表格、密集列表", className: "space-y-2" },
+            { grade: "标准", gap: "16px", token: "spacing-md", desc: "适合后台表单、卡片内容", className: "space-y-4" },
+            { grade: "宽松", gap: "32px", token: "spacing-xl", desc: "适合官网模块、门户页面", className: "space-y-8" },
+          ].map((item) => (
+            <div key={item.grade} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+              <div className="mb-3 flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{item.grade}</span>
+                  <h3 className="mt-0.5 text-sm font-semibold text-[var(--neutral-900)]">{item.gap} · {item.token}</h3>
+                </div>
+                <span className="font-mono text-[10px] text-[var(--neutral-400)]">{item.desc}</span>
+              </div>
+              <div className={item.className}>
+                <div className="h-2 rounded-sm bg-[var(--neutral-900)]" />
+                <div className="h-2 rounded-sm bg-[var(--neutral-300)]" />
+                <div className="h-2 rounded-sm bg-[var(--neutral-200)]" />
+                <div className="h-2 rounded-sm bg-[var(--neutral-100)]" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           eyebrow="Spacing Recipes"
           title="场景间距配方"
           description="将 token 转译为常见页面的可执行间距，减少设计稿和代码实现中的随意取值。"

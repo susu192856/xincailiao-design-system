@@ -86,7 +86,7 @@ export function Transfer({
     const selectedKeys = side === "source" ? selectedSourceKeys : selectedTargetKeys;
 
     return (
-      <div className="min-w-64 flex-1 border border-[var(--neutral-200)] bg-white">
+      <div className="min-w-64 flex-1 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
         <div className="flex items-center justify-between border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-3 py-2 text-sm text-[var(--neutral-900)]">
           <span>{title}</span>
           <span className="text-xs text-[var(--neutral-500)]">{data.length} 项</span>
@@ -133,7 +133,7 @@ export function Transfer({
         <button
           type="button"
           disabled={disabled || selectedSourceKeys.length === 0}
-          className="flex h-8 w-8 items-center justify-center bg-[var(--neutral-900)] text-white disabled:cursor-not-allowed disabled:bg-[var(--neutral-200)] disabled:text-[var(--neutral-400)]"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-900)] text-white transition-colors hover:bg-[var(--neutral-800)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-200)] disabled:text-[var(--neutral-400)]"
           onClick={() => move("right")}
         >
           <CaretRight size={14} weight="regular" />
@@ -141,7 +141,7 @@ export function Transfer({
         <button
           type="button"
           disabled={disabled || selectedTargetKeys.length === 0}
-          className="flex h-8 w-8 items-center justify-center border border-[var(--neutral-300)] text-[var(--neutral-700)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:text-[var(--neutral-300)]"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--neutral-300)] text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:text-[var(--neutral-300)]"
           onClick={() => move("left")}
         >
           <CaretLeft size={14} weight="regular" />

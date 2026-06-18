@@ -74,7 +74,7 @@ export function Image({
     return (
       <div
         className={[
-          "overflow-hidden border border-[var(--neutral-200)] bg-white",
+          "overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white",
           className,
         ].join(" ")}
       >

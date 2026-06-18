@@ -42,7 +42,7 @@ export function Radio({
             "block rounded-full border transition-colors",
             controlSizes[size],
             "peer-checked:border-[var(--neutral-900)] peer-checked:border-[5px]",
-            "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-400)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
             "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",
             error ? "border-[var(--error-text)]" : "border-[var(--neutral-300)]",
             "bg-white",

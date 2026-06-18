@@ -69,7 +69,7 @@ export function Pagination({
         onClick={() => onPageChange?.(page - 1)}
         aria-label="上一页"
         className={[
-          "flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)] disabled:cursor-not-allowed disabled:opacity-40",
+          "flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:opacity-40",
           iconButtonSize,
         ].join(" ")}
       >
@@ -98,7 +98,7 @@ export function Pagination({
               onClick={() => onPageChange?.(pageNumber)}
               aria-current={pageNumber === page ? "page" : undefined}
               className={[
-                "rounded-[var(--radius-sm)] px-2 transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+                "rounded-[var(--radius-sm)] px-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:opacity-40",
                 buttonSize,
                 pageNumber === page
                   ? "bg-[var(--neutral-900)] text-white"
@@ -116,7 +116,7 @@ export function Pagination({
         onClick={() => onPageChange?.(page + 1)}
         aria-label="下一页"
         className={[
-          "flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)] disabled:cursor-not-allowed disabled:opacity-40",
+          "flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:opacity-40",
           iconButtonSize,
         ].join(" ")}
       >
@@ -136,7 +136,7 @@ export function Pagination({
               if (Number.isFinite(nextPage)) onJump?.(Math.min(Math.max(nextPage, 1), total));
             }}
             className={[
-              "rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-center text-[var(--neutral-900)] outline-none focus:border-[var(--product-blue-500)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+              "rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-center text-[var(--neutral-900)] outline-none transition-colors focus:border-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
               inputSize,
             ].join(" ")}
             aria-label="跳转页码"
@@ -150,7 +150,7 @@ export function Pagination({
           value={pageSize}
           onChange={(event) => onPageSizeChange?.(Number(event.target.value))}
           className={[
-            "ml-2 rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-[var(--neutral-700)] outline-none focus:border-[var(--product-blue-500)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+            "ml-2 rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-[var(--neutral-700)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
             size === "sm" ? "h-7 text-xs" : "h-8 text-sm",
           ].join(" ")}
           aria-label="每页条数"

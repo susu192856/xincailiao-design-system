@@ -13,6 +13,8 @@ import {
 } from "@phosphor-icons/react";
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
 import PageHeader from "../../components/docs/PageHeader";
+import DocsTable from "../../components/docs/DocsTable";
+import { Tag } from "../../components/ui";
 
 type SkeletonKind =
   | "website-home"
@@ -601,11 +603,11 @@ export default function LayoutPage() {
             <div className="space-y-4">
               <div>
                 <p className="mb-2 text-xs font-medium text-[var(--neutral-500)]">优先突出</p>
-                <div className="flex flex-wrap gap-1.5">{["首屏价值主张", "品牌识别与信任感", "核心转化入口", "图文叙事节奏"].map((item) => (<span key={item} className="bg-white px-2 py-1 text-xs text-[var(--neutral-800)]">{item}</span>))}</div>
+                <div className="flex flex-wrap gap-1.5">{["首屏价值主张", "品牌识别与信任感", "核心转化入口", "图文叙事节奏"].map((item) => (<Tag key={item} variant="neutral" size="sm" className="bg-white">{item}</Tag>))}</div>
               </div>
               <div>
                 <p className="mb-2 text-xs font-medium text-[var(--neutral-400)]">需要弱化</p>
-                <div className="flex flex-wrap gap-1.5">{["高密度表格", "复杂筛选器", "多级侧边导航", "过多操作按钮"].map((item) => (<span key={item} className="bg-white px-2 py-1 text-xs text-[var(--neutral-400)]">{item}</span>))}</div>
+                <div className="flex flex-wrap gap-1.5">{["高密度表格", "复杂筛选器", "多级侧边导航", "过多操作按钮"].map((item) => (<Tag key={item} variant="neutral" size="sm" className="bg-white text-[var(--neutral-400)]">{item}</Tag>))}</div>
               </div>
               <div className="space-y-2 border-t border-[var(--neutral-200)] pt-4">
                 {[["内容排布", "大板块分区，1-2列为主，图文结合，注重视觉叙事和故事化表达。"],["信息密度", "低密度，宽松间距 32px-64px，突出重点内容，营造呼吸感。"],["用户行为", "浏览式交互，以滚动为主，停留时间短，需快速抓住注意力。"]].map(([label, text]) => (
@@ -621,11 +623,11 @@ export default function LayoutPage() {
             <div className="space-y-4">
               <div>
                 <p className="mb-2 text-xs font-medium text-[var(--neutral-500)]">优先突出</p>
-                <div className="flex flex-wrap gap-1.5">{["筛选与搜索", "表格与列表数据", "状态与权限反馈", "批量和高频操作"].map((item) => (<span key={item} className="bg-white px-2 py-1 text-xs text-[var(--neutral-800)]">{item}</span>))}</div>
+                <div className="flex flex-wrap gap-1.5">{["筛选与搜索", "表格与列表数据", "状态与权限反馈", "批量和高频操作"].map((item) => (<Tag key={item} variant="neutral" size="sm" className="bg-white">{item}</Tag>))}</div>
               </div>
               <div>
                 <p className="mb-2 text-xs font-medium text-[var(--neutral-400)]">需要弱化</p>
-                <div className="flex flex-wrap gap-1.5">{["大面积 Hero", "营销式视觉装饰", "过宽正文段落", "低频入口抢占首屏"].map((item) => (<span key={item} className="bg-white px-2 py-1 text-xs text-[var(--neutral-400)]">{item}</span>))}</div>
+                <div className="flex flex-wrap gap-1.5">{["大面积 Hero", "营销式视觉装饰", "过宽正文段落", "低频入口抢占首屏"].map((item) => (<Tag key={item} variant="neutral" size="sm" className="bg-white text-[var(--neutral-400)]">{item}</Tag>))}</div>
               </div>
               <div className="space-y-2 border-t border-[var(--neutral-200)] pt-4">
                 {[["内容排布", "卡片和表格密集排列，3-4列为主，强调数据展示和操作便捷性。"],["信息密度", "高密度，紧凑间距 16px-24px，减少滚动次数，提升信息获取效率。"],["用户行为", "操作式交互，以点击、筛选、表单提交为主，长时间使用，需功能清晰易找。"]].map(([label, text]) => (
@@ -700,18 +702,16 @@ export default function LayoutPage() {
 
       <section>
         <SectionHeading title="屏幕适配" description="官网完整适配移动端；后台以桌面工作流为主，窄屏优先收起导航并保留关键任务。" />
-        <div className="overflow-hidden rounded-none border border-[var(--neutral-200)]">
-          <table className="w-full border-collapse text-left text-sm">
-            <thead className="bg-[var(--neutral-50)] text-xs font-medium text-[var(--neutral-700)]">
-              <tr className="border-b border-[var(--neutral-200)]"><th className="px-4 py-3 font-medium">屏幕</th><th className="px-4 py-3 font-medium">官网</th><th className="px-4 py-3 font-medium">后台</th></tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
-              {[["大屏 ≥ 1440px", "保持 12 列与 1400px 居中容器，Hero 可通栏。", "完整展开侧栏、顶部操作栏和批量操作。"],["桌面 1024px - 1439px", "缩小外边距，保留主要图文分栏。", "先收起侧栏，再压缩筛选项和次要字段。"],["平板 768px - 1023px", "从 12 列切换到 8 列，图文可改为上下排布。", "仅保留关键工作流，隐藏低频功能。"],["移动端 < 768px", "单列布局，保留品牌标识、核心内容和主 CTA。", "按需支持核心查询与审批状态操作。"]].map(([screen, website, backend]) => (
-                <tr key={screen}><td className="px-4 py-3 font-medium text-[var(--neutral-900)]">{screen}</td><td className="px-4 py-3 text-xs leading-[18px] text-[var(--neutral-600)]">{website}</td><td className="px-4 py-3 text-xs leading-[18px] text-[var(--neutral-600)]">{backend}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DocsTable>
+          <thead className="bg-[var(--neutral-50)] text-xs font-medium text-[var(--neutral-700)]">
+            <tr className="border-b border-[var(--neutral-200)]"><th className="px-4 py-3 font-medium">屏幕</th><th className="px-4 py-3 font-medium">官网</th><th className="px-4 py-3 font-medium">后台</th></tr>
+          </thead>
+          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+            {[["大屏 ≥ 1440px", "保持 12 列与 1400px 居中容器，Hero 可通栏。", "完整展开侧栏、顶部操作栏和批量操作。"],["桌面 1024px - 1439px", "缩小外边距，保留主要图文分栏。", "先收起侧栏，再压缩筛选项和次要字段。"],["平板 768px - 1023px", "从 12 列切换到 8 列，图文可改为上下排布。", "仅保留关键工作流，隐藏低频功能。"],["移动端 < 768px", "单列布局，保留品牌标识、核心内容和主 CTA。", "按需支持核心查询与审批状态操作。"]].map(([screen, website, backend]) => (
+              <tr key={screen}><td className="px-4 py-3 font-medium text-[var(--neutral-900)]">{screen}</td><td className="px-4 py-3 text-xs leading-[18px] text-[var(--neutral-600)]">{website}</td><td className="px-4 py-3 text-xs leading-[18px] text-[var(--neutral-600)]">{backend}</td></tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
 
       <section>
@@ -761,18 +761,16 @@ export default function LayoutPage() {
 
       <section>
         <SectionHeading title="布局 Token" description="以下 CSS 变量可直接在开发中使用，保持官网与后台布局的一致性。" />
-        <div className="overflow-hidden rounded-none border border-[var(--neutral-200)]">
-          <table className="w-full border-collapse text-left text-sm">
-            <thead className="bg-[var(--neutral-50)] text-xs font-medium text-[var(--neutral-700)]">
-              <tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-medium">Token</th><th className="px-6 py-3 font-medium">值</th><th className="px-6 py-3 font-medium">说明</th></tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
-              {[["--layout-website-width", "1920px", "官网设计稿宽度"],["--layout-website-content", "1400px", "官网内容最大宽度"],["--layout-website-nav-height", "64px", "官网顶部导航高度"],["--layout-website-hero-sm", "500px", "小屏 Hero 高度"],["--layout-website-hero-md", "650px", "中屏 Hero 高度"],["--layout-website-hero-lg", "800px", "大屏 Hero 高度"],["--layout-backend-width", "1440px", "后台设计稿宽度"],["--layout-backend-sidebar-expanded", "240px", "后台侧栏展开宽度"],["--layout-backend-sidebar-collapsed", "56px", "后台侧栏收起宽度"],["--layout-backend-topbar-height", "64px", "后台顶部操作栏高度"]].map(([token, value, desc]) => (
-                <tr key={token}><td className="px-6 py-4 font-mono text-xs text-[var(--neutral-700)]">{token}</td><td className="px-6 py-4 font-mono text-xs text-[var(--neutral-900)]">{value}</td><td className="px-6 py-4 text-sm text-[var(--neutral-600)]">{desc}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DocsTable>
+          <thead className="bg-[var(--neutral-50)] text-xs font-medium text-[var(--neutral-700)]">
+            <tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-medium">Token</th><th className="px-6 py-3 font-medium">值</th><th className="px-6 py-3 font-medium">说明</th></tr>
+          </thead>
+          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+            {[["--layout-website-width", "1920px", "官网设计稿宽度"],["--layout-website-content", "1400px", "官网内容最大宽度"],["--layout-website-nav-height", "64px", "官网顶部导航高度"],["--layout-website-hero-sm", "500px", "小屏 Hero 高度"],["--layout-website-hero-md", "650px", "中屏 Hero 高度"],["--layout-website-hero-lg", "800px", "大屏 Hero 高度"],["--layout-backend-width", "1440px", "后台设计稿宽度"],["--layout-backend-sidebar-expanded", "240px", "后台侧栏展开宽度"],["--layout-backend-sidebar-collapsed", "56px", "后台侧栏收起宽度"],["--layout-backend-topbar-height", "64px", "后台顶部操作栏高度"]].map(([token, value, desc]) => (
+              <tr key={token}><td className="px-6 py-4 font-mono text-xs text-[var(--neutral-700)]">{token}</td><td className="px-6 py-4 font-mono text-xs text-[var(--neutral-900)]">{value}</td><td className="px-6 py-4 text-sm text-[var(--neutral-600)]">{desc}</td></tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
     </div>
   );

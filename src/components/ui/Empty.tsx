@@ -43,7 +43,7 @@ export function Empty({ variant = "noData", title, description, action, classNam
   return (
     <div
       className={[
-        "flex flex-col items-center justify-center border border-dashed border-[var(--neutral-200)] bg-white px-6 py-10 text-center",
+        "flex flex-col items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-200)] bg-white px-6 py-10 text-center",
         className,
       ].join(" ")}
       {...props}

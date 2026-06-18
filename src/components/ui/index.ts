@@ -55,7 +55,7 @@ export type { TableCellProps, TableHeadProps, TableProps, TableRowProps } from "
 export { Tabs } from "./Tabs";
 export type { TabsProps } from "./Tabs";
 export { Tag } from "./Tag";
-export type { TagProps } from "./Tag";
+export type { TagProps, TagVariant } from "./Tag";
 export { Textarea } from "./Textarea";
 export type { TextareaProps } from "./Textarea";
 export { toast, Toast, ToastContainer } from "./Toast";

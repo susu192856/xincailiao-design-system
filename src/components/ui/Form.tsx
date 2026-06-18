@@ -72,7 +72,7 @@ export function Form({ density = "standard", className = "", children, ...props 
 
 export function FormSection({ title, description, children, className = "" }: FormSectionProps) {
   return (
-    <section className={["rounded-sm bg-white", className].join(" ")}>
+    <section className={["rounded-[var(--radius-sm)] bg-white", className].join(" ")}>
       {title || description ? (
         <div className="mb-5">
           {title ? <h3 className="text-base font-semibold text-[var(--neutral-900)]">{title}</h3> : null}
@@ -104,7 +104,7 @@ export function FormStateBanner({
   className = "",
 }: FormStateBannerProps) {
   return (
-    <div className={["rounded-sm border px-4 py-3", stateToneClasses[tone], className].join(" ")}>
+    <div className={["rounded-[var(--radius-sm)] border px-4 py-3", stateToneClasses[tone], className].join(" ")}>
       <div className="text-sm font-semibold">{title}</div>
       {description ? <div className="mt-1 text-xs leading-5 opacity-90">{description}</div> : null}
       {children ? <div className="mt-3">{children}</div> : null}

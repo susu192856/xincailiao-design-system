@@ -46,12 +46,12 @@ export function ExampleCard({
 
 export function SpecList({ items }: { items: string[] }) {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div className="space-y-1.5">
       {items.map((item, index) => (
-        <div key={item} className="rounded-[2px] bg-white p-5">
-          <div className="mb-4 font-mono text-3xl font-semibold text-[var(--neutral-100)]">
+        <div key={item} className="flex items-start gap-3 rounded-sm bg-white px-4 py-2.5">
+          <span className="mt-0.5 shrink-0 font-mono text-xs text-[var(--neutral-400)]">
             {String(index + 1).padStart(2, "0")}
-          </div>
+          </span>
           <p className="text-sm leading-6 text-[var(--neutral-700)]">{item}</p>
         </div>
       ))}

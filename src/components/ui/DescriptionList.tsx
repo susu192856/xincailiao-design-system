@@ -58,7 +58,7 @@ export function DescriptionList({
   return (
     <dl
       className={[
-        "grid bg-white text-sm",
+        "grid rounded-[var(--radius-sm)] bg-white text-sm",
         columnClasses[columns],
         bordered ? "border border-[var(--neutral-200)]" : "gap-x-8 gap-y-4",
         className,

@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { X } from "@phosphor-icons/react";
+import { SpinnerGap, X } from "@phosphor-icons/react";
 
 export type ToastVariant = "success" | "error" | "warning" | "info" | "loading";
 
@@ -44,20 +44,23 @@ export function Toast({ variant, title, description, action, onClose, className 
   return (
     <div
       className={[
-        "flex w-full items-start gap-3 rounded-sm border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-sm",
+        "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-[var(--shadow-sm)]",
         borderColorMap[variant],
         className,
       ].join(" ")}
       role="status"
       {...props}
     >
-      <span
-        className={[
-          "mt-1.5 h-2 w-2 shrink-0 rounded-full",
-          variant === "loading" ? "animate-pulse" : "",
-          dotColorMap[variant],
-        ].join(" ")}
-      />
+      {variant === "loading" ? (
+        <SpinnerGap className="mt-1.5 h-4 w-4 shrink-0 animate-spin" weight="regular" />
+      ) : (
+        <span
+          className={[
+            "mt-1.5 h-2 w-2 shrink-0 rounded-full",
+            dotColorMap[variant],
+          ].join(" ")}
+        />
+      )}
       <div className="min-w-0 flex-1">
         <p className="text-sm font-normal text-[var(--neutral-900)]">{title}</p>
         {description ? (
@@ -114,7 +117,7 @@ export function ToastContainer({ position = "bottom-right" }: ToastContainerProp
           title={item.title}
           description={item.description}
           action={item.action}
-          className="shadow-lg"
+          className="shadow-[var(--shadow-lg)]"
           onClose={() => setItems((prev) => prev.filter((i) => i.id !== item.id))}
         />
       ))}

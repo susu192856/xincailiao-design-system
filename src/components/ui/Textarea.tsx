@@ -43,8 +43,9 @@ export function Textarea({
         disabled={disabled}
         aria-invalid={Boolean(error)}
         className={[
-          "w-full rounded-sm border bg-white text-[var(--neutral-900)] outline-none transition-colors",
+          "w-full rounded-[var(--radius-sm)] border bg-white text-[var(--neutral-900)] outline-none transition-colors",
           "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--neutral-600)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]",
           "resize-y",
           error
             ? "border-[var(--error-text)] focus:border-[var(--error-text)]"

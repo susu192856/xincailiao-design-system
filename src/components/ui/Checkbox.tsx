@@ -41,10 +41,10 @@ export function Checkbox({
             {...props}
           />
           <span className={[
-            "block rounded-sm border transition-colors",
+            "block rounded-[var(--radius-sm)] border transition-colors",
             controlSizes[size],
             "peer-checked:bg-[var(--neutral-900)] peer-checked:border-[var(--neutral-900)]",
-            "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-400)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
             error ? "border-[var(--error-text)]" : "border-[var(--neutral-300)]",
             "bg-white",
             "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",

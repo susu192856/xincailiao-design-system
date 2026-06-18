@@ -45,7 +45,7 @@ const alignClass: Record<TableCellAlign, string> = {
 export function TableContainer({ className = "", ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={["overflow-x-auto rounded-sm border border-[var(--neutral-200)] bg-white", className].join(" ")}
+      className={["overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white", className].join(" ")}
       {...props}
     />
   );

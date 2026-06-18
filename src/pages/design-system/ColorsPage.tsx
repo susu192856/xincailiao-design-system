@@ -341,6 +341,88 @@ function BarChartExample() {
   );
 }
 
+function StackedBarChartExample() {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300">
+  <rect width="560" height="300" fill="#F7F8FA"/>
+  <g stroke="#E6E9EE" stroke-width="1">
+    <line x1="64" y1="70" x2="520" y2="70"/>
+    <line x1="64" y1="130" x2="520" y2="130"/>
+    <line x1="64" y1="190" x2="520" y2="190"/>
+    <line x1="64" y1="242" x2="520" y2="242"/>
+  </g>
+  <g stroke="#97A0AD" stroke-width="1.5">
+    <line x1="64" y1="242" x2="520" y2="242"/>
+    <line x1="64" y1="60" x2="64" y2="242"/>
+  </g>
+  <rect x="92" y="192" width="48" height="50" fill="#006DEA"/>
+  <rect x="92" y="142" width="48" height="50" fill="#14B8A6"/>
+  <rect x="92" y="92" width="48" height="50" fill="#8B5CF6"/>
+  <rect x="172" y="172" width="48" height="70" fill="#006DEA"/>
+  <rect x="172" y="122" width="48" height="50" fill="#14B8A6"/>
+  <rect x="172" y="82" width="48" height="40" fill="#8B5CF6"/>
+  <rect x="252" y="182" width="48" height="60" fill="#006DEA"/>
+  <rect x="252" y="132" width="48" height="50" fill="#14B8A6"/>
+  <rect x="252" y="102" width="48" height="30" fill="#8B5CF6"/>
+  <rect x="332" y="202" width="48" height="40" fill="#006DEA"/>
+  <rect x="332" y="152" width="48" height="50" fill="#14B8A6"/>
+  <rect x="332" y="112" width="48" height="40" fill="#8B5CF6"/>
+  <rect x="412" y="192" width="48" height="50" fill="#006DEA"/>
+  <rect x="412" y="142" width="48" height="50" fill="#14B8A6"/>
+  <rect x="412" y="107" width="48" height="35" fill="#8B5CF6"/>
+</svg>`;
+
+  return (
+    <ChartExampleCard
+      eyebrow="Stacked Bar"
+      title="堆叠柱状图"
+      svg={svg}
+      description="适合展示总量构成和占比关系。每段使用不同颜色，避免超过 4 层叠加以免难以辨识；总高度代表总量。"
+    >
+      <svg viewBox="0 0 560 300" className="h-auto w-full" role="img" aria-label="堆叠柱状图数据色示例">
+        <rect width="560" height="300" fill="#F7F8FA" />
+        <g stroke="#E6E9EE" strokeWidth="1">
+          {[70, 130, 190, 242].map((y) => (
+            <line key={y} x1="64" y1={y} x2="520" y2={y} />
+          ))}
+        </g>
+        <g stroke="#97A0AD" strokeWidth="1.5">
+          <line x1="64" y1="242" x2="520" y2="242" />
+          <line x1="64" y1="60" x2="64" y2="242" />
+        </g>
+        <g className="font-mono text-[11px] fill-[var(--neutral-500)]">
+          <text x="34" y="74">100</text>
+          <text x="40" y="194">50</text>
+          <text x="47" y="246">0</text>
+        </g>
+        {[
+          { x: 92, segments: [{ h: 50, y: 192, c: "#006DEA" }, { h: 50, y: 142, c: "#14B8A6" }, { h: 50, y: 92, c: "#8B5CF6" }] },
+          { x: 172, segments: [{ h: 70, y: 172, c: "#006DEA" }, { h: 50, y: 122, c: "#14B8A6" }, { h: 40, y: 82, c: "#8B5CF6" }] },
+          { x: 252, segments: [{ h: 60, y: 182, c: "#006DEA" }, { h: 50, y: 132, c: "#14B8A6" }, { h: 30, y: 102, c: "#8B5CF6" }] },
+          { x: 332, segments: [{ h: 40, y: 202, c: "#006DEA" }, { h: 50, y: 152, c: "#14B8A6" }, { h: 40, y: 112, c: "#8B5CF6" }] },
+          { x: 412, segments: [{ h: 50, y: 192, c: "#006DEA" }, { h: 50, y: 142, c: "#14B8A6" }, { h: 35, y: 107, c: "#8B5CF6" }] },
+        ].map((bar) =>
+          bar.segments.map((seg, i) => (
+            <rect key={`${bar.x}-${i}`} x={bar.x} y={seg.y} width="48" height={seg.h} fill={seg.c} />
+          ))
+        )}
+        {["Q1", "Q2", "Q3", "Q4", "Now"].map((label, i) => (
+          <text key={label} x={116 + i * 80} y="268" textAnchor="middle" className="text-[11px] fill-[var(--neutral-500)]">{label}</text>
+        ))}
+        {[
+          ["材料A", "#006DEA", 32],
+          ["材料B", "#14B8A6", 94],
+          ["材料C", "#8B5CF6", 156],
+        ].map(([label, color, x]) => (
+          <g key={label}>
+            <rect x={Number(x)} y="18" width="10" height="10" fill={String(color)} />
+            <text x={Number(x) + 16} y="28" className="text-[11px] font-medium fill-[var(--neutral-600)]">{label}</text>
+          </g>
+        ))}
+      </svg>
+    </ChartExampleCard>
+  );
+}
+
 function CoreRuleRow({
   semantic,
   variable,
@@ -384,15 +466,27 @@ function SemanticCard({ color }: { color: SemanticColor }) {
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-4">
           <span className="text-xs text-[var(--neutral-500)]">文字色</span>
-          <ColorChip color={color.text} />
+          <div className="flex items-center gap-2">
+            <span className="h-6 w-6 rounded-sm border border-[var(--neutral-200)]" style={{ backgroundColor: color.text }} />
+            <span className="font-mono text-[10px] text-[var(--neutral-600)]">{color.text}</span>
+          </div>
         </div>
         <div className="flex items-center justify-between gap-4">
-          <span className="text-xs text-[var(--neutral-500)]">背景</span>
-          <ColorChip color={color.background} />
+          <span className="text-xs text-[var(--neutral-500)]">背景 / 标签</span>
+          <div className="flex items-center gap-2">
+            <span className="h-6 w-6 rounded-sm border border-[var(--neutral-200)]" style={{ backgroundColor: color.background }} />
+            <span className="font-mono text-[10px] text-[var(--neutral-600)]">{color.background}</span>
+          </div>
         </div>
-        <div className="flex items-center justify-between gap-4">
-          <span className="text-xs text-[var(--neutral-500)]">标签</span>
-          <ColorChip color={color.tag} />
+      </div>
+      <div className="mt-4 space-y-2 border-t border-[var(--neutral-200)] pt-4">
+        <p className="text-xs font-medium text-[var(--neutral-500)]">效果预览</p>
+        <div className="rounded-sm p-2.5 text-xs leading-5" style={{ backgroundColor: color.background, color: color.text }}>
+          <span className="font-semibold">标签用法</span> — 同色文字，用于 Tag、Badge
+        </div>
+        <div className="rounded-sm p-2.5 text-xs leading-5" style={{ backgroundColor: color.background }}>
+          <span className="font-semibold text-[var(--neutral-900)]">段落用法</span>
+          <span className="text-[var(--neutral-700)]"> — 深色文字，用于说明提示、信息横幅</span>
         </div>
       </div>
     </div>
@@ -440,10 +534,10 @@ export default function ColorsPage() {
   ];
 
   const semanticColors: SemanticColor[] = [
-    { name: "success", text: "#10B981", background: "#D1FAE5", tag: "#A7F3D0", label: "成功状态", usage: "用于保存成功、流程完成、校验通过等正向反馈。" },
-    { name: "warning", text: "#F59E0B", background: "#FEF3C7", tag: "#FDE68A", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。" },
-    { name: "error", text: "#EF4444", background: "#FEE2E2", tag: "#FECACA", label: "错误/危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。" },
-    { name: "info", text: "#006DEA", background: "#DBEAFE", tag: "#BFDBFE", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。" },
+    { name: "success", text: "#10B981", background: "#ECFDF5", tag: "#ECFDF5", label: "成功状态", usage: "用于保存成功、流程完成、校验通过等正向反馈。" },
+    { name: "warning", text: "#F59E0B", background: "#FFFBEB", tag: "#FFFBEB", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。" },
+    { name: "error", text: "#EF4444", background: "#FEF2F2", tag: "#FEF2F2", label: "错误/危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。" },
+    { name: "info", text: "#006DEA", background: "#EFF6FF", tag: "#EFF6FF", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。" },
   ];
 
   const dataColors: DataColor[] = [
@@ -720,42 +814,202 @@ export default function ColorsPage() {
           ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
           <LineChartExample />
           <DonutChartExample />
           <BarChartExample />
+          <StackedBarChartExample />
         </div>
 
-        <div className="mt-6 bg-[var(--neutral-50)] p-5">
-          <h3 className="mb-3 text-base font-semibold text-[var(--neutral-900)]">数据色使用原则</h3>
-          <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--neutral-700)] md:grid-cols-3">
-            <p><span className="font-semibold text-[var(--neutral-900)]">顺序稳定：</span>同一业务指标在不同图表中保持相同颜色，避免用户重新学习。</p>
-            <p><span className="font-semibold text-[var(--neutral-900)]">重点克制：</span>品牌红不进入普通序列，只在关键阈值、异常结果或决策点中出现。</p>
-            <p><span className="font-semibold text-[var(--neutral-900)]">数量控制：</span>曲线图 2-4 色、饼图 3-5 色、柱状图优先同色系深浅或少量对比色。</p>
+        <div className="mt-8 space-y-6">
+          <div className="bg-white p-6">
+            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">颜色相似度分组</h3>
+            <p className="mb-4 text-sm leading-6 text-[var(--neutral-600)]">
+              12 个数据色并非彼此独立。以下 4 组颜色在色相上相近，<span className="font-semibold text-[var(--neutral-900)]">在同一图表中应避免邻近使用</span>，否则用户难以区分。
+            </p>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+              {[
+                { label: "蓝色系（避免邻接）", colors: ["#006DEA", "#0EA5E9"], tokens: ["data-01", "data-08"], rule: "data-01 作主序列，data-08 不出现在同一图表" },
+                { label: "绿/青系（避免邻接）", colors: ["#14B8A6", "#10B981"], tokens: ["data-02", "data-05"], rule: "data-02 偏青、data-05 偏绿；data-02 用于对比序列，data-05 用于增长指标" },
+                { label: "紫系（避免邻接）", colors: ["#8B5CF6", "#A855F7"], tokens: ["data-03", "data-09"], rule: "data-03 饱和度更高，用于主模型；data-09 仅在 7+ 序列时启用" },
+                { label: "暖色系（可区分）", colors: ["#F59E0B", "#F97316"], tokens: ["data-04", "data-11"], rule: "data-04 偏黄用于警戒线，data-11 偏橙用于热度/阶段，可共存但需拉开距离" },
+              ].map((group) => (
+                <div key={group.label} className="rounded-sm border border-[var(--neutral-200)] p-4">
+                  <p className="mb-3 text-xs font-semibold text-[var(--neutral-700)]">{group.label}</p>
+                  <div className="mb-3 flex gap-1.5">
+                    {group.colors.map((hex, i) => (
+                      <div key={hex} className="flex-1">
+                        <div className="mb-1 h-8 rounded-sm" style={{ backgroundColor: hex }} />
+                        <p className="text-center font-mono text-[10px] text-[var(--neutral-500)]">{group.tokens[i]}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs leading-5 text-[var(--neutral-500)]">{group.rule}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white p-6">
+            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">数据色使用原则</h3>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              <div className="space-y-4">
+                <div>
+                  <p className="mb-1 text-sm font-semibold text-[var(--neutral-800)]">主色板（data-01 ~ data-06）</p>
+                  <p className="text-sm leading-6 text-[var(--neutral-600)]">6 色互不相似，彼此可安全邻接。曲线图 2-4 色、饼图 3-5 色、柱状图可全用。优先从前到后依次选用。</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-semibold text-[var(--neutral-800)]">扩展色板（data-07 ~ data-12）</p>
+                  <p className="text-sm leading-6 text-[var(--neutral-600)]">仅在序列超过 6 条时才启用。需要配合线型（虚线、点线）、透明度或图例分组，不能仅依赖颜色区分。面积图、饼图不建议同时使用超过 6 色。</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-semibold text-[var(--neutral-800)]">语义专用色</p>
+                  <p className="text-sm leading-6 text-[var(--neutral-600)]">data-04（警戒/阈值）和 data-06（风险/异常）优先用于阈值线和异常标记，不作为普通数据序列。data-07 和 data-12 用于"其他"或"基准线"等低强调场景。</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <p className="mb-1 text-sm font-semibold text-[var(--neutral-800)]">同一指标跨图表保持一致</p>
+                  <p className="text-sm leading-6 text-[var(--neutral-600)]">"材料强度"在折线图用 data-01，在柱状图也应用 data-01。用户不需要重新学习颜色含义。</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-semibold text-[var(--neutral-800)]">超过 6 类时合并为"其他"</p>
+                  <p className="text-sm leading-6 text-[var(--neutral-600)]">饼图和环图中，占比低于 5% 的类别合并为"其他"，使用 data-07 或 data-12，避免碎片化色块。</p>
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-semibold text-[var(--neutral-800)]">品牌色不入图</p>
+                  <p className="text-sm leading-6 text-[var(--neutral-600)]">品牌红（brand-600）不进入数据序列。仅在标注关键阈值、异常事件或业务决策点时小面积使用。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6">
+            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">推荐色板组合</h3>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {[
+                { title: "2 条序列", colors: ["#006DEA", "#14B8A6"], tokens: ["data-01", "data-02"], usage: "对比分析、A/B 测试" },
+                { title: "3 条序列", colors: ["#006DEA", "#14B8A6", "#8B5CF6"], tokens: ["data-01", "data-02", "data-03"], usage: "多模型对比、多材料属性" },
+                { title: "4 条序列", colors: ["#006DEA", "#14B8A6", "#8B5CF6", "#F59E0B"], tokens: ["data-01", "data-02", "data-03", "data-04"], usage: "区域对比、时间段分析" },
+                { title: "5 条序列", colors: ["#006DEA", "#14B8A6", "#8B5CF6", "#F59E0B", "#10B981"], tokens: ["data-01", "data-02", "data-03", "data-04", "data-05"], usage: "全维度对比（data-02 与 data-05 需拉开距离）" },
+                { title: "6 条序列", colors: ["#006DEA", "#14B8A6", "#8B5CF6", "#F59E0B", "#10B981", "#EF4444"], tokens: ["data-01~06"], usage: "全量分析（data-06 仅用于异常标记）" },
+                { title: "阈值线示例", colors: ["#006DEA", "#F59E0B"], tokens: ["data-01 + data-04"], usage: "主序列 + 警戒阈值虚线。阈值线使用虚线，不与实线序列混淆" },
+              ].map((combo) => (
+                <div key={combo.title} className="rounded-sm border border-[var(--neutral-200)] p-4">
+                  <p className="mb-2 text-xs font-semibold text-[var(--neutral-700)]">{combo.title}</p>
+                  <div className="mb-2 flex h-3 gap-0.5">
+                    {combo.colors.map((hex, i) => (
+                      <div key={i} className="flex-1 rounded-sm" style={{ backgroundColor: hex }} title={combo.tokens[i]} />
+                    ))}
+                  </div>
+                  <p className="text-[10px] leading-4 text-[var(--neutral-500)]">{combo.usage}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Quick Guide"
+          title="快速选色指南"
+          description="如果你刚接触这套色彩系统，可以按照以下决策流程快速找到正确的颜色，不用从头理解所有色阶。"
+        />
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+          <div className="rounded-sm bg-white p-5">
+            <div className="mb-4 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-[var(--neutral-900)] text-xs font-semibold text-white">1</span>
+              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">我要做什么？</h3>
+            </div>
+            <div className="space-y-2.5 text-xs leading-5 text-[var(--neutral-600)]">
+              <div className="rounded-sm bg-[var(--neutral-50)] p-2.5">
+                <p className="mb-1 font-semibold text-[var(--neutral-800)]">品牌展示 / 营销</p>
+                <p>→ 品牌红 <span className="font-mono text-[var(--brand-600)]">brand-600</span></p>
+              </div>
+              <div className="rounded-sm bg-[var(--neutral-50)] p-2.5">
+                <p className="mb-1 font-semibold text-[var(--neutral-800)]">功能操作 / 链接</p>
+                <p>→ 产品蓝 <span className="font-mono text-[var(--product-blue-500)]">product-blue-500</span></p>
+              </div>
+              <div className="rounded-sm bg-[var(--neutral-50)] p-2.5">
+                <p className="mb-1 font-semibold text-[var(--neutral-800)]">文字和层级</p>
+                <p>→ 中性灰 <span className="font-mono text-[var(--neutral-900)]">neutral-900</span> ~ <span className="font-mono text-[var(--neutral-400)]">400</span></p>
+              </div>
+              <div className="rounded-sm bg-[var(--neutral-50)] p-2.5">
+                <p className="mb-1 font-semibold text-[var(--neutral-800)]">反馈 / 状态提示</p>
+                <p>→ 语义色 success / warning / error / info</p>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-sm bg-white p-5">
+            <div className="mb-4 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-[var(--neutral-900)] text-xs font-semibold text-white">2</span>
+              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">文字用哪个？</h3>
+            </div>
+            <div className="space-y-1.5 text-xs leading-5">
+              {[
+                ["主标题", "neutral-900", "#1A1A1A"],
+                ["正文", "neutral-800", "#2B313A"],
+                ["辅助说明", "neutral-600", "#6F7785"],
+                ["占位符 / 禁用", "neutral-400", "#B8C0CC"],
+              ].map(([label, token, hex]) => (
+                <div key={label} className="flex items-center justify-between rounded-sm border border-[var(--neutral-100)] px-2.5 py-2">
+                  <span className="text-[var(--neutral-700)]">{label}</span>
+                  <span className="font-mono text-[10px]" style={{ color: hex }}>{token}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-sm bg-white p-5">
+            <div className="mb-4 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-[var(--neutral-900)] text-xs font-semibold text-white">3</span>
+              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">背景用哪个？</h3>
+            </div>
+            <div className="space-y-1.5 text-xs leading-5">
+              {[
+                ["后台页面底色", "neutral-50"],
+                ["卡片 / 弹窗", "white"],
+                ["表头 / 分组区", "neutral-50 或 100"],
+              ].map(([label, token]) => (
+                <div key={label} className="flex items-center justify-between rounded-sm border border-[var(--neutral-100)] px-2.5 py-2">
+                  <span className="text-[var(--neutral-700)]">{label}</span>
+                  <span className="font-mono text-[10px] text-[var(--neutral-500)]">{token}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-sm bg-white p-5">
+            <div className="mb-4 flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-[var(--neutral-900)] text-xs font-semibold text-white">4</span>
+              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">边框 / 分割线</h3>
+            </div>
+            <div className="space-y-1.5 text-xs leading-5">
+              {[
+                ["页面卡片容器边框", "neutral-200"],
+                ["输入框选择器边框", "neutral-300"],
+                ["分割线", "neutral-200"],
+              ].map(([label, token]) => (
+                <div key={label} className="flex items-center justify-between rounded-sm border border-[var(--neutral-100)] px-2.5 py-2">
+                  <span className="text-[var(--neutral-700)]">{label}</span>
+                  <span className="font-mono text-[10px] text-[var(--neutral-500)]">{token}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="使用原则" />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="bg-white p-6">
-            <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">推荐做法</h3>
-            <ul className="space-y-3 text-sm leading-6 text-[var(--neutral-700)]">
-              <li>• 先判断色彩语义，再选择具体色阶。</li>
-              <li>• 主行动优先使用 neutral-900，保持专业与稳定。</li>
-              <li>• 后台功能操作使用产品蓝，帮助用户识别可交互行为。</li>
-              <li>• 品牌红只作为关键节点和品牌签名，小面积出现。</li>
-            </ul>
-          </div>
-          <div className="bg-white p-6">
-            <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">避免做法</h3>
-            <ul className="space-y-3 text-sm leading-6 text-[var(--neutral-700)]">
-              <li>• 不要把品牌红当作常规后台按钮色。</li>
-              <li>• 不要把产品蓝命名为次按钮，蓝色是业务色彩语义。</li>
-              <li>• 不要用相近但未定义的临时色破坏 token 一致性。</li>
-              <li>• 不要只依赖颜色表达状态，必须配合文字或图标语义。</li>
-            </ul>
+        <div className="rounded-sm bg-white p-5">
+          <div className="space-y-2 text-sm leading-6">
+            <p><span className="mr-2 font-semibold text-[var(--success-text)]">✓</span>先判断色彩语义，再选择具体色阶。主行动优先使用 neutral-900。</p>
+            <p><span className="mr-2 font-semibold text-[var(--success-text)]">✓</span>后台功能操作使用产品蓝，帮助用户识别可交互行为。</p>
+            <p><span className="mr-2 font-semibold text-[var(--success-text)]">✓</span>品牌红仅作为关键节点和品牌签名，小面积出现。</p>
+            <p className="mt-3"><span className="mr-2 font-semibold text-[var(--error-text)]">✗</span>不要把品牌红当作常规后台按钮色。</p>
+            <p><span className="mr-2 font-semibold text-[var(--error-text)]">✗</span>不要把产品蓝命名为"次按钮"，蓝色是业务色彩语义。</p>
+            <p><span className="mr-2 font-semibold text-[var(--error-text)]">✗</span>不要用相近但未定义的临时色破坏 token 一致性。</p>
+            <p><span className="mr-2 font-semibold text-[var(--error-text)]">✗</span>不要只依赖颜色表达状态，必须配合文字或图标语义。</p>
           </div>
         </div>
       </section>

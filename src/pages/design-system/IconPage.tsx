@@ -1,33 +1,92 @@
 import {
+  Archive,
+  ArrowClockwise,
+  ArrowCounterClockwise,
+  ArrowLeft,
+  ArrowRight,
+  ArrowSquareOut,
   ArrowsOutLineHorizontal,
+  ArrowsClockwise,
+  ArrowsCounterClockwise,
+  ArrowsIn,
+  ArrowsOut,
+  Bell,
   CaretDown,
   ChartBar,
   ChatCircle,
   Check,
   CheckCircle,
+  CheckSquare,
   Circle,
+  Clipboard,
+  ClipboardText,
   Copy,
   CreditCard,
   Cube,
   CursorText,
+  Database,
+  DotsThree,
   DownloadSimple,
+  Empty,
+  Eye,
+  FileArchive,
+  FileArrowDown,
+  FileArrowUp,
   FileText,
+  Flag,
+  Folder,
+  Funnel,
   GearSix,
+  GitBranch,
+  GitMerge,
   GridFour,
   House,
   Info,
+  Link,
+  LinkBreak,
+  Lock,
+  LockOpen,
   MagnifyingGlass,
+  MagnifyingGlassMinus,
+  MapPin,
+  Monitor,
   Palette,
+  PaperPlaneRight,
+  Pause,
   PencilSimple,
+  Play,
   Plus,
+  Printer,
+  Prohibit,
+  PushPin,
+  QrCode,
+  Question,
+  Repeat,
+  Resize,
+  RocketLaunch,
+  SealCheck,
+  Scissors,
+  ShareNetwork,
+  ShieldCheck,
+  ShieldWarning,
+  SignOut,
+  SlidersHorizontal,
   Smiley,
+  SortAscending,
   Square,
+  SpinnerGap,
+  Stack,
+  Star,
   Table,
   Tag,
   TextT,
   Trash,
   UploadSimple,
+  UserGear,
+  Users,
   WarningCircle,
+  WarningOctagon,
+  X,
   XCircle,
 } from "@phosphor-icons/react";
 import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
@@ -35,7 +94,7 @@ import { useState } from "react";
 import DocsTable from "../../components/docs/DocsTable";
 import { SectionHeading } from "../../components/docs/ComponentDoc";
 import PageHeader from "../../components/docs/PageHeader";
-import { Icon as SystemIcon } from "../../components/ui";
+import { Icon as SystemIcon, Button } from "../../components/ui";
 
 type CommonIconItem = {
   name: string;
@@ -74,36 +133,372 @@ const createSvg = (name: string) =>
 const createDecorativeSvg = (title: string, content: string) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 54 54" fill="none" role="img" aria-label="${title}"><title>${title}</title>${content.replaceAll('stroke-width="3"', 'stroke-width="2"')}</svg>`;
 
-const commonIcons: CommonIconItem[] = [
-  { name: "House", zhName: "首页", icon: House, svg: createSvg("House") },
-  { name: "GridFour", zhName: "布局 / 模块", icon: GridFour, svg: createSvg("GridFour") },
-  { name: "Palette", zhName: "颜色", icon: Palette, svg: createSvg("Palette") },
-  { name: "TextT", zhName: "字体", icon: TextT, svg: createSvg("TextT") },
-  { name: "Smiley", zhName: "图标", icon: Smiley, svg: createSvg("Smiley") },
-  { name: "ArrowsOutLineHorizontal", zhName: "间距", icon: ArrowsOutLineHorizontal, svg: createSvg("ArrowsOutLineHorizontal") },
-  { name: "Cube", zhName: "阴影 / 组件", icon: Cube, svg: createSvg("Cube") },
-  { name: "Circle", zhName: "圆角", icon: Circle, svg: createSvg("Circle") },
-  { name: "Square", zhName: "按钮 / 容器", icon: Square, svg: createSvg("Square") },
-  { name: "CursorText", zhName: "输入框", icon: CursorText, svg: createSvg("CursorText") },
-  { name: "CaretDown", zhName: "选择器", icon: CaretDown, svg: createSvg("CaretDown") },
-  { name: "Table", zhName: "表格", icon: Table, svg: createSvg("Table") },
-  { name: "CreditCard", zhName: "卡片", icon: CreditCard, svg: createSvg("CreditCard") },
-  { name: "ChatCircle", zhName: "弹窗 / 消息", icon: ChatCircle, svg: createSvg("ChatCircle") },
-  { name: "Tag", zhName: "标签", icon: Tag, svg: createSvg("Tag") },
-  { name: "FileText", zhName: "文档", icon: FileText, svg: createSvg("FileText") },
-  { name: "ChartBar", zhName: "图表", icon: ChartBar, svg: createSvg("ChartBar") },
-  { name: "GearSix", zhName: "设置", icon: GearSix, svg: createSvg("GearSix") },
-  { name: "MagnifyingGlass", zhName: "搜索", icon: MagnifyingGlass, svg: createSvg("MagnifyingGlass") },
-  { name: "Plus", zhName: "新增", icon: Plus, svg: createSvg("Plus") },
-  { name: "PencilSimple", zhName: "编辑", icon: PencilSimple, svg: createSvg("PencilSimple") },
-  { name: "Trash", zhName: "删除", icon: Trash, svg: createSvg("Trash") },
-  { name: "DownloadSimple", zhName: "下载", icon: DownloadSimple, svg: createSvg("DownloadSimple") },
-  { name: "UploadSimple", zhName: "上传", icon: UploadSimple, svg: createSvg("UploadSimple") },
-  { name: "CheckCircle", zhName: "成功", icon: CheckCircle, svg: createSvg("CheckCircle") },
-  { name: "WarningCircle", zhName: "警告", icon: WarningCircle, svg: createSvg("WarningCircle") },
-  { name: "XCircle", zhName: "错误", icon: XCircle, svg: createSvg("XCircle") },
-  { name: "Info", zhName: "信息", icon: Info, svg: createSvg("Info") },
+const makeCommonIcon = (name: string, zhName: string, icon: PhosphorIcon): CommonIconItem => ({
+  name,
+  zhName,
+  icon,
+  svg: createSvg(name),
+});
+
+const shortIconName = (name: string) => {
+  const aliases: Record<string, string> = {
+    ArrowsOutLineHorizontal: "Spacing",
+    MagnifyingGlass: "Search",
+    PencilSimple: "Edit",
+    DownloadSimple: "Download",
+    UploadSimple: "Upload",
+    WarningCircle: "Warning",
+    CheckCircle: "Check",
+    ChatCircle: "Chat",
+    CreditCard: "Card",
+    ClipboardText: "Clipboard",
+    ArrowsCounterClockwise: "Undo",
+    ArrowClockwise: "Refresh",
+    SlidersHorizontal: "Filter",
+  };
+
+  if (aliases[name]) return aliases[name];
+  return name.length > 16 ? `${name.slice(0, 13)}...` : name;
+};
+
+const uniqueLabels = (labels: string[]) => Array.from(new Set(labels.map((label) => label.trim()).filter(Boolean)));
+
+const normalizeFunctionIconLabel = (label: string) => {
+  const aliases: Record<string, string> = {
+    查看: "查看/预览",
+    预览: "查看/预览",
+    详情: "查看/预览",
+    新增: "新增/创建",
+    创建: "新增/创建",
+    清空: "关闭/取消",
+    关闭: "关闭/取消",
+    取消: "关闭/取消",
+    批量删除: "删除",
+    克隆: "复制",
+    取消置顶: "置顶",
+    取消收藏: "收藏",
+    取消标记: "标记",
+    取消星标: "星标",
+    打开: "",
+    放大: "",
+    前进: "",
+    退出全屏: "",
+    配置: "",
+    自定义: "",
+    固定: "",
+    取消固定: "",
+    修改: "",
+    另存为: "",
+    升级: "",
+    扫描: "",
+    测试: "",
+    执行: "",
+    拉取: "",
+    数据导入: "",
+    取消关联: "",
+  };
+
+  return aliases[label] ?? label;
+};
+
+const menuIcons: CommonIconItem[] = [
+  makeCommonIcon("House", "首页", House),
+  makeCommonIcon("GridFour", "工作台", GridFour),
+  makeCommonIcon("Database", "数据管理", Database),
+  makeCommonIcon("Users", "用户管理", Users),
+  makeCommonIcon("ShieldCheck", "权限管理", ShieldCheck),
+  makeCommonIcon("GearSix", "系统设置", GearSix),
+  makeCommonIcon("ChartBar", "报表分析", ChartBar),
+  makeCommonIcon("Monitor", "监控中心", Monitor),
+  makeCommonIcon("Stack", "告警中心", Stack),
+  makeCommonIcon("Folder", "项目管理", Folder),
+  makeCommonIcon("ClipboardText", "订单管理", ClipboardText),
 ];
+
+const functionIconLabels = uniqueLabels([
+  "新增",
+  "编辑",
+  "删除",
+  "查看",
+  "搜索",
+  "筛选",
+  "刷新",
+  "重置",
+  "上传",
+  "下载",
+  "导入",
+  "导出",
+  "复制",
+  "保存",
+  "提交",
+  "关闭",
+  "确认",
+  "取消",
+  "展开",
+  "收起",
+  "排序",
+  "清空",
+  "全屏",
+  "缩小",
+  "拖拽",
+  "移动",
+  "定位",
+  "返回",
+  "跳转",
+  "更多",
+  "设置",
+  "置顶",
+  "取消置顶",
+  "收藏",
+  "取消收藏",
+  "标记",
+  "取消标记",
+  "星标",
+  "取消星标",
+  "创建",
+  "批量删除",
+  "预览",
+  "详情",
+  "克隆",
+  "粘贴",
+  "剪切",
+  "撤销",
+  "重做",
+  "完成",
+  "继续",
+  "下一步",
+  "上一步",
+  "发布",
+  "撤回",
+  "下架",
+  "归档",
+  "取消归档",
+  "启用",
+  "禁用",
+  "停用",
+  "恢复",
+  "锁定",
+  "解锁",
+  "授权",
+  "取消授权",
+  "分配",
+  "移交",
+  "认领",
+  "释放",
+  "审批",
+  "通过",
+  "驳回",
+  "退回",
+  "转交",
+  "加签",
+  "抄送",
+  "催办",
+  "撤回审批",
+  "批量导入",
+  "批量导出",
+  "模板下载",
+  "文件上传",
+  "文件夹",
+  "附件",
+  "图片",
+  "视频",
+  "压缩包",
+  "打印",
+  "分享",
+  "发送",
+  "转发",
+  "复制链接",
+  "打开链接",
+  "扫码",
+  "二维码",
+  "同步",
+  "异步",
+  "更新",
+  "回滚",
+  "重试",
+  "校验",
+  "验证",
+  "检测",
+  "运行",
+  "停止",
+  "暂停",
+  "启动",
+  "重启",
+  "调度",
+  "定时",
+  "订阅",
+  "取消订阅",
+  "推送",
+  "合并",
+  "拆分",
+  "关联",
+  "取消关联",
+  "绑定",
+  "解绑",
+  "连接",
+  "断开",
+  "接入",
+  "退出",
+  "提交审核",
+  "重新提交",
+  "数据导出",
+  "数据同步",
+  "数据清洗",
+  "数据加工",
+  "数据转换",
+  "数据映射",
+  "数据匹配",
+  "数据合并",
+  "数据拆分",
+  "数据去重",
+  "数据校验",
+  "数据标注",
+  "数据脱敏",
+  "数据加密",
+  "数据解密",
+  "数据备份",
+  "数据恢复",
+  "数据归档",
+  "数据预览",
+  "字段配置",
+  "字段映射",
+  "字段排序",
+  "表头设置",
+  "列设置",
+  "显示列",
+  "隐藏列",
+  "冻结列",
+  "批量操作",
+  "批量编辑",
+  "批量启用",
+  "批量禁用",
+  "批量发布",
+  "批量下架",
+  "批量审核",
+  "批量分配",
+  "批量下载",
+  "批量上传",
+  "批量同步",
+  "导入记录",
+  "导出记录",
+  "操作记录",
+  "变更记录",
+  "审批记录",
+  "登录记录",
+  "访问记录",
+  "异常记录",
+  "任务记录",
+  "运行记录",
+  "版本记录",
+  "刷新缓存",
+  "清除缓存",
+  "生成",
+  "重新生成",
+  "复制副本",
+  "查看原文",
+  "查看日志",
+  "查看结果",
+  "查看进度",
+  "查看报告",
+  "生成报告",
+  "下载报告",
+  "导出报告",
+  "预警",
+  "告警",
+  "告警确认",
+  "告警处理",
+  "告警关闭",
+  "风险提示",
+  "异常提示",
+  "成功",
+  "失败",
+  "错误",
+  "警告",
+  "提示",
+  "帮助",
+  "信息",
+  "说明",
+  "问号",
+  "感叹号",
+  "加载中",
+  "空状态",
+  "无数据",
+  "无权限",
+  "不可用",
+].map(normalizeFunctionIconLabel));
+
+const resolveFunctionIcon = (label: string): { name: string; icon: PhosphorIcon } => {
+  if (label.includes("搜索")) return { name: "MagnifyingGlass", icon: MagnifyingGlass };
+  if (label.includes("筛选")) return { name: "Funnel", icon: Funnel };
+  if (label.includes("排序")) return { name: "SortAscending", icon: SortAscending };
+  if (label.includes("刷新") || label.includes("重试") || label.includes("重新")) return { name: "ArrowClockwise", icon: ArrowClockwise };
+  if (label.includes("重置") || label.includes("撤销")) return { name: "ArrowCounterClockwise", icon: ArrowCounterClockwise };
+  if (label.includes("重做") || label.includes("同步") || label.includes("异步")) return { name: "ArrowsClockwise", icon: ArrowsClockwise };
+  if (label.includes("上传")) return { name: "UploadSimple", icon: UploadSimple };
+  if (label.includes("下载")) return { name: "DownloadSimple", icon: DownloadSimple };
+  if (label.includes("导入")) return { name: "FileArrowUp", icon: FileArrowUp };
+  if (label.includes("导出")) return { name: "FileArrowDown", icon: FileArrowDown };
+  if (label === "粘贴") return { name: "Clipboard", icon: Clipboard };
+  if (label === "剪切") return { name: "Scissors", icon: Scissors };
+  if (label.includes("复制")) return { name: "Copy", icon: Copy };
+  if (label.includes("保存")) return { name: "CheckSquare", icon: CheckSquare };
+  if (label.includes("提交") || label.includes("发送") || label.includes("转发") || label.includes("推送")) return { name: "PaperPlaneRight", icon: PaperPlaneRight };
+  if (label.includes("关闭") || label.includes("取消") || label.includes("清空")) return { name: "XCircle", icon: XCircle };
+  if (label.includes("确认") || label.includes("通过") || label.includes("完成") || label.includes("成功")) return { name: "CheckCircle", icon: CheckCircle };
+  if (label.includes("展开") || label.includes("全屏")) return { name: "ArrowsOut", icon: ArrowsOut };
+  if (label.includes("收起") || label.includes("缩小")) return { name: "ArrowsIn", icon: ArrowsIn };
+  if (label.includes("拖拽") || label.includes("移动")) return { name: "Resize", icon: Resize };
+  if (label.includes("定位")) return { name: "MapPin", icon: MapPin };
+  if (label.includes("返回") || label.includes("上一步")) return { name: "ArrowLeft", icon: ArrowLeft };
+  if (label.includes("下一步") || label.includes("跳转")) return { name: "ArrowRight", icon: ArrowRight };
+  if (label.includes("更多")) return { name: "DotsThree", icon: DotsThree };
+  if (label.includes("设置") || label.includes("字段") || label.includes("表头") || label.includes("列设置")) return { name: "GearSix", icon: GearSix };
+  if (label.includes("置顶")) return { name: "PushPin", icon: PushPin };
+  if (label.includes("收藏") || label.includes("星标")) return { name: "Star", icon: Star };
+  if (label.includes("标记")) return { name: "Flag", icon: Flag };
+  if (label.includes("新增") || label.includes("创建")) return { name: "Plus", icon: Plus };
+  if (label.includes("编辑") || label.includes("标注")) return { name: "PencilSimple", icon: PencilSimple };
+  if (label.includes("删除") || label.includes("下架") || label.includes("清除")) return { name: "Trash", icon: Trash };
+  if (label.includes("查看") || label.includes("预览") || label.includes("详情")) return { name: "Eye", icon: Eye };
+  if (label.includes("审批") || label.includes("记录")) return { name: "ClipboardText", icon: ClipboardText };
+  if (label.includes("发布")) return { name: "RocketLaunch", icon: RocketLaunch };
+  if (label.includes("撤回") || label.includes("退回") || label.includes("回滚") || label.includes("恢复")) return { name: "ArrowsCounterClockwise", icon: ArrowsCounterClockwise };
+  if (label.includes("归档") || label.includes("压缩包")) return { name: "Archive", icon: Archive };
+  if (label.includes("启用") || label.includes("启动") || label.includes("运行")) return { name: "Play", icon: Play };
+  if (label.includes("停用") || label.includes("停止") || label.includes("禁用")) return { name: "Prohibit", icon: Prohibit };
+  if (label.includes("暂停")) return { name: "Pause", icon: Pause };
+  if (label.includes("锁定") || label.includes("加密")) return { name: "Lock", icon: Lock };
+  if (label.includes("解锁") || label.includes("解密")) return { name: "LockOpen", icon: LockOpen };
+  if (label.includes("授权") || label.includes("权限") || label.includes("无权限")) return { name: "ShieldCheck", icon: ShieldCheck };
+  if (label.includes("分配") || label.includes("移交") || label.includes("认领") || label.includes("释放") || label.includes("转交") || label.includes("抄送")) return { name: "UserGear", icon: UserGear };
+  if (label.includes("驳回") || label.includes("失败") || label.includes("错误") || label.includes("异常")) return { name: "XCircle", icon: XCircle };
+  if (label.includes("催办") || label.includes("订阅") || label.includes("告警") || label.includes("预警")) return { name: "Bell", icon: Bell };
+  if (label.includes("文件夹")) return { name: "Folder", icon: Folder };
+  if (label.includes("附件") || label.includes("图片") || label.includes("视频") || label.includes("模板")) return { name: "FileText", icon: FileText };
+  if (label.includes("打印")) return { name: "Printer", icon: Printer };
+  if (label.includes("分享")) return { name: "ShareNetwork", icon: ShareNetwork };
+  if (label.includes("链接") || label.includes("关联") || label.includes("绑定") || label.includes("连接") || label.includes("接入")) return { name: "Link", icon: Link };
+  if (label.includes("解绑") || label.includes("断开")) return { name: "LinkBreak", icon: LinkBreak };
+  if (label.includes("扫码") || label.includes("二维码")) return { name: "QrCode", icon: QrCode };
+  if (label.includes("更新")) return { name: "Repeat", icon: Repeat };
+  if (label.includes("校验") || label.includes("验证") || label.includes("检测")) return { name: "SealCheck", icon: SealCheck };
+  if (label.includes("调度") || label.includes("定时") || label.includes("任务")) return { name: "ChartBar", icon: ChartBar };
+  if (label.includes("合并")) return { name: "GitMerge", icon: GitMerge };
+  if (label.includes("拆分")) return { name: "GitBranch", icon: GitBranch };
+  if (label.includes("数据")) return { name: "Database", icon: Database };
+  if (label.includes("批量")) return { name: "Stack", icon: Stack };
+  if (label.includes("风险") || label.includes("警告") || label.includes("感叹号")) return { name: "WarningCircle", icon: WarningCircle };
+  if (label.includes("提示") || label.includes("信息") || label.includes("说明") || label.includes("帮助") || label.includes("问号")) return { name: "Info", icon: Info };
+  if (label.includes("加载")) return { name: "SpinnerGap", icon: SpinnerGap };
+  if (label.includes("空状态") || label.includes("无数据") || label.includes("不可用")) return { name: "Empty", icon: Empty };
+  if (label.includes("退出")) return { name: "SignOut", icon: SignOut };
+  return { name: "Square", icon: Square };
+};
+
+const functionIcons: CommonIconItem[] = functionIconLabels.map((label) => {
+  const resolved = resolveFunctionIcon(label);
+  return makeCommonIcon(resolved.name, label, resolved.icon);
+});
 
 const decorativeIconStandards = [
   { item: "制作画布", standard: "48px × 48px，图形主体控制在 32px–36px 内，四周保留约 6px 安全边距。" },
@@ -222,7 +617,7 @@ export default function IconPage() {
 
   const copySvg = (item: CommonIconItem) => {
     navigator.clipboard.writeText(item.svg);
-    setCopiedIcon(item.name);
+    setCopiedIcon(item.zhName);
     setTimeout(() => setCopiedIcon(null), 2000);
   };
 
@@ -231,7 +626,7 @@ export default function IconPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${item.name}.svg`;
+    link.download = `${item.zhName}-${item.name}.svg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -371,16 +766,12 @@ export default function IconPage() {
           title="图标使用示例"
           description="图标必须辅助识别和操作。状态图标需要配合文字或标签，不应只依赖颜色传达信息。"
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           <div className="bg-white p-5">
             <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">A. 单独使用</h3>
             <div className="mb-4 flex gap-3">
-              <button className="flex h-10 w-10 items-center justify-center rounded-none border border-[var(--neutral-300)] text-[var(--neutral-800)]">
-                <SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />
-              </button>
-              <button className="flex h-10 w-10 items-center justify-center rounded-none border border-[var(--neutral-300)] text-[var(--neutral-800)]">
-                <SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />
-              </button>
+              <Button variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" className="h-10 w-10 min-w-10 px-0" />
+              <Button variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" className="h-10 w-10 min-w-10 px-0" />
             </div>
             <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
               适用于工具栏、表格操作、卡片入口、状态提示等场景。
@@ -389,18 +780,9 @@ export default function IconPage() {
           <div className="bg-white p-5">
             <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">B. 图标 + 文字</h3>
             <div className="mb-4 space-y-3">
-              <button className="flex items-center gap-2 bg-[var(--neutral-900)] px-4 py-2 text-sm text-white">
-                <SystemIcon as={Plus} size={16} weight="regular" className="text-white" label="新增" />
-                新建数据
-              </button>
-              <button className="flex items-center gap-2 rounded-none border border-[var(--neutral-300)] px-4 py-2 text-sm text-[var(--neutral-700)]">
-                <SystemIcon as={DownloadSimple} size={16} weight="regular" tone="neutral" label="导出" />
-                导出报告
-              </button>
-              <button className="flex items-center gap-2 text-sm text-[var(--product-blue-500)]">
-                <SystemIcon as={FileText} size={16} weight="regular" tone="product" label="详情" />
-                查看详情
-              </button>
+              <Button icon={<SystemIcon as={Plus} size={16} weight="regular" label="新增" />} iconPosition="left">新建数据</Button>
+              <Button variant="outline" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="neutral" label="导出" />}>导出报告</Button>
+              <Button variant="text" tone="product" icon={<SystemIcon as={FileText} size={16} weight="regular" tone="product" label="详情" />}>查看详情</Button>
             </div>
             <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
               适用于按钮、菜单、列表项、导航入口等场景。
@@ -430,26 +812,6 @@ export default function IconPage() {
               状态图标必须和文字或状态标签配合使用，避免只依赖颜色传达信息。
             </p>
           </div>
-          <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">D. 组件状态</h3>
-            <div className="mb-4 space-y-3 text-sm">
-              {[
-                { label: "默认", helper: "neutral / regular", icon: <SystemIcon as={Square} size={20} weight="regular" tone="neutral" label="默认图标" /> },
-                { label: "激活", helper: "product / regular", icon: <SystemIcon as={Square} size={20} weight="regular" tone="product" label="激活图标" /> },
-                { label: "关键节点", helper: "neutral + redMark", icon: <SystemIcon as={Square} size={20} weight="regular" tone="neutral" redMark label="关键节点图标" /> },
-                { label: "禁用", helper: "disabled opacity", icon: <SystemIcon as={Square} size={20} weight="regular" tone="neutral" disabled label="禁用图标" /> },
-              ].map((item) => (
-                <div key={item.label} className="grid grid-cols-[24px_64px_1fr] items-center gap-3">
-                  {item.icon}
-                  <span className="font-medium text-[var(--neutral-900)]">{item.label}</span>
-                  <span className="text-xs text-[var(--neutral-500)]">{item.helper}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
-              组件状态应由 tone、disabled、redMark 明确表达。红色短线只表示关键节点，不替代错误、警告或成功语义。
-            </p>
-          </div>
         </div>
       </section>
 
@@ -470,51 +832,106 @@ export default function IconPage() {
             官网检索。
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
-          {commonIcons.map((item) => {
-            const Icon = item.icon;
-            const isCopied = copiedIcon === item.name;
-            return (
-              <div key={item.name} className="group relative bg-white p-3">
-                <div className="absolute right-2 top-2 z-10 flex gap-1 opacity-100 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
-                  <button
-                    type="button"
-                    onClick={() => copySvg(item)}
-                    title={isCopied ? "已复制" : "复制 SVG"}
-                    aria-label={isCopied ? "已复制" : "复制 SVG"}
-                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
-                  >
-                    {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => downloadCommonSvg(item)}
-                    title="下载 SVG"
-                    aria-label="下载 SVG"
-                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
-                  >
-                    <DownloadSimple size={14} weight="regular" />
-                  </button>
-                </div>
-                <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-800)]">
-                  <Icon size={24} weight="regular" />
-                </div>
-                <div className="text-center">
-                  <div className="font-mono text-xs text-[var(--neutral-900)]">{item.name}</div>
-                  <div className="mt-1 text-xs text-[var(--neutral-500)]">{item.zhName}</div>
-                </div>
+        <div className="space-y-10">
+          <div>
+            <div className="mb-4 flex items-end justify-between gap-4 border-b border-[var(--neutral-200)] pb-3">
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--neutral-900)]">菜单图标</h3>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--neutral-500)]">
+                  用于左侧导航、顶部入口和后台模块菜单，保持 20px 尺寸与 regular 权重。
+                </p>
               </div>
-            );
-          })}
-          <div className="bg-white p-4">
-            <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-500)]">
-              <Plus size={24} weight="regular" />
+              <span className="text-xs text-[var(--neutral-500)]">{menuIcons.length} 个</span>
             </div>
-            <div className="text-center">
-              <div className="text-sm font-medium text-[var(--neutral-900)]">增加图标</div>
-              <div className="mt-1 text-xs leading-relaxed text-[var(--neutral-500)]">
-                手动添加 Phosphor Icons 图标库里没有的图标
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
+              {menuIcons.map((item) => {
+                const Icon = item.icon;
+                const isCopied = copiedIcon === item.zhName;
+                return (
+                  <div key={item.zhName} className="group relative bg-white p-3">
+                    <div className="absolute right-2 top-2 z-10 flex gap-1 opacity-100 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
+                      <button
+                        type="button"
+                        onClick={() => copySvg(item)}
+                        title={isCopied ? "已复制" : "复制 SVG"}
+                        aria-label={isCopied ? "已复制" : "复制 SVG"}
+                        className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                      >
+                        {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => downloadCommonSvg(item)}
+                        title="下载 SVG"
+                        aria-label="下载 SVG"
+                        className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                      >
+                        <DownloadSimple size={14} weight="regular" />
+                      </button>
+                    </div>
+                    <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-800)]">
+                      <Icon size={24} weight="regular" />
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xs font-medium text-[var(--neutral-900)]">{item.zhName}</div>
+                      <div className="mt-1 font-mono text-[10px] text-[var(--neutral-500)]" title={item.name}>
+                        {shortIconName(item.name)}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-4 flex items-end justify-between gap-4 border-b border-[var(--neutral-200)] pb-3">
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--neutral-900)]">功能图标</h3>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--neutral-500)]">
+                  覆盖表单、表格、流程、数据处理、权限、文件和反馈等高频操作；重复语义已自动去重。
+                </p>
               </div>
+              <span className="text-xs text-[var(--neutral-500)]">{functionIcons.length} 个</span>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
+              {functionIcons.map((item) => {
+                const Icon = item.icon;
+                const isCopied = copiedIcon === item.zhName;
+                return (
+                  <div key={item.zhName} className="group relative flex items-center gap-3 bg-white p-3">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-800)]">
+                      <Icon size={20} weight="regular" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-xs font-medium text-[var(--neutral-900)]">{item.zhName}</div>
+                      <div className="mt-0.5 truncate font-mono text-[10px] text-[var(--neutral-500)]" title={item.name}>
+                        {shortIconName(item.name)}
+                      </div>
+                    </div>
+                    <div className="absolute right-2 top-2 z-10 flex gap-1 opacity-100 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
+                      <button
+                        type="button"
+                        onClick={() => copySvg(item)}
+                        title={isCopied ? "已复制" : "复制 SVG"}
+                        aria-label={isCopied ? "已复制" : "复制 SVG"}
+                        className="flex h-6 w-6 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                      >
+                        {isCopied ? <Check size={13} weight="regular" /> : <Copy size={13} weight="regular" />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => downloadCommonSvg(item)}
+                        title="下载 SVG"
+                        aria-label="下载 SVG"
+                        className="flex h-6 w-6 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                      >
+                        <DownloadSimple size={13} weight="regular" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -56,9 +56,9 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
       "bg-[var(--brand-50)] text-[var(--brand-600)] hover:bg-[var(--brand-100)] active:bg-[var(--brand-200)]",
     danger: "bg-[var(--error-bg)] text-[var(--error-text)] hover:bg-red-100 active:bg-red-200",
     success:
-      "bg-[var(--success-bg)] text-[var(--success-text)] hover:bg-[var(--success-tag)] active:bg-emerald-200",
+      "bg-[var(--success-bg)] text-[var(--success-text)] hover:bg-emerald-100 active:bg-emerald-200",
     warning:
-      "bg-[var(--warning-bg)] text-[var(--warning-text)] hover:bg-[var(--warning-tag)] active:bg-amber-200",
+      "bg-[var(--warning-bg)] text-[var(--warning-text)] hover:bg-amber-100 active:bg-amber-200",
   },
   text: {
     neutral: "text-[var(--neutral-900)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
@@ -93,6 +93,7 @@ export function Button({
       className={[
         "inline-flex items-center justify-center gap-2 rounded-[var(--radius-sm)] font-normal transition-colors",
         "whitespace-nowrap",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]",
         "disabled:cursor-not-allowed disabled:opacity-50",
         sizeClasses[size],
         toneClasses[variant][tone],

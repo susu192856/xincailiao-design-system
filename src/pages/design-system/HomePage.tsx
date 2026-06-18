@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Dna, StackPlus, FigmaLogo, FlowArrow } from "@phosphor-icons/react";
 import { Tag } from "../../components/ui/Tag";
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
@@ -6,7 +5,7 @@ import heroBg from "../../assets/hero-bg.png";
 
 function PrincipleIcon({ type }: { type: "restraint" | "clarity" | "trust" | "efficiency" }) {
   const color = "var(--neutral-900)";
-  const accent = "#FF112D";
+  const accent = "var(--brand-600)";
   if (type === "restraint") {
     return (
       <svg width="28" height="28" viewBox="0 0 54 54" fill="none" aria-hidden="true">
@@ -49,7 +48,7 @@ const sections = [
     title: "设计目标",
     items: [
       { icon: <Dna size={18} weight="regular" />, title: "统一的视觉DNA", desc: "覆盖官网、数据空间、材库、材小模等全线产品" },
-      { icon: <StackPlus size={18} weight="regular" />, title: "精准区分与快速搭建", desc: "拼装品牌叙事、数据服务、专业工具、系统管理四层产品" },
+      { icon: <StackPlus size={18} weight="regular" />, title: "精准区分与快速搭建", desc: "按页面类型拆分为品牌展示、数据浏览、专业工具、系统管理四种场景，各自使用适合的信息密度和布局方式。" },
       { icon: <FigmaLogo size={18} weight="regular" />, title: "高还原度交付", desc: "Figma 组件与开发实现保持同一套 Token 体系" },
       { icon: <FlowArrow size={18} weight="regular" />, title: "持续迭代与同步", desc: "Token 由 Codex 维护，自动生成 .md 和 Figma tokens" },
     ],
@@ -67,15 +66,16 @@ const sections = [
 ] as const;
 
 const productLayers = [
-  { title: "品牌叙事层", feature: "页面少、信息密度低、强视觉叙事", products: ["新材道官网"] },
-  { title: "数据服务层", feature: "数据看板、卡片列表、详情预览、轻量操作入口", products: ["新材料可信数据空间", "材库"] },
-  { title: "专业工具层", feature: "复杂表单、可视化画布、多步骤流程、结果呈现", products: ["材小模", "智能拆单", "智能相图", "智能选材"] },
-  { title: "系统管理层", feature: "筛选框、列表、表单、详情页、操作日志", products: ["用户中心/账号管理", "各产品的后台配置"] },
+  { title: "品牌叙事层", feature: "门户官网，页面少、信息密度低，以品牌传播和转化引导为目标", products: ["新材道官网"] },
+  { title: "数据服务层", feature: "数据看板、卡片列表、详情预览，提供数据浏览和轻量操作", products: ["新材料可信数据空间", "材库"] },
+  { title: "专业工具层", feature: "复杂表单、可视化画布、多步骤流程，面向专业用户的深度操作", products: ["材小模", "智能拆单", "智能相图", "智能选材"] },
+  { title: "系统管理层", feature: "筛选、列表、表单、详情、操作日志，用于后台配置与账号管理", products: ["用户中心/账号管理", "各产品的后台配置"] },
 ];
 
-function SectionHeader({ title }: { eyebrow: string; title: string }) {
+function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="mb-6">
+      {eyebrow ? <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{eyebrow}</p> : null}
       <div className="flex items-center gap-3">
         <span className="h-5 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
         <h2 className="text-2xl font-medium leading-8 text-[var(--neutral-900)]">{title}</h2>

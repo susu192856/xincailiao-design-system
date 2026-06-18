@@ -57,7 +57,7 @@ export function Collapse({
   return (
     <div
       className={[
-        "divide-y divide-[var(--neutral-200)] bg-white",
+        "divide-y divide-[var(--neutral-200)] rounded-[var(--radius-sm)] bg-white",
         variant === "outlined" ? "border border-[var(--neutral-200)]" : "",
         className,
       ].join(" ")}
@@ -71,7 +71,7 @@ export function Collapse({
               disabled={item.disabled}
               onClick={() => toggle(item.key)}
               className={[
-                "flex w-full items-center justify-between gap-3 text-left text-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
+                "flex w-full items-center justify-between gap-3 text-left text-[var(--neutral-900)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
                 sizing.trigger,
               ].join(" ")}
             >

@@ -380,7 +380,7 @@ export default function ButtonPage() {
               </p>
             </div>
             <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div className="bg-[var(--warning-bg)] p-4">
+              <div className="bg-white p-4 ring-1 ring-[var(--neutral-200)]">
                 <ButtonGroup>
                   <Button tone="warning" icon={<WarningCircle className="h-4 w-4" weight="regular" />}>
                     警告操作
@@ -392,12 +392,12 @@ export default function ButtonPage() {
                     暂缓处理
                   </Button>
                 </ButtonGroup>
-                <p className="mt-3 text-xs leading-6 text-[var(--neutral-700)]">
+                <p className="mt-3 border-t border-[var(--neutral-200)] pt-3 text-xs leading-6 text-[var(--neutral-700)]">
                   <span className="font-semibold text-[var(--neutral-900)]">警告按钮：</span>
                   用于临界状态、风险确认、需要用户关注但尚未造成错误的操作，不用于普通提醒。
                 </p>
               </div>
-              <div className="bg-[var(--success-bg)] p-4">
+              <div className="bg-white p-4 ring-1 ring-[var(--neutral-200)]">
                 <ButtonGroup>
                   <Button tone="success" icon={<CheckCircle className="h-4 w-4" weight="regular" />}>
                     完成操作
@@ -409,7 +409,7 @@ export default function ButtonPage() {
                     继续配置
                   </Button>
                 </ButtonGroup>
-                <p className="mt-3 text-xs leading-6 text-[var(--neutral-700)]">
+                <p className="mt-3 border-t border-[var(--neutral-200)] pt-3 text-xs leading-6 text-[var(--neutral-700)]">
                   <span className="font-semibold text-[var(--neutral-900)]">成功按钮：</span>
                   用于已完成、已通过、正向确认后的后续操作。普通提交仍优先使用 neutral 或 product。
                 </p>
@@ -439,7 +439,7 @@ export default function ButtonPage() {
                     开始使用
                   </Button>
                   <Button size="lg" tone="brand" className="!h-10 px-6 text-base">
-                    立即购买
+                    预约演示
                   </Button>
                 </ButtonGroup>
                 <p className="mt-2 text-xs text-[var(--neutral-600)]">内间距: 24px 水平 / 10px 垂直 · 字号: 16px</p>
@@ -661,7 +661,7 @@ export default function ButtonPage() {
                   <Button variant="ghost" size="sm">
                     取消
                   </Button>
-                  <Button tone="product" size="sm">
+                  <Button size="sm">
                     保存
                   </Button>
                 </div>
@@ -684,17 +684,17 @@ export default function ButtonPage() {
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 12px (space-y-3)</p>
                 <div className="space-y-3.5">
                   <Button tone="brand" size="lg" className="w-full">
-                    立即购买
+                    预约演示
                   </Button>
                   <Button variant="outline" tone="brand" size="lg" className="w-full">
-                    加入购物车
+                    查看方案
                   </Button>
                 </div>
               </div>
               <div>
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 8px (space-y-2)</p>
                 <div className="space-y-2.5">
-                  <Button tone="product" className="w-full">
+                  <Button className="w-full">
                     确认提交
                   </Button>
                   <Button variant="outline" className="w-full">
@@ -742,11 +742,47 @@ export default function ButtonPage() {
                   仅保留图标本身，适合编辑、下载、关闭、删除等高频操作；必须配置 title 或 aria-label。
                 </p>
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="outline" icon={<PencilSimple className="h-4 w-4" weight="regular" />} aria-label="编辑" title="编辑" className="h-8 w-8 min-w-8 px-0" />
-                  <Button variant="outline" tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />} aria-label="下载" title="下载" className="h-8 w-8 min-w-8 px-0" />
-                  <Button variant="outline" icon={<X className="h-4 w-4" weight="regular" />} aria-label="关闭" title="关闭" className="h-8 w-8 min-w-8 px-0" />
-                  <Button variant="outline" tone="danger" icon={<Trash className="h-4 w-4" weight="regular" />} aria-label="删除" title="删除" className="h-8 w-8 min-w-8 px-0" />
-                  <Button variant="outline" disabled icon={<PencilSimple className="h-4 w-4" weight="regular" />} aria-label="禁用编辑" title="禁用编辑" className="h-8 w-8 min-w-8 px-0" />
+                  <button
+                    type="button"
+                    aria-label="编辑"
+                    title="编辑"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]"
+                  >
+                    <PencilSimple className="h-4 w-4" weight="regular" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="下载"
+                    title="下载"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]"
+                  >
+                    <DownloadSimple className="h-4 w-4" weight="regular" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="关闭"
+                    title="关闭"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--neutral-900)] transition-colors hover:bg-[var(--neutral-200)]"
+                  >
+                    <X className="h-4 w-4" weight="regular" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="删除"
+                    title="删除"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--error-text)] transition-colors hover:bg-[var(--error-bg)]"
+                  >
+                    <Trash className="h-4 w-4" weight="regular" />
+                  </button>
+                  <button
+                    type="button"
+                    disabled
+                    aria-label="禁用编辑"
+                    title="禁用编辑"
+                    className="inline-flex h-8 w-8 cursor-not-allowed items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-400)]"
+                  >
+                    <PencilSimple className="h-4 w-4" weight="regular" />
+                  </button>
                 </div>
                 <div className="mt-3 grid grid-cols-1 gap-2 text-xs leading-5 text-[var(--neutral-600)] sm:grid-cols-3">
                   <p><span className="font-semibold text-[var(--neutral-900)]">尺寸：</span>32×32px，图标 16px。</p>
