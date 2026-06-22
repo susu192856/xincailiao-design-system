@@ -1,0 +1,152 @@
+{
+  "version": "0.1.0",
+  "description": "评估用例 — 用于验证设计规范 Skill 是否正确生效。每个 eval 是一组 AI 提示词和预期检查项。",
+  "evals": [
+    {
+      "id": "eval-001-button-color",
+      "category": "token-fact",
+      "scenario": "生成一个主要操作按钮",
+      "prompt": "在后台页面加一个确认按钮",
+      "expected": {
+        "component": "Button",
+        "variant": "solid",
+        "tone": "product",
+        "colorSource": "var(--product-blue-500)",
+        "checks": [
+          "不使用 <button> 标签",
+          "不使用硬编码色值如 bg-blue-500",
+          "颜色来自 CSS 变量 --product-blue-*"
+        ]
+      }
+    },
+    {
+      "id": "eval-002-modal-buttons",
+      "category": "discrete-rule",
+      "scenario": "弹窗内的确认/取消按钮",
+      "prompt": "做一个删除确认弹窗",
+      "expected": {
+        "component": "Modal + Button",
+        "modalProps": { "tone": "danger" },
+        "confirmButton": { "variant": "solid", "tone": "danger", "label": "删除" },
+        "cancelButton": { "variant": "outline", "tone": "neutral", "label": "取消" },
+        "checks": [
+          "弹窗内没有手写 <button>",
+          "确认按钮 tone=danger（危险操作）",
+          "取消按钮 variant=outline",
+          "footerAlign 为 end（右对齐）"
+        ]
+      }
+    },
+    {
+      "id": "eval-003-empty-state",
+      "category": "asset-gap",
+      "scenario": "表格无数据时显示空状态",
+      "prompt": "做一个用户列表页，目前还没有数据",
+      "expected": {
+        "component": "Empty",
+        "checks": [
+          "表格 data 为空数组时不渲染空 table",
+          "使用 Empty 组件而非空白区域",
+          "Empty type 为 no-data"
+        ]
+      }
+    },
+    {
+      "id": "eval-004-portal-colors",
+      "category": "token-fact",
+      "scenario": "官网页面使用品牌色而非产品蓝",
+      "prompt": "做新材道官网首页的 CTA 按钮",
+      "expected": {
+        "component": "Button",
+        "tone": "brand",
+        "checks": [
+          "主 CTA 用 tone='brand' 而非 tone='product'",
+          "不使用 --product-blue-* 作为主操作色"
+        ]
+      }
+    },
+    {
+      "id": "eval-005-dashboard-colors",
+      "category": "token-fact",
+      "scenario": "后台页面使用产品蓝而非品牌红",
+      "prompt": "在后台管理页面加一个新增按钮",
+      "expected": {
+        "component": "Button",
+        "tone": "product",
+        "checks": [
+          "新增按钮 tone='product' 而非 tone='brand'",
+          "不使用 --brand-* 作为后台主操作色"
+        ]
+      }
+    },
+    {
+      "id": "eval-006-spacing-tokens",
+      "category": "numerical-truth",
+      "scenario": "页面使用 spacing token 而非随意间距",
+      "prompt": "做一个卡片列表页，卡片之间要有间距",
+      "expected": {
+        "checks": [
+          "间距使用 var(--spacing-lg) 24px 或 var(--spacing-md) 16px",
+          "不出现 gap-5、mb-7 等无对应 token 的值",
+          "不出现 p-3、m-2 等小间距"
+        ]
+      }
+    },
+    {
+      "id": "eval-007-typography-hierarchy",
+      "category": "numerical-truth",
+      "scenario": "页面文字层级正确",
+      "prompt": "做一个内容页面，有标题、正文和辅助说明",
+      "expected": {
+        "checks": [
+          "标题使用 --type-heading-* 系列变量",
+          "正文使用 --type-body-m 或 --type-body-l",
+          "辅助文字使用 --type-caption + --neutral-500",
+          "不超过 3 种字号层级"
+        ]
+      }
+    },
+    {
+      "id": "eval-008-glossary-minimalist",
+      "category": "judgment",
+      "scenario": "将'简约'翻译为具体规则",
+      "prompt": "做一个简约风格的数据看板首页",
+      "expected": {
+        "checks": [
+          "不超过 2-3 种字号层级",
+          "按钮以 outline/ghost 为主，最多1个 solid",
+          "背景白色或 --neutral-50",
+          "没有装饰性边框或渐变",
+          "圆角不超过 --radius-lg"
+        ]
+      }
+    },
+    {
+      "id": "eval-009-build-after-change",
+      "category": "process",
+      "scenario": "修改后必须构建",
+      "prompt": "修改 Tag 组件的颜色规则后",
+      "expected": {
+        "checks": [
+          "运行 npm run build",
+          "构建通过才宣布完成",
+          "构建失败则修复后重新构建"
+        ]
+      }
+    },
+    {
+      "id": "eval-010-token-sync",
+      "category": "process",
+      "scenario": "修改 Token 后同步 Figma 文件",
+      "prompt": "把品牌色 600 改深一点",
+      "expected": {
+        "checks": [
+          "更新 src/styles/tokens.css",
+          "同步更新 figma/tokens.json",
+          "同步更新 skills/xincailiao-design-spec/assets/figma-tokens.json"
+        ]
+      }
+    }
+  ],
+  "howToUse": "对每个 eval，用其 prompt 生成 UI，然后逐条检查 expected.checks。全部通过才算 Skill 生效。"
+}

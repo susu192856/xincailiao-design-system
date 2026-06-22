@@ -1,0 +1,80 @@
+{
+  "version": "0.1.0",
+  "description": "多产品线变体配置。每个产品线只覆盖与默认规范不同的值。",
+  "default": {
+    "primaryColor": "--brand-600",
+    "primaryColorName": "brand",
+    "fontFamily": "PingFang SC",
+    "baseFontSize": "14px",
+    "buttonSize": "md",
+    "buttonRadius": "--radius-md",
+    "contentMaxWidth": "1400px",
+    "navHeight": "64px",
+    "sidebarWidth": "240px"
+  },
+  "productLines": {
+    "xincailiao-portal": {
+      "name": "新材道官网",
+      "template": "portal",
+      "overrides": {
+        "primaryColor": "--brand-600",
+        "primaryColorName": "brand"
+      }
+    },
+    "xincailiao-dashboard": {
+      "name": "新材道后台",
+      "template": "dashboard",
+      "overrides": {
+        "primaryColor": "--product-blue-500",
+        "primaryColorName": "product"
+      }
+    },
+    "data-space-portal": {
+      "name": "数据空间门户",
+      "template": "portal",
+      "overrides": {
+        "primaryColor": "--product-blue-500",
+        "primaryColorName": "product",
+        "baseFontSize": "14px"
+      }
+    },
+    "data-space-dashboard": {
+      "name": "数据空间后台",
+      "template": "dashboard",
+      "overrides": {
+        "primaryColor": "--product-blue-500",
+        "primaryColorName": "product"
+      }
+    },
+    "material-library-portal": {
+      "name": "材库门户",
+      "template": "portal",
+      "overrides": {
+        "primaryColor": "--brand-600",
+        "primaryColorName": "brand"
+      }
+    },
+    "material-library-dashboard": {
+      "name": "材库后台",
+      "template": "dashboard",
+      "overrides": {
+        "primaryColor": "--product-blue-500",
+        "primaryColorName": "product"
+      }
+    },
+    "caixiaomo": {
+      "name": "材小模",
+      "template": "dashboard",
+      "overrides": {
+        "primaryColor": "--product-blue-500",
+        "primaryColorName": "product",
+        "buttonRadius": "--radius-lg",
+        "baseFontSize": "14px"
+      }
+    }
+  },
+  "usage": {
+    "howToRead": "先读取 default 配置，再用 productLines 中的 overrides 覆盖差异项。未在 overrides 中列出的属性继承 default。",
+    "howToApply": "生成页面时，先确认所属产品线，再按 overrides 选择主色调和字号基准。"
+  }
+}
