@@ -1,0 +1,51 @@
+{
+  "skill_name": "design-spec-skill-maker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我有一套内部 B 端设计规范，想做成一个 Skill，让 AI 以后生成列表页、详情页、表单页都能遵守。材料有规范文档、几个页面截图和一份 token 表，请你帮我规划并生成这个 Skill。",
+      "expected_output": "The assistant should use this Skill, ask or infer intake details, propose a router-style architecture, and create a design-guideline Skill folder with references/assets/evals instead of one large SKILL.md.",
+      "files": [],
+      "expectations": [
+        "The response treats SKILL.md as a router rather than a full encyclopedia.",
+        "The generated architecture separates rules from numeric token assets.",
+        "The workflow asks for source authority and failure cases before finalizing rules.",
+        "The output includes an eval plan or evals.json."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我已经有一个设计规范 Skill，但是所有规则都塞在 SKILL.md 里，生成页面经常间距和组件选型不稳定。请帮我改造它。",
+      "expected_output": "The assistant should diagnose structural issues, classify failures, and refactor toward references/assets/glossary/meta-rules/evals rather than only patching individual rules.",
+      "files": [],
+      "expectations": [
+        "The response classifies issues into structural categories such as token truth, routing, judgment, or triggering.",
+        "The proposed fix moves detailed page/component rules into references.",
+        "The proposed fix introduces a single source of numeric truth.",
+        "The response warns against fixing one bug at a time without diagnosis."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "我想把一次页面验收里的 12 条设计问题都写进 Skill，直接变成 NEVER 规则，可以吗？",
+      "expected_output": "The assistant should use meta-rules, explain that cases are not automatically formal rules, and suggest a case library plus source-backed rule gate.",
+      "files": [],
+      "expectations": [
+        "The response says not every bug should become a formal rule.",
+        "The response asks for or checks authoritative design sources.",
+        "The response proposes a case-study format with symptom, root cause, fix, and rule impact.",
+        "The response describes a rule addition workflow."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "帮我写一个周报 Skill，顺便也能做设计规范。",
+      "expected_output": "The assistant should avoid over-triggering design-spec-skill-maker for a non-design primary task, or clearly separate the unrelated week-report Skill from the design-spec Skill use case.",
+      "files": [],
+      "expectations": [
+        "The response does not merge unrelated weekly-report and design-guideline responsibilities into one broad Skill.",
+        "The response recommends separate Skills or asks which task is primary."
+      ]
+    }
+  ]
+}

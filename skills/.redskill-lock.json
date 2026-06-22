@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "design-spec-skill-maker": {
+      "name": "design-spec-skill-maker",
+      "version": "0.1.0",
+      "source": "redskill",
+      "install_dir": "/Users/tingsu/Documents/New project 2/skills/design-spec-skill-maker",
+      "installed_at": "1781751120348",
+      "sha256": "cd16432146ee0f809d3e121623cc00ce0e7e8aae9cff664dc6a3bec1213d5ccb"
+    }
+  }
+}

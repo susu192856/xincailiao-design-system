@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Design Spec Skill Intake",
+  "type": "object",
+  "required": ["systemName", "coreScenarios", "sourceMaterials", "outputModes"],
+  "properties": {
+    "systemName": { "type": "string" },
+    "domain": { "type": "string" },
+    "coreScenarios": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 3
+    },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sourceMaterials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "authority"],
+        "properties": {
+          "name": { "type": "string" },
+          "pathOrUrl": { "type": "string" },
+          "authority": {
+            "type": "string",
+            "enum": ["authoritative", "reference", "case", "unknown"]
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "outputModes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["generate-ui", "modify-ui", "review-ui", "adapt-ui", "write-guidelines", "other"]
+      },
+      "minItems": 1
+    },
+    "productLines": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "pageTypes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "tokensAvailable": { "type": "boolean" },
+    "pairedReviewSkillNeeded": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}
