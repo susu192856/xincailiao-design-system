@@ -147,9 +147,13 @@
 ## Checkbox / Radio / Switch
 
 **规则：**
-- Checkbox 多选用 `variant="group"`
-- Radio 互斥选用 `variant="group"` 或 `variant="card"`
+- Checkbox 多选用 `variant="group"`，默认选中态颜色为 `--neutral-900`（黑色），不使用产品蓝
+- Radio 互斥选用 `variant="group"` 或 `variant="card"`，默认选中态颜色为 `--neutral-900`（黑色）
 - Switch 用于即时生效的开关（如启用/禁用），不用于需要提交的表单
+- 这三种组件在任何页面（官网/后台/任何产品线）都默认使用 neutral 色调（黑色），产品蓝仅用于主操作按钮和链接文字
+
+**常见错误：**
+- 后台页面把所有交互元素都设为产品蓝色——Checkbox/Radio/Switch 的选中态必须是 neutral-900（黑色），只有主操作按钮用产品蓝
 
 ## Tree 树控件
 
@@ -195,6 +199,25 @@
 - 语义图标传 `label` 属性
 
 ---
+
+## 颜色分配铁律
+
+这是最重要的规则，违反此规则会导致页面"全是蓝色"或"全无品牌感"：
+
+| 元素 | 使用的颜色 | 说明 |
+|---|---|---|
+| 主操作按钮（新增、提交、确认） | `--product-blue-*` 或 `--brand-*` | 每页最多 **1 个** solid 主按钮 |
+| 次要按钮（取消、返回、重置） | `--neutral-*` | outline 或 ghost 变体 |
+| 文字标题 | `--neutral-900` | 黑色 |
+| 正文 | `--neutral-700` | 深灰 |
+| 辅助/占位文字 | `--neutral-500` | 中灰 |
+| 边框/分割线 | `--neutral-200/300` | 浅灰 |
+| Checkbox/Radio/Switch 选中 | `--neutral-900` | **黑色，不是蓝色** |
+| 表格行选中/hover | `--product-blue-50` | 极浅蓝背景（唯一允许的蓝色"面"） |
+| 链接文字 / 面包屑 hover | `--product-blue-500` | 蓝色仅用于可点击的文字链接 |
+| Tag 标签 | 按语义：neutral/product/brand/danger/warning/success | 分类 tag 用 soft 变体 |
+
+**核心原则：产品蓝是"点缀色"不是"主色调"。99% 的 UI 界面应该是中性色（黑白灰），产品蓝只在 1% 的关键操作点出现。**
 
 ## 通用禁止事项
 
