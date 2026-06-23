@@ -14,7 +14,7 @@ export default function InputPage() {
           <ExampleCard title="基础输入">
             <div className="space-y-4">
               <Input label="材料名称" placeholder="请输入材料名称" helperText="用于材料数据检索和资产命名。" required />
-              <Input label="搜索" placeholder="搜索数据资产" icon={<MagnifyingGlass className="h-4 w-4" />} />
+              <Input label="搜索" placeholder="搜索数据资产" prefix={<MagnifyingGlass className="h-4 w-4" />} />
             </div>
           </ExampleCard>
           <ExampleCard title="状态输入">
@@ -104,9 +104,9 @@ export default function InputPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="筛选区">
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-              <Input size="sm" placeholder="材料名称" icon={<MagnifyingGlass className="h-4 w-4" />} />
-              <Input size="sm" placeholder="批次编号" />
-              <Input size="sm" placeholder="负责人" />
+              <Input size="sm" aria-label="材料名称" placeholder="材料名称" prefix={<MagnifyingGlass className="h-4 w-4" />} />
+              <Input size="sm" aria-label="批次编号" placeholder="批次编号" />
+              <Input size="sm" aria-label="负责人" placeholder="负责人" />
             </div>
             <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">
               筛选区优先使用 28px 或 32px 高度，保证表格上方工具栏紧凑。
@@ -117,6 +117,33 @@ export default function InputPage() {
               <Input size="sm" label="标准牌号" defaultValue="TC4" />
               <Input size="sm" label="数值范围" defaultValue="980" suffix="MPa" error="超出标准范围 860-930 MPa" />
               <Input size="sm" label="审核后字段" value="已锁定" readOnly helperText="审核通过后进入只读状态。" />
+            </div>
+          </ExampleCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Do / Don't" title="正确与错误示例" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <ExampleCard title="正确：字段含义与反馈完整">
+            <Input
+              label="试验温度"
+              placeholder="例如：25"
+              suffix="℃"
+              helperText="填写试验时的环境温度。"
+              required
+            />
+          </ExampleCard>
+          <ExampleCard title="错误：只依赖占位符和颜色">
+            <div>
+              <Input
+                aria-label="错误示例：材料编号"
+                placeholder="材料编号"
+                className="border-[var(--error-text)]"
+              />
+              <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">
+                缺少可见字段名和错误原因；占位符在输入后消失，红色边框也无法说明如何修正。
+              </p>
             </div>
           </ExampleCard>
         </div>

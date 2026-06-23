@@ -770,8 +770,8 @@ export default function IconPage() {
           <div className="bg-white p-5">
             <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">A. 单独使用</h3>
             <div className="mb-4 flex gap-3">
-              <Button variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" className="h-10 w-10 min-w-10 px-0" />
-              <Button variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" className="h-10 w-10 min-w-10 px-0" />
+              <Button variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" className="h-10 w-11 min-w-11 px-0 md:w-10 md:min-w-10" />
+              <Button variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" className="h-10 w-11 min-w-11 px-0 md:w-10 md:min-w-10" />
             </div>
             <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
               适用于工具栏、表格操作、卡片入口、状态提示等场景。
@@ -855,7 +855,7 @@ export default function IconPage() {
                         onClick={() => copySvg(item)}
                         title={isCopied ? "已复制" : "复制 SVG"}
                         aria-label={isCopied ? "已复制" : "复制 SVG"}
-                        className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
                       >
                         {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
                       </button>
@@ -864,7 +864,7 @@ export default function IconPage() {
                         onClick={() => downloadCommonSvg(item)}
                         title="下载 SVG"
                         aria-label="下载 SVG"
-                        className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
                       >
                         <DownloadSimple size={14} weight="regular" />
                       </button>
@@ -915,7 +915,7 @@ export default function IconPage() {
                         onClick={() => copySvg(item)}
                         title={isCopied ? "已复制" : "复制 SVG"}
                         aria-label={isCopied ? "已复制" : "复制 SVG"}
-                        className="flex h-6 w-6 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-6 md:w-6"
                       >
                         {isCopied ? <Check size={13} weight="regular" /> : <Copy size={13} weight="regular" />}
                       </button>
@@ -924,7 +924,7 @@ export default function IconPage() {
                         onClick={() => downloadCommonSvg(item)}
                         title="下载 SVG"
                         aria-label="下载 SVG"
-                        className="flex h-6 w-6 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-6 md:w-6"
                       >
                         <DownloadSimple size={13} weight="regular" />
                       </button>
@@ -995,7 +995,7 @@ export default function IconPage() {
                     onClick={() => copyDecorativeSvg(item)}
                     title={isCopied ? "已复制" : "复制 SVG"}
                     aria-label={isCopied ? "已复制" : "复制 SVG"}
-                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
                   >
                     {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
                   </button>
@@ -1004,7 +1004,7 @@ export default function IconPage() {
                     onClick={() => downloadDecorativeSvg(item)}
                     title="下载 SVG"
                     aria-label="下载 SVG"
-                    className="flex h-7 w-7 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
                   >
                     <DownloadSimple size={14} weight="regular" />
                   </button>

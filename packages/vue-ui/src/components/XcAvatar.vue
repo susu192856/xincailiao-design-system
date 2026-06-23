@@ -1,5 +1,5 @@
 <template>
-  <span class="xc-avatar" :class="`xc-avatar--${size}`">
+  <span class="xc-avatar" :class="[`xc-avatar--${size}`, { 'xc-avatar--disabled': disabled }]" :aria-disabled="disabled || undefined">
     <span class="xc-avatar__body" :title="name" :aria-label="name">
       <img v-if="src" class="xc-avatar__image" :src="src" :alt="name" />
       <span v-else>{{ initial }}</span>
@@ -20,9 +20,11 @@ const props = withDefaults(
     src?: string;
     size?: AvatarSize;
     status?: AvatarStatus;
+    disabled?: boolean;
   }>(),
   {
     size: "md",
+    disabled: false,
   },
 );
 
@@ -34,6 +36,10 @@ const initial = computed(() => props.name.trim().slice(0, 1).toUpperCase());
   position: relative;
   display: inline-flex;
   flex: 0 0 auto;
+}
+
+.xc-avatar--disabled {
+  opacity: var(--disabled-opacity);
 }
 
 .xc-avatar__body {

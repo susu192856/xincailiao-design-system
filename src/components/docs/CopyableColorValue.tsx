@@ -29,7 +29,7 @@ export default function CopyableColorValue({
     >
       <span>{display}</span>
       {copied ? (
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 6L5 8.5 9.5 3"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--success-text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2.5 6L5 8.5 9.5 3"/></svg>
       ) : (
         <svg className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><path d="M1.5 8.5V2A.5.5 0 012 1.5h6"/></svg>
       )}

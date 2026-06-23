@@ -1,9 +1,9 @@
 <template>
-  <nav class="xc-menu" :class="[`xc-menu--${mode}`, `xc-menu--${size}`, { 'xc-menu--collapsed': collapsed }]">
+  <nav class="xc-menu" :class="[`xc-menu--${resolvedOrientation}`, `xc-menu--${size}`, { 'xc-menu--collapsed': collapsed }]">
     <template v-for="item in items" :key="item.key">
       <div v-if="item.type === 'group'" class="xc-menu__group">{{ item.label }}</div>
       <div v-else-if="item.type === 'divider'" class="xc-menu__divider" />
-      <button v-else class="xc-menu__item" :class="{ 'xc-menu__item--active': item.key === activeKey }" type="button" :disabled="item.disabled" @click="select(item.key)">
+      <button v-else class="xc-menu__item" :class="{ 'xc-menu__item--active': item.key === currentValue }" type="button" :disabled="item.disabled" @click="select(item.key)">
         <span v-if="item.icon" class="xc-menu__icon">{{ item.icon }}</span>
         <span v-if="!collapsed" class="xc-menu__label">{{ item.label }}</span>
         <span v-if="item.badge && !collapsed" class="xc-menu__badge">{{ item.badge }}</span>
@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
 type MenuMode = "vertical" | "horizontal";
 type MenuSize = "sm" | "md";
 
@@ -25,10 +27,12 @@ export type XcMenuItem = {
   type?: "item" | "group" | "divider";
 };
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     items: XcMenuItem[];
+    modelValue?: string;
     activeKey?: string;
+    orientation?: MenuMode;
     mode?: MenuMode;
     collapsed?: boolean;
     size?: MenuSize;
@@ -41,10 +45,15 @@ withDefaults(
 );
 
 const emit = defineEmits<{
+  "update:modelValue": [key: string];
   select: [key: string];
 }>();
 
+const resolvedOrientation = computed(() => props.orientation ?? props.mode);
+const currentValue = computed(() => props.modelValue ?? props.activeKey);
+
 function select(key: string) {
+  emit("update:modelValue", key);
   emit("select", key);
 }
 </script>

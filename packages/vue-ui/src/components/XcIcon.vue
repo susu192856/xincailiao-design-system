@@ -1,8 +1,16 @@
 <template>
-  <span class="xc-icon" :class="[`xc-icon--${tone}`, `xc-icon--${size}`, { 'xc-icon--decorative': decorative }]" :aria-label="label" :aria-hidden="!label">
+  <span
+    class="xc-icon"
+    :class="[`xc-icon--${tone}`, `xc-icon--${size}`, { 'xc-icon--disabled': disabled }]"
+    :role="!decorative && label ? 'img' : undefined"
+    :aria-label="!decorative ? label : undefined"
+    :aria-hidden="decorative || !label ? true : undefined"
+    :data-weight="weight"
+  >
     <slot>
       <span class="xc-icon__mark" />
     </slot>
+    <span v-if="redMark" class="xc-icon__red-mark" aria-hidden="true" />
   </span>
 </template>
 
@@ -14,13 +22,19 @@ withDefaults(
   defineProps<{
     size?: IconSize;
     tone?: IconTone;
+    weight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
     decorative?: boolean;
+    disabled?: boolean;
     label?: string;
+    redMark?: boolean;
   }>(),
   {
     size: 20,
     tone: "neutral",
+    weight: "regular",
     decorative: false,
+    disabled: false,
+    redMark: false,
   },
 );
 </script>
@@ -36,12 +50,12 @@ withDefaults(
   line-height: 1;
 }
 
-.xc-icon--16 { font-size: 16px; }
-.xc-icon--20 { font-size: 20px; }
-.xc-icon--24 { font-size: 24px; }
-.xc-icon--32 { font-size: 32px; }
-.xc-icon--12 { font-size: 12px; }
-.xc-icon--48 { font-size: 48px; }
+.xc-icon--12 { width: var(--icon-size-xs); height: var(--icon-size-xs); font-size: var(--icon-size-xs); }
+.xc-icon--16 { width: var(--icon-size-sm); height: var(--icon-size-sm); font-size: var(--icon-size-sm); }
+.xc-icon--20 { width: var(--icon-size-md); height: var(--icon-size-md); font-size: var(--icon-size-md); }
+.xc-icon--24 { width: var(--icon-size-lg); height: var(--icon-size-lg); font-size: var(--icon-size-lg); }
+.xc-icon--32 { width: var(--icon-size-xl); height: var(--icon-size-xl); font-size: var(--icon-size-xl); }
+.xc-icon--48 { width: var(--control-height-xl); height: var(--control-height-xl); font-size: var(--control-height-xl); }
 
 .xc-icon--muted { color: var(--neutral-500); }
 .xc-icon--product { color: var(--product-blue-500); }
@@ -58,17 +72,19 @@ withDefaults(
   border-radius: var(--radius-sm);
 }
 
-.xc-icon--decorative .xc-icon__mark {
-  position: relative;
+.xc-icon--disabled {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
 }
 
-.xc-icon--decorative .xc-icon__mark::after {
+.xc-icon__red-mark {
   position: absolute;
-  right: -2px;
+  right: 0;
   top: 50%;
-  width: 5px;
+  width: 6px;
   height: 2px;
   background: var(--brand-600);
   content: "";
+  transform: translateY(-50%);
 }
 </style>

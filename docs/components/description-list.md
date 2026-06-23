@@ -7,19 +7,34 @@
 - Vue 源码：`packages/vue-ui/src/components/XcDescriptionList.vue`
 - Figma 组件名：`Description List`
 
+- 分类：数据与内容
+- 合同版本：`0.2.0`
+- 规范状态：完善中
+
+## 定位与边界
+
+**适用：** 用于Description List对应的标准场景，优先复用组件而不是在页面内重新绘制。
+
+**避免：** 不要绕过 Token、组件合同或可访问性要求制作局部特例。
+
+## 结构 Anatomy
+
+- 根容器
+- 主要内容
+- 可选辅助内容
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `items` | `DescriptionItem[]` | `—` | 描述项数组，包含 `label`、`value`、`span`。 |
-| `columns` | `1 \| 2 \| 3` | `2` | 字段列数；详情页默认 2 列，高密参数可 3 列。 |
-| `bordered` | `boolean` | `true` | 是否显示字段边框。 |
-| `emptyText` | `ReactNode / string` | `--` | 空值占位。 |
-| `size` | `sm \| md` | `md` | 字段密度。 |
-| `layout` | `stacked \| inline` | `stacked` | 标签和值上下排列或左右排列。 |
-| `labelWidth` | `number \| string` | `88` | `inline` 布局下标签固定宽度。 |
+| `items` | `array` | `—` | 组件条目数据。 |
+| `columns` | `array | 1 | 2 | 3 | 4` | `—` | 列定义或栅格列数。 |
+| `bordered` | `unknown` | `—` | bordered 的组件合同字段；实现与文档必须保持一致。 |
+| `emptyText` | `ReactNode | string` | `—` | 无内容时的占位文案。 |
+| `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
+| `layout` | `unknown` | `—` | layout 的组件合同字段；实现与文档必须保持一致。 |
+| `labelWidth` | `number | string` | `—` | 左右布局时的标签宽度。 |
 
-## 组件属性
+## 变体、语义、尺寸与状态
 
 ### Variants
 
@@ -50,16 +65,30 @@
 - `empty`
 - `with-status`
 - `masked`
+- `with-media`
+- `with-attachment`
 
 
 ## 使用指南
 
 - 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
 - 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
-- 宽详情页或抽屉详情可使用 `layout="inline"`，label 建议 76px-112px。
-- 图片、附件和关键参数应作为同一信息组呈现，避免图文资料和字段列表分离。
-- 空值统一显示 `--`，不要留空或直接隐藏字段。
 - Figma 属性、网页示例和前端源码 API 需要保持同名同义。
+
+## 响应式
+
+桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+
+## 可访问性
+
+使用正确语义结构；图片或装饰内容必须提供合适的替代文本策略。
+
+## 示例要求
+
+- 基础示例：Description List 默认结构与尺寸
+- 业务示例：新材道后台或门户中的真实 Description List 场景
+- 边界示例：长内容、空数据、禁用、加载或窄屏边界
+- 错误示例：绕过组件、硬编码数值或仅依赖颜色表达状态
 
 ## Vue 3 引用示例
 
@@ -72,7 +101,8 @@ import "@xincailiao/vue-ui/styles.css";
 
 - Figma 组件命名使用 `Description List`。
 - 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
-- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
+- 仅创建本组件适用的状态，具体以本页 States 为准，不机械复制无关状态。
+- 使用 Auto Layout、变量绑定和标准 Variant Property；浮层必须提供静态打开态。
 
 ## 依赖 Token
 

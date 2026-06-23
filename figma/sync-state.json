@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "runId": "xincailiao-v2-foundations-20260622",
+  "targetFileKey": "KjkKSAd9eufpg9eFR9xZVX",
+  "phase": "foundations-review",
+  "foundations": {
+    "status": "awaiting-user-review",
+    "mode": "Value",
+    "collections": {
+      "新材道 / Color Primitives": 65,
+      "新材道 / Color": 72,
+      "新材道 / Dimensions": 72,
+      "新材道 / Reference": 13
+    },
+    "textStyles": 10,
+    "effectStyles": 6,
+    "brokenAliases": 0,
+    "allScopesVariables": 0,
+    "missingWebSyntax": 0,
+    "figmaFont": "Noto Sans SC",
+    "codeFontStackPrimary": "PingFang SC"
+  },
+  "components": {
+    "Button": {
+      "maturity": "stable",
+      "figmaSync": "waiting-for-foundations-approval"
+    }
+  },
+  "nextCheckpoint": "Approve Foundations before creating Figma documentation pages and Button."
+}

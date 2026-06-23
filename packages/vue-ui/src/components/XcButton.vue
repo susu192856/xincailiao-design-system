@@ -19,7 +19,7 @@
 import { computed } from "vue";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "text";
-type ButtonTone = "neutral" | "product" | "brand" | "danger" | "success" | "warning";
+type ButtonTone = "task" | "neutral" | "product" | "brand" | "danger" | "success" | "warning";
 type ButtonSize = "sm" | "md" | "lg" | "xl" | "2xl";
 type ButtonType = "button" | "submit" | "reset";
 
@@ -35,7 +35,7 @@ const props = withDefaults(
   }>(),
   {
     variant: "solid",
-    tone: "neutral",
+    tone: "task",
     size: "md",
     disabled: false,
     loading: false,
@@ -59,7 +59,7 @@ const buttonClasses = computed(() => [
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--button-gap);
   border: 0;
   border-radius: var(--radius-sm);
   font-weight: 400;
@@ -67,49 +67,68 @@ const buttonClasses = computed(() => [
   white-space: nowrap;
   cursor: pointer;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background-color var(--motion-duration-fast) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.xc-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .xc-button:disabled {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: var(--disabled-opacity);
 }
 
 .xc-button--sm {
-  height: 28px;
-  padding: 0 12px;
+  height: var(--control-height-sm);
+  padding: 0 var(--button-padding-x-sm);
   font-size: 14px;
 }
 
 .xc-button--md {
-  height: 32px;
-  padding: 0 16px;
+  height: var(--control-height-md);
+  padding: 0 var(--button-padding-x-md);
   font-size: 14px;
 }
 
 .xc-button--lg {
-  height: 36px;
-  padding: 0 20px;
+  height: var(--control-height-lg);
+  padding: 0 var(--button-padding-x-lg);
   font-size: 14px;
 }
 
 .xc-button--xl {
-  min-height: 48px;
-  padding: 12px 32px;
+  min-height: var(--control-height-xl);
+  padding: 12px var(--button-padding-x-xl);
   font-size: 18px;
 }
 
 .xc-button--2xl {
-  min-height: 56px;
-  padding: 14px 40px;
+  min-height: var(--control-height-2xl);
+  padding: 14px var(--button-padding-x-2xl);
   font-size: 20px;
 }
 
+.xc-button--solid.xc-button--task {
+  background: var(--color-action-task-default);
+  color: white;
+}
+
+.xc-button--solid.xc-button--task:hover:not(:disabled) {
+  background: var(--color-action-task-hover);
+}
+
+.xc-button--solid.xc-button--task:active:not(:disabled) {
+  background: var(--color-action-task-active);
+}
+
+/* 兼容旧调用：neutral + solid 在一个迁移周期内保持原黑色外观。 */
 .xc-button--solid.xc-button--neutral {
   background: var(--neutral-900);
-  color: #fff;
+  color: white;
 }
 
 .xc-button--solid.xc-button--neutral:hover:not(:disabled) {
@@ -118,7 +137,7 @@ const buttonClasses = computed(() => [
 
 .xc-button--solid.xc-button--product {
   background: var(--product-blue-500);
-  color: #fff;
+  color: white;
 }
 
 .xc-button--solid.xc-button--product:hover:not(:disabled) {
@@ -127,7 +146,7 @@ const buttonClasses = computed(() => [
 
 .xc-button--solid.xc-button--brand {
   background: var(--brand-600);
-  color: #fff;
+  color: white;
 }
 
 .xc-button--solid.xc-button--brand:hover:not(:disabled) {
@@ -136,39 +155,44 @@ const buttonClasses = computed(() => [
 
 .xc-button--solid.xc-button--danger {
   background: var(--error-text);
-  color: #fff;
+  color: white;
 }
 
 .xc-button--solid.xc-button--danger:hover:not(:disabled) {
-  background: #dc2626;
+  background: var(--error-hover);
 }
 
 .xc-button--solid.xc-button--success {
   background: var(--success-text);
-  color: #fff;
+  color: white;
 }
 
 .xc-button--solid.xc-button--success:hover:not(:disabled) {
-  background: #059669;
+  background: var(--success-hover);
 }
 
 .xc-button--solid.xc-button--warning {
   background: var(--warning-text);
-  color: #fff;
+  color: white;
 }
 
 .xc-button--solid.xc-button--warning:hover:not(:disabled) {
-  background: #d97706;
+  background: var(--warning-hover);
 }
 
 .xc-button--outline {
   border: 1px solid currentColor;
-  background: #fff;
+  background: white;
 }
 
 .xc-button--outline.xc-button--neutral,
 .xc-button--text.xc-button--neutral {
   color: var(--neutral-900);
+}
+
+.xc-button--outline.xc-button--task,
+.xc-button--text.xc-button--task {
+  color: var(--color-action-task-default);
 }
 
 .xc-button--outline.xc-button--product,
@@ -201,6 +225,11 @@ const buttonClasses = computed(() => [
   background: var(--neutral-50);
 }
 
+.xc-button--outline.xc-button--task:hover:not(:disabled),
+.xc-button--text.xc-button--task:hover:not(:disabled) {
+  background: var(--neutral-50);
+}
+
 .xc-button--outline.xc-button--product:hover:not(:disabled),
 .xc-button--text.xc-button--product:hover:not(:disabled) {
   background: var(--product-blue-50);
@@ -229,6 +258,15 @@ const buttonClasses = computed(() => [
 .xc-button--ghost.xc-button--neutral {
   background: var(--neutral-100);
   color: var(--neutral-900);
+}
+
+.xc-button--ghost.xc-button--task {
+  background: var(--neutral-100);
+  color: var(--color-action-task-default);
+}
+
+.xc-button--ghost.xc-button--task:hover:not(:disabled) {
+  background: var(--neutral-200);
 }
 
 .xc-button--ghost.xc-button--neutral:hover:not(:disabled) {
@@ -285,12 +323,12 @@ const buttonClasses = computed(() => [
 }
 
 .xc-button__spinner {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
   border: 2px solid currentColor;
   border-top-color: transparent;
   border-radius: 999px;
-  animation: xc-button-spin 0.7s linear infinite;
+  animation: xc-button-spin var(--motion-duration-slow) linear infinite;
 }
 
 @keyframes xc-button-spin {

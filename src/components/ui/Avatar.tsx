@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "react";
 
-type AvatarSize = "sm" | "md" | "lg";
+type AvatarSize = "sm" | "md" | "lg" | "xl";
 type AvatarStatus = "online" | "busy" | "offline";
 
 export type AvatarProps = HTMLAttributes<HTMLDivElement> & {
@@ -8,12 +8,14 @@ export type AvatarProps = HTMLAttributes<HTMLDivElement> & {
   src?: string;
   size?: AvatarSize;
   status?: AvatarStatus;
+  disabled?: boolean;
 };
 
 const sizeClasses: Record<AvatarSize, string> = {
   sm: "h-7 w-7 text-xs",
   md: "h-9 w-9 text-sm",
   lg: "h-12 w-12 text-base",
+  xl: "h-16 w-16 text-xl",
 };
 
 const statusClasses: Record<AvatarStatus, string> = {
@@ -22,11 +24,15 @@ const statusClasses: Record<AvatarStatus, string> = {
   offline: "bg-[var(--neutral-400)]",
 };
 
-export function Avatar({ name, src, size = "md", status, className = "", ...props }: AvatarProps) {
+export function Avatar({ name, src, size = "md", status, disabled = false, className = "", ...props }: AvatarProps) {
   const initial = name.trim().slice(0, 1).toUpperCase();
 
   return (
-    <div className={["relative inline-flex shrink-0", className].join(" ")} {...props}>
+    <div
+      className={["relative inline-flex shrink-0", disabled ? "opacity-[var(--disabled-opacity)]" : "", className].join(" ")}
+      aria-disabled={disabled || undefined}
+      {...props}
+    >
       <div
         className={[
           "inline-flex items-center justify-center overflow-hidden rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--neutral-700)]",

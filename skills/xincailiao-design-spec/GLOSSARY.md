@@ -13,7 +13,7 @@
 - 卡片间间距统一使用 `--spacing-md`（16px）或 `--spacing-lg`（24px）
 - 背景色使用 `--neutral-50` 或白色，不用渐变或纹理
 - 按钮默认使用 `variant="outline"` 或 `variant="ghost"`，主操作按钮才用 `variant="solid"`
-- 圆角统一使用 `--radius-md`（4px）或 `--radius-lg`（8px），不混用多种圆角
+- 高频控件使用 `--radius-sm`（2px），分组容器使用 `--radius-sm` 或 `--radius-md`；展示型卡片才使用更大圆角
 
 ## 大气 (Grand / Spacious)
 
@@ -42,7 +42,7 @@
 
 - 正文默认 `--type-body-m`（14px / 22px line-height），大段文字用 `--type-body-l`（16px / 24px）
 - 标题与正文间距 ≥ `--spacing-sm`（8px）
-- 行宽不超过 72 个中文字符（约 `max-width: 720px`）
+- 正文行宽使用 `--content-reading-width`（700px）作为上限
 - 段落间距 = `--spacing-md`（16px）
 - 辅助文字（captions/注释）使用 `--type-caption`（12px）+ `--neutral-500` 或 `--neutral-600`
 
@@ -52,7 +52,7 @@
 
 - 图标尺寸与文字尺寸匹配：正文14px → 图标16px，标题20px → 图标24px
 - Hover 状态必须有反馈：颜色变化、轻微阴影（`--shadow-sm` 或 `--shadow-md`）
-- 过渡动画 duration = 150ms~200ms，easing = ease-out
+- 过渡动画使用 `--motion-duration-fast` / `--motion-duration-normal` 与 `--motion-easing-standard`
 - 空状态必须使用 Empty 组件，不能只显示空白区域
 - 加载状态必须有 Spinner 或 Skeleton，不能显示空白
 
@@ -60,8 +60,8 @@
 
 **翻译为可执行规则：**
 
-- 圆角倾向于使用 `--radius-lg`（8px）或 `--radius-xl`（12px）
-- 阴影使用 `--shadow-md` 或 `--shadow-lg`
+- 现代感来自清晰层级、留白和动效，不通过全局放大圆角表达
+- 阴影只用于真实层级；普通卡片优先边框或 `--shadow-sm`
 - 主操作按钮使用 `variant="solid"` + 品牌色或产品蓝
 - 卡片使用白色背景 + `--shadow-sm` 或 `--shadow-md`
 - 不使用的风格：拟物化效果、过重的边框、纯黑色文字
@@ -74,7 +74,7 @@
 
 1. 查"简约"→ 最多2种字号、outline按钮为主、间距16-24px
 2. 查"大气"→ Hero 650px高、大标题56px、内容区1400px宽、区块间距64px+
-3. 合并规则 → 首页：display-l标题 + body-l正文，Hero 650px，outline按钮+1个solid主按钮，白色背景+neutral-50区块
+3. 合并规则 → 首页：display-l标题 + body-l正文，Hero 650px，outline按钮+1个solid主按钮，白色背景+neutral-50区块，高频控件使用2px圆角
 4. 按照 `references/page-portal.md` 的骨架模板生成代码
 
 **同一描述词冲突时**，按以下优先级：品牌规范 > Token 数值 > 本词典

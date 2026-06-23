@@ -1,12 +1,15 @@
 <template>
   <label class="xc-input" :class="rootClasses">
-    <span v-if="label" class="xc-input__label" :style="labelStyle">{{ label }}</span>
+    <span v-if="label" class="xc-input__label" :style="labelStyle">
+      {{ label }}<span v-if="required" class="xc-input__required" aria-hidden="true">*</span>
+    </span>
     <span class="xc-input__body">
       <span class="xc-input__control-wrap">
-        <span v-if="$slots.icon" class="xc-input__icon" aria-hidden="true">
-          <slot name="icon" />
+        <span v-if="$slots.prefix || $slots.icon" class="xc-input__prefix" aria-hidden="true">
+          <slot name="prefix"><slot name="icon" /></slot>
         </span>
         <input
+          :id="id"
           class="xc-input__control"
           :class="inputClasses"
           :type="type"
@@ -17,10 +20,15 @@
           :readonly="readOnly"
           :placeholder="placeholder"
           :aria-invalid="Boolean(error)"
+          :aria-describedby="error || helperText ? messageId : undefined"
+          :aria-required="required || undefined"
           @input="handleInput"
         />
+        <span v-if="$slots.suffix" class="xc-input__suffix" aria-hidden="true">
+          <slot name="suffix" />
+        </span>
       </span>
-      <span v-if="error || helperText" class="xc-input__message" :class="{ 'xc-input__message--error': error }">
+      <span v-if="error || helperText" :id="messageId" class="xc-input__message" :class="{ 'xc-input__message--error': error }">
         {{ error || helperText }}
       </span>
     </span>
@@ -48,6 +56,8 @@ const props = withDefaults(
     type?: string;
     name?: string;
     autocomplete?: string;
+    id?: string;
+    required?: boolean;
   }>(),
   {
     modelValue: "",
@@ -57,6 +67,7 @@ const props = withDefaults(
     disabled: false,
     readOnly: false,
     type: "text",
+    required: false,
   },
 );
 
@@ -81,9 +92,12 @@ const inputClasses = computed(() => [
   `xc-input__control--${props.size}`,
   {
     "xc-input__control--error": props.error,
-    "xc-input__control--with-icon": Boolean(slots.icon),
+    "xc-input__control--with-prefix": Boolean(slots.prefix || slots.icon),
+    "xc-input__control--with-suffix": Boolean(slots.suffix),
   },
 ]);
+
+const messageId = computed(() => (props.id ? `${props.id}-message` : undefined));
 
 function handleInput(event: Event) {
   emit("update:modelValue", (event.target as HTMLInputElement).value);
@@ -127,9 +141,9 @@ function handleInput(event: Event) {
   display: block;
 }
 
-.xc-input__icon {
+.xc-input__prefix,
+.xc-input__suffix {
   position: absolute;
-  left: 12px;
   top: 50%;
   display: flex;
   color: var(--neutral-500);
@@ -137,9 +151,23 @@ function handleInput(event: Event) {
   pointer-events: none;
 }
 
+.xc-input__prefix {
+  left: 12px;
+}
+
+.xc-input__suffix {
+  right: 12px;
+  font-size: 12px;
+}
+
+.xc-input__required {
+  margin-left: 4px;
+  color: var(--brand-600);
+}
+
 .xc-input__control {
   width: 100%;
-  border: 1px solid var(--neutral-300);
+  border: 1px solid var(--field-border-default);
   border-radius: var(--radius-sm);
   background: #fff;
   color: var(--neutral-900);
@@ -154,48 +182,54 @@ function handleInput(event: Event) {
 }
 
 .xc-input__control:hover:not(:disabled) {
-  border-color: var(--neutral-400);
+  border-color: var(--field-border-hover);
 }
 
 .xc-input__control:focus {
-  border-color: var(--neutral-900);
+  border-color: var(--field-border-focus);
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .xc-input__control:disabled {
   cursor: not-allowed;
-  background: var(--neutral-100);
+  background: var(--field-bg-disabled);
   color: var(--neutral-400);
 }
 
 .xc-input__control:read-only:not(:disabled) {
-  background: var(--neutral-50);
+  background: var(--field-bg-readonly);
   color: var(--neutral-600);
 }
 
 .xc-input__control--error {
-  border-color: var(--error-text);
+  border-color: var(--field-border-error);
 }
 
 .xc-input__control--sm {
-  height: 28px;
-  padding: 0 10px;
+  height: var(--control-height-sm);
+  padding: 0 var(--field-padding-x-sm);
   font-size: 14px;
 }
 
 .xc-input__control--md {
-  height: 32px;
-  padding: 0 12px;
+  height: var(--control-height-md);
+  padding: 0 var(--field-padding-x-md);
   font-size: 14px;
 }
 
 .xc-input__control--lg {
-  height: 36px;
-  padding: 0 12px;
+  height: var(--control-height-lg);
+  padding: 0 var(--field-padding-x-lg);
   font-size: 14px;
 }
 
-.xc-input__control--with-icon {
+.xc-input__control--with-prefix {
   padding-left: 36px;
+}
+
+.xc-input__control--with-suffix {
+  padding-right: 40px;
 }
 
 .xc-input__message {
@@ -208,5 +242,22 @@ function handleInput(event: Event) {
 
 .xc-input__message--error {
   color: var(--error-text);
+}
+
+@media (max-width: 767px) {
+  .xc-input--horizontal {
+    display: block;
+  }
+
+  .xc-input--horizontal .xc-input__label {
+    width: auto !important;
+    margin-bottom: 6px;
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .xc-input__control {
+    min-height: 44px;
+  }
 }
 </style>

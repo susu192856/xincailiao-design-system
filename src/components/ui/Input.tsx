@@ -1,23 +1,25 @@
-import type { InputHTMLAttributes, ReactNode } from "react";
+import { useId, type CSSProperties, type InputHTMLAttributes, type ReactNode } from "react";
 
 type InputSize = "sm" | "md" | "lg";
 type LabelPosition = "top" | "left";
 
-export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
+export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "prefix"> & {
   label?: string;
   helperText?: string;
   error?: string;
   size?: InputSize;
   labelPosition?: LabelPosition;
   labelWidth?: number | string;
+  prefix?: ReactNode;
+  /** @deprecated 使用 prefix。 */
   icon?: ReactNode;
   suffix?: ReactNode;
 };
 
 const sizeClasses: Record<InputSize, string> = {
-  sm: "h-7 px-2.5 text-sm",
-  md: "h-8 px-3 text-sm",
-  lg: "h-9 px-3 text-sm",
+  sm: "h-11 px-[var(--field-padding-x-sm)] text-sm md:h-[var(--control-height-sm)]",
+  md: "h-11 px-[var(--field-padding-x-md)] text-sm md:h-[var(--control-height-md)]",
+  lg: "h-11 px-[var(--field-padding-x-lg)] text-sm md:h-[var(--control-height-lg)]",
 };
 
 export function Input({
@@ -27,6 +29,7 @@ export function Input({
   size = "md",
   labelPosition = "top",
   labelWidth = 96,
+  prefix,
   icon,
   suffix,
   disabled,
@@ -34,17 +37,24 @@ export function Input({
   id,
   ...props
 }: InputProps) {
-  const inputId = id ?? props.name;
+  const generatedId = useId();
+  const inputId = id ?? props.name ?? generatedId;
+  const messageId = `${inputId}-message`;
   const isHorizontal = labelPosition === "left";
-  const labelStyle = isHorizontal ? { width: typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } : undefined;
+  const resolvedPrefix = prefix ?? icon;
+  const labelStyle = isHorizontal
+    ? ({ "--input-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
+    : undefined;
 
   return (
-    <label className={isHorizontal ? "flex items-start gap-3" : "block"}>
+    <label className={isHorizontal ? "block md:flex md:items-start md:gap-3" : "block"} htmlFor={inputId}>
       {label ? (
         <span
           className={[
             "block text-sm font-medium text-[var(--neutral-900)]",
-            isHorizontal ? "shrink-0 pt-1.5 text-right" : "mb-1.5",
+            isHorizontal
+              ? "mb-1.5 w-auto md:mb-0 md:w-[var(--input-label-width)] md:shrink-0 md:pt-1.5 md:text-right"
+              : "mb-1.5",
           ].join(" ")}
           style={labelStyle}
         >
@@ -54,28 +64,29 @@ export function Input({
       ) : null}
       <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
         <span className="relative block">
-          {icon ? (
+          {resolvedPrefix ? (
             <span className="pointer-events-none absolute left-3 top-1/2 flex -translate-y-1/2 text-[var(--neutral-500)]">
-              {icon}
+              {resolvedPrefix}
             </span>
           ) : null}
           <input
+            {...props}
             id={inputId}
             disabled={disabled}
             aria-invalid={Boolean(error)}
+            aria-describedby={error || helperText ? messageId : undefined}
             className={[
               "w-full rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--neutral-900)] outline-none transition-colors",
               "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--neutral-600)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
-              "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]",
+              "focus-visible:outline focus-visible:outline-[length:var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
               error
-                ? "border-[var(--error-text)] focus:border-[var(--error-text)]"
-                : "border-[var(--neutral-300)] hover:border-[var(--neutral-400)] focus:border-[var(--neutral-900)]",
-              icon ? "pl-9" : "",
+                ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
+                : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
+              resolvedPrefix ? "pl-9" : "",
               suffix ? "pr-10" : "",
               sizeClasses[size],
               className,
             ].join(" ")}
-            {...props}
           />
           {suffix ? (
             <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--neutral-500)]">
@@ -84,7 +95,7 @@ export function Input({
           ) : null}
         </span>
         {error || helperText ? (
-          <span className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--neutral-500)]"}`}>
+          <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--neutral-500)]"}`}>
             {error ?? helperText}
           </span>
         ) : null}

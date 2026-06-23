@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "target": {
+    "name": "新材道设计规范 v2.0",
+    "fileKey": "KjkKSAd9eufpg9eFR9xZVX",
+    "url": "https://www.figma.com/design/KjkKSAd9eufpg9eFR9xZVX/新材道设计规范v2.0?node-id=0-1",
+    "status": "official"
+  },
+  "legacyTargets": [
+    {
+      "fileKey": "8nsNC3DOyRpk3fA7mEmBwl",
+      "status": "reference-only"
+    }
+  ],
+  "theme": {
+    "mode": "single",
+    "modeName": "Value",
+    "supportsDarkMode": false
+  },
+  "syncPolicy": {
+    "draft": ["tokens", "manifest", "react", "vue", "web", "markdown", "skill"],
+    "review": ["tokens", "manifest", "react", "vue", "web", "markdown", "skill"],
+    "stable": ["tokens", "manifest", "react", "vue", "web", "markdown", "skill", "figma"]
+  },
+  "foundations": [
+    { "name": "首页", "route": "/", "status": "stable", "desktopReviewed": true, "mobileReviewed": true },
+    { "name": "布局", "route": "/layout", "status": "stable", "desktopReviewed": true, "mobileReviewed": true },
+    { "name": "颜色", "route": "/design-system/colors", "status": "stable", "desktopReviewed": true, "mobileReviewed": true },
+    { "name": "字体", "route": "/typography", "status": "stable", "desktopReviewed": true, "mobileReviewed": true },
+    { "name": "间距", "route": "/spacing", "status": "stable", "desktopReviewed": true, "mobileReviewed": true },
+    { "name": "阴影", "route": "/shadow", "status": "stable", "desktopReviewed": true, "mobileReviewed": true },
+    { "name": "圆角", "route": "/radius", "status": "stable", "desktopReviewed": true, "mobileReviewed": true }
+  ],
+  "stableGate": {
+    "requiredContractFields": ["usage", "avoid", "anatomy", "responsive", "accessibility", "interaction", "content"],
+    "requiredExamples": ["basic", "business", "boundary", "wrong"],
+    "requiresKnownPropTypes": true,
+    "requiresReactVueContract": true,
+    "requiresBuild": true,
+    "requiresDesktopAndMobileReview": true
+  },
+  "foundationSync": {
+    "status": "awaiting-user-review",
+    "runId": "xincailiao-v2-foundations-20260622",
+    "stateFile": "figma/sync-state.json"
+  }
+}

@@ -205,7 +205,20 @@ function generateTokenMD(categories) {
       md += `\n> 层级间隔为 100，方便未来在中间插入新层级而不冲突。\n`;
     }
 
-    fs.writeFileSync(path.join(docDir, `${slug}.md`), md, "utf-8");
+    if (cat === "布局") {
+      const extraGroups = ["组件尺寸", "P0 组件尺寸", "交互与动效", "响应式断点"];
+      for (const groupName of extraGroups) {
+        const extra = Object.values(categories).find((category) => category.title === groupName);
+        if (!extra) continue;
+        md += `\n## ${groupName}\n\n`;
+        md += "| Token | 值 |\n|------|-----|\n";
+        for (const v of extra.vars) {
+          md += `| \`--${v.name}\` | \`${v.value}\` |\n`;
+        }
+      }
+    }
+
+    fs.writeFileSync(path.join(docDir, `${slug}.md`), `${md.trimEnd()}\n`, "utf-8");
     console.log(`  ✓ docs/design-tokens/${slug}.md`);
   }
 }
@@ -665,14 +678,31 @@ function generateComponentMD() {
     md += `- React 源码：\`${comp.reactSource}\`\n`;
     md += `- Vue 源码：${comp.vueSource ? `\`${comp.vueSource}\`` : "暂未提供独立 Vue 源码，当前以 React 规范站源码为实现参考"}\n`;
     md += `- Figma 组件名：\`${comp.figmaName}\`\n\n`;
+    md += `- 分类：${comp.category || "未分类"}\n`;
+    md += `- 合同版本：\`${comp.contractVersion || manifest.version}\`\n`;
+    md += `- 规范状态：${comp.status === "stable" ? "稳定" : "完善中"}\n\n`;
+
+    md += "## 定位与边界\n\n";
+    md += `**适用：** ${comp.contract?.usage || description}\n\n`;
+    md += `**避免：** ${comp.contract?.avoid || "不要绕过组件和 Token 制作局部特例。"}\n\n`;
+
+    md += "## 结构 Anatomy\n\n";
+    for (const item of comp.contract?.anatomy || ["根容器", "主要内容"]) {
+      md += `- ${item}\n`;
+    }
 
     md += "## Props\n\n";
     md += "| 属性 | 类型 | 默认值 | 说明 |\n|------|------|--------|------|\n";
-    for (const prop of comp.props || []) {
-      md += `| \`${prop}\` | \`${describePropType(prop)}\` | \`${describePropDefault(prop)}\` | ${describePropUsage(prop)} |\n`;
+    const propDefinitions = comp.propDefinitions || (comp.props || []).map((name) => ({
+      name,
+      type: describePropType(name),
+      description: describePropUsage(name),
+    }));
+    for (const prop of propDefinitions) {
+      md += `| \`${prop.name}\` | \`${prop.type}\` | \`${describePropDefault(prop.name, comp.name)}\` | ${prop.description} |\n`;
     }
 
-    md += "\n## 组件属性\n\n";
+    md += "\n## 变体、语义、尺寸与状态\n\n";
     md += makeListSection("Variants", comp.variants);
     md += makeListSection("Tones", comp.tones);
     md += makeListSection("Sizes", comp.sizes);
@@ -682,6 +712,19 @@ function generateComponentMD() {
     for (const line of getComponentGuidelines(comp.name)) {
       md += `- ${line}\n`;
     }
+
+    md += "\n## 响应式\n\n";
+    md += `${comp.contract?.responsive || "桌面端按规范尺寸展示；窄屏时允许纵向排列并保证触控目标。"}\n\n`;
+
+    md += "## 可访问性\n\n";
+    md += `${comp.contract?.accessibility || "使用正确语义结构，状态不能只依赖颜色表达。"}\n\n`;
+
+    md += "## 示例要求\n\n";
+    const examples = comp.contract?.examples || {};
+    md += `- 基础示例：${examples.basic || "默认结构与尺寸"}\n`;
+    md += `- 业务示例：${examples.business || "新材道真实业务场景"}\n`;
+    md += `- 边界示例：${examples.boundary || "长内容、空态、禁用、加载或窄屏"}\n`;
+    md += `- 错误示例：${examples.wrong || "硬编码、绕过组件或错误语义"}\n`;
 
     if (comp.vueSource) {
       md += `\n## Vue 3 引用示例\n\n`;
@@ -697,7 +740,8 @@ function generateComponentMD() {
     md += `\n## Figma 同步要求\n\n`;
     md += `- Figma 组件命名使用 \`${comp.figmaName}\`。\n`;
     md += `- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。\n`;
-    md += `- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。\n`;
+    md += `- 仅创建本组件适用的状态，具体以本页 States 为准，不机械复制无关状态。\n`;
+    md += `- 使用 Auto Layout、变量绑定和标准 Variant Property；浮层必须提供静态打开态。\n`;
 
     md += `\n## 依赖 Token\n\n`;
     md += "组件使用的设计变量（CSS Custom Properties）：\n\n";
@@ -707,7 +751,7 @@ function generateComponentMD() {
       md += `| \`--${token}\` | ${source} |\n`;
     }
 
-    fs.writeFileSync(path.join(docDir, `${slug}.md`), md, "utf-8");
+    fs.writeFileSync(path.join(docDir, `${slug}.md`), `${md.trimEnd()}\n`, "utf-8");
     console.log(`  ✓ docs/components/${slug}.md`);
   }
 }
@@ -815,11 +859,11 @@ function describePropType(prop) {
   return map[p] || "string | boolean | array";
 }
 
-function describePropDefault(prop) {
+function describePropDefault(prop, componentName) {
   const p = prop.split(":")[0].trim();
   const map = {
     variant: "default",
-    tone: "neutral",
+    tone: componentName === "Button" ? "task" : "neutral",
     size: "md",
     disabled: "false",
     loading: "false",
@@ -855,7 +899,7 @@ function describePropUsage(prop) {
     required: "必填标记。",
     readOnly: "只读状态。",
   };
-  return map[p] || "组件属性，具体使用以规范页面和源码为准。";
+  return map[p] || "组件合同字段；类型、默认值和兼容策略以 manifest 中的结构化定义为准。";
 }
 
 function getComponentGuidelines(name) {
@@ -925,6 +969,12 @@ function getComponentTokens(name) {
   if (name === "Button") {
     return [
       ...shared,
+      ["color-action-task-default", "任务主行动 Token"],
+      ["color-action-task-hover", "任务主行动 Hover Token"],
+      ["color-action-task-active", "任务主行动 Active Token"],
+      ["color-action-product-default", "产品能力 Token"],
+      ["color-action-product-hover", "产品能力 Hover Token"],
+      ["color-action-product-active", "产品能力 Active Token"],
       ["product-blue-500", "颜色 Token"],
       ["product-blue-600", "颜色 Token"],
       ["product-blue-700", "颜色 Token"],
@@ -988,6 +1038,8 @@ function generateFigmaTokens(categories) {
           tokens[`color/${subCat}/${subName}`] = { value: v.value, type: "color" };
         } else if (name.startsWith("data-")) {
           tokens[`color/data/${name.replace("data-", "")}`] = { value: v.value, type: "color" };
+        } else if (name.startsWith("color-action-")) {
+          tokens[`color/action/${name.replace("color-action-", "").replace(/-/g, "/")}`] = { value: v.value, type: "color" };
         } else if (name.startsWith("brand-") || name.startsWith("product-blue-") || name.startsWith("neutral-")) {
           const parts = name.split("-");
           const cat = parts[0] === "product" ? "product-blue" : parts[0];
@@ -1004,6 +1056,47 @@ function generateFigmaTokens(categories) {
     for (const v of data.vars) {
       const name = v.name.replace("spacing-", "");
       tokens[`spacing/${name}`] = { value: v.value, type: "spacing" };
+    }
+  }
+
+  // Component dimensions, interaction and responsive foundations
+  for (const groupName of ["组件尺寸", "P0 组件尺寸", "交互与动效", "响应式断点"]) {
+    const data = Object.values(categories).find((category) => category.title === groupName);
+    if (!data) continue;
+    for (const v of data.vars) {
+      let tokenPath = `foundation/${v.name.replace(/-/g, "/")}`;
+      let type = "other";
+      if (
+        v.name.startsWith("field-border-") ||
+        v.name.startsWith("field-bg-")
+      ) {
+        type = "color";
+      } else if (
+        v.name.startsWith("control-height-") ||
+        v.name.startsWith("button-") ||
+        v.name.startsWith("field-") ||
+        v.name.startsWith("textarea-") ||
+        v.name.startsWith("selection-") ||
+        v.name.startsWith("switch-") ||
+        v.name.startsWith("form-") ||
+        v.name.startsWith("table-") ||
+        v.name.startsWith("pagination-") ||
+        v.name.startsWith("modal-") ||
+        v.name.startsWith("drawer-") ||
+        v.name.startsWith("icon-size-") ||
+        v.name.startsWith("touch-target-") ||
+        v.name.startsWith("content-") ||
+        v.name.startsWith("focus-ring-width") ||
+        v.name.startsWith("focus-ring-offset") ||
+        v.name.startsWith("breakpoint-")
+      ) {
+        type = "dimension";
+      } else if (v.name.startsWith("motion-duration-") || v.name.endsWith("-duration-default")) {
+        type = "duration";
+      } else if (v.name === "overlay-bg") {
+        type = "color";
+      }
+      tokens[tokenPath] = { value: v.value, type };
     }
   }
 

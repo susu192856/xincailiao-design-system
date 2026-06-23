@@ -7,26 +7,41 @@
 - Vue 源码：`packages/vue-ui/src/components/XcSelect.vue`
 - Figma 组件名：`Select`
 
+- 分类：操作与输入
+- 合同版本：`0.2.0`
+- 规范状态：完善中
+
+## 定位与边界
+
+**适用：** 用于Select对应的标准场景，优先复用组件而不是在页面内重新绘制。
+
+**避免：** 不要绕过 Token、组件合同或可访问性要求制作局部特例。
+
+## 结构 Anatomy
+
+- 根容器
+- 主要内容
+- 可选辅助内容
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `size` | `sm | md | lg` | `md` | 选择器高度：28px / 32px / 36px；文字统一 14px、常规字重。 |
-| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
-| `error` | `boolean | string` | `—` | 错误状态或错误提示。 |
-| `loading` | `boolean` | `false` | 加载或提交中状态，防止重复操作。 |
-| `labelPosition` | `top | left` | `top` | 名称位置；与输入框保持一致。 |
-| `labelWidth` | `number | string` | `96` | 左右结构时的名称宽度，推荐 96px–120px。 |
-| `multiple` | `boolean` | `—` | 多选模式；多选值以 Tag 呈现。 |
-| `options` | `{ label; value; disabled? }[]` | `—` | 选项集合，必须覆盖禁用项。 |
+| `options` | `array` | `—` | 可选择项集合，包含 label、value 和 disabled。 |
+| `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
+| `disabled` | `boolean` | `false` | 禁用状态；不可交互但仍保留上下文。 |
+| `error` | `boolean | string` | `—` | 错误状态或错误说明；不得只依赖颜色表达。 |
+| `loading` | `boolean` | `false` | 异步处理中状态；阻止重复操作。 |
+| `label` | `ReactNode | string` | `—` | 组件可见标签。 |
+| `labelPosition` | `'top' | 'left'` | `—` | 标签布局；移动端统一回退为 top。 |
+| `labelWidth` | `number | string` | `—` | 左右布局时的标签宽度。 |
+| `multiple` | `boolean` | `—` | 是否允许多选；仅原生多选能力，不包含搜索式复合选择器。 |
 
-## 组件属性
+## 变体、语义、尺寸与状态
 
 ### Variants
 
 - `single`
 - `multiple`
-- `searchable`
 
 ### Tones
 
@@ -54,11 +69,23 @@
 ## 使用指南
 
 - 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
-- 正式录入字段使用 label；筛选工具栏可省略 label，但 placeholder 必须说明筛选维度。
-- 下拉面板宽度与选择器同宽，选项高度 36px，最大高度 240px，超出滚动。
-- 宽页面可使用左右 label，与 Input 的 label 宽度保持一致。
 - 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
 - Figma 属性、网页示例和前端源码 API 需要保持同名同义。
+
+## 响应式
+
+桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+
+## 可访问性
+
+必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+
+## 示例要求
+
+- 基础示例：Select 默认结构与尺寸
+- 业务示例：新材道后台或门户中的真实 Select 场景
+- 边界示例：长内容、空数据、禁用、加载或窄屏边界
+- 错误示例：绕过组件、硬编码数值或仅依赖颜色表达状态
 
 ## Vue 3 引用示例
 
@@ -71,7 +98,8 @@ import "@xincailiao/vue-ui/styles.css";
 
 - Figma 组件命名使用 `Select`。
 - 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
-- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
+- 仅创建本组件适用的状态，具体以本页 States 为准，不机械复制无关状态。
+- 使用 Auto Layout、变量绑定和标准 Variant Property；浮层必须提供静态打开态。
 
 ## 依赖 Token
 

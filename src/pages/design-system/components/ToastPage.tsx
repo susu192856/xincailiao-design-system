@@ -25,7 +25,7 @@ export default function ToastPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {previewItems.map(([name, title, description, variant]) => (
             <ExampleCard key={variant} title={`${name}提示`}>
-              <Toast variant={variant} title={title} description={description} />
+              <Toast tone={variant} title={title} description={description} />
             </ExampleCard>
           ))}
         </div>
@@ -41,13 +41,13 @@ export default function ToastPage() {
             <Button tone="danger" onClick={() => { setShowContainer(true); toast({ variant: "error", title: "操作失败", description: "请检查字段或网络连接后重试。" }); }}>
               错误提示
             </Button>
-            <Button variant="outline" tone="neutral" onClick={() => { setShowContainer(true); toast({ variant: "warning", title: "即将超时", description: "您的会话将在 5 分钟后过期。" }); }}>
+            <Button variant="outline" tone="neutral" onClick={() => { setShowContainer(true); toast({ tone: "warning", title: "即将超时", description: "您的会话将在 5 分钟后过期。" }); }}>
               警告提示
             </Button>
-            <Button variant="outline" tone="product" onClick={() => { setShowContainer(true); toast({ variant: "info", title: "解析任务已创建", description: "系统将在后台继续处理。" }); }}>
+            <Button variant="outline" tone="product" onClick={() => { setShowContainer(true); toast({ tone: "info", title: "解析任务已创建", description: "系统将在后台继续处理。" }); }}>
               信息提示
             </Button>
-            <Button variant="outline" tone="product" onClick={() => { setShowContainer(true); toast({ variant: "loading", title: "正在解析", description: "系统正在读取文件结构。" }); }}>
+            <Button variant="outline" tone="product" onClick={() => { setShowContainer(true); toast({ tone: "loading", title: "正在解析", description: "系统正在读取文件结构。" }); }}>
               处理中
             </Button>
           </div>
@@ -60,7 +60,7 @@ export default function ToastPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="导入完成">
             <Toast
-              variant="success"
+              tone="success"
               title="导入完成"
               description="共导入 128 条材料数据，3 条需要补充字段。"
               action={<Button variant="text" tone="product" size="sm">查看详情</Button>}
@@ -68,7 +68,7 @@ export default function ToastPage() {
           </ExampleCard>
           <ExampleCard title="批量操作失败">
             <Toast
-              variant="error"
+              tone="error"
               title="批量删除失败"
               description="部分数据已发布至数据空间，需先撤回后再删除。"
               action={<Button variant="text" tone="danger" size="sm">查看失败项</Button>}
@@ -83,15 +83,15 @@ export default function ToastPage() {
           <ExampleCard title="右下角队列">
             <div className="relative min-h-48 overflow-hidden bg-[var(--neutral-50)] p-4">
               <div className="absolute bottom-4 right-4 flex w-72 flex-col gap-3">
-                <Toast variant="success" title="保存成功" description="配置已更新。" />
-                <Toast variant="info" title="任务已创建" description="后台将继续执行。" />
+                <Toast tone="success" title="保存成功" description="配置已更新。" />
+                <Toast tone="info" title="任务已创建" description="后台将继续执行。" />
               </div>
             </div>
           </ExampleCard>
           <ExampleCard title="顶部居中">
             <div className="relative min-h-48 overflow-hidden bg-[var(--neutral-50)] p-4">
               <div className="absolute left-1/2 top-4 w-72 -translate-x-1/2">
-                <Toast variant="warning" title="权限即将过期" description="请在 2 天内完成续期。" />
+                <Toast tone="warning" title="权限即将过期" description="请在 2 天内完成续期。" />
               </div>
             </div>
           </ExampleCard>

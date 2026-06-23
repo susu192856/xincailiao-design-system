@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-type CardPadding = "sm" | "md" | "lg";
+type CardSize = "sm" | "md" | "lg";
 type CardVariant = "plain" | "outlined" | "muted";
 type CardStatus = "default" | "product" | "brand" | "success" | "warning" | "error";
 
@@ -29,7 +29,9 @@ const props = withDefaults(
   defineProps<{
     title?: string;
     description?: string;
-    padding?: CardPadding;
+    size?: CardSize;
+    /** @deprecated Use size. */
+    padding?: CardSize;
     variant?: CardVariant;
     status?: CardStatus;
     interactive?: boolean;
@@ -51,7 +53,7 @@ const props = withDefaults(
 );
 
 const cardClasses = computed(() => [
-  `xc-card--${props.padding}`,
+  `xc-card--${props.size ?? props.padding}`,
   `xc-card--${props.variant}`,
   `xc-card--status-${props.status}`,
   {

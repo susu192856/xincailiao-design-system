@@ -89,7 +89,7 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Button Semantics"
           title="按钮语义模型"
-          description="按钮层级由 variant 决定，颜色语义由 tone 决定。蓝色代表产品功能操作，不等于次按钮；次按钮是一种较低视觉层级，通常使用 outline、ghost 或 text 承载。"
+          description="按钮层级由 variant 决定，操作意图由 tone 决定。黑色 task 推进当前任务，蓝色 product 调用产品能力；它们不是主次色关系。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <SpecCard title="视觉层级（variant）">
@@ -115,12 +115,16 @@ export default function ButtonPage() {
           <SpecCard title="业务色彩（tone）">
             <div className="space-y-3 text-sm text-[var(--neutral-700)]">
               <p>
+                <span className="font-semibold text-[var(--neutral-900)]">task：</span>
+                任务主行动，用于提交、确认、发布、创建等改变业务流程的操作。
+              </p>
+              <p>
                 <span className="font-semibold text-[var(--neutral-900)]">neutral：</span>
-                默认主行动，适用于官网主 CTA、关键确认、稳定专业的核心操作。
+                中性退出或辅助操作，用于取消、返回、关闭；neutral + solid 仅作旧代码兼容。
               </p>
               <p>
                 <span className="font-semibold text-[var(--neutral-900)]">product：</span>
-                产品功能操作，用于后台系统中的保存、下载、筛选、链接、焦点行为。
+                产品能力操作，用于分析、生成、连接、筛选、导出和跳转等可重复或可撤回功能。
               </p>
               <p>
                 <span className="font-semibold text-[var(--neutral-900)]">brand：</span>
@@ -130,6 +134,88 @@ export default function ButtonPage() {
                 <span className="font-semibold text-[var(--neutral-900)]">danger：</span>
                 删除、取消、不可逆风险操作，使用错误语义色，不混用品牌红。
               </p>
+            </div>
+          </SpecCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Task vs Product"
+          title="黑色与蓝色如何共同使用"
+          description="先判断操作意图，再决定颜色。每个操作组只能有一个 solid；有黑色任务主行动时，蓝色能力操作必须降为 outline 或 text。"
+        />
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[0.9fr_1.4fr]">
+          <SpecCard title="操作颜色决策顺序">
+            <ol className="space-y-4 text-sm leading-6 text-[var(--neutral-700)]">
+              {[
+                ["1", "是否不可逆或危险？", "使用 danger，例如删除、撤销审批。"],
+                ["2", "是否提交或改变业务流程？", "使用 task，例如提交、确认、发布、创建。"],
+                ["3", "是否调用可重复或可撤回的产品能力？", "使用 product，例如分析、生成、连接、筛选、导出。"],
+                ["4", "是否取消、返回或关闭？", "使用 neutral，并采用 ghost、outline 或 text。"],
+              ].map(([index, question, result]) => (
+                <li key={index} className="grid grid-cols-[28px_1fr] gap-3">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--neutral-900)] font-mono text-xs text-white">{index}</span>
+                  <div>
+                    <p className="font-semibold text-[var(--neutral-900)]">{question}</p>
+                    <p>{result}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </SpecCard>
+
+          <div className="overflow-x-auto rounded-sm border border-[var(--neutral-200)] bg-white">
+            <div className="min-w-[720px]">
+              <div className="grid grid-cols-[140px_1fr_1fr] border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--neutral-700)]">
+                <span>场景</span><span>黑色 task</span><span>蓝色 product</span>
+              </div>
+              {[
+                ["表单底部", "提交、保存修改", "保存草稿使用 outline"],
+                ["表格工具栏", "新建数据", "筛选、导出、下载使用 outline/text"],
+                ["分析面板", "没有任务提交时不出现", "运行分析、生成结果可使用 solid"],
+                ["普通弹窗", "确认、完成", "辅助能力使用 outline"],
+                ["危险确认", "不使用", "不使用，主操作改用 danger"],
+                ["导航与链接", "不使用", "使用 text"],
+              ].map(([scene, task, product]) => (
+                <div key={scene} className="grid grid-cols-[140px_1fr_1fr] border-b border-[var(--neutral-100)] px-5 py-4 text-sm last:border-b-0">
+                  <strong className="text-[var(--neutral-900)]">{scene}</strong>
+                  <span className="text-[var(--neutral-700)]">{task}</span>
+                  <span className="text-[var(--neutral-700)]">{product}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-3">
+          <SpecCard title="表单：任务推进为主">
+            <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+              <p className="mb-4 text-sm text-[var(--neutral-700)]">完成材料信息编辑并提交审核。</p>
+              <div className="flex flex-wrap justify-end gap-3">
+                <Button variant="ghost" tone="neutral">取消</Button>
+                <Button variant="outline" tone="product">保存草稿</Button>
+                <Button tone="task">提交审核</Button>
+              </div>
+            </div>
+          </SpecCard>
+          <SpecCard title="分析面板：产品能力为主">
+            <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+              <p className="mb-4 text-sm text-[var(--neutral-700)]">根据当前参数重新计算材料性能预测。</p>
+              <div className="flex flex-wrap justify-end gap-3">
+                <Button variant="ghost" tone="neutral">重置参数</Button>
+                <Button tone="product">运行分析</Button>
+              </div>
+            </div>
+          </SpecCard>
+          <SpecCard title="弹窗：禁止黑蓝双实心">
+            <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+              <p className="mb-4 text-sm text-[var(--neutral-700)]">确认发布当前版本？发布后将进入正式流程。</p>
+              <div className="flex flex-wrap justify-end gap-3">
+                <Button variant="ghost" tone="neutral">取消</Button>
+                <Button variant="outline" tone="product">预览版本</Button>
+                <Button tone="task">确认发布</Button>
+              </div>
             </div>
           </SpecCard>
         </div>
@@ -147,11 +233,11 @@ export default function ButtonPage() {
           <div className="bg-white p-6">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
               <div>
-                <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">黑色 - 主行动按钮</p>
+                <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">黑色 - 任务主行动</p>
                 <ButtonStack>
-                  <Button>主要操作</Button>
-                  <Button icon={<Plus className="h-4 w-4" weight="regular" />}>新建项目</Button>
-                  <Button disabled>禁用状态</Button>
+                  <Button tone="task">提交审核</Button>
+                  <Button tone="task" icon={<Plus className="h-4 w-4" weight="regular" />}>新建项目</Button>
+                  <Button tone="task" disabled>禁用状态</Button>
                 </ButtonStack>
                 <TokenNote
                   items={[
@@ -159,16 +245,16 @@ export default function ButtonPage() {
                     "悬停: neutral-800 (#2B313A)",
                     "按下: neutral-700 (#4B5563)",
                   ]}
-                  usage="官网主 CTA、页面最重要操作、关键确认"
+                  usage="提交、确认、发布、创建等推进当前任务的操作"
                 />
               </div>
 
               <div>
-                <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">蓝色 - 产品功能操作</p>
+                <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">蓝色 - 产品能力操作</p>
                 <ButtonStack>
-                  <Button tone="product">保存数据</Button>
+                  <Button tone="product">运行分析</Button>
                   <Button tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />}>
-                    下载报告
+                    生成报告
                   </Button>
                   <Button tone="product" disabled>
                     禁用状态
@@ -180,7 +266,7 @@ export default function ButtonPage() {
                     "悬停: product-blue-600 (#0058C2)",
                     "按下: product-blue-700 (#00449A)",
                   ]}
-                  usage="数据空间、材库、AI 应用和后台系统中的功能操作"
+                  usage="分析、生成、连接等能力型页面的唯一主操作；普通工具栏中使用 outline 或 text"
                 />
               </div>
 
@@ -215,11 +301,11 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性描边</p>
                 <ButtonStack>
-                  <Button variant="outline">次要操作</Button>
-                  <Button variant="outline" icon={<PencilSimple className="h-4 w-4" weight="regular" />}>
+                  <Button variant="outline" tone="neutral">次要操作</Button>
+                  <Button variant="outline" tone="neutral" icon={<PencilSimple className="h-4 w-4" weight="regular" />}>
                     编辑内容
                   </Button>
-                  <Button variant="outline" disabled>
+                  <Button variant="outline" tone="neutral" disabled>
                     禁用状态
                   </Button>
                 </ButtonStack>
@@ -268,9 +354,9 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性弱按钮（推荐）</p>
                 <ButtonStack>
-                  <Button variant="ghost">取消</Button>
-                  <Button variant="ghost">关闭</Button>
-                  <Button variant="ghost" disabled>
+                  <Button variant="ghost" tone="neutral">取消</Button>
+                  <Button variant="ghost" tone="neutral">关闭</Button>
+                  <Button variant="ghost" tone="neutral" disabled>
                     禁用状态
                   </Button>
                 </ButtonStack>
@@ -316,9 +402,9 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性文字</p>
                 <ButtonStack>
-                  <Button variant="text">查看详情</Button>
-                  <Button variant="text">了解更多</Button>
-                  <Button variant="text" disabled>
+                  <Button variant="text" tone="neutral">查看详情</Button>
+                  <Button variant="text" tone="neutral">了解更多</Button>
+                  <Button variant="text" tone="neutral" disabled>
                     禁用状态
                   </Button>
                 </ButtonStack>
@@ -372,7 +458,7 @@ export default function ButtonPage() {
             <div className="mt-4 bg-red-50 p-4">
               <p className="text-xs leading-6 text-[var(--neutral-700)]">
                 <span className="font-semibold text-[var(--neutral-900)]">颜色规范：</span>
-                使用语义色 error (#EF4444)，传达风险和警示，不使用品牌红替代。
+                使用语义色 error（`--error-text`，当前为 #B91C1C），传达风险和警示，不使用品牌红或数据色替代。
               </p>
               <p className="mt-1 text-xs leading-6 text-[var(--neutral-700)]">
                 <span className="font-semibold text-[var(--neutral-900)]">使用场景：</span>
@@ -486,9 +572,9 @@ export default function ButtonPage() {
                   <p className="text-xs text-[var(--neutral-600)]">最小尺寸</p>
                 </div>
                 <ButtonGroup>
-                  <Button size="sm">确定</Button>
-                  <Button size="sm" tone="product">
-                    保存
+                  <Button size="sm" tone="task">新建数据</Button>
+                  <Button size="sm" variant="outline" tone="product">
+                    导出
                   </Button>
                 </ButtonGroup>
                 <p className="mt-2 text-xs text-[var(--neutral-600)]">高度: 28px · 字号: 14px · 用于表格行内、紧凑工具栏</p>
@@ -500,8 +586,8 @@ export default function ButtonPage() {
                   <p className="text-xs text-[var(--neutral-600)]">标准尺寸（推荐）</p>
                 </div>
                 <ButtonGroup>
-                  <Button size="md">确认提交</Button>
-                  <Button size="md" tone="product">
+                  <Button size="md" tone="task">确认提交</Button>
+                  <Button size="md" variant="outline" tone="product">
                     保存草稿
                   </Button>
                 </ButtonGroup>
@@ -514,9 +600,9 @@ export default function ButtonPage() {
                   <p className="text-xs text-[var(--neutral-600)]">最大尺寸</p>
                 </div>
                 <ButtonGroup>
-                  <Button size="lg">确认操作</Button>
-                  <Button size="lg" tone="product" icon={<ArrowRight className="h-5 w-5" weight="regular" />} iconPosition="right">
-                    查看详情
+                  <Button size="lg" tone="task">确认操作</Button>
+                  <Button size="lg" variant="outline" tone="product" icon={<ArrowRight className="h-5 w-5" weight="regular" />} iconPosition="right">
+                    预览结果
                   </Button>
                 </ButtonGroup>
                 <p className="mt-2 text-xs text-[var(--neutral-600)]">高度: 36px · 字号: 14px · 用于弹窗主操作、页面级关键操作</p>
@@ -537,13 +623,13 @@ export default function ButtonPage() {
           description="按钮状态包括默认、悬停、按下、加载和禁用。主按钮与描边按钮悬停时可以配合 Shadow/XS，文字按钮只通过背景色变化提供反馈。"
         />
         <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
-          <SpecCard title="中性主按钮状态">
+          <SpecCard title="任务主按钮状态">
             <ButtonStack>
-              <Button>默认</Button>
-              <Button className="bg-[var(--neutral-800)] shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">悬停</Button>
-              <Button className="bg-[var(--neutral-700)]">按下</Button>
-              <Button loading>加载</Button>
-              <Button disabled>禁用</Button>
+              <Button tone="task">默认</Button>
+              <Button tone="task" className="bg-[var(--color-action-task-hover)] shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">悬停</Button>
+              <Button tone="task" className="bg-[var(--color-action-task-active)]">按下</Button>
+              <Button tone="task" loading>加载</Button>
+              <Button tone="task" disabled>禁用</Button>
             </ButtonStack>
           </SpecCard>
 
@@ -585,17 +671,17 @@ export default function ButtonPage() {
 
           <SpecCard title="中性描边状态">
             <ButtonStack>
-              <Button variant="outline">默认</Button>
-              <Button variant="outline" className="bg-[var(--neutral-50)] shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
+              <Button variant="outline" tone="neutral">默认</Button>
+              <Button variant="outline" tone="neutral" className="bg-[var(--neutral-50)] shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
                 悬停
               </Button>
-              <Button variant="outline" className="bg-[var(--neutral-100)]">
+              <Button variant="outline" tone="neutral" className="bg-[var(--neutral-100)]">
                 按下
               </Button>
-              <Button variant="outline" loading>
+              <Button variant="outline" tone="neutral" loading>
                 加载
               </Button>
-              <Button variant="outline" disabled>
+              <Button variant="outline" tone="neutral" disabled>
                 禁用
               </Button>
             </ButtonStack>
@@ -603,17 +689,17 @@ export default function ButtonPage() {
 
           <SpecCard title="弱按钮状态">
             <ButtonStack>
-              <Button variant="ghost">默认</Button>
-              <Button variant="ghost" className="bg-[var(--neutral-200)]">
+              <Button variant="ghost" tone="neutral">默认</Button>
+              <Button variant="ghost" tone="neutral" className="bg-[var(--neutral-200)]">
                 悬停
               </Button>
-              <Button variant="ghost" className="bg-[var(--neutral-300)]">
+              <Button variant="ghost" tone="neutral" className="bg-[var(--neutral-300)]">
                 按下
               </Button>
-              <Button variant="ghost" loading>
+              <Button variant="ghost" tone="neutral" loading>
                 加载
               </Button>
-              <Button variant="ghost" disabled>
+              <Button variant="ghost" tone="neutral" disabled>
                 禁用
               </Button>
             </ButtonStack>
@@ -651,17 +737,17 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 12px (gap-3) - 推荐</p>
                 <div className="flex flex-wrap gap-3">
-                  <Button variant="ghost">取消</Button>
-                  <Button>确定</Button>
+                  <Button variant="ghost" tone="neutral">取消</Button>
+                  <Button tone="task">确定</Button>
                 </div>
               </div>
               <div>
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 8px (gap-2) - 紧凑场景</p>
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" tone="neutral" size="sm">
                     取消
                   </Button>
-                  <Button size="sm">
+                  <Button tone="task" size="sm">
                     保存
                   </Button>
                 </div>
@@ -669,10 +755,10 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 16px (gap-4) - 官网场景</p>
                 <div className="flex flex-wrap gap-4">
-                  <Button variant="ghost" size="xl">
+                  <Button variant="ghost" tone="neutral" size="xl">
                     取消
                   </Button>
-                  <Button size="xl">开始使用</Button>
+                  <Button tone="task" size="xl">开始使用</Button>
                 </div>
               </div>
             </div>
@@ -694,10 +780,10 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 8px (space-y-2)</p>
                 <div className="space-y-2.5">
-                  <Button className="w-full">
+                  <Button tone="task" className="w-full">
                     确认提交
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" tone="neutral" className="w-full">
                     取消
                   </Button>
                 </div>
@@ -719,8 +805,8 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">图标前置 - 标准操作</p>
                 <ButtonGroup>
-                  <Button icon={<Plus className="h-4 w-4" weight="regular" />}>新建</Button>
-                  <Button tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />}>
+                  <Button tone="task" icon={<Plus className="h-4 w-4" weight="regular" />}>新建</Button>
+                  <Button variant="outline" tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />}>
                     下载
                   </Button>
                 </ButtonGroup>
@@ -746,7 +832,7 @@ export default function ButtonPage() {
                     type="button"
                     aria-label="编辑"
                     title="编辑"
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] md:h-8 md:w-8"
                   >
                     <PencilSimple className="h-4 w-4" weight="regular" />
                   </button>
@@ -754,7 +840,7 @@ export default function ButtonPage() {
                     type="button"
                     aria-label="下载"
                     title="下载"
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] md:h-8 md:w-8"
                   >
                     <DownloadSimple className="h-4 w-4" weight="regular" />
                   </button>
@@ -762,7 +848,7 @@ export default function ButtonPage() {
                     type="button"
                     aria-label="关闭"
                     title="关闭"
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--neutral-900)] transition-colors hover:bg-[var(--neutral-200)]"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--neutral-900)] transition-colors hover:bg-[var(--neutral-200)] md:h-8 md:w-8"
                   >
                     <X className="h-4 w-4" weight="regular" />
                   </button>
@@ -770,7 +856,7 @@ export default function ButtonPage() {
                     type="button"
                     aria-label="删除"
                     title="删除"
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--error-text)] transition-colors hover:bg-[var(--error-bg)]"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--error-text)] transition-colors hover:bg-[var(--error-bg)] md:h-8 md:w-8"
                   >
                     <Trash className="h-4 w-4" weight="regular" />
                   </button>
@@ -779,7 +865,7 @@ export default function ButtonPage() {
                     disabled
                     aria-label="禁用编辑"
                     title="禁用编辑"
-                    className="inline-flex h-8 w-8 cursor-not-allowed items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-400)]"
+                    className="inline-flex h-11 w-11 cursor-not-allowed items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-400)] md:h-8 md:w-8"
                   >
                     <PencilSimple className="h-4 w-4" weight="regular" />
                   </button>
@@ -833,8 +919,9 @@ export default function ButtonPage() {
         <SectionHeading eyebrow="Handoff" title="开发与 Figma 交付检查" />
         <SpecList
           items={[
-            "Figma 组件需要覆盖 solid、outline、ghost、text 四种视觉层级，以及 neutral、product、brand、danger 四类业务色彩语义。",
-            "代码 API 使用 variant 表达按钮层级，使用 tone 表达业务颜色；不要把 product 蓝绑定为“次按钮”。",
+            "Figma 组件需要覆盖 solid、outline、ghost、text 四种视觉层级，以及 task、neutral、product、brand、danger 等业务色彩语义。",
+            "代码 API 使用 variant 表达按钮层级，使用 tone 表达操作意图；task 推进任务，product 调用产品能力。",
+            "neutral + solid 仅作为旧代码兼容，不进入新设计和 Figma 属性示例。",
             "尺寸需要覆盖 sm、md、lg、xl、2xl；后台默认使用 sm/md，官网 CTA 使用 lg/xl/2xl。",
             "状态需要覆盖 default、hover、active、disabled、loading、icon-only、icon-left、icon-right，且 loading 仍应保持禁用交互。",
             "按钮图标遵循基础图标规范：统一使用 Phosphor Icons，默认 regular 粗细，常规按钮文字使用正常字重。",
@@ -851,9 +938,9 @@ export default function ButtonPage() {
               items={[
                 "<span class='font-semibold text-[var(--neutral-900)]'>单一主按钮：</span>每个页面或区域只应有一个主按钮，突出最重要的操作。",
                 "<span class='font-semibold text-[var(--neutral-900)]'>清晰文案：</span>使用动词开头的简洁文案，如“提交订单”“新建数据”。",
-                "<span class='font-semibold text-[var(--neutral-900)]'>语义分离：</span>variant 表示层级，tone 表示业务色彩，避免把蓝色称为次按钮。",
+                "<span class='font-semibold text-[var(--neutral-900)]'>语义分离：</span>variant 表示层级，tone 表示操作意图；task 推进任务，product 调用能力。",
                 "<span class='font-semibold text-[var(--neutral-900)]'>按钮顺序：</span>取消/关闭等退出操作放左侧，确定/保存等主操作放右侧。",
-                "<span class='font-semibold text-[var(--neutral-900)]'>颜色选择：</span>黑色用于主行动，产品蓝用于功能操作，品牌红用于官网关键转化。",
+                "<span class='font-semibold text-[var(--neutral-900)]'>颜色选择：</span>黑色用于提交、确认、发布、创建；蓝色用于分析、生成、连接、筛选、导出。",
                 "<span class='font-semibold text-[var(--neutral-900)]'>多端适配：</span>官网使用大尺寸增强转化，后台使用小尺寸提升效率。",
               ]}
             />
@@ -864,7 +951,7 @@ export default function ButtonPage() {
               tone="danger"
               items={[
                 "<span class='font-semibold text-[var(--neutral-900)]'>多个主按钮：</span>避免在同一区域放置多个 solid 按钮造成选择困难。",
-                "<span class='font-semibold text-[var(--neutral-900)]'>颜色混用：</span>避免在同一组按钮中混用黑色、蓝色、红色主按钮。",
+                "<span class='font-semibold text-[var(--neutral-900)]'>颜色混用：</span>禁止在同一操作组中并列黑色 task solid 与蓝色 product solid。",
                 "<span class='font-semibold text-[var(--neutral-900)]'>语义误用：</span>不要将 product 蓝直接命名为 secondary。",
                 "<span class='font-semibold text-[var(--neutral-900)]'>过长文案：</span>避免按钮文字超过 4-6 个字，保持简洁。",
                 "<span class='font-semibold text-[var(--neutral-900)]'>尺寸混用：</span>官网和后台应分别使用对应尺寸规范。",
@@ -890,7 +977,8 @@ export default function ButtonPage() {
               <p className="mb-2 font-semibold text-[var(--neutral-900)]">数据空间 / 材库 / AI 应用</p>
               <ul className="space-y-1 text-[var(--neutral-700)]">
                 <li>• 使用 28px / 32px 尺寸</li>
-                <li>• 黑色主按钮 + 产品蓝功能按钮</li>
+                <li>• 黑色 task 推进任务，蓝色 product 调用能力</li>
+                <li>• 同组只有一个 solid，另一操作降为 outline/text</li>
                 <li>• 数据操作保持紧凑且可预测</li>
                 <li>• 表格工具栏可使用纯图标按钮</li>
               </ul>

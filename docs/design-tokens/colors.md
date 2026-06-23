@@ -36,18 +36,39 @@
 | `--neutral-700` | `#4B5563` | 次标题 |
 | `--neutral-800` | `#2B313A` | 主正文 |
 | `--neutral-900` | `#1A1A1A` | 标题/主行动 |
-| `--success-text` | `#10B981` | 成功文字 |
-| `--success-bg` | `#D1FAE5` | 成功背景 |
-| `--success-tag` | `#A7F3D0` | 成功标签 |
-| `--warning-text` | `#F59E0B` | 警告文字 |
-| `--warning-bg` | `#FEF3C7` | 警告背景 |
-| `--warning-tag` | `#FDE68A` | 警告标签 |
-| `--error-text` | `#EF4444` | 错误文字 |
-| `--error-bg` | `#FEE2E2` | 错误背景 |
-| `--error-tag` | `#FECACA` | 错误标签 |
+| `--text-primary` | `var(--neutral-900)` |  |
+| `--text-body` | `var(--neutral-800)` |  |
+| `--text-secondary` | `var(--neutral-700)` |  |
+| `--text-tertiary` | `var(--neutral-600)` |  |
+| `--text-disabled` | `var(--neutral-500)` |  |
+| `--color-action-task-default` | `var(--neutral-900)` |  |
+| `--color-action-task-hover` | `var(--neutral-800)` |  |
+| `--color-action-task-active` | `var(--neutral-700)` |  |
+| `--color-action-product-default` | `var(--product-blue-500)` |  |
+| `--color-action-product-hover` | `var(--product-blue-600)` |  |
+| `--color-action-product-active` | `var(--product-blue-700)` |  |
+| `--success-text` | `#047857` | 成功文字 |
+| `--success-hover` | `#065F46` |  |
+| `--success-active` | `#064E3B` |  |
+| `--success-bg` | `#ECFDF5` | 成功背景 |
+| `--success-tag` | `#ECFDF5` | 成功标签 |
+| `--success-border` | `#A7F3D0` |  |
+| `--warning-text` | `#B45309` | 警告文字 |
+| `--warning-hover` | `#92400E` |  |
+| `--warning-active` | `#78350F` |  |
+| `--warning-bg` | `#FFFBEB` | 警告背景 |
+| `--warning-tag` | `#FFFBEB` | 警告标签 |
+| `--warning-border` | `#FDE68A` |  |
+| `--error-text` | `#B91C1C` | 错误文字 |
+| `--error-hover` | `#991B1B` |  |
+| `--error-active` | `#7F1D1D` |  |
+| `--error-bg` | `#FEF2F2` | 错误背景 |
+| `--error-tag` | `#FEF2F2` | 错误标签 |
+| `--error-border` | `#FECACA` |  |
 | `--info-text` | `#006DEA` | 信息文字 |
-| `--info-bg` | `#DBEAFE` | 信息背景 |
-| `--info-tag` | `#BFDBFE` | 信息标签 |
+| `--info-bg` | `#EFF6FF` | 信息背景 |
+| `--info-tag` | `#EFF6FF` | 信息标签 |
+| `--info-border` | `#BFDBFE` |  |
 | `--data-01` | `#006DEA` | 主数据序列 |
 | `--data-02` | `#14B8A6` | 对比序列 |
 | `--data-03` | `#8B5CF6` | 模型/算法 |
@@ -60,6 +81,18 @@
 | `--data-10` | `#84CC16` | 正向辅助 |
 | `--data-11` | `#F97316` | 热度/阶段 |
 | `--data-12` | `#475569` | 低强调序列 |
+| `--category-teal-text` | `#0F766E` |  |
+| `--category-teal-bg` | `#F0FDFA` |  |
+| `--category-teal-border` | `#99F6E4` |  |
+| `--category-violet-text` | `#6D28D9` |  |
+| `--category-violet-bg` | `#F5F3FF` |  |
+| `--category-violet-border` | `#C4B5FD` |  |
+| `--category-slate-text` | `#1E40AF` |  |
+| `--category-slate-bg` | `#EFF6FF` |  |
+| `--category-slate-border` | `#93C5FD` |  |
+| `--category-cyan-text` | `#0E7490` |  |
+| `--category-cyan-bg` | `#ECFEFF` |  |
+| `--category-cyan-border` | `#A5F3FC` |  |
 
 ## CSS 使用方式
 
@@ -132,29 +165,71 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#1A1A1A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-900` = #1A1A1A
 
-<span style="display:inline-block;width:16px;height:16px;background:#10B981;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-text` = #10B981
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-900);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--text-primary` = var(--neutral-900)
 
-<span style="display:inline-block;width:16px;height:16px;background:#D1FAE5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-bg` = #D1FAE5
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-800);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--text-body` = var(--neutral-800)
 
-<span style="display:inline-block;width:16px;height:16px;background:#A7F3D0;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-tag` = #A7F3D0
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-700);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--text-secondary` = var(--neutral-700)
 
-<span style="display:inline-block;width:16px;height:16px;background:#F59E0B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-text` = #F59E0B
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-600);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--text-tertiary` = var(--neutral-600)
 
-<span style="display:inline-block;width:16px;height:16px;background:#FEF3C7;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-bg` = #FEF3C7
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-500);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--text-disabled` = var(--neutral-500)
 
-<span style="display:inline-block;width:16px;height:16px;background:#FDE68A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-tag` = #FDE68A
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-900);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-task-default` = var(--neutral-900)
 
-<span style="display:inline-block;width:16px;height:16px;background:#EF4444;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #EF4444
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-800);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-task-hover` = var(--neutral-800)
 
-<span style="display:inline-block;width:16px;height:16px;background:#FEE2E2;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-bg` = #FEE2E2
+<span style="display:inline-block;width:16px;height:16px;background:var(--neutral-700);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-task-active` = var(--neutral-700)
 
-<span style="display:inline-block;width:16px;height:16px;background:#FECACA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-tag` = #FECACA
+<span style="display:inline-block;width:16px;height:16px;background:var(--product-blue-500);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-product-default` = var(--product-blue-500)
+
+<span style="display:inline-block;width:16px;height:16px;background:var(--product-blue-600);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-product-hover` = var(--product-blue-600)
+
+<span style="display:inline-block;width:16px;height:16px;background:var(--product-blue-700);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-product-active` = var(--product-blue-700)
+
+<span style="display:inline-block;width:16px;height:16px;background:#047857;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-text` = #047857
+
+<span style="display:inline-block;width:16px;height:16px;background:#065F46;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-hover` = #065F46
+
+<span style="display:inline-block;width:16px;height:16px;background:#064E3B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-active` = #064E3B
+
+<span style="display:inline-block;width:16px;height:16px;background:#ECFDF5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-bg` = #ECFDF5
+
+<span style="display:inline-block;width:16px;height:16px;background:#ECFDF5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-tag` = #ECFDF5
+
+<span style="display:inline-block;width:16px;height:16px;background:#A7F3D0;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-border` = #A7F3D0
+
+<span style="display:inline-block;width:16px;height:16px;background:#B45309;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-text` = #B45309
+
+<span style="display:inline-block;width:16px;height:16px;background:#92400E;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-hover` = #92400E
+
+<span style="display:inline-block;width:16px;height:16px;background:#78350F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-active` = #78350F
+
+<span style="display:inline-block;width:16px;height:16px;background:#FFFBEB;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-bg` = #FFFBEB
+
+<span style="display:inline-block;width:16px;height:16px;background:#FFFBEB;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-tag` = #FFFBEB
+
+<span style="display:inline-block;width:16px;height:16px;background:#FDE68A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-border` = #FDE68A
+
+<span style="display:inline-block;width:16px;height:16px;background:#B91C1C;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #B91C1C
+
+<span style="display:inline-block;width:16px;height:16px;background:#991B1B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-hover` = #991B1B
+
+<span style="display:inline-block;width:16px;height:16px;background:#7F1D1D;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-active` = #7F1D1D
+
+<span style="display:inline-block;width:16px;height:16px;background:#FEF2F2;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-bg` = #FEF2F2
+
+<span style="display:inline-block;width:16px;height:16px;background:#FEF2F2;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-tag` = #FEF2F2
+
+<span style="display:inline-block;width:16px;height:16px;background:#FECACA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-border` = #FECACA
 
 <span style="display:inline-block;width:16px;height:16px;background:#006DEA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-text` = #006DEA
 
-<span style="display:inline-block;width:16px;height:16px;background:#DBEAFE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-bg` = #DBEAFE
+<span style="display:inline-block;width:16px;height:16px;background:#EFF6FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-bg` = #EFF6FF
 
-<span style="display:inline-block;width:16px;height:16px;background:#BFDBFE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-tag` = #BFDBFE
+<span style="display:inline-block;width:16px;height:16px;background:#EFF6FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-tag` = #EFF6FF
+
+<span style="display:inline-block;width:16px;height:16px;background:#BFDBFE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-border` = #BFDBFE
 
 <span style="display:inline-block;width:16px;height:16px;background:#006DEA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-01` = #006DEA
 
@@ -180,3 +255,26 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#475569;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-12` = #475569
 
+<span style="display:inline-block;width:16px;height:16px;background:#0F766E;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-teal-text` = #0F766E
+
+<span style="display:inline-block;width:16px;height:16px;background:#F0FDFA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-teal-bg` = #F0FDFA
+
+<span style="display:inline-block;width:16px;height:16px;background:#99F6E4;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-teal-border` = #99F6E4
+
+<span style="display:inline-block;width:16px;height:16px;background:#6D28D9;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-violet-text` = #6D28D9
+
+<span style="display:inline-block;width:16px;height:16px;background:#F5F3FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-violet-bg` = #F5F3FF
+
+<span style="display:inline-block;width:16px;height:16px;background:#C4B5FD;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-violet-border` = #C4B5FD
+
+<span style="display:inline-block;width:16px;height:16px;background:#1E40AF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-slate-text` = #1E40AF
+
+<span style="display:inline-block;width:16px;height:16px;background:#EFF6FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-slate-bg` = #EFF6FF
+
+<span style="display:inline-block;width:16px;height:16px;background:#93C5FD;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-slate-border` = #93C5FD
+
+<span style="display:inline-block;width:16px;height:16px;background:#0E7490;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-cyan-text` = #0E7490
+
+<span style="display:inline-block;width:16px;height:16px;background:#ECFEFF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-cyan-bg` = #ECFEFF
+
+<span style="display:inline-block;width:16px;height:16px;background:#A5F3FC;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-cyan-border` = #A5F3FC

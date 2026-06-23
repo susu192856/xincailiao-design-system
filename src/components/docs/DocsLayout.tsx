@@ -1,13 +1,56 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { List, X } from "@phosphor-icons/react";
 import DocsSidebar from "./DocsSidebar";
+import DocsToc from "./DocsToc";
 
 export default function DocsLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <div className="min-h-screen flex bg-white text-[var(--neutral-900)]">
-      <DocsSidebar />
+    <div className="min-h-screen bg-white text-[var(--neutral-900)] lg:flex">
+      <DocsSidebar className="sticky top-0 hidden shrink-0 lg:block" />
+
+      {sidebarOpen ? (
+        <div className="fixed inset-0 z-[var(--z-modal)] lg:hidden">
+          <button
+            type="button"
+            aria-label="关闭导航"
+            className="absolute inset-0 bg-[var(--overlay-bg)]"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <DocsSidebar
+            className="relative z-10 shadow-[var(--shadow-xl)]"
+            onNavigate={() => setSidebarOpen(false)}
+          />
+          <button
+            type="button"
+            aria-label="关闭导航"
+            className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-900)] shadow-[var(--shadow-md)]"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <X size={20} />
+          </button>
+        </div>
+      ) : null}
+
       <main className="min-w-0 flex-1 overflow-hidden bg-white">
-        <div className="mx-auto max-w-[1024px] px-8 py-12">
-          <Outlet />
+        <div className="sticky top-0 z-[var(--z-sticky)] flex h-14 items-center border-b border-[var(--neutral-200)] bg-white/95 px-4 backdrop-blur lg:hidden">
+          <button
+            type="button"
+            aria-label="打开规范导航"
+            className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <List size={20} />
+          </button>
+          <span className="ml-3 text-sm font-semibold">新材道设计规范</span>
+        </div>
+        <div className="docs-content mx-auto flex max-w-[calc(var(--content-docs-width)+12rem)] items-start gap-10 px-5 py-8 md:px-8 md:py-12 xl:px-10">
+          <article className="docs-article min-w-0 flex-1">
+            <Outlet />
+          </article>
+          <DocsToc />
         </div>
       </main>
     </div>

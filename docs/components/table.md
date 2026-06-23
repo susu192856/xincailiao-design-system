@@ -7,25 +7,39 @@
 - Vue 源码：`packages/vue-ui/src/components/XcTable.vue`
 - Figma 组件名：`Table`
 
+- 分类：数据与内容
+- 合同版本：`0.2.0`
+- 规范状态：完善中
+
+## 定位与边界
+
+**适用：** 用于高密度结构化数据；文本左对齐、可比较数字右对齐、操作右对齐。
+
+**避免：** 不要强行压缩大量列；优先保留列宽并允许横向滚动。
+
+## 结构 Anatomy
+
+- 筛选/工具栏
+- 表头
+- 数据行
+- 空态/加载态
+- 分页
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `columns` | `array / number` | `—` | 字段列数或表格列定义。 |
-| `data` | `array` | `—` | 组件展示的数据源。 |
-| `density` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
-| `rowSelection` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
-| `loading` | `boolean` | `false` | 加载或提交中状态，防止重复操作。 |
-| `empty` | `string | boolean | array` | `—` | 组件属性，具体使用以规范页面和源码为准。 |
-| `align` | `left \| center \| right` | `left` | 列对齐方式，数字、金额、百分比等可比较数据右对齐。 |
-| `minWidth` | `number \| string` | `—` | 宽表格最小宽度，由外层容器横向滚动承载。 |
+| `density` | `'compact' | 'standard' | 'comfortable'` | `—` | 数据密度。 |
+| `selected` | `boolean` | `—` | 表格行或可交互容器的选中状态。 |
+| `disabled` | `boolean` | `false` | 禁用状态；不可交互但仍保留上下文。 |
+| `align` | `'left' | 'center' | 'right'` | `—` | 内容对齐方式。 |
+| `TableEmpty` | `React component` | `—` | 表格空状态辅助组件。 |
+| `TableSkeletonRows` | `React component` | `—` | 表格加载骨架辅助组件。 |
 
-## 组件属性
+## 变体、语义、尺寸与状态
 
 ### Variants
 
 - `basic`
-- `dense`
 - `selectable`
 - `with-toolbar`
 - `with-pagination`
@@ -42,7 +56,8 @@
 ### Sizes
 
 - `compact`
-- `regular`
+- `standard`
+- `comfortable`
 
 ### States
 
@@ -60,11 +75,24 @@
 ## 使用指南
 
 - 表格必须优先覆盖后台高密度场景：筛选、排序、选择、空状态、分页、加载和权限受限。
-- 字段过多时使用横向滚动，不强行压缩列宽；外层容器必须允许 `overflow-x`。
-- 文本列左对齐，操作列右对齐，数字、金额、百分比等可比较数据右对齐并建议使用等宽数字。
 - 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
 - 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
 - Figma 属性、网页示例和前端源码 API 需要保持同名同义。
+
+## 响应式
+
+桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+
+## 可访问性
+
+必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+
+## 示例要求
+
+- 基础示例：Table 默认结构与尺寸
+- 业务示例：新材道后台或门户中的真实 Table 场景
+- 边界示例：长内容、空数据、禁用、加载或窄屏边界
+- 错误示例：绕过组件、硬编码数值或仅依赖颜色表达状态
 
 ## Vue 3 引用示例
 
@@ -77,7 +105,8 @@ import "@xincailiao/vue-ui/styles.css";
 
 - Figma 组件命名使用 `Table`。
 - 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
-- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
+- 仅创建本组件适用的状态，具体以本页 States 为准，不机械复制无关状态。
+- 使用 Auto Layout、变量绑定和标准 Variant Property；浮层必须提供静态打开态。
 
 ## 依赖 Token
 

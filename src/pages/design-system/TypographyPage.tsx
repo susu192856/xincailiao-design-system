@@ -1,466 +1,172 @@
+import {
+  Article,
+  ChartLineUp,
+  Check,
+  Desktop,
+  Hash,
+  Rows,
+  Table,
+  TextAa,
+  X,
+} from "@phosphor-icons/react";
+import type { ReactNode } from "react";
 import PageHeader from "../../components/docs/PageHeader";
 import { SectionHeading } from "../../components/docs/ComponentDoc";
 
-export default function TypographyPage() {
-  const typographyTokens = [
-    {
-      token: "Type/Display/L",
-      size: "56px",
-      lineHeight: "64px",
-      ratio: "1.1 ~ 1.2",
-      weight: "700 Bold",
-      usage: "Banner 标题",
-    },
-    {
-      token: "Type/Heading/H1",
-      size: "40px",
-      lineHeight: "48px",
-      ratio: "1.2",
-      weight: "600 Semibold",
-      usage: "一级页面标题",
-    },
-    {
-      token: "Type/Heading/H2",
-      size: "32px",
-      lineHeight: "40px",
-      ratio: "1.2 ~ 1.3",
-      weight: "600 Semibold",
-      usage: "模块主标题",
-    },
-    {
-      token: "Type/Heading/H3",
-      size: "24px",
-      lineHeight: "32px",
-      ratio: "1.3",
-      weight: "500 Medium",
-      usage: "卡片标题/区块标题",
-    },
-    {
-      token: "Type/Heading/H4",
-      size: "20px",
-      lineHeight: "28px",
-      ratio: "1.4",
-      weight: "500 Medium",
-      usage: "产品页面标题",
-    },
-    {
-      token: "Type/Heading/H5",
-      size: "18px",
-      lineHeight: "26px",
-      ratio: "1.4 ~ 1.5",
-      weight: "500 Medium",
-      usage: "二级内模块",
-    },
-    {
-      token: "Type/Body/L",
-      size: "16px",
-      lineHeight: "24px",
-      ratio: "1.5",
-      weight: "400 Regular",
-      usage: "官网正文/产品主文",
-    },
-    {
-      token: "Type/Body/M",
-      size: "14px",
-      lineHeight: "22px",
-      ratio: "1.5 ~ 1.6",
-      weight: "400 Regular",
-      usage: "后台正文/表单/Table",
-    },
-    {
-      token: "Type/Body/S",
-      size: "13px",
-      lineHeight: "20px",
-      ratio: "1.5",
-      weight: "400 Regular",
-      usage: "辅助信息/次要提示",
-    },
-    {
-      token: "Type/Caption",
-      size: "12px",
-      lineHeight: "18px",
-      ratio: "1.5",
-      weight: "400 Regular",
-      usage: "标签/Caption/时间",
-    },
-  ];
+const typeTokens = [
+  ["Display/L", "56 / 64", "700", "首页主视觉、关键数据"],
+  ["Heading/H1", "40 / 48", "600", "页面一级标题"],
+  ["Heading/H2", "32 / 40", "600", "页面模块标题"],
+  ["Heading/H3", "24 / 32", "500", "卡片与内容区标题"],
+  ["Heading/H4", "20 / 28", "500", "产品页面标题"],
+  ["Heading/H5", "18 / 26", "500", "产品模块标题"],
+  ["Body/L", "16 / 24", "400", "官网正文、重要说明"],
+  ["Body/M", "14 / 22", "400", "后台正文、表单、表格"],
+  ["Body/S", "13 / 20", "400", "辅助信息"],
+  ["Caption", "12 / 18", "400", "时间、图例、短标注"],
+];
 
+function FontCard({
+  icon,
+  title,
+  sample,
+  note,
+}: {
+  icon: ReactNode;
+  title: string;
+  sample: string;
+  note: string;
+}) {
+  return (
+    <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+      <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--text-primary)]">
+        {icon}
+      </div>
+      <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
+      <p className="mt-3 text-lg text-[var(--text-body)]">{sample}</p>
+      <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">{note}</p>
+    </div>
+  );
+}
+
+function RuleBadge({ ok, children }: { ok: boolean; children: ReactNode }) {
+  return (
+    <div className="flex items-start gap-2 text-sm leading-6 text-[var(--text-secondary)]">
+      <span
+        className={[
+          "mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full",
+          ok ? "bg-[var(--success-bg)] text-[var(--success-active)]" : "bg-[var(--error-bg)] text-[var(--error-active)]",
+        ].join(" ")}
+      >
+        {ok ? <Check size={11} weight="bold" /> : <X size={11} weight="bold" />}
+      </span>
+      <span>{children}</span>
+    </div>
+  );
+}
+
+export default function TypographyPage() {
   return (
     <div className="space-y-20">
-      <PageHeader title="字体" description="规范的字体系统，确保信息清晰易读" />
+      <PageHeader
+        title="字体"
+        description="用字号、行高、字重与文字颜色建立稳定的信息层级。先看真实页面效果，再查具体 Token。"
+      />
 
       <section>
         <SectionHeading
           eyebrow="Font Family"
           title="字体家族"
-          description="字体系统以系统默认中文字体为基础，保证加载稳定、阅读清晰；关键数字使用等宽数字字体强化数据感。"
+          description="中文优先使用系统字体，减少加载与跨平台差异；关键数字和代码使用等宽字体。"
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">苹果系统字体</h3>
-            <p className="mb-1 text-sm text-[var(--neutral-900)]">PingFang SC</p>
-            <p className="text-sm text-[var(--neutral-600)]">苹方</p>
-          </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-              Windows系统字体
-            </h3>
-            <p className="mb-1 text-sm text-[var(--neutral-900)]">Microsoft YaHei</p>
-            <p className="text-sm text-[var(--neutral-600)]">微软雅黑</p>
-          </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-              备用字体（免费商用）
-            </h3>
-            <p className="mb-1 text-sm text-[var(--neutral-900)]">Source Han Sans CN</p>
-            <p className="text-sm text-[var(--neutral-600)]">思源黑体</p>
-          </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-              特殊数字字体（免费商用）
-            </h3>
-            <p className="mb-1 font-mono text-sm text-[var(--neutral-900)]">D-DIN-Pro</p>
-            <p className="font-mono text-sm text-[var(--neutral-600)]">123456789*#</p>
-          </div>
-        </div>
-        <div className="mt-5 bg-white p-5">
-          <h3 className="mb-3.5 text-sm font-semibold text-[var(--neutral-900)]">
-            字体栈（Font Stack）配置建议
-          </h3>
-          <div className="space-y-3.5 text-xs text-[var(--neutral-700)]">
-            <div>
-              <p className="mb-1 font-mono text-[var(--neutral-900)]">
-                font-family: "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",
-                sans-serif;
-              </p>
-              <p className="text-[var(--neutral-600)]">
-                中文字体栈：优先使用系统默认字体（macOS 苹方 / Windows 微软雅黑），思源黑体作为免费商用备选方案
-              </p>
-            </div>
-            <div>
-              <p className="mb-1 font-mono text-[var(--neutral-900)]">
-                font-family: "D-DIN-Pro", "Helvetica Neue", Arial, sans-serif;
-              </p>
-              <p className="text-[var(--neutral-600)]">
-                数字字体栈：关键数据使用 D-DIN-Pro，确保数字清晰易读且具有专业感
-              </p>
-            </div>
-            <div className="border-t border-[var(--neutral-200)] pt-4">
-              <p className="font-medium text-[var(--neutral-700)]">
-                优先使用电脑系统默认字体可避免字体加载闪烁（FOIT/FOUT），提升首屏渲染速度，在不同平台保持一致的阅读体验。
-              </p>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <FontCard icon={<Desktop size={20} />} title="中文界面" sample="新材料可信数据空间" note='PingFang SC / Microsoft YaHei / Source Han Sans CN' />
+          <FontCard icon={<TextAa size={20} />} title="英文与混排" sample="Material Data Space" note="系统 Sans Serif，与中文保持相近字面和字重" />
+          <FontCard icon={<Hash size={20} />} title="数字与代码" sample="512 MPa · +8.24%" note="SF Mono / Cascadia Code / D-DIN-Pro，用于数据、Token 与代码" />
         </div>
       </section>
 
       <section>
         <SectionHeading
           eyebrow="Type Scale"
-          title="字号与行高"
-          description="统一的字体规范体系覆盖官网展示、产品界面、后台系统等全场景。Display 用于大屏视觉冲击，Heading 建立信息层级，Body 保证内容可读性。"
+          title="字号与行高 Token"
+          description="字号与行高成对使用，不单独缩放其中一项。产品正文默认 Body/M，阅读型正文默认 Body/L。"
         />
-
-        <div className="overflow-hidden rounded-[var(--radius-none)] border border-[var(--neutral-200)] bg-white">
-          <div className="grid grid-cols-12 gap-4 border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-6 py-3 text-sm font-semibold text-[var(--neutral-900)]">
-            <div className="col-span-2">Token</div>
-            <div className="col-span-2">字号</div>
-            <div className="col-span-2">行高</div>
-            <div className="col-span-2">行高比例</div>
-            <div className="col-span-2">字重</div>
-            <div className="col-span-2">用途</div>
-          </div>
-          {typographyTokens.map((item, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-12 items-center gap-4 border-b border-[var(--neutral-200)] px-6 py-3.5 text-sm last:border-b-0"
-            >
-              <div className="col-span-2 font-mono text-xs text-[var(--neutral-700)]">{item.token}</div>
-              <div className="col-span-2 text-[var(--neutral-700)]">{item.size}</div>
-              <div className="col-span-2 text-[var(--neutral-700)]">{item.lineHeight}</div>
-              <div className="col-span-2 text-[var(--neutral-700)]">{item.ratio}</div>
-              <div className="col-span-2 text-[var(--neutral-700)]">{item.weight}</div>
-              <div className="col-span-2 text-[var(--neutral-700)]">{item.usage}</div>
+        <div className="overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+          <div className="min-w-[720px]">
+            <div className="grid grid-cols-[1.2fr_1fr_0.7fr_1.8fr] border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--text-secondary)]">
+              <span>Token</span><span>字号 / 行高</span><span>字重</span><span>推荐用途</span>
             </div>
-          ))}
-        </div>
-
-        <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-              一、Web（官网/门户）
-            </h3>
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between border-b border-[var(--neutral-100)] pb-2.5">
-                <span className="text-sm font-semibold text-[var(--neutral-700)]">场景</span>
-                <span className="text-sm font-semibold text-[var(--neutral-700)]">建议 Token</span>
+            {typeTokens.map(([token, metrics, weight, usage]) => (
+              <div key={token} className="grid grid-cols-[1.2fr_1fr_0.7fr_1.8fr] items-center border-b border-[var(--neutral-100)] px-5 py-3.5 text-sm last:border-b-0">
+                <span className="font-mono text-xs font-semibold text-[var(--text-primary)]">{token}</span>
+                <span className="font-mono text-xs text-[var(--text-secondary)]">{metrics}px</span>
+                <span className="text-[var(--text-secondary)]">{weight}</span>
+                <span className="text-[var(--text-secondary)]">{usage}</span>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">Banner 标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Display/L</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">页面主标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">H1</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">模块标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">H2</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">卡片标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">H3</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">正文内容</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Body/L</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">辅助信息</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Body/S</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-              二、Product（后台/B端）
-            </h3>
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between border-b border-[var(--neutral-100)] pb-2.5">
-                <span className="text-sm font-semibold text-[var(--neutral-700)]">场景</span>
-                <span className="text-sm font-semibold text-[var(--neutral-700)]">建议 Token</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">页面标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">H4</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">模块标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">H5</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">Table 内容</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Body/M</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">Form Label</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Body/M</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">Form Placeholder</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Body/S</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">数据注释</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Caption</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-              三、Dashboard（数据可视化）
-            </h3>
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between border-b border-[var(--neutral-100)] pb-2.5">
-                <span className="text-sm font-semibold text-[var(--neutral-700)]">场景</span>
-                <span className="text-sm font-semibold text-[var(--neutral-700)]">建议 Token</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">KPI数字</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Display/L</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">图表标题</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">H5</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">图例</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Body/S</span>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-[var(--neutral-700)]">坐标轴</span>
-                <span className="font-mono text-xs text-[var(--neutral-900)]">Caption</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section>
         <SectionHeading
-          eyebrow="Line Height"
-          title="行高规范"
-          description="标题行高控制视觉冲击，正文行高控制阅读效率。官网更强调呼吸感，后台更强调密度和稳定扫描。"
+          eyebrow="Page Examples"
+          title="真实页面中的排版层级"
+          description="相同的字体 Token 在页面中承担不同角色。以下示例直接展示官网、后台详情与数据看板的组合关系。"
         />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-          <div className="mb-5 space-y-5 text-sm text-[var(--neutral-700)]">
-            <div>
-              <p className="mb-2 font-semibold text-[var(--neutral-900)]">标题类（Display / H1 / H2 / H3）</p>
-              <p className="mb-2">行高倍率：1.2 ～ 1.3</p>
-              <p className="text-[var(--neutral-600)]">
-                标题字号较大，紧凑的行高能增强视觉冲击力，避免视觉松散。多行标题时保持紧密感。
-              </p>
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+          <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+            <div className="flex items-center gap-2 border-b border-[var(--neutral-200)] px-5 py-3 text-sm font-semibold text-[var(--text-primary)]">
+              <Article size={18} /> 官网内容页
             </div>
-
-            <div>
-              <p className="mb-2 font-semibold text-[var(--neutral-900)]">正文类（Body / Caption）</p>
-              <div className="ml-5 space-y-2.5">
-                <div>
-                  <p className="font-medium text-[var(--neutral-900)]">官网/门户：1.6 ～ 1.8</p>
-                  <p className="text-[var(--neutral-600)]">
-                    宽松的行间距提供"呼吸感"，降低长文阅读疲劳，适合营销型内容。
-                  </p>
-                </div>
-                <div>
-                  <p className="font-medium text-[var(--neutral-900)]">后台系统：1.5</p>
-                  <p className="text-[var(--neutral-600)]">
-                    在保证可读性的前提下提高信息密度，减少滚动操作，提升操作效率。
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-[var(--neutral-200)] pt-4">
-              <p className="text-[var(--neutral-600)]">
-                <span className="font-semibold text-[var(--neutral-900)]">计算公式：</span>行高 = 字号 ×
-                行高倍率。例如：16px 字号 × 1.5 倍率 = 24px 行高
-              </p>
+            <div className="p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--product-blue-600)]">Material Insight</p>
+              <h3 className="mt-3 text-[32px] font-semibold leading-[40px] text-[var(--text-primary)]">高性能钛合金数据专题</h3>
+              <p className="mt-4 max-w-[34rem] text-base leading-7 text-[var(--text-body)]">汇集材料牌号、工艺参数与性能数据，帮助研发团队快速建立可靠的材料认知。</p>
+              <p className="mt-5 text-xs text-[var(--text-tertiary)]">更新于 2026-06-22 · 阅读约 6 分钟</p>
             </div>
           </div>
 
-          <div className="border-t border-[var(--neutral-300)] pt-4">
-            <p className="mb-3.5 text-xs font-semibold text-[var(--neutral-900)]">示例对比</p>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div>
-                <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-[var(--success-text)]">✓</span>
-                  <span className="ml-1 text-[var(--neutral-500)]">标题：行高 1.2（紧凑）</span>
-                </p>
-                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
-                  <h3
-                    className="text-2xl font-semibold text-[var(--neutral-900)]"
-                    style={{ lineHeight: "1.2" }}
-                  >
-                    新材料可信数据空间
-                    <br />
-                    构建产业数字化生态
-                  </h3>
-                </div>
-              </div>
-              <div>
-                <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-[var(--error-text)]">✗</span>
-                  <span className="ml-1 text-[var(--neutral-500)]">标题：行高 1.8（过于松散）</span>
-                </p>
-                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
-                  <h3
-                    className="text-2xl font-semibold text-[var(--neutral-900)]"
-                    style={{ lineHeight: "1.8" }}
-                  >
-                    新材料可信数据空间
-                    <br />
-                    构建产业数字化生态
-                  </h3>
-                </div>
-              </div>
-              <div>
-                <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-[var(--success-text)]">✓</span>
-                  <span className="ml-1 text-[var(--neutral-500)]">正文：行高 1.6（舒适）</span>
-                </p>
-                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
-                  <p className="text-sm text-[var(--neutral-900)]" style={{ lineHeight: "1.6" }}>
-                    新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发提供支持。
-                  </p>
-                </div>
-              </div>
-              <div>
-                <p className="mb-2.5 text-xs">
-                  <span className="text-base font-bold text-[var(--error-text)]">✗</span>
-                  <span className="ml-1 text-[var(--neutral-500)]">正文：行高 1.2（过于紧凑）</span>
-                </p>
-                <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
-                  <p className="text-sm text-[var(--neutral-900)]" style={{ lineHeight: "1.2" }}>
-                    新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发提供支持。
-                  </p>
-                </div>
-              </div>
+          <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+            <div className="flex items-center gap-2 border-b border-[var(--neutral-200)] px-5 py-3 text-sm font-semibold text-[var(--text-primary)]">
+              <Table size={18} /> 后台详情页
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Readability"
-          title="可读性规范"
-          description="通过行长控制、段落节奏和容器宽度，降低复杂材料数据、说明文字和长段落的阅读负担。"
-        />
-
-        <div>
-          <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
-            行长限制（Line Length）
-          </h3>
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <p className="mb-4 text-sm text-[var(--neutral-700)]">
-              过长的行宽会增加视线换行的负担，降低阅读效率。研究表明，最佳行长能够显著提升阅读速度和理解度。
-            </p>
-            <div className="mb-5 space-y-3.5 text-sm text-[var(--neutral-700)]">
-              <div>
-                <p className="mb-1 font-semibold text-[var(--neutral-900)]">中文长段落</p>
-                <p>
-                  每行控制在 <span className="font-mono text-[var(--neutral-900)]">32～45</span> 个汉字（约{" "}
-                  <span className="font-mono text-[var(--neutral-900)]">500px～700px</span>
-                  ），适用于文章、博客等阅读型内容
-                </p>
-              </div>
-              <div>
-                <p className="mb-1 font-semibold text-[var(--neutral-900)]">后台表单/说明文字</p>
-                <p>
-                  内容容器最大宽度 <span className="font-mono text-[var(--neutral-900)]">≤ 700px</span>
-                  ，确保用户视线聚焦，减少眼动距离
-                </p>
-              </div>
-              <div>
-                <p className="mb-1 font-semibold text-[var(--neutral-900)]">卡片/模块内文本</p>
-                <p>
-                  根据容器宽度自适应，但建议不超过{" "}
-                  <span className="font-mono text-[var(--neutral-900)]">60</span> 个字符（中英文混合）
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-[var(--neutral-300)] pt-4">
-              <p className="mb-3.5 text-xs font-semibold text-[var(--neutral-900)]">示例对比</p>
-              <div className="space-y-3.5">
+            <div className="p-6">
+              <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="mb-2.5 text-xs">
-                    <span className="text-base font-bold text-[var(--success-text)]">✓</span>
-                    <span className="ml-1 text-[var(--neutral-500)]">推荐行长（~700px）</span>
-                  </p>
-                  <div className="max-w-[700px] rounded-sm bg-[var(--neutral-50)] p-3.5">
-                    <p className="text-sm leading-relaxed text-[var(--neutral-900)]">
-                      新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发、生产制造和应用提供全方位的数据支持和智能化解决方案，推动新材料产业数字化转型升级。
-                    </p>
+                  <h3 className="text-xl font-medium leading-7 text-[var(--text-primary)]">TC4 钛合金</h3>
+                  <p className="mt-1 text-sm leading-[22px] text-[var(--text-secondary)]">材料编号 MAT-2026-001</p>
+                </div>
+                <span className="rounded-sm bg-[var(--success-bg)] px-2 py-1 text-xs font-medium text-[var(--success-active)]">已审核</span>
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4">
+                {[["屈服强度", "860 MPa"], ["抗拉强度", "930 MPa"], ["数据来源", "企业上传"], ["负责人", "王工"]].map(([label, value]) => (
+                  <div key={label}>
+                    <p className="text-xs leading-[18px] text-[var(--text-tertiary)]">{label}</p>
+                    <p className="mt-1 text-sm font-medium leading-[22px] text-[var(--text-body)]">{value}</p>
                   </div>
-                </div>
-                <div>
-                  <p className="mb-2.5 text-xs">
-                    <span className="text-base font-bold text-[var(--error-text)]">✗</span>
-                    <span className="ml-1 text-[var(--neutral-500)]">行长过长（影响阅读）</span>
-                  </p>
-                  <div className="rounded-sm bg-[var(--neutral-50)] p-3.5">
-                    <p className="text-sm leading-relaxed text-[var(--neutral-900)]">
-                      新材道致力于构建新材料领域的可信数据空间，通过整合产业链上下游数据资源，为材料研发、生产制造和应用提供全方位的数据支持和智能化解决方案，推动新材料产业数字化转型升级。
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+            <div className="flex items-center gap-2 border-b border-[var(--neutral-200)] px-5 py-3 text-sm font-semibold text-[var(--text-primary)]">
+              <ChartLineUp size={18} /> 数据看板
+            </div>
+            <div className="p-6">
+              <p className="text-sm font-medium leading-[22px] text-[var(--text-secondary)]">本月新增材料数据</p>
+              <div className="mt-2 flex items-end gap-3">
+                <strong className="font-mono text-[40px] font-semibold leading-[48px] text-[var(--text-primary)]">12,580</strong>
+                <span className="mb-1 text-sm font-medium text-[var(--success-active)]">+8.24%</span>
+              </div>
+              <div className="mt-6 flex h-24 items-end gap-2" aria-label="数据柱状图示例">
+                {[38, 52, 46, 70, 62, 88, 76, 96].map((height, index) => (
+                  <span key={index} className="flex-1 bg-[var(--product-blue-500)]" style={{ height: `${height}%`, opacity: 0.35 + index * 0.08 }} />
+                ))}
+              </div>
+              <div className="mt-3 flex justify-between text-xs text-[var(--text-tertiary)]"><span>06-01</span><span>06-22</span></div>
             </div>
           </div>
         </div>
@@ -468,82 +174,30 @@ export default function TypographyPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Usage Rules"
-          title="排版使用规则"
-          description="字体不只决定字号层级，也决定数据、长文本和中英文混排的可读性。以下规则用于指导页面落地和组件设计。"
+          eyebrow="Line Height & Readability"
+          title="行高与可读性"
+          description="不要只比较两段孤立文字；应在标题、摘要、数据和辅助信息共同出现的页面里判断节奏。"
         />
-
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <p className="mb-2 text-base font-semibold text-[var(--neutral-900)]">长文本行宽</p>
-            <p className="text-sm leading-relaxed text-[var(--neutral-700)]">
-              官网和门户的正文行宽建议控制在 56-72 个中文字符；后台说明文字优先控制在 48-64 个中文字符，避免跨越整屏阅读。
-            </p>
-            <div className="mt-4 rounded-sm bg-[var(--neutral-50)] p-3 text-xs leading-relaxed text-[var(--neutral-600)]">
-              推荐：正文容器 max-width 680px-760px；说明文字 max-width 520px-680px。
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.4fr_1fr]">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+            <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]"><Rows size={18} /> 阅读型详情示例</div>
+            <article className="max-w-[680px]">
+              <h3 className="text-2xl font-semibold leading-8 text-[var(--text-primary)]">材料数据如何支持研发决策</h3>
+              <p className="mt-3 text-sm leading-[22px] text-[var(--text-secondary)]">摘要使用 Body/M，快速说明文章价值，不与标题争夺注意力。</p>
+              <p className="mt-5 text-base leading-7 text-[var(--text-body)]">研发团队需要在材料性能、工艺成本与供应稳定性之间持续权衡。正文采用 16/28 的舒适阅读节奏，并将行宽控制在约 680px，使视线能够自然换行。</p>
+              <p className="mt-4 text-base leading-7 text-[var(--text-body)]">当内容进入参数、编号或对比数据时，再切换为表格和等宽数字，而不是继续堆叠长段落。</p>
+            </article>
+          </div>
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+            <h3 className="text-base font-semibold text-[var(--text-primary)]">判断标准</h3>
+            <div className="mt-5 space-y-4">
+              <RuleBadge ok>标题行高约 1.2–1.35，正文约 1.5–1.75。</RuleBadge>
+              <RuleBadge ok>中文阅读正文控制在约 32–45 个汉字宽。</RuleBadge>
+              <RuleBadge ok>主正文使用 neutral-800，描述与标注至少使用 neutral-700/600。</RuleBadge>
+              <RuleBadge ok={false}>不要让 neutral-500 承担正常小字，它在白底仅约 2.64:1。</RuleBadge>
+              <RuleBadge ok={false}>移动端不要机械缩小到桌面字号的 85%，优先重排布局并保持正文至少 14px。</RuleBadge>
             </div>
           </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <p className="mb-2 text-base font-semibold text-[var(--neutral-900)]">数据与数字</p>
-            <p className="text-sm leading-relaxed text-[var(--neutral-700)]">
-              指标、金额、编号、材料参数等数据优先使用等宽数字，并在表格中按数值列右对齐，保证扫描和比较效率。
-            </p>
-            <div className="mt-4 grid grid-cols-2 gap-2 rounded-sm bg-[var(--neutral-50)] p-3 font-mono text-xs text-[var(--neutral-700)]">
-              <span>屈服强度</span>
-              <span className="text-right text-[var(--neutral-900)]">512 MPa</span>
-              <span>成本变化</span>
-              <span className="text-right text-[var(--neutral-900)]">+8.24%</span>
-            </div>
-          </div>
-
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <p className="mb-2 text-base font-semibold text-[var(--neutral-900)]">中英文混排</p>
-            <p className="text-sm leading-relaxed text-[var(--neutral-700)]">
-              页面正文使用中文系统字体。Token、变量名、代码片段和文件路径使用等宽字体；不要把整段说明文字设置为等宽字体。
-            </p>
-            <div className="mt-4 rounded-sm bg-[var(--neutral-50)] p-3 text-xs leading-relaxed text-[var(--neutral-600)]">
-              示例：按钮使用 <span className="font-mono text-[var(--neutral-900)]">variant="solid"</span> 与 <span className="font-mono text-[var(--neutral-900)]">tone="product"</span> 区分层级和语义。
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-          <ul className="space-y-3 text-sm text-[var(--neutral-700)]">
-            <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-[var(--neutral-400)]">•</span>
-              <div>
-                <span className="font-semibold text-[var(--neutral-900)]">避免过多字重层级：</span>
-                一个界面中建议使用不超过 3 种字重，保持视觉简洁
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-[var(--neutral-400)]">•</span>
-              <div>
-                <span className="font-semibold text-[var(--neutral-900)]">确保对比度：</span>
-                文字与背景的对比度应≥4.5:1（正文）或≥3:1（大字号），符合 WCAG AA
-                标准
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-[var(--neutral-400)]">•</span>
-              <div>
-                <span className="font-semibold text-[var(--neutral-900)]">数字优先使用 D-DIN-Pro：</span>
-                关键数据、金额、统计数字等使用等宽数字字体，提升专业感和易读性
-              </div>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="shrink-0 font-semibold text-[var(--neutral-400)]">•</span>
-              <div>
-                <span className="font-semibold text-[var(--neutral-900)]">响应式字号：</span>
-                移动端适当减小字号（建议为桌面端的
-                85%～90%），但最小不低于 12px
-              </div>
-            </li>
-          </ul>
         </div>
       </section>
     </div>

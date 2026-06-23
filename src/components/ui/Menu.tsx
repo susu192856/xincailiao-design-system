@@ -12,11 +12,14 @@ export type MenuItem = {
 
 export type MenuProps = {
   items: MenuItem[];
+  value?: string;
   activeKey?: string;
+  orientation?: "vertical" | "horizontal";
   mode?: "vertical" | "horizontal";
   collapsed?: boolean;
   size?: "sm" | "md";
   className?: string;
+  onValueChange?: (key: string) => void;
   onSelect?: (key: string) => void;
 };
 
@@ -90,11 +93,29 @@ function renderItems({
   });
 }
 
-export function Menu({ items, activeKey, mode = "vertical", collapsed = false, size = "md", className = "", onSelect }: MenuProps) {
+export function Menu({
+  items,
+  value,
+  activeKey,
+  orientation,
+  mode,
+  collapsed = false,
+  size = "md",
+  className = "",
+  onValueChange,
+  onSelect,
+}: MenuProps) {
+  const resolvedMode = orientation ?? mode ?? "vertical";
+  const resolvedValue = value ?? activeKey;
+  const handleSelect = (key: string) => {
+    onValueChange?.(key);
+    onSelect?.(key);
+  };
+
   return (
     <nav
       className={[
-        mode === "vertical"
+        resolvedMode === "vertical"
           ? collapsed
             ? "w-14 space-y-1 bg-[var(--neutral-50)] p-2"
             : "w-56 space-y-1 bg-[var(--neutral-50)] p-2"
@@ -102,7 +123,14 @@ export function Menu({ items, activeKey, mode = "vertical", collapsed = false, s
         className,
       ].join(" ")}
     >
-      {renderItems({ items, activeKey, mode, collapsed, size, onSelect })}
+      {renderItems({
+        items,
+        activeKey: resolvedValue,
+        mode: resolvedMode,
+        collapsed,
+        size,
+        onSelect: handleSelect,
+      })}
     </nav>
   );
 }

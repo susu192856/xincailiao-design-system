@@ -2,7 +2,7 @@ import type { HTMLAttributes } from "react";
 
 export type CardProps = HTMLAttributes<HTMLDivElement> & {
   variant?: "plain" | "outlined" | "muted";
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   status?: "default" | "product" | "brand" | "success" | "warning" | "error";
   interactive?: boolean;
   selected?: boolean;
@@ -19,6 +19,7 @@ const variantClasses: Record<NonNullable<CardProps["variant"]>, string> = {
 const sizeClasses: Record<NonNullable<CardProps["size"]>, string> = {
   sm: "p-4",
   md: "p-6",
+  lg: "p-8",
 };
 
 const statusClasses: Record<NonNullable<CardProps["status"]>, string> = {

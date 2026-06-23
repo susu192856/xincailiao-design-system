@@ -7,29 +7,38 @@
 - Vue 源码：`packages/vue-ui/src/components/XcCard.vue`
 - Figma 组件名：`Card`
 
+- 分类：数据与内容
+- 合同版本：`0.2.0`
+- 规范状态：完善中
+
+## 定位与边界
+
+**适用：** 用于Card对应的标准场景，优先复用组件而不是在页面内重新绘制。
+
+**避免：** 不要绕过 Token、组件合同或可访问性要求制作局部特例。
+
+## 结构 Anatomy
+
+- 根容器
+- 主要内容
+- 可选辅助内容
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `variant` | `plain \| outlined \| muted` | `plain` | 卡片视觉层级。 |
-| `size / padding` | `sm \| md \| lg` | `md` | 卡片内边距，React 使用 `size`，Vue 兼容 `padding`。 |
-| `title` | `string` | `—` | 卡片标题，用于说明信息主题。 |
-| `description` | `string` | `—` | 标题下方辅助说明。 |
-| `status` | `default \| product \| brand \| success \| warning \| error` | `default` | 顶部 2px 状态线。 |
-| `interactive` | `boolean` | `false` | 是否可点击。 |
-| `selected` | `boolean` | `false` | 选中态。 |
-| `disabled` | `boolean` | `false` | 禁用状态，保留可见但不可操作。 |
-| `loading` | `boolean` | `false` | 加载态，保留卡片结构。 |
-| `header / content / footer` | `ReactNode / slot` | `—` | 结构插槽。 |
+| `variant` | `string` | `default` | 组件的结构或视觉层级；不得承载业务颜色语义。 |
+| `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
+| `status` | `string` | `—` | 状态语义；不能只依赖颜色表达。 |
+| `interactive` | `boolean` | `—` | 是否允许卡片作为整体交互目标。 |
+| `selected` | `boolean` | `—` | 表格行或可交互容器的选中状态。 |
+| `disabled` | `boolean` | `false` | 禁用状态；不可交互但仍保留上下文。 |
+| `loading` | `boolean` | `false` | 异步处理中状态；阻止重复操作。 |
 
-## 组件属性
+## 变体、语义、尺寸与状态
 
 ### Variants
 
-- `basic`
-- `metric`
-- `list-item`
-- `interactive`
+- `plain`
 - `outlined`
 - `muted`
 
@@ -64,10 +73,22 @@
 
 - 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
 - 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
-- 卡片只用于独立信息单元，不作为页面大分区的默认容器。
-- 状态线只做快速识别辅助，具体状态仍需通过标题、标签或说明文字表达。
-- 主操作不超过一个，次要操作放入 footer/actions，不堆叠过多按钮。
 - Figma 属性、网页示例和前端源码 API 需要保持同名同义。
+
+## 响应式
+
+桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+
+## 可访问性
+
+必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+
+## 示例要求
+
+- 基础示例：Card 默认结构与尺寸
+- 业务示例：新材道后台或门户中的真实 Card 场景
+- 边界示例：长内容、空数据、禁用、加载或窄屏边界
+- 错误示例：绕过组件、硬编码数值或仅依赖颜色表达状态
 
 ## Vue 3 引用示例
 
@@ -80,7 +101,8 @@ import "@xincailiao/vue-ui/styles.css";
 
 - Figma 组件命名使用 `Card`。
 - 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
-- 状态必须覆盖后台常见场景：禁用、加载、错误、空状态、权限受限或批量操作反馈，具体以本页 States 为准。
+- 仅创建本组件适用的状态，具体以本页 States 为准，不机械复制无关状态。
+- 使用 Auto Layout、变量绑定和标准 Variant Property；浮层必须提供静态打开态。
 
 ## 依赖 Token
 

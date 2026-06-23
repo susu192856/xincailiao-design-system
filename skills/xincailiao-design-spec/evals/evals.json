@@ -1,152 +1,97 @@
 {
-  "version": "0.1.0",
-  "description": "评估用例 — 用于验证设计规范 Skill 是否正确生效。每个 eval 是一组 AI 提示词和预期检查项。",
+  "version": "0.2.0",
+  "description": "验证新材道设计规范 Skill 能否在页面生成、组件选型、移动适配和规范审查中遵守结构化合同。",
   "evals": [
     {
-      "id": "eval-001-button-color",
-      "category": "token-fact",
-      "scenario": "生成一个主要操作按钮",
-      "prompt": "在后台页面加一个确认按钮",
-      "expected": {
-        "component": "Button",
-        "variant": "solid",
-        "tone": "product",
-        "colorSource": "var(--product-blue-500)",
-        "checks": [
-          "不使用 <button> 标签",
-          "不使用硬编码色值如 bg-blue-500",
-          "颜色来自 CSS 变量 --product-blue-*"
-        ]
-      }
+      "id": "portal-cta",
+      "prompt": "为新材道官网首页设计首屏 CTA。",
+      "checks": [
+        "主 CTA 使用 Button variant=solid tone=brand",
+        "同一操作区只有一个主操作",
+        "颜色、间距和圆角来自 Token",
+        "移动端 CTA 触控目标不小于 44px"
+      ]
     },
     {
-      "id": "eval-002-modal-buttons",
-      "category": "discrete-rule",
-      "scenario": "弹窗内的确认/取消按钮",
-      "prompt": "做一个删除确认弹窗",
-      "expected": {
-        "component": "Modal + Button",
-        "modalProps": { "tone": "danger" },
-        "confirmButton": { "variant": "solid", "tone": "danger", "label": "删除" },
-        "cancelButton": { "variant": "outline", "tone": "neutral", "label": "取消" },
-        "checks": [
-          "弹窗内没有手写 <button>",
-          "确认按钮 tone=danger（危险操作）",
-          "取消按钮 variant=outline",
-          "footerAlign 为 end（右对齐）"
-        ]
-      }
+      "id": "dashboard-form",
+      "prompt": "生成一个后台材料新增表单，包含必填、只读、校验失败和提交中。",
+      "checks": [
+        "使用 Form、Input、Select 和 Button 正式合同",
+        "区分 readonly、disabled、error 和 loading",
+        "确认在右、取消在左",
+        "后台主操作使用 tone=product"
+      ]
     },
     {
-      "id": "eval-003-empty-state",
-      "category": "asset-gap",
-      "scenario": "表格无数据时显示空状态",
-      "prompt": "做一个用户列表页，目前还没有数据",
-      "expected": {
-        "component": "Empty",
-        "checks": [
-          "表格 data 为空数组时不渲染空 table",
-          "使用 Empty 组件而非空白区域",
-          "Empty type 为 no-data"
-        ]
-      }
+      "id": "filter-table",
+      "prompt": "生成一个带筛选、批量选择、空状态、加载状态和分页的材料表格。",
+      "checks": [
+        "Table density 仅使用 compact、standard 或 comfortable",
+        "空状态使用 Empty，加载状态使用骨架或 loading",
+        "宽表在窄屏局部横向滚动，页面本身不横向溢出",
+        "分类 Tag 使用 variant，状态色使用 tone"
+      ]
     },
     {
-      "id": "eval-004-portal-colors",
-      "category": "token-fact",
-      "scenario": "官网页面使用品牌色而非产品蓝",
-      "prompt": "做新材道官网首页的 CTA 按钮",
-      "expected": {
-        "component": "Button",
-        "tone": "brand",
-        "checks": [
-          "主 CTA 用 tone='brand' 而非 tone='product'",
-          "不使用 --product-blue-* 作为主操作色"
-        ]
-      }
+      "id": "detail-page",
+      "prompt": "生成一个材料详情页，含面包屑、描述列表、状态和相关操作。",
+      "checks": [
+        "使用 Breadcrumb、DescriptionList、Tag、Button",
+        "状态不只依赖颜色",
+        "正文宽度遵守 content-reading-width",
+        "移动端信息改单列"
+      ]
     },
     {
-      "id": "eval-005-dashboard-colors",
-      "category": "token-fact",
-      "scenario": "后台页面使用产品蓝而非品牌红",
-      "prompt": "在后台管理页面加一个新增按钮",
-      "expected": {
-        "component": "Button",
-        "tone": "product",
-        "checks": [
-          "新增按钮 tone='product' 而非 tone='brand'",
-          "不使用 --brand-* 作为后台主操作色"
-        ]
-      }
+      "id": "dangerous-action",
+      "prompt": "设计一个不可恢复的删除确认流程。",
+      "checks": [
+        "使用 Modal 和 Button",
+        "危险确认使用 tone=danger",
+        "说明后果且提供取消路径",
+        "异步提交防重复并允许失败恢复"
+      ]
     },
     {
-      "id": "eval-006-spacing-tokens",
-      "category": "numerical-truth",
-      "scenario": "页面使用 spacing token 而非随意间距",
-      "prompt": "做一个卡片列表页，卡片之间要有间距",
-      "expected": {
-        "checks": [
-          "间距使用 var(--spacing-lg) 24px 或 var(--spacing-md) 16px",
-          "不出现 gap-5、mb-7 等无对应 token 的值",
-          "不出现 p-3、m-2 等小间距"
-        ]
-      }
+      "id": "overlay-feedback",
+      "prompt": "为后台异步解析任务设计加载、成功、失败和超时反馈。",
+      "checks": [
+        "Toast 使用 tone 表示语义，不用 variant 表示颜色",
+        "默认时长读取 toast-duration-default",
+        "重要失败信息提供恢复操作",
+        "Modal、Drawer、Popover 和 Toast 层级遵守浮层 Token"
+      ]
     },
     {
-      "id": "eval-007-typography-hierarchy",
-      "category": "numerical-truth",
-      "scenario": "页面文字层级正确",
-      "prompt": "做一个内容页面，有标题、正文和辅助说明",
-      "expected": {
-        "checks": [
-          "标题使用 --type-heading-* 系列变量",
-          "正文使用 --type-body-m 或 --type-body-l",
-          "辅助文字使用 --type-caption + --neutral-500",
-          "不超过 3 种字号层级"
-        ]
-      }
+      "id": "mobile-adaptation",
+      "prompt": "把桌面后台列表页适配到 375px 宽移动端。",
+      "checks": [
+        "侧栏转为可关闭抽屉",
+        "表单和内容区域改单列",
+        "触控目标不小于 44px",
+        "无页面级横向溢出"
+      ]
     },
     {
-      "id": "eval-008-glossary-minimalist",
-      "category": "judgment",
-      "scenario": "将'简约'翻译为具体规则",
-      "prompt": "做一个简约风格的数据看板首页",
-      "expected": {
-        "checks": [
-          "不超过 2-3 种字号层级",
-          "按钮以 outline/ghost 为主，最多1个 solid",
-          "背景白色或 --neutral-50",
-          "没有装饰性边框或渐变",
-          "圆角不超过 --radius-lg"
-        ]
-      }
+      "id": "spec-review",
+      "prompt": "审查一份同时使用 Tag variant=success、Toast variant=error、4px 按钮圆角和蓝色 focus 的实现。",
+      "checks": [
+        "指出 Tag 应使用 variant=soft tone=success",
+        "指出 Toast 应使用 tone=error",
+        "指出高频控件默认 2px 圆角",
+        "指出 focus 颜色读取 focus-ring-color"
+      ]
     },
     {
-      "id": "eval-009-build-after-change",
-      "category": "process",
-      "scenario": "修改后必须构建",
-      "prompt": "修改 Tag 组件的颜色规则后",
-      "expected": {
-        "checks": [
-          "运行 npm run build",
-          "构建通过才宣布完成",
-          "构建失败则修复后重新构建"
-        ]
-      }
-    },
-    {
-      "id": "eval-010-token-sync",
-      "category": "process",
-      "scenario": "修改 Token 后同步 Figma 文件",
-      "prompt": "把品牌色 600 改深一点",
-      "expected": {
-        "checks": [
-          "更新 src/styles/tokens.css",
-          "同步更新 figma/tokens.json",
-          "同步更新 skills/xincailiao-design-spec/assets/figma-tokens.json"
-        ]
-      }
+      "id": "cross-surface-sync",
+      "prompt": "修改一个组件合同后完成交付。",
+      "checks": [
+        "更新 manifest、React、Vue、网页文档和 Markdown",
+        "运行 export 与 sync:skill-assets",
+        "同步 Figma Properties 和变量绑定",
+        "运行 npm run verify 并记录迁移说明"
+      ]
     }
   ],
-  "howToUse": "对每个 eval，用其 prompt 生成 UI，然后逐条检查 expected.checks。全部通过才算 Skill 生效。"
+  "howToUse": "按 prompt 生成或审查产物，逐项验证 checks；失败项必须定位到 Token、合同、分类 reference 或案例。"
 }

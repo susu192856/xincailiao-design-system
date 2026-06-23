@@ -15,7 +15,7 @@ export type TabsProps = {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   variant?: "line" | "card" | "segment";
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   className?: string;
   listClassName?: string;
   panelClassName?: string;
@@ -24,6 +24,7 @@ export type TabsProps = {
 const sizeClass = {
   sm: "px-3 py-1.5 text-xs",
   md: "px-4 py-2 text-sm",
+  lg: "px-5 py-2.5 text-base",
 };
 
 function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean, size: NonNullable<TabsProps["size"]>) {

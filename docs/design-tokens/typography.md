@@ -36,6 +36,11 @@
 | `--type-caption-size` | `12px` | caption size |
 | `--type-caption-line-height` | `18px` | caption line height |
 | `--type-caption-weight` | `400` | caption weight |
+| `--type-body-l-weight-semibold` | `600` | body l weight semibold |
+| `--type-body-m-weight-medium` | `500` | body m weight medium |
+| `--type-body-m-weight-semibold` | `600` | body m weight semibold |
+| `--type-body-s-weight-semibold` | `600` | body s weight semibold |
+| `--type-caption-weight-semibold` | `600` | caption weight semibold |
 
 ## CSS 使用方式
 
@@ -68,10 +73,3 @@ font-family: "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",
              ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
              "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 ```
-
-## 使用规则
-
-- 官网和门户正文行宽建议控制在 56-72 个中文字符，后台说明文字建议控制在 48-64 个中文字符。
-- 指标、金额、材料参数、编号等数据优先使用等宽数字，并在表格中按数值列右对齐。
-- 中文正文使用系统字体；Token、变量名、代码片段和文件路径使用等宽字体。
-- 不要将整段说明文字设置为等宽字体，避免阅读负担过重。

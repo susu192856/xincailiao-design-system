@@ -44,12 +44,13 @@ export function Icon({
 }: IconProps) {
   return (
     <span
-      aria-hidden={label ? undefined : true}
-      aria-label={label}
+      role={!decorative && label ? "img" : undefined}
+      aria-hidden={decorative || !label ? true : undefined}
+      aria-label={!decorative ? label : undefined}
       className={cx(
         "relative inline-flex shrink-0 items-center justify-center leading-none",
         toneClass[tone],
-        disabled && "cursor-not-allowed opacity-40",
+        disabled && "cursor-not-allowed opacity-[var(--disabled-opacity)]",
         className,
       )}
       style={{ width: size, height: size, ...style }}
@@ -64,7 +65,7 @@ export function Icon({
           style={{ width: Math.round(size * 0.7), height: Math.round(size * 0.7) }}
         />
       )}
-      {(decorative || redMark) && (
+      {redMark && (
         <span
           aria-hidden
           className="absolute right-0 top-1/2 h-0.5 w-1.5 -translate-y-1/2 bg-[var(--brand-600)]"

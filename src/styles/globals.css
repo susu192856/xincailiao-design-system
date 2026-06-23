@@ -29,6 +29,16 @@ body {
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+::selection {
+  background: var(--brand-100);
+  color: var(--neutral-900);
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -75,6 +85,14 @@ code:not(pre code) {
 
 pre {
   border-radius: 2px;
+}
+
+.docs-content section[id] {
+  scroll-margin-top: var(--spacing-lg);
+}
+
+.docs-content table {
+  width: 100%;
 }
 
 /* ============================================

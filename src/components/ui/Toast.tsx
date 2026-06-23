@@ -6,21 +6,30 @@ export type ToastVariant = "success" | "error" | "warning" | "info" | "loading";
 
 type ToastItem = {
   id: string;
-  variant: ToastVariant;
+  tone: ToastVariant;
   title: string;
   description?: string;
   duration?: number;
   action?: ReactNode;
 };
 
-export type ToastProps = HTMLAttributes<HTMLDivElement> & Omit<ToastItem, "id" | "duration"> & {
+type ToastRequest = Omit<ToastItem, "id" | "tone"> & {
+  tone?: ToastVariant;
+  /** @deprecated Use tone. */
+  variant?: ToastVariant;
+};
+
+export type ToastProps = HTMLAttributes<HTMLDivElement> & Omit<ToastItem, "id" | "duration" | "variant"> & {
+  tone?: ToastVariant;
+  variant?: ToastVariant;
+  closable?: boolean;
   onClose?: () => void;
 };
 
 let toastId = 0;
-let addToastFn: ((t: Omit<ToastItem, "id">) => void) | null = null;
+let addToastFn: ((t: ToastRequest) => void) | null = null;
 
-export function toast(props: Omit<ToastItem, "id">) {
+export function toast(props: ToastRequest) {
   addToastFn?.(props);
 }
 
@@ -40,24 +49,35 @@ const dotColorMap: Record<ToastVariant, string> = {
   loading: "bg-[var(--product-blue-500)]",
 };
 
-export function Toast({ variant, title, description, action, onClose, className = "", ...props }: ToastProps) {
+export function Toast({
+  tone,
+  variant,
+  title,
+  description,
+  action,
+  closable = true,
+  onClose,
+  className = "",
+  ...props
+}: ToastProps) {
+  const resolvedTone = tone ?? variant ?? "info";
   return (
     <div
       className={[
         "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-[var(--shadow-sm)]",
-        borderColorMap[variant],
+        borderColorMap[resolvedTone],
         className,
       ].join(" ")}
       role="status"
       {...props}
     >
-      {variant === "loading" ? (
+      {resolvedTone === "loading" ? (
         <SpinnerGap className="mt-1.5 h-4 w-4 shrink-0 animate-spin" weight="regular" />
       ) : (
         <span
           className={[
             "mt-1.5 h-2 w-2 shrink-0 rounded-full",
-            dotColorMap[variant],
+            dotColorMap[resolvedTone],
           ].join(" ")}
         />
       )}
@@ -68,7 +88,7 @@ export function Toast({ variant, title, description, action, onClose, className 
         ) : null}
         {action ? <div className="mt-3">{action}</div> : null}
       </div>
-      {onClose ? (
+      {closable && onClose ? (
         <button
           type="button"
           onClick={onClose}
@@ -92,10 +112,11 @@ export function ToastContainer({ position = "bottom-right" }: ToastContainerProp
   useEffect(() => {
     addToastFn = (t) => {
       const id = String(++toastId);
-      setItems((prev) => [...prev, { ...t, id }]);
+      const { variant, tone, ...content } = t;
+      setItems((prev) => [...prev, { ...content, id, tone: tone ?? variant ?? "info" }]);
       setTimeout(() => {
         setItems((prev) => prev.filter((i) => i.id !== id));
-      }, t.duration ?? 4000);
+      }, t.duration ?? (Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue("--toast-duration-default"), 10) || 4000));
     };
     return () => { addToastFn = null; };
   }, []);
@@ -113,7 +134,7 @@ export function ToastContainer({ position = "bottom-right" }: ToastContainerProp
       {items.map((item) => (
         <Toast
           key={item.id}
-          variant={item.variant}
+          tone={item.tone}
           title={item.title}
           description={item.description}
           action={item.action}

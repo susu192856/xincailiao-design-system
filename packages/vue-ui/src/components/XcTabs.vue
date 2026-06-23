@@ -1,5 +1,5 @@
 <template>
-  <div class="xc-tabs">
+  <div class="xc-tabs" :class="[`xc-tabs--${variant}`, `xc-tabs--${size}`]">
     <div class="xc-tabs__list" role="tablist">
       <button
         v-for="item in items"
@@ -33,10 +33,18 @@ export type XcTabItem = {
   disabled?: boolean;
 };
 
-const props = defineProps<{
-  items: XcTabItem[];
-  modelValue?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    items: XcTabItem[];
+    modelValue?: string;
+    variant?: "line" | "card" | "segment";
+    size?: "sm" | "md" | "lg";
+  }>(),
+  {
+    variant: "line",
+    size: "md",
+  },
+);
 
 const emit = defineEmits<{
   "update:modelValue": [value: string];
@@ -60,6 +68,7 @@ function selectTab(value: string) {
 .xc-tabs__list {
   display: flex;
   border-bottom: 1px solid var(--neutral-200);
+  overflow-x: auto;
 }
 
 .xc-tabs__trigger {
@@ -75,6 +84,21 @@ function selectTab(value: string) {
     border-color 0.15s ease,
     color 0.15s ease;
 }
+
+.xc-tabs--sm .xc-tabs__trigger { padding: 6px 12px; font-size: 12px; }
+.xc-tabs--lg .xc-tabs__trigger { padding: 10px 20px; font-size: 16px; }
+.xc-tabs--segment .xc-tabs__list {
+  width: fit-content;
+  gap: 4px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--neutral-100);
+  padding: 4px;
+}
+.xc-tabs--segment .xc-tabs__trigger { border: 0; border-radius: var(--radius-sm); }
+.xc-tabs--segment .xc-tabs__trigger--active { background: #fff; box-shadow: var(--shadow-xs); }
+.xc-tabs--card .xc-tabs__list { gap: 4px; border: 0; }
+.xc-tabs--card .xc-tabs__trigger { border: 1px solid var(--neutral-200); }
 
 .xc-tabs__trigger:hover:not(:disabled) {
   color: var(--neutral-900);
