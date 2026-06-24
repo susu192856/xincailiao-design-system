@@ -114,7 +114,7 @@ export default function DrawerPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "抽屉用于保持当前页面上下文，适合详情预览、筛选、配置和短编辑。",

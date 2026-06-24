@@ -150,7 +150,7 @@ export default function InputPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "默认使用 Medium 尺寸，表格筛选和工具栏可使用 Small。",

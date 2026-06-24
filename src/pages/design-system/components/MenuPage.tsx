@@ -130,7 +130,7 @@ export default function MenuPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "后台主导航使用 neutral-900 激活态，保证当前位置识别明确。",

@@ -93,6 +93,7 @@ export default function HomePage() {
         style={{
           width: "calc(100vw - 256px)",
           marginLeft: "calc(-50vw + 50% + 128px)",
+          marginBottom: "-50px",
         }}
       >
         <img
@@ -101,10 +102,12 @@ export default function HomePage() {
           className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
         />
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-32"
-          style={{ background: "linear-gradient(to bottom, transparent, white)" }}
+          className="pointer-events-none absolute inset-x-0 bottom-[-50px] z-[1] h-32"
+          style={{
+            background: "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #FFFFFF 46%, var(--neutral-50) 100%)",
+          }}
         />
-        <div className="relative z-10 mx-auto grid min-h-[400px] max-w-[1024px] grid-cols-1 items-start gap-16 px-8 pt-20 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="relative z-10 mx-auto grid min-h-[450px] max-w-[1024px] grid-cols-1 items-start gap-16 px-8 pt-20 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--neutral-600)]">
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
@@ -156,7 +159,7 @@ export default function HomePage() {
           <SectionHeader eyebrow={section.eyebrow} title={section.title} />
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {section.items.map((item) => (
-              <div key={item.title} className="rounded-sm bg-[var(--neutral-50)] p-5">
+              <div key={item.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
                 <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-sm bg-white text-[var(--neutral-700)]">
                   {item.icon}
                 </div>
@@ -173,7 +176,7 @@ export default function HomePage() {
         <SectionHeader eyebrow="Product Layers" title="产品分层设计" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {productLayers.map((layer) => (
-            <div key={layer.title} className="rounded-sm bg-[var(--neutral-50)] p-5">
+            <div key={layer.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
               <h3 className="text-lg font-medium leading-[26px] text-[var(--neutral-900)]">{layer.title}</h3>
               <p className="mt-1 text-sm leading-[22px] text-[var(--neutral-600)]">{layer.feature}</p>
               <div className="mt-3 flex flex-wrap gap-2">

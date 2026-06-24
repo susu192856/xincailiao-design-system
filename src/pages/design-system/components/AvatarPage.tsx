@@ -116,7 +116,7 @@ export default function AvatarPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "后台顶栏默认使用 36px 头像，表格和列表中使用 28px，详情页头部可使用 48px。",

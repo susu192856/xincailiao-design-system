@@ -54,7 +54,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center bg-black/30 p-6"
+      className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center bg-black/30 p-6 animate-fade-in"
       onMouseDown={(event) => {
         if (maskClosable && event.target === event.currentTarget) {
           onClose?.();
@@ -62,7 +62,7 @@ export function Modal({
       }}
     >
       <div
-        className={["w-full rounded-[var(--radius-sm)] bg-white", sizeClasses[size]].join(" ")}
+        className={["w-full rounded-[var(--radius-sm)] bg-white animate-scale-in", sizeClasses[size]].join(" ")}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"

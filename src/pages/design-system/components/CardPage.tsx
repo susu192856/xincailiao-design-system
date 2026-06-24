@@ -205,7 +205,7 @@ export default function CardPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "卡片不是页面分区的默认样式，只用于承载独立、可重复或可操作的信息单元。",

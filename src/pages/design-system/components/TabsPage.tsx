@@ -115,7 +115,7 @@ export default function TabsPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "Tabs 内容必须是同级关系，不应用于主流程步骤；流程应使用步骤条或状态流转。",

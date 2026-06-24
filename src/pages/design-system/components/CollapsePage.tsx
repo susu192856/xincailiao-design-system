@@ -135,7 +135,7 @@ export default function CollapsePage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "折叠面板适合收纳次级信息，不应用来隐藏主流程必须填写的关键字段。",

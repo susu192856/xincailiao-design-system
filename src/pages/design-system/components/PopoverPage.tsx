@@ -115,7 +115,7 @@ export default function PopoverPage() {
       </section>
 
       <section>
-        <SectionHeading title="使用建议" eyebrow="Guidelines" />
+        <SectionHeading title="最佳实践" eyebrow="Guidelines" />
         <SpecList
           items={[
             "用于局部补充信息和少量快捷操作，不用于复杂表单、长内容或强确认流程。",

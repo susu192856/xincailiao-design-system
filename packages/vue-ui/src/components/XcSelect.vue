@@ -1,18 +1,24 @@
 <template>
   <label class="xc-select" :class="rootClasses">
-    <span v-if="label" class="xc-select__label" :style="labelStyle">{{ label }}</span>
+    <span v-if="label" class="xc-select__label" :style="labelStyle">
+      {{ label }}<span v-if="required" class="xc-select__required">*</span>
+    </span>
     <span class="xc-select__body">
       <span class="xc-select__control-wrap">
         <select
+          :id="controlId"
           class="xc-select__control"
           :class="selectClasses"
           :value="modelValue"
-          :disabled="disabled"
+          :disabled="disabled || loading"
+          :required="required"
           :name="name"
           :aria-invalid="Boolean(error)"
+          :aria-describedby="messageId"
+          :aria-busy="loading"
           @change="handleChange"
         >
-          <option v-if="placeholder" value="">{{ placeholder }}</option>
+          <option v-if="placeholder" value="" :disabled="required">{{ placeholder }}</option>
           <option
             v-for="option in options"
             :key="option.value"
@@ -22,9 +28,10 @@
             {{ option.label }}
           </option>
         </select>
-        <span class="xc-select__caret" aria-hidden="true" />
+        <span v-if="loading" class="xc-select__spinner" aria-hidden="true" />
+        <span v-else class="xc-select__caret" aria-hidden="true" />
       </span>
-      <span v-if="error || helperText" class="xc-select__message" :class="{ 'xc-select__message--error': error }">
+      <span v-if="error || helperText" :id="messageId" class="xc-select__message" :class="{ 'xc-select__message--error': error }">
         {{ error || helperText }}
       </span>
     </span>
@@ -32,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useId } from "vue";
 
 type SelectSize = "sm" | "md" | "lg";
 type LabelPosition = "top" | "left";
@@ -55,6 +62,8 @@ const props = withDefaults(
     labelPosition?: LabelPosition;
     labelWidth?: number | string;
     disabled?: boolean;
+    loading?: boolean;
+    required?: boolean;
     name?: string;
   }>(),
   {
@@ -63,6 +72,8 @@ const props = withDefaults(
     labelPosition: "top",
     labelWidth: 96,
     disabled: false,
+    loading: false,
+    required: false,
   },
 );
 
@@ -85,9 +96,12 @@ const rootClasses = computed(() => ({
 const labelStyle = computed(() => {
   if (props.labelPosition !== "left") return undefined;
   return {
-    width: typeof props.labelWidth === "number" ? `${props.labelWidth}px` : props.labelWidth,
+    "--select-label-width": typeof props.labelWidth === "number" ? `${props.labelWidth}px` : props.labelWidth,
   };
 });
+const generatedId = useId();
+const controlId = computed(() => props.name || `select-${generatedId}`);
+const messageId = computed(() => (props.error || props.helperText ? `${controlId.value}-message` : undefined));
 
 function handleChange(event: Event) {
   const value = (event.target as HTMLSelectElement).value;
@@ -115,10 +129,16 @@ function handleChange(event: Event) {
   font-weight: 500;
 }
 
+.xc-select__required {
+  margin-left: 4px;
+  color: var(--brand-600);
+}
+
 .xc-select--horizontal .xc-select__label {
   flex-shrink: 0;
   margin-bottom: 0;
   padding-top: 6px;
+  width: var(--select-label-width);
   text-align: right;
 }
 
@@ -136,10 +156,10 @@ function handleChange(event: Event) {
 .xc-select__control {
   width: 100%;
   appearance: none;
-  border: 1px solid var(--neutral-300);
+  border: 1px solid var(--field-border-default);
   border-radius: var(--radius-sm);
   background: #fff;
-  color: var(--neutral-900);
+  color: var(--text-body);
   outline: none;
   transition:
     border-color 0.15s ease,
@@ -147,17 +167,19 @@ function handleChange(event: Event) {
 }
 
 .xc-select__control:hover:not(:disabled) {
-  border-color: var(--neutral-400);
+  border-color: var(--field-border-hover);
 }
 
 .xc-select__control:focus {
-  border-color: var(--neutral-900);
+  border-color: var(--field-border-focus);
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .xc-select__control:disabled {
   cursor: not-allowed;
-  background: var(--neutral-100);
-  color: var(--neutral-400);
+  background: var(--field-bg-disabled);
+  color: var(--text-disabled);
 }
 
 .xc-select__control--error {
@@ -165,19 +187,19 @@ function handleChange(event: Event) {
 }
 
 .xc-select__control--sm {
-  height: 28px;
+  height: var(--control-height-sm);
   padding: 0 32px 0 10px;
   font-size: 14px;
 }
 
 .xc-select__control--md {
-  height: 32px;
+  height: var(--control-height-md);
   padding: 0 36px 0 12px;
   font-size: 14px;
 }
 
 .xc-select__control--lg {
-  height: 36px;
+  height: var(--control-height-lg);
   padding: 0 36px 0 12px;
   font-size: 14px;
 }
@@ -194,12 +216,46 @@ function handleChange(event: Event) {
   transform: translateY(-65%) rotate(45deg);
 }
 
+.xc-select__spinner {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  border: 2px solid var(--neutral-300);
+  border-top-color: var(--text-tertiary);
+  border-radius: 50%;
+  animation: xc-select-spin 0.8s linear infinite;
+}
+
+@keyframes xc-select-spin {
+  to { transform: rotate(360deg); }
+}
+
 .xc-select__message {
   display: block;
   margin-top: 6px;
-  color: var(--neutral-500);
+  color: var(--text-tertiary);
   font-size: 12px;
   line-height: 18px;
+}
+
+@media (max-width: 639px) {
+  .xc-select--horizontal {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .xc-select--horizontal .xc-select__label {
+    width: 100%;
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .xc-select__control {
+    min-height: var(--touch-target-min);
+  }
 }
 
 .xc-select__message--error {

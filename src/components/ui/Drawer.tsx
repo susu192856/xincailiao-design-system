@@ -55,6 +55,7 @@ export function Drawer({
         "border-l border-r",
         sizeClasses[size],
         toneClasses[tone],
+        placement === "left" ? "animate-slide-in-left" : "animate-slide-in-right",
         className || "",
       ].join(" ")}
       role="dialog"
@@ -104,7 +105,7 @@ export function Drawer({
 
   return (
     <div
-      className={["fixed inset-0 z-[var(--z-modal)] flex bg-black/30", justifyClass].join(" ")}
+      className={["fixed inset-0 z-[var(--z-modal)] flex bg-black/30 animate-fade-in", justifyClass].join(" ")}
       onMouseDown={(event) => {
         if (maskClosable && event.target === event.currentTarget) {
           onClose?.();

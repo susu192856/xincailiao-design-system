@@ -91,7 +91,7 @@ export default function TooltipPage() {
       </section>
 
       <section>
-        <SectionHeading title="使用建议" eyebrow="Guidelines" />
+        <SectionHeading title="最佳实践" eyebrow="Guidelines" />
         <SpecList
           items={[
             "只放短文本，不放按钮、链接、表单和多段说明；需要操作时使用 Popover。",

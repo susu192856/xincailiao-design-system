@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   ArrowsLeftRight,
   ArrowsOutLineHorizontal,
+  Calendar,
   CaretDown,
   ChartBar,
   ChatCentered,
@@ -10,6 +11,7 @@ import {
   Circle,
   CirclesFour,
   ClipboardText,
+  CloudArrowUp,
   Cube,
   CursorText,
   Empty,
@@ -79,6 +81,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         { name: "单选框", path: "/components/radio", icon: <CirclesFour size={16} weight="regular" /> },
         { name: "复选框", path: "/components/checkbox", icon: <CheckSquare size={16} weight="regular" /> },
         { name: "开关", path: "/components/switch", icon: <ToggleRight size={16} weight="regular" /> },
+        { name: "日期选择", path: "/components/datepicker", icon: <Calendar size={16} weight="regular" /> },
       ],
     },
     {
@@ -92,7 +95,9 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         { name: "头像", path: "/components/avatar", icon: <UserCircle size={16} weight="regular" /> },
         { name: "徽标数", path: "/components/badge", icon: <Seal size={16} weight="regular" /> },
         { name: "图片", path: "/components/image", icon: <ImageSquare size={16} weight="regular" /> },
+        { name: "图表", path: "/components/chart", icon: <ChartBar size={16} weight="regular" /> },
         { name: "空状态", path: "/components/empty", icon: <Empty size={16} weight="regular" /> },
+        { name: "文件上传", path: "/components/upload", icon: <CloudArrowUp size={16} weight="regular" /> },
       ],
     },
     {
@@ -119,8 +124,8 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
   ];
 
   return (
-    <aside className={["h-screen w-64 overflow-y-auto border-r border-[var(--neutral-200)] bg-[var(--neutral-50)]", className].join(" ")}>
-      <div className="border-b border-[var(--neutral-200)] p-5">
+    <aside className={["h-screen w-64 overflow-y-auto border-r border-[var(--neutral-200)] bg-white/92 backdrop-blur", className].join(" ")}>
+      <div className="border-b border-[var(--neutral-200)] bg-white p-5">
         <Link to="/" className="flex items-center gap-3 text-[var(--neutral-900)] hover:text-[var(--brand-600)] transition-colors">
           <img src={xincailiaoLogo} alt="新材道" className="h-7 w-auto object-contain" />
           <span className="text-base font-semibold leading-tight">新材道设计规范</span>
@@ -129,9 +134,9 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
 
       <nav className="p-4">
         {menuData.map((section) => (
-          <div key={section.title} className="mb-5">
+          <div key={section.title} className="mb-6">
             {section.title ? (
-              <h2 className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-[var(--text-tertiary)]">
+              <h2 className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
                 {section.title}
               </h2>
             ) : null}
@@ -144,11 +149,11 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
                       to={item.path}
                       onClick={onNavigate}
                       className={`
-                        flex min-h-9 items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2 text-sm transition-colors
+                        flex min-h-9 items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2 text-sm transition-all
                         ${
                           isActive
                             ? "bg-[var(--neutral-900)] !text-white [&_svg]:!text-white"
-                            : "text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]"
+                            : "text-[var(--neutral-700)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]"
                         }
                       `}
                     >

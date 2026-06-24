@@ -254,7 +254,7 @@ export default function TagPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "先判断是「分类标签」还是「状态标签」——两者选色逻辑完全不同。分类用 brand/product/teal 等 7 种，状态用 success/warning/error/info 4 种。",

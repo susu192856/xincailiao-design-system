@@ -1,5 +1,5 @@
 import DocsTable from "../../components/docs/DocsTable";
-import { SectionHeading } from "../../components/docs/ComponentDoc";
+import { SectionHeading, SpecList } from "../../components/docs/ComponentDoc";
 import PageHeader from "../../components/docs/PageHeader";
 
 const radiusTokens = [
@@ -117,16 +117,16 @@ export default function RadiusPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-          <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
-            <li>• 交互控件（按钮、输入框、选择器、标签）统一使用 <strong>radius-sm (2px)</strong>，保持工业数据产品的精确感。</li>
-            <li>• 后台容器层（卡片、弹窗、抽屉内容区）优先使用 <strong>radius-md (4px)</strong>，避免大圆角削弱系统秩序。</li>
-            <li>• radius-xl (12px) 和 radius-2xl (16px) 仅限官网营销展示场景，后台慎用。</li>
-            <li>• 同一组件类型应保持圆角一致，避免在相同层级中混用多个圆角等级。</li>
-            <li>• radius-full 仅用于胶囊标签、头像、圆形按钮等明确形态。</li>
-          </ul>
-        </div>
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
+        <SpecList
+          items={[
+            "交互控件（按钮、输入框、选择器、标签）统一使用 radius-sm (2px)，保持工业数据产品的精确感。",
+            "后台容器层（卡片、弹窗、抽屉内容区）优先使用 radius-md (4px)，避免大圆角削弱系统秩序。",
+            "radius-xl (12px) 和 radius-2xl (16px) 仅限官网营销展示场景，后台慎用。",
+            "同一组件类型应保持圆角一致，避免在相同层级中混用多个圆角等级。",
+            "radius-full 仅用于胶囊标签、头像、圆形按钮等明确形态。",
+          ]}
+        />
       </section>
     </div>
   );

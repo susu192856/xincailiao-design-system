@@ -69,18 +69,27 @@
 | `--info-bg` | `#EFF6FF` | 信息背景 |
 | `--info-tag` | `#EFF6FF` | 信息标签 |
 | `--info-border` | `#BFDBFE` |  |
-| `--data-01` | `#006DEA` | 主数据序列 |
-| `--data-02` | `#14B8A6` | 对比序列 |
-| `--data-03` | `#8B5CF6` | 模型/算法 |
-| `--data-04` | `#F59E0B` | 警戒/阈值 |
-| `--data-05` | `#10B981` | 增长/完成 |
-| `--data-06` | `#EF4444` | 风险/异常 |
-| `--data-07` | `#64748B` | 基准/其他 |
-| `--data-08` | `#0EA5E9` | 辅助蓝 |
-| `--data-09` | `#A855F7` | 辅助紫 |
-| `--data-10` | `#84CC16` | 正向辅助 |
-| `--data-11` | `#F97316` | 热度/阶段 |
-| `--data-12` | `#475569` | 低强调序列 |
+| `--success-solid` | `#059669` |  |
+| `--success-solid-hover` | `#047857` |  |
+| `--success-solid-active` | `#065F46` |  |
+| `--warning-solid` | `#D97706` |  |
+| `--warning-solid-hover` | `#B45309` |  |
+| `--warning-solid-active` | `#92400E` |  |
+| `--error-solid` | `#DC2626` |  |
+| `--error-solid-hover` | `#B91C1C` |  |
+| `--error-solid-active` | `#991B1B` |  |
+| `--data-01` | `#006DEA` | 核心分类蓝 |
+| `--data-02` | `#00A884` | 核心分类青绿 |
+| `--data-03` | `#7457F5` | 核心分类紫 |
+| `--data-04` | `#E68A00` | 核心分类琥珀 |
+| `--data-05` | `#D83A6F` | 核心分类洋红 |
+| `--data-06` | `#00A0C6` | 核心分类青蓝 |
+| `--data-07` | `#6B7280` | 扩展分类灰 |
+| `--data-08` | `#C44F29` | 扩展分类朱红 |
+| `--data-09` | `#8A3FFC` | 扩展分类深紫 |
+| `--data-10` | `#5A8F29` | 扩展分类草绿 |
+| `--data-11` | `#B65C00` | 扩展分类深橙 |
+| `--data-12` | `#3F5E8C` | 扩展分类钢蓝 |
 | `--category-teal-text` | `#0F766E` |  |
 | `--category-teal-bg` | `#F0FDFA` |  |
 | `--category-teal-border` | `#99F6E4` |  |
@@ -231,29 +240,47 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#BFDBFE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-border` = #BFDBFE
 
+<span style="display:inline-block;width:16px;height:16px;background:#059669;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-solid` = #059669
+
+<span style="display:inline-block;width:16px;height:16px;background:#047857;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-solid-hover` = #047857
+
+<span style="display:inline-block;width:16px;height:16px;background:#065F46;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-solid-active` = #065F46
+
+<span style="display:inline-block;width:16px;height:16px;background:#D97706;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-solid` = #D97706
+
+<span style="display:inline-block;width:16px;height:16px;background:#B45309;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-solid-hover` = #B45309
+
+<span style="display:inline-block;width:16px;height:16px;background:#92400E;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-solid-active` = #92400E
+
+<span style="display:inline-block;width:16px;height:16px;background:#DC2626;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-solid` = #DC2626
+
+<span style="display:inline-block;width:16px;height:16px;background:#B91C1C;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-solid-hover` = #B91C1C
+
+<span style="display:inline-block;width:16px;height:16px;background:#991B1B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-solid-active` = #991B1B
+
 <span style="display:inline-block;width:16px;height:16px;background:#006DEA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-01` = #006DEA
 
-<span style="display:inline-block;width:16px;height:16px;background:#14B8A6;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-02` = #14B8A6
+<span style="display:inline-block;width:16px;height:16px;background:#00A884;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-02` = #00A884
 
-<span style="display:inline-block;width:16px;height:16px;background:#8B5CF6;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-03` = #8B5CF6
+<span style="display:inline-block;width:16px;height:16px;background:#7457F5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-03` = #7457F5
 
-<span style="display:inline-block;width:16px;height:16px;background:#F59E0B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-04` = #F59E0B
+<span style="display:inline-block;width:16px;height:16px;background:#E68A00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-04` = #E68A00
 
-<span style="display:inline-block;width:16px;height:16px;background:#10B981;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-05` = #10B981
+<span style="display:inline-block;width:16px;height:16px;background:#D83A6F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-05` = #D83A6F
 
-<span style="display:inline-block;width:16px;height:16px;background:#EF4444;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-06` = #EF4444
+<span style="display:inline-block;width:16px;height:16px;background:#00A0C6;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-06` = #00A0C6
 
-<span style="display:inline-block;width:16px;height:16px;background:#64748B;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-07` = #64748B
+<span style="display:inline-block;width:16px;height:16px;background:#6B7280;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-07` = #6B7280
 
-<span style="display:inline-block;width:16px;height:16px;background:#0EA5E9;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-08` = #0EA5E9
+<span style="display:inline-block;width:16px;height:16px;background:#C44F29;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-08` = #C44F29
 
-<span style="display:inline-block;width:16px;height:16px;background:#A855F7;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-09` = #A855F7
+<span style="display:inline-block;width:16px;height:16px;background:#8A3FFC;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-09` = #8A3FFC
 
-<span style="display:inline-block;width:16px;height:16px;background:#84CC16;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-10` = #84CC16
+<span style="display:inline-block;width:16px;height:16px;background:#5A8F29;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-10` = #5A8F29
 
-<span style="display:inline-block;width:16px;height:16px;background:#F97316;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-11` = #F97316
+<span style="display:inline-block;width:16px;height:16px;background:#B65C00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-11` = #B65C00
 
-<span style="display:inline-block;width:16px;height:16px;background:#475569;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-12` = #475569
+<span style="display:inline-block;width:16px;height:16px;background:#3F5E8C;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-12` = #3F5E8C
 
 <span style="display:inline-block;width:16px;height:16px;background:#0F766E;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-teal-text` = #0F766E
 

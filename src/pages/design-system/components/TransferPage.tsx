@@ -86,7 +86,7 @@ export default function TransferPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "穿梭框只用于集合迁移，不用于普通多选；少量选项优先用 CheckboxGroup。",

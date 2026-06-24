@@ -90,7 +90,7 @@ export default function PaginationPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "分页通常放在表格或列表底部右侧，保持操作位置稳定。",

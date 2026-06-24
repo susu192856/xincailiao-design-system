@@ -117,7 +117,7 @@ export default function BadgePage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "徽标数只表达数量或轻量提醒，不替代标签、Toast、Alert 或 Modal。",

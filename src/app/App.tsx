@@ -3,10 +3,12 @@ import DocsLayout from "../components/docs/DocsLayout";
 import ColorsPage from "../pages/design-system/ColorsPage";
 import ButtonPage from "../pages/design-system/components/ButtonPage";
 import CardPage from "../pages/design-system/components/CardPage";
+import ChartPage from "../pages/design-system/components/ChartPage";
 import AvatarPage from "../pages/design-system/components/AvatarPage";
 import BadgePage from "../pages/design-system/components/BadgePage";
 import BreadcrumbPage from "../pages/design-system/components/BreadcrumbPage";
 import CollapsePage from "../pages/design-system/components/CollapsePage";
+import DatePickerPage from "../pages/design-system/components/DatePickerPage";
 import DescriptionListPage from "../pages/design-system/components/DescriptionListPage";
 import DrawerPage from "../pages/design-system/components/DrawerPage";
 import EmptyPage from "../pages/design-system/components/EmptyPage";
@@ -28,6 +30,7 @@ import ToastPage from "../pages/design-system/components/ToastPage";
 import TooltipPage from "../pages/design-system/components/TooltipPage";
 import TransferPage from "../pages/design-system/components/TransferPage";
 import TreePage from "../pages/design-system/components/TreePage";
+import UploadPage from "../pages/design-system/components/UploadPage";
 
 import TagPage from "../pages/design-system/components/TagPage";
 import HomePage from "../pages/design-system/HomePage";
@@ -99,6 +102,9 @@ export default function App() {
       <Route path="/components/card" element={<DocsLayout />}>
         <Route index element={<CardPage />} />
       </Route>
+      <Route path="/components/chart" element={<DocsLayout />}>
+        <Route index element={<ChartPage />} />
+      </Route>
       <Route path="/components/modal" element={<DocsLayout />}>
         <Route index element={<ModalPage />} />
       </Route>
@@ -143,6 +149,12 @@ export default function App() {
       </Route>
       <Route path="/components/textarea" element={<DocsLayout />}>
         <Route index element={<TextareaPage />} />
+      </Route>
+      <Route path="/components/datepicker" element={<DocsLayout />}>
+        <Route index element={<DatePickerPage />} />
+      </Route>
+      <Route path="/components/upload" element={<DocsLayout />}>
+        <Route index element={<UploadPage />} />
       </Route>
       <Route path="/components/toast" element={<DocsLayout />}>
         <Route index element={<ToastPage />} />

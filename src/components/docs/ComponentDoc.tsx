@@ -12,17 +12,17 @@ export function SectionHeading({
   return (
     <div className="mb-8">
       <div className="mb-4">
-        <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+        <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
           {eyebrow}
         </div>
         <div className="flex items-center gap-3">
-          <span className="h-5 w-0.5 shrink-0 bg-[var(--docs-accent)]" aria-hidden="true" />
-          <h2 className="text-lg font-semibold leading-6 text-[var(--neutral-900)]">{title}</h2>
-          <div className="hidden h-px flex-1 bg-[var(--neutral-200)] md:block" />
+          <span className="h-6 w-1 shrink-0 rounded-full bg-[var(--docs-accent)]" aria-hidden="true" />
+          <h2 className="text-xl font-semibold leading-7 text-[var(--neutral-900)]">{title}</h2>
+          <div className="hidden h-px flex-1 bg-gradient-to-r from-[var(--neutral-300)] to-transparent md:block" />
         </div>
       </div>
       {description ? (
-        <p className="max-w-[700px] text-sm leading-6 text-[var(--text-secondary)]">{description}</p>
+        <p className="max-w-[760px] text-sm leading-7 text-[var(--text-secondary)]">{description}</p>
       ) : null}
     </div>
   );
@@ -46,7 +46,7 @@ export function ExampleCard({
   }[tone];
 
   return (
-    <div className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass].join(" ")}>
+    <div className={["rounded-[var(--radius-md)] border bg-white p-5 md:p-6", toneClass].join(" ")}>
       <div className="mb-5">
         <div className="flex items-center gap-2">
           <h3 className="text-base font-semibold text-[var(--neutral-900)]">{title}</h3>
@@ -74,7 +74,7 @@ export function ContractGrid({
   items: { label: string; value: ReactNode }[];
 }) {
   return (
-    <dl className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white md:grid-cols-2">
+    <dl className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white md:grid-cols-2">
       {items.map((item) => (
         <div key={item.label} className="border-b border-[var(--neutral-200)] p-4 last:border-b-0 md:[&:nth-last-child(-n+2)]:border-b-0 md:[&:nth-child(odd)]:border-r">
           <dt className="text-xs font-medium text-[var(--text-tertiary)]">{item.label}</dt>
@@ -101,7 +101,7 @@ export function RuleCallout({
   }[tone];
 
   return (
-    <aside className={["rounded-[var(--radius-sm)] border p-4", toneClass].join(" ")}>
+    <aside className={["rounded-[var(--radius-md)] border p-4", toneClass].join(" ")}>
       <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{title}</h3>
       <div className="mt-2 text-sm leading-6 text-[var(--neutral-700)]">{children}</div>
     </aside>
@@ -112,7 +112,7 @@ export function SpecList({ items }: { items: string[] }) {
   return (
     <div className="space-y-1.5">
       {items.map((item, index) => (
-        <div key={item} className="flex items-start gap-3 rounded-sm bg-white px-4 py-2.5">
+        <div key={item} className="flex items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-100)] bg-white px-4 py-2.5">
           <span className="mt-0.5 shrink-0 font-mono text-xs font-medium text-[var(--text-tertiary)]">
             {String(index + 1).padStart(2, "0")}
           </span>

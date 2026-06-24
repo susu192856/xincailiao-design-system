@@ -19,11 +19,13 @@
 
 - Button 触发动作；Link 负责导航。
 - Input 单行，Textarea 多行，Select 从既有选项选择。
+- Textarea 的 sm/md/lg 最小高度为 80/96/120px；帮助或错误信息必须与控件关联，字数限制使用 maxLength + showCount。
 - Radio 用于少量互斥选择，Checkbox 用于多选，Switch 用于即时生效。
 - 需要提交后才生效的二元字段使用 Radio/Checkbox，不使用 Switch。
 
 ## 边界
 
-- Select 当前支持原生单选/多选；不假装拥有搜索式复合选择器能力。
+- Select 当前稳定合同只支持原生单选；搜索、远程选项与多选标签属于后续复合选择器。
+- Select 左置标签在小于 640px 时回退为上置，移动端控件触控高度至少 44px。
 - 纯图标按钮必须有可访问名称和 Tooltip。
 - 每个独立操作区域最多一个 solid 主操作。

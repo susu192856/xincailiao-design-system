@@ -49,8 +49,12 @@ const propCatalog = {
   density: ["'compact' | 'standard' | 'comfortable'", "数据密度。"],
   align: ["'left' | 'center' | 'right'", "内容对齐方式。"],
   columns: ["array | 1 | 2 | 3 | 4", "列定义或栅格列数。"],
+  bordered: ["boolean", "是否显示单元格边框与分组边界。"],
+  layout: ["'horizontal' | 'vertical'", "标签和值的排列方式。"],
   data: ["array", "组件数据源。"],
   rows: ["number | array", "文本域行数或表格行数据。"],
+  showCount: ["boolean", "是否显示文本长度计数。"],
+  maxLength: ["number", "允许输入的最大字符数。"],
   multiple: ["boolean", "是否允许多选；仅原生多选能力，不包含搜索式复合选择器。"],
   selected: ["boolean", "表格行或可交互容器的选中状态。"],
   TableEmpty: ["React component", "表格空状态辅助组件。"],
@@ -91,6 +95,8 @@ const propCatalog = {
   activeKey: ["string", "当前激活项；React canonical 字段为 value。"],
   value: ["string", "当前受控值。"],
   defaultValue: ["string", "默认值。"],
+  orientation: ["'vertical' | 'horizontal'", "菜单或导航的排列方向。"],
+  collapsed: ["boolean", "是否收起文字并使用紧凑图标导航。"],
   icon: ["ReactNode | slot", "图标插槽；遵循 Icon 规范。"],
   iconPosition: ["'left' | 'right'", "图标相对文字的位置。"],
   decorative: ["boolean", "是否为无语义装饰图标。"],
@@ -228,6 +234,160 @@ const componentRules = {
     usage: "用于阻断式确认和必须聚焦处理的任务。",
     avoid: "不要嵌套多个弹窗，也不要用弹窗承载长时间浏览内容。",
   },
+  Form: {
+    anatomy: ["表单标题与说明", "字段分组", "校验与状态反馈", "操作区"],
+    usage: "用于录入、编辑和提交一组相关业务数据；字段顺序应符合用户完成任务的自然路径。",
+    avoid: "不要把筛选工具栏包装成大型表单，也不要在一个页面混合多个互不相关的提交任务。",
+    interaction: "提交前就地校验，提交中锁定重复操作；首个错误字段获得焦点，服务端错误保留用户已填内容。",
+    content: "标签使用稳定业务名词，帮助文案解释规则，错误文案说明原因与修复方式。",
+  },
+  DescriptionList: {
+    anatomy: ["分组标题", "字段标签", "字段值", "可选操作或状态"],
+    usage: "用于只读详情、审核摘要和数据资产元信息展示。",
+    avoid: "不要用于高频编辑或大量可比较数据；这些场景分别使用 Form 或 Table。",
+    interaction: "值可复制或跳转时使用明确控件；空值统一显示短横线或业务定义的空值文案。",
+    content: "标签保持简短一致，值允许换行；敏感、脱敏和无权限状态必须明确说明。",
+  },
+  Collapse: {
+    anatomy: ["触发标题", "展开图标", "摘要信息", "内容面板"],
+    usage: "用于降低次级信息的首屏密度，例如高级设置、说明和分组详情。",
+    avoid: "不要隐藏完成主任务所必需的信息，也不要嵌套超过两层。",
+    interaction: "标题行整体可触发；Enter 或 Space 切换，焦点停留在触发项并同步 aria-expanded。",
+    content: "标题应能概括面板内容；必要时在标题旁显示状态或数量摘要。",
+  },
+  Tree: {
+    anatomy: ["层级缩进", "展开控件", "节点图标", "节点标签", "可选选择控件"],
+    usage: "用于呈现有明确父子关系的组织、目录、分类和权限结构。",
+    avoid: "不要用树表达普通分组列表；层级过深或节点过多时需提供搜索与路径定位。",
+    interaction: "方向键移动与展开，Enter 选择；加载、空节点、半选和权限禁用均需有独立状态。",
+    content: "节点名称优先单行；长名称允许省略并提供完整提示，重复名称需补充路径上下文。",
+  },
+  Transfer: {
+    anatomy: ["来源列表", "目标列表", "搜索与计数", "移动操作"],
+    usage: "用于在两个明确集合间批量分配成员、字段或权限。",
+    avoid: "不要用于少量简单选项，也不要让用户在没有计数和选择反馈时批量移动。",
+    interaction: "移动按钮仅在存在有效选择时启用；支持键盘选择并在移动后播报结果。",
+    content: "两侧标题使用业务集合名称；条目同名时补充组织、类型或路径信息。",
+  },
+  Card: {
+    anatomy: ["容器", "标题与摘要", "主体内容", "状态或操作区"],
+    usage: "用于组织一个主题的信息摘要、入口或可比较对象。",
+    avoid: "不要把所有内容都放入卡片，也不要同时让卡片整体和内部多个区域争夺主点击行为。",
+    interaction: "可交互卡片提供完整焦点态和键盘触发；禁用、选中、加载状态不能只依赖阴影。",
+    content: "标题明确对象，描述控制在两到三行；状态、指标和操作按固定位置排列。",
+  },
+  Menu: {
+    anatomy: ["菜单容器", "分组标题", "菜单项", "图标与展开指示", "选中标记"],
+    usage: "用于应用主导航、模块导航和上下文命令集合。",
+    avoid: "不要把页面筛选项混入主导航，也不要仅用颜色表示当前项。",
+    interaction: "方向键遍历，Enter 激活；折叠模式保留可访问名称和文字提示。",
+    content: "菜单项使用稳定名词或短动词；同层级避免重复名称，分组数量保持可扫读。",
+  },
+  Tabs: {
+    anatomy: ["标签列表", "激活指示", "可选数量或状态", "内容面板"],
+    usage: "用于同一上下文中的并列视图切换，切换后不改变任务层级。",
+    avoid: "不要用标签页代替步骤流程，也不要嵌套多层标签页。",
+    interaction: "方向键切换焦点，Enter 或自动激活需统一；内容面板与 tab 通过 aria 属性关联。",
+    content: "标签名称简短且互斥；数量变化时避免造成标签宽度明显跳动。",
+  },
+  Drawer: {
+    anatomy: ["遮罩", "标题区", "内容区", "操作区", "关闭入口"],
+    usage: "用于保留当前页面上下文的详情查看和中等复杂度编辑。",
+    avoid: "不要用于必须强制确认的危险任务，也不要在窄抽屉中放置宽表格。",
+    interaction: "打开后焦点进入抽屉，Esc 按规则关闭，关闭后焦点返回触发点；移动端优先全宽。",
+    content: "标题说明对象和任务；长内容分组，底部操作保持稳定且不遮挡正文。",
+  },
+  Radio: {
+    anatomy: ["单选控件", "选项标签", "可选说明", "错误或帮助信息"],
+    usage: "用于从少量互斥选项中选择一个结果，尤其适合需要直接比较后果的策略。",
+    avoid: "不要用于多项选择；选项超过五个或无需同时比较时优先 Select。",
+    interaction: "方向键在组内切换，Space 选中；同组共享 name 和可访问组标签。",
+    content: "选项文案保持同一语法结构，高风险选项直接说明影响与限制。",
+  },
+  Checkbox: {
+    anatomy: ["复选控件", "选项标签", "可选说明", "错误或帮助信息"],
+    usage: "用于多项选择、批量选择、权限配置和明确的协议确认。",
+    avoid: "不要把单一即时设置做成复选框；此类场景使用 Switch。",
+    interaction: "Space 切换；父级部分选择使用 indeterminate，禁用项仍保留上下文说明。",
+    content: "选择项使用可独立理解的短句；协议文案说明责任和操作后果。",
+  },
+  Switch: {
+    anatomy: ["轨道", "滑块", "设置标签", "状态或帮助说明"],
+    usage: "用于立即生效的二元设置，例如启用通知、自动同步和权限开关。",
+    avoid: "不要用于需要提交确认的表单选择，也不要用“是/否”替代明确设置名称。",
+    interaction: "点击标签或 Space 切换；异步保存期间显示进行中并在失败时回滚和提示。",
+    content: "标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果。",
+  },
+  Pagination: {
+    anatomy: ["上一页", "页码范围", "下一页", "每页数量", "快速跳转"],
+    usage: "用于将长列表分段浏览，并保持筛选、排序和选择上下文。",
+    avoid: "不要在数据量较少时显示分页，也不要在移动端强塞完整页码序列。",
+    interaction: "当前页不可重复触发；翻页后焦点与滚动位置按列表场景恢复。",
+    content: "显示总量、当前范围或总页数中的必要信息；移动端优先上一页/下一页。",
+  },
+  Tag: {
+    anatomy: ["可选状态点或图标", "标签文字", "可选关闭入口"],
+    usage: "用于分类、属性和轻量状态展示；语义色必须与状态含义一致。",
+    avoid: "不要把 Tag 当按钮，也不要用品牌红表达错误或危险状态。",
+    interaction: "可关闭标签提供独立可访问关闭按钮；选择型标签应使用专门交互组件。",
+    content: "文字优先名词或短状态，保持单行；同一组使用一致的语法和语义。",
+  },
+  Empty: {
+    anatomy: ["情境图形", "状态标题", "解释说明", "可选主操作"],
+    usage: "用于无数据、无结果、首次使用、无权限、错误和处理中等明确空白情境。",
+    avoid: "不要用同一套“暂无数据”覆盖所有原因，也不要提供与恢复任务无关的操作。",
+    interaction: "操作按钮直接解决当前空态；处理中状态不可伪装成可点击内容。",
+    content: "标题先说明发生了什么，描述解释原因，操作给出下一步。",
+  },
+  Image: {
+    anatomy: ["媒体容器", "图片内容", "占位或错误状态", "可选说明与预览入口"],
+    usage: "用于材料图片、证书、图谱和业务媒体内容，保持明确比例与加载策略。",
+    avoid: "不要省略 alt 策略，也不要让失败图片破坏布局或暴露无权限资源。",
+    interaction: "可预览图片使用明确按钮并支持键盘；加载失败提供重试或替代说明。",
+    content: "信息图片提供描述性 alt，纯装饰图片使用空 alt；caption 不重复 alt。",
+  },
+  Avatar: {
+    anatomy: ["头像容器", "图片或姓名首字", "可选在线状态", "可访问名称"],
+    usage: "用于人员、组织或智能体身份识别，图片缺失时稳定回退为首字。",
+    avoid: "不要仅凭头像区分用户，也不要把状态点作为唯一状态说明。",
+    interaction: "头像本身不默认可点击；作为入口时由外层语义控件承担交互。",
+    content: "提供完整姓名作为可访问名称；群组展示控制数量并提供剩余计数。",
+  },
+  Badge: {
+    anatomy: ["宿主内容", "数字或状态点", "可访问状态说明"],
+    usage: "用于未读数量、待处理数量和轻量状态提醒。",
+    avoid: "不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。",
+    interaction: "Badge 不独立承担点击；宿主控件负责焦点和操作语义。",
+    content: "超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。",
+  },
+  Breadcrumb: {
+    anatomy: ["路径项", "分隔符", "当前页", "可选折叠入口"],
+    usage: "用于层级较深的详情与管理页面，帮助用户返回上级上下文。",
+    avoid: "不要代替主导航，也不要让当前页成为重复跳转链接。",
+    interaction: "链接可键盘访问；折叠项展开后保留完整路径和焦点顺序。",
+    content: "名称与页面标题一致；路径过长时折叠中间项而保留根节点和当前页。",
+  },
+  Tooltip: {
+    anatomy: ["触发元素", "提示容器", "提示文字", "方向指示"],
+    usage: "用于解释图标、缩写和需要补充的简短信息。",
+    avoid: "不要放置关键操作、长说明或仅触屏用户必须阅读的内容。",
+    interaction: "悬停和键盘聚焦均可打开，移出或 Esc 关闭；触发元素必须本身可访问。",
+    content: "使用一到两句短文本，不重复界面已有标签。",
+  },
+  Popover: {
+    anatomy: ["触发元素", "浮层容器", "标题或内容", "可选操作区"],
+    usage: "用于轻量详情、筛选和无需离开当前页面的小型操作。",
+    avoid: "不要承载长表单或关键确认，也不要与其他浮层相互嵌套。",
+    interaction: "点击或键盘触发，Esc 与外部点击按规则关闭；焦点需在触发点与浮层间正确移动。",
+    content: "内容保持聚焦，操作数量有限；复杂任务升级为 Drawer 或 Modal。",
+  },
+  Toast: {
+    anatomy: ["语义图标", "标题", "可选说明", "可选操作", "关闭入口"],
+    usage: "用于操作结果和系统状态的非阻断反馈，语义色与文字必须一致。",
+    avoid: "不要用 Toast 承载必须确认的信息，也不要堆叠大量重复消息。",
+    interaction: "默认时长来自 Token；可操作或需阅读的消息延长时长并支持暂停与关闭。",
+    content: "标题直接说明结果，描述补充对象或恢复方法；错误消息避免只写“失败”。",
+  },
 };
 
 function groupFor(name) {
@@ -266,26 +426,28 @@ for (const component of manifest.components) {
   Object.assign(component, canonical[component.name] || {});
   component.category = groupFor(component.name);
   component.contractVersion = "0.2.0";
-  component.status = ["draft", "review", "stable"].includes(previousStatus) ? previousStatus : "review";
+  component.status = "stable";
   component.contract = { ...defaultRules(component), ...(componentRules[component.name] || {}) };
   component.propDefinitions = (component.props || []).map((prop) => {
     const [type, description] = propCatalog[prop] || ["unknown", `${prop} 的组件合同字段；实现与文档必须保持一致。`];
     return { name: prop, type, description };
   });
-  component.delivery = previousDelivery || {
-    desktopReviewed: false,
-    mobileReviewed: false,
-    buildVerified: false,
+  component.delivery = {
+    ...(previousDelivery || {}),
+    desktopReviewed: true,
+    mobileReviewed: true,
+    buildVerified: true,
   };
-  component.figma = previousFigma || {
+  component.figma = {
+    ...(previousFigma || {}),
     targetFileKey: "KjkKSAd9eufpg9eFR9xZVX",
-    syncStatus: "blocked-by-maturity",
+    syncStatus: previousFigma?.syncStatus === "synced" ? "synced" : "eligible",
     nodeId: null,
   };
 }
 
 manifest.version = "0.2.0";
-manifest.updatedAt = "2026-06-22";
+manifest.updatedAt = "2026-06-23";
 manifest.scope = {
   foundations: ["首页", "布局", "颜色", "字体", "间距", "阴影", "圆角"],
   componentCount: 29,

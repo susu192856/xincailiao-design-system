@@ -104,9 +104,6 @@ function WebsiteFooter() {
   );
 }
 
-function WebsiteCanvasLabel() { return null; }
-function BackendCanvasLabel(_props?: { compact?: boolean }) { return null; }
-
 function WebsiteBanner({ variant = "home" }: { variant?: "home" | "portal" | "product" }) {
   if (variant === "home") {
     return (
@@ -196,7 +193,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "website-home") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <WebsiteCanvasLabel />
         <WebsiteHeader productName="新材道官网" />
         <WebsiteBanner />
         <div className="bg-white px-5 py-3">
@@ -224,7 +220,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "portal-home") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <WebsiteCanvasLabel />
         <WebsiteHeader portal productName="可信数据空间" />
         <WebsiteBanner variant="portal" />
         <div className="min-h-36 py-3">
@@ -254,7 +249,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "website-product") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-white">
-        <WebsiteCanvasLabel />
         <WebsiteHeader productName="新材道官网" />
         <WebsiteBanner variant="product" />
         <WebsiteContentFrame className="space-y-3 py-3">
@@ -271,7 +265,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "website-section") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <WebsiteCanvasLabel />
         <WebsiteHeader productName="材料数据服务门户" />
         <Breadcrumb />
         <WebsiteContentFrame className="space-y-2 py-3">
@@ -296,7 +289,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "website-detail") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <WebsiteCanvasLabel />
         <WebsiteHeader productName="新材道官网" />
         <Breadcrumb detail />
         <WebsiteContentFrame className="py-3">
@@ -321,7 +313,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "backend-dashboard") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <BackendCanvasLabel compact={false} />
         <BackendTopbar />
         <div className="flex min-h-[320px]">
           <ExpandedSideMenu />
@@ -347,7 +338,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "backend-list") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <BackendCanvasLabel />
         <BackendTopbar />
         <div className="flex min-h-[320px]">
           <ExpandedSideMenu />
@@ -376,7 +366,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "backend-detail") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <BackendCanvasLabel />
         <BackendTopbar />
         <div className="flex min-h-[320px]">
           <ExpandedSideMenu />
@@ -411,7 +400,6 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
   if (kind === "backend-collapsed") {
     return (
       <div className="overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-50)]">
-        <BackendCanvasLabel compact />
         <BackendTopbar />
         <div className="flex min-h-[320px]">
           <CompactSideMenu />

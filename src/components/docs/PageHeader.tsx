@@ -30,10 +30,13 @@ export default function PageHeader({
   }[resolvedStatus];
 
   return (
-    <header className="mb-10 border-b border-[var(--neutral-200)] pb-7">
-      <div className="min-w-0">
+    <header className="docs-surface relative mb-12 overflow-hidden rounded-[var(--radius-lg)] px-6 py-7 md:px-8 md:py-8">
+      <div className="pointer-events-none absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-[var(--brand-500)]/10 blur-2xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute bottom-0 right-24 h-20 w-20 translate-y-10 rounded-full bg-[var(--product-blue-500)]/10 blur-2xl" aria-hidden="true" />
+      <div className="relative min-w-0">
+        <div className="mb-3 h-1 w-10 rounded-full bg-[var(--docs-accent)]" aria-hidden="true" />
         <div className="flex flex-wrap items-center gap-2">
-          <h1 className="mr-1 text-[2rem] font-semibold leading-[1.25] tracking-tight text-[var(--neutral-900)]">{title}</h1>
+          <h1 className="mr-1 text-[2.125rem] font-semibold leading-[1.16] tracking-[-0.035em] text-[var(--neutral-900)] md:text-[2.5rem]">{title}</h1>
           <span className="rounded-[var(--radius-sm)] border border-[var(--docs-border)] bg-[var(--neutral-50)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-tertiary)]">
             {version}
           </span>
@@ -42,7 +45,7 @@ export default function PageHeader({
           </span>
         </div>
         {description ? (
-          <p className="mt-3 max-w-[var(--content-reading-width)] text-base leading-7 text-[var(--text-secondary)]">
+          <p className="mt-4 max-w-[var(--content-reading-width)] text-base leading-8 text-[var(--text-primary)]">
             {description}
           </p>
         ) : null}

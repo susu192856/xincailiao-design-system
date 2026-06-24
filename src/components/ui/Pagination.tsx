@@ -101,7 +101,7 @@ export function Pagination({
                 "rounded-[var(--radius-sm)] px-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:opacity-40",
                 buttonSize,
                 pageNumber === page
-                  ? "bg-[var(--neutral-900)] text-white"
+                  ? "bg-[var(--neutral-100)] text-[var(--neutral-900)] font-medium"
                   : "text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]",
               ].join(" ")}
             >

@@ -27,15 +27,15 @@ export default function DocsToc() {
   if (items.length < 2) return null;
 
   return (
-    <aside className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-44 shrink-0 overflow-y-auto 2xl:block">
-      <div className="mb-3 text-xs font-semibold text-[var(--text-secondary)]">本页目录</div>
+    <aside className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-48 shrink-0 overflow-y-auto rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white/86 p-4 backdrop-blur 2xl:block">
+      <div className="mb-3 text-xs font-semibold text-[var(--neutral-800)]">本页目录</div>
       <nav aria-label="本页目录">
         <ol className="space-y-1 border-l border-[var(--neutral-200)]">
           {items.map((item) => (
             <li key={item.id}>
               <a
                 href={`#${item.id}`}
-                className="-ml-px block border-l border-transparent py-1.5 pl-3 text-xs leading-5 text-[var(--text-tertiary)] transition-colors hover:border-[var(--neutral-900)] hover:text-[var(--neutral-900)]"
+                className="-ml-px block border-l border-transparent py-1.5 pl-3 text-xs leading-5 text-[var(--text-secondary)] transition-colors hover:border-[var(--neutral-900)] hover:text-[var(--neutral-900)]"
               >
                 {item.label}
               </a>

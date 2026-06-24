@@ -107,7 +107,7 @@ export default function ImagePage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "所有图片必须有固定比例容器，避免列表、详情页和弹窗加载时产生布局跳动。",

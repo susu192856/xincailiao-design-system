@@ -238,7 +238,7 @@ export default function ShadowPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Principles" title="阴影使用原则" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="rounded-sm bg-white px-4 py-3">
             <h3 className="text-sm font-semibold text-[var(--neutral-900)]">官网 / 门户</h3>

@@ -94,7 +94,7 @@ export default function SwitchPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "Switch 表示即时生效，若需要提交表单后才生效，应使用 Checkbox 或 Select。",

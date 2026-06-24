@@ -1,5 +1,5 @@
 import DocsTable from "../../components/docs/DocsTable";
-import { SectionHeading } from "../../components/docs/ComponentDoc";
+import { SectionHeading, SpecList } from "../../components/docs/ComponentDoc";
 import PageHeader from "../../components/docs/PageHeader";
 
 const spacingTokens = [
@@ -210,15 +210,15 @@ export default function SpacingPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-          <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
-            <li>• 组件内部优先使用 spacing-xs、spacing-sm、spacing-md。</li>
-            <li>• 内容模块内部使用 spacing-lg，页面区块之间使用 spacing-xl 或 spacing-2xl。</li>
-            <li>• 官网和门户的大型视觉区块可以使用 spacing-3xl、spacing-4xl 拉开节奏。</li>
-            <li>• 同一页面中应保持间距等级稳定，避免相近层级出现过多不同数值。</li>
-          </ul>
-        </div>
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
+        <SpecList
+          items={[
+            "组件内部优先使用 spacing-xs、spacing-sm、spacing-md。",
+            "内容模块内部使用 spacing-lg，页面区块之间使用 spacing-xl 或 spacing-2xl。",
+            "官网和门户的大型视觉区块可以使用 spacing-3xl、spacing-4xl 拉开节奏。",
+            "同一页面中应保持间距等级稳定，避免相近层级出现过多不同数值。",
+          ]}
+        />
       </section>
     </div>
   );

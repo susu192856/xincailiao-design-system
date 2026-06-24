@@ -124,7 +124,7 @@ export default function ListTemplatePage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "列表页优先服务检索、筛选、浏览和批量判断，不承载过多解释性内容。",

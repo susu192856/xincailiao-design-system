@@ -105,7 +105,7 @@ export default function TreePage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "层级超过 4 级时应提供搜索或筛选，避免用户逐层展开。",

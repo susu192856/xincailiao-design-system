@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { SpinnerGap, X } from "@phosphor-icons/react";
+import { CheckCircle, Info, SpinnerGap, Warning, WarningCircle, X, XCircle } from "@phosphor-icons/react";
 
 export type ToastVariant = "success" | "error" | "warning" | "info" | "loading";
 
@@ -41,12 +41,12 @@ const borderColorMap: Record<ToastVariant, string> = {
   loading: "border-l-[var(--product-blue-500)]",
 };
 
-const dotColorMap: Record<ToastVariant, string> = {
-  success: "bg-[var(--success-text)]",
-  error: "bg-[var(--error-text)]",
-  warning: "bg-[var(--warning-text)]",
-  info: "bg-[var(--info-text)]",
-  loading: "bg-[var(--product-blue-500)]",
+const iconMap: Record<ToastVariant, { icon: typeof CheckCircle; color: string }> = {
+  success: { icon: CheckCircle, color: "var(--success-text)" },
+  error: { icon: XCircle, color: "var(--error-text)" },
+  warning: { icon: Warning, color: "var(--warning-text)" },
+  info: { icon: Info, color: "var(--info-text)" },
+  loading: { icon: SpinnerGap, color: "var(--product-blue-500)" },
 };
 
 export function Toast({
@@ -64,23 +64,22 @@ export function Toast({
   return (
     <div
       className={[
-        "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-[var(--shadow-sm)]",
+        "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-[var(--shadow-sm)] animate-slide-in-up",
         borderColorMap[resolvedTone],
         className,
       ].join(" ")}
       role="status"
       {...props}
     >
-      {resolvedTone === "loading" ? (
-        <SpinnerGap className="mt-1.5 h-4 w-4 shrink-0 animate-spin" weight="regular" />
-      ) : (
-        <span
-          className={[
-            "mt-1.5 h-2 w-2 shrink-0 rounded-full",
-            dotColorMap[resolvedTone],
-          ].join(" ")}
-        />
-      )}
+      {(() => {
+        const IconComp = iconMap[resolvedTone].icon;
+        const iconColor = iconMap[resolvedTone].color;
+        return resolvedTone === "loading" ? (
+          <SpinnerGap className="mt-1 h-4 w-4 shrink-0 animate-spin" style={{ color: iconColor }} weight="regular" />
+        ) : (
+          <IconComp className="mt-1 h-4 w-4 shrink-0" style={{ color: iconColor }} weight="regular" />
+        );
+      })()}
       <div className="min-w-0 flex-1">
         <p className="text-sm font-normal text-[var(--neutral-900)]">{title}</p>
         {description ? (

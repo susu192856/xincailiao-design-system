@@ -180,7 +180,7 @@ export default function ModalPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "弹窗用于打断式确认，普通信息展示优先使用页面区域或抽屉。",

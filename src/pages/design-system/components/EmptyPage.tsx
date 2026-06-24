@@ -132,7 +132,7 @@ export default function EmptyPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "空状态文案必须包含原因和下一步，避免只写“暂无数据”。",

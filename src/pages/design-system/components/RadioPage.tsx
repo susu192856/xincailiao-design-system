@@ -104,7 +104,7 @@ export default function RadioPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "单选框只用于互斥关系，不用于多项配置或批量选择。",

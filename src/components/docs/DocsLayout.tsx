@@ -3,12 +3,13 @@ import { Outlet } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";
 import DocsSidebar from "./DocsSidebar";
 import DocsToc from "./DocsToc";
+import ComponentContractSection from "./ComponentContractSection";
 
 export default function DocsLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white text-[var(--neutral-900)] lg:flex">
+    <div className="min-h-screen bg-[var(--docs-bg)] text-[var(--neutral-900)] lg:flex">
       <DocsSidebar className="sticky top-0 hidden shrink-0 lg:block" />
 
       {sidebarOpen ? (
@@ -34,12 +35,12 @@ export default function DocsLayout() {
         </div>
       ) : null}
 
-      <main className="min-w-0 flex-1 overflow-hidden bg-white">
-        <div className="sticky top-0 z-[var(--z-sticky)] flex h-14 items-center border-b border-[var(--neutral-200)] bg-white/95 px-4 backdrop-blur lg:hidden">
+      <main className="min-w-0 flex-1 overflow-x-clip bg-[linear-gradient(180deg,#FFFFFF_0%,var(--neutral-50)_360px,#FFFFFF_100%)]">
+        <div className="sticky top-0 z-[var(--z-sticky)] flex h-14 items-center border-b border-[var(--neutral-200)] bg-white/90 px-4 backdrop-blur lg:hidden">
           <button
             type="button"
             aria-label="打开规范导航"
-            className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]"
+            className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]"
             onClick={() => setSidebarOpen(true)}
           >
             <List size={20} />
@@ -49,6 +50,7 @@ export default function DocsLayout() {
         <div className="docs-content mx-auto flex max-w-[calc(var(--content-docs-width)+12rem)] items-start gap-10 px-5 py-8 md:px-8 md:py-12 xl:px-10">
           <article className="docs-article min-w-0 flex-1">
             <Outlet />
+            <ComponentContractSection />
           </article>
           <DocsToc />
         </div>

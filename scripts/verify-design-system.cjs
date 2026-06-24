@@ -64,6 +64,10 @@ const requiredTokens = [
   "--overlay-bg",
   "--touch-target-min",
   "--breakpoint-md",
+  "--error-solid",
+  "--success-solid",
+  "--warning-solid",
+  "--data-12",
 ];
 const tokenSource = read("src/styles/tokens.css");
 for (const token of requiredTokens) {

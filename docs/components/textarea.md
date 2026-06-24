@@ -9,7 +9,7 @@
 
 - 分类：操作与输入
 - 合同版本：`0.2.0`
-- 规范状态：完善中
+- 规范状态：稳定
 
 ## 定位与边界
 
@@ -33,13 +33,14 @@
 | `helperText` | `string` | `—` | 字段下方的帮助或校验说明。 |
 | `required` | `boolean` | `—` | 必填标记；校验仍由表单逻辑负责。 |
 | `rows` | `number | array` | `—` | 文本域行数或表格行数据。 |
+| `showCount` | `boolean` | `—` | 是否显示文本长度计数。 |
+| `maxLength` | `number` | `—` | 允许输入的最大字符数。 |
 
 ## 变体、语义、尺寸与状态
 
 ### Variants
 
 - `default`
-- `code`
 - `with-counter`
 
 ### Tones

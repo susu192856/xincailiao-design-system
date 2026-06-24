@@ -2,7 +2,6 @@ import {
   ArrowRight,
   CheckCircle,
   DownloadSimple,
-  FloppyDisk,
   PencilSimple,
   Plus,
   Trash,
@@ -24,14 +23,14 @@ function TokenNote({
     <div className="mt-4 border-t border-[var(--neutral-200)] pt-3">
       <div className="space-y-1">
         {items.map((item) => (
-          <p key={item} className="text-xs text-[var(--neutral-600)]">
+          <p key={item} className="text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">
             {item}
           </p>
         ))}
       </div>
       {usage ? (
-        <p className="mt-2 text-xs text-[var(--neutral-700)]">
-          <span className="font-semibold text-[var(--neutral-900)]">使用场景：</span>
+        <p className="mt-2 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-secondary)]">
+          <span className="font-semibold text-[var(--text-primary)]">使用场景：</span>
           {usage}
         </p>
       ) : null}
@@ -47,8 +46,8 @@ function SpecCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-      <h3 className="mb-5 text-base font-semibold text-[var(--neutral-900)]">{title}</h3>
+    <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+      <h3 className="mb-5 text-base font-semibold leading-[var(--type-body-l-line-height)] text-[var(--text-primary)]">{title}</h3>
       {children}
     </div>
   );
@@ -66,7 +65,7 @@ function DotList({ items, tone = "product" }: { items: string[]; tone?: "product
   const color = tone === "danger" ? "text-[var(--error-text)]" : "text-[var(--product-blue-500)]";
 
   return (
-    <ul className="space-y-3 text-sm text-[var(--neutral-700)]">
+    <ul className="space-y-3 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">
       {items.map((item) => (
         <li key={item} className="flex items-start gap-2">
           <span className={`${color} font-semibold`}>•</span>
@@ -194,7 +193,7 @@ export default function ButtonPage() {
               <p className="mb-4 text-sm text-[var(--neutral-700)]">完成材料信息编辑并提交审核。</p>
               <div className="flex flex-wrap justify-end gap-3">
                 <Button variant="ghost" tone="neutral">取消</Button>
-                <Button variant="outline" tone="product">保存草稿</Button>
+                <Button variant="outline" tone="task">保存草稿</Button>
                 <Button tone="task">提交审核</Button>
               </div>
             </div>
@@ -230,7 +229,7 @@ export default function ButtonPage() {
 
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">主要按钮（Solid）</h3>
-          <div className="bg-white p-6">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">黑色 - 任务主行动</p>
@@ -253,7 +252,7 @@ export default function ButtonPage() {
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">蓝色 - 产品能力操作</p>
                 <ButtonStack>
                   <Button tone="product">运行分析</Button>
-                  <Button tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />}>
+                  <Button tone="product">
                     生成报告
                   </Button>
                   <Button tone="product" disabled>
@@ -273,7 +272,7 @@ export default function ButtonPage() {
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">红色 - 品牌强调</p>
                 <ButtonStack>
-                  <Button tone="brand">品牌行动</Button>
+                  <Button tone="brand">预约演示</Button>
                   <Button tone="brand" icon={<ArrowRight className="h-4 w-4" weight="regular" />} iconPosition="right">
                     立即体验
                   </Button>
@@ -296,12 +295,12 @@ export default function ButtonPage() {
 
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">次要按钮（Outline）</h3>
-          <div className="bg-white p-6">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性描边</p>
                 <ButtonStack>
-                  <Button variant="outline" tone="neutral">次要操作</Button>
+                  <Button variant="outline" tone="neutral">返回列表</Button>
                   <Button variant="outline" tone="neutral" icon={<PencilSimple className="h-4 w-4" weight="regular" />}>
                     编辑内容
                   </Button>
@@ -318,8 +317,8 @@ export default function ButtonPage() {
                   <Button variant="outline" tone="product">
                     筛选数据
                   </Button>
-                  <Button variant="outline" tone="product" icon={<FloppyDisk className="h-4 w-4" weight="regular" />}>
-                    保存草稿
+                  <Button variant="outline" tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />}>
+                    导出数据
                   </Button>
                   <Button variant="outline" tone="product" disabled>
                     禁用状态
@@ -349,7 +348,7 @@ export default function ButtonPage() {
 
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">弱按钮（Ghost）</h3>
-          <div className="bg-white p-6">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性弱按钮（推荐）</p>
@@ -365,9 +364,9 @@ export default function ButtonPage() {
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">产品弱按钮</p>
                 <ButtonStack>
                   <Button variant="ghost" tone="product">
-                    取消保存
+                    刷新数据
                   </Button>
-                  <Button variant="ghost" tone="product">关闭</Button>
+                  <Button variant="ghost" tone="product">切换视图</Button>
                   <Button variant="ghost" tone="product" disabled>
                     禁用状态
                   </Button>
@@ -377,19 +376,19 @@ export default function ButtonPage() {
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">品牌弱按钮</p>
                 <ButtonStack>
                   <Button variant="ghost" tone="brand">
-                    暂不体验
+                    查看权益
                   </Button>
-                  <Button variant="ghost" tone="brand">关闭</Button>
+                  <Button variant="ghost" tone="brand">品牌故事</Button>
                   <Button variant="ghost" tone="brand" disabled>
                     禁用状态
                   </Button>
                 </ButtonStack>
               </div>
             </div>
-            <div className="mt-5 bg-amber-50/50 p-4">
+            <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4">
               <p className="text-xs leading-6 text-[var(--neutral-700)]">
                 <span className="font-semibold text-[var(--neutral-900)]">设计说明：</span>
-                弱按钮无边框，使用浅色背景，优先级低于次要按钮，常用于“取消”“关闭”等退出类操作。
+                neutral 弱按钮用于“取消”“关闭”等退出操作；product 与 brand 弱按钮仍需使用符合各自语义的能力或品牌文案。
               </p>
             </div>
           </div>
@@ -397,13 +396,13 @@ export default function ButtonPage() {
 
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">文字按钮（Text）</h3>
-          <div className="bg-white p-6">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 text-left md:grid-cols-2 xl:grid-cols-3">
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">中性文字</p>
                 <ButtonStack>
-                  <Button variant="text" tone="neutral">查看详情</Button>
-                  <Button variant="text" tone="neutral">了解更多</Button>
+                  <Button variant="text" tone="neutral">返回列表</Button>
+                  <Button variant="text" tone="neutral">稍后处理</Button>
                   <Button variant="text" tone="neutral" disabled>
                     禁用状态
                   </Button>
@@ -427,7 +426,7 @@ export default function ButtonPage() {
                 <p className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">品牌文字</p>
                 <ButtonStack>
                   <Button variant="text" tone="brand">
-                    品牌链接
+                    品牌故事
                   </Button>
                   <Button variant="text" tone="brand" icon={<ArrowRight className="h-4 w-4" weight="regular" />} iconPosition="right">
                     立即体验
@@ -443,39 +442,39 @@ export default function ButtonPage() {
 
         <div>
           <h3 className="mb-4 text-lg font-semibold text-[var(--neutral-900)]">危险按钮（Danger）</h3>
-          <div className="bg-white p-6">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
             <ButtonGroup>
               <Button tone="danger" icon={<Trash className="h-4 w-4" weight="regular" />}>
-                删除
+                永久删除
               </Button>
               <Button variant="outline" tone="danger">
-                取消订单
+                撤销审批
               </Button>
               <Button variant="text" tone="danger">
-                移除
+                移除成员
               </Button>
             </ButtonGroup>
-            <div className="mt-4 bg-red-50 p-4">
+            <div className="mt-4 rounded-[var(--radius-sm)] border border-[var(--error-border)] bg-[var(--error-bg)] p-4">
               <p className="text-xs leading-6 text-[var(--neutral-700)]">
                 <span className="font-semibold text-[var(--neutral-900)]">颜色规范：</span>
-                使用语义色 error（`--error-text`，当前为 #B91C1C），传达风险和警示，不使用品牌红或数据色替代。
+                小字与描边使用 `--error-text`；实心按钮使用更鲜明的 `--error-solid`（#F53F3F）。两者语义一致，但面积与对比需求不同。
               </p>
               <p className="mt-1 text-xs leading-6 text-[var(--neutral-700)]">
                 <span className="font-semibold text-[var(--neutral-900)]">使用场景：</span>
-                删除、取消等不可逆或高风险操作，建议添加二次确认。
+                永久删除、撤销审批、停用账号等不可逆或高风险操作，必须添加二次确认。
               </p>
             </div>
             <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="bg-white p-4 ring-1 ring-[var(--neutral-200)]">
                 <ButtonGroup>
                   <Button tone="warning" icon={<WarningCircle className="h-4 w-4" weight="regular" />}>
-                    警告操作
+                    继续执行
                   </Button>
                   <Button variant="outline" tone="warning">
                     查看风险
                   </Button>
                   <Button variant="text" tone="warning">
-                    暂缓处理
+                    稍后处理
                   </Button>
                 </ButtonGroup>
                 <p className="mt-3 border-t border-[var(--neutral-200)] pt-3 text-xs leading-6 text-[var(--neutral-700)]">
@@ -486,7 +485,7 @@ export default function ButtonPage() {
               <div className="bg-white p-4 ring-1 ring-[var(--neutral-200)]">
                 <ButtonGroup>
                   <Button tone="success" icon={<CheckCircle className="h-4 w-4" weight="regular" />}>
-                    完成操作
+                    标记完成
                   </Button>
                   <Button variant="outline" tone="success">
                     查看结果
@@ -497,7 +496,7 @@ export default function ButtonPage() {
                 </ButtonGroup>
                 <p className="mt-3 border-t border-[var(--neutral-200)] pt-3 text-xs leading-6 text-[var(--neutral-700)]">
                   <span className="font-semibold text-[var(--neutral-900)]">成功按钮：</span>
-                  用于已完成、已通过、正向确认后的后续操作。普通提交仍优先使用 neutral 或 product。
+                  仅用于明确的正向状态操作。普通提交仍使用 task，产品能力仍使用 product。
                 </p>
               </div>
             </div>
@@ -521,8 +520,8 @@ export default function ButtonPage() {
                   <p className="text-xs text-[var(--neutral-600)]">常规尺寸</p>
                 </div>
                 <ButtonGroup>
-                  <Button size="lg" className="!h-10 px-6 text-base">
-                    开始使用
+                  <Button size="lg" variant="outline" tone="neutral" className="!h-10 px-6 text-base">
+                    查看方案
                   </Button>
                   <Button size="lg" tone="brand" className="!h-10 px-6 text-base">
                     预约演示
@@ -537,9 +536,9 @@ export default function ButtonPage() {
                   <p className="text-xs text-[var(--neutral-600)]">强调尺寸</p>
                 </div>
                 <ButtonGroup>
-                  <Button size="xl">开始体验</Button>
+                  <Button size="xl" variant="outline" tone="neutral">了解产品</Button>
                   <Button size="xl" tone="brand">
-                    品牌强调
+                    开始体验
                   </Button>
                 </ButtonGroup>
                 <p className="mt-2 text-xs text-[var(--neutral-600)]">内间距: 32px 水平 / 12px 垂直 · 字号: 18px</p>
@@ -551,16 +550,16 @@ export default function ButtonPage() {
                   <p className="text-xs text-[var(--neutral-600)]">超大尺寸</p>
                 </div>
                 <ButtonGroup>
-                  <Button size="2xl">首屏主 CTA</Button>
+                  <Button size="2xl" variant="outline" tone="neutral">查看案例</Button>
                   <Button size="2xl" tone="brand">
-                    品牌转化
+                    预约咨询
                   </Button>
                 </ButtonGroup>
                 <p className="mt-2 text-xs text-[var(--neutral-600)]">内间距: 40px 水平 / 14px 垂直 · 字号: 20px</p>
               </div>
             </div>
-            <div className="mt-5 bg-[var(--neutral-50)] p-4 text-xs leading-6 text-[var(--neutral-700)]">
-              官网主行动优先使用黑色，品牌红用于关键转化或品牌强调，避免满屏红色按钮造成视觉噪音。
+            <div className="mt-5 rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4 text-xs leading-6 text-[var(--text-secondary)]">
+              官网转化区同样只保留一个 solid。品牌活动使用品牌红，事务型入口使用 task 黑色；同一组不并列两个实心主按钮。
             </div>
           </SpecCard>
 
@@ -587,7 +586,7 @@ export default function ButtonPage() {
                 </div>
                 <ButtonGroup>
                   <Button size="md" tone="task">确认提交</Button>
-                  <Button size="md" variant="outline" tone="product">
+                  <Button size="md" variant="outline" tone="task">
                     保存草稿
                   </Button>
                 </ButtonGroup>
@@ -708,10 +707,10 @@ export default function ButtonPage() {
           <SpecCard title="危险操作状态">
             <ButtonStack>
               <Button tone="danger">默认</Button>
-              <Button tone="danger" className="bg-red-600 shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
+              <Button tone="danger" className="bg-[var(--error-solid-hover)] shadow-[0_1px_2px_0_rgba(0,0,0,0.05)]">
                 悬停
               </Button>
-              <Button tone="danger" className="bg-red-700">
+              <Button tone="danger" className="bg-[var(--error-solid-active)]">
                 按下
               </Button>
               <Button tone="danger" loading>
@@ -815,7 +814,7 @@ export default function ButtonPage() {
                 <p className="mb-2 text-xs text-[var(--neutral-600)]">图标后置 - 表示方向或延伸</p>
                 <ButtonGroup>
                   <Button tone="brand" icon={<ArrowRight className="h-4 w-4" weight="regular" />} iconPosition="right">
-                    查看详情
+                    预约演示
                   </Button>
                   <Button variant="text" tone="product" icon={<ArrowRight className="h-4 w-4" weight="regular" />} iconPosition="right">
                     了解更多
@@ -882,26 +881,26 @@ export default function ButtonPage() {
           <SpecCard title="图标尺寸规范">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
-                <Button size="sm" tone="product" icon={<Plus className="h-3.5 w-3.5" weight="regular" />}>
-                  Small
+                <Button size="sm" tone="product" icon={<DownloadSimple className="h-3.5 w-3.5" weight="regular" />}>
+                  导出
                 </Button>
                 <span className="text-xs text-[var(--neutral-600)]">14px 图标</span>
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <Button tone="product" icon={<Plus className="h-4 w-4" weight="regular" />}>
-                  Medium
+                <Button tone="product" icon={<DownloadSimple className="h-4 w-4" weight="regular" />}>
+                  导出数据
                 </Button>
                 <span className="text-xs text-[var(--neutral-600)]">16px 图标（推荐）</span>
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                <Button size="lg" tone="product" icon={<Plus className="h-5 w-5" weight="regular" />}>
-                  Large
+                <Button size="lg" tone="product" icon={<DownloadSimple className="h-5 w-5" weight="regular" />}>
+                  导出报告
                 </Button>
                 <span className="text-xs text-[var(--neutral-600)]">20px 图标</span>
               </div>
             </div>
 
-            <div className="mt-5 bg-amber-50/50 p-4">
+            <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4">
               <p className="text-xs leading-6 text-[var(--neutral-700)]">
                 <span className="font-semibold text-[var(--neutral-900)]">图标间距：</span>
                 图标与文字间距为 8px (gap-2)，保持视觉平衡。
@@ -931,7 +930,7 @@ export default function ButtonPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用指南与最佳实践" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <SpecCard title="推荐做法">
             <DotList

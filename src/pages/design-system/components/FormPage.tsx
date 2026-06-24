@@ -208,7 +208,7 @@ export default function FormPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList items={["后台表单默认左对齐，避免居中排版影响扫描效率。", "必填、错误、禁用、只读状态必须在字段层面表达清楚。", "提交按钮放右侧，取消或返回放左侧；筛选工具栏按钮可左对齐。", "宽页面表单不要无限拉长输入框，常规输入建议 280px-360px，说明类字段可跨列。", "1000px 以上宽容器优先 2 列或左右 label，筛选工具栏可使用 3-4 列紧凑布局。", "审批、归档和权限锁定状态不要只依赖禁用按钮，需要在字段和说明文字中表达原因。", "Figma 表单组件需沉淀 label、helper、error、required、disabled、readonly、density、actions、labelPosition 等状态和插槽。", "开发落地优先复用 Form、FormSection、FormGrid、FormActions 组合，避免每个页面重新拼表单间距。"]} />
       </section>
     </div>

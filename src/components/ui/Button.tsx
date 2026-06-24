@@ -15,11 +15,11 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-[var(--control-height-sm)] min-h-11 px-[var(--button-padding-x-sm)] text-sm md:min-h-0",
-  md: "h-[var(--control-height-md)] min-h-11 px-[var(--button-padding-x-md)] text-sm md:min-h-0",
-  lg: "h-[var(--control-height-lg)] min-h-11 px-[var(--button-padding-x-lg)] text-sm md:min-h-0",
-  xl: "min-h-[var(--control-height-xl)] px-[var(--button-padding-x-xl)] py-3 text-lg",
-  "2xl": "min-h-[var(--control-height-2xl)] px-[var(--button-padding-x-2xl)] py-3.5 text-xl",
+  sm: "h-[var(--control-height-sm)] min-h-11 px-[var(--button-padding-x-sm)] text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)] md:min-h-0",
+  md: "h-[var(--control-height-md)] min-h-11 px-[var(--button-padding-x-md)] text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)] md:min-h-0",
+  lg: "h-[var(--control-height-lg)] min-h-11 px-[var(--button-padding-x-lg)] text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)] md:min-h-0",
+  xl: "min-h-[var(--control-height-xl)] px-[var(--button-padding-x-xl)] py-3 text-[length:var(--type-heading-h5-size)] leading-[var(--type-heading-h5-line-height)]",
+  "2xl": "min-h-[var(--control-height-2xl)] px-[var(--button-padding-x-2xl)] py-3.5 text-[length:var(--type-heading-h4-size)] leading-[var(--type-heading-h4-line-height)]",
 };
 
 const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
@@ -31,9 +31,9 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     product:
       "bg-[var(--product-blue-500)] text-white hover:bg-[var(--product-blue-600)] active:bg-[var(--product-blue-700)]",
     brand: "bg-[var(--brand-600)] text-white hover:bg-[var(--brand-700)] active:bg-[var(--brand-800)]",
-    danger: "bg-[var(--error-text)] text-white hover:bg-[var(--error-hover)] active:bg-[var(--error-active)]",
-    success: "bg-[var(--success-text)] text-white hover:bg-[var(--success-hover)] active:bg-[var(--success-active)]",
-    warning: "bg-[var(--warning-text)] text-white hover:bg-[var(--warning-hover)] active:bg-[var(--warning-active)]",
+    danger: "bg-[var(--error-solid)] text-white hover:bg-[var(--error-solid-hover)] active:bg-[var(--error-solid-active)]",
+    success: "bg-[var(--success-solid)] text-white hover:bg-[var(--success-solid-hover)] active:bg-[var(--success-solid-active)]",
+    warning: "bg-[var(--warning-solid)] text-white hover:bg-[var(--warning-solid-hover)] active:bg-[var(--warning-solid-active)]",
   },
   outline: {
     task:

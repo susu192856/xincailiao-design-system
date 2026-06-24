@@ -1,4 +1,5 @@
 import type { CSSProperties, HTMLAttributes, ReactNode, TableHTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
+import { CaretDown, CaretUp } from "@phosphor-icons/react";
 
 type TableDensity = "compact" | "standard" | "comfortable";
 
@@ -12,9 +13,14 @@ export type TableRowProps = HTMLAttributes<HTMLTableRowElement> & {
 };
 
 type TableCellAlign = "left" | "center" | "right";
+type SortDirection = "asc" | "desc" | null;
 
 export type TableHeadProps = ThHTMLAttributes<HTMLTableCellElement> & {
   align?: TableCellAlign;
+  sortable?: boolean;
+  sortDirection?: SortDirection;
+  onSort?: (direction: SortDirection) => void;
+  sticky?: "left" | "right";
 };
 
 export type TableCellProps = TdHTMLAttributes<HTMLTableCellElement> & {
@@ -84,16 +90,48 @@ export function TableRow({ className = "", selected = false, disabled = false, .
   );
 }
 
-export function TableHead({ className = "", align = "left", ...props }: TableHeadProps) {
+export function TableHead({ className = "", align = "left", sortable = false, sortDirection = null, onSort, sticky, ...props }: TableHeadProps) {
+  const handleSort = () => {
+    if (!sortable || !onSort) return;
+    const next: SortDirection = sortDirection === "asc" ? "desc" : sortDirection === "desc" ? null : "asc";
+    onSort(next);
+  };
+
+  const stickyStyles: CSSProperties = {};
+  if (sticky === "left") { stickyStyles.position = "sticky"; stickyStyles.left = 0; stickyStyles.zIndex = 2; }
+  if (sticky === "right") { stickyStyles.position = "sticky"; stickyStyles.right = 0; stickyStyles.zIndex = 2; }
+
   return (
     <th
       className={[
         "bg-[var(--neutral-50)] px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-xs font-semibold text-[var(--neutral-900)]",
+        sortable ? "cursor-pointer select-none hover:bg-[var(--neutral-100)]" : "",
         alignClass[align],
         className,
       ].join(" ")}
+      style={stickyStyles}
+      onClick={handleSort}
+      aria-sort={sortDirection === "asc" ? "ascending" : sortDirection === "desc" ? "descending" : undefined}
       {...props}
-    />
+    >
+      <span className="inline-flex items-center gap-1">
+        {props.children}
+        {sortable && (
+          <span className="inline-flex flex-col -space-y-1">
+            <CaretUp
+              size={10}
+              weight="fill"
+              className={sortDirection === "asc" ? "text-[var(--neutral-900)]" : "text-[var(--neutral-300)]"}
+            />
+            <CaretDown
+              size={10}
+              weight="fill"
+              className={sortDirection === "desc" ? "text-[var(--neutral-900)]" : "text-[var(--neutral-300)]"}
+            />
+          </span>
+        )}
+      </span>
+    </th>
   );
 }
 

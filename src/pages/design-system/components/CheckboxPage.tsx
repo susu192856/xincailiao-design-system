@@ -94,7 +94,7 @@ export default function CheckboxPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "复选框用于多项选择；单项开关类设置优先使用 Switch。",

@@ -1,7 +1,6 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import { Select } from "../../../components/ui/Select";
-import { Tag } from "../../../components/ui/Tag";
 
 const materialOptions = [
   { label: "金属材料", value: "metal" },
@@ -12,7 +11,24 @@ const materialOptions = [
 export default function SelectPage() {
   return (
     <div className="space-y-16">
-      <PageHeader title="选择器" description="选择器用于从固定选项中选择单一值，适合状态、类型、分类和筛选条件。" />
+      <PageHeader title="选择器" description="选择器用于从固定枚举中选择单一值，适合状态、类型、分类和筛选条件。当前稳定合同仅覆盖原生单选；搜索、多选标签和远程加载属于后续复合选择器能力。" />
+
+      <section>
+        <SectionHeading eyebrow="Scope" title="使用边界" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {[
+            ["Select", "固定枚举、单选、选项数量适中", "材料类型、审批节点、权限范围"],
+            ["Radio", "2–5 个选项且需要直接比较", "是否公开、审核结论"],
+            ["复合选择器", "搜索、远程数据、多选标签", "人员选择、材料牌号检索"],
+          ].map(([title, usage, example]) => (
+            <div key={title} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+              <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{usage}</p>
+              <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">{example}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section>
         <SectionHeading eyebrow="Variants" title="选择器类型" />
@@ -45,15 +61,15 @@ export default function SelectPage() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
               <Select size="sm" label="Small - 28px" options={materialOptions} defaultValue="metal" />
-              <p className="mt-2 text-xs leading-5 text-[var(--neutral-500)]">用于表格筛选、行内编辑、紧凑工具栏。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于表格筛选、行内编辑、紧凑工具栏。</p>
             </div>
             <div>
               <Select size="md" label="Medium - 32px" options={materialOptions} defaultValue="polymer" />
-              <p className="mt-2 text-xs leading-5 text-[var(--neutral-500)]">后台表单默认尺寸，字号 14px。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">后台表单默认尺寸，字号 14px。</p>
             </div>
             <div>
               <Select size="lg" label="Large - 36px" options={materialOptions} defaultValue="ceramic" />
-              <p className="mt-2 text-xs leading-5 text-[var(--neutral-500)]">用于官网线索表单和低密度弹窗。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于官网线索表单和低密度弹窗。</p>
             </div>
           </div>
         </ExampleCard>
@@ -83,26 +99,6 @@ export default function SelectPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Multi Select" title="多选模式" />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-          <p className="mb-4 text-sm leading-6 text-[var(--neutral-600)]">
-            需要多选时，选中项以 Tag 形式展示在输入区内，可通过关闭按钮移除。多选推荐搭配搜索功能使用。
-          </p>
-          <div className="flex flex-wrap gap-2 rounded-sm bg-[var(--neutral-50)] p-3">
-            <Tag size="sm" closable>
-              数据空间
-            </Tag>
-            <Tag size="sm" closable>
-              材库
-            </Tag>
-            <Tag size="sm" variant="product" closable>
-              AI 应用
-            </Tag>
-          </div>
-        </div>
-      </section>
-
-      <section>
         <SectionHeading eyebrow="Backend States" title="后台筛选与权限状态" description="选择器在 B 端页面中经常承担状态筛选、权限配置、数据分类和批量操作条件，不同状态需要被明确区分。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="表格筛选组合">
@@ -111,7 +107,7 @@ export default function SelectPage() {
               <Select size="sm" placeholder="数据来源" options={[{ label: "全部来源", value: "all" }, { label: "企业上传", value: "company" }, { label: "实验采集", value: "lab" }]} />
               <Select size="sm" placeholder="权限范围" options={[{ label: "全部权限", value: "all" }, { label: "团队可见", value: "team" }, { label: "公开流通", value: "public" }]} />
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">筛选项数量多时应分组折叠，避免把主表格向下挤压。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">筛选项数量多时应分组折叠，避免把主表格向下挤压。</p>
           </ExampleCard>
           <ExampleCard title="权限配置">
             <div className="space-y-3">
@@ -119,6 +115,41 @@ export default function SelectPage() {
               <Select label="审批节点" defaultValue="owner" options={[{ label: "数据负责人", value: "owner" }, { label: "空间管理员", value: "admin" }, { label: "外部访客（不可选）", value: "guest", disabled: true }]} />
             </div>
           </ExampleCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Interaction" title="键盘与响应式" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <ExampleCard title="键盘操作">
+            <div className="space-y-3 text-sm leading-6 text-[var(--text-secondary)]">
+              <p><strong className="text-[var(--text-primary)]">Tab：</strong>进入或离开选择器。</p>
+              <p><strong className="text-[var(--text-primary)]">Space / Enter：</strong>打开原生选项列表。</p>
+              <p><strong className="text-[var(--text-primary)]">方向键：</strong>移动当前选项；Esc 关闭列表。</p>
+              <p>错误说明通过 aria-describedby 与控件关联，加载时使用 aria-busy。</p>
+            </div>
+          </ExampleCard>
+          <ExampleCard title="移动端回退">
+            <div className="max-w-[360px]">
+              <Select labelPosition="left" labelWidth={112} label="材料类型" placeholder="请选择材料类型" options={materialOptions} />
+              <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">桌面为左右结构；小于 640px 自动回退为上下结构，控件触控高度至少 44px。</p>
+            </div>
+          </ExampleCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Do / Don't" title="正确与错误示例" />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--success-border)] bg-white p-5">
+            <p className="text-sm font-semibold text-[var(--success-text)]">正确：选项明确且互斥</p>
+            <Select className="mt-4" label="数据权限" placeholder="请选择权限范围" options={[{ label: "仅自己可见", value: "private" }, { label: "团队可见", value: "team" }, { label: "公开流通", value: "public" }]} />
+          </div>
+          <div className="rounded-[var(--radius-sm)] border border-[var(--error-border)] bg-white p-5">
+            <p className="text-sm font-semibold text-[var(--error-text)]">错误：用 Select 冒充搜索或多选</p>
+            <Select className="mt-4" label="材料牌号" placeholder="请选择" options={[{ label: "数千条牌号无法直接浏览", value: "too-many", disabled: true }]} />
+            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-secondary)]">大量远程选项应使用可搜索的复合选择器。</p>
+          </div>
         </div>
       </section>
 
@@ -169,7 +200,7 @@ export default function SelectPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "选项数量较少且语义固定时使用选择器，开放输入不要强行做成选择器。",
@@ -180,8 +211,8 @@ export default function SelectPage() {
             "宽表单可使用左右结构，label 推荐 96px–120px 宽，与输入框保持一致。",
             "错误状态需要搭配文字说明，保证状态可理解。",
             "后台权限、状态、分类等枚举需要有禁用项和加载态，避免用户误以为系统无响应。",
-            "多选项超过 3 个时建议折叠为计数或使用穿梭框，避免输入区拥挤。",
-            "Figma 和前端组件需要保留 placeholder、selected、disabled option、loading、error、multi-select tag 等状态，后台枚举才能真实复用。",
+            "当前 Select 稳定合同只覆盖单选；搜索、远程加载和多选标签不得以静态示例冒充已实现能力。",
+            "Figma 和前端组件需要保留 placeholder、selected、disabled option、loading、error 等状态，后台枚举才能真实复用。",
           ]}
         />
       </section>

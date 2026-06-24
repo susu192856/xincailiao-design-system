@@ -63,7 +63,7 @@ const buttonClasses = computed(() => [
   border: 0;
   border-radius: var(--radius-sm);
   font-weight: 400;
-  line-height: 1;
+  line-height: var(--type-body-m-line-height);
   white-space: nowrap;
   cursor: pointer;
   transition:
@@ -85,31 +85,33 @@ const buttonClasses = computed(() => [
 .xc-button--sm {
   height: var(--control-height-sm);
   padding: 0 var(--button-padding-x-sm);
-  font-size: 14px;
+  font-size: var(--type-body-m-size);
 }
 
 .xc-button--md {
   height: var(--control-height-md);
   padding: 0 var(--button-padding-x-md);
-  font-size: 14px;
+  font-size: var(--type-body-m-size);
 }
 
 .xc-button--lg {
   height: var(--control-height-lg);
   padding: 0 var(--button-padding-x-lg);
-  font-size: 14px;
+  font-size: var(--type-body-m-size);
 }
 
 .xc-button--xl {
   min-height: var(--control-height-xl);
   padding: 12px var(--button-padding-x-xl);
-  font-size: 18px;
+  font-size: var(--type-heading-h5-size);
+  line-height: var(--type-heading-h5-line-height);
 }
 
 .xc-button--2xl {
   min-height: var(--control-height-2xl);
   padding: 14px var(--button-padding-x-2xl);
-  font-size: 20px;
+  font-size: var(--type-heading-h4-size);
+  line-height: var(--type-heading-h4-line-height);
 }
 
 .xc-button--solid.xc-button--task {
@@ -154,30 +156,42 @@ const buttonClasses = computed(() => [
 }
 
 .xc-button--solid.xc-button--danger {
-  background: var(--error-text);
+  background: var(--error-solid);
   color: white;
 }
 
 .xc-button--solid.xc-button--danger:hover:not(:disabled) {
-  background: var(--error-hover);
+  background: var(--error-solid-hover);
+}
+
+.xc-button--solid.xc-button--danger:active:not(:disabled) {
+  background: var(--error-solid-active);
 }
 
 .xc-button--solid.xc-button--success {
-  background: var(--success-text);
+  background: var(--success-solid);
   color: white;
 }
 
 .xc-button--solid.xc-button--success:hover:not(:disabled) {
-  background: var(--success-hover);
+  background: var(--success-solid-hover);
+}
+
+.xc-button--solid.xc-button--success:active:not(:disabled) {
+  background: var(--success-solid-active);
 }
 
 .xc-button--solid.xc-button--warning {
-  background: var(--warning-text);
+  background: var(--warning-solid);
   color: white;
 }
 
 .xc-button--solid.xc-button--warning:hover:not(:disabled) {
-  background: var(--warning-hover);
+  background: var(--warning-solid-hover);
+}
+
+.xc-button--solid.xc-button--warning:active:not(:disabled) {
+  background: var(--warning-solid-active);
 }
 
 .xc-button--outline {

@@ -267,18 +267,18 @@ function describeToken(name, value, cat) {
     "info-text": "信息文字",
     "info-bg": "信息背景",
     "info-tag": "信息标签",
-    "data-01": "主数据序列",
-    "data-02": "对比序列",
-    "data-03": "模型/算法",
-    "data-04": "警戒/阈值",
-    "data-05": "增长/完成",
-    "data-06": "风险/异常",
-    "data-07": "基准/其他",
-    "data-08": "辅助蓝",
-    "data-09": "辅助紫",
-    "data-10": "正向辅助",
-    "data-11": "热度/阶段",
-    "data-12": "低强调序列",
+    "data-01": "核心分类蓝",
+    "data-02": "核心分类青绿",
+    "data-03": "核心分类紫",
+    "data-04": "核心分类琥珀",
+    "data-05": "核心分类洋红",
+    "data-06": "核心分类青蓝",
+    "data-07": "扩展分类灰",
+    "data-08": "扩展分类朱红",
+    "data-09": "扩展分类深紫",
+    "data-10": "扩展分类草绿",
+    "data-11": "扩展分类深橙",
+    "data-12": "扩展分类钢蓝",
     "z-dropdown": "下拉菜单",
     "z-sticky": "粘性定位",
     "z-overlay": "遮罩层",
@@ -482,9 +482,9 @@ defineEmits(['click']);
 .variant-solid.tone-product:hover { background: var(--product-blue-600); }
 .variant-solid.tone-brand { background: var(--brand-600); color: #fff; }
 .variant-solid.tone-brand:hover { background: var(--brand-700); }
-.variant-solid.tone-danger { background: var(--error-text); color: #fff; }
-.variant-solid.tone-success { background: var(--success-text); color: #fff; }
-.variant-solid.tone-warning { background: var(--warning-text); color: #fff; }
+.variant-solid.tone-danger { background: var(--error-solid); color: #fff; }
+.variant-solid.tone-success { background: var(--success-solid); color: #fff; }
+.variant-solid.tone-warning { background: var(--warning-solid); color: #fff; }
 
 /* 类型: outline */
 .variant-outline {

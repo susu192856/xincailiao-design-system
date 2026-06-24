@@ -126,7 +126,7 @@ export default function DescriptionListPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "详情页默认使用 2 列，参数密集场景可使用 3 列。",

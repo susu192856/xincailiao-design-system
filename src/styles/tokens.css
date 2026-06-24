@@ -64,75 +64,135 @@
   --color-action-product-active: var(--product-blue-700);
 }
 
-/* 语义色 (Semantic Colors) */
+/* 语义色 (Semantic Colors) — Arco Design */
 :root {
-  --success-text: #047857;
-  --success-hover: #065F46;
-  --success-active: #064E3B;
-  --success-bg: #ECFDF5;
-  --success-tag: #ECFDF5;
-  --success-border: #A7F3D0;
+  --success-text: #009A29;
+  --success-hover: #009A29;
+  --success-active: #008522;
+  --success-bg: #E8FFEA;
+  --success-tag: #E8FFEA;
+  --success-border: #AFF0B5;
 
-  --warning-text: #B45309;
-  --warning-hover: #92400E;
-  --warning-active: #78350F;
-  --warning-bg: #FFFBEB;
-  --warning-tag: #FFFBEB;
-  --warning-border: #FDE68A;
+  --warning-text: #CC9213;
+  --warning-hover: #D25F00;
+  --warning-active: #B35200;
+  --warning-bg: #FFFCE8;
+  --warning-tag: #FFFCE8;
+  --warning-border: #FDF4BF;
 
-  --error-text: #B91C1C;
-  --error-hover: #991B1B;
-  --error-active: #7F1D1D;
-  --error-bg: #FEF2F2;
-  --error-tag: #FEF2F2;
-  --error-border: #FECACA;
+  --error-text: #CB272D;
+  --error-hover: #CB272D;
+  --error-active: #AF2126;
+  --error-bg: #FFECE8;
+  --error-tag: #FFECE8;
+  --error-border: #FDCDC5;
 
-  --info-text: #006DEA;
-  --info-bg: #EFF6FF;
-  --info-tag: #EFF6FF;
-  --info-border: #BFDBFE;
+  --info-text: #206CCF;
+  --info-bg: #E8F7FF;
+  --info-tag: #E8F7FF;
+  --info-border: #C3E7FE;
+
+  /* 语义色的大面积填充（solid 按钮等） */
+  --success-solid: #00B42A;
+  --success-solid-hover: #23C343;
+  --success-solid-active: #009A29;
+  --warning-solid: #F7BA1E;
+  --warning-solid-hover: #FFCF8B;
+  --warning-solid-active: #D25F00;
+  --error-solid: #F53F3F;
+  --error-solid-hover: #F76560;
+  --error-solid-active: #CB272D;
 }
 
-/* 数据色 (Data Visualization Colors) */
+/* 数据可视化色板 — DBS Data Visualisation，共 10 色系 × 7 层级 */
 :root {
-  --data-01: #006DEA;
-  --data-02: #14B8A6;
-  --data-03: #8B5CF6;
-  --data-04: #F59E0B;
-  --data-05: #10B981;
-  --data-06: #EF4444;
-  --data-07: #64748B;
-  --data-08: #0EA5E9;
-  --data-09: #A855F7;
-  --data-10: #84CC16;
-  --data-11: #F97316;
-  --data-12: #475569;
-}
 
-/* 分类色 (Category Colors) — 标签分类专用，不与品牌色、产品蓝、语义色冲突 */
-:root {
-  --category-teal-text: #0F766E;
-  --category-teal-bg: #F0FDFA;
-  --category-teal-border: #99F6E4;
+  /* 数据可视化色板 — DBS Data Visualisation，共 10 色系 × 7 层级 */
+  --data-amber-0: #F3B348;
+  --data-amber-1: #E09E37;
+  --data-amber-2: #C4892E;
+  --data-amber-3: #A57526;
+  --data-amber-4: #8A5F1E;
+  --data-amber-5: #6A4B15;
+  --data-amber-6: #4E360D;
+  --data-orange-0: #F2A479;
+  --data-orange-1: #EF8A54;
+  --data-orange-2: #EE7A40;
+  --data-orange-3: #D56B36;
+  --data-orange-4: #CA5F2D;
+  --data-orange-5: #B14B21;
+  --data-orange-6: #993C18;
+  --data-coral-0: #F1A08D;
+  --data-coral-1: #EF856C;
+  --data-coral-2: #ED6B4D;
+  --data-coral-3: #D4563B;
+  --data-coral-4: #BD4D34;
+  --data-coral-5: #A4432D;
+  --data-coral-6: #822310;
+  --data-red-0: #F19D9B;
+  --data-red-1: #EE817E;
+  --data-red-2: #EC6762;
+  --data-red-3: #E05650;
+  --data-red-4: #D34841;
+  --data-red-5: #C83D35;
+  --data-red-6: #A92216;
+  --data-pink-0: #F19AAC;
+  --data-pink-1: #EE7D96;
+  --data-pink-2: #D45772;
+  --data-pink-3: #C84D66;
+  --data-pink-4: #B03C54;
+  --data-pink-5: #98293C;
+  --data-pink-6: #9E1F2C;
+  --data-magenta-0: #E697D9;
+  --data-magenta-1: #E377D0;
+  --data-magenta-2: #BD50AA;
+  --data-magenta-3: #BC48A7;
+  --data-magenta-4: #BC39A2;
+  --data-magenta-5: #982982;
+  --data-magenta-6: #7A1A66;
+  --data-purple-0: #BAA7F9;
+  --data-purple-1: #A78DF8;
+  --data-purple-2: #9374F7;
+  --data-purple-3: #7F59F6;
+  --data-purple-4: #6B40F4;
+  --data-purple-5: #5827F3;
+  --data-purple-6: #4412E2;
+  --data-indigo-0: #A5B4F9;
+  --data-indigo-1: #8A9EF8;
+  --data-indigo-2: #728AF7;
+  --data-indigo-3: #5673F6;
+  --data-indigo-4: #3754DD;
+  --data-indigo-5: #2B47D1;
+  --data-indigo-6: #2036A0;
+  --data-blue-0: #8AC8FA;
+  --data-blue-1: #6EBAF9;
+  --data-blue-2: #55A9F8;
+  --data-blue-3: #459BF8;
+  --data-blue-4: #377ECA;
+  --data-blue-5: #2A64A1;
+  --data-blue-6: #1C4872;
+  --data-green-0: #7DCEB3;
+  --data-green-1: #69CEA8;
+  --data-green-2: #5DC79B;
+  --data-green-3: #50B086;
+  --data-green-4: #40906E;
+  --data-green-5: #317156;
+  --data-green-6: #21523F;
 
-  --category-violet-text: #6D28D9;
-  --category-violet-bg: #F5F3FF;
-  --category-violet-border: #C4B5FD;
+  /* 兼容旧版 data-01~12，映射到新色板 */
+  --data-01: var(--data-blue-2);
+  --data-02: var(--data-green-3);
+  --data-03: var(--data-purple-3);
+  --data-04: var(--data-amber-1);
+  --data-05: var(--data-red-3);
+  --data-06: var(--data-orange-2);
+  --data-07: var(--data-green-4);
+  --data-08: var(--data-pink-2);
+  --data-09: var(--data-coral-1);
+  --data-10: var(--data-amber-2);
+  --data-11: var(--data-green-5);
+  --data-12: var(--data-blue-5);
 
-  --category-slate-text: #1E40AF;
-  --category-slate-bg: #EFF6FF;
-  --category-slate-border: #93C5FD;
-
-  --category-cyan-text: #0E7490;
-  --category-cyan-bg: #ECFEFF;
-  --category-cyan-border: #A5F3FC;
-}
-
-/* ============================================
-   字体 (Typography)
-   ============================================ */
-
-:root {
   /* Display */
   --type-display-l-size: 56px;
   --type-display-l-line-height: 64px;
@@ -376,9 +436,16 @@
   --docs-fg: var(--neutral-900);
   --docs-muted: var(--neutral-600);
   --docs-border: var(--neutral-200);
+  --docs-border-strong: var(--neutral-300);
   --docs-hover-bg: var(--neutral-100);
   --docs-active-bg: var(--neutral-900);
   --docs-active-fg: #FFFFFF;
   --docs-accent: var(--brand-600);
   --docs-code-bg: var(--neutral-100);
+  --docs-panel-shadow: none;
+  --docs-soft-shadow: none;
+  --docs-hero-bg:
+    radial-gradient(circle at 0% 0%, rgba(255, 17, 45, 0.08), transparent 34%),
+    radial-gradient(circle at 92% 8%, rgba(0, 109, 234, 0.08), transparent 38%),
+    linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 46%, #F7F8FA 100%);
 }

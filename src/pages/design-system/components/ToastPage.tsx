@@ -125,7 +125,7 @@ export default function ToastPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Usage" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "Toast 只承载轻量反馈，不应用来展示长说明或复杂决策。",

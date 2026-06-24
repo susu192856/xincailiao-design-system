@@ -124,7 +124,7 @@ export default function BreadcrumbPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用建议" />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
             "一级页面通常不需要面包屑，避免与侧栏和页面标题重复。",
