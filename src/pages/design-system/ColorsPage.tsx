@@ -379,9 +379,9 @@ export default function ColorsPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Data Visualization"
+          eyebrow="数据可视化"
           title="数据可视化"
-          description="数据色板来自 DBS Data Visualisation 规范，共 10 个色系，每系 7 个深浅层级。设计师在 Figma 中按需选取图表配色。"
+          description="数据色板参考社区数据可视化资源的色系组织方式，共 10 个色系，每系 7 个深浅层级。设计师在设计文件中按需选取图表配色。"
         />
 
         <div className="mt-8 space-y-5">

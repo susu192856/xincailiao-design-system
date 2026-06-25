@@ -104,10 +104,10 @@
   --error-solid-active: #CB272D;
 }
 
-/* 数据可视化色板 — DBS Data Visualisation，共 10 色系 × 7 层级 */
+/* 数据可视化色板 — 参考 DBS 数据可视化资源，共 10 色系 × 7 层级 */
 :root {
 
-  /* 数据可视化色板 — DBS Data Visualisation，共 10 色系 × 7 层级 */
+  /* 数据可视化色板 — 参考 DBS 数据可视化资源，共 10 色系 × 7 层级 */
   --data-amber-0: #F3B348;
   --data-amber-1: #E09E37;
   --data-amber-2: #C4892E;
