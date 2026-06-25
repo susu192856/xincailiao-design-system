@@ -39,7 +39,7 @@ export default function FormPage() {
           <ExampleCard title="筛选表单" description="适用于表格、列表、数据看板上方的高频查询区域。">
             <Form density="compact">
               <FormGrid columns={3}>
-                <Input size="sm" placeholder="搜索材料名称" icon={<MagnifyingGlass className="h-4 w-4" />} />
+                <Input size="sm" placeholder="搜索材料名称" prefix={<MagnifyingGlass className="h-4 w-4" />} />
                 <Select size="sm" placeholder="数据状态" options={[{ label: "全部状态", value: "all" }, { label: "待审核", value: "review" }, { label: "已发布", value: "published" }]} />
                 <Select size="sm" placeholder="权限范围" options={[{ label: "全部权限", value: "all" }, { label: "团队可见", value: "team" }, { label: "公开流通", value: "public" }]} />
               </FormGrid>

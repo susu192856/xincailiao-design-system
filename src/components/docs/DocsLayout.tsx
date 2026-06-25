@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";
 import DocsSidebar from "./DocsSidebar";
 import DocsToc from "./DocsToc";
 import ComponentContractSection from "./ComponentContractSection";
+import { HomeHero } from "../../pages/design-system/HomePage";
 
 export default function DocsLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
     <div className="min-h-screen bg-[var(--docs-bg)] text-[var(--neutral-900)] lg:flex">
@@ -36,6 +39,7 @@ export default function DocsLayout() {
       ) : null}
 
       <main className="min-w-0 flex-1 overflow-x-clip bg-[linear-gradient(180deg,#FFFFFF_0%,var(--neutral-50)_360px,#FFFFFF_100%)]">
+        {isHome ? <HomeHero /> : null}
         <div className="sticky top-0 z-[var(--z-sticky)] flex h-14 items-center border-b border-[var(--neutral-200)] bg-white/90 px-4 backdrop-blur lg:hidden">
           <button
             type="button"
@@ -52,7 +56,9 @@ export default function DocsLayout() {
             <Outlet />
             <ComponentContractSection />
           </article>
+          {!isHome ? (
           <DocsToc />
+          ) : null}
         </div>
       </main>
     </div>

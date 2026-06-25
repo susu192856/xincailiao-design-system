@@ -76,25 +76,25 @@ export default function SpacingPage() {
           description="间距用于建立信息之间的亲疏关系。后台优先保证密度与效率，官网和门户通过更大的区块间距建立叙事节奏。"
         />
         <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
-            <tr className="border-b border-[var(--neutral-200)]">
-              <th className="px-6 py-3 font-semibold">Token</th>
-              <th className="px-6 py-3 font-semibold">数值</th>
-              <th className="px-6 py-3 font-semibold">用途</th>
-              <th className="px-6 py-3 font-semibold">使用建议</th>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>数值</th>
+              <th>用途</th>
+              <th>使用建议</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+          <tbody>
             {spacingTokens.map((item) => (
               <tr key={item.token}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
+                <td className="whitespace-nowrap font-mono">
                   {item.token}
                 </td>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
+                <td className="whitespace-nowrap font-mono">
                   {item.value}
                 </td>
-                <td className="px-6 py-4 text-sm text-[var(--neutral-700)]">{item.usage}</td>
-                <td className="px-6 py-4 text-sm leading-relaxed text-[var(--neutral-600)]">
+                <td>{item.usage}</td>
+                <td>
                   {item.advice}
                 </td>
               </tr>

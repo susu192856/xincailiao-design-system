@@ -15,12 +15,12 @@ export default function ColorScaleGrid({ colors, className = "" }: ColorScaleGri
   return (
     <div className={["space-y-4", className].join(" ")}>
       <div
-        className="h-16 w-full overflow-hidden rounded-[var(--radius-md)]"
+        className="h-16 w-full overflow-hidden rounded-[var(--radius-sm)]"
         style={{
           background: `linear-gradient(to right, ${colors.map((c) => c.hex).join(", ")})`,
         }}
       />
-      <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
+      <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
         <div className="grid grid-cols-[48px_minmax(120px,0.8fr)_minmax(120px,0.8fr)_minmax(220px,1.6fr)] border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-4 py-2.5 text-xs font-semibold text-[var(--text-secondary)]">
           <span>颜色</span>
           <span>变量</span>

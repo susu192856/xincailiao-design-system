@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "@phosphor-icons/react";
 import ColorScaleGrid from "../../components/docs/ColorScaleGrid";
 import CopyableColorValue from "../../components/docs/CopyableColorValue";
-import { SectionHeading } from "../../components/docs/ComponentDoc";
+import { SectionHeading, SubsectionHeading } from "../../components/docs/ComponentDoc";
+import DocsTable from "../../components/docs/DocsTable";
 import { chartColorFamilies } from "../../data/chartColors";
 import PageHeader from "../../components/docs/PageHeader";
 
@@ -32,37 +33,6 @@ function ColorChip({ color, label }: { color: string; label?: string }) {
   );
 }
 
-
-function CoreRuleRow({
-  semantic,
-  variable,
-  color,
-  display,
-  context,
-  usage,
-}: {
-  semantic: string;
-  variable: string;
-  color: string;
-  display: string;
-  context: string;
-  usage: string;
-}) {
-  return (
-    <div className="grid grid-cols-1 gap-4 border-b border-[var(--neutral-100)] px-5 py-4 text-sm last:border-b-0 lg:grid-cols-[150px_190px_190px_180px_minmax(0,1fr)] lg:items-center">
-      <div>
-        <h3 className="font-semibold text-[var(--neutral-900)]">{semantic}</h3>
-      </div>
-      <div className="font-mono text-xs text-[var(--text-tertiary)]">{variable}</div>
-      <div>
-        <p className="mb-2 text-xs font-semibold text-[var(--text-tertiary)] lg:hidden">默认值</p>
-        <ColorChip color={color} label={display} />
-      </div>
-      <p className="text-sm font-medium text-[var(--text-secondary)]">{context}</p>
-      <p className="text-sm leading-6 text-[var(--text-secondary)]">{usage}</p>
-    </div>
-  );
-}
 
 function SemanticCard({ color }: { color: SemanticColor }) {
   return (
@@ -248,18 +218,28 @@ export default function ColorsPage() {
           title="核心色彩与使用规则"
           description="只维护一套语义色系统。官网、门户和后台共享相同变量，通过页面密度与业务场景选择轻重，不再维护两套基础色板。"
         />
-        <div className="overflow-hidden bg-white">
-          <div className="hidden grid-cols-[150px_190px_190px_180px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--text-secondary)] lg:grid">
-            <div>语义</div>
-            <div>变量</div>
-            <div>默认值</div>
-            <div>主要场景</div>
-            <div>使用说明</div>
-          </div>
-          {coreColorRules.map((rule) => (
-            <CoreRuleRow key={rule.semantic} {...rule} />
-          ))}
-        </div>
+        <DocsTable>
+          <thead>
+            <tr>
+              <th>语义</th>
+              <th>变量</th>
+              <th>默认值</th>
+              <th>主要场景</th>
+              <th>使用说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            {coreColorRules.map((rule) => (
+              <tr key={rule.semantic}>
+                <td>{rule.semantic}</td>
+                <td className="font-mono">{rule.variable}</td>
+                <td><ColorChip color={rule.color} label={rule.display} /></td>
+                <td>{rule.context}</td>
+                <td>{rule.usage}</td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
 
       <section>
@@ -288,11 +268,15 @@ export default function ColorsPage() {
               ))}
             </ol>
           </div>
-          <div className="overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-            <div className="min-w-[620px]">
-              <div className="grid grid-cols-[130px_1fr_1fr] border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--text-secondary)]">
-                <span>场景</span><span>黑色 task</span><span>蓝色 product</span>
-              </div>
+          <DocsTable>
+            <thead>
+              <tr>
+                <th>场景</th>
+                <th>黑色 task</th>
+                <th>蓝色 product</th>
+              </tr>
+            </thead>
+            <tbody>
               {[
                 ["表单", "提交、保存修改", "保存草稿用 outline"],
                 ["表格工具栏", "新建数据", "筛选、导出、下载用 outline/text"],
@@ -301,18 +285,68 @@ export default function ColorsPage() {
                 ["危险确认", "不使用", "不使用，改用 danger"],
                 ["导航链接", "不使用", "使用 text"],
               ].map(([scene, task, product]) => (
-                <div key={scene} className="grid grid-cols-[130px_1fr_1fr] border-b border-[var(--neutral-100)] px-5 py-4 text-sm last:border-b-0">
-                  <strong className="text-[var(--text-primary)]">{scene}</strong>
-                  <span className="text-[var(--text-secondary)]">{task}</span>
-                  <span className="text-[var(--text-secondary)]">{product}</span>
-                </div>
+                <tr key={scene}>
+                  <td>{scene}</td>
+                  <td>{task}</td>
+                  <td>{product}</td>
+                </tr>
               ))}
-            </div>
-          </div>
+            </tbody>
+          </DocsTable>
         </div>
         <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">唯一主操作原则：</strong>
           同一按钮组最多一个 solid。黑色 task solid 已存在时，蓝色 product 必须降为 outline 或 text；能力型页面没有任务提交时，蓝色 product 才可以成为唯一 solid。
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Three-Color System"
+          title="三色三角"
+          description="公司界面的色彩体系由红、蓝、黑三种颜色构成。这不是三套可选配色方案，而是三种颜色的角色分工——红色负责宣告，蓝色负责交互，黑色负责让所有界面看起来像一家人。"
+        />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+            <div className="h-2 bg-[var(--brand-600)]" />
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
+                <h3 className="text-base font-semibold text-[var(--neutral-900)]">品牌红</h3>
+              </div>
+              <p className="font-mono text-xs text-[var(--text-tertiary)] mb-3">brand-600 · #FF112D</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--neutral-900)]">角色：品牌签名</strong>——宣告"这是新材道"。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于官网首页、门户首页、展会、品宣封面、Logo。红色是信号色，不是环境色——少量最强，大面积即是噪音。</p>
+            </div>
+          </div>
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+            <div className="h-2 bg-[var(--product-blue-500)]" />
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
+                <h3 className="text-base font-semibold text-[var(--neutral-900)]">产品蓝</h3>
+              </div>
+              <p className="font-mono text-xs text-[var(--text-tertiary)] mb-3">product-blue-500 · #006DEA</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--neutral-900)]">角色：产品功能语言</strong>——标记可交互、可操作的元素。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于所有产品的按钮、链接、选中态、数据图表。产品之间的区分不靠换颜色，靠各自独有的界面核心元素。</p>
+            </div>
+          </div>
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+            <div className="h-2 bg-[var(--neutral-900)]" />
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
+                <h3 className="text-base font-semibold text-[var(--neutral-900)]">结构黑</h3>
+              </div>
+              <p className="font-mono text-xs text-[var(--text-tertiary)] mb-3">neutral-900 · #1A1A1A</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--neutral-900)]">角色：结构骨架</strong>——贯穿所有场景。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">唯一同时出现在官网和后台的颜色。官网的正文和导航是黑的，后台的标题和核心按钮也是黑的——用户不会主动注意它，但抽掉它界面就会感到结构空洞。</p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+          <strong className="text-[var(--text-primary)]">从用户视角理解三色：</strong>
+          用户在官网（红+黑）认识品牌；进入产品后台（蓝+黑），蓝色接管功能交互，黑色继续承担结构；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
         </div>
       </section>
 
@@ -324,39 +358,21 @@ export default function ColorsPage() {
         />
         <div className="space-y-10">
           <div>
-            <div className="mb-4 flex items-end justify-between gap-6">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">Brand</p>
-                <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">品牌红色阶</h3>
-              </div>
-              <span className="h-2 w-2 bg-[var(--brand-600)]" />
-            </div>
+            <SubsectionHeading eyebrow="Brand" title="品牌红色阶" tone="brand" />
             <div className="overflow-x-auto bg-white p-4">
               <ColorScaleGrid colors={brandColors} className="min-w-[980px]" />
             </div>
           </div>
 
           <div>
-            <div className="mb-4 flex items-end justify-between gap-6">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">Product</p>
-                <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">产品蓝色阶</h3>
-              </div>
-              <span className="h-2 w-2 bg-[var(--product-blue-500)]" />
-            </div>
+            <SubsectionHeading eyebrow="Product" title="产品蓝色阶" tone="product" />
             <div className="overflow-x-auto bg-white p-4">
               <ColorScaleGrid colors={productColors} className="min-w-[980px]" />
             </div>
           </div>
 
           <div>
-            <div className="mb-4 flex items-end justify-between gap-6">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">Neutral</p>
-                <h3 className="mt-2 text-lg font-semibold text-[var(--neutral-900)]">中性灰色阶</h3>
-              </div>
-              <span className="h-2 w-2 bg-[var(--neutral-900)]" />
-            </div>
+            <SubsectionHeading eyebrow="Neutral" title="中性灰色阶" />
             <div className="overflow-x-auto bg-white p-4">
               <ColorScaleGrid colors={neutralColors} className="min-w-[980px]" />
             </div>
@@ -379,7 +395,7 @@ export default function ColorsPage() {
 
       <section>
         <SectionHeading
-          eyebrow="数据可视化"
+          eyebrow="Data Visualization"
           title="数据可视化"
           description="数据色板参考社区数据可视化资源的色系组织方式，共 10 个色系，每系 7 个深浅层级。设计师在设计文件中按需选取图表配色。"
         />

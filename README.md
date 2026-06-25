@@ -18,6 +18,7 @@
 - 设计 Token 源：`src/styles/tokens.css`
 - Figma Token 文件：`figma/tokens.json`
 - Markdown 规范文档：`docs/design-tokens`、`docs/components`
+- 视觉治理说明：`docs/VISUAL_GOVERNANCE.md`
 
 ## 重要说明
 

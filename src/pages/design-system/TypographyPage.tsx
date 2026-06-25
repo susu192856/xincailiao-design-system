@@ -12,6 +12,7 @@ import {
 import type { ReactNode } from "react";
 import PageHeader from "../../components/docs/PageHeader";
 import { SectionHeading } from "../../components/docs/ComponentDoc";
+import DocsTable from "../../components/docs/DocsTable";
 
 const typeTokens = [
   ["Display/L", "56 / 64", "700", "首页主视觉、关键数据"],
@@ -77,12 +78,12 @@ export default function TypographyPage() {
         <SectionHeading
           eyebrow="Font Family"
           title="字体家族"
-          description="中文优先使用系统字体，减少加载与跨平台差异；关键数字和代码使用等宽字体。"
+          description="中文优先使用系统字体，减少加载与跨平台差异；英文与 Token 使用系统 Sans Serif，关键数字使用 D-DIN-Pro。"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <FontCard icon={<Desktop size={20} />} title="中文界面" sample="新材料可信数据空间" note='PingFang SC / Microsoft YaHei / Source Han Sans CN' />
-          <FontCard icon={<TextAa size={20} />} title="英文与混排" sample="Material Data Space" note="系统 Sans Serif，与中文保持相近字面和字重" />
-          <FontCard icon={<Hash size={20} />} title="数字与代码" sample="512 MPa · +8.24%" note="SF Mono / Cascadia Code / D-DIN-Pro，用于数据、Token 与代码" />
+          <FontCard icon={<TextAa size={20} />} title="英文与 Token" sample="Body/M · color/text/primary" note="系统 Sans Serif，与中文保持相近字面和字重" />
+          <FontCard icon={<Hash size={20} />} title="数字" sample="512 MPa · +8.24%" note="D-DIN-Pro，用于数据" />
         </div>
       </section>
 
@@ -92,21 +93,26 @@ export default function TypographyPage() {
           title="字号与行高 Token"
           description="字号与行高成对使用，不单独缩放其中一项。产品正文默认 Body/M，阅读型正文默认 Body/L。"
         />
-        <div className="overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-          <div className="min-w-[720px]">
-            <div className="grid grid-cols-[1.2fr_1fr_0.7fr_1.8fr] border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--text-secondary)]">
-              <span>Token</span><span>字号 / 行高</span><span>字重</span><span>推荐用途</span>
-            </div>
+        <DocsTable>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>字号 / 行高</th>
+              <th>字重</th>
+              <th>推荐用途</th>
+            </tr>
+          </thead>
+          <tbody>
             {typeTokens.map(([token, metrics, weight, usage]) => (
-              <div key={token} className="grid grid-cols-[1.2fr_1fr_0.7fr_1.8fr] items-center border-b border-[var(--neutral-100)] px-5 py-3.5 text-sm last:border-b-0">
-                <span className="font-mono text-xs font-semibold text-[var(--text-primary)]">{token}</span>
-                <span className="font-mono text-xs text-[var(--text-secondary)]">{metrics}px</span>
-                <span className="text-[var(--text-secondary)]">{weight}</span>
-                <span className="text-[var(--text-secondary)]">{usage}</span>
-              </div>
+              <tr key={token}>
+                <td className="font-token">{token}</td>
+                <td className="font-data">{metrics}px</td>
+                <td className="font-data">{weight}</td>
+                <td>{usage}</td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </DocsTable>
       </section>
 
       <section>

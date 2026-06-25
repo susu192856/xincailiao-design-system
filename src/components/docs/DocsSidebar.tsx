@@ -16,6 +16,7 @@ import {
   CursorText,
   Empty,
   FileText,
+  GitBranch,
   HouseSimple,
   ImageSquare,
   Layout,
@@ -88,7 +89,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
       title: "数据与内容",
       items: [
         { name: "表格", path: "/components/table", icon: <Table size={16} weight="regular" /> },
-        { name: "分页码", path: "/components/pagination", icon: <ChartBar size={16} weight="regular" /> },
+        { name: "分页", path: "/components/pagination", icon: <ChartBar size={16} weight="regular" /> },
         { name: "描述列表", path: "/components/description-list", icon: <ListBullets size={16} weight="regular" /> },
         { name: "卡片", path: "/components/card", icon: <Rectangle size={16} weight="regular" /> },
         { name: "标签", path: "/components/tag", icon: <Tag size={16} weight="regular" /> },
@@ -101,10 +102,16 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
       ],
     },
     {
+      title: "页面模板",
+      items: [
+        { name: "列表页模板", path: "/templates/list", icon: <List size={16} weight="regular" /> },
+      ],
+    },
+    {
       title: "导航与组织",
       items: [
         { name: "菜单", path: "/components/menu", icon: <List size={16} weight="regular" /> },
-        { name: "菜单标签页", path: "/components/tabs", icon: <FileText size={16} weight="regular" /> },
+        { name: "标签页", path: "/components/tabs", icon: <FileText size={16} weight="regular" /> },
         { name: "面包屑", path: "/components/breadcrumb", icon: <Path size={16} weight="regular" /> },
         { name: "折叠面板", path: "/components/collapse", icon: <Rows size={16} weight="regular" /> },
         { name: "树", path: "/components/tree", icon: <TreeStructure size={16} weight="regular" /> },
@@ -119,6 +126,12 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         { name: "文字提示", path: "/components/tooltip", icon: <Question size={16} weight="regular" /> },
         { name: "气泡弹窗", path: "/components/popover", icon: <ChatCentered size={16} weight="regular" /> },
         { name: "提示反馈", path: "/components/toast", icon: <ChatCentered size={16} weight="regular" /> },
+      ],
+    },
+    {
+      title: "交付",
+      items: [
+        { name: "交付与同步", path: "/delivery", icon: <GitBranch size={16} weight="regular" /> },
       ],
     },
   ];

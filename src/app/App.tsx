@@ -10,6 +10,7 @@ import BreadcrumbPage from "../pages/design-system/components/BreadcrumbPage";
 import CollapsePage from "../pages/design-system/components/CollapsePage";
 import DatePickerPage from "../pages/design-system/components/DatePickerPage";
 import DescriptionListPage from "../pages/design-system/components/DescriptionListPage";
+import DeliveryPage from "../pages/design-system/DeliveryPage";
 import DrawerPage from "../pages/design-system/components/DrawerPage";
 import EmptyPage from "../pages/design-system/components/EmptyPage";
 import FormPage from "../pages/design-system/components/FormPage";
@@ -51,11 +52,11 @@ export default function App() {
       <Route path="/design-system" element={<DocsLayout />}>
         <Route path="colors" element={<ColorsPage />} />
       </Route>
+      <Route path="/delivery" element={<DocsLayout />}>
+        <Route index element={<DeliveryPage />} />
+      </Route>
       <Route path="/layout" element={<DocsLayout />}>
         <Route index element={<LayoutPage />} />
-      </Route>
-      <Route path="/icon" element={<DocsLayout />}>
-        <Route index element={<IconPage />} />
       </Route>
       <Route path="/radius" element={<DocsLayout />}>
         <Route index element={<RadiusPage />} />

@@ -65,7 +65,7 @@ export default function ShadowPage() {
           description="阴影用于表达界面元素的高度和层级关系。从微交互反馈到模态浮层，等级越高越应克制使用。"
         />
 
-        <div className="overflow-hidden rounded-[var(--radius-none)] border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
           <div className="grid grid-cols-12 gap-4 border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-6 py-3 text-sm font-semibold text-[var(--neutral-900)]">
             <div className="col-span-2">阴影名称</div>
             <div className="col-span-2">高度/模糊</div>
@@ -111,7 +111,7 @@ export default function ShadowPage() {
 
               <div className="flex min-h-[200px] items-center justify-center rounded-sm bg-[var(--neutral-50)] p-8">
                 <div
-                  className="flex h-32 w-40 items-center justify-center rounded-[var(--radius-none)] bg-white p-6"
+                  className="flex h-32 w-40 items-center justify-center rounded-[var(--radius-sm)] bg-white p-6"
                   style={{ boxShadow: shadow.value }}
                 >
                   <div className="text-center">
@@ -123,7 +123,7 @@ export default function ShadowPage() {
 
               <div className="mt-4 border-t border-[var(--neutral-200)] pt-4">
                 <p className="mb-1.5 text-xs text-[var(--neutral-600)]">CSS 值：</p>
-                <code className="block break-all rounded-[var(--radius-none)] bg-[var(--neutral-100)] px-2 py-1 font-mono text-[10px] text-[var(--neutral-700)]">
+                <code className="block break-all rounded-[var(--radius-sm)] bg-[var(--neutral-100)] px-2 py-1 font-mono text-[10px] text-[var(--neutral-700)]">
                   box-shadow: {shadow.value}
                 </code>
               </div>
@@ -144,7 +144,7 @@ export default function ShadowPage() {
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               默认卡片（Shadow/SM）
             </h3>
-            <div className="rounded-[var(--radius-none)] bg-white p-6" style={{ boxShadow: shadows[1].value }}>
+            <div className="rounded-[var(--radius-sm)] bg-white p-6" style={{ boxShadow: shadows[1].value }}>
               <h4 className="mb-2 text-sm font-semibold text-[var(--neutral-900)]">标题文字</h4>
               <p className="mb-4 text-sm text-[var(--neutral-600)]">
                 这是一个普通卡片的示例，使用 Shadow/SM 提供轻微的悬浮感，适合静态卡片、列表项等场景。
@@ -164,7 +164,7 @@ export default function ShadowPage() {
               悬停卡片（Shadow/MD）
             </h3>
             <div
-              className="cursor-pointer rounded-[var(--radius-none)] bg-white p-6 transition-shadow hover:shadow-lg"
+              className="cursor-pointer rounded-[var(--radius-sm)] bg-white p-6 transition-shadow hover:shadow-lg"
               style={{ boxShadow: shadows[2].value }}
             >
               <h4 className="mb-2 text-sm font-semibold text-[var(--neutral-900)]">可点击卡片</h4>
@@ -185,7 +185,7 @@ export default function ShadowPage() {
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               强调卡片（Shadow/LG）
             </h3>
-            <div className="rounded-[var(--radius-none)] bg-white p-6" style={{ boxShadow: shadows[3].value }}>
+            <div className="rounded-[var(--radius-sm)] bg-white p-6" style={{ boxShadow: shadows[3].value }}>
               <div className="mb-3 flex items-start gap-3">
                 <div className="rounded-sm bg-[var(--warning-bg)] p-2 text-[var(--warning-text)]">
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,7 +218,7 @@ export default function ShadowPage() {
             <h3 className="mb-3.5 text-base font-semibold text-[var(--neutral-900)]">
               模态框（Shadow/XL）
             </h3>
-            <div className="rounded-[var(--radius-none)] bg-white p-6" style={{ boxShadow: shadows[4].value }}>
+            <div className="rounded-[var(--radius-sm)] bg-white p-6" style={{ boxShadow: shadows[4].value }}>
               <h4 className="mb-3 border-b border-[var(--neutral-200)] pb-3 text-sm font-semibold text-[var(--neutral-900)]">
                 确认操作
               </h4>

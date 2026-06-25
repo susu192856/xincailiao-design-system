@@ -78,6 +78,18 @@ code, .token-value {
   font-family: "SF Mono", "Cascadia Code", "JetBrains Mono", ui-monospace, "D-DIN-Pro", monospace;
 }
 
+.font-data {
+  font-family: "D-DIN-Pro", "DIN Alternate", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-token {
+  font-family:
+    "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 code:not(pre code) {
   border: 1px solid var(--neutral-200);
   background: linear-gradient(180deg, #FFFFFF 0%, var(--neutral-100) 100%);
@@ -102,6 +114,83 @@ pre {
   width: 100%;
 }
 
+.docs-table {
+  overflow-x: auto;
+}
+
+.docs-table table {
+  min-width: 640px;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-line-height);
+}
+
+.docs-table thead,
+.docs-table table > tbody:first-child > tr:first-child {
+  background: var(--neutral-50);
+}
+
+.docs-table th {
+  height: 44px;
+  padding: 0 var(--spacing-md);
+  border-bottom: 1px solid var(--docs-border);
+  color: var(--text-secondary);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-line-height);
+  font-weight: var(--type-caption-weight-semibold);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.docs-table td {
+  min-height: 52px;
+  padding: 14px var(--spacing-md);
+  border-bottom: 1px solid var(--neutral-100);
+  color: var(--text-secondary);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-line-height);
+  vertical-align: top;
+}
+
+.docs-table td:first-child {
+  color: var(--text-primary);
+  font-weight: var(--type-body-m-weight-medium);
+}
+
+.docs-table td code,
+.docs-table td.font-mono,
+.docs-table .font-mono {
+  font-family: "SF Mono", "Cascadia Code", "JetBrains Mono", ui-monospace, "D-DIN-Pro", monospace;
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-line-height);
+  font-weight: var(--type-caption-weight);
+}
+
+.docs-table td.font-data,
+.docs-table .font-data {
+  font-family: "D-DIN-Pro", "DIN Alternate", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-line-height);
+  font-weight: var(--type-body-m-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.docs-table td.font-token,
+.docs-table .font-token {
+  font-family:
+    "PingFang SC", "Microsoft YaHei", "Source Han Sans CN",
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-line-height);
+}
+
+.docs-table tr:last-child td {
+  border-bottom: 0;
+}
+
 .docs-article > div > section,
 .docs-article > section {
   position: relative;
@@ -124,12 +213,12 @@ pre {
   color: var(--text-secondary);
 }
 
-.docs-article thead,
-.docs-article table > tbody:first-child > tr:first-child {
+.docs-article table:not([data-docs-table]) thead,
+.docs-article table:not([data-docs-table]) > tbody:first-child > tr:first-child {
   background: linear-gradient(180deg, #FAFAFA 0%, #F4F5F7 100%);
 }
 
-.docs-article th {
+.docs-article table:not([data-docs-table]) th {
   border-bottom: 1px solid var(--docs-border);
   color: var(--neutral-800);
   font-size: 0.75rem;
@@ -137,20 +226,20 @@ pre {
   letter-spacing: 0.02em;
 }
 
-.docs-article td {
+.docs-article table:not([data-docs-table]) td {
   border-bottom: 1px solid var(--neutral-100);
   color: var(--neutral-700);
 }
 
-.docs-article tr:last-child td {
+.docs-article table:not([data-docs-table]) tr:last-child td {
   border-bottom: 0;
 }
 
-.docs-article tbody tr {
+.docs-article table:not([data-docs-table]) tbody tr {
   transition: background-color 160ms ease;
 }
 
-.docs-article tbody tr:hover {
+.docs-article table:not([data-docs-table]) tbody tr:hover {
   background: rgba(250, 250, 250, 0.74);
 }
 
@@ -223,19 +312,19 @@ pre {
 }
 
 .animate-slide-in-right {
-  animation: slide-in-right var(--motion-duration-base, 180ms) ease-out both;
+  animation: slide-in-right var(--motion-duration-normal, 180ms) ease-out both;
 }
 
 .animate-slide-in-left {
-  animation: slide-in-left var(--motion-duration-base, 180ms) ease-out both;
+  animation: slide-in-left var(--motion-duration-normal, 180ms) ease-out both;
 }
 
 .animate-slide-in-up {
-  animation: slide-in-up var(--motion-duration-base, 180ms) ease-out both;
+  animation: slide-in-up var(--motion-duration-normal, 180ms) ease-out both;
 }
 
 .animate-slide-in-down {
-  animation: slide-in-down var(--motion-duration-base, 180ms) ease-out both;
+  animation: slide-in-down var(--motion-duration-normal, 180ms) ease-out both;
 }
 
 .animate-fade-in-slow {

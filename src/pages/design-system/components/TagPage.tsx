@@ -1,5 +1,6 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
 import { DescriptionList } from "../../../components/ui/DescriptionList";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from "../../../components/ui/Table";
@@ -147,8 +148,7 @@ export default function TagPage() {
 
       <section>
         <SectionHeading eyebrow="Status Mapping" title="状态标签映射表" description="按状态语义匹配 variant，而非按颜色偏好选择。22 个常见状态覆盖交付、审批、内容、运维四类场景。" />
-        <div className="overflow-x-auto rounded-sm border border-[var(--neutral-200)] bg-white">
-          <table className="w-full border-collapse text-left text-sm">
+        <DocsTable>
             <thead>
               <tr className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] text-xs text-[var(--neutral-500)]">
                 <th className="px-4 py-2.5 font-medium">状态</th>
@@ -169,8 +169,7 @@ export default function TagPage() {
                 ))
               )}
             </tbody>
-          </table>
-        </div>
+        </DocsTable>
       </section>
 
       <section>

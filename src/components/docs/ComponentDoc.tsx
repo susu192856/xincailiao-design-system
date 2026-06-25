@@ -5,25 +5,69 @@ export function SectionHeading({
   title,
   description,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description?: string;
 }) {
   return (
     <div className="mb-8">
       <div className="mb-4">
-        <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
-          {eyebrow}
-        </div>
+        {eyebrow ? (
+          <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+            {eyebrow}
+          </div>
+        ) : null}
         <div className="flex items-center gap-3">
-          <span className="h-6 w-1 shrink-0 rounded-full bg-[var(--docs-accent)]" aria-hidden="true" />
           <h2 className="text-xl font-semibold leading-7 text-[var(--neutral-900)]">{title}</h2>
           <div className="hidden h-px flex-1 bg-gradient-to-r from-[var(--neutral-300)] to-transparent md:block" />
         </div>
       </div>
       {description ? (
-        <p className="max-w-[760px] text-sm leading-7 text-[var(--text-secondary)]">{description}</p>
+        <p className="max-w-[var(--content-reading-width)] text-sm leading-[22px] text-[var(--text-secondary)]">{description}</p>
       ) : null}
+    </div>
+  );
+}
+
+export function SubsectionHeading({
+  eyebrow,
+  title,
+  description,
+  tone = "neutral",
+}: {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  tone?: "neutral" | "brand" | "product";
+}) {
+
+  return (
+    <div className="mb-4">
+      {eyebrow ? (
+        <div className="mb-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+          {eyebrow}
+        </div>
+      ) : null}
+      <div className="flex items-center gap-2">
+        <h3 className="text-base font-medium leading-[var(--type-body-l-line-height)] text-[var(--text-primary)]">{title}</h3>
+      </div>
+      {description ? (
+        <p className="mt-1.5 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-tertiary)]">{description}</p>
+      ) : null}
+    </div>
+  );
+}
+
+export function SectionCard({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 ${className}`}>
+      {children}
     </div>
   );
 }
@@ -46,7 +90,7 @@ export function ExampleCard({
   }[tone];
 
   return (
-    <div className={["rounded-[var(--radius-md)] border bg-white p-5 md:p-6", toneClass].join(" ")}>
+    <div className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass].join(" ")}>
       <div className="mb-5">
         <div className="flex items-center gap-2">
           <h3 className="text-base font-semibold text-[var(--neutral-900)]">{title}</h3>
@@ -74,7 +118,7 @@ export function ContractGrid({
   items: { label: string; value: ReactNode }[];
 }) {
   return (
-    <dl className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white md:grid-cols-2">
+    <dl className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white md:grid-cols-2">
       {items.map((item) => (
         <div key={item.label} className="border-b border-[var(--neutral-200)] p-4 last:border-b-0 md:[&:nth-last-child(-n+2)]:border-b-0 md:[&:nth-child(odd)]:border-r">
           <dt className="text-xs font-medium text-[var(--text-tertiary)]">{item.label}</dt>
@@ -101,7 +145,7 @@ export function RuleCallout({
   }[tone];
 
   return (
-    <aside className={["rounded-[var(--radius-md)] border p-4", toneClass].join(" ")}>
+    <aside className={["rounded-[var(--radius-sm)] border p-4", toneClass].join(" ")}>
       <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{title}</h3>
       <div className="mt-2 text-sm leading-6 text-[var(--neutral-700)]">{children}</div>
     </aside>

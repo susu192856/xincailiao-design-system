@@ -766,7 +766,7 @@ export default function ButtonPage() {
           <SpecCard title="垂直排列（移动端）">
             <div className="space-y-6">
               <div>
-                <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 12px (space-y-3)</p>
+                <p className="mb-2 text-xs text-[var(--neutral-600)]">间距 14px (space-y-3.5)</p>
                 <div className="space-y-3.5">
                   <Button tone="brand" size="lg" className="w-full">
                     预约演示
