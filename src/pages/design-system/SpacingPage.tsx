@@ -87,7 +87,7 @@ export default function SpacingPage() {
           <tbody>
             {spacingTokens.map((item) => (
               <tr key={item.token}>
-                <td className="whitespace-nowrap font-mono">
+                <td className="whitespace-nowrap font-token">
                   {item.token}
                 </td>
                 <td className="whitespace-nowrap font-mono">
@@ -118,8 +118,8 @@ export default function SpacingPage() {
                   style={{ width: `var(${item.variable})` }}
                 />
               </div>
-              <div className="font-mono text-xs text-[var(--neutral-600)]">{item.token}</div>
-              <div className="mt-1 font-mono text-xs text-[var(--neutral-500)]">{item.value}</div>
+              <div className="font-token text-xs text-[var(--text-tertiary)]">{item.token}</div>
+              <div className="mt-1 font-mono text-xs text-[var(--text-tertiary)]">{item.value}</div>
             </div>
           ))}
         </div>
@@ -140,10 +140,10 @@ export default function SpacingPage() {
             <div key={item.grade} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
               <div className="mb-3 flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">{item.grade}</span>
-                  <h3 className="mt-0.5 text-sm font-semibold text-[var(--neutral-900)]">{item.gap} · {item.token}</h3>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">{item.grade}</span>
+                  <h3 className="mt-0.5 text-sm font-semibold text-[var(--text-primary)]">{item.gap} · {item.token}</h3>
                 </div>
-                <span className="font-mono text-[10px] text-[var(--neutral-400)]">{item.desc}</span>
+                <span className="text-xs text-[var(--neutral-400)]">{item.desc}</span>
               </div>
               <div className={item.className}>
                 <div className="h-2 rounded-sm bg-[var(--neutral-900)]" />
@@ -194,13 +194,13 @@ export default function SpacingPage() {
             },
           ].map((recipe) => (
             <div key={recipe.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <p className="text-base font-semibold text-[var(--neutral-900)]">{recipe.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--neutral-600)]">{recipe.description}</p>
+              <p className="text-base font-semibold text-[var(--text-primary)]">{recipe.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{recipe.description}</p>
               <div className="mt-5 divide-y divide-[var(--neutral-200)] border-y border-[var(--neutral-200)]">
                 {recipe.rows.map(([label, value]) => (
                   <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-3 text-sm">
-                    <span className="text-[var(--neutral-700)]">{label}</span>
-                    <span className="font-mono text-xs text-[var(--neutral-900)]">{value}</span>
+                    <span className="text-[var(--text-secondary)]">{label}</span>
+                    <span className="font-mono text-xs text-[var(--text-primary)]">{value}</span>
                   </div>
                 ))}
               </div>

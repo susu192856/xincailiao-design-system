@@ -51,7 +51,7 @@ export default function MenuPage() {
           <ExampleCard title="顶部菜单" description="门户、轻量后台或内容栏目切换。">
             <div className="space-y-5">
               <Menu items={primaryItems.slice(0, 4)} activeKey="home" mode="horizontal" />
-              <p className="text-xs leading-5 text-[var(--neutral-600)]">顶部菜单只保留一级入口，复杂功能仍建议进入侧栏或二级导航。</p>
+              <p className="text-xs leading-5 text-[var(--text-tertiary)]">顶部菜单只保留一级入口，复杂功能仍建议进入侧栏或二级导航。</p>
             </div>
           </ExampleCard>
         </div>
@@ -63,8 +63,8 @@ export default function MenuPage() {
           <div className="grid grid-cols-1 gap-5 md:grid-cols-[260px_1fr]">
             <Menu items={groupedItems} activeKey="datasets" className="w-full" />
             <div className="rounded-sm bg-[var(--neutral-50)] p-5">
-              <h3 className="text-base font-semibold text-[var(--neutral-900)]">数据集</h3>
-              <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">
+              <h3 className="text-base font-semibold text-[var(--text-primary)]">数据集</h3>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-tertiary)]">
                 当前入口属于“数据资产”分组。分组标题使用弱文字，真正可点击入口仍保持明确图标、标题和状态提示。
               </p>
             </div>
@@ -105,14 +105,14 @@ export default function MenuPage() {
         <div className="rounded-sm bg-white p-6">
           <div className="grid overflow-hidden rounded-sm border border-[var(--neutral-200)] md:grid-cols-[224px_1fr]">
             <div className="border-r border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
-              <div className="mb-3 px-3 text-sm font-semibold text-[var(--neutral-900)]">材库管理</div>
+              <div className="mb-3 px-3 text-sm font-semibold text-[var(--text-primary)]">材库管理</div>
               <Menu items={primaryItems} activeKey="data" className="w-full bg-transparent p-0" />
             </div>
             <div className="min-h-72 bg-white p-5">
               <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-[var(--neutral-900)]">数据资产</h3>
-                  <p className="mt-1 text-sm text-[var(--neutral-600)]">材料数据集、解析任务和治理状态。</p>
+                  <h3 className="text-base font-semibold text-[var(--text-primary)]">数据资产</h3>
+                  <p className="mt-1 text-sm text-[var(--text-tertiary)]">材料数据集、解析任务和治理状态。</p>
                 </div>
                 <Badge count={8} tone="product" />
               </div>
@@ -120,7 +120,7 @@ export default function MenuPage() {
                 {["接入中", "待治理", "已发布"].map((item) => (
                   <div key={item} className="rounded-sm bg-[var(--neutral-50)] p-4">
                     <div className="h-2 w-16 bg-[var(--neutral-900)]" />
-                    <p className="mt-4 text-sm text-[var(--neutral-700)]">{item}</p>
+                    <p className="mt-4 text-sm text-[var(--text-secondary)]">{item}</p>
                   </div>
                 ))}
               </div>
@@ -136,7 +136,6 @@ export default function MenuPage() {
             "后台主导航使用 neutral-900 激活态，保证当前位置识别明确。",
             "产品蓝只用于数量提醒、焦点行为和功能入口，不作为菜单默认激活背景。",
             "禁用菜单需要保留可见性时使用 disabled，不要隐藏关键权限线索。",
-            "Figma 组件需包含 vertical、horizontal、collapsed、active、disabled、badge、group、divider 状态。",
           ]}
         />
       </section>

@@ -55,7 +55,7 @@ const actionAlignClasses: Record<FormActionAlign, string> = {
 };
 
 const stateToneClasses: Record<FormStateTone, string> = {
-  neutral: "border-[var(--neutral-200)] bg-[var(--neutral-50)] text-[var(--neutral-700)]",
+  neutral: "border-[var(--neutral-200)] bg-[var(--neutral-50)] text-[var(--text-secondary)]",
   product: "border-[var(--product-blue-200)] bg-[var(--product-blue-50)] text-[var(--product-blue-700)]",
   success: "border-[var(--success-bg)] bg-[var(--success-bg)] text-[var(--success-text)]",
   warning: "border-[var(--warning-bg)] bg-[var(--warning-bg)] text-[var(--warning-text)]",
@@ -75,8 +75,8 @@ export function FormSection({ title, description, children, className = "" }: Fo
     <section className={["rounded-[var(--radius-sm)] bg-white", className].join(" ")}>
       {title || description ? (
         <div className="mb-5">
-          {title ? <h3 className="text-base font-semibold text-[var(--neutral-900)]">{title}</h3> : null}
-          {description ? <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{description}</p> : null}
+          {title ? <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3> : null}
+          {description ? <p className="mt-2 text-sm leading-6 text-[var(--text-tertiary)]">{description}</p> : null}
         </div>
       ) : null}
       {children}

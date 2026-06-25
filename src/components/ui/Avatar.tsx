@@ -35,7 +35,7 @@ export function Avatar({ name, src, size = "md", status, disabled = false, class
     >
       <div
         className={[
-          "inline-flex items-center justify-center overflow-hidden rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--neutral-700)]",
+          "inline-flex items-center justify-center overflow-hidden rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--text-secondary)]",
           sizeClasses[size],
         ].join(" ")}
         aria-label={name}

@@ -85,8 +85,8 @@ export default function DescriptionListPage() {
               ].map(([name, type, status]) => (
                 <div key={name} className="grid grid-cols-[1fr_auto] gap-4 py-3">
                   <div>
-                    <p className="text-sm leading-5 text-[var(--neutral-900)]">{name}</p>
-                    <p className="mt-1 text-xs text-[var(--neutral-500)]">{type}</p>
+                    <p className="text-sm leading-5 text-[var(--text-primary)]">{name}</p>
+                    <p className="mt-1 text-xs text-[var(--text-tertiary)]">{type}</p>
                   </div>
                   <Tag variant={status === "待确认" ? "warning" : "neutral"} size="sm">{status}</Tag>
                 </div>
@@ -111,7 +111,7 @@ export default function DescriptionListPage() {
                 { label: "归档时间" },
               ]}
             />
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">空值统一显示 “--”，避免用户误以为页面加载失败。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">空值统一显示 “--”，避免用户误以为页面加载失败。</p>
           </ExampleCard>
           <ExampleCard title="长文本说明">
             <DescriptionList
@@ -136,7 +136,6 @@ export default function DescriptionListPage() {
             "空值统一显示 “--”，不要留空或直接隐藏字段。",
             "审核备注、治理说明等长文本字段使用 span 跨列展示。",
             "长文本使用 1 列或跨列展示，不要塞入 3 列字段网格。",
-            "Figma 组件需支持 1/2/3 列、bordered、empty、status value 等变体。",
           ]}
         />
       </section>

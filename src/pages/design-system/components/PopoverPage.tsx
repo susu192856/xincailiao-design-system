@@ -78,8 +78,8 @@ export default function PopoverPage() {
             <div className="bg-[var(--neutral-50)] p-4">
               <div className="flex items-center justify-between bg-white p-4">
                 <div>
-                  <p className="text-sm font-semibold text-[var(--neutral-900)]">合同数据流转记录</p>
-                  <p className="mt-1 text-sm text-[var(--neutral-600)]">最近同步：2026-06-08 14:32</p>
+                  <p className="text-sm font-semibold text-[var(--text-primary)]">合同数据流转记录</p>
+                  <p className="mt-1 text-sm text-[var(--text-tertiary)]">最近同步：2026-06-08 14:32</p>
                 </div>
                 <Popover
                   open
@@ -97,8 +97,8 @@ export default function PopoverPage() {
               <div className="bg-white p-4">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-[var(--neutral-900)]">推荐材料：GH4169</p>
-                    <p className="mt-1 text-sm text-[var(--neutral-600)]">综合匹配度 92%，高温强度满足目标区间。</p>
+                    <p className="text-sm font-semibold text-[var(--text-primary)]">推荐材料：GH4169</p>
+                    <p className="mt-1 text-sm text-[var(--text-tertiary)]">综合匹配度 92%，高温强度满足目标区间。</p>
                   </div>
                   <Popover
                     open
@@ -122,7 +122,6 @@ export default function PopoverPage() {
             "带操作的 Popover 必须支持点击外部关闭和 Esc 关闭；前端实现需补齐焦点管理。",
             "需要阻断任务、二次确认或危险操作时，应升级为 Modal。",
             "信息量超过三行、需要滚动或有多个区域时，应改用 Drawer 或独立页面。",
-            "Figma 组件需要包含四向位置、无标题、有标题、带 footer、信息说明和操作菜单状态。",
             "视觉上使用白底、neutral-200 边框、轻阴影和 2px 圆角，品牌红仅用于关键状态点。",
           ]}
         />

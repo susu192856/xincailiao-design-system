@@ -20,15 +20,15 @@ export default function ImagePage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <ExampleCard title="Square">
             <Image ratio="square" src={micrographSrc} alt="材料组织图" />
-            <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">适用于头像、封面缩略图、材料图片列表。</p>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">适用于头像、封面缩略图、材料图片列表。</p>
           </ExampleCard>
           <ExampleCard title="Video">
             <Image ratio="video" src={phaseDiagramSrc} alt="相图曲线" fit="contain" />
-            <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">适用于相图、截图、图表和视频封面。</p>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">适用于相图、截图、图表和视频封面。</p>
           </ExampleCard>
           <ExampleCard title="Wide">
             <Image ratio="wide" src={phaseDiagramSrc} alt="横向展示图" fit="contain" />
-            <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">适用于官网 Banner、详情页头图和宽幅产品图。</p>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">适用于官网 Banner、详情页头图和宽幅产品图。</p>
           </ExampleCard>
         </div>
       </section>
@@ -38,11 +38,11 @@ export default function ImagePage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="Cover - 填满容器">
             <Image ratio="video" src={micrographSrc} alt="显微图填充" fit="cover" />
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">适合封面和缩略图，允许轻微裁切，以保持卡片视觉统一。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">适合封面和缩略图，允许轻微裁切，以保持卡片视觉统一。</p>
           </ExampleCard>
           <ExampleCard title="Contain - 完整展示">
             <Image ratio="video" src={phaseDiagramSrc} alt="相图完整展示" fit="contain" />
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">适合相图、图表、显微结构和需要完整阅读的专业图片。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">适合相图、图表、显微结构和需要完整阅读的专业图片。</p>
           </ExampleCard>
         </div>
       </section>
@@ -88,16 +88,16 @@ export default function ImagePage() {
               <div className="flex items-center gap-4">
                 <Image ratio="square" src={micrographSrc} alt="附件缩略图" className="w-20" />
                 <div className="min-w-0">
-                  <p className="text-sm text-[var(--neutral-900)]">热处理组织图.png</p>
-                  <p className="mt-1 text-xs text-[var(--neutral-500)]">上传于 2026-06-04 · 2.4MB</p>
+                  <p className="text-sm text-[var(--text-primary)]">热处理组织图.png</p>
+                  <p className="mt-1 text-xs text-[var(--text-tertiary)]">上传于 2026-06-04 · 2.4MB</p>
                   <Button className="mt-3" variant="outline" tone="neutral" size="sm">查看原图</Button>
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <Image ratio="square" isError fallbackText="文件失效" className="w-20" />
                 <div className="min-w-0">
-                  <p className="text-sm text-[var(--neutral-900)]">来源证明.pdf</p>
-                  <p className="mt-1 text-xs text-[var(--neutral-500)]">文件链接已失效，需要重新上传。</p>
+                  <p className="text-sm text-[var(--text-primary)]">来源证明.pdf</p>
+                  <p className="mt-1 text-xs text-[var(--text-tertiary)]">文件链接已失效，需要重新上传。</p>
                   <Button className="mt-3" variant="outline" tone="danger" size="sm">重新上传</Button>
                 </div>
               </div>
@@ -114,7 +114,6 @@ export default function ImagePage() {
             "材料显微图、相图、测试曲线等专业图片优先使用 contain，确保信息完整可读。",
             "官网封面和列表缩略图可使用 cover，但不得裁掉关键产品、Logo、图表坐标轴。",
             "加载失败需要显示明确占位和原因，不要只显示浏览器裂图。",
-            "Figma 组件需包含 square、video、wide、cover、contain、loading、error、caption 等状态。",
           ]}
         />
       </section>

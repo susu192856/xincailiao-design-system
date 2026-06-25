@@ -24,7 +24,7 @@ export default function AvatarPage() {
               <Avatar name="李明" size="md" />
               <Avatar name="张婷" size="lg" />
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">列表中使用 28px，顶栏和表单摘要使用 36px，详情头部可使用 48px。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">列表中使用 28px，顶栏和表单摘要使用 36px，详情头部可使用 48px。</p>
           </ExampleCard>
           <ExampleCard title="状态点">
             <div className="flex items-center gap-5">
@@ -32,7 +32,7 @@ export default function AvatarPage() {
               <Avatar name="处理中" status="busy" />
               <Avatar name="离线用户" status="offline" />
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">状态点只表示即时在线状态，不表示权限等级或审核状态。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">状态点只表示即时在线状态，不表示权限等级或审核状态。</p>
           </ExampleCard>
           <ExampleCard title="带消息徽标">
             <div className="flex items-center gap-6">
@@ -43,7 +43,7 @@ export default function AvatarPage() {
                 <Avatar name="系统" size="md" />
               </Badge>
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">徽标用于待办数量或重要提醒，避免和状态点同时表达同一含义。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">徽标用于待办数量或重要提醒，避免和状态点同时表达同一含义。</p>
           </ExampleCard>
         </div>
       </section>
@@ -54,13 +54,13 @@ export default function AvatarPage() {
           <ExampleCard title="顶栏用户入口">
             <div className="flex items-center justify-between bg-white p-4">
               <div>
-                <p className="text-sm text-[var(--neutral-900)]">材料数据工作台</p>
-                <p className="mt-1 text-xs text-[var(--neutral-500)]">当前空间：华东材料数据空间</p>
+                <p className="text-sm text-[var(--text-primary)]">材料数据工作台</p>
+                <p className="mt-1 text-xs text-[var(--text-tertiary)]">当前空间：华东材料数据空间</p>
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-right">
-                  <p className="text-sm text-[var(--neutral-900)]">王工</p>
-                  <p className="mt-0.5 text-xs text-[var(--neutral-500)]">管理员</p>
+                  <p className="text-sm text-[var(--text-primary)]">王工</p>
+                  <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">管理员</p>
                 </div>
                 <Avatar name="王工" status="online" />
               </div>
@@ -73,8 +73,8 @@ export default function AvatarPage() {
                   <div className="flex items-center gap-3">
                     <Avatar name={member.name} status={member.status} size="sm" />
                     <div>
-                      <p className="text-sm text-[var(--neutral-900)]">{member.name}</p>
-                      <p className="mt-0.5 text-xs text-[var(--neutral-500)]">{member.role}</p>
+                      <p className="text-sm text-[var(--text-primary)]">{member.name}</p>
+                      <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">{member.role}</p>
                     </div>
                   </div>
                   <Tag variant={member.status === "online" ? "success" : member.status === "busy" ? "warning" : "neutral"} size="sm">
@@ -89,15 +89,15 @@ export default function AvatarPage() {
               <div className="flex gap-3">
                 <Avatar name="审核员" size="sm" />
                 <div className="min-w-0">
-                  <p className="text-sm text-[var(--neutral-900)]">审核员提交审批意见</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">字段映射已通过，建议补充数据来源证明。</p>
+                  <p className="text-sm text-[var(--text-primary)]">审核员提交审批意见</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">字段映射已通过，建议补充数据来源证明。</p>
                 </div>
               </div>
               <div className="flex gap-3">
                 <Avatar name="系统" size="sm" status="busy" />
                 <div className="min-w-0">
-                  <p className="text-sm text-[var(--neutral-900)]">系统自动校验中</p>
-                  <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">正在检查材料牌号、批次和权限范围。</p>
+                  <p className="text-sm text-[var(--text-primary)]">系统自动校验中</p>
+                  <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">正在检查材料牌号、批次和权限范围。</p>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function AvatarPage() {
               {["空间管理员", "数据提供方", "数据使用方", "访客"].map((role) => (
                 <div key={role} className="flex items-center gap-3 bg-[var(--neutral-50)] p-3">
                   <Avatar name={role} size="sm" />
-                  <span className="text-sm text-[var(--neutral-800)]">{role}</span>
+                  <span className="text-sm text-[var(--text-body)]">{role}</span>
                 </div>
               ))}
             </div>
@@ -123,7 +123,6 @@ export default function AvatarPage() {
             "无图片时显示姓名首字；中文姓名取首字，英文姓名取首字母并大写。",
             "状态点只用于在线、忙碌、离线等即时状态，不用于角色、权限、审核状态。",
             "头像与徽标组合时，徽标表达待办数量或关键提醒，避免和在线状态混用。",
-            "Figma 组件需包含 size、image、initial、status、with badge、disabled/anonymous 等变体。",
           ]}
         />
       </section>

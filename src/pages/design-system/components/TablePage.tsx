@@ -18,7 +18,7 @@ import {
   TableRow,
   TableSkeletonRows,
 } from "../../../components/ui/Table";
-import { Tag } from "../../../components/ui/Tag";
+import { Tag, type TagVariant } from "../../../components/ui/Tag";
 
 const rows = [
   { name: "TC4 钛合金性能数据集", type: "金属材料", status: "已发布", owner: "材料中心", updated: "2026-06-04" },
@@ -31,6 +31,8 @@ function StatusTag({ status }: { status: string }) {
   if (status === "待审核") return <Tag variant="warning" size="sm">待审核</Tag>;
   return <Tag variant="error" size="sm">异常</Tag>;
 }
+
+const statusVariant = { 已发布: "success", 待审核: "warning", 计算中: "product", 已驳回: "error" } as const;
 
 export default function TablePage() {
   return (
@@ -47,7 +49,7 @@ export default function TablePage() {
             <Button size="sm" tone="product">筛选</Button>
           </div>
           <div className="mb-3 flex items-center justify-between rounded-sm bg-[var(--neutral-50)] px-3 py-2">
-            <p className="text-xs text-[var(--neutral-600)]">已选择 2 项，可进行批量发布、导出或权限配置。</p>
+            <p className="text-xs text-[var(--text-tertiary)]">已选择 2 项，可进行批量发布、导出或权限配置。</p>
             <div className="flex gap-2">
               <Button size="sm" variant="outline">批量导出</Button>
               <Button size="sm" variant="ghost">权限配置</Button>
@@ -74,7 +76,7 @@ export default function TablePage() {
                     className={index === 2 ? "bg-[var(--error-bg)]/40" : "hover:bg-[var(--neutral-50)]"}
                   >
                     <TableCell><Checkbox aria-label={`选择 ${row.name}`} defaultChecked={index < 2} /></TableCell>
-                    <TableCell className="font-medium text-[var(--neutral-900)]">{row.name}</TableCell>
+                    <TableCell className="font-medium text-[var(--text-primary)]">{row.name}</TableCell>
                     <TableCell>{row.type}</TableCell>
                     <TableCell><StatusTag status={row.status} /></TableCell>
                     <TableCell>{row.owner}</TableCell>
@@ -106,7 +108,7 @@ export default function TablePage() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">表格首次加载使用骨架屏，避免页面跳动。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">表格首次加载使用骨架屏，避免页面跳动。</p>
           </ExampleCard>
           <ExampleCard title="空状态">
             <TableContainer>
@@ -125,7 +127,7 @@ export default function TablePage() {
               <Table density="compact">
                 <TableBody>
                   <TableRow className="bg-[var(--error-bg)]/40">
-                    <TableCell className="font-medium text-[var(--neutral-900)]">相图预测结果</TableCell>
+                    <TableCell className="font-medium text-[var(--text-primary)]">相图预测结果</TableCell>
                     <TableCell><Tag variant="error" size="sm">异常</Tag></TableCell>
                     <TableCell align="right"><Button variant="text" tone="danger" size="sm" className="h-auto px-0 py-0">查看原因</Button></TableCell>
                   </TableRow>
@@ -137,7 +139,7 @@ export default function TablePage() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">异常行使用浅错误背景和错误标签，禁用行需要降低对比度并保留可读信息。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">异常行使用浅错误背景和错误标签，禁用行需要降低对比度并保留可读信息。</p>
           </ExampleCard>
         </div>
       </section>
@@ -179,7 +181,7 @@ export default function TablePage() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="font-medium text-[var(--neutral-900)]">高温合金样件</TableCell>
+                    <TableCell className="font-medium text-[var(--text-primary)]">高温合金样件</TableCell>
                     <TableCell>**** 材料科技</TableCell>
                     <TableCell><Tag variant="warning" size="sm">部分可见</Tag></TableCell>
                     <TableCell align="right"><Button variant="text" tone="product" size="sm" className="h-auto px-0 py-0">申请解锁</Button></TableCell>
@@ -256,11 +258,11 @@ export default function TablePage() {
                   ["6061-T6", "材库治理", "310", "276", "12.0", "内部共享", "2026-05-30"],
                 ].map((row) => (
                   <TableRow key={row[0]}>
-                    <TableCell className="font-medium text-[var(--neutral-900)]">{row[0]}</TableCell>
+                    <TableCell className="font-medium text-[var(--text-primary)]">{row[0]}</TableCell>
                     <TableCell>{row[1]}</TableCell>
-                    <TableCell align="right" className="font-mono">{row[2]}</TableCell>
-                    <TableCell align="right" className="font-mono">{row[3]}</TableCell>
-                    <TableCell align="right" className="font-mono">{row[4]}</TableCell>
+                    <TableCell align="right" className="font-data">{row[2]}</TableCell>
+                    <TableCell align="right" className="font-data">{row[3]}</TableCell>
+                    <TableCell align="right" className="font-data">{row[4]}</TableCell>
                     <TableCell><Tag variant="product" size="sm">{row[5]}</Tag></TableCell>
                     <TableCell align="right">{row[6]}</TableCell>
                   </TableRow>
@@ -268,12 +270,77 @@ export default function TablePage() {
               </TableBody>
             </Table>
           </TableContainer>
-          <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">文本列左对齐，数字列右对齐并使用等宽数字；操作列固定在最右侧时也保持右对齐。</p>
+          <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">文本列左对齐，数字列右对齐并使用等宽数字；操作列固定在最右侧时也保持右对齐。</p>
         </ExampleCard>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Patterns" title="后台表格规则" />
+        <SectionHeading
+          eyebrow="List Example"
+          title="列表页示例"
+          description="展示数据空间、材库和 AI 应用中最常见的后台列表结构。列表页通常由页面标题、筛选区、数据表格、批量操作和分页组成。"
+        />
+        <ExampleCard title="数据资产列表">
+          <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+            <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-3">
+              <Input label="关键词" placeholder="搜索数据资产名称" prefix={<MagnifyingGlass className="h-4 w-4" weight="regular" />} />
+              <Input label="分类" placeholder="全部分类" />
+              <Input label="状态" placeholder="全部状态" />
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <Button variant="outline" tone="neutral">筛选</Button>
+              <Button tone="neutral">新增数据</Button>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>数据名称</TableHead>
+                  <TableHead>分类</TableHead>
+                  <TableHead>状态</TableHead>
+                  <TableHead>归属</TableHead>
+                  <TableHead>更新时间</TableHead>
+                  <TableHead className="text-right">操作</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {[
+                  { name: "高温合金性能数据集", category: "材料性能", status: "已发布", owner: "材库运营组", time: "2026-05-18" },
+                  { name: "热处理工艺实验批次", category: "工艺参数", status: "待审核", owner: "实验数据组", time: "2026-05-16" },
+                  { name: "相图预测任务结果", category: "AI 应用", status: "计算中", owner: "模型平台", time: "2026-05-14" },
+                  { name: "复合材料供应链目录", category: "数据空间", status: "已驳回", owner: "可信流通组", time: "2026-05-12" },
+                ].map((item) => (
+                  <TableRow key={item.name}>
+                    <TableCell className="font-medium text-[var(--text-primary)]">{item.name}</TableCell>
+                    <TableCell>{item.category}</TableCell>
+                    <TableCell>
+                      <Tag variant={statusVariant[item.status as keyof typeof statusVariant]} size="sm">{item.status}</Tag>
+                    </TableCell>
+                    <TableCell>{item.owner}</TableCell>
+                    <TableCell>{item.time}</TableCell>
+                    <TableCell className="text-right">
+                      <Button variant="text" tone="neutral" size="sm">查看</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <p className="text-xs text-[var(--text-tertiary)]">共 128 条数据，当前展示 1-4 条</p>
+            <Pagination page={1} total={5} />
+          </div>
+        </ExampleCard>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Patterns"
+          title="后台表格规则"
+        />
         <SpecList
           items={[
             "表格适合高密度结构化数据，不用卡片替代批量字段浏览。",
@@ -282,7 +349,6 @@ export default function TablePage() {
             "无权限、脱敏、禁用行要在表格内清晰表达，避免用户误判为加载失败。",
             "字段过多时使用横向滚动，不强行压缩列宽；数字、金额、百分比等可比较数据统一右对齐。",
             "列表页优先使用 compact 密度；详情页或审计记录可使用 standard 或 comfortable。",
-            "空、加载、错误、无权限、部分选中等状态必须在 Figma 和代码中都可调用。",
           ]}
         />
       </section>

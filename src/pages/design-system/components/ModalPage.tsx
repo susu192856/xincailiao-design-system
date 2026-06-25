@@ -32,11 +32,11 @@ export default function ModalPage() {
             }
           >
             <div className="grid grid-cols-[88px_1fr] gap-y-3 text-sm">
-              <span className="text-[var(--neutral-500)]">数据集</span>
-              <span className="text-[var(--neutral-800)]">高温合金数据集</span>
-              <span className="text-[var(--neutral-500)]">权限范围</span>
-              <span className="text-[var(--neutral-800)]">组织内可见</span>
-              <span className="text-[var(--neutral-500)]">状态</span>
+              <span className="text-[var(--text-tertiary)]">数据集</span>
+              <span className="text-[var(--text-body)]">高温合金数据集</span>
+              <span className="text-[var(--text-tertiary)]">权限范围</span>
+              <span className="text-[var(--text-body)]">组织内可见</span>
+              <span className="text-[var(--text-tertiary)]">状态</span>
               <Tag size="sm" variant="warning">待发布</Tag>
             </div>
           </Modal>
@@ -63,12 +63,12 @@ export default function ModalPage() {
                 </>
               }
             >
-              <div className="grid gap-3 text-sm text-[var(--neutral-700)] md:grid-cols-3">
+              <div className="grid gap-3 text-sm text-[var(--text-secondary)] md:grid-cols-3">
                 {["接入完成", "字段治理", "发布存证"].map((item, index) => (
                   <div key={item} className="bg-[var(--neutral-50)] p-4">
-                    <p className="text-xs text-[var(--neutral-500)]">STEP 0{index + 1}</p>
-                    <p className="mt-2 font-normal text-[var(--neutral-900)]">{item}</p>
-                    <p className="mt-2 leading-6 text-[var(--neutral-600)]">记录操作人、时间、状态与结果摘要。</p>
+                    <p className="text-xs text-[var(--text-tertiary)]">STEP 0{index + 1}</p>
+                    <p className="mt-2 font-normal text-[var(--text-primary)]">{item}</p>
+                    <p className="mt-2 leading-6 text-[var(--text-tertiary)]">记录操作人、时间、状态与结果摘要。</p>
                   </div>
                 ))}
               </div>
@@ -92,7 +92,7 @@ export default function ModalPage() {
                 </>
               }
             >
-              <p className="text-sm leading-6 text-[var(--neutral-600)]">遮罩点击不会关闭弹窗，适合高风险或提交中的流程。</p>
+              <p className="text-sm leading-6 text-[var(--text-tertiary)]">遮罩点击不会关闭弹窗，适合高风险或提交中的流程。</p>
             </Modal>
           </ExampleCard>
         </div>
@@ -117,7 +117,7 @@ export default function ModalPage() {
                 </>
               }
             >
-              <p className="text-sm leading-6 text-[var(--neutral-600)]">建议在高风险操作中增加二次确认或输入名称校验。</p>
+              <p className="text-sm leading-6 text-[var(--text-tertiary)]">建议在高风险操作中增加二次确认或输入名称校验。</p>
             </Modal>
           </ExampleCard>
           <ExampleCard title="警告提示">
@@ -136,7 +136,7 @@ export default function ModalPage() {
                 </>
               }
             >
-              <div className="rounded-sm bg-[var(--neutral-50)] p-3 text-sm text-[var(--neutral-700)]">冲突字段：材料牌号、热处理温度、组织类型</div>
+              <div className="rounded-sm bg-[var(--neutral-50)] p-3 text-sm text-[var(--text-secondary)]">冲突字段：材料牌号、热处理温度、组织类型</div>
             </Modal>
           </ExampleCard>
           <ExampleCard title="成功反馈">
@@ -150,7 +150,7 @@ export default function ModalPage() {
               onClose={() => setOpen(null)}
               footer={<Button onClick={() => setOpen(null)}>完成</Button>}
             >
-              <p className="text-sm leading-6 text-[var(--neutral-600)]">后续可在数据空间中查看流转记录和访问日志。</p>
+              <p className="text-sm leading-6 text-[var(--text-tertiary)]">后续可在数据空间中查看流转记录和访问日志。</p>
             </Modal>
           </ExampleCard>
         </div>
@@ -170,7 +170,7 @@ export default function ModalPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="信息确认">
-            <div className="space-y-3 rounded-sm bg-[var(--neutral-50)] p-4 text-sm text-[var(--neutral-700)]">
+            <div className="space-y-3 rounded-sm bg-[var(--neutral-50)] p-4 text-sm text-[var(--text-secondary)]">
               <div className="flex justify-between"><span>数据空间</span><span>新材料可信数据空间</span></div>
               <div className="flex justify-between"><span>授权对象</span><span>材料研发组</span></div>
               <div className="flex justify-between"><span>有效期</span><span>30 天</span></div>
@@ -187,7 +187,6 @@ export default function ModalPage() {
             "危险操作必须明确说明后果，并使用危险按钮或二次确认。",
             "提交中或高风险流程可关闭遮罩点击，避免用户误关导致状态不确定。",
             "按钮顺序保持取消在左、确认在右，减少误操作。",
-            "Figma 组件需包含普通、危险、警告、成功、提交中、无关闭按钮和四种宽度状态。",
           ]}
         />
       </section>

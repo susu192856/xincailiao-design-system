@@ -80,7 +80,7 @@ export default function RadiusPage() {
           <tbody>
             {radiusTokens.map((item) => (
               <tr key={item.token}>
-                <td className="whitespace-nowrap font-mono">
+                <td className="whitespace-nowrap font-token">
                   {item.token}
                 </td>
                 <td className="whitespace-nowrap font-mono">
@@ -109,8 +109,8 @@ export default function RadiusPage() {
                 className="mb-4 h-24 bg-[var(--neutral-50)]"
                 style={{ borderRadius: `var(${item.variable})` }}
               />
-              <div className="font-mono text-xs text-[var(--neutral-600)]">{item.token}</div>
-              <div className="mt-1 font-mono text-xs text-[var(--neutral-500)]">{item.value}</div>
+              <div className="font-token text-xs text-[var(--text-tertiary)]">{item.token}</div>
+              <div className="mt-1 font-mono text-xs text-[var(--text-tertiary)]">{item.value}</div>
             </div>
           ))}
         </div>

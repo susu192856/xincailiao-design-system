@@ -48,7 +48,7 @@ export function Textarea({
   return (
     <label className="block">
       {label ? (
-        <span className="mb-1.5 block text-sm font-medium text-[var(--neutral-900)]">
+        <span className="mb-1.5 block text-sm font-medium text-[var(--text-primary)]">
           {label}
           {props.required ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
         </span>
@@ -80,7 +80,7 @@ export function Textarea({
             {error ?? helperText}
           </span>
           {showCount ? (
-            <span className="shrink-0 font-mono text-[var(--text-tertiary)]">
+            <span className="shrink-0 font-data text-[var(--text-tertiary)]">
               {currentValue.length}{props.maxLength ? ` / ${props.maxLength}` : ""}
             </span>
           ) : null}

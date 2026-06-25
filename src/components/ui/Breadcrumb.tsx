@@ -26,7 +26,7 @@ export function Breadcrumb({ items, maxItems, className = "", ...props }: Breadc
 
   return (
     <nav aria-label="面包屑" className={className} {...props}>
-      <ol className="flex flex-wrap items-center gap-1 text-sm text-[var(--neutral-500)]">
+      <ol className="flex flex-wrap items-center gap-1 text-sm text-[var(--text-tertiary)]">
         {visibleItems.map((item, index) => {
           const isLast = index === visibleItems.length - 1 || item.current;
           const isDisabled = item.disabled;
@@ -34,13 +34,13 @@ export function Breadcrumb({ items, maxItems, className = "", ...props }: Breadc
             <li key={index} className="flex items-center gap-1">
               {index > 0 ? <CaretRight size={12} weight="regular" className="text-[var(--neutral-400)]" /> : null}
               {item.href && !isLast && !isDisabled ? (
-                <a href={item.href} className="rounded-[var(--radius-sm)] transition-colors hover:text-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]">
+                <a href={item.href} className="rounded-[var(--radius-sm)] transition-colors hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]">
                   {item.label}
                 </a>
               ) : (
                 <span
                   className={[
-                    isLast ? "text-[var(--neutral-900)]" : "",
+                    isLast ? "text-[var(--text-primary)]" : "",
                     isDisabled ? "cursor-default text-[var(--neutral-400)]" : "",
                   ].join(" ")}
                 >

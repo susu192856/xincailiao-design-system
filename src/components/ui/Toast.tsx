@@ -81,9 +81,9 @@ export function Toast({
         );
       })()}
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-normal text-[var(--neutral-900)]">{title}</p>
+        <p className="text-sm font-normal text-[var(--text-primary)]">{title}</p>
         {description ? (
-          <p className="mt-0.5 text-xs leading-5 text-[var(--neutral-600)]">{description}</p>
+          <p className="mt-0.5 text-xs leading-5 text-[var(--text-tertiary)]">{description}</p>
         ) : null}
         {action ? <div className="mt-3">{action}</div> : null}
       </div>
@@ -91,7 +91,7 @@ export function Toast({
         <button
           type="button"
           onClick={onClose}
-          className="-mr-1 -mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center text-[var(--neutral-400)] hover:text-[var(--neutral-600)]"
+          className="-mr-1 -mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center text-[var(--neutral-400)] hover:text-[var(--text-tertiary)]"
           aria-label="关闭"
         >
           <X size={14} weight="regular" />

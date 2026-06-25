@@ -8,8 +8,8 @@ import { Tag } from "../../../components/ui/Tag";
 function FieldRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid grid-cols-[88px_1fr] gap-3 text-sm">
-      <span className="text-[var(--neutral-500)]">{label}</span>
-      <span className="text-[var(--neutral-800)]">{value}</span>
+      <span className="text-[var(--text-tertiary)]">{label}</span>
+      <span className="text-[var(--text-body)]">{value}</span>
     </div>
   );
 }
@@ -53,8 +53,8 @@ export default function DrawerPage() {
               <div className="space-y-3">
                 {["材料类别", "数据来源", "审核状态", "更新时间"].map((item) => (
                   <div key={item} className="flex items-center justify-between bg-[var(--neutral-50)] px-3 py-2 text-sm">
-                    <span className="text-[var(--neutral-800)]">{item}</span>
-                    <FunnelSimple size={16} className="text-[var(--neutral-500)]" />
+                    <span className="text-[var(--text-body)]">{item}</span>
+                    <FunnelSimple size={16} className="text-[var(--text-tertiary)]" />
                   </div>
                 ))}
               </div>
@@ -68,28 +68,28 @@ export default function DrawerPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <ExampleCard title="配置面板">
             <div className="flex items-center gap-3">
-              <SlidersHorizontal size={24} className="text-[var(--neutral-900)]" />
+              <SlidersHorizontal size={24} className="text-[var(--text-primary)]" />
               <div>
-                <p className="text-sm font-semibold text-[var(--neutral-900)]">字段显示配置</p>
-                <p className="mt-1 text-sm leading-6 text-[var(--neutral-600)]">适合表格列、字段权限和视图偏好设置。</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">字段显示配置</p>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">适合表格列、字段权限和视图偏好设置。</p>
               </div>
             </div>
           </ExampleCard>
           <ExampleCard title="流程追踪">
             <div className="flex items-center gap-3">
-              <ClockCounterClockwise size={24} className="text-[var(--neutral-900)]" />
+              <ClockCounterClockwise size={24} className="text-[var(--text-primary)]" />
               <div>
-                <p className="text-sm font-semibold text-[var(--neutral-900)]">审计时间线</p>
-                <p className="mt-1 text-sm leading-6 text-[var(--neutral-600)]">展示流转记录、操作人、时间和状态结果。</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">审计时间线</p>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">展示流转记录、操作人、时间和状态结果。</p>
               </div>
             </div>
           </ExampleCard>
           <ExampleCard title="侧栏扩展">
             <div className="flex items-center gap-3">
-              <SidebarSimple size={24} className="text-[var(--neutral-900)]" />
+              <SidebarSimple size={24} className="text-[var(--text-primary)]" />
               <div>
-                <p className="text-sm font-semibold text-[var(--neutral-900)]">低频导航或工具</p>
-                <p className="mt-1 text-sm leading-6 text-[var(--neutral-600)]">用于补充说明，不替代主侧栏导航。</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">低频导航或工具</p>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">用于补充说明，不替代主侧栏导航。</p>
               </div>
             </div>
           </ExampleCard>
@@ -106,8 +106,8 @@ export default function DrawerPage() {
             ["X-Large", "800px", "宽字段详情"],
           ].map(([name, width, usage]) => (
             <ExampleCard key={name} title={name}>
-              <p className="font-mono text-xl font-semibold text-[var(--neutral-900)]">{width}</p>
-              <p className="mt-2 text-sm leading-6 text-[var(--neutral-600)]">{usage}</p>
+              <p className="font-mono text-xl font-semibold text-[var(--text-primary)]">{width}</p>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-tertiary)]">{usage}</p>
             </ExampleCard>
           ))}
         </div>

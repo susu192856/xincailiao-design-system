@@ -74,7 +74,7 @@ export default function DeliveryPage() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {deliveryCards.map((card) => (
             <SectionCard key={card.title}>
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white text-[var(--neutral-800)]">
+              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white text-[var(--text-body)]">
                 {card.icon}
               </div>
               <h3 className="text-lg font-medium leading-[var(--type-heading-h5-line-height)] text-[var(--text-primary)]">{card.title}</h3>

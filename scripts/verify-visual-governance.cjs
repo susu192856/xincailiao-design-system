@@ -107,7 +107,7 @@ if (!typographyPage.includes("<DocsTable>")) {
 if (typographyPage.includes("title=\"数字与代码\"") || typographyPage.includes("Token 与代码名称")) {
   errors.push("src/pages/design-system/TypographyPage.tsx: font family cards must separate data numbers from Token/code naming.");
 }
-if (!typographyPage.includes("title=\"数字\"") || !typographyPage.includes("D-DIN-Pro，用于数据")) {
+if (!typographyPage.includes("title=\"特殊数字\"") || !typographyPage.includes("D-DIN-Pro，用于数据")) {
   errors.push("src/pages/design-system/TypographyPage.tsx: data number card must state D-DIN-Pro is used for data.");
 }
 if (!typographyPage.includes("className=\"font-token\"") || !typographyPage.includes("className=\"font-data\"")) {

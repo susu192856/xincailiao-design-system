@@ -16,7 +16,7 @@ export default function TooltipPage() {
           <ExampleCard title="图标解释">
             <div className="flex min-h-28 items-center gap-4">
               <Tooltip content="字段来自数据空间授权目录" open>
-                <button className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]" type="button" aria-label="说明">
+                <button className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]" type="button" aria-label="说明">
                   <Info size={18} weight="regular" />
                 </button>
               </Tooltip>
@@ -42,7 +42,7 @@ export default function TooltipPage() {
       </section>
 
       <section>
-        <SectionHeading title="出现位置" eyebrow="Placement" description="默认优先向上展示；当顶部空间不足时，再选择右、下、左。Figma 组件需要保留四个静态打开态。" />
+        <SectionHeading title="出现位置" eyebrow="Placement" description="默认优先向上展示；当顶部空间不足时，再选择右、下、左。" />
         <ExampleCard title="四向位置">
           <div className="grid grid-cols-2 gap-8 py-8 md:grid-cols-4">
             {placements.map((placement) => (
@@ -61,7 +61,7 @@ export default function TooltipPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="表格字段说明" description="用于字段口径、计算公式、权限来源等短解释。">
             <div className="bg-[var(--neutral-50)] p-4">
-              <div className="grid grid-cols-[1fr_120px_120px] border-b border-[var(--neutral-200)] pb-2 text-xs text-[var(--neutral-500)]">
+              <div className="grid grid-cols-[1fr_120px_120px] border-b border-[var(--neutral-200)] pb-2 text-xs text-[var(--text-tertiary)]">
                 <div className="flex items-center gap-1">
                   数据资产
                   <Tooltip content="完成标准化、清洗和权限绑定的数据集合。" open placement="right">
@@ -71,7 +71,7 @@ export default function TooltipPage() {
                 <div>状态</div>
                 <div>更新时间</div>
               </div>
-              <div className="grid grid-cols-[1fr_120px_120px] py-3 text-sm text-[var(--neutral-800)]">
+              <div className="grid grid-cols-[1fr_120px_120px] py-3 text-sm text-[var(--text-body)]">
                 <div>镍基合金样本集</div>
                 <div><Tag variant="success" size="sm">已发布</Tag></div>
                 <div>2026-06-08</div>
@@ -81,7 +81,7 @@ export default function TooltipPage() {
           <ExampleCard title="文本省略说明" description="长字段被截断时，可用 Tooltip 展示完整内容。">
             <div className="w-full bg-[var(--neutral-50)] p-4">
               <Tooltip content="面向航空发动机热端部件的高温合金材料数据集，已完成工艺与性能字段校准。" open>
-                <p className="max-w-xs truncate text-sm text-[var(--neutral-800)]">
+                <p className="max-w-xs truncate text-sm text-[var(--text-body)]">
                   面向航空发动机热端部件的高温合金材料数据集，已完成工艺与性能字段校准。
                 </p>
               </Tooltip>
@@ -99,7 +99,6 @@ export default function TooltipPage() {
             "不要用 Tooltip 承载必须被用户阅读的信息，关键阻断或确认应使用 Modal。",
             "触发方式必须同时支持 hover 与 keyboard focus，不能只依赖鼠标。",
             "背景使用 neutral-900，文字使用白色，圆角 2px，避免大阴影和装饰色。",
-            "Figma 组件需要包含 top、right、bottom、left、short text、long text 和 disabled trigger 状态。",
           ]}
         />
       </section>

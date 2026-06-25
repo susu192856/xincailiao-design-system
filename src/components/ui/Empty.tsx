@@ -49,8 +49,8 @@ export function Empty({ variant = "noData", title, description, action, classNam
       {...props}
     >
       <Icon size={32} weight="regular" className={iconColorMap[variant]} />
-      <h3 className="mt-4 text-base font-normal text-[var(--neutral-900)]">{title}</h3>
-      {description ? <p className="mt-2 max-w-sm text-sm leading-[22px] text-[var(--neutral-500)]">{description}</p> : null}
+      <h3 className="mt-4 text-base font-normal text-[var(--text-primary)]">{title}</h3>
+      {description ? <p className="mt-2 max-w-sm text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-tertiary)]">{description}</p> : null}
       {action ? <div className="mt-5">{action}</div> : null}
     </div>
   );

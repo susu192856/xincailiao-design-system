@@ -103,23 +103,23 @@ export default function ToastPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <div className="bg-white p-5">
             <Tag variant="success" size="sm">保存 / 发布成功</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">用户无需停留处理，toast 自动消失。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">用户无需停留处理，toast 自动消失。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="error" size="sm">提交失败</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">错误需明确原因；复杂错误跳转至表单字段。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">错误需明确原因；复杂错误跳转至表单字段。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="warning" size="sm">权限或风险提醒</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">不会阻断流程，但提示用户注意后果。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">不会阻断流程，但提示用户注意后果。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="product" size="sm">后台任务信息</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">用于解析、训练、导入等异步任务反馈。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">用于解析、训练、导入等异步任务反馈。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="product" size="sm">处理中</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">用于短时任务启动反馈，长任务应进入任务中心。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">用于短时任务启动反馈，长任务应进入任务中心。</p>
           </div>
         </div>
       </section>
@@ -134,7 +134,6 @@ export default function ToastPage() {
             "同一时间避免堆叠过多提示，批量任务优先合并为一条结果提示。",
             "处理中 Toast 只能表示任务已开始，不替代进度条或任务列表。",
             "需要后续处理时可提供一个文字按钮，按钮文案必须是明确动作。",
-            "Figma 组件需包含 success、error、warning、info、loading、close、with description、with action 和位置状态。",
           ]}
         />
       </section>

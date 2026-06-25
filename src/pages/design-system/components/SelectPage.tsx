@@ -157,8 +157,8 @@ export default function SelectPage() {
         <SectionHeading eyebrow="Dropdown" title="下拉面板与长选项" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">面板样式</h3>
-            <p className="mb-3 text-sm leading-6 text-[var(--neutral-600)]">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">面板样式</h3>
+            <p className="mb-3 text-sm leading-6 text-[var(--text-tertiary)]">
               下拉面板宽度与选择器同宽。选项高度 36px，hover 态使用 neutral-50 背景。
               选项过多时面板最大高度 240px，超出滚动。
             </p>
@@ -176,8 +176,8 @@ export default function SelectPage() {
                     className={[
                       "flex h-9 items-center justify-between px-3 text-sm",
                       state === "已选中" ? "bg-[var(--product-blue-50)] text-[var(--product-blue-700)]" : "",
-                      state === "Hover" ? "bg-[var(--neutral-50)] text-[var(--neutral-900)]" : "",
-                      state === "禁用" ? "cursor-not-allowed text-[var(--neutral-400)]" : "text-[var(--neutral-700)]",
+                      state === "Hover" ? "bg-[var(--neutral-50)] text-[var(--text-primary)]" : "",
+                      state === "禁用" ? "cursor-not-allowed text-[var(--neutral-400)]" : "text-[var(--text-secondary)]",
                     ].join(" ")}
                   >
                     <span>{label}</span>
@@ -188,11 +188,11 @@ export default function SelectPage() {
             </div>
           </div>
           <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-            <h3 className="mb-3 text-sm font-semibold text-[var(--neutral-900)]">长选项处理</h3>
-            <p className="mb-3 text-sm leading-6 text-[var(--neutral-600)]">
+            <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">长选项处理</h3>
+            <p className="mb-3 text-sm leading-6 text-[var(--text-tertiary)]">
               选项文案建议 ≤ 12 汉字。超长文本使用省略号截断，悬停显示完整内容。
             </p>
-            <div className="truncate rounded-sm bg-[var(--neutral-50)] p-3 font-mono text-xs text-[var(--neutral-700)]" title="新材料可信数据空间基础服务平台">
+            <div className="truncate rounded-sm bg-[var(--neutral-50)] p-3 text-xs text-[var(--text-secondary)]" title="新材料可信数据空间基础服务平台">
               新材料可信数据空间基础服务平台
             </div>
           </div>
@@ -212,7 +212,6 @@ export default function SelectPage() {
             "错误状态需要搭配文字说明，保证状态可理解。",
             "后台权限、状态、分类等枚举需要有禁用项和加载态，避免用户误以为系统无响应。",
             "当前 Select 稳定合同只覆盖单选；搜索、远程加载和多选标签不得以静态示例冒充已实现能力。",
-            "Figma 和前端组件需要保留 placeholder、selected、disabled option、loading、error 等状态，后台枚举才能真实复用。",
           ]}
         />
       </section>

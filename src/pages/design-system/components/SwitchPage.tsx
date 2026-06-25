@@ -1,6 +1,5 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
-import DocsTable from "../../../components/docs/DocsTable";
 import { Switch } from "../../../components/ui/Switch";
 import { Tag } from "../../../components/ui/Tag";
 
@@ -22,15 +21,15 @@ export default function SwitchPage() {
           <ExampleCard title="尺寸与场景">
             <div className="space-y-3">
               <div className="flex items-center justify-between bg-[var(--neutral-50)] px-3 py-2">
-                <span className="text-sm text-[var(--neutral-700)]">设置页标准开关</span>
+                <span className="text-sm text-[var(--text-secondary)]">设置页标准开关</span>
                 <Switch defaultChecked />
               </div>
               <div className="flex items-center justify-between bg-[var(--neutral-50)] px-3 py-2">
-                <span className="text-sm text-[var(--neutral-700)]">表格行内开关</span>
+                <span className="text-sm text-[var(--text-secondary)]">表格行内开关</span>
                 <Switch size="sm" />
               </div>
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">开启态使用产品蓝，表示功能处于激活状态；不使用品牌红表达普通启用。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">开启态使用产品蓝，表示功能处于激活状态；不使用品牌红表达普通启用。</p>
           </ExampleCard>
           <ExampleCard title="风险状态">
             <div className="space-y-4">
@@ -74,26 +73,6 @@ export default function SwitchPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Figma States" title="Figma 状态拆分" />
-        <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
-            <tr className="border-b border-[var(--neutral-200)]">
-              <th className="px-6 py-3 font-semibold">状态</th>
-              <th className="px-6 py-3 font-semibold">视觉</th>
-              <th className="px-6 py-3 font-semibold">使用场景</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
-            <tr><td className="px-6 py-4 font-mono text-xs">off</td><td className="px-6 py-4">neutral-300 轨道，白色滑块</td><td className="px-6 py-4">功能关闭</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">on</td><td className="px-6 py-4">product-blue-500 轨道</td><td className="px-6 py-4">普通功能激活</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">error</td><td className="px-6 py-4">错误背景和错误文案</td><td className="px-6 py-4">高风险开关或条件不满足</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">disabled</td><td className="px-6 py-4">整体透明度降低</td><td className="px-6 py-4">无权限或流程未到达</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">sm / md</td><td className="px-6 py-4">20px / 24px 高度</td><td className="px-6 py-4">表格行内 / 设置页面</td></tr>
-          </tbody>
-        </DocsTable>
-      </section>
-
-      <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
@@ -102,7 +81,6 @@ export default function SwitchPage() {
             "影响权限、发布、外部共享的开关需要二次确认或审批提示。",
             "高风险开关需要显示说明或错误提示，不能只依赖颜色表达风险。",
             "表格行内使用 sm 尺寸，设置页使用 md 尺寸。",
-            "Figma 组件需包含 off、on、error、disabled、disabled on、sm、md 和 with label 状态。",
           ]}
         />
       </section>

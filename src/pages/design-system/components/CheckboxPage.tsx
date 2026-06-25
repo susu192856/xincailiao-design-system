@@ -1,6 +1,5 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
-import DocsTable from "../../../components/docs/DocsTable";
 import { Checkbox } from "../../../components/ui/Checkbox";
 import { Tag } from "../../../components/ui/Tag";
 
@@ -74,26 +73,6 @@ export default function CheckboxPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Figma States" title="Figma 状态拆分" />
-        <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
-            <tr className="border-b border-[var(--neutral-200)]">
-              <th className="px-6 py-3 font-semibold">状态</th>
-              <th className="px-6 py-3 font-semibold">视觉</th>
-              <th className="px-6 py-3 font-semibold">使用场景</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
-            <tr><td className="px-6 py-4 font-mono text-xs">unchecked</td><td className="px-6 py-4">白底、中性灰边框</td><td className="px-6 py-4">默认未选择</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">checked</td><td className="px-6 py-4">neutral-900 填充，白色勾选</td><td className="px-6 py-4">明确选择项</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">indeterminate</td><td className="px-6 py-4">neutral-900 填充，白色横线</td><td className="px-6 py-4">表格部分选择、树节点部分选择</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">error</td><td className="px-6 py-4">错误边框与错误文案</td><td className="px-6 py-4">协议未勾选、必选项未确认</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">disabled</td><td className="px-6 py-4">整体透明度降低</td><td className="px-6 py-4">无权限、流程节点不可操作</td></tr>
-          </tbody>
-        </DocsTable>
-      </section>
-
-      <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
@@ -103,7 +82,6 @@ export default function CheckboxPage() {
             "禁用项需要保留标签，让用户知道该项存在但当前不可操作。",
             "协议确认类复选框应放在提交按钮上方，文案必须明确责任和后果。",
             "错误态必须展示文字原因，不只依赖红色边框。",
-            "Figma 组件需包含 unchecked、checked、indeterminate、error、disabled、disabled checked 等状态。",
           ]}
         />
       </section>

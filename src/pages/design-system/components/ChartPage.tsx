@@ -88,7 +88,7 @@ function 色条({ 颜色 }: { 颜色: string[] }) {
 
 function 图例({ items }: { items: 图例项[] }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-[var(--text-secondary)]">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--text-secondary)]">
       {items.map((item) => (
         <span key={item.名称} className="inline-flex items-center gap-1.5">
           <span
@@ -125,7 +125,7 @@ function 图表容器({
             <h3 className="text-base font-semibold leading-6 text-[var(--text-primary)]">{标题}</h3>
             <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">{说明}</p>
           </div>
-          {右侧 ? <span className="shrink-0 text-xs leading-5 text-[var(--text-tertiary)]">{右侧}</span> : null}
+          {右侧 ? <span className="shrink-0 text-xs leading-5 text-[var(--text-secondary)]">{右侧}</span> : null}
         </div>
         <div className="mt-4">
           <图例 items={图例项} />
@@ -149,13 +149,13 @@ function 明细表({
   return (
     <div className="overflow-x-auto rounded-sm border border-[var(--neutral-200)]">
       <div className="min-w-[520px]">
-        <div className="grid bg-[var(--neutral-50)] text-xs font-semibold text-[var(--text-secondary)]" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
+        <div className="grid bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-secondary)]" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
           {columns.map((column) => (
             <div key={column} className="border-r border-[var(--neutral-200)] px-3 py-2.5 last:border-r-0">{column}</div>
           ))}
         </div>
         {rows.map((row) => (
-          <div key={row.join("-")} className="grid border-t border-[var(--neutral-100)] text-xs text-[var(--text-secondary)]" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
+          <div key={row.join("-")} className="grid border-t border-[var(--neutral-100)] text-sm text-[var(--text-secondary)]" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
             {row.map((cell, index) => (
               <div key={`${cell}-${index}`} className="border-r border-[var(--neutral-100)] px-3 py-2.5 last:border-r-0">{cell}</div>
             ))}
@@ -325,12 +325,12 @@ function 热力矩阵示例() {
   return (
     <div className="overflow-x-auto">
       <div className="min-w-[520px]">
-        <div className="grid grid-cols-[64px_repeat(5,minmax(0,1fr))] text-xs font-semibold text-[var(--text-secondary)]">
+        <div className="grid grid-cols-[64px_repeat(5,minmax(0,1fr))] text-sm font-semibold text-[var(--text-secondary)]">
           <span />
           {columns.map((column) => <span key={column} className="px-2 py-2 text-center">{column}</span>)}
         </div>
         {rows.map((row, rowIndex) => (
-          <div key={row} className="grid grid-cols-[64px_repeat(5,minmax(0,1fr))] items-center gap-1 text-xs">
+          <div key={row} className="grid grid-cols-[64px_repeat(5,minmax(0,1fr))] items-center gap-1 text-sm">
             <span className="text-[var(--text-secondary)]">{row}</span>
             {columns.map((column, columnIndex) => {
               const level = levels[rowIndex * columns.length + columnIndex];
@@ -460,14 +460,14 @@ export default function ChartPage() {
             <div key={family.key} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm font-semibold text-[var(--text-primary)]">{family.name}</p>
-                <p className="text-xs text-[var(--text-tertiary)]">7 个层级</p>
+                <p className="text-xs text-[var(--text-secondary)]">7 个层级</p>
               </div>
               <div className="mt-3 flex h-10 overflow-hidden rounded-sm">
                 {family.shades.map((color) => (
                   <span key={color} className="flex-1" style={{ backgroundColor: color }} />
                 ))}
               </div>
-              <div className="mt-3 grid grid-cols-7 gap-1 text-center font-mono text-[10px] text-[var(--text-tertiary)]">
+              <div className="mt-3 grid grid-cols-7 gap-1 text-center text-sm text-[var(--text-primary)]">
                 {family.shades.map((color) => (
                   <span key={color} className="truncate" title={color}>{color}</span>
                 ))}
@@ -503,7 +503,7 @@ export default function ChartPage() {
         />
         <div className="mt-6 overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
           <div className="min-w-[760px]">
-            <div className="grid grid-cols-[160px_220px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--text-secondary)]">
+            <div className="grid grid-cols-[160px_220px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
               <span>业务问题</span>
               <span>推荐图表</span>
               <span>使用规则</span>
@@ -527,7 +527,7 @@ export default function ChartPage() {
         />
         <div className="mt-6 overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
           <div className="min-w-[900px]">
-            <div className="grid grid-cols-[160px_260px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-semibold text-[var(--text-secondary)]">
+            <div className="grid grid-cols-[160px_260px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
               <span>类型</span>
               <span>适用场景</span>
               <span>样式规则</span>
@@ -677,19 +677,6 @@ export default function ChartPage() {
         </div>
       </section>
 
-      <section>
-        <SectionHeading eyebrow="使用原则" title="交付前检查" />
-        <SpecList
-          items={[
-            "所有图表必须有标题；标题不足以说明口径时必须补副标题。",
-            "颜色不能作为唯一信息来源，必须配合图例、标签、数值、线型或表格明细。",
-            "同一页面中的同一业务对象必须保持同一颜色，不跨模块随意换色。",
-            "危险、成功、警告、信息提示使用语义色；数据色只用于数据系列。",
-            "移动端优先保留可读性，复杂图表允许横向滚动，不把坐标和标签压缩到不可读。",
-            "如果图表无法回答明确业务问题，改用指标卡、表格或说明文字。",
-          ]}
-        />
-      </section>
     </div>
   );
 }

@@ -104,7 +104,7 @@ export function TableHead({ className = "", align = "left", sortable = false, so
   return (
     <th
       className={[
-        "bg-[var(--neutral-50)] px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-xs font-semibold text-[var(--neutral-900)]",
+        "bg-[var(--neutral-50)] px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-xs font-semibold text-[var(--text-primary)]",
         sortable ? "cursor-pointer select-none hover:bg-[var(--neutral-100)]" : "",
         alignClass[align],
         className,
@@ -121,12 +121,12 @@ export function TableHead({ className = "", align = "left", sortable = false, so
             <CaretUp
               size={10}
               weight="fill"
-              className={sortDirection === "asc" ? "text-[var(--neutral-900)]" : "text-[var(--neutral-300)]"}
+              className={sortDirection === "asc" ? "text-[var(--text-primary)]" : "text-[var(--neutral-300)]"}
             />
             <CaretDown
               size={10}
               weight="fill"
-              className={sortDirection === "desc" ? "text-[var(--neutral-900)]" : "text-[var(--neutral-300)]"}
+              className={sortDirection === "desc" ? "text-[var(--text-primary)]" : "text-[var(--neutral-300)]"}
             />
           </span>
         )}
@@ -139,7 +139,7 @@ export function TableCell({ className = "", align = "left", ...props }: TableCel
   return (
     <td
       className={[
-        "px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-[var(--neutral-700)]",
+        "px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-[var(--text-secondary)]",
         alignClass[align],
         className,
       ].join(" ")}
@@ -163,8 +163,8 @@ export function TableEmpty({
     <TableRow>
       <TableCell colSpan={colSpan} className="py-12 text-center">
         <div className="mx-auto max-w-sm">
-          <p className="text-sm font-normal text-[var(--neutral-900)]">{title}</p>
-          {description ? <p className="mt-1 text-xs leading-5 text-[var(--neutral-500)]">{description}</p> : null}
+          <p className="text-sm font-normal text-[var(--text-primary)]">{title}</p>
+          {description ? <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">{description}</p> : null}
           {action ? <div className="mt-4">{action}</div> : null}
         </div>
       </TableCell>

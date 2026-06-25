@@ -71,7 +71,7 @@ export default function TransferPage() {
               emptyText="暂无可配置数据"
               items={[]}
             />
-            <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">未选中任何项时，移动按钮保持禁用，避免误触和无效操作。</p>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">未选中任何项时，移动按钮保持禁用，避免误触和无效操作。</p>
           </ExampleCard>
           <ExampleCard title="整体禁用" description="流程未到达或角色权限不足时，保留已选配置但禁止迁移。">
             <Transfer
@@ -94,7 +94,6 @@ export default function TransferPage() {
             "权限、字段、数据集配置场景必须支持 disabled 项和 empty 状态。",
             "选项较多时开启 showSearch；选项超过 100 条时应考虑表格选择器或弹窗选择器。",
             "整体禁用用于流程未到达或角色权限不足，不能只隐藏组件。",
-            "Figma 组件需包含 source、target、selected、disabled item、disabled all、empty、search、move action 等状态。",
           ]}
         />
       </section>

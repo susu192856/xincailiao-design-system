@@ -40,15 +40,15 @@ export default function InputPage() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
               <Input size="sm" label="Small - 28px" placeholder="紧凑表格筛选" />
-              <p className="mt-2 text-xs leading-5 text-[var(--neutral-500)]">字号 14px，适用于表格工具栏、行内编辑、紧凑筛选。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">字号 14px，适用于表格工具栏、行内编辑、紧凑筛选。</p>
             </div>
             <div>
               <Input size="md" label="Medium - 32px" placeholder="默认表单输入" />
-              <p className="mt-2 text-xs leading-5 text-[var(--neutral-500)]">字号 14px，后台表单默认尺寸。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">字号 14px，后台表单默认尺寸。</p>
             </div>
             <div>
               <Input size="lg" label="Large - 36px" placeholder="重点参数输入" />
-              <p className="mt-2 text-xs leading-5 text-[var(--neutral-500)]">字号 14px，用于官网线索、弹窗重点字段和低密度表单。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">字号 14px，用于官网线索、弹窗重点字段和低密度表单。</p>
             </div>
           </div>
         </ExampleCard>
@@ -108,7 +108,7 @@ export default function InputPage() {
               <Input size="sm" aria-label="批次编号" placeholder="批次编号" />
               <Input size="sm" aria-label="负责人" placeholder="负责人" />
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">
               筛选区优先使用 28px 或 32px 高度，保证表格上方工具栏紧凑。
             </p>
           </ExampleCard>
@@ -141,7 +141,7 @@ export default function InputPage() {
                 placeholder="材料编号"
                 className="border-[var(--error-text)]"
               />
-              <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">
+              <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">
                 缺少可见字段名和错误原因；占位符在输入后消失，红色边框也无法说明如何修正。
               </p>
             </div>
@@ -162,7 +162,6 @@ export default function InputPage() {
             "只读用于权限、审核和系统计算结果；禁用用于当前不可操作。",
             "搜索输入建议使用前置图标，帮助用户快速识别用途。",
             "后台高频表单应保持左对齐，避免过长输入宽度影响阅读。",
-            "Figma 和前端组件需要同步覆盖 label、helperText、error、prefix/suffix、readOnly、disabled、required 等状态，保证表单验收一致。",
           ]}
         />
       </section>

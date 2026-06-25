@@ -1,6 +1,5 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
-import DocsTable from "../../../components/docs/DocsTable";
 import { Radio } from "../../../components/ui/Radio";
 import { Tag } from "../../../components/ui/Tag";
 
@@ -85,25 +84,6 @@ export default function RadioPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Figma States" title="Figma 状态拆分" />
-        <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
-            <tr className="border-b border-[var(--neutral-200)]">
-              <th className="px-6 py-3 font-semibold">状态</th>
-              <th className="px-6 py-3 font-semibold">视觉</th>
-              <th className="px-6 py-3 font-semibold">使用场景</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
-            <tr><td className="px-6 py-4 font-mono text-xs">unchecked</td><td className="px-6 py-4">白底、中性灰描边</td><td className="px-6 py-4">默认未选择</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">checked</td><td className="px-6 py-4">neutral-900 加粗圆环</td><td className="px-6 py-4">当前唯一选项</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">error</td><td className="px-6 py-4">错误描边与错误文案</td><td className="px-6 py-4">必选策略未满足</td></tr>
-            <tr><td className="px-6 py-4 font-mono text-xs">disabled</td><td className="px-6 py-4">透明度降低，文案保留</td><td className="px-6 py-4">权限不足或流程未到达</td></tr>
-          </tbody>
-        </DocsTable>
-      </section>
-
-      <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
@@ -112,7 +92,6 @@ export default function RadioPage() {
             "禁用选项保留可见性，并通过说明解释无权限或条件未满足。",
             "选项超过 5 个时优先考虑 Select，避免页面被选项占满。",
             "错误态用于必选策略未满足或当前组合不合法，必须配合文案说明。",
-            "Figma 组件需包含 unchecked、checked、error、disabled、disabled checked、helper text 等状态。",
           ]}
         />
       </section>

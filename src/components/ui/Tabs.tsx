@@ -39,22 +39,22 @@ function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean
     base.push(
       "border border-[var(--neutral-200)]",
       active
-        ? "bg-white text-[var(--neutral-900)]"
-        : "bg-[var(--neutral-50)] text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
+        ? "bg-white text-[var(--text-primary)]"
+        : "bg-[var(--neutral-50)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
     );
   } else if (variant === "segment") {
     base.push(
       "rounded-[var(--radius-sm)]",
       active
-        ? "bg-white text-[var(--neutral-900)] shadow-[var(--shadow-xs)]"
-        : "text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
+        ? "bg-white text-[var(--text-primary)] shadow-[var(--shadow-xs)]"
+        : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
     );
   } else {
     base.push(
       "border-b-2",
       active
-        ? "border-[var(--neutral-900)] text-[var(--neutral-900)]"
-        : "border-transparent text-[var(--neutral-600)] hover:text-[var(--neutral-900)]",
+        ? "border-[var(--neutral-900)] text-[var(--text-primary)]"
+        : "border-transparent text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
     );
   }
 
@@ -109,7 +109,7 @@ export function Tabs({
             >
               {item.icon}
               {item.label}
-              {item.badge ? <span className="text-[11px] text-[var(--neutral-500)]">{item.badge}</span> : null}
+              {item.badge ? <span className="text-xs text-[var(--text-tertiary)]">{item.badge}</span> : null}
             </button>
           );
         })}

@@ -91,7 +91,7 @@ export default function TextareaPage() {
       <section>
         <SectionHeading eyebrow="Props" title="属性" />
         <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
             <tr className="border-b border-[var(--neutral-200)]">
               <th className="px-6 py-3 font-semibold">属性</th>
               <th className="px-6 py-3 font-semibold">类型</th>
@@ -137,7 +137,6 @@ export default function TextareaPage() {
             "帮助文字和错误信息必须通过 aria-describedby 与文本域关联；错误不能只靠红色边框表达。",
             "Small / Medium / Large 最小高度统一使用 80px / 96px / 120px Token。",
             "长配置或代码内容应控制高度并允许滚动，避免撑开表单页面。",
-            "Figma 和前端组件需要覆盖 helperText、error、readOnly、disabled、required、代码类内容高度限制等状态，用于审批和配置页面复用。",
           ]}
         />
       </section>

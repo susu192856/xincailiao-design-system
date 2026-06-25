@@ -24,7 +24,7 @@ const sizeClasses: Record<NonNullable<ModalProps["size"]>, string> = {
 };
 
 const toneClasses: Record<NonNullable<ModalProps["tone"]>, string> = {
-  neutral: "bg-[var(--neutral-50)] text-[var(--neutral-700)]",
+  neutral: "bg-[var(--neutral-50)] text-[var(--text-secondary)]",
   danger: "bg-[var(--error-bg)] text-[var(--error-text)]",
   warning: "bg-[var(--warning-bg)] text-[var(--warning-text)]",
   success: "bg-[var(--success-bg)] text-[var(--success-text)]",
@@ -75,8 +75,8 @@ export function Modal({
               </div>
             ) : null}
             <div className="min-w-0">
-              <h2 id="modal-title" className="text-lg font-semibold text-[var(--neutral-900)]">{title}</h2>
-              {description ? <p className="mt-1 text-sm leading-6 text-[var(--neutral-600)]">{description}</p> : null}
+              <h2 id="modal-title" className="text-lg font-semibold text-[var(--text-primary)]">{title}</h2>
+              {description ? <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">{description}</p> : null}
             </div>
           </div>
           {closeable ? (
@@ -84,7 +84,7 @@ export function Modal({
               type="button"
               onClick={onClose}
               aria-label="关闭"
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-600)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]"
             >
               <X className="h-4 w-4" />
             </button>

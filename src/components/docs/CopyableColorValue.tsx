@@ -22,7 +22,7 @@ export default function CopyableColorValue({
   return (
     <div
       className={[
-        "group flex cursor-pointer items-center gap-1 font-mono text-xs text-[var(--neutral-600)] transition-colors hover:text-[var(--neutral-900)]",
+        "group flex cursor-pointer items-center gap-1 text-sm text-[var(--text-primary)] transition-colors hover:opacity-70",
         className,
       ].join(" ")}
       onClick={copyToClipboard}

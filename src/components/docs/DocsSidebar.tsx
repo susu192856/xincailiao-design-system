@@ -102,12 +102,6 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
       ],
     },
     {
-      title: "页面模板",
-      items: [
-        { name: "列表页模板", path: "/templates/list", icon: <List size={16} weight="regular" /> },
-      ],
-    },
-    {
       title: "导航与组织",
       items: [
         { name: "菜单", path: "/components/menu", icon: <List size={16} weight="regular" /> },
@@ -139,7 +133,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
   return (
     <aside className={["h-screen w-64 overflow-y-auto border-r border-[var(--neutral-200)] bg-white/92 backdrop-blur", className].join(" ")}>
       <div className="border-b border-[var(--neutral-200)] bg-white p-5">
-        <Link to="/" className="flex items-center gap-3 text-[var(--neutral-900)] hover:text-[var(--brand-600)] transition-colors">
+        <Link to="/" className="flex items-center gap-3 text-[var(--text-primary)] hover:text-[var(--brand-600)] transition-colors">
           <img src={xincailiaoLogo} alt="新材道" className="h-7 w-auto object-contain" />
           <span className="text-base font-semibold leading-tight">新材道设计规范</span>
         </Link>
@@ -149,7 +143,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         {menuData.map((section) => (
           <div key={section.title} className="mb-6">
             {section.title ? (
-              <h2 className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
+              <h2 className="mb-3 px-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
                 {section.title}
               </h2>
             ) : null}
@@ -166,7 +160,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
                         ${
                           isActive
                             ? "bg-[var(--neutral-900)] !text-white [&_svg]:!text-white"
-                            : "text-[var(--neutral-700)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]"
+                            : "text-[var(--text-secondary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)]"
                         }
                       `}
                     >

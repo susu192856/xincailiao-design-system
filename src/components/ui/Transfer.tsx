@@ -87,25 +87,25 @@ export function Transfer({
 
     return (
       <div className="min-w-64 flex-1 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-        <div className="flex items-center justify-between border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-3 py-2 text-sm text-[var(--neutral-900)]">
+        <div className="flex items-center justify-between border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-3 py-2 text-sm text-[var(--text-primary)]">
           <span>{title}</span>
-          <span className="text-xs text-[var(--neutral-500)]">{data.length} 项</span>
+          <span className="text-xs text-[var(--text-tertiary)]">{data.length} 项</span>
         </div>
         {showSearch ? (
-          <label className="flex h-9 items-center gap-2 border-b border-[var(--neutral-200)] px-3 text-xs text-[var(--neutral-500)]">
+          <label className="flex h-9 items-center gap-2 border-b border-[var(--neutral-200)] px-3 text-xs text-[var(--text-tertiary)]">
             <MagnifyingGlass size={14} weight="regular" />
             <input
               value={keyword}
               disabled={disabled}
               onChange={(event) => onKeywordChange(event.target.value)}
               placeholder="搜索"
-              className="min-w-0 flex-1 bg-transparent text-sm text-[var(--neutral-900)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed"
+              className="min-w-0 flex-1 bg-transparent text-sm text-[var(--text-primary)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed"
             />
           </label>
         ) : null}
         <div className="min-h-52 divide-y divide-[var(--neutral-100)]">
           {data.length > 0 ? data.map((item) => (
-            <label key={item.key} className="flex cursor-pointer gap-2 px-3 py-2 text-sm text-[var(--neutral-700)] has-[:disabled]:cursor-not-allowed has-[:disabled]:text-[var(--neutral-400)]">
+            <label key={item.key} className="flex cursor-pointer gap-2 px-3 py-2 text-sm text-[var(--text-secondary)] has-[:disabled]:cursor-not-allowed has-[:disabled]:text-[var(--neutral-400)]">
               <input
                 type="checkbox"
                 disabled={disabled || item.disabled}
@@ -115,7 +115,7 @@ export function Transfer({
               />
               <span>
                 <span className="block">{item.label}</span>
-                {item.description ? <span className="block text-xs text-[var(--neutral-500)]">{item.description}</span> : null}
+                {item.description ? <span className="block text-xs text-[var(--text-tertiary)]">{item.description}</span> : null}
               </span>
             </label>
           )) : (
@@ -141,7 +141,7 @@ export function Transfer({
         <button
           type="button"
           disabled={disabled || selectedTargetKeys.length === 0}
-          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--neutral-300)] text-[var(--neutral-700)] transition-colors hover:bg-[var(--neutral-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:text-[var(--neutral-300)]"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--neutral-300)] text-[var(--text-secondary)] transition-colors hover:bg-[var(--neutral-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:text-[var(--neutral-300)]"
           onClick={() => move("left")}
         >
           <CaretLeft size={14} weight="regular" />

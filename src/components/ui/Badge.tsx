@@ -23,7 +23,7 @@ const toneClasses: Record<BadgeTone, string> = {
 };
 
 const sizeClasses: Record<BadgeSize, string> = {
-  sm: "min-w-4 px-1 text-[10px] leading-4",
+  sm: "min-w-4 px-1 text-xs leading-4",
   md: "min-w-5 px-1.5 py-0.5 text-xs leading-4",
 };
 

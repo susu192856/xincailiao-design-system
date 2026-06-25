@@ -3,7 +3,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";
 import DocsSidebar from "./DocsSidebar";
 import DocsToc from "./DocsToc";
-import ComponentContractSection from "./ComponentContractSection";
 import { HomeHero } from "../../pages/design-system/HomePage";
 
 export default function DocsLayout() {
@@ -12,7 +11,7 @@ export default function DocsLayout() {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="min-h-screen bg-[var(--docs-bg)] text-[var(--neutral-900)] lg:flex">
+    <div className="min-h-screen bg-[var(--docs-bg)] text-[var(--text-primary)] lg:flex">
       <DocsSidebar className="sticky top-0 hidden shrink-0 lg:block" />
 
       {sidebarOpen ? (
@@ -30,7 +29,7 @@ export default function DocsLayout() {
           <button
             type="button"
             aria-label="关闭导航"
-            className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--neutral-900)] shadow-[var(--shadow-md)]"
+            className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-white text-[var(--text-primary)] shadow-[var(--shadow-md)]"
             onClick={() => setSidebarOpen(false)}
           >
             <X size={20} />
@@ -44,7 +43,7 @@ export default function DocsLayout() {
           <button
             type="button"
             aria-label="打开规范导航"
-            className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]"
+            className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]"
             onClick={() => setSidebarOpen(true)}
           >
             <List size={20} />
@@ -54,7 +53,6 @@ export default function DocsLayout() {
         <div className="docs-content mx-auto flex max-w-[calc(var(--content-docs-width)+12rem)] items-start gap-10 px-5 py-8 md:px-8 md:py-12 xl:px-10">
           <article className="docs-article min-w-0 flex-1">
             <Outlet />
-            <ComponentContractSection />
           </article>
           {!isHome ? (
           <DocsToc />

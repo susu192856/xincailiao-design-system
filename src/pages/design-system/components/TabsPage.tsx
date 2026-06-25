@@ -12,7 +12,7 @@ const detailItems = [
     label: "概览",
     icon: <Database size={16} />,
     content: (
-      <p className="text-sm leading-6 text-[var(--neutral-600)]">
+      <p className="text-sm leading-6 text-[var(--text-tertiary)]">
         展示材料数据资产的核心摘要、更新时间、可信状态和主要责任方。
       </p>
     ),
@@ -22,7 +22,7 @@ const detailItems = [
     label: "工艺参数",
     icon: <ChartLineUp size={16} />,
     content: (
-      <p className="text-sm leading-6 text-[var(--neutral-600)]">
+      <p className="text-sm leading-6 text-[var(--text-tertiary)]">
         展示温度、压力、时间等工艺参数，以及实验批次和参数变化轨迹。
       </p>
     ),
@@ -33,7 +33,7 @@ const detailItems = [
     icon: <ClockCounterClockwise size={16} />,
     badge: "12",
     content: (
-      <p className="text-sm leading-6 text-[var(--neutral-600)]">
+      <p className="text-sm leading-6 text-[var(--text-tertiary)]">
         展示数据授权、审核、发布、调用和链上存证记录。
       </p>
     ),
@@ -62,9 +62,9 @@ export default function TabsPage() {
               defaultValue="all"
               size="sm"
               items={[
-                { value: "all", label: "全部", badge: <Badge tone="neutral" count={128} size="sm" />, content: <p className="text-sm text-[var(--neutral-600)]">展示全部数据。</p> },
-                { value: "pending", label: "待审核", badge: <Badge tone="warning" count={8} size="sm" />, content: <p className="text-sm text-[var(--neutral-600)]">需要人工复核的数据。</p> },
-                { value: "risk", label: "异常", badge: <Badge tone="danger" count={3} size="sm" />, content: <p className="text-sm text-[var(--neutral-600)]">存在异常或调用失败的数据。</p> },
+                { value: "all", label: "全部", badge: <Badge tone="neutral" count={128} size="sm" />, content: <p className="text-sm text-[var(--text-tertiary)]">展示全部数据。</p> },
+                { value: "pending", label: "待审核", badge: <Badge tone="warning" count={8} size="sm" />, content: <p className="text-sm text-[var(--text-tertiary)]">需要人工复核的数据。</p> },
+                { value: "risk", label: "异常", badge: <Badge tone="danger" count={3} size="sm" />, content: <p className="text-sm text-[var(--text-tertiary)]">存在异常或调用失败的数据。</p> },
               ]}
             />
           </ExampleCard>
@@ -75,9 +75,9 @@ export default function TabsPage() {
               variant="card"
               size="sm"
               items={[
-                { value: "base", label: "基础信息", content: <p className="text-sm text-[var(--neutral-600)]">字段、类型、来源和责任人。</p> },
-                { value: "permission", label: "权限", icon: <ShieldCheck size={14} />, content: <p className="text-sm text-[var(--neutral-600)]">查看、编辑、调用和导出权限。</p> },
-                { value: "model", label: "模型结果", content: <p className="text-sm text-[var(--neutral-500)]">模型结果暂未生成。</p>, disabled: true },
+                { value: "base", label: "基础信息", content: <p className="text-sm text-[var(--text-tertiary)]">字段、类型、来源和责任人。</p> },
+                { value: "permission", label: "权限", icon: <ShieldCheck size={14} />, content: <p className="text-sm text-[var(--text-tertiary)]">查看、编辑、调用和导出权限。</p> },
+                { value: "model", label: "模型结果", content: <p className="text-sm text-[var(--text-tertiary)]">模型结果暂未生成。</p>, disabled: true },
               ]}
             />
           </ExampleCard>
@@ -88,9 +88,9 @@ export default function TabsPage() {
               variant="segment"
               size="sm"
               items={[
-                { value: "space", label: "数据空间", content: <p className="text-sm text-[var(--neutral-600)]">偏规则、权限、合约和审计。</p> },
-                { value: "library", label: "材库", content: <p className="text-sm text-[var(--neutral-600)]">偏数据接入、治理、图谱和资产化。</p> },
-                { value: "ai", label: "AI 应用", content: <p className="text-sm text-[var(--neutral-600)]">偏预测、推荐、优化和结果决策。</p> },
+                { value: "space", label: "数据空间", content: <p className="text-sm text-[var(--text-tertiary)]">偏规则、权限、合约和审计。</p> },
+                { value: "library", label: "材库", content: <p className="text-sm text-[var(--text-tertiary)]">偏数据接入、治理、图谱和资产化。</p> },
+                { value: "ai", label: "AI 应用", content: <p className="text-sm text-[var(--text-tertiary)]">偏预测、推荐、优化和结果决策。</p> },
               ]}
             />
           </ExampleCard>
@@ -123,7 +123,6 @@ export default function TabsPage() {
             "页面级切换优先使用线型 Tabs；卡片内容内部切换可使用 card；小范围条件切换可使用 segment。",
             "当前激活项默认使用中性黑，不用品牌红；红色只用于异常数量、风险提示等语义状态。",
             "禁用标签必须可见但不可交互，避免用户误以为内容消失。",
-            "Figma 和前端组件需要同步提供 line、card、segment 变体，以及 icon、badge、disabled、active 状态，方便详情页和工作台直接调用。",
           ]}
         />
       </section>

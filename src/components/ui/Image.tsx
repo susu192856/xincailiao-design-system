@@ -79,7 +79,7 @@ export function Image({
         ].join(" ")}
       >
         {content}
-        <div className="border-t border-[var(--neutral-200)] px-3 py-2 text-xs leading-5 text-[var(--neutral-600)]">
+        <div className="border-t border-[var(--neutral-200)] px-3 py-2 text-xs leading-5 text-[var(--text-tertiary)]">
           {caption}
         </div>
       </div>

@@ -46,7 +46,7 @@ function TreeItem({ node, level, expandedKeys, selectedKey, checkedKeys, checkab
         className={[
           "flex h-8 w-full items-center gap-1.5 rounded-[var(--radius-sm)] pr-2 text-left text-sm disabled:text-[var(--neutral-400)]",
           node.disabled ? "text-[var(--neutral-400)]" : "",
-          selected ? "bg-[var(--product-blue-50)] text-[var(--product-blue-600)]" : "text-[var(--neutral-700)] hover:bg-[var(--neutral-50)]",
+          selected ? "bg-[var(--product-blue-50)] text-[var(--product-blue-600)]" : "text-[var(--text-secondary)] hover:bg-[var(--neutral-50)]",
         ].join(" ")}
         style={{ paddingLeft: 8 + level * 16 }}
       >

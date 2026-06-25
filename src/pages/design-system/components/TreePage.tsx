@@ -61,7 +61,7 @@ export default function TreePage() {
               defaultSelectedKey="operator"
               defaultCheckedKeys={["operator", "log"]}
             />
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">禁用节点表示当前角色不可选或无授权。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">禁用节点表示当前角色不可选或无授权。</p>
           </ExampleCard>
         </div>
       </section>
@@ -76,7 +76,7 @@ export default function TreePage() {
             </div>
           </ExampleCard>
           <ExampleCard title="树节点说明">
-            <div className="space-y-3 text-sm text-[var(--neutral-700)]">
+            <div className="space-y-3 text-sm text-[var(--text-secondary)]">
               <div className="flex items-center justify-between rounded-sm bg-[var(--neutral-50)] px-3 py-2">
                 <span>当前选中</span>
                 <Tag variant="product" size="sm">产品蓝浅背景</Tag>
@@ -114,7 +114,6 @@ export default function TreePage() {
             "权限树可开启 checkable，目录树默认只做选中与展开。",
             "异步加载必须提供 loading 和 empty，避免用户误判权限为空。",
             "树适合目录和权限，不适合承载大量横向字段。",
-            "Figma 组件需包含 collapsed、expanded、selected、disabled、loading、empty 状态。",
           ]}
         />
       </section>

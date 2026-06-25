@@ -16,7 +16,7 @@ export default function CardPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <Card variant="outlined" status="brand">
             <CardHeader>
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-700)]">
+              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-secondary)]">
                 <Database size={18} weight="regular" />
               </div>
               <CardTitle>数据资产卡片</CardTitle>
@@ -29,7 +29,7 @@ export default function CardPage() {
           </Card>
           <Card variant="outlined" status="product">
             <CardHeader>
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-700)]">
+              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-secondary)]">
                 <FileText size={18} weight="regular" />
               </div>
               <CardTitle>功能入口卡片</CardTitle>
@@ -44,7 +44,7 @@ export default function CardPage() {
           <Card variant="outlined" status="product">
             <CardHeader>
               <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-700)]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-secondary)]">
                   <ChartLine size={18} weight="regular" />
                 </div>
                 <Badge count={12} tone="product" size="sm" />
@@ -53,8 +53,8 @@ export default function CardPage() {
               <CardDescription>用于指标、任务和流程概览。</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="font-mono text-3xl font-semibold text-[var(--neutral-900)]">128</div>
-              <p className="mt-1 text-sm text-[var(--neutral-600)]">本周新增数据集</p>
+              <div className="font-data text-3xl font-semibold text-[var(--text-primary)]">128</div>
+              <p className="mt-1 text-sm text-[var(--text-secondary)]">本周新增数据集</p>
             </CardContent>
           </Card>
         </div>
@@ -70,7 +70,7 @@ export default function CardPage() {
             </CardHeader>
             <CardContent className="grid grid-cols-3 gap-3">
               {["成分", "工艺", "性能"].map((item) => (
-                <div key={item} className="rounded-sm bg-[var(--neutral-50)] p-3 text-sm text-[var(--neutral-700)]">
+                <div key={item} className="rounded-sm bg-[var(--neutral-50)] p-3 text-sm text-[var(--text-secondary)]">
                   {item}
                 </div>
               ))}
@@ -87,7 +87,7 @@ export default function CardPage() {
           </Card>
           <Card variant="muted" status="warning">
             <CardHeader>
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm bg-white text-[var(--neutral-500)]">
+              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)]">
                 <WarningCircle size={18} weight="regular" />
               </div>
               <CardTitle>空数据状态</CardTitle>
@@ -101,7 +101,7 @@ export default function CardPage() {
           </Card>
           <Card variant="muted" disabled>
             <CardHeader>
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm bg-white text-[var(--neutral-500)]">
+              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)]">
                 <LockKey size={18} weight="regular" />
               </div>
               <CardTitle>权限限制</CardTitle>
@@ -136,8 +136,8 @@ export default function CardPage() {
                 ["异常", "3"],
               ].map(([label, value], index) => (
                 <div key={label} className="rounded-sm bg-[var(--neutral-50)] p-3">
-                  <div className="font-mono text-xl font-semibold text-[var(--neutral-900)]">{value}</div>
-                  <p className="mt-1 text-xs text-[var(--neutral-600)]">{label}</p>
+                  <div className="font-data text-xl font-semibold text-[var(--text-primary)]">{value}</div>
+                  <p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p>
                   {index === 3 ? <div className="mt-2 h-1 w-5 bg-[var(--brand-600)]" /> : null}
                 </div>
               ))}
@@ -180,8 +180,8 @@ export default function CardPage() {
                   ["异常任务", "8"],
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-sm bg-[var(--neutral-50)] p-4">
-                    <div className="font-mono text-2xl font-semibold text-[var(--neutral-900)]">{value}</div>
-                    <p className="mt-1 text-xs text-[var(--neutral-600)]">{label}</p>
+                    <div className="font-data text-2xl font-semibold text-[var(--text-primary)]">{value}</div>
+                    <p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p>
                   </div>
                 ))}
               </CardContent>
@@ -194,7 +194,7 @@ export default function CardPage() {
               <CardContent className="space-y-3">
                 {["解析失败", "权限申请", "模型推荐"].map((item, index) => (
                   <div key={item} className="flex items-center justify-between rounded-sm bg-[var(--neutral-50)] px-3 py-2 text-sm">
-                    <span className="text-[var(--neutral-700)]">{item}</span>
+                    <span className="text-[var(--text-secondary)]">{item}</span>
                     <Badge count={index + 1} tone={index === 0 ? "brand" : "neutral"} size="sm" />
                   </div>
                 ))}
@@ -214,7 +214,6 @@ export default function CardPage() {
             "卡片操作按钮应控制数量，主操作不超过一个，状态说明优先用标签和短文案。",
             "状态线只能作为快速识别辅助，具体状态仍需通过标题、标签或说明文字表达。",
             "禁用卡片保留结构和信息，但降低透明度并禁止交互。",
-            "Figma 和前端组件需要保留 header、content、footer、actions、status、disabled 等结构插槽，避免文档示例和代码组件脱节。",
           ]}
         />
       </section>

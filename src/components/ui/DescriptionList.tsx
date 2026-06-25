@@ -36,8 +36,8 @@ const sizeClasses = {
   },
   md: {
     item: "p-4",
-    label: "text-xs leading-[18px]",
-    value: "mt-1 text-sm leading-[22px]",
+    label: "text-xs leading-[var(--type-caption-line-height)]",
+    value: "mt-1 text-sm leading-[var(--type-body-m-line-height)]",
   },
 };
 
@@ -77,7 +77,7 @@ export function DescriptionList({
           <dt
             className={[
               sizing.label,
-              "shrink-0 text-[var(--neutral-500)]",
+              "shrink-0 text-[var(--text-tertiary)]",
               layout === "inline" ? "pt-0.5" : "",
             ].join(" ")}
             style={labelStyle}
@@ -87,7 +87,7 @@ export function DescriptionList({
           <dd
             className={[
               layout === "inline" ? sizing.value.replace("mt-1 ", "") : sizing.value,
-              "min-w-0 text-[var(--neutral-900)]",
+              "min-w-0 text-[var(--text-primary)]",
             ].join(" ")}
           >
             {item.value ?? <span className="text-[var(--neutral-400)]">{emptyText}</span>}

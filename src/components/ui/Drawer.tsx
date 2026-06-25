@@ -64,17 +64,17 @@ export function Drawer({
     >
       <div className="flex items-start justify-between gap-4 border-b border-[var(--neutral-200)] p-5">
         <div className="min-w-0">
-          <h2 id="drawer-title" className="text-lg font-semibold text-[var(--neutral-900)]">
+          <h2 id="drawer-title" className="text-lg font-semibold text-[var(--text-primary)]">
             {title}
           </h2>
-          {description ? <p className="mt-1 text-sm leading-6 text-[var(--neutral-600)]">{description}</p> : null}
+          {description ? <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">{description}</p> : null}
         </div>
         {closeable ? (
           <button
             type="button"
             onClick={onClose}
             aria-label="关闭"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--neutral-600)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]"
           >
             <X className="h-4 w-4" />
           </button>

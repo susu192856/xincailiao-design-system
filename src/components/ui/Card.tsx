@@ -62,7 +62,7 @@ export function Card({
     >
       {children}
       {loading ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/70 text-sm text-[var(--neutral-500)]">
+        <div className="absolute inset-0 flex items-center justify-center bg-white/70 text-sm text-[var(--text-tertiary)]">
           加载中
         </div>
       ) : null}
@@ -75,11 +75,11 @@ export function CardHeader({ className = "", ...props }: HTMLAttributes<HTMLDivE
 }
 
 export function CardTitle({ className = "", ...props }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h3 className={["text-base font-semibold text-[var(--neutral-900)]", className].join(" ")} {...props} />;
+  return <h3 className={["text-base font-semibold text-[var(--text-primary)]", className].join(" ")} {...props} />;
 }
 
 export function CardDescription({ className = "", ...props }: HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={["mt-2 text-sm leading-6 text-[var(--neutral-600)]", className].join(" ")} {...props} />;
+  return <p className={["mt-2 text-sm leading-6 text-[var(--text-tertiary)]", className].join(" ")} {...props} />;
 }
 
 export function CardContent({ className = "", ...props }: HTMLAttributes<HTMLDivElement>) {

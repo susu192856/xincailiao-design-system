@@ -28,7 +28,7 @@ const sizeClasses = {
   },
   md: {
     trigger: "px-4 py-3 text-sm",
-    content: "px-4 pb-4 text-sm leading-[22px]",
+    content: "px-4 pb-4 text-sm leading-[var(--type-body-m-line-height)]",
   },
 };
 
@@ -71,7 +71,7 @@ export function Collapse({
               disabled={item.disabled}
               onClick={() => toggle(item.key)}
               className={[
-                "flex w-full items-center justify-between gap-3 text-left text-[var(--neutral-900)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
+                "flex w-full items-center justify-between gap-3 text-left text-[var(--text-primary)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
                 sizing.trigger,
               ].join(" ")}
             >
@@ -85,7 +85,7 @@ export function Collapse({
                 />
               </span>
             </button>
-            {isOpen ? <div className={[sizing.content, "text-[var(--neutral-600)]"].join(" ")}>{item.children}</div> : null}
+            {isOpen ? <div className={[sizing.content, "text-[var(--text-tertiary)]"].join(" ")}>{item.children}</div> : null}
           </div>
         );
       })}

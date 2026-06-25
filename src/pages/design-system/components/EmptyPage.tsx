@@ -106,27 +106,27 @@ export default function EmptyPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <div className="bg-white p-5">
             <Tag variant="neutral" size="sm">暂无数据</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">说明当前列表为空，不一定需要行动按钮。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">说明当前列表为空，不一定需要行动按钮。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="product" size="sm">首次使用</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">需要提供创建入口，让用户知道下一步。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">需要提供创建入口，让用户知道下一步。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="warning" size="sm">无结果</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">优先引导重置筛选，不直接引导创建。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">优先引导重置筛选，不直接引导创建。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="error" size="sm">无权限</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">说明申请路径，但不暴露敏感数据。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">说明申请路径，但不暴露敏感数据。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="product" size="sm">处理中</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">展示任务状态和入口，不让用户重复提交。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">展示任务状态和入口，不让用户重复提交。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="neutral" size="sm">不可用</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--neutral-600)]">说明功能边界或开通路径，避免误判为错误。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">说明功能边界或开通路径，避免误判为错误。</p>
           </div>
         </div>
       </section>
@@ -142,7 +142,6 @@ export default function EmptyPage() {
             "模块级空状态高度应跟随容器，不要撑开整个页面。",
             "处理中状态必须给出任务入口或等待说明，避免用户重复提交。",
             "功能未开通和权限不足要分开表达，前者是能力边界，后者是访问控制。",
-            "Figma 组件需包含 no-data、no-result、no-permission、first-use、error、processing、disabled、with action 等状态。",
           ]}
         />
       </section>

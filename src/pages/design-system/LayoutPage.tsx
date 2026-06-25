@@ -45,7 +45,7 @@ function WebsiteHeader({ portal = false, productName }: { portal?: boolean; prod
   return (
     <div className="flex h-9 items-center gap-3 border-b border-[var(--neutral-200)] bg-white px-3">
       <BrandMark />
-      <span className="max-w-28 truncate border-l border-[var(--neutral-200)] pl-2 text-[9px] font-medium text-[var(--neutral-900)]" title={productName}>
+      <span className="max-w-28 truncate border-l border-[var(--neutral-200)] pl-2 text-xs font-medium text-[var(--text-primary)]" title={productName}>
         {productName}
       </span>
       <div className="flex gap-2.5">
@@ -60,7 +60,7 @@ function WebsiteHeader({ portal = false, productName }: { portal?: boolean; prod
             <Line className="w-9" />
           </div>
         ) : null}
-        <span className="text-[10px] text-[var(--neutral-600)]">登录</span>
+        <span className="text-xs text-[var(--text-tertiary)]">登录</span>
       </div>
     </div>
   );
@@ -68,14 +68,14 @@ function WebsiteHeader({ portal = false, productName }: { portal?: boolean; prod
 
 function Breadcrumb({ detail = false }: { detail?: boolean }) {
   return (
-    <div className="flex items-center gap-1.5 text-[9px] leading-4">
+    <div className="flex items-center gap-1.5 text-xs leading-4">
       <span className="text-[var(--neutral-400)]">首页</span>
       <span className="text-[var(--neutral-300)]">/</span>
-      <span className={detail ? "text-[var(--neutral-400)]" : "text-[var(--neutral-600)]"}>一级栏目</span>
+      <span className={detail ? "text-[var(--neutral-400)]" : "text-[var(--text-tertiary)]"}>一级栏目</span>
       {detail ? (
         <>
           <span className="text-[var(--neutral-300)]">/</span>
-          <span className="text-[var(--neutral-600)]">当前详情</span>
+          <span className="text-[var(--text-tertiary)]">当前详情</span>
         </>
       ) : null}
     </div>
@@ -121,13 +121,13 @@ function ExpandedSideMenu() {
     <div className="w-24 flex flex-col border-r border-[var(--neutral-200)] bg-white p-2 pt-3">
       <div className="flex-1">
         {[GridFour, Table, FileText, GearSix].map((Icon, index) => (
-          <div key={index} className={`mb-1.5 flex h-5 items-center gap-1.5 px-1 ${index === 0 ? "bg-[var(--neutral-700)] text-white" : "text-[var(--neutral-500)]"}`}>
+          <div key={index} className={`mb-1.5 flex h-5 items-center gap-1.5 px-1 ${index === 0 ? "bg-[var(--neutral-700)] text-white" : "text-[var(--text-tertiary)]"}`}>
             <Icon size={11} weight="regular" />
             <Line className={`w-9 ${index === 0 ? "bg-white" : ""}`} />
           </div>
         ))}
       </div>
-      <button type="button" className="flex h-5 w-full items-center justify-end text-[var(--neutral-500)]" aria-label="收起侧边栏">
+      <button type="button" className="flex h-5 w-full items-center justify-end text-[var(--text-tertiary)]" aria-label="收起侧边栏">
         <CaretLeft size={11} weight="regular" />
       </button>
     </div>
@@ -139,12 +139,12 @@ function CompactSideMenu() {
     <div className="w-[38px] flex flex-col border-r border-[var(--neutral-200)] bg-white p-2 pt-3">
       <div className="flex-1">
         {[GridFour, Table, FileText, GearSix].map((Icon, index) => (
-          <div key={index} className={`mb-1.5 mx-auto flex h-5 w-5 items-center justify-center ${index === 0 ? "bg-[var(--neutral-700)] text-white" : "text-[var(--neutral-500)]"}`}>
+          <div key={index} className={`mb-1.5 mx-auto flex h-5 w-5 items-center justify-center ${index === 0 ? "bg-[var(--neutral-700)] text-white" : "text-[var(--text-tertiary)]"}`}>
             <Icon size={11} weight="regular" />
           </div>
         ))}
       </div>
-      <button type="button" className="flex h-5 w-full items-center justify-center text-[var(--neutral-500)]" aria-label="展开侧边栏">
+      <button type="button" className="flex h-5 w-full items-center justify-center text-[var(--text-tertiary)]" aria-label="展开侧边栏">
         <CaretRight size={11} weight="regular" />
       </button>
     </div>
@@ -155,8 +155,8 @@ function BackendTopbar() {
   return (
     <div className="flex h-9 items-center gap-2 border-b border-[var(--neutral-200)] bg-white px-3">
       <BrandMark className="max-w-12 shrink-0" />
-      <span className="whitespace-nowrap border-l border-[var(--neutral-200)] pl-2 text-[9px] font-medium text-[var(--neutral-900)]">数据管理平台</span>
-      <div className="ml-auto flex shrink-0 items-center gap-2 text-[var(--neutral-600)]">
+      <span className="whitespace-nowrap border-l border-[var(--neutral-200)] pl-2 text-xs font-medium text-[var(--text-primary)]">数据管理平台</span>
+      <div className="ml-auto flex shrink-0 items-center gap-2 text-[var(--text-tertiary)]">
         <MagnifyingGlass size={12} weight="regular" />
         <Bell size={12} weight="regular" />
         <UserCircle size={15} weight="regular" />
@@ -168,11 +168,11 @@ function BackendTopbar() {
 
 function BackendBreadcrumb({ detail = false }: { detail?: boolean }) {
   return (
-    <div className="mb-2 flex items-center gap-1 text-[9px]">
+    <div className="mb-2 flex items-center gap-1 text-xs">
       <span className="text-[var(--neutral-400)]">首页</span>
       <span className="text-[var(--neutral-300)]">/</span>
-      <span className={detail ? "text-[var(--neutral-400)]" : "text-[var(--neutral-700)]"}>数据管理</span>
-      {detail ? (<><span className="text-[var(--neutral-300)]">/</span><span className="text-[var(--neutral-700)]">材料详情</span></>) : null}
+      <span className={detail ? "text-[var(--neutral-400)]" : "text-[var(--text-secondary)]"}>数据管理</span>
+      {detail ? (<><span className="text-[var(--neutral-300)]">/</span><span className="text-[var(--text-secondary)]">材料详情</span></>) : null}
     </div>
   );
 }
@@ -457,15 +457,15 @@ export default function LayoutPage() {
             <div className="mb-8 flex gap-8">
               {[["设计稿宽度","1920px"],["内容最大宽度","1400px 居中"],["顶部导航","64px"],["Hero 高度","500/650/800px"]].map(([label, value]) => (
                 <div key={label} className="shrink-0">
-                  <p className="whitespace-nowrap text-xs text-[var(--neutral-500)]">{label}</p>
-                  <p className="mt-1 whitespace-nowrap text-sm font-medium text-[var(--neutral-900)]">{value}</p>
+                  <p className="whitespace-nowrap text-xs text-[var(--text-tertiary)]">{label}</p>
+                  <p className="mt-1 whitespace-nowrap text-sm font-medium text-[var(--text-primary)]">{value}</p>
                 </div>
               ))}
             </div>
             <div className="space-y-3 border-t border-[var(--neutral-200)] pt-4">
               <div className="grid grid-cols-1 gap-2">
                 {[["内容排布","大板块分区，1-2列为主，图文结合，注重视觉叙事。"],["信息密度","低密度，宽松间距 32-64px，重点突出，营造呼吸感。"],["用户行为","浏览式交互，以滚动为主，停留时间短，需快速抓住注意力。"]].map(([label, text]) => (
-                  <div key={label} className="flex gap-2 text-xs"><span className="shrink-0 font-medium text-[var(--neutral-700)]">{label}</span><span className="leading-[18px] text-[var(--neutral-600)]">{text}</span></div>
+                  <div key={label} className="flex gap-2 text-xs"><span className="shrink-0 font-medium text-[var(--text-secondary)]">{label}</span><span className="leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">{text}</span></div>
                 ))}
               </div>
             </div>
@@ -483,15 +483,15 @@ export default function LayoutPage() {
             <div className="mb-8 flex gap-7">
               {[["设计稿宽度","1440px"],["内容区宽度","100% 自适应"],["顶部操作栏","64px"],["侧边栏","200-240px / 56px"]].map(([label, value]) => (
                 <div key={label} className="shrink-0">
-                  <p className="whitespace-nowrap text-xs text-[var(--neutral-500)]">{label}</p>
-                  <p className="mt-1 whitespace-nowrap text-sm font-medium text-[var(--neutral-900)]">{value}</p>
+                  <p className="whitespace-nowrap text-xs text-[var(--text-tertiary)]">{label}</p>
+                  <p className="mt-1 whitespace-nowrap text-sm font-medium text-[var(--text-primary)]">{value}</p>
                 </div>
               ))}
             </div>
             <div className="space-y-3 border-t border-[var(--neutral-200)] pt-4">
               <div className="grid grid-cols-1 gap-2">
                 {[["内容排布","卡片和表格密集排列，3-4列为主，强调数据展示和操作便捷性。"],["信息密度","高密度，紧凑间距 16-24px，减少滚动次数，提升获取效率。"],["用户行为","操作式交互，以点击、筛选、表单提交为主，长时间使用，需功能清晰易找。"]].map(([label, text]) => (
-                  <div key={label} className="flex gap-2 text-xs"><span className="shrink-0 font-medium text-[var(--neutral-700)]">{label}</span><span className="leading-[18px] text-[var(--neutral-600)]">{text}</span></div>
+                  <div key={label} className="flex gap-2 text-xs"><span className="shrink-0 font-medium text-[var(--text-secondary)]">{label}</span><span className="leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">{text}</span></div>
                 ))}
               </div>
             </div>
@@ -537,7 +537,7 @@ export default function LayoutPage() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <SectionCard className="p-4">
             <SubsectionHeading eyebrow="Website / Portal" title="官网 / 门户" tone="brand" />
-            <p className="mt-1 text-xs leading-[18px] text-[var(--neutral-500)]">1920px 设计画布 · 1400px 居中容器 · 桌面端 12 列</p>
+            <p className="mt-1 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1920px 设计画布 · 1400px 居中容器 · 桌面端 12 列</p>
             <div className="mt-4 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
               {/* 外边距区 */}
               <div className="flex h-14">
@@ -550,15 +550,15 @@ export default function LayoutPage() {
                 </div>
                 <span className="shrink-0 bg-[var(--neutral-100)]" style={{ width: "13.5%" }} />
               </div>
-              <div className="flex justify-between border-t border-[var(--neutral-200)] px-2 py-1.5 text-[9px] text-[var(--neutral-400)]">
+              <div className="flex justify-between border-t border-[var(--neutral-200)] px-2 py-1.5 text-xs text-[var(--neutral-400)]">
                 <span>外边距</span><span>1400px 居中容器 · 12 列</span><span>外边距</span>
               </div>
             </div>
-            <p className="mt-3 text-xs leading-[18px] text-[var(--neutral-600)]">桌面列间距建议 24px-32px；平板切换 8 列，移动端切换 4 列。Hero 可通栏，正文和核心模块进入容器。</p>
+            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">桌面列间距建议 24px-32px；平板切换 8 列，移动端切换 4 列。Hero 可通栏，正文和核心模块进入容器。</p>
           </SectionCard>
           <SectionCard className="p-4">
             <SubsectionHeading eyebrow="Backend" title="后台 / 应用平台" tone="product" />
-            <p className="mt-1 text-xs leading-[18px] text-[var(--neutral-500)]">1440px 设计画布 · 240px / 56px 侧栏 · 工作区自适应 24 列</p>
+            <p className="mt-1 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1440px 设计画布 · 240px / 56px 侧栏 · 工作区自适应 24 列</p>
             <div className="mt-4 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
               <div className="flex h-14">
                 <span className="shrink-0 bg-[var(--neutral-900)]" style={{ width: "16.7%", minWidth: 48 }} />
@@ -568,11 +568,11 @@ export default function LayoutPage() {
                   ))}
                 </div>
               </div>
-              <div className="flex justify-between border-t border-[var(--neutral-200)] px-2 py-1.5 text-[9px] text-[var(--neutral-400)]">
+              <div className="flex justify-between border-t border-[var(--neutral-200)] px-2 py-1.5 text-xs text-[var(--neutral-400)]">
                 <span>侧栏 240px</span><span>工作区 24 列</span>
               </div>
             </div>
-            <p className="mt-3 text-xs leading-[18px] text-[var(--neutral-600)]">工作区列间距建议 16px-24px。优先收起侧栏释放空间，不强行压缩表格、图表和字段详情。</p>
+            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">工作区列间距建议 16px-24px。优先收起侧栏释放空间，不强行压缩表格、图表和字段详情。</p>
           </SectionCard>
         </div>
       </section>
@@ -586,8 +586,8 @@ export default function LayoutPage() {
         <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
           {breakpoints.map((bp) => (
             <SectionCard key={bp.name} className="p-4">
-              <div className="mb-4 flex items-start justify-between"><div><p className="text-xs text-[var(--neutral-500)]">{bp.name}</p><h3 className="mt-1 text-xl font-medium leading-7 text-[var(--neutral-900)]">{bp.cols}</h3></div><span className="mt-1 h-1.5 w-1.5 bg-[var(--neutral-900)]" /></div>
-              <div className="space-y-1.5 text-xs leading-5 text-[var(--neutral-600)]"><p>{bp.size}</p><p>Gutter {bp.gutter}</p><p>Margin {bp.margin}</p><p className="pt-2 font-medium text-[var(--neutral-500)]">{bp.usage}</p></div>
+              <div className="mb-4 flex items-start justify-between"><div><p className="text-xs text-[var(--text-tertiary)]">{bp.name}</p><h3 className="mt-1 text-xl font-medium leading-7 text-[var(--text-primary)]">{bp.cols}</h3></div><span className="mt-1 h-1.5 w-1.5 bg-[var(--neutral-900)]" /></div>
+              <div className="space-y-1.5 text-xs leading-5 text-[var(--text-tertiary)]"><p>{bp.size}</p><p>Gutter {bp.gutter}</p><p>Margin {bp.margin}</p><p className="pt-2 font-medium text-[var(--text-tertiary)]">{bp.usage}</p></div>
             </SectionCard>
           ))}
         </div>
@@ -612,7 +612,7 @@ export default function LayoutPage() {
               { label: "Desktop 12列", width: "1440px", cols: 12 },
             ].map((row) => (
               <div key={row.label}>
-                <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--neutral-500)]"><span>{row.label}</span><span>{row.width}</span></div>
+                <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--text-tertiary)]"><span>{row.label}</span><span>{row.width}</span></div>
                 <div className={`grid gap-1 ${row.cols === 4 ? "grid-cols-4" : row.cols === 8 ? "grid-cols-8" : "grid-cols-12"}`}>
                   {Array.from({ length: row.cols }).map((_, index) => (
                     <div key={index} className="h-6 rounded-[1px] bg-[var(--neutral-100)]" />
@@ -620,55 +620,6 @@ export default function LayoutPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Mobile Skeleton"
-          title="移动端骨架"
-          description="移动端以 375px 为设计画布宽度，4 列网格、单列内容排布。Hero 高度：移动端 375-500px、平板 500-650px、桌面 650-800px，保持品牌标识和核心 CTA 在首屏可见。"
-        />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-            <div className="bg-white pt-0 pb-6 px-6">
-              <h3 className="text-sm font-semibold text-[var(--text-primary)]">移动端 · 官网首页</h3>
-              <p className="text-xs leading-5 text-[var(--text-tertiary)]">375px 设计画布、4 列网格、单列卡片、汉堡导航、简化页脚。</p>
-            </div>
-            <div className="mx-auto max-w-[375px] border border-[var(--neutral-100)]">
-              <div className="flex h-12 items-center justify-between border-b border-[var(--neutral-200)] bg-white px-3">
-                <BrandMark className="h-5" />
-                <div className="flex flex-col gap-1"><span className="block h-0.5 w-5 bg-[var(--neutral-700)]" /><span className="block h-0.5 w-5 bg-[var(--neutral-700)]" /><span className="block h-0.5 w-5 bg-[var(--neutral-700)]" /></div>
-              </div>
-              <div className="flex min-h-[160px] items-center bg-[var(--neutral-50)] py-6">
-                <div className="mx-auto flex w-4/5 flex-col items-center text-center"><Line className="h-2 w-20 bg-[var(--neutral-700)]" /><Line className="mt-2 w-32" /><Line className="mt-1.5 w-24" /></div>
-              </div>
-              <div className="space-y-3 bg-white px-4 py-4">
-                {[0, 1, 2].map((item) => (<div key={item} className="bg-[var(--neutral-50)] p-3"><div className="mb-2 h-8 bg-[var(--neutral-200)]" /><Line className="w-2/3 bg-[var(--neutral-700)]" /><Line className="mt-1.5 w-full" /></div>))}
-              </div>
-              <div className="flex h-10 items-center justify-center gap-2 border-t border-[var(--neutral-200)] bg-white"><Line className="w-6" /><Line className="w-6" /><Line className="w-6" /></div>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-            <div className="bg-white pt-0 pb-6 px-6">
-              <h3 className="text-sm font-semibold text-[var(--text-primary)]">移动端 · 后台列表</h3>
-              <p className="text-xs leading-5 text-[var(--text-tertiary)]">375px 设计画布、顶栏简化、全宽表格横滑、底部固定操作栏。</p>
-            </div>
-            <div className="mx-auto max-w-[375px] border border-[var(--neutral-100)]">
-              <div className="flex h-12 items-center justify-between border-b border-[var(--neutral-200)] bg-white px-3">
-                <div className="flex items-center gap-1.5"><BrandMark className="h-5" /><span className="text-[11px] font-medium text-[var(--neutral-700)]">数据管理</span></div>
-                <UserCircle size={14} weight="regular" className="text-[var(--neutral-700)]" />
-              </div>
-              <div className="bg-[var(--neutral-50)] p-3">
-                <div className="mb-2 flex h-7 items-center gap-1 rounded-[2px] border border-[var(--neutral-200)] bg-white px-2"><MagnifyingGlass size={10} weight="regular" className="text-[var(--neutral-400)]" /><Line className="w-12" /></div>
-                <div className="overflow-hidden bg-white">
-                  <div className="flex border-b border-[var(--neutral-100)] px-2.5 py-2"><Line className="w-2/3 bg-[var(--neutral-700)]" /></div>
-                  {[0, 1, 2, 3].map((item) => (<div key={item} className="flex border-b border-[var(--neutral-50)] px-2.5 py-2"><Line className="w-full" /></div>))}
-                </div>
-                <div className="mt-2 flex justify-center gap-1.5"><Line className="w-6" /><Line className="w-4" /><Line className="w-6" /></div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

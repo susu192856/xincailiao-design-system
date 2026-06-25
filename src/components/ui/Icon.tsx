@@ -16,8 +16,8 @@ export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, "color"
 }
 
 const toneClass: Record<IconTone, string> = {
-  neutral: "text-[var(--neutral-800)]",
-  muted: "text-[var(--neutral-500)]",
+  neutral: "text-[var(--text-body)]",
+  muted: "text-[var(--text-tertiary)]",
   product: "text-[var(--product-blue-500)]",
   brand: "text-[var(--brand-600)]",
   danger: "text-[var(--error-text)]",

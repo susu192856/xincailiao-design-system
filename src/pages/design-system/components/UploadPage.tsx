@@ -65,10 +65,10 @@ export default function UploadPage() {
         <SectionHeading eyebrow="Backend Scenarios" title="后台业务场景" />
         <div className="grid grid-cols-1 gap-4">
           <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--neutral-600)]">材料数据导入</span>
-            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--neutral-600)]">检测报告上传</span>
-            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--neutral-600)]">图片附件上传</span>
-            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--neutral-600)]">批量导入 Excel</span>
+            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--text-tertiary)]">材料数据导入</span>
+            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--text-tertiary)]">检测报告上传</span>
+            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--text-tertiary)]">图片附件上传</span>
+            <span className="rounded-full bg-[var(--neutral-100)] px-3 py-1 text-xs text-[var(--text-tertiary)]">批量导入 Excel</span>
           </div>
         </div>
       </section>
@@ -82,7 +82,6 @@ export default function UploadPage() {
             "文件列表支持文本列表和卡片网格两种展示模式。",
             "上传失败应显示具体原因（格式错误、大小超限、网络异常）。",
             "仅支持前端文件选择和预览，实际上传需结合后端接口。",
-            "Figma 组件需包含默认、拖拽悬停、已选文件列表、错误和禁用状态。",
           ]}
         />
       </section>

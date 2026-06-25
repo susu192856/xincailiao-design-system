@@ -20,7 +20,7 @@ export default function BadgePage() {
               <Badge count={0} tone="neutral" showZero />
               <Badge count={3} tone="danger" />
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">默认超过 99 显示 99+，0 值默认隐藏，统计场景可显示 0。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">默认超过 99 显示 99+，0 值默认隐藏，统计场景可显示 0。</p>
           </ExampleCard>
           <ExampleCard title="圆点">
             <div className="flex flex-wrap items-center gap-5">
@@ -30,7 +30,7 @@ export default function BadgePage() {
               <Badge dot tone="success" />
               <Badge dot tone="neutral" />
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">圆点适合状态提醒，不承载具体数量。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">圆点适合状态提醒，不承载具体数量。</p>
           </ExampleCard>
           <ExampleCard title="依附元素">
             <div className="flex flex-wrap items-center gap-8">
@@ -41,7 +41,7 @@ export default function BadgePage() {
                 <Avatar name="王工" />
               </Badge>
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--neutral-500)]">依附元素时徽标固定在右上角，避免遮挡文字主体。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">依附元素时徽标固定在右上角，避免遮挡文字主体。</p>
           </ExampleCard>
         </div>
       </section>
@@ -57,7 +57,7 @@ export default function BadgePage() {
                 ["消息通知", 0, "neutral"],
               ].map(([label, count, tone]) => (
                 <div key={label} className="flex items-center justify-between px-3 py-2">
-                  <span className="text-sm text-[var(--neutral-800)]">{label}</span>
+                  <span className="text-sm text-[var(--text-body)]">{label}</span>
                   <Badge count={count as number} tone={tone as "product" | "danger" | "neutral"} showZero={label === "消息通知"} />
                 </div>
               ))}
@@ -92,8 +92,8 @@ export default function BadgePage() {
               ].map(([name, status, count]) => (
                 <div key={name} className="flex items-center justify-between py-3">
                   <div>
-                    <p className="text-sm text-[var(--neutral-900)]">{name}</p>
-                    <p className="mt-1 text-xs text-[var(--neutral-500)]">{status}</p>
+                    <p className="text-sm text-[var(--text-primary)]">{name}</p>
+                    <p className="mt-1 text-xs text-[var(--text-tertiary)]">{status}</p>
                   </div>
                   <Badge count={count as number} tone={count ? "danger" : "neutral"} showZero={count === 0} />
                 </div>
@@ -124,7 +124,6 @@ export default function BadgePage() {
             "后台功能入口优先使用产品蓝；危险和异常数量使用错误色；品牌红只用于极少数关键提醒。",
             "数量超过 99 时显示 99+，避免破坏导航宽度；统计语义需要显示 0 时使用 showZero。",
             "圆点适合提醒“有更新”，数量徽标适合提醒“有多少待处理”。",
-            "Figma 组件需包含 dot、count、max、tone、with children、show zero 等变体。",
           ]}
         />
       </section>

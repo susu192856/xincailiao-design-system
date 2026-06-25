@@ -39,7 +39,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     task:
       "border border-[var(--color-action-task-default)] bg-white text-[var(--color-action-task-default)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
     neutral:
-      "border border-[var(--neutral-900)] bg-white text-[var(--neutral-900)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
+      "border border-[var(--neutral-900)] bg-white text-[var(--text-primary)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
     product:
       "border border-[var(--product-blue-500)] bg-white text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] active:bg-[var(--product-blue-100)]",
     brand:
@@ -55,7 +55,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     task:
       "bg-[var(--neutral-100)] text-[var(--color-action-task-default)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)]",
     neutral:
-      "bg-[var(--neutral-100)] text-[var(--neutral-900)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)]",
+      "bg-[var(--neutral-100)] text-[var(--text-primary)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)]",
     product:
       "bg-[var(--product-blue-50)] text-[var(--product-blue-500)] hover:bg-[var(--product-blue-100)] active:bg-[var(--product-blue-200)]",
     brand:
@@ -68,7 +68,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
   },
   text: {
     task: "text-[var(--color-action-task-default)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
-    neutral: "text-[var(--neutral-900)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
+    neutral: "text-[var(--text-primary)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
     product:
       "text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] active:bg-[var(--product-blue-100)]",
     brand: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",

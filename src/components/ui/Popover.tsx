@@ -59,8 +59,8 @@ export function Popover({
           ].join(" ")}
         />
         <span className="relative block p-4">
-          {title ? <span className="block text-sm font-semibold text-[var(--neutral-900)]">{title}</span> : null}
-          <span className={["block text-sm leading-6 text-[var(--neutral-600)]", title ? "mt-2" : ""].join(" ")}>
+          {title ? <span className="block text-sm font-semibold text-[var(--text-primary)]">{title}</span> : null}
+          <span className={["block text-sm leading-6 text-[var(--text-tertiary)]", title ? "mt-2" : ""].join(" ")}>
             {content}
           </span>
           {footer ? <span className="mt-4 flex justify-end gap-2 border-t border-[var(--neutral-200)] pt-3">{footer}</span> : null}

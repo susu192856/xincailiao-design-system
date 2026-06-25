@@ -30,7 +30,7 @@ export default function PageHeader({
   const statusClasses = {
     stable: "border-[var(--success-border)] bg-[var(--success-bg)] text-[var(--success-text)]",
     review: "border-[var(--brand-200)] bg-[var(--brand-50)] text-[var(--brand-700)]",
-    draft: "border-[var(--neutral-300)] bg-[var(--neutral-100)] text-[var(--neutral-600)]",
+    draft: "border-[var(--neutral-300)] bg-[var(--neutral-100)] text-[var(--text-tertiary)]",
   }[resolvedStatus];
 
   return (
@@ -39,11 +39,11 @@ export default function PageHeader({
       <div className="pointer-events-none absolute bottom-0 right-24 h-20 w-20 translate-y-10 rounded-full bg-[var(--product-blue-500)]/10 blur-2xl" aria-hidden="true" />
       <div className="relative min-w-0">
         <div className="flex flex-wrap items-center gap-2">
-          <h1 className="mr-1 text-[2.125rem] font-semibold leading-[1.16] tracking-[-0.035em] text-[var(--neutral-900)] md:text-[2.5rem]">{title}</h1>
-          <span className="rounded-[var(--radius-sm)] border border-[var(--docs-border)] bg-[var(--neutral-50)] px-2 py-0.5 text-[10px] font-medium text-[var(--text-tertiary)]">
+          <h1 className="mr-1 text-[2.125rem] font-semibold leading-[1.16] tracking-[-0.035em] text-[var(--text-primary)] md:text-[2.5rem]">{title}</h1>
+          <span className="rounded-[var(--radius-sm)] border border-[var(--docs-border)] bg-[var(--neutral-50)] px-2 py-0.5 text-xs font-medium text-[var(--text-tertiary)]">
             {version}
           </span>
-          <span className={`rounded-[var(--radius-sm)] border px-2 py-0.5 text-[10px] font-medium ${statusClasses}`}>
+          <span className={`rounded-[var(--radius-sm)] border px-2 py-0.5 text-xs font-medium ${statusClasses}`}>
             {statusLabel[resolvedStatus]}
           </span>
         </div>

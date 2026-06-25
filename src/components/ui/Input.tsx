@@ -51,7 +51,7 @@ export function Input({
       {label ? (
         <span
           className={[
-            "block text-sm font-medium text-[var(--neutral-900)]",
+            "block text-sm font-medium text-[var(--text-primary)]",
             isHorizontal
               ? "mb-1.5 w-auto md:mb-0 md:w-[var(--input-label-width)] md:shrink-0 md:pt-1.5 md:text-right"
               : "mb-1.5",
@@ -65,7 +65,7 @@ export function Input({
       <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
         <span className="relative block">
           {resolvedPrefix ? (
-            <span className="pointer-events-none absolute left-3 top-1/2 flex -translate-y-1/2 text-[var(--neutral-500)]">
+            <span className="pointer-events-none absolute left-3 top-1/2 flex -translate-y-1/2 text-[var(--text-tertiary)]">
               {resolvedPrefix}
             </span>
           ) : null}
@@ -76,8 +76,8 @@ export function Input({
             aria-invalid={Boolean(error)}
             aria-describedby={error || helperText ? messageId : undefined}
             className={[
-              "w-full rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--neutral-900)] outline-none transition-colors",
-              "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--neutral-600)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+              "w-full rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-primary)] outline-none transition-colors",
+              "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--text-tertiary)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
               "focus-visible:outline focus-visible:outline-[length:var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
               error
                 ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
@@ -89,13 +89,13 @@ export function Input({
             ].join(" ")}
           />
           {suffix ? (
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--neutral-500)]">
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-tertiary)]">
               {suffix}
             </span>
           ) : null}
         </span>
         {error || helperText ? (
-          <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--neutral-500)]"}`}>
+          <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>
             {error ?? helperText}
           </span>
         ) : null}

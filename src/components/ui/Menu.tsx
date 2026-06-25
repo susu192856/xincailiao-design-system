@@ -52,7 +52,7 @@ function renderItems({
       return (
         <div key={item.key} className={mode === "vertical" ? "space-y-1" : "contents"}>
           {!collapsed && mode === "vertical" ? (
-            <div className="px-3 pb-1 pt-3 text-xs font-medium text-[var(--neutral-500)]">{item.label}</div>
+            <div className="px-3 pb-1 pt-3 text-xs font-medium text-[var(--text-tertiary)]">{item.label}</div>
           ) : null}
           {item.children
             ? renderItems({ items: item.children, activeKey, mode, collapsed, size, onSelect, depth: depth + 1 })
@@ -80,9 +80,9 @@ function renderItems({
           !collapsed && mode === "vertical" && depth > 0 ? "pl-8" : "",
           active
             ? mode === "horizontal"
-              ? "border-b-2 border-[var(--neutral-900)] text-[var(--neutral-900)]"
+              ? "border-b-2 border-[var(--neutral-900)] text-[var(--text-primary)]"
               : "bg-[var(--neutral-900)] text-white"
-            : "text-[var(--neutral-700)] hover:bg-[var(--neutral-100)]",
+            : "text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]",
         ].join(" ")}
       >
         {item.icon}

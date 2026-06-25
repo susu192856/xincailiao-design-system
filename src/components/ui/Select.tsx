@@ -226,7 +226,7 @@ export function Select({
             ) : (
               <span
                 key={v}
-                className="inline-flex items-center gap-1 rounded-sm bg-[var(--neutral-100)] px-1.5 py-0.5 text-xs text-[var(--neutral-700)]"
+                className="inline-flex items-center gap-1 rounded-sm bg-[var(--neutral-100)] px-1.5 py-0.5 text-xs text-[var(--text-secondary)]"
               >
                 {opt?.label ?? v}
                 <span

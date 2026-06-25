@@ -41,7 +41,7 @@ function SemanticCard({ color }: { color: SemanticColor }) {
       <div className="p-5">
         <div className="flex items-start justify-between gap-5">
           <div>
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">{color.name}</p>
+            <p className="font-token text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">{color.name}</p>
             <h3 className="mt-1.5 text-lg font-semibold text-[var(--text-primary)]">{color.label}</h3>
           </div>
           <span className="rounded-full px-2.5 py-1 text-xs font-semibold" style={{ backgroundColor: color.background, color: color.text }}>
@@ -214,8 +214,58 @@ export default function ColorsPage() {
 
       <section>
         <SectionHeading
+          eyebrow="Three-Color System"
+          title="三色三角"
+          description="新材道产品界面的色彩体系由红、蓝、黑三种颜色构成。这不是三套可选配色方案，而是三种颜色的角色分工——红色负责宣告，蓝色负责交互，黑色负责让所有界面看起来像一家人。"
+        />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+            <div className="h-2 bg-[var(--brand-600)]" />
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">品牌红</h3>
+              </div>
+              <p className="text-sm text-[var(--text-secondary)] mb-3">brand-600 · #FF112D</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：品牌签名</strong>——宣告"这是新材道"。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于官网首页、门户首页、展会、品宣封面、Logo。红色是信号色，不是环境色——少量最强，大面积即是噪音。</p>
+            </div>
+          </div>
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+            <div className="h-2 bg-[var(--product-blue-500)]" />
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">产品蓝</h3>
+              </div>
+              <p className="text-sm text-[var(--text-secondary)] mb-3">product-blue-500 · #006DEA</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：产品功能语言</strong>——标记可交互、可操作的元素。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于所有产品的按钮、链接、选中态、数据图表。产品之间的区分不靠换颜色，靠各自独有的界面核心元素。</p>
+            </div>
+          </div>
+          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+            <div className="h-2 bg-[var(--neutral-900)]" />
+            <div className="p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">结构黑</h3>
+              </div>
+              <p className="text-sm text-[var(--text-secondary)] mb-3">neutral-900 · #1A1A1A</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：结构骨架</strong>——贯穿所有场景。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">唯一同时出现在官网和后台的颜色。官网的正文和导航是黑的，后台的标题和核心按钮也是黑的——用户不会主动注意它，但抽掉它界面就会感到结构空洞。</p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+          <strong className="text-[var(--text-primary)]">使用决策：</strong>
+          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色接管功能交互，黑色继续承担结构；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           eyebrow="Core Color Rules"
-          title="核心色彩与使用规则"
+          title="使用场景与规则"
           description="只维护一套语义色系统。官网、门户和后台共享相同变量，通过页面密度与业务场景选择轻重，不再维护两套基础色板。"
         />
         <DocsTable>
@@ -232,7 +282,7 @@ export default function ColorsPage() {
             {coreColorRules.map((rule) => (
               <tr key={rule.semantic}>
                 <td>{rule.semantic}</td>
-                <td className="font-mono">{rule.variable}</td>
+                <td className="font-token">{rule.variable}</td>
                 <td><ColorChip color={rule.color} label={rule.display} /></td>
                 <td>{rule.context}</td>
                 <td>{rule.usage}</td>
@@ -240,114 +290,6 @@ export default function ColorsPage() {
             ))}
           </tbody>
         </DocsTable>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Action Decision"
-          title="黑色与产品蓝的使用决策"
-          description="黑色和蓝色共同属于后台操作体系，但表达不同意图：黑色推进任务，蓝色调用产品能力。它们不是主色与次色的关系。"
-        />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[400px_minmax(0,1fr)]">
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
-            <h3 className="text-base font-semibold text-[var(--text-primary)]">按顺序判断</h3>
-            <ol className="mt-5 space-y-4">
-              {[
-                ["危险且不可逆", "danger", "删除、撤销审批、永久停用"],
-                ["提交或改变业务流程", "task · 黑色", "提交、确认、发布、创建"],
-                ["调用可重复或可撤回能力", "product · 蓝色", "分析、生成、连接、筛选、导出"],
-                ["退出或不产生改变", "neutral", "取消、返回、关闭"],
-              ].map(([question, tone, examples], index) => (
-                <li key={question} className="grid grid-cols-[28px_1fr] gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--neutral-900)] font-mono text-xs text-white">{index + 1}</span>
-                  <div>
-                    <p className="text-sm font-semibold text-[var(--text-primary)]">{question} → {tone}</p>
-                    <p className="mt-1 text-sm text-[var(--text-secondary)]">{examples}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <DocsTable>
-            <thead>
-              <tr>
-                <th>场景</th>
-                <th>黑色 task</th>
-                <th>蓝色 product</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["表单", "提交、保存修改", "保存草稿用 outline"],
-                ["表格工具栏", "新建数据", "筛选、导出、下载用 outline/text"],
-                ["分析面板", "通常不出现", "运行分析、生成结果可用 solid"],
-                ["普通弹窗", "确认、完成", "辅助能力用 outline"],
-                ["危险确认", "不使用", "不使用，改用 danger"],
-                ["导航链接", "不使用", "使用 text"],
-              ].map(([scene, task, product]) => (
-                <tr key={scene}>
-                  <td>{scene}</td>
-                  <td>{task}</td>
-                  <td>{product}</td>
-                </tr>
-              ))}
-            </tbody>
-          </DocsTable>
-        </div>
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
-          <strong className="text-[var(--text-primary)]">唯一主操作原则：</strong>
-          同一按钮组最多一个 solid。黑色 task solid 已存在时，蓝色 product 必须降为 outline 或 text；能力型页面没有任务提交时，蓝色 product 才可以成为唯一 solid。
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Three-Color System"
-          title="三色三角"
-          description="公司界面的色彩体系由红、蓝、黑三种颜色构成。这不是三套可选配色方案，而是三种颜色的角色分工——红色负责宣告，蓝色负责交互，黑色负责让所有界面看起来像一家人。"
-        />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-2 bg-[var(--brand-600)]" />
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
-                <h3 className="text-base font-semibold text-[var(--neutral-900)]">品牌红</h3>
-              </div>
-              <p className="font-mono text-xs text-[var(--text-tertiary)] mb-3">brand-600 · #FF112D</p>
-              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--neutral-900)]">角色：品牌签名</strong>——宣告"这是新材道"。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于官网首页、门户首页、展会、品宣封面、Logo。红色是信号色，不是环境色——少量最强，大面积即是噪音。</p>
-            </div>
-          </div>
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-2 bg-[var(--product-blue-500)]" />
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
-                <h3 className="text-base font-semibold text-[var(--neutral-900)]">产品蓝</h3>
-              </div>
-              <p className="font-mono text-xs text-[var(--text-tertiary)] mb-3">product-blue-500 · #006DEA</p>
-              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--neutral-900)]">角色：产品功能语言</strong>——标记可交互、可操作的元素。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于所有产品的按钮、链接、选中态、数据图表。产品之间的区分不靠换颜色，靠各自独有的界面核心元素。</p>
-            </div>
-          </div>
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-2 bg-[var(--neutral-900)]" />
-            <div className="p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
-                <h3 className="text-base font-semibold text-[var(--neutral-900)]">结构黑</h3>
-              </div>
-              <p className="font-mono text-xs text-[var(--text-tertiary)] mb-3">neutral-900 · #1A1A1A</p>
-              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--neutral-900)]">角色：结构骨架</strong>——贯穿所有场景。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">唯一同时出现在官网和后台的颜色。官网的正文和导航是黑的，后台的标题和核心按钮也是黑的——用户不会主动注意它，但抽掉它界面就会感到结构空洞。</p>
-            </div>
-          </div>
-        </div>
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
-          <strong className="text-[var(--text-primary)]">从用户视角理解三色：</strong>
-          用户在官网（红+黑）认识品牌；进入产品后台（蓝+黑），蓝色接管功能交互，黑色继续承担结构；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
-        </div>
       </section>
 
       <section>
@@ -412,7 +354,7 @@ export default function ColorsPage() {
                   <div className="mt-3 flex h-10 overflow-hidden rounded-sm">
                     {left.shades.map((c) => <span key={c} className="flex-1" style={{ backgroundColor: c }} />)}
                   </div>
-                  <div className="mt-2 flex justify-between font-mono text-[10px] text-[var(--text-tertiary)]">
+                  <div className="mt-2 flex justify-between font-mono text-xs text-[var(--text-tertiary)]">
                     {left.shades.map((c) => <span key={c} className="truncate">{c}</span>)}
                   </div>
                 </div>
@@ -422,7 +364,7 @@ export default function ColorsPage() {
                     <div className="mt-3 flex h-10 overflow-hidden rounded-sm">
                       {right.shades.map((c) => <span key={c} className="flex-1" style={{ backgroundColor: c }} />)}
                     </div>
-                    <div className="mt-2 flex justify-between font-mono text-[10px] text-[var(--text-tertiary)]">
+                    <div className="mt-2 flex justify-between font-mono text-xs text-[var(--text-tertiary)]">
                       {right.shades.map((c) => <span key={c} className="truncate">{c}</span>)}
                     </div>
                   </div>
@@ -436,9 +378,9 @@ export default function ColorsPage() {
         <div className="mt-8">
           <Link
             to="/components/chart"
-            className="group flex items-center gap-4 rounded-[var(--radius-sm)] border-2 border-[var(--product-blue-300)] bg-[var(--product-blue-50)] p-5 transition-all hover:border-[var(--product-blue-500)] hover:bg-[var(--product-blue-100)] hover:shadow-[var(--shadow-md)]"
+            className="group flex items-center gap-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
           >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--product-blue-500)] text-white shadow-[var(--shadow-sm)]">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--text-secondary)]">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                 <rect x="3" y="3" width="7" height="8" rx="1" stroke="currentColor" strokeWidth="1.5"/>
                 <rect x="14" y="3" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.5"/>
@@ -447,12 +389,10 @@ export default function ColorsPage() {
               </svg>
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-lg font-semibold text-[var(--neutral-900)]">图表规范</h3>
+              <h3 className="text-lg font-semibold text-[var(--text-primary)]">图表规范</h3>
               <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">查看数据色搭配方案和图表使用规范</p>
             </div>
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--product-blue-500)] text-white transition-transform group-hover:translate-x-0.5">
-              <ArrowRight className="h-5 w-5" />
-            </div>
+            <ArrowRight className="h-5 w-5 shrink-0 text-[var(--text-primary)]" />
           </Link>
         </div>
       </section>

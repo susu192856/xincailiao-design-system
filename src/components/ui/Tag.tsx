@@ -22,8 +22,8 @@ export type TagProps = HTMLAttributes<HTMLSpanElement> & {
 
 const toneClasses: Record<TagTone, { soft: string; outline: string; solid: string }> = {
   neutral: {
-    soft: "border-[var(--neutral-200)] bg-[var(--neutral-50)] text-[var(--neutral-700)]",
-    outline: "border-[var(--neutral-300)] bg-white text-[var(--neutral-700)]",
+    soft: "border-[var(--neutral-200)] bg-[var(--neutral-50)] text-[var(--text-secondary)]",
+    outline: "border-[var(--neutral-300)] bg-white text-[var(--text-secondary)]",
     solid: "border-[var(--neutral-900)] bg-[var(--neutral-900)] text-white",
   },
   brand: {
@@ -137,7 +137,7 @@ export function Tag({
           className="h-1.5 w-1.5 shrink-0 rounded-full"
           style={{ backgroundColor: dotColorMap[resolvedTone] ?? "var(--neutral-400)" }}
         />
-        <span className="text-[var(--neutral-800)]">{children}</span>
+        <span className="text-[var(--text-body)]">{children}</span>
       </span>
     );
   }

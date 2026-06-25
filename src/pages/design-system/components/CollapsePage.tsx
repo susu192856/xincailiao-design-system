@@ -14,8 +14,8 @@ const parameterContent = (
       ["标准范围", "GB/T 3620.1"],
     ].map(([label, value]) => (
       <div key={label} className="bg-[var(--neutral-50)] px-3 py-2">
-        <p className="text-xs text-[var(--neutral-500)]">{label}</p>
-        <p className="mt-1 text-sm text-[var(--neutral-900)]">{value}</p>
+        <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
+        <p className="mt-1 text-sm text-[var(--text-primary)]">{value}</p>
       </div>
     ))}
   </div>
@@ -96,40 +96,7 @@ export default function CollapsePage() {
                 { key: "chain", title: "链上存证", children: "该配置仅空间管理员可编辑。", disabled: true },
               ]}
             />
-            <p className="mt-3 text-xs leading-5 text-[var(--neutral-500)]">禁用项需要保留标题，让用户知道存在该能力，同时在说明或 tooltip 中解释原因。</p>
-          </ExampleCard>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Interaction" title="交互状态与 Figma 原型" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="状态拆解" description="折叠面板在设计稿和组件库中必须拆出 closed、open、disabled 和 with-extra 状态。">
-            <div className="space-y-3 text-sm">
-              {[
-                ["Closed", "默认收起，只显示标题、数量或状态。"],
-                ["Open", "展开后显示内容区，内容区与标题保持 12px-16px 内边距。"],
-                ["Disabled", "保留标题但不可点击，需要在说明或 tooltip 中解释原因。"],
-                ["With extra", "右侧只放数量、状态或轻量说明，不放主要操作按钮。"],
-              ].map(([state, description]) => (
-                <div key={state} className="grid grid-cols-[96px_1fr] gap-4 border-b border-[var(--neutral-100)] py-2 last:border-b-0">
-                  <p className="font-medium text-[var(--neutral-900)]">{state}</p>
-                  <p className="text-[var(--neutral-600)]">{description}</p>
-                </div>
-              ))}
-            </div>
-          </ExampleCard>
-          <ExampleCard title="后台筛选交互" description="筛选区按钮使用后台 28px/32px 尺寸，不因折叠内容增加而改变主操作位置。">
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-[1fr_1fr_auto]">
-                <Input size="sm" placeholder="材料名称 / 牌号" />
-                <Select size="sm" placeholder="治理状态" options={[{ label: "已校验", value: "checked" }]} />
-                <Button size="sm" className="min-w-20">查询</Button>
-              </div>
-              <div className="bg-[var(--neutral-50)] p-3 text-xs leading-5 text-[var(--neutral-600)]">
-                查询按钮高度 28px，宽度至少 80px；更多筛选展开后，查询与重置仍放在筛选行末尾或底部右侧。
-              </div>
-            </div>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">禁用项需要保留标题，让用户知道存在该能力，同时在说明或 tooltip 中解释原因。</p>
           </ExampleCard>
         </div>
       </section>
@@ -144,7 +111,6 @@ export default function CollapsePage() {
             "长表单按业务语义分组：基础信息、规则配置、权限范围、审计记录。",
             "禁用面板必须说明条件原因，例如无权限、流程未到达或数据未校验。",
             "标题右侧可放数量、状态或简短操作，但不能承载主按钮。",
-            "Figma 组件需包含 closed、open、disabled、accordion、extra、nested content、filter group 等变体。",
           ]}
         />
       </section>

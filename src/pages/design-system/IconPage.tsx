@@ -654,16 +654,16 @@ export default function IconPage() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           <div className="bg-white p-5">
-            <div className="mb-2 text-xs font-semibold text-[var(--neutral-500)]">图标库名称</div>
+            <div className="mb-2 text-xs font-semibold text-[var(--text-tertiary)]">图标库名称</div>
             <a
               href="https://phosphoricons.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-sm text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
+              className="text-sm text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
             >
               Phosphor Icons
             </a>
-            <p className="mt-3 text-[10px] leading-relaxed text-[var(--neutral-500)]">
+            <p className="mt-3 text-xs leading-relaxed text-[var(--text-tertiary)]">
               访问说明：如官网无法正常打开或图标加载失败，可使用魔法访问。
             </p>
           </div>
@@ -675,8 +675,8 @@ export default function IconPage() {
             ["强调色", "product-blue-500 或 brand-600，按业务场景谨慎使用"],
           ].map(([label, value]) => (
             <div key={label} className="bg-white p-5">
-              <div className="mb-2 text-xs font-semibold text-[var(--neutral-500)]">{label}</div>
-              <div className="font-mono text-sm text-[var(--neutral-900)]">{value}</div>
+              <div className="mb-2 text-xs font-semibold text-[var(--text-tertiary)]">{label}</div>
+              <div className="font-mono text-sm text-[var(--text-primary)]">{value}</div>
             </div>
           ))}
         </div>
@@ -689,7 +689,7 @@ export default function IconPage() {
           description="图标尺寸与使用场景绑定。后台产品优先 16px / 20px，官网展示和空状态可使用更大尺寸。"
         />
         <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
             <tr className="border-b border-[var(--neutral-200)]">
               <th className="px-6 py-3 font-semibold">尺寸</th>
               <th className="px-6 py-3 font-semibold">使用场景</th>
@@ -698,10 +698,10 @@ export default function IconPage() {
           <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
             {iconSizes.map((item) => (
               <tr key={item.size}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--text-tertiary)]">
                   {item.size}
                 </td>
-                <td className="px-6 py-4 text-sm text-[var(--neutral-700)]">{item.usage}</td>
+                <td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{item.usage}</td>
               </tr>
             ))}
           </tbody>
@@ -715,7 +715,7 @@ export default function IconPage() {
           description="默认使用 regular 权重，避免同一区域混用过多粗细。大尺寸展示可使用 light 或 duotone。"
         />
         <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
             <tr className="border-b border-[var(--neutral-200)]">
               <th className="px-6 py-3 font-semibold">权重</th>
               <th className="px-6 py-3 font-semibold">使用建议</th>
@@ -724,10 +724,10 @@ export default function IconPage() {
           <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
             {iconWeights.map((item) => (
               <tr key={item.weight}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--neutral-600)]">
+                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--text-tertiary)]">
                   {item.weight}
                 </td>
-                <td className="px-6 py-4 text-sm text-[var(--neutral-700)]">{item.usage}</td>
+                <td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{item.usage}</td>
               </tr>
             ))}
           </tbody>
@@ -737,7 +737,7 @@ export default function IconPage() {
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <div className="bg-white p-6">
-          <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--neutral-700)]">
+          <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--text-secondary)]">
             <li>默认使用 regular 权重</li>
             <li>同一区域内不要混用过多权重</li>
             <li>后台产品优先使用 16px / 20px</li>
@@ -756,47 +756,47 @@ export default function IconPage() {
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">A. 单独使用</h3>
+            <h3 className="mb-4 text-base font-semibold text-[var(--text-primary)]">A. 单独使用</h3>
             <div className="mb-4 flex gap-3">
               <Button variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" className="h-10 w-11 min-w-11 px-0 md:w-10 md:min-w-10" />
               <Button variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" className="h-10 w-11 min-w-11 px-0 md:w-10 md:min-w-10" />
             </div>
-            <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
+            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
               适用于工具栏、表格操作、卡片入口、状态提示等场景。
             </p>
           </div>
           <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">B. 图标 + 文字</h3>
+            <h3 className="mb-4 text-base font-semibold text-[var(--text-primary)]">B. 图标 + 文字</h3>
             <div className="mb-4 space-y-3">
               <Button icon={<SystemIcon as={Plus} size={16} weight="regular" label="新增" />} iconPosition="left">新建数据</Button>
               <Button variant="outline" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="neutral" label="导出" />}>导出报告</Button>
               <Button variant="text" tone="product" icon={<SystemIcon as={FileText} size={16} weight="regular" tone="product" label="详情" />}>查看详情</Button>
             </div>
-            <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
+            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
               适用于按钮、菜单、列表项、导航入口等场景。
             </p>
           </div>
           <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--neutral-900)]">C. 状态图标</h3>
+            <h3 className="mb-4 text-base font-semibold text-[var(--text-primary)]">C. 状态图标</h3>
             <div className="mb-4 space-y-3 text-sm">
-              <div className="flex items-center gap-2 text-[var(--neutral-700)]">
+              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
                 <SystemIcon as={CheckCircle} size={20} weight="regular" tone="success" label="成功" />
                 成功：操作已完成
               </div>
-              <div className="flex items-center gap-2 text-[var(--neutral-700)]">
+              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
                 <SystemIcon as={WarningCircle} size={20} weight="regular" tone="warning" label="警告" />
                 警告：请检查配置
               </div>
-              <div className="flex items-center gap-2 text-[var(--neutral-700)]">
+              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
                 <SystemIcon as={XCircle} size={20} weight="regular" tone="danger" label="错误" />
                 错误：提交失败
               </div>
-              <div className="flex items-center gap-2 text-[var(--neutral-700)]">
+              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
                 <SystemIcon as={Info} size={20} weight="regular" tone="product" label="信息" />
                 信息：系统提示
               </div>
             </div>
-            <p className="text-sm leading-relaxed text-[var(--neutral-600)]">
+            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
               状态图标必须和文字或状态标签配合使用，避免只依赖颜色传达信息。
             </p>
           </div>
@@ -805,7 +805,7 @@ export default function IconPage() {
 
       <section>
         <SectionHeading eyebrow="Common Icons" title="常用图标库" />
-        <div className="mb-6 space-y-2 text-sm leading-relaxed text-[var(--neutral-600)]">
+        <div className="mb-6 space-y-2 text-sm leading-relaxed text-[var(--text-secondary)]">
           <p>
             这里展示的是设计系统沉淀后的高频常用图标，不是 Phosphor Icons
             的完整图标库。完整图标请前往{" "}
@@ -824,12 +824,12 @@ export default function IconPage() {
           <div>
             <div className="mb-4 flex items-end justify-between gap-4 border-b border-[var(--neutral-200)] pb-3">
               <div>
-                <h3 className="text-lg font-semibold text-[var(--neutral-900)]">菜单图标</h3>
-                <p className="mt-1 text-xs leading-relaxed text-[var(--neutral-500)]">
+                <h3 className="text-lg font-semibold text-[var(--text-primary)]">菜单图标</h3>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
                   用于左侧导航、顶部入口和后台模块菜单，保持 20px 尺寸与 regular 权重。
                 </p>
               </div>
-              <span className="text-xs text-[var(--neutral-500)]">{menuIcons.length} 个</span>
+              <span className="text-xs text-[var(--text-tertiary)]">{menuIcons.length} 个</span>
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
               {menuIcons.map((item) => {
@@ -843,7 +843,7 @@ export default function IconPage() {
                         onClick={() => copySvg(item)}
                         title={isCopied ? "已复制" : "复制 SVG"}
                         aria-label={isCopied ? "已复制" : "复制 SVG"}
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
                       >
                         {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
                       </button>
@@ -852,17 +852,17 @@ export default function IconPage() {
                         onClick={() => downloadCommonSvg(item)}
                         title="下载 SVG"
                         aria-label="下载 SVG"
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
                       >
                         <DownloadSimple size={14} weight="regular" />
                       </button>
                     </div>
-                    <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-800)]">
+                    <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-body)]">
                       <Icon size={24} weight="regular" />
                     </div>
                     <div className="text-center">
-                      <div className="text-xs font-medium text-[var(--neutral-900)]">{item.zhName}</div>
-                      <div className="mt-1 font-mono text-[10px] text-[var(--neutral-500)]" title={item.name}>
+                      <div className="text-xs font-medium text-[var(--text-primary)]">{item.zhName}</div>
+                      <div className="mt-1 font-mono text-xs text-[var(--text-tertiary)]" title={item.name}>
                         {shortIconName(item.name)}
                       </div>
                     </div>
@@ -875,12 +875,12 @@ export default function IconPage() {
           <div>
             <div className="mb-4 flex items-end justify-between gap-4 border-b border-[var(--neutral-200)] pb-3">
               <div>
-                <h3 className="text-lg font-semibold text-[var(--neutral-900)]">功能图标</h3>
-                <p className="mt-1 text-xs leading-relaxed text-[var(--neutral-500)]">
+                <h3 className="text-lg font-semibold text-[var(--text-primary)]">功能图标</h3>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
                   覆盖表单、表格、流程、数据处理、权限、文件和反馈等高频操作；重复语义已自动去重。
                 </p>
               </div>
-              <span className="text-xs text-[var(--neutral-500)]">{functionIcons.length} 个</span>
+              <span className="text-xs text-[var(--text-tertiary)]">{functionIcons.length} 个</span>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
               {functionIcons.map((item) => {
@@ -888,12 +888,12 @@ export default function IconPage() {
                 const isCopied = copiedIcon === item.zhName;
                 return (
                   <div key={item.zhName} className="group relative flex items-center gap-3 bg-white p-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--neutral-800)]">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-body)]">
                       <Icon size={20} weight="regular" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="truncate text-xs font-medium text-[var(--neutral-900)]">{item.zhName}</div>
-                      <div className="mt-0.5 truncate font-mono text-[10px] text-[var(--neutral-500)]" title={item.name}>
+                      <div className="truncate text-xs font-medium text-[var(--text-primary)]">{item.zhName}</div>
+                      <div className="mt-0.5 truncate font-mono text-xs text-[var(--text-tertiary)]" title={item.name}>
                         {shortIconName(item.name)}
                       </div>
                     </div>
@@ -903,7 +903,7 @@ export default function IconPage() {
                         onClick={() => copySvg(item)}
                         title={isCopied ? "已复制" : "复制 SVG"}
                         aria-label={isCopied ? "已复制" : "复制 SVG"}
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-6 md:w-6"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-6 md:w-6"
                       >
                         {isCopied ? <Check size={13} weight="regular" /> : <Copy size={13} weight="regular" />}
                       </button>
@@ -912,7 +912,7 @@ export default function IconPage() {
                         onClick={() => downloadCommonSvg(item)}
                         title="下载 SVG"
                         aria-label="下载 SVG"
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-6 md:w-6"
+                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-6 md:w-6"
                       >
                         <DownloadSimple size={13} weight="regular" />
                       </button>
@@ -933,7 +933,7 @@ export default function IconPage() {
         />
         <div className="mb-6 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
           <DocsTable>
-            <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--neutral-900)]">
+            <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
               <tr className="border-b border-[var(--neutral-200)]">
                 <th className="px-6 py-3 font-semibold">规范项</th>
                 <th className="px-6 py-3 font-semibold">标准</th>
@@ -942,10 +942,10 @@ export default function IconPage() {
             <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
               {decorativeIconStandards.map((item) => (
                 <tr key={item.item}>
-                  <td className="whitespace-nowrap px-6 py-4 text-sm font-semibold text-[var(--neutral-900)]">
+                  <td className="whitespace-nowrap px-6 py-4 text-sm font-semibold text-[var(--text-primary)]">
                     {item.item}
                   </td>
-                  <td className="px-6 py-4 text-sm leading-relaxed text-[var(--neutral-700)]">
+                  <td className="px-6 py-4 text-sm leading-relaxed text-[var(--text-secondary)]">
                     {item.standard}
                   </td>
                 </tr>
@@ -954,7 +954,7 @@ export default function IconPage() {
           </DocsTable>
 
           <div className="bg-white p-6">
-            <div className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--neutral-500)]">
+            <div className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
               Style DNA
             </div>
             <div className="grid grid-cols-3 gap-3">
@@ -966,7 +966,7 @@ export default function IconPage() {
                 />
               ))}
             </div>
-            <p className="mt-5 text-xs leading-relaxed text-[var(--neutral-600)]">
+            <p className="mt-5 text-xs leading-relaxed text-[var(--text-tertiary)]">
               同一组装饰性图标需保持 48px 画布、2px 描边和红色点缀比例一致，避免出现插画化、面性填充或过度细节。
             </p>
           </div>
@@ -983,7 +983,7 @@ export default function IconPage() {
                     onClick={() => copyDecorativeSvg(item)}
                     title={isCopied ? "已复制" : "复制 SVG"}
                     aria-label={isCopied ? "已复制" : "复制 SVG"}
-                    className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
+                    className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
                   >
                     {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
                   </button>
@@ -992,7 +992,7 @@ export default function IconPage() {
                     onClick={() => downloadDecorativeSvg(item)}
                     title="下载 SVG"
                     aria-label="下载 SVG"
-                    className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--neutral-600)] hover:text-[var(--neutral-900)] md:h-7 md:w-7"
+                    className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
                   >
                     <DownloadSimple size={14} weight="regular" />
                   </button>
@@ -1002,8 +1002,8 @@ export default function IconPage() {
                   dangerouslySetInnerHTML={{ __html: item.svg }}
                 />
                 <div className="text-center">
-                  <div className="font-mono text-xs text-[var(--neutral-900)]">{item.name}</div>
-                  <div className="mt-1 text-xs text-[var(--neutral-500)]">{item.zhName}</div>
+                  <div className="font-mono text-xs text-[var(--text-primary)]">{item.name}</div>
+                  <div className="mt-1 text-xs text-[var(--text-tertiary)]">{item.zhName}</div>
                 </div>
               </div>
             );
@@ -1014,7 +1014,7 @@ export default function IconPage() {
       <section>
         <SectionHeading eyebrow="Workflow" title="如何新增常用图标" />
         <div className="bg-white p-6">
-          <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--neutral-700)]">
+          <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--text-secondary)]">
             <li>在 Phosphor Icons 官网搜索需要的图标。</li>
             <li>确认图标语义是否清晰，不要只因为好看而添加。</li>
             <li>记录图标英文名和中文名。</li>
@@ -1024,7 +1024,7 @@ export default function IconPage() {
             </li>
             <li>
               Codex 会自动在{" "}
-              <span className="font-mono text-xs text-[var(--neutral-900)]">
+              <span className="font-mono text-xs text-[var(--text-primary)]">
                 src/pages/design-system/IconPage.tsx
               </span>{" "}
               中添加图标。
@@ -1038,7 +1038,7 @@ export default function IconPage() {
       <section>
         <SectionHeading eyebrow="Governance" title="常用图标库管理原则" />
         <div className="bg-white p-6">
-          <ul className="space-y-3 text-sm leading-relaxed text-[var(--neutral-700)]">
+          <ul className="space-y-3 text-sm leading-relaxed text-[var(--text-secondary)]">
             <li>• Phosphor Icons 是完整图标源。</li>
             <li>• 设计系统中的“常用图标库”是公司沉淀后的高频图标集合。</li>
             <li>• 不建议把 Phosphor 全量图标搬进设计系统页面。</li>

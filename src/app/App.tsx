@@ -40,7 +40,6 @@ import LayoutPage from "../pages/design-system/LayoutPage";
 import RadiusPage from "../pages/design-system/RadiusPage";
 import ShadowPage from "../pages/design-system/ShadowPage";
 import SpacingPage from "../pages/design-system/SpacingPage";
-import ListTemplatePage from "../pages/design-system/templates/ListTemplatePage";
 import TypographyPage from "../pages/design-system/TypographyPage";
 
 export default function App() {
@@ -165,9 +164,6 @@ export default function App() {
       </Route>
       <Route path="/components/menu" element={<DocsLayout />}>
         <Route index element={<MenuPage />} />
-      </Route>
-      <Route path="/templates/list" element={<DocsLayout />}>
-        <Route index element={<ListTemplatePage />} />
       </Route>
     </Routes>
   );

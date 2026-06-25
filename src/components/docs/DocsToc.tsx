@@ -55,7 +55,7 @@ export default function DocsToc() {
 
   return (
     <aside className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-48 shrink-0 overflow-y-auto p-4 2xl:block">
-      <div className="mb-3 text-xs font-semibold text-[var(--neutral-800)]">本页目录</div>
+      <div className="mb-3 text-xs font-semibold text-[var(--text-body)]">本页目录</div>
       <nav aria-label="本页目录">
         <ol className="space-y-1 border-l border-[var(--neutral-200)]">
           {items.map((item) => {
@@ -70,8 +70,8 @@ export default function DocsToc() {
                   }}
                   className={`-ml-px block border-l py-1.5 pl-3 text-xs leading-5 transition-colors ${
                     isActive
-                      ? "border-[var(--neutral-900)] text-[var(--neutral-900)] font-medium"
-                      : "border-transparent text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--neutral-900)]"
+                      ? "border-[var(--neutral-900)] text-[var(--text-primary)] font-medium"
+                      : "border-transparent text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]"
                   }`}
                 >
                   {item.label}

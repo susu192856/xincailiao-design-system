@@ -49,14 +49,14 @@ export function Radio({
           ].join(" ")} />
         </span>
         <span className="min-w-0">
-          {label ? <span className="block text-sm text-[var(--neutral-800)]">{label}</span> : null}
-          {description ? <span className="mt-1 block text-xs leading-5 text-[var(--neutral-500)]">{description}</span> : null}
+          {label ? <span className="block text-sm text-[var(--text-body)]">{label}</span> : null}
+          {description ? <span className="mt-1 block text-xs leading-5 text-[var(--text-tertiary)]">{description}</span> : null}
         </span>
       </label>
       {error ? (
         <p className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
       ) : helperText ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--neutral-500)]">{helperText}</p>
+        <p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
       ) : null}
     </div>
   );
