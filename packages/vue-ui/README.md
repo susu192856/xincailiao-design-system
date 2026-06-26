@@ -13,7 +13,9 @@
 - `XcCard`
 - `XcCheckbox`
 - `XcCollapse`
+- `XcDatePicker`
 - `XcDescriptionList`
+- `XcDrawer`
 - `XcEmpty`
 - `XcForm`
 - `XcIcon`
@@ -22,6 +24,7 @@
 - `XcMenu`
 - `XcModal`
 - `XcPagination`
+- `XcPopover`
 - `XcRadio`
 - `XcSelect`
 - `XcSwitch`
@@ -30,8 +33,10 @@
 - `XcTable`
 - `XcTextarea`
 - `XcToast`
+- `XcTooltip`
 - `XcTransfer`
 - `XcTree`
+- `XcUpload`
 
 ## 使用方式
 
@@ -46,7 +51,9 @@ import {
   XcCard,
   XcCheckbox,
   XcCollapse,
+  XcDatePicker,
   XcDescriptionList,
+  XcDrawer,
   XcEmpty,
   XcForm,
   XcIcon,
@@ -55,6 +62,7 @@ import {
   XcMenu,
   XcModal,
   XcPagination,
+  XcPopover,
   XcRadio,
   XcSelect,
   XcSwitch,
@@ -63,8 +71,10 @@ import {
   XcTag,
   XcTextarea,
   XcToast,
+  XcTooltip,
   XcTransfer,
   XcTree,
+  XcUpload,
 } from "@xincailiao/vue-ui";
 import "@xincailiao/vue-ui/styles.css";
 ```

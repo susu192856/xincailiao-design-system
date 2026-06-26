@@ -125,7 +125,7 @@ export default function CardPage() {
               </div>
               <CardActions>
                 <Button size="sm" variant="ghost">导出</Button>
-                <Button size="sm" tone="product">新建任务</Button>
+                <Button size="sm" tone="task">新建任务</Button>
               </CardActions>
             </CardHeader>
             <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-4">

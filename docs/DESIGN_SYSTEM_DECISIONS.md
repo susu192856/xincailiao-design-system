@@ -44,7 +44,9 @@
 - 取消或返回在左，确认或提交在右。
 - `task` 表示任务推进，使用黑色，适用于提交、确认、发布、创建等改变业务流程的操作。
 - `product` 表示产品能力，使用蓝色，适用于分析、生成、连接、筛选、导出等可重复或可撤回的功能调用。
-- 同一操作组禁止黑色 task solid 与蓝色 product solid 并列；若 task 已是主操作，product 必须降为 outline 或 text。
+- `brand` 表示品牌转化，使用品牌红，适用于官网、门户营销、预约演示和立即体验等关键转化，不进入常规后台操作组。
+- task、product、brand 构成三色三角：三者是平级主操作语义，按页面类型和操作意图选择，不互相充当主次关系。
+- 同一操作组禁止 task、product、brand 中任意两个 solid 并列；若 task 已是主操作，product 必须降为 outline 或 text，brand 必须移出该操作组。
 - `neutral + solid` 仅作为旧代码兼容，不进入新文档与 Figma 合同。
 
 ## DEC-006：Token 与硬编码

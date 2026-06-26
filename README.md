@@ -73,11 +73,13 @@ https://susu192856.github.io/xincailiao-design-system/
 Figma 文件：
 
 ```text
-2026 新材道设计规范及组件
-https://www.figma.com/design/8nsNC3DOyRpk3fA7mEmBwl/2026-%E6%96%B0%E6%9D%90%E9%81%93%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83%E5%8F%8A%E7%BB%84%E4%BB%B6
+新材道设计规范 v2.0
+https://www.figma.com/design/KjkKSAd9eufpg9eFR9xZVX/%E6%96%B0%E6%9D%90%E9%81%93%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83v2.0?node-id=0-1
 ```
 
-当前仓库已经提供 `figma/tokens.json`，可作为 Figma Tokens / Tokens Studio 的导入来源。组件层面的 Figma 同步仍需后续建立：
+旧文件 `8nsNC3DOyRpk3fA7mEmBwl` 仅作历史参考，不再作为同步目标。
+
+当前仓库已经提供 `figma/tokens.json`，可作为 Figma Tokens / Tokens Studio 的导入来源。组件层面的 Figma 同步以 `figma/components.manifest.json` 和 `figma/sync-state.json` 为准：
 
 - Figma Variables：颜色、字号、间距、圆角、阴影
 - Figma Components：按钮、输入框、选择器、表格、卡片、弹窗等

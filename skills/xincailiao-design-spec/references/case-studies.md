@@ -11,9 +11,10 @@
 **根因**：AI 不了解弹窗按钮有固定搭配规则。
 
 **规则**：
-- 确认按钮：`<Button variant="solid" tone="product">确认</Button>`
+- 确认按钮：`<Button variant="solid" tone="task">确认</Button>`
 - 取消按钮：`<Button variant="outline" tone="neutral">取消</Button>`
 - 危险确认：`<Button variant="solid" tone="danger">删除</Button>`
+- 预览、导出、分析等能力操作：已有 task 主按钮时使用 `variant="outline"` 或 `variant="text"` + `tone="product"`
 - 永远不要手写 `<button>` 标签
 
 **检查**：搜索页面中是否出现 `<button` 标签，如果有则替换为 `<Button`。

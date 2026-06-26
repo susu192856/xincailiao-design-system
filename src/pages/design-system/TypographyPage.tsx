@@ -105,8 +105,8 @@ export default function TypographyPage() {
             {typeTokens.map(([token, metrics, weight, usage]) => (
               <tr key={token}>
                 <td className="font-token">{token}</td>
-                <td>{metrics}px</td>
-                <td>{weight}</td>
+                <td className="font-data">{metrics}px</td>
+                <td className="font-data">{weight}</td>
                 <td>{usage}</td>
               </tr>
             ))}

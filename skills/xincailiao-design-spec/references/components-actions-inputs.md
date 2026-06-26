@@ -12,7 +12,10 @@
 - 表单操作区次要操作在左、主操作在右。
 - task 黑色用于提交、确认、发布、创建等任务推进。
 - product 蓝色用于分析、生成、连接、筛选、导出等产品能力。
-- 同一操作组禁止 task solid 与 product solid 并列；task 已为主操作时，product 降为 outline 或 text。
+- brand 红色用于官网、门户营销、预约演示、立即体验等品牌转化，不进入常规后台操作组。
+- task、product、brand 构成三色三角，三者是平级主操作语义，按页面类型和操作意图选择。
+- 同一操作组禁止 task、product、brand 中任意两个 solid 并列；task 已为主操作时，product 降为 outline 或 text，brand 必须移出该操作组。
+- 应用平台或 AI 能力页没有任务提交时，product 可作为唯一 solid；提交配置、保存流程仍使用 task。
 - neutral 用于取消、返回和关闭。
 
 ## 选择策略

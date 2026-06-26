@@ -9,7 +9,8 @@ import {
   X,
 } from "@phosphor-icons/react";
 import PageHeader from "../../../components/docs/PageHeader";
-import { SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { SectionHeading } from "../../../components/docs/ComponentDoc";
+import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
 
 function TokenNote({
@@ -76,6 +77,14 @@ function DotList({ items, tone = "product" }: { items: string[]; tone?: "product
   );
 }
 
+const pageToneRows = [
+  ["官网 / 营销页", "brand solid", "neutral outline 或 text", "预约演示、立即体验、查看方案", "只在品牌转化区使用红色主按钮；普通导航和说明入口不要染红。"],
+  ["门户 / 数据空间首页", "brand 或 product solid", "neutral outline / product text", "进入空间、连接数据、查看方案", "品牌转化用 brand；产品能力入口用 product，不在同组并列两个 solid。"],
+  ["后台 / 管理系统", "task solid", "product outline 或 text", "提交审核、新建项目、导出数据", "后台常规主操作是黑色 task；蓝色只做能力调用或辅助工具。"],
+  ["应用平台 / AI 能力页", "product solid", "neutral ghost / task outline", "运行分析、生成报告、保存配置", "当页面核心任务是调用能力，product 可作为唯一 solid；提交配置仍回到 task。"],
+  ["危险确认", "danger solid", "neutral ghost", "永久删除、撤销审批、停用账号", "danger 优先级高于三主色，必须配合二次确认。"],
+];
+
 export default function ButtonPage() {
   return (
     <div className="space-y-16">
@@ -86,14 +95,71 @@ export default function ButtonPage() {
 
       <section>
         <SectionHeading
+          eyebrow="Decision Model"
+          title="三色三角按钮规则"
+          description="黑色 task、蓝色 product、红色 brand 是三种平级主操作语义，不是主色、次色、强调色的上下级关系。先判断页面类型和操作意图，再决定 tone；同一操作组只能出现一个 solid。"
+        />
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-[0.8fr_1.2fr]">
+          <SpecCard title="三色分别代表什么">
+            <div className="space-y-4 text-sm leading-6 text-[var(--text-secondary)]">
+              <p>
+                <span className="font-semibold text-[var(--text-primary)]">task 黑色：</span>
+                任务推进。用于提交、确认、发布、创建、保存等会改变业务流程的动作，是后台和表单场景的默认主按钮。
+              </p>
+              <p>
+                <span className="font-semibold text-[var(--text-primary)]">product 蓝色：</span>
+                产品能力。用于分析、生成、连接、筛选、导出、预览等可重复或可撤回的能力调用，是应用平台和 AI 能力页的主按钮候选。
+              </p>
+              <p>
+                <span className="font-semibold text-[var(--text-primary)]">brand 红色：</span>
+                品牌转化。用于官网、门户营销和品牌关键转化，例如预约演示、立即体验，不进入常规后台操作组。
+              </p>
+            </div>
+            <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] px-4 py-3 text-xs leading-6 text-[var(--text-secondary)]">
+              <span className="font-semibold text-[var(--text-primary)]">判断口诀：</span>
+              交付任务选黑色，调用能力选蓝色，品牌转化选红色；同组只保留一个实心按钮，危险操作直接使用 danger。
+            </div>
+          </SpecCard>
+
+          <DocsTable caption="Figma 建 Button 组件时，variant、tone、size、state 必须拆成独立属性；不要把 task/product/brand 做成三个互相覆盖的组件。">
+            <thead>
+              <tr>
+                <th>页面类型</th>
+                <th>主按钮</th>
+                <th>次级按钮</th>
+                <th>典型文案</th>
+                <th>使用边界</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageToneRows.map(([pageType, primary, secondary, copy, boundary]) => (
+                <tr key={pageType}>
+                  <td className="font-token">{pageType}</td>
+                  <td className="font-token">{primary}</td>
+                  <td className="font-token">{secondary}</td>
+                  <td>{copy}</td>
+                  <td>{boundary}</td>
+                </tr>
+              ))}
+            </tbody>
+          </DocsTable>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           eyebrow="Variants"
           title="按钮类型"
-          description="按钮分为主要、次要、弱按钮、文字、危险五种类型。所有按钮统一使用 2px 圆角，悬停和按下状态保持明确但克制。"
+          description="按钮分为 solid、outline、ghost、text 四种视觉层级。黑、蓝、红 solid 是平级主操作语义，按业务场景互斥使用；危险、警告和成功属于状态型操作语义。"
         />
 
         <div className="mb-8">
           <h3 className="mb-4 text-lg font-semibold text-[var(--text-primary)]">主要按钮（Solid）</h3>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+            <div className="mb-6 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-4 py-3 text-sm leading-6 text-[var(--text-secondary)]">
+              <span className="font-semibold text-[var(--text-primary)]">平级互斥原则：</span>
+              黑色 task、蓝色 product、红色 brand 都可以成为 solid 主按钮，但同一操作组只能出现一种 solid。它们可以出现在同一页面的不同区域，分别代表任务推进、产品能力和品牌转化。
+            </div>
             <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
               <div>
                 <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">黑色 - 任务主行动</p>
@@ -305,8 +371,11 @@ export default function ButtonPage() {
         </div>
 
         <div>
-          <h3 className="mb-4 text-lg font-semibold text-[var(--text-primary)]">危险按钮（Danger）</h3>
+          <h3 className="mb-4 text-lg font-semibold text-[var(--text-primary)]">风险与状态按钮</h3>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+            <p className="mb-4 text-sm leading-6 text-[var(--text-secondary)]">
+              danger、warning、success 不参与黑/蓝/红三主色平级模型。它们用于表达风险、临界状态或正向状态，必须由明确业务状态触发，不能替代普通 task/product/brand 主操作。
+            </p>
             <ButtonGroup>
               <Button tone="danger" icon={<Trash className="h-4 w-4" weight="regular" />}>
                 永久删除
@@ -777,7 +846,7 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Button Semantics"
           title="按钮语义模型"
-          description="按钮层级由 variant 决定，操作意图由 tone 决定。黑色 task 推进当前任务，蓝色 product 调用产品能力；它们不是主次色关系。"
+          description="按钮层级由 variant 决定，操作意图由 tone 决定。黑色 task、蓝色 product、红色 brand 是平级主操作语义；danger、warning、success 是状态型操作语义。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <SpecCard title="视觉层级（variant）">
@@ -822,6 +891,10 @@ export default function ButtonPage() {
                 <span className="font-semibold text-[var(--text-primary)]">danger：</span>
                 删除、取消、不可逆风险操作，使用错误语义色，不混用品牌红。
               </p>
+              <p>
+                <span className="font-semibold text-[var(--text-primary)]">warning / success：</span>
+                临界风险确认或正向状态操作，只在明确状态语义下使用，不作为常规主按钮颜色。
+              </p>
             </div>
           </SpecCard>
         </div>
@@ -830,7 +903,7 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Task vs Product"
           title="黑色与蓝色如何共同使用"
-          description="先判断操作意图，再决定颜色。每个操作组只能有一个 solid；有黑色任务主行动时，蓝色能力操作必须降为 outline 或 text。"
+          description="先判断操作意图，再决定颜色。同页可共存，同组不共存；每个操作组只能有一个 solid。有黑色任务主行动时，蓝色能力操作必须降为 outline 或 text。"
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[0.9fr_1.4fr]">
           <SpecCard title="操作颜色决策顺序">
@@ -909,7 +982,7 @@ export default function ButtonPage() {
 
         <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">唯一主操作原则：</strong>
-          同一按钮组最多一个 solid。黑色 task solid 已存在时，蓝色 product 必须降为 outline 或 text；能力型页面没有任务提交时，蓝色 product 才可以成为唯一 solid。
+          同一按钮组最多一个 solid。黑、蓝、红 solid 可以出现在同一页面的不同区域，但不能并列出现在同一操作组；能力型页面没有任务提交时，蓝色 product 才可以成为唯一 solid。
         </div>
       </section>
 
@@ -951,8 +1024,9 @@ export default function ButtonPage() {
               <p className="mb-2 font-semibold text-[var(--text-primary)]">官网营销页</p>
               <ul className="space-y-1 text-[var(--text-secondary)]">
                 <li> 使用 Large / X-Large / 2XL 尺寸</li>
-                <li> 黑色主按钮 + 中性描边次按钮</li>
-                <li> 品牌红用于关键转化或促销强调</li>
+                <li> 品牌红主按钮 + 中性描边次按钮</li>
+                <li> 黑色 task 仅用于登录、提交资料等事务动作</li>
+                <li> 品牌红用于关键转化或营销强调</li>
                 <li> 居中对齐，突出 CTA</li>
               </ul>
             </div>

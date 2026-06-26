@@ -70,7 +70,7 @@ export default function FormPage() {
               <Textarea label="审批意见" placeholder="请输入审批说明" error="驳回时必须填写审批意见" />
               <FormActions>
                 <Button variant="ghost">返回</Button>
-                <Button tone="product">提交审批</Button>
+                <Button tone="task">提交审批</Button>
               </FormActions>
             </Form>
           </ExampleCard>

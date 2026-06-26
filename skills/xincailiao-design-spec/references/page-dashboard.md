@@ -36,7 +36,7 @@
       {/* 页面标题区 */}
       <div className="flex items-center justify-between mb-[var(--spacing-lg)]">
         <h3 style={{fontSize: 'var(--type-heading-h3-size)'}}>页面标题</h3>
-        <Button variant="solid" tone="product">主操作</Button>
+        <Button variant="solid" tone="task">主操作</Button>
       </div>
 
       {/* 内容区 */}
@@ -65,8 +65,9 @@
 
 - 面包屑在最上
 - 标题使用 `--type-heading-h3`（24px）或 `--type-heading-h4`（20px）
-- 主操作按钮在右侧：`variant="solid"` `tone="product"`
-- 多个操作时：主按钮 solid 在右，次按钮 outline 在左
+- 任务推进主操作在右侧：`variant="solid"` `tone="task"`
+- 分析、生成、筛选、导出等产品能力操作使用 `tone="product"`，同组已有 task solid 时降为 outline 或 text
+- 多个操作时：主按钮 solid 在右，次按钮 outline 或 text 在左
 
 ## 内容区规则
 
@@ -124,7 +125,8 @@
 - 标题文字：`--neutral-900`
 - 正文/表格文字：`--neutral-700`
 - 辅助文字：`--neutral-500`
-- 主操作色：`--product-blue-500`（后台以产品蓝为主操作按钮色，**仅用于主按钮 + 链接文字 + 表格选中行背景**）
+- 任务主操作色：`--color-action-task-default` 或 `--neutral-900`（后台提交、确认、发布、创建默认使用黑色 task）
+- 产品能力色：`--product-blue-500`（仅用于能力按钮、链接文字、表格选中行背景等点缀场景）
 - 不使用品牌红色（`--brand-*`），红色仅用于 danger/error
 - Checkbox/Radio/Switch 选中态：`--neutral-900`（黑色），不是产品蓝
 - **产品蓝是点缀色，不是铺底色**——页面 95% 以上的面积应该是白色和 neutral 色系
