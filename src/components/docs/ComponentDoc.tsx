@@ -18,6 +18,7 @@ export function SectionHeading({
           </div>
         ) : null}
         <div className="flex items-center gap-3">
+          <span className="h-5 w-0.5 shrink-0 bg-[var(--brand-600)]" aria-hidden="true" />
           <h2 className="text-xl font-semibold leading-7 text-[var(--text-primary)]">{title}</h2>
           <div className="hidden h-px flex-1 bg-gradient-to-r from-[var(--neutral-300)] to-transparent md:block" />
         </div>

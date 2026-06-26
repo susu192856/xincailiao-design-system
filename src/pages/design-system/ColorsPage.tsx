@@ -12,6 +12,7 @@ type ColorToken = {
   name: string;
   hex: string;
   label: string;
+  alias?: string;
 };
 
 type SemanticColor = {
@@ -37,18 +38,13 @@ function ColorChip({ color, label }: { color: string; label?: string }) {
 function SemanticCard({ color }: { color: SemanticColor }) {
   return (
     <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-      <div className="h-1.5" style={{ backgroundColor: color.text }} />
       <div className="p-5">
         <div className="flex items-start justify-between gap-5">
           <div>
-            <p className="font-token text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">{color.name}</p>
-            <h3 className="mt-1.5 text-lg font-semibold text-[var(--text-primary)]">{color.label}</h3>
+            <h3 className="text-lg font-semibold text-[var(--text-primary)]">{color.label}</h3>
           </div>
-          <span className="rounded-full px-2.5 py-1 text-xs font-semibold" style={{ backgroundColor: color.background, color: color.text }}>
-            {color.sample}
-          </span>
         </div>
-        <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)]">{color.usage}</p>
+        <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{color.usage}</p>
 
         <div className="mt-5 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
           {[
@@ -103,23 +99,23 @@ export default function ColorsPage() {
   ];
 
   const neutralColors: ColorToken[] = [
-    { name: "neutral-50", hex: "#F7F8FA", label: "页面底色/大面积背景" },
-    { name: "neutral-100", hex: "#F1F3F5", label: "卡片背景/浅容器" },
-    { name: "neutral-200", hex: "#E6E9EE", label: "分割线/弱边框" },
-    { name: "neutral-300", hex: "#D5DAE1", label: "输入框边框/Disabled" },
-    { name: "neutral-400", hex: "#B8C0CC", label: "边框、骨架和非文字装饰" },
-    { name: "neutral-500", hex: "#97A0AD", label: "禁用文字或非必要信息，不用于正常小字" },
-    { name: "neutral-600", hex: "#6F7785", label: "三级说明文字，白底对比度 4.51:1" },
-    { name: "neutral-700", hex: "#4B5563", label: "次级正文、导航和标注" },
-    { name: "neutral-800", hex: "#2B313A", label: "主正文和高频界面文字" },
-    { name: "neutral-900", hex: "#1A1A1A", label: "标题/主按钮/深背景" },
+    { name: "neutral-50", hex: "#F7F8FA", label: "页面底色/大面积背景", alias: "page-bg" },
+    { name: "neutral-100", hex: "#F1F3F5", label: "卡片背景/浅容器", alias: "card-bg / row-divider" },
+    { name: "neutral-200", hex: "#E6E9EE", label: "分割线/弱边框", alias: "border / divider" },
+    { name: "neutral-300", hex: "#D5DAE1", label: "输入框边框/Disabled", alias: "field-border" },
+    { name: "neutral-400", hex: "#B8C0CC", label: "边框、骨架和非文字装饰", alias: "decorative" },
+    { name: "neutral-500", hex: "#97A0AD", label: "禁用文字或非必要信息", alias: "text-disabled" },
+    { name: "neutral-600", hex: "#6F7785", label: "三级说明文字", alias: "text-tertiary" },
+    { name: "neutral-700", hex: "#4B5563", label: "次级正文、导航和标注", alias: "text-secondary" },
+    { name: "neutral-800", hex: "#2B313A", label: "主正文和高频界面文字", alias: "text-body" },
+    { name: "neutral-900", hex: "#1A1A1A", label: "标题/主按钮/深背景", alias: "text-primary" },
   ];
 
   const semanticColors: SemanticColor[] = [
     { name: "success", text: "#009A29", background: "#E8FFEA", border: "#AFF0B5", label: "成功状态", usage: "用于保存成功、流程完成、校验通过等正向反馈。", sample: "操作成功" },
-    { name: "warning", text: "#CC9213", background: "#FFFCE8", border: "#FDF4BF", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。", sample: "需要关注" },
-    { name: "error", text: "#CB272D", background: "#FFECE8", border: "#FDCDC5", label: "错误 / 危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。", sample: "操作失败" },
-    { name: "info", text: "#206CCF", background: "#E8F7FF", border: "#C3E7FE", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。", sample: "系统通知" },
+    { name: "warning", text: "#FF7D00", background: "#FFF7E8", border: "#FFE4BA", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。", sample: "需要关注" },
+    { name: "error", text: "#F53F3F", background: "#FFECE8", border: "#FDCDC5", label: "错误 / 危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。", sample: "操作失败" },
+    { name: "info", text: "#3491FA", background: "#E8F7FF", border: "#C3E7FE", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。", sample: "系统通知" },
   ];
 
   const coreColorRules = [
@@ -220,7 +216,7 @@ export default function ColorsPage() {
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-2 bg-[var(--brand-600)]" />
+            <div className="h-1 bg-[var(--brand-600)]" />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
@@ -232,7 +228,7 @@ export default function ColorsPage() {
             </div>
           </div>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-2 bg-[var(--product-blue-500)]" />
+            <div className="h-1 bg-[var(--product-blue-500)]" />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
@@ -244,7 +240,7 @@ export default function ColorsPage() {
             </div>
           </div>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-2 bg-[var(--neutral-900)]" />
+            <div className="h-1 bg-[var(--neutral-900)]" />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
@@ -258,7 +254,37 @@ export default function ColorsPage() {
         </div>
         <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">使用决策：</strong>
-          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色接管功能交互，黑色继续承担结构；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
+          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色接管功能交互，黑色承担主操作按钮级结构骨架；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Color Scales"
+          title="色阶系统"
+          description="色阶用于背景、悬停、按下、标签、弱强调等状态。优先使用已有 token，不临时创造相近色。"
+        />
+        <div className="space-y-10">
+          <div>
+            <SubsectionHeading eyebrow="Brand" title="品牌红色阶" tone="brand" />
+            <div className="overflow-x-auto bg-white p-4">
+              <ColorScaleGrid colors={brandColors} className="min-w-[980px]" />
+            </div>
+          </div>
+
+          <div>
+            <SubsectionHeading eyebrow="Product" title="产品蓝色阶" tone="product" />
+            <div className="overflow-x-auto bg-white p-4">
+              <ColorScaleGrid colors={productColors} className="min-w-[980px]" />
+            </div>
+          </div>
+
+          <div>
+            <SubsectionHeading eyebrow="Neutral" title="中性灰色阶" />
+            <div className="overflow-x-auto bg-white p-4">
+              <ColorScaleGrid colors={neutralColors} className="min-w-[980px]" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -290,36 +316,6 @@ export default function ColorsPage() {
             ))}
           </tbody>
         </DocsTable>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Color Scales"
-          title="色阶系统"
-          description="色阶用于背景、悬停、按下、标签、弱强调等状态。优先使用已有 token，不临时创造相近色。"
-        />
-        <div className="space-y-10">
-          <div>
-            <SubsectionHeading eyebrow="Brand" title="品牌红色阶" tone="brand" />
-            <div className="overflow-x-auto bg-white p-4">
-              <ColorScaleGrid colors={brandColors} className="min-w-[980px]" />
-            </div>
-          </div>
-
-          <div>
-            <SubsectionHeading eyebrow="Product" title="产品蓝色阶" tone="product" />
-            <div className="overflow-x-auto bg-white p-4">
-              <ColorScaleGrid colors={productColors} className="min-w-[980px]" />
-            </div>
-          </div>
-
-          <div>
-            <SubsectionHeading eyebrow="Neutral" title="中性灰色阶" />
-            <div className="overflow-x-auto bg-white p-4">
-              <ColorScaleGrid colors={neutralColors} className="min-w-[980px]" />
-            </div>
-          </div>
-        </div>
       </section>
 
       <section>

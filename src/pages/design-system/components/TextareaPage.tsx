@@ -99,7 +99,7 @@ export default function TextareaPage() {
               <th className="px-6 py-3 font-semibold">说明</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+          <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
             <tr><td className="px-6 py-4 font-mono text-xs">label</td><td className="px-6 py-4">string</td><td className="px-6 py-4">-</td><td className="px-6 py-4">标签文字</td></tr>
             <tr><td className="px-6 py-4 font-mono text-xs">size</td><td className="px-6 py-4">sm | md | lg</td><td className="px-6 py-4">md</td><td className="px-6 py-4">推荐使用的新尺寸 API</td></tr>
             <tr><td className="px-6 py-4 font-mono text-xs">inputSize</td><td className="px-6 py-4">sm | md | lg</td><td className="px-6 py-4">md</td><td className="px-6 py-4">兼容旧 API，后续推荐迁移到 size</td></tr>

@@ -90,7 +90,7 @@ export default function SpacingPage() {
                 <td className="whitespace-nowrap font-token">
                   {item.token}
                 </td>
-                <td className="whitespace-nowrap font-mono">
+                <td className="whitespace-nowrap">
                   {item.value}
                 </td>
                 <td>{item.usage}</td>
@@ -109,19 +109,21 @@ export default function SpacingPage() {
           title="间距视觉示例"
           description="用横向尺度展示不同间距 token 的视觉差异，便于判断组件内部留白和页面区块节奏。"
         />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {spacingTokens.map((item) => (
-            <div key={item.variable} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <div className="mb-4 flex h-12 items-center rounded-sm bg-[var(--neutral-50)] px-4">
-                <div
-                  className="h-3 bg-[var(--neutral-400)]"
-                  style={{ width: `var(${item.variable})` }}
-                />
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+          <div className="flex items-end gap-4">
+            {spacingTokens.map((item) => (
+              <div key={item.variable} className="flex flex-1 flex-col items-center gap-2">
+                <div className="flex w-full justify-center">
+                  <div
+                    className="h-3 bg-[var(--neutral-400)]"
+                    style={{ width: `var(${item.variable})`, maxWidth: "100%" }}
+                  />
+                </div>
+                <span className="font-token text-xs text-[var(--text-tertiary)]">{item.token}</span>
+                <span className="text-xs text-[var(--text-tertiary)]">{item.value}</span>
               </div>
-              <div className="font-token text-xs text-[var(--text-tertiary)]">{item.token}</div>
-              <div className="mt-1 font-mono text-xs text-[var(--text-tertiary)]">{item.value}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -143,10 +145,10 @@ export default function SpacingPage() {
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">{item.grade}</span>
                   <h3 className="mt-0.5 text-sm font-semibold text-[var(--text-primary)]">{item.gap} · {item.token}</h3>
                 </div>
-                <span className="text-xs text-[var(--neutral-400)]">{item.desc}</span>
+                <span className="text-xs text-[var(--text-tertiary)]">{item.desc}</span>
               </div>
               <div className={item.className}>
-                <div className="h-2 rounded-sm bg-[var(--neutral-900)]" />
+                <div className="h-2 rounded-sm bg-[var(--neutral-500)]" />
                 <div className="h-2 rounded-sm bg-[var(--neutral-300)]" />
                 <div className="h-2 rounded-sm bg-[var(--neutral-200)]" />
                 <div className="h-2 rounded-sm bg-[var(--neutral-100)]" />
@@ -166,7 +168,7 @@ export default function SpacingPage() {
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {[
             {
-              title: "后台表单",
+              title: "表单",
               description: "适合数据录入、参数配置和审批流页面。",
               rows: [
                 ["字段与字段", "16px"],
@@ -175,7 +177,7 @@ export default function SpacingPage() {
               ],
             },
             {
-              title: "后台列表",
+              title: "列表",
               description: "适合筛选、工具栏、表格和分页组合。",
               rows: [
                 ["筛选项间距", "12px"],
@@ -194,13 +196,13 @@ export default function SpacingPage() {
             },
           ].map((recipe) => (
             <div key={recipe.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <p className="text-base font-semibold text-[var(--text-primary)]">{recipe.title}</p>
+              <h3 className="text-base font-semibold text-[var(--neutral-900)]">{recipe.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{recipe.description}</p>
-              <div className="mt-5 divide-y divide-[var(--neutral-200)] border-y border-[var(--neutral-200)]">
+              <div className="mt-5 divide-y divide-[var(--neutral-100)] border-y border-[var(--neutral-200)]">
                 {recipe.rows.map(([label, value]) => (
                   <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-3 text-sm">
                     <span className="text-[var(--text-secondary)]">{label}</span>
-                    <span className="font-mono text-xs text-[var(--text-primary)]">{value}</span>
+                    <span className="text-sm text-[var(--text-primary)]">{value}</span>
                   </div>
                 ))}
               </div>

@@ -695,7 +695,7 @@ export default function IconPage() {
               <th className="px-6 py-3 font-semibold">使用场景</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+          <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
             {iconSizes.map((item) => (
               <tr key={item.size}>
                 <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--text-tertiary)]">
@@ -721,7 +721,7 @@ export default function IconPage() {
               <th className="px-6 py-3 font-semibold">使用建议</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+          <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
             {iconWeights.map((item) => (
               <tr key={item.weight}>
                 <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--text-tertiary)]">
@@ -939,7 +939,7 @@ export default function IconPage() {
                 <th className="px-6 py-3 font-semibold">标准</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[var(--neutral-200)] bg-white">
+            <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
               {decorativeIconStandards.map((item) => (
                 <tr key={item.item}>
                   <td className="whitespace-nowrap px-6 py-4 text-sm font-semibold text-[var(--text-primary)]">

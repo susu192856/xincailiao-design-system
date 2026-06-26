@@ -73,21 +73,21 @@
   --success-tag: #E8FFEA;
   --success-border: #AFF0B5;
 
-  --warning-text: #CC9213;
+  --warning-text: #FF7D00;
   --warning-hover: #D25F00;
   --warning-active: #B35200;
-  --warning-bg: #FFFCE8;
-  --warning-tag: #FFFCE8;
-  --warning-border: #FDF4BF;
+  --warning-bg: #FFF7E8;
+  --warning-tag: #FFF7E8;
+  --warning-border: #FFE4BA;
 
-  --error-text: #CB272D;
-  --error-hover: #CB272D;
+  --error-text: #F53F3F;
+  --error-hover: #F53F3F;
   --error-active: #AF2126;
   --error-bg: #FFECE8;
   --error-tag: #FFECE8;
   --error-border: #FDCDC5;
 
-  --info-text: #206CCF;
+  --info-text: #3491FA;
   --info-bg: #E8F7FF;
   --info-tag: #E8F7FF;
   --info-border: #C3E7FE;
@@ -101,7 +101,7 @@
   --warning-solid-active: #D25F00;
   --error-solid: #F53F3F;
   --error-solid-hover: #F76560;
-  --error-solid-active: #CB272D;
+  --error-solid-active: #F53F3F;
 }
 
 /* 数据可视化色板 — 参考 DBS 数据可视化资源，共 10 色系 × 7 层级 */

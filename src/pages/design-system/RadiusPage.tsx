@@ -83,7 +83,7 @@ export default function RadiusPage() {
                 <td className="whitespace-nowrap font-token">
                   {item.token}
                 </td>
-                <td className="whitespace-nowrap font-mono">
+                <td className="whitespace-nowrap">
                   {item.value}
                 </td>
                 <td>{item.usage}</td>
@@ -102,17 +102,21 @@ export default function RadiusPage() {
           title="圆角视觉示例"
           description="通过同尺寸容器对比不同圆角等级，帮助判断组件、卡片和营销展示模块的边角尺度。"
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {radiusTokens.map((item) => (
-            <div key={item.variable} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <div
-                className="mb-4 h-24 bg-[var(--neutral-50)]"
-                style={{ borderRadius: `var(${item.variable})` }}
-              />
-              <div className="font-token text-xs text-[var(--text-tertiary)]">{item.token}</div>
-              <div className="mt-1 font-mono text-xs text-[var(--text-tertiary)]">{item.value}</div>
-            </div>
-          ))}
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+          <div className="flex items-end gap-4">
+            {radiusTokens.map((item) => (
+              <div key={item.variable} className="flex flex-1 flex-col items-center gap-2">
+                <div className="flex w-full justify-center">
+                  <div
+                    className="h-10 w-10 bg-[var(--neutral-100)]"
+                    style={{ borderRadius: `var(${item.variable})` }}
+                  />
+                </div>
+                <span className="font-token text-xs text-[var(--text-tertiary)]">{item.token}</span>
+                <span className="text-xs text-[var(--text-tertiary)]">{item.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
