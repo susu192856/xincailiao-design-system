@@ -110,7 +110,11 @@ for (const component of manifest.components) {
   }
 
   if (!component.vueSource || !exists(component.vueSource)) {
-    errors.push(`${label}: vueSource is missing or file does not exist.`);
+    if (component.vueSource === null) {
+      console.warn(`  ⚠ ${label}: vueSource is null (spec-only component, Vue source pending).`);
+    } else {
+      errors.push(`${label}: vueSource is missing or file does not exist.`);
+    }
   } else {
     const exportName = vueExportName(component.vueSource);
     if (!vueIndex.includes(`as ${exportName}`)) {

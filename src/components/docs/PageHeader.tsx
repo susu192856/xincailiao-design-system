@@ -20,7 +20,7 @@ type MaturityStatus = keyof typeof statusLabel;
 export default function PageHeader({
   title,
   description,
-  version = "v0.2",
+  version = "v2.0",
   status,
 }: PageHeaderProps) {
   const location = useLocation();

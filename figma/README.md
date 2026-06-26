@@ -63,7 +63,7 @@ npm run sync:skill-assets
 
 ## 当前状态
 
-目前仓库已经具备 Token 导入文件、29 个组件的 Figma 同步清单、29 个 Vue 3 组件源码和 React 规范实现。
+目前仓库已经具备 Token 导入文件、31 个组件的 Figma 同步清单、31 个 Vue 3 组件源码和 React 规范实现。
 
 2026-06-22 已在 v2.0 文件创建：
 

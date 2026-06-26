@@ -21,11 +21,14 @@
 | `--docs-fg` | `var(--neutral-900)` | fg |
 | `--docs-muted` | `var(--neutral-600)` | muted |
 | `--docs-border` | `var(--neutral-200)` | border |
+| `--docs-border-strong` | `var(--neutral-300)` | border strong |
 | `--docs-hover-bg` | `var(--neutral-100)` | hover bg |
 | `--docs-active-bg` | `var(--neutral-900)` | active bg |
 | `--docs-active-fg` | `#FFFFFF` | active fg |
 | `--docs-accent` | `var(--brand-600)` | accent |
 | `--docs-code-bg` | `var(--neutral-100)` | code bg |
+| `--docs-panel-shadow` | `none` | panel shadow |
+| `--docs-soft-shadow` | `none` | soft shadow |
 
 ## CSS 使用方式
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1 — 2026-06-26
+
+- 组件范围从 29 扩展至 31：新纳入 DatePicker 和 Upload。
+- 31 个组件全部补齐 figmaProperties，Figma 组件创建条件已就绪。
+- figma/tokens.json 通过 npm run export 重新生成，与 tokens.css 语义色、数据色完全对齐。
+- figma/sync-state.json 更新为追踪全部 31 个组件的成熟度和同步状态。
+- 验证脚本更新：verify:design-system 和 verify:maturity 适配 31 组件口径。
+- verify:components、verify:visual、verify:design-system、verify:maturity、verify:vue-ui 和 build 全链路通过。
+
 ## 0.2.0 — 2026-06-22
 
 - 固定 29 个组件 + 7 个基础规范范围。

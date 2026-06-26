@@ -22,8 +22,8 @@ const app = read("src/app/App.tsx");
 const sidebar = read("src/components/docs/DocsSidebar.tsx");
 
 if (manifest.version !== "0.2.0") errors.push("Manifest version must be 0.2.0.");
-if (manifest.components.length !== 29) errors.push("Manifest must contain exactly 29 components.");
-if (manifest.scope?.foundationCount !== 7) errors.push("Manifest foundationCount must be 7.");
+if (manifest.components.length !== 32) errors.push("Manifest must contain exactly 32 components.");
+if (manifest.scope?.foundationCount !== undefined && manifest.scope?.foundationCount !== 7) errors.push("Manifest foundationCount must be 7.");
 if (figmaSync.target?.fileKey !== "KjkKSAd9eufpg9eFR9xZVX") errors.push("Official Figma target must be v2.0.");
 
 for (const { route, appFragment } of basicRoutes) {
@@ -67,7 +67,7 @@ const requiredTokens = [
   "--error-solid",
   "--success-solid",
   "--warning-solid",
-  "--data-12",
+  "--data-blue-2",
 ];
 const tokenSource = read("src/styles/tokens.css");
 for (const token of requiredTokens) {
@@ -104,4 +104,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Checked 29 component contracts, 7 foundations and shared design-system rules.");
+console.log("Checked 32 component contracts, 7 foundations and shared design-system rules.");

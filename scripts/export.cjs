@@ -267,18 +267,6 @@ function describeToken(name, value, cat) {
     "info-text": "信息文字",
     "info-bg": "信息背景",
     "info-tag": "信息标签",
-    "data-01": "核心分类蓝",
-    "data-02": "核心分类青绿",
-    "data-03": "核心分类紫",
-    "data-04": "核心分类琥珀",
-    "data-05": "核心分类洋红",
-    "data-06": "核心分类青蓝",
-    "data-07": "扩展分类灰",
-    "data-08": "扩展分类朱红",
-    "data-09": "扩展分类深紫",
-    "data-10": "扩展分类草绿",
-    "data-11": "扩展分类深橙",
-    "data-12": "扩展分类钢蓝",
     "z-dropdown": "下拉菜单",
     "z-sticky": "粘性定位",
     "z-overlay": "遮罩层",
@@ -718,6 +706,9 @@ function generateComponentMD() {
 
     md += "## 可访问性\n\n";
     md += `${comp.contract?.accessibility || "使用正确语义结构，状态不能只依赖颜色表达。"}\n\n`;
+
+    md += "## 内容规范\n\n";
+    md += `${comp.contract?.content || "内容必须定义长文本、空值、截断、换行和本地化边界。"}\n\n`;
 
     md += "## 示例要求\n\n";
     const examples = comp.contract?.examples || {};

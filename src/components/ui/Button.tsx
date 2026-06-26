@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { SpinnerGap } from "@phosphor-icons/react";
+import { Spinner } from "@phosphor-icons/react";
 
 type ButtonVariant = "solid" | "outline" | "ghost" | "text";
 type ButtonTone = "task" | "neutral" | "product" | "brand" | "danger" | "success" | "warning";
@@ -45,36 +45,36 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     brand:
       "border border-[var(--brand-600)] bg-white text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",
     danger:
-      "border border-[var(--error-text)] bg-white text-[var(--error-text)] hover:bg-[var(--error-bg)] active:border-[var(--error-active)]",
+      "border border-[var(--error-text)] bg-white text-[var(--error-text)] hover:bg-[var(--error-bg)] active:bg-[var(--error-border)]",
     success:
-      "border border-[var(--success-text)] bg-white text-[var(--success-text)] hover:bg-[var(--success-bg)] active:border-[var(--success-active)]",
+      "border border-[var(--success-text)] bg-white text-[var(--success-text)] hover:bg-[var(--success-bg)] active:bg-[var(--success-border)]",
     warning:
-      "border border-[var(--warning-text)] bg-white text-[var(--warning-text)] hover:bg-[var(--warning-bg)] active:border-[var(--warning-active)]",
+      "border border-[var(--warning-text)] bg-white text-[var(--warning-text)] hover:bg-[var(--warning-bg)] active:bg-[var(--warning-border)]",
   },
   ghost: {
     task:
-      "bg-[var(--neutral-100)] text-[var(--color-action-task-default)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)]",
+      "bg-[var(--neutral-100)] text-[var(--color-action-task-default)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)] disabled:text-[var(--neutral-500)]",
     neutral:
-      "bg-[var(--neutral-100)] text-[var(--text-primary)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)]",
+      "bg-[var(--neutral-100)] text-[var(--text-primary)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)] disabled:text-[var(--neutral-500)]",
     product:
-      "bg-[var(--product-blue-50)] text-[var(--product-blue-500)] hover:bg-[var(--product-blue-100)] active:bg-[var(--product-blue-200)]",
+      "bg-[var(--product-blue-50)] text-[var(--product-blue-500)] hover:bg-[var(--product-blue-100)] active:bg-[var(--product-blue-200)] disabled:text-[var(--product-blue-300)]",
     brand:
-      "bg-[var(--brand-50)] text-[var(--brand-600)] hover:bg-[var(--brand-100)] active:bg-[var(--brand-200)]",
-    danger: "bg-[var(--error-bg)] text-[var(--error-text)] hover:text-[var(--error-hover)] active:text-[var(--error-active)]",
+      "bg-[var(--brand-50)] text-[var(--brand-600)] hover:bg-[var(--brand-100)] active:bg-[var(--brand-200)] disabled:text-[var(--brand-300)]",
+    danger: "bg-[var(--error-bg)] text-[var(--error-text)] hover:bg-[var(--error-border)] active:bg-[var(--error-border)] disabled:text-[var(--error-text-light)]",
     success:
-      "bg-[var(--success-bg)] text-[var(--success-text)] hover:text-[var(--success-hover)] active:text-[var(--success-active)]",
+      "bg-[var(--success-bg)] text-[var(--success-text)] hover:bg-[var(--success-border)] active:bg-[var(--success-border)] disabled:text-[var(--success-text-light)]",
     warning:
-      "bg-[var(--warning-bg)] text-[var(--warning-text)] hover:text-[var(--warning-hover)] active:text-[var(--warning-active)]",
+      "bg-[var(--warning-bg)] text-[var(--warning-text)] hover:bg-[var(--warning-border)] active:bg-[var(--warning-border)] disabled:text-[var(--warning-text-light)]",
   },
   text: {
-    task: "text-[var(--color-action-task-default)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
-    neutral: "text-[var(--text-primary)] hover:bg-[var(--neutral-50)] active:bg-[var(--neutral-100)]",
+    task: "text-[var(--color-action-task-default)] hover:bg-[var(--neutral-50)] hover:text-[var(--color-action-task-default)] active:bg-[var(--neutral-100)] active:text-[var(--color-action-task-default)] disabled:text-[var(--neutral-500)]",
+    neutral: "text-[var(--text-primary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)] active:bg-[var(--neutral-100)] active:text-[var(--text-primary)] disabled:text-[var(--neutral-500)]",
     product:
-      "text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] active:bg-[var(--product-blue-100)]",
-    brand: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",
-    danger: "text-[var(--error-text)] hover:bg-[var(--error-bg)] active:text-[var(--error-active)]",
-    success: "text-[var(--success-text)] hover:bg-[var(--success-bg)] active:text-[var(--success-active)]",
-    warning: "text-[var(--warning-text)] hover:bg-[var(--warning-bg)] active:text-[var(--warning-active)]",
+      "text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] hover:text-[var(--product-blue-500)] active:bg-[var(--product-blue-100)] active:text-[var(--product-blue-500)] disabled:text-[var(--product-blue-300)]",
+    brand: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] hover:text-[var(--brand-600)] active:bg-[var(--brand-100)] active:text-[var(--brand-600)] disabled:text-[var(--brand-300)]",
+    danger: "text-[var(--error-text)] hover:bg-[var(--error-bg)] hover:text-[var(--error-text)] active:bg-[var(--error-border)] active:text-[var(--error-text)] disabled:text-[var(--error-text-light)]",
+    success: "text-[var(--success-text)] hover:bg-[var(--success-bg)] hover:text-[var(--success-text)] active:bg-[var(--success-border)] active:text-[var(--success-text)] disabled:text-[var(--success-text-light)]",
+    warning: "text-[var(--warning-text)] hover:bg-[var(--warning-bg)] hover:text-[var(--warning-text)] active:bg-[var(--warning-border)] active:text-[var(--warning-text)] disabled:text-[var(--warning-text-light)]",
   },
 };
 
@@ -91,26 +91,28 @@ export function Button({
   type = "button",
   ...props
 }: ButtonProps) {
-  const loadingIcon = <SpinnerGap className="h-4 w-4 animate-spin" weight="regular" aria-hidden="true" />;
+  const loadingIcon = <Spinner size={16} className="h-4 w-4 animate-spin" weight="regular" aria-hidden="true" />;
 
   return (
     <button
       type={type}
       disabled={disabled || loading}
       className={[
-        "inline-flex items-center justify-center gap-[var(--button-gap)] rounded-[var(--radius-sm)] font-normal transition-colors duration-[var(--motion-duration-fast)]",
+        "inline-flex items-center justify-center gap-1 rounded-[var(--radius-sm)] font-normal transition-colors duration-[var(--motion-duration-fast)]",
         "whitespace-nowrap",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring-color)]",
-        "disabled:cursor-not-allowed disabled:opacity-[var(--disabled-opacity)]",
+        variant === "ghost" || variant === "text"
+          ? "disabled:cursor-not-allowed"
+          : "disabled:cursor-not-allowed disabled:opacity-[var(--disabled-opacity)]",
         sizeClasses[size],
         toneClasses[variant][tone],
         className,
       ].join(" ")}
       {...props}
     >
-      {loading ? loadingIcon : iconPosition === "left" ? icon : null}
+      {loading ? loadingIcon : iconPosition === "left" && icon ? <span className="inline-flex shrink-0 items-center justify-center leading-none">{icon}</span> : null}
       {children}
-      {!loading && iconPosition === "right" ? icon : null}
+      {!loading && iconPosition === "right" && icon ? <span className="inline-flex shrink-0 items-center justify-center leading-none">{icon}</span> : null}
     </button>
   );
 }

@@ -96,12 +96,17 @@
   --success-solid: #00B42A;
   --success-solid-hover: #23C343;
   --success-solid-active: #009A29;
-  --warning-solid: #F7BA1E;
-  --warning-solid-hover: #FFCF8B;
-  --warning-solid-active: #D25F00;
+  --warning-solid: #FF7D00;
+  --warning-solid-hover: #D25F00;
+  --warning-solid-active: #B35200;
   --error-solid: #F53F3F;
   --error-solid-hover: #F76560;
   --error-solid-active: #F53F3F;
+
+  /* 语义色的禁用/弱化文字（ghost/text 按钮禁用态） */
+  --error-text-light: #F9A0A0;
+  --success-text-light: #6BD18A;
+  --warning-text-light: #FFB366;
 }
 
 /* 数据可视化色板 — 参考 DBS 数据可视化资源，共 10 色系 × 7 层级 */
@@ -177,20 +182,6 @@
   --data-green-4: #40906E;
   --data-green-5: #317156;
   --data-green-6: #21523F;
-
-  /* 兼容旧版 data-01~12，映射到新色板 */
-  --data-01: var(--data-blue-2);
-  --data-02: var(--data-green-3);
-  --data-03: var(--data-purple-3);
-  --data-04: var(--data-amber-1);
-  --data-05: var(--data-red-3);
-  --data-06: var(--data-orange-2);
-  --data-07: var(--data-green-4);
-  --data-08: var(--data-pink-2);
-  --data-09: var(--data-coral-1);
-  --data-10: var(--data-amber-2);
-  --data-11: var(--data-green-5);
-  --data-12: var(--data-blue-5);
 
   /* Display */
   --type-display-l-size: 56px;

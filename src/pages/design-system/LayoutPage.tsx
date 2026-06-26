@@ -636,7 +636,7 @@ export default function LayoutPage() {
           </thead>
           <tbody>
             {[["--layout-website-width", "1920px", "官网设计稿宽度"],["--layout-website-content", "1400px", "官网内容最大宽度"],["--layout-website-nav-height", "64px", "官网顶部导航高度"],["--layout-website-hero-sm", "500px", "小屏 Hero 高度"],["--layout-website-hero-md", "650px", "中屏 Hero 高度"],["--layout-website-hero-lg", "800px", "大屏 Hero 高度"],["--layout-backend-width", "1440px", "后台设计稿宽度"],["--layout-backend-sidebar-expanded", "240px", "后台侧栏展开宽度"],["--layout-backend-sidebar-collapsed", "56px", "后台侧栏收起宽度"],["--layout-backend-topbar-height", "64px", "后台顶部操作栏高度"]].map(([token, value, desc]) => (
-              <tr key={token}><td className="font-token">{token}</td><td className="font-data">{value}</td><td>{desc}</td></tr>
+              <tr key={token}><td className="font-token">{token}</td><td>{value}</td><td>{desc}</td></tr>
             ))}
           </tbody>
         </DocsTable>

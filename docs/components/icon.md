@@ -84,6 +84,10 @@
 
 有语义图标使用 role=img 与可访问名称；装饰图标 aria-hidden；状态信息必须同时提供文字。
 
+## 内容规范
+
+非装饰图标需要 label；纯装饰图标使用 decorative 并从辅助技术隐藏。redMark 只控制品牌识别短线，不等同 decorative。
+
 ## 示例要求
 
 - 基础示例：Icon 默认结构与尺寸

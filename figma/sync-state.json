@@ -1,30 +1,207 @@
 {
   "version": "1.0.0",
-  "runId": "xincailiao-v2-foundations-20260622",
+  "runId": "xincailiao-v2-components-20260626",
   "targetFileKey": "KjkKSAd9eufpg9eFR9xZVX",
-  "phase": "foundations-review",
+  "phase": "components-eligible",
   "foundations": {
-    "status": "awaiting-user-review",
-    "mode": "Value",
-    "collections": {
-      "新材道 / Color Primitives": 65,
-      "新材道 / Color": 72,
-      "新材道 / Dimensions": 72,
-      "新材道 / Reference": 13
-    },
-    "textStyles": 10,
-    "effectStyles": 6,
-    "brokenAliases": 0,
-    "allScopesVariables": 0,
-    "missingWebSyntax": 0,
-    "figmaFont": "Noto Sans SC",
-    "codeFontStackPrimary": "PingFang SC"
+    "status": "not-synced",
+    "note": "2026-06-26 用户确认：Figma v2.0 文件中未找到此前声称的 4 个 Variable Collections、10 个文字样式和 6 个阴影样式。Foundation 同步需要重新执行。",
+    "previousRunId": "xincailiao-v2-foundations-20260622",
+    "previousRunStatus": "unverified"
   },
   "components": {
+    "Avatar": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Badge": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Breadcrumb": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
     "Button": {
       "maturity": "stable",
-      "figmaSync": "waiting-for-foundations-approval"
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Card": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Chart": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Checkbox": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Collapse": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "DatePicker": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "DescriptionList": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Drawer": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Empty": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Form": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Icon": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Image": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Input": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Menu": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Modal": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Pagination": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Popover": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Radio": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Select": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Switch": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Table": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Tabs": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Tag": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Textarea": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Toast": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Tooltip": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Transfer": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Tree": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
+    },
+    "Upload": {
+      "maturity": "stable",
+      "figmaSync": "eligible",
+      "hasFigmaProperties": true,
+      "hasContract": true
     }
   },
-  "nextCheckpoint": "Approve Foundations before creating Figma documentation pages and Button."
+  "nextCheckpoint": "1) Re-run Foundation sync in Figma v2.0. 2) Sync stable components in priority order: Button → Input → Select → Tag → Tabs → Card → Chart → Table → Pagination → Modal."
 }

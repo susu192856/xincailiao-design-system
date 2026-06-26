@@ -13,9 +13,9 @@
 
 ## 定位与边界
 
-**适用：** 用于触发明确操作；每个独立操作区域只保留一个主操作。
+**适用：** 用于触发明确操作；每个独立操作区域只保留一个主操作。task、product、brand 是三色三角的平级主操作语义，按页面类型和操作意图选择。
 
-**避免：** 不要用颜色代替层级；同一按钮组禁止同时出现 task 与 product 两个 solid 按钮。
+**避免：** 不要用颜色代替层级；同一按钮组禁止同时出现多个不同 tone 的 solid 按钮，后台常规操作禁止使用 brand 替代 task 或 product。
 
 ## 结构 Anatomy
 
@@ -71,19 +71,6 @@
 - `loading`
 - `icon-only`
 
-## 三色三角与页面类型
-
-`task`、`product`、`brand` 是三种平级主操作语义，不是主色、次色、强调色的上下级关系。先判断页面类型和操作意图，再决定 `tone`；同一操作组只能出现一个 `solid`。
-
-| 页面类型 | 主按钮 | 次级按钮 | 典型文案 | 使用边界 |
-|------|------|------|------|------|
-| 官网 / 营销页 | `brand solid` | `neutral outline` 或 `text` | 预约演示、立即体验、查看方案 | 只在品牌转化区使用红色主按钮；普通导航和说明入口不要染红。 |
-| 门户 / 数据空间首页 | `brand` 或 `product solid` | `neutral outline` / `product text` | 进入空间、连接数据、查看方案 | 品牌转化用 `brand`；产品能力入口用 `product`，不在同组并列两个 `solid`。 |
-| 后台 / 管理系统 | `task solid` | `product outline` 或 `text` | 提交审核、新建项目、导出数据 | 后台常规主操作是黑色 `task`；蓝色只做能力调用或辅助工具。 |
-| 应用平台 / AI 能力页 | `product solid` | `neutral ghost` / `task outline` | 运行分析、生成报告、保存配置 | 当页面核心任务是调用能力，`product` 可作为唯一 `solid`；提交配置仍回到 `task`。 |
-| 危险确认 | `danger solid` | `neutral ghost` | 永久删除、撤销审批、停用账号 | `danger` 优先级高于三主色，必须配合二次确认。 |
-
-判断口诀：交付任务选黑色，调用能力选蓝色，品牌转化选红色；同组只保留一个实心按钮，危险操作直接使用 `danger`。
 
 ## 使用指南
 
@@ -100,6 +87,10 @@
 ## 可访问性
 
 必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+
+## 内容规范
+
+task 使用提交、确认、发布、创建等推进任务的动词；product 使用分析、生成、连接、筛选、导出等调用能力的动词；brand 使用预约演示、立即体验等品牌转化文案。
 
 ## 示例要求
 
@@ -118,10 +109,7 @@ import "@xincailiao/vue-ui/styles.css";
 ## Figma 同步要求
 
 - Figma 组件命名使用 `Button`。
-- 属性优先按 `variant`、`tone`、`size`、`state`、`icon` 拆分，不把业务色彩和组件层级混在同一个属性里。
-- `variant` 包含 `solid`、`outline`、`ghost`、`text`；`tone` 包含 `task`、`neutral`、`product`、`brand`、`danger`、`warning`、`success`。
-- `state` 包含 `default`、`hover`、`active`、`disabled`、`loading`；图标状态通过 `icon=none/leading/trailing/icon-only` 表达。
-- 三色三角规则必须写入 Figma 组件说明：`task` 黑色用于任务推进，`product` 蓝色用于能力调用，`brand` 红色用于品牌转化；同一操作组只能出现一个 `solid`。
+- 属性优先按 Props、Variants、Tones、Sizes、States 拆分，不把业务色彩和组件层级混在同一个属性里。
 - 仅创建本组件适用的状态，具体以本页 States 为准，不机械复制无关状态。
 - 使用 Auto Layout、变量绑定和标准 Variant Property；浮层必须提供静态打开态。
 

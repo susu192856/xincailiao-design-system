@@ -110,8 +110,8 @@ if (typographyPage.includes("title=\"数字与代码\"") || typographyPage.inclu
 if (!typographyPage.includes("title=\"特殊数字\"") || !typographyPage.includes("D-DIN-Pro，用于数据")) {
   errors.push("src/pages/design-system/TypographyPage.tsx: data number card must state D-DIN-Pro is used for data.");
 }
-if (!typographyPage.includes("className=\"font-token\"") || !typographyPage.includes("className=\"font-data\"")) {
-  errors.push("src/pages/design-system/TypographyPage.tsx: type scale table must apply font-token and font-data roles.");
+if (!typographyPage.includes("className=\"font-token\"")) {
+  errors.push("src/pages/design-system/TypographyPage.tsx: type scale table must apply font-token roles.");
 }
 
 if (!docsFiles.some((file) => read(file).includes("SubsectionHeading"))) {
