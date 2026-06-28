@@ -4,40 +4,34 @@ import {
   ArrowCounterClockwise,
   ArrowLeft,
   ArrowRight,
-  ArrowsOutLineHorizontal,
   ArrowsClockwise,
-  ArrowsCounterClockwise,
   ArrowsIn,
   ArrowsOut,
-  Bell,
   ChartBar,
   ChatCircle,
   Check,
   CheckCircle,
-  CheckSquare,
-  Circle,
   Clipboard,
   ClipboardText,
   Copy,
-  CreditCard,
-  Cube,
   Database,
   DotsThree,
   DownloadSimple,
   Empty,
   Eye,
+  EyeSlash,
+  File,
   FileArrowDown,
   FileArrowUp,
-  FileText,
   Flag,
   Folder,
   Funnel,
   GearSix,
-  GitBranch,
   GitMerge,
   GridFour,
   House,
   Info,
+  ImageSquare,
   Link,
   LinkBreak,
   Lock,
@@ -56,22 +50,16 @@ import {
   QrCode,
   Repeat,
   Resize,
-  RocketLaunch,
   SealCheck,
-  Scissors,
   ShareNetwork,
   ShieldCheck,
   SignOut,
-  SlidersHorizontal,
   SortAscending,
-  Square,
   SpinnerGap,
   Stack,
   Star,
-  Table,
   Trash,
   UploadSimple,
-  UserGear,
   Users,
   VideoCamera,
   WarningCircle,
@@ -89,7 +77,6 @@ type CommonIconItem = {
   name: string;
   zhName: string;
   icon: PhosphorIcon;
-  svg: string;
 };
 
 type DecorativeIconItem = {
@@ -120,14 +107,14 @@ const customIconStandards = [
     title: "描边",
     callout: "24px 画布使用 1.5px 描边",
     value: "圆头端点 · 圆角连接",
-    description: "设计 24px 图标时直接使用 1.5px 描边；缩放到 20px 或 16px 后线条会等比变为约 1.25px 或 1px。同一图标不要混用多种线宽，端点和转折保持圆润。",
+    description: "设计 24px 图标时直接使用 1.5px 描边；输出到 20px 或 16px 时统一检查，并按小尺寸规范调整为 1px 描边。同一图标不要混用多种线宽，端点和转折保持圆润。",
   },
   {
     index: "03",
     title: "视差",
     callout: "不同形态分别校正",
     value: "默认圆角约 1.5px",
-    description: "正方形、长形、圆形和三角形的视觉面积不同，需要在同一画布中分别微调大小与位置。普通转角可用约 1.5px 圆角，较大的外框可用约 2.25px；只有语义需要时才使用斜线。",
+    description: "正方形、长形、圆形和三角形的视觉面积不同，需要在同一画布中分别微调大小与位置。普通转角可用约 1.5px 圆角，较大的外框统一使用约 2px 圆角；只有语义需要时才使用斜线。",
   },
   {
     index: "04",
@@ -165,9 +152,6 @@ const iconCreationPaths = [
   },
 ];
 
-const createSvg = (name: string) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" data-phosphor-icon="${name}"><title>${name}</title><path d="M216,48V208H40V48ZM56,192H200V64H56Z"/></svg>`;
-
 const createDecorativeSvg = (title: string, content: string) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 54 54" fill="none" role="img" aria-label="${title}"><title>${title}</title>${content.replaceAll('stroke-width="3"', 'stroke-width="2"')}</svg>`;
 
@@ -175,12 +159,10 @@ const makeCommonIcon = (name: string, zhName: string, icon: PhosphorIcon): Commo
   name,
   zhName,
   icon,
-  svg: createSvg(name),
 });
 
 const shortIconName = (name: string) => {
   const aliases: Record<string, string> = {
-    ArrowsOutLineHorizontal: "Spacing",
     MagnifyingGlass: "Search",
     PencilSimple: "Edit",
     DownloadSimple: "Download",
@@ -188,56 +170,13 @@ const shortIconName = (name: string) => {
     WarningCircle: "Warning",
     CheckCircle: "Check",
     ChatCircle: "Chat",
-    CreditCard: "Card",
     ClipboardText: "Clipboard",
-    ArrowsCounterClockwise: "Undo",
     ArrowClockwise: "Refresh",
-    SlidersHorizontal: "Filter",
+    PaperPlaneRight: "Submit",
   };
 
   if (aliases[name]) return aliases[name];
   return name.length > 16 ? `${name.slice(0, 13)}...` : name;
-};
-
-const uniqueLabels = (labels: string[]) => Array.from(new Set(labels.map((label) => label.trim()).filter(Boolean)));
-
-const normalizeFunctionIconLabel = (label: string) => {
-  const aliases: Record<string, string> = {
-    查看: "查看/预览",
-    预览: "查看/预览",
-    详情: "查看/预览",
-    新增: "新增/创建",
-    创建: "新增/创建",
-    确认: "确认/完成",
-    全屏: "放大",
-    清空: "关闭/取消",
-    关闭: "关闭/取消",
-    取消: "关闭/取消",
-    批量删除: "删除",
-    克隆: "复制",
-    取消置顶: "置顶",
-    取消收藏: "收藏",
-    取消标记: "标记",
-    取消星标: "",
-    打开: "",
-    前进: "",
-    退出全屏: "",
-    配置: "",
-    自定义: "",
-    固定: "",
-    取消固定: "",
-    修改: "",
-    另存为: "",
-    升级: "",
-    扫描: "",
-    测试: "",
-    执行: "",
-    拉取: "",
-    数据导入: "",
-    取消关联: "",
-  };
-
-  return aliases[label] ?? label;
 };
 
 const menuIcons: CommonIconItem[] = [
@@ -262,154 +201,66 @@ const statusIcons = [
   { name: "Info", zhName: "系统提示", icon: Info, tone: "product" as const },
 ];
 
-const functionIconLabels = uniqueLabels([
-  "新增",
-  "编辑",
-  "删除",
-  "查看",
-  "搜索",
-  "筛选",
-  "刷新",
-  "重置",
-  "上传",
-  "下载",
-  "导入",
-  "导出",
-  "复制",
-  "提交",
-  "关闭",
-  "确认",
-  "取消",
-  "排序",
-  "清空",
-  "全屏",
-  "缩小",
-  "拖拽",
-  "定位",
-  "返回",
-  "跳转",
-  "更多",
-  "设置",
-  "置顶",
-  "取消置顶",
-  "收藏",
-  "取消收藏",
-  "标记",
-  "取消标记",
-  "取消星标",
-  "创建",
-  "批量删除",
-  "预览",
-  "详情",
-  "克隆",
-  "粘贴",
-  "撤销",
-  "重做",
-  "归档",
-  "启用",
-  "禁用",
-  "锁定",
-  "解锁",
-  "授权",
-  "审批",
-  "消息",
-  "文件夹",
-  "附件",
-  "图片",
-  "视频",
-  "压缩包",
-  "打印",
-  "分享",
-  "二维码",
-  "同步",
-  "更新",
-  "验证",
-  "暂停",
-  "启动",
-  "取消关联",
-  "解绑",
-  "连接",
-  "退出",
-  "提示",
-  "加载中",
-  "空状态",
-  "不可用",
-].map(normalizeFunctionIconLabel));
-
-const resolveFunctionIcon = (label: string): { name: string; icon: PhosphorIcon } => {
-  if (label.includes("搜索")) return { name: "MagnifyingGlass", icon: MagnifyingGlass };
-  if (label.includes("筛选")) return { name: "Funnel", icon: Funnel };
-  if (label.includes("排序")) return { name: "SortAscending", icon: SortAscending };
-  if (label.includes("刷新") || label.includes("重试") || label.includes("重新")) return { name: "ArrowClockwise", icon: ArrowClockwise };
-  if (label.includes("重置") || label.includes("撤销")) return { name: "ArrowCounterClockwise", icon: ArrowCounterClockwise };
-  if (label.includes("重做") || label.includes("同步") || label.includes("异步")) return { name: "ArrowsClockwise", icon: ArrowsClockwise };
-  if (label.includes("上传")) return { name: "UploadSimple", icon: UploadSimple };
-  if (label.includes("下载")) return { name: "DownloadSimple", icon: DownloadSimple };
-  if (label.includes("导入")) return { name: "FileArrowUp", icon: FileArrowUp };
-  if (label.includes("导出")) return { name: "FileArrowDown", icon: FileArrowDown };
-  if (label === "粘贴") return { name: "Clipboard", icon: Clipboard };
-  if (label === "剪切") return { name: "Scissors", icon: Scissors };
-  if (label.includes("复制")) return { name: "Copy", icon: Copy };
-  if (label.includes("保存")) return { name: "CheckSquare", icon: CheckSquare };
-  if (label.includes("提交") || label.includes("发送") || label.includes("转发") || label.includes("推送")) return { name: "PaperPlaneRight", icon: PaperPlaneRight };
-  if (label.includes("关闭") || label.includes("取消") || label.includes("清空")) return { name: "XCircle", icon: XCircle };
-  if (label.includes("确认") || label.includes("通过") || label.includes("完成") || label.includes("成功")) return { name: "CheckCircle", icon: CheckCircle };
-  if (label.includes("展开") || label.includes("全屏") || label.includes("放大")) return { name: "ArrowsOut", icon: ArrowsOut };
-  if (label.includes("收起") || label.includes("缩小")) return { name: "ArrowsIn", icon: ArrowsIn };
-  if (label.includes("拖拽") || label.includes("移动")) return { name: "Resize", icon: Resize };
-  if (label.includes("定位")) return { name: "MapPin", icon: MapPin };
-  if (label.includes("返回") || label.includes("上一步")) return { name: "ArrowLeft", icon: ArrowLeft };
-  if (label.includes("下一步") || label.includes("跳转")) return { name: "ArrowRight", icon: ArrowRight };
-  if (label.includes("更多")) return { name: "DotsThree", icon: DotsThree };
-  if (label.includes("设置") || label.includes("字段") || label.includes("表头") || label.includes("列设置")) return { name: "GearSix", icon: GearSix };
-  if (label.includes("置顶")) return { name: "PushPin", icon: PushPin };
-  if (label.includes("收藏") || label.includes("星标")) return { name: "Star", icon: Star };
-  if (label.includes("标记")) return { name: "Flag", icon: Flag };
-  if (label.includes("新增") || label.includes("创建")) return { name: "Plus", icon: Plus };
-  if (label.includes("编辑") || label.includes("标注")) return { name: "PencilSimple", icon: PencilSimple };
-  if (label.includes("删除") || label.includes("下架") || label.includes("清除")) return { name: "Trash", icon: Trash };
-  if (label.includes("查看") || label.includes("预览") || label.includes("详情")) return { name: "Eye", icon: Eye };
-  if (label.includes("审批") || label.includes("记录")) return { name: "ClipboardText", icon: ClipboardText };
-  if (label.includes("发布")) return { name: "RocketLaunch", icon: RocketLaunch };
-  if (label.includes("撤回") || label.includes("退回") || label.includes("回滚") || label.includes("恢复")) return { name: "ArrowsCounterClockwise", icon: ArrowsCounterClockwise };
-  if (label.includes("归档") || label.includes("压缩包")) return { name: "Archive", icon: Archive };
-  if (label.includes("启用") || label.includes("启动") || label.includes("运行")) return { name: "Play", icon: Play };
-  if (label.includes("停用") || label.includes("停止") || label.includes("禁用")) return { name: "Prohibit", icon: Prohibit };
-  if (label.includes("暂停")) return { name: "Pause", icon: Pause };
-  if (label.includes("锁定") || label.includes("加密")) return { name: "Lock", icon: Lock };
-  if (label.includes("解锁") || label.includes("解密")) return { name: "LockOpen", icon: LockOpen };
-  if (label.includes("授权") || label.includes("权限") || label.includes("无权限")) return { name: "ShieldCheck", icon: ShieldCheck };
-  if (label.includes("分配") || label.includes("移交") || label.includes("认领") || label.includes("释放") || label.includes("转交") || label.includes("抄送")) return { name: "UserGear", icon: UserGear };
-  if (label.includes("驳回") || label.includes("失败") || label.includes("错误") || label.includes("异常")) return { name: "XCircle", icon: XCircle };
-  if (label.includes("消息")) return { name: "ChatCircle", icon: ChatCircle };
-  if (label.includes("催办") || label.includes("订阅") || label.includes("告警") || label.includes("预警")) return { name: "Bell", icon: Bell };
-  if (label.includes("文件夹")) return { name: "Folder", icon: Folder };
-  if (label.includes("视频")) return { name: "VideoCamera", icon: VideoCamera };
-  if (label.includes("附件") || label.includes("图片") || label.includes("模板")) return { name: "FileText", icon: FileText };
-  if (label.includes("打印")) return { name: "Printer", icon: Printer };
-  if (label.includes("分享")) return { name: "ShareNetwork", icon: ShareNetwork };
-  if (label.includes("链接") || label.includes("关联") || label.includes("绑定") || label.includes("连接") || label.includes("接入")) return { name: "Link", icon: Link };
-  if (label.includes("解绑") || label.includes("断开")) return { name: "LinkBreak", icon: LinkBreak };
-  if (label.includes("扫码") || label.includes("二维码")) return { name: "QrCode", icon: QrCode };
-  if (label.includes("更新")) return { name: "Repeat", icon: Repeat };
-  if (label.includes("校验") || label.includes("验证") || label.includes("检测")) return { name: "SealCheck", icon: SealCheck };
-  if (label.includes("调度") || label.includes("定时") || label.includes("任务")) return { name: "ChartBar", icon: ChartBar };
-  if (label.includes("合并")) return { name: "GitMerge", icon: GitMerge };
-  if (label.includes("拆分")) return { name: "GitBranch", icon: GitBranch };
-  if (label.includes("数据")) return { name: "Database", icon: Database };
-  if (label.includes("批量")) return { name: "Stack", icon: Stack };
-  if (label.includes("风险") || label.includes("警告") || label.includes("感叹号")) return { name: "WarningCircle", icon: WarningCircle };
-  if (label.includes("提示") || label.includes("信息") || label.includes("说明") || label.includes("帮助") || label.includes("问号")) return { name: "Info", icon: Info };
-  if (label.includes("加载")) return { name: "SpinnerGap", icon: SpinnerGap };
-  if (label.includes("空状态") || label.includes("无数据") || label.includes("不可用")) return { name: "Empty", icon: Empty };
-  if (label.includes("退出")) return { name: "SignOut", icon: SignOut };
-  return { name: "Square", icon: Square };
-};
-
-const functionIcons: CommonIconItem[] = functionIconLabels.map((label) => {
-  const resolved = resolveFunctionIcon(label);
-  return makeCommonIcon(resolved.name, label, resolved.icon);
-});
+const functionIcons: CommonIconItem[] = [
+  makeCommonIcon("Plus", "新增/创建", Plus),
+  makeCommonIcon("PencilSimple", "编辑", PencilSimple),
+  makeCommonIcon("Trash", "删除", Trash),
+  makeCommonIcon("Eye", "查看/预览", Eye),
+  makeCommonIcon("EyeSlash", "不可见", EyeSlash),
+  makeCommonIcon("MagnifyingGlass", "搜索", MagnifyingGlass),
+  makeCommonIcon("Funnel", "筛选", Funnel),
+  makeCommonIcon("ArrowClockwise", "刷新", ArrowClockwise),
+  makeCommonIcon("ArrowCounterClockwise", "重置", ArrowCounterClockwise),
+  makeCommonIcon("UploadSimple", "上传", UploadSimple),
+  makeCommonIcon("DownloadSimple", "下载", DownloadSimple),
+  makeCommonIcon("FileArrowUp", "导入", FileArrowUp),
+  makeCommonIcon("FileArrowDown", "导出", FileArrowDown),
+  makeCommonIcon("Copy", "复制", Copy),
+  makeCommonIcon("ShareNetwork", "分享", ShareNetwork),
+  makeCommonIcon("PaperPlaneRight", "提交", PaperPlaneRight),
+  makeCommonIcon("X", "关闭", X),
+  makeCommonIcon("XCircle", "取消", XCircle),
+  makeCommonIcon("CheckCircle", "确认/完成", CheckCircle),
+  makeCommonIcon("SortAscending", "排序", SortAscending),
+  makeCommonIcon("ArrowsOut", "放大", ArrowsOut),
+  makeCommonIcon("ArrowsIn", "缩小", ArrowsIn),
+  makeCommonIcon("Resize", "拖拽", Resize),
+  makeCommonIcon("MapPin", "定位", MapPin),
+  makeCommonIcon("ArrowLeft", "返回", ArrowLeft),
+  makeCommonIcon("ArrowRight", "跳转", ArrowRight),
+  makeCommonIcon("DotsThree", "更多", DotsThree),
+  makeCommonIcon("GearSix", "设置", GearSix),
+  makeCommonIcon("PushPin", "置顶", PushPin),
+  makeCommonIcon("Star", "收藏", Star),
+  makeCommonIcon("Flag", "标记", Flag),
+  makeCommonIcon("Clipboard", "粘贴", Clipboard),
+  makeCommonIcon("ArrowsClockwise", "重做", ArrowsClockwise),
+  makeCommonIcon("Archive", "归档", Archive),
+  makeCommonIcon("Prohibit", "禁用", Prohibit),
+  makeCommonIcon("Lock", "锁定", Lock),
+  makeCommonIcon("LockOpen", "解锁", LockOpen),
+  makeCommonIcon("ShieldCheck", "授权", ShieldCheck),
+  makeCommonIcon("ClipboardText", "审批", ClipboardText),
+  makeCommonIcon("ChatCircle", "消息", ChatCircle),
+  makeCommonIcon("Folder", "文件夹", Folder),
+  makeCommonIcon("File", "文件", File),
+  makeCommonIcon("ImageSquare", "图片", ImageSquare),
+  makeCommonIcon("VideoCamera", "视频", VideoCamera),
+  makeCommonIcon("Archive", "压缩包", Archive),
+  makeCommonIcon("Printer", "打印", Printer),
+  makeCommonIcon("QrCode", "二维码", QrCode),
+  makeCommonIcon("ArrowsClockwise", "同步", ArrowsClockwise),
+  makeCommonIcon("Repeat", "更新", Repeat),
+  makeCommonIcon("SealCheck", "验证", SealCheck),
+  makeCommonIcon("Pause", "暂停", Pause),
+  makeCommonIcon("Play", "启动", Play),
+  makeCommonIcon("LinkBreak", "解绑", LinkBreak),
+  makeCommonIcon("Link", "连接", Link),
+  makeCommonIcon("SignOut", "退出", SignOut),
+  makeCommonIcon("Info", "提示", Info),
+  makeCommonIcon("SpinnerGap", "加载中", SpinnerGap),
+  makeCommonIcon("Empty", "不可用", Empty),
+];
 
 const decorativeIconStandards = [
   { item: "制作画布", standard: "48px × 48px，图形主体控制在 32px–36px 内，四周保留约 6px 安全边距。" },
@@ -687,32 +538,6 @@ function IconCreationWorkflowsSection() {
   );
 }
 
-function GuidelinesSection() {
-  const guidelines = [
-    ["01", "权重统一", "默认使用 regular，同一区域避免混用过多粗细。"],
-    ["02", "尺寸适配", "后台产品优先使用 16px / 20px，官网展示可使用 24px / 32px。"],
-    ["03", "颜色克制", "优先使用中性灰；品牌红只用于必要的品牌或强提醒场景。"],
-    ["04", "语义明确", "同一语义只保留一个主推荐图标，避免相近图形混用。"],
-    ["05", "文字协同", "关键操作和状态反馈需配合文字，不只依赖图形或颜色。"],
-    ["06", "装饰分离", "功能图标服务于识别和操作，不作为纯装饰元素堆叠。"],
-  ];
-
-  return (
-    <section>
-      <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-      <div className="grid grid-cols-1 border-l border-t border-[var(--neutral-200)] md:grid-cols-2 xl:grid-cols-3">
-        {guidelines.map(([index, title, description]) => (
-          <div key={index} className="border-b border-r border-[var(--neutral-200)] bg-white p-5">
-            <div className="mb-4 text-xs font-semibold tracking-[0.16em] text-[var(--product-blue-500)]">{index}</div>
-            <h3 className="text-sm font-semibold text-[var(--text-primary)]">{title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{description}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 export default function IconPage() {
   const [copiedDecorativeIcon, setCopiedDecorativeIcon] = useState<string | null>(null);
 
@@ -843,7 +668,7 @@ export default function IconPage() {
               <div>
                 <h3 className="text-lg font-semibold text-[var(--text-primary)]">功能图标</h3>
                 <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
-                  覆盖表单、表格、流程、数据处理、权限、文件和反馈等高频操作；重复语义已自动去重。
+                  覆盖表单、表格、流程、数据处理、权限、文件和反馈等高频操作；按显式白名单维护，一个语义只保留一个推荐图标。
                 </p>
               </div>
               <span className="text-xs text-[var(--text-tertiary)]">{functionIcons.length} 个</span>
@@ -967,23 +792,16 @@ export default function IconPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Governance" title="常用图标库管理原则" />
+        <SectionHeading eyebrow="Governance" title="维护与交付原则" />
         <div className="bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-            <li>• Phosphor Icons 是完整图标源。</li>
-            <li>• 设计系统中的“常用图标库”是公司沉淀后的高频图标集合。</li>
-            <li>• 不建议把 Phosphor 全量图标搬进设计系统页面。</li>
-            <li>• 常用图标库应控制规模，优先维护 80–150 个高频图标。</li>
-            <li>• 新增图标前，应先检查常用图标库是否已有相同语义图标。</li>
-            <li>• 同一语义只保留一个主推荐图标，避免 Home / House / Buildings 等多图标混用。</li>
-            <li>
-              • 对业务高频图标可以按分类管理，例如：基础导航、数据操作、文件文档、状态反馈、系统设置、图表分析、用户组织、工业材料业务。
-            </li>
+            <li>• <strong className="text-[var(--text-primary)]">Codex 维护：</strong>常用图标使用显式白名单，每项同时维护中文语义、Phosphor 组件名和组件引用；删除图标时同步删除对应导入，不保留隐藏候选项或占位 SVG。</li>
+            <li>• <strong className="text-[var(--text-primary)]">前端使用：</strong>基础功能图标从 <code className="font-mono text-xs">@phosphor-icons/react</code> 引入，通过 <code className="font-mono text-xs">SystemIcon</code> 或业务组件传入；颜色跟随 <code className="font-mono text-xs">currentColor</code>，交互图标必须提供可访问名称。</li>
+            <li>• <strong className="text-[var(--text-primary)]">Figma 导入：</strong>Phosphor 图标优先从官方 Figma 资源取得；自定义图标仅在确认 24 × 24px 画布、轮廓化描边、无背景层和多余蒙版、名称一致后导入。本页面不会自动执行 Figma 导入。</li>
+            <li>• <strong className="text-[var(--text-primary)]">新增前检查：</strong>先检索 Phosphor Icons 和当前白名单；只有没有准确语义时才新增自定义图标，并在 16 / 20 / 24px 页面环境中完成视觉检查。</li>
           </ul>
         </div>
       </section>
-
-      <GuidelinesSection />
 
       <IconCreationWorkflowsSection />
     </div>
