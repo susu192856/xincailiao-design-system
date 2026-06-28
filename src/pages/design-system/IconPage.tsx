@@ -73,6 +73,7 @@ import {
   UploadSimple,
   UserGear,
   Users,
+  VideoCamera,
   WarningCircle,
   X,
   XCircle,
@@ -98,21 +99,70 @@ type DecorativeIconItem = {
 };
 
 const iconSizes = [
-  { size: "12px", usage: "极弱辅助图标、表格内紧凑状态" },
-  { size: "16px", usage: "默认内联图标、按钮图标、表单图标" },
-  { size: "20px", usage: "导航图标、列表项图标、工具栏图标" },
-  { size: "24px", usage: "卡片标题图标、模块入口图标" },
-  { size: "32px", usage: "空状态、功能入口、轻量插图图标" },
-  { size: "48px", usage: "营销模块、品牌展示、空状态主图标" },
+  { size: 12, usage: "极弱辅助、紧凑状态" },
+  { size: 16, usage: "按钮、表单、内联信息" },
+  { size: 20, usage: "导航、列表、工具栏" },
+  { size: 24, usage: "卡片标题、模块入口" },
+  { size: 32, usage: "空状态、功能入口" },
+  { size: 48, usage: "品牌展示、主视觉提示" },
 ];
 
-const iconWeights = [
-  { weight: "thin", usage: "不建议常规使用，仅用于大尺寸装饰" },
-  { weight: "light", usage: "适合官网轻量视觉或大尺寸图标" },
-  { weight: "regular", usage: "默认推荐，用于绝大多数界面" },
-  { weight: "bold", usage: "用于重点强调、强提示、选中态" },
-  { weight: "fill", usage: "用于状态确认、收藏、选中、实心反馈" },
-  { weight: "duotone", usage: "用于官网展示、空状态、品牌化表达" },
+const customIconStandards = [
+  {
+    index: "01",
+    title: "尺寸",
+    callout: "Figma 直接使用 24 × 24px",
+    value: "有效绘图区 20 × 20px",
+    description: "在 Figma 中使用 24 × 24px 画布，四周各保留 2px 安全距离。图形至少有一个方向接近绿色绘图区边界，避免留白叠加后在 16px 页面中显得过小。",
+  },
+  {
+    index: "02",
+    title: "描边",
+    callout: "24px 画布使用 1.5px 描边",
+    value: "圆头端点 · 圆角连接",
+    description: "设计 24px 图标时直接使用 1.5px 描边；缩放到 20px 或 16px 后线条会等比变为约 1.25px 或 1px。同一图标不要混用多种线宽，端点和转折保持圆润。",
+  },
+  {
+    index: "03",
+    title: "视差",
+    callout: "不同形态分别校正",
+    value: "默认圆角约 1.5px",
+    description: "正方形、长形、圆形和三角形的视觉面积不同，需要在同一画布中分别微调大小与位置。普通转角可用约 1.5px 圆角，较大的外框可用约 2.25px；只有语义需要时才使用斜线。",
+  },
+  {
+    index: "04",
+    title: "命名",
+    callout: "组件 PencilSimple",
+    value: "SVG ic-pencil-simple.svg",
+    description: "Figma 中保留可编辑描边的源组件；交付给页面的 SVG 副本需将描边轮廓化，避免不同环境出现线宽差异。代码组件使用 PascalCase，SVG 文件使用 ic-kebab-case.svg，Figma 组件使用 Icon / Name。",
+  },
+];
+
+const iconCreationPaths = [
+  {
+    index: "A",
+    title: "通过 Codex 对话生成",
+    suitable: "适合规则明确、几何简单、需要快速补齐的功能图标。",
+    steps: [
+      "说明图标语义、使用场景、目标尺寸和参考图标。",
+      "Codex 先查找可复用图标；确认缺失后生成 SVG 与组件代码。",
+      "在页面中检查 16 / 20 / 24px、浅深背景和相邻图标对比。",
+      "设计师确认形态后，将最终图标同步到 Figma 组件库。",
+    ],
+    handoff: "对话输入建议：语义 + 场景 + 参考图标 + 禁止出现的特征。",
+  },
+  {
+    index: "B",
+    title: "Figma 设计后交给 Codex 接入",
+    suitable: "适合业务专属、形态复杂或需要设计师精细校正的图标。",
+    steps: [
+      "设计师在 24 × 24px 画布中完成源组件，并保留可编辑描边版本。",
+      "复制交付版本，将描边轮廓化后导出 SVG，检查没有背景层和多余蒙版。",
+      "提供 Figma 节点或 SVG 文件，并说明中文名、组件名和使用场景。",
+      "Codex 统一 viewBox、currentColor、可访问名称并接入页面，再回传预览确认。",
+    ],
+    handoff: "交付内容：Figma 源组件 + 轮廓化 SVG + 中英文名称 + 使用场景。",
+  },
 ];
 
 const createSvg = (name: string) =>
@@ -158,6 +208,8 @@ const normalizeFunctionIconLabel = (label: string) => {
     详情: "查看/预览",
     新增: "新增/创建",
     创建: "新增/创建",
+    确认: "确认/完成",
+    全屏: "放大",
     清空: "关闭/取消",
     关闭: "关闭/取消",
     取消: "关闭/取消",
@@ -166,9 +218,8 @@ const normalizeFunctionIconLabel = (label: string) => {
     取消置顶: "置顶",
     取消收藏: "收藏",
     取消标记: "标记",
-    取消星标: "星标",
+    取消星标: "",
     打开: "",
-    放大: "",
     前进: "",
     退出全屏: "",
     配置: "",
@@ -198,9 +249,17 @@ const menuIcons: CommonIconItem[] = [
   makeCommonIcon("GearSix", "系统设置", GearSix),
   makeCommonIcon("ChartBar", "报表分析", ChartBar),
   makeCommonIcon("Monitor", "监控中心", Monitor),
-  makeCommonIcon("Stack", "告警中心", Stack),
+  makeCommonIcon("Stack", "图层管理", Stack),
   makeCommonIcon("Folder", "项目管理", Folder),
   makeCommonIcon("ClipboardText", "订单管理", ClipboardText),
+  makeCommonIcon("GitMerge", "合并", GitMerge),
+];
+
+const statusIcons = [
+  { name: "CheckCircle", zhName: "操作完成", icon: CheckCircle, tone: "success" as const },
+  { name: "WarningCircle", zhName: "检查配置", icon: WarningCircle, tone: "warning" as const },
+  { name: "XCircle", zhName: "提交失败", icon: XCircle, tone: "danger" as const },
+  { name: "Info", zhName: "系统提示", icon: Info, tone: "product" as const },
 ];
 
 const functionIconLabels = uniqueLabels([
@@ -217,19 +276,15 @@ const functionIconLabels = uniqueLabels([
   "导入",
   "导出",
   "复制",
-  "保存",
   "提交",
   "关闭",
   "确认",
   "取消",
-  "展开",
-  "收起",
   "排序",
   "清空",
   "全屏",
   "缩小",
   "拖拽",
-  "移动",
   "定位",
   "返回",
   "跳转",
@@ -241,7 +296,6 @@ const functionIconLabels = uniqueLabels([
   "取消收藏",
   "标记",
   "取消标记",
-  "星标",
   "取消星标",
   "创建",
   "批量删除",
@@ -249,43 +303,16 @@ const functionIconLabels = uniqueLabels([
   "详情",
   "克隆",
   "粘贴",
-  "剪切",
   "撤销",
   "重做",
-  "完成",
-  "继续",
-  "下一步",
-  "上一步",
-  "发布",
-  "撤回",
-  "下架",
   "归档",
-  "取消归档",
   "启用",
   "禁用",
-  "停用",
-  "恢复",
   "锁定",
   "解锁",
   "授权",
-  "取消授权",
-  "分配",
-  "移交",
-  "认领",
-  "释放",
   "审批",
-  "通过",
-  "驳回",
-  "退回",
-  "转交",
-  "加签",
-  "抄送",
-  "催办",
-  "撤回审批",
-  "批量导入",
-  "批量导出",
-  "模板下载",
-  "文件上传",
+  "消息",
   "文件夹",
   "附件",
   "图片",
@@ -293,125 +320,19 @@ const functionIconLabels = uniqueLabels([
   "压缩包",
   "打印",
   "分享",
-  "发送",
-  "转发",
-  "复制链接",
-  "打开链接",
-  "扫码",
   "二维码",
   "同步",
-  "异步",
   "更新",
-  "回滚",
-  "重试",
-  "校验",
   "验证",
-  "检测",
-  "运行",
-  "停止",
   "暂停",
   "启动",
-  "重启",
-  "调度",
-  "定时",
-  "订阅",
-  "取消订阅",
-  "推送",
-  "合并",
-  "拆分",
-  "关联",
   "取消关联",
-  "绑定",
   "解绑",
   "连接",
-  "断开",
-  "接入",
   "退出",
-  "提交审核",
-  "重新提交",
-  "数据导出",
-  "数据同步",
-  "数据清洗",
-  "数据加工",
-  "数据转换",
-  "数据映射",
-  "数据匹配",
-  "数据合并",
-  "数据拆分",
-  "数据去重",
-  "数据校验",
-  "数据标注",
-  "数据脱敏",
-  "数据加密",
-  "数据解密",
-  "数据备份",
-  "数据恢复",
-  "数据归档",
-  "数据预览",
-  "字段配置",
-  "字段映射",
-  "字段排序",
-  "表头设置",
-  "列设置",
-  "显示列",
-  "隐藏列",
-  "冻结列",
-  "批量操作",
-  "批量编辑",
-  "批量启用",
-  "批量禁用",
-  "批量发布",
-  "批量下架",
-  "批量审核",
-  "批量分配",
-  "批量下载",
-  "批量上传",
-  "批量同步",
-  "导入记录",
-  "导出记录",
-  "操作记录",
-  "变更记录",
-  "审批记录",
-  "登录记录",
-  "访问记录",
-  "异常记录",
-  "任务记录",
-  "运行记录",
-  "版本记录",
-  "刷新缓存",
-  "清除缓存",
-  "生成",
-  "重新生成",
-  "复制副本",
-  "查看原文",
-  "查看日志",
-  "查看结果",
-  "查看进度",
-  "查看报告",
-  "生成报告",
-  "下载报告",
-  "导出报告",
-  "预警",
-  "告警",
-  "告警确认",
-  "告警处理",
-  "告警关闭",
-  "风险提示",
-  "异常提示",
-  "成功",
-  "失败",
-  "错误",
-  "警告",
   "提示",
-  "帮助",
-  "信息",
-  "说明",
-  "问号",
-  "感叹号",
   "加载中",
   "空状态",
-  "无数据",
-  "无权限",
   "不可用",
 ].map(normalizeFunctionIconLabel));
 
@@ -433,7 +354,7 @@ const resolveFunctionIcon = (label: string): { name: string; icon: PhosphorIcon 
   if (label.includes("提交") || label.includes("发送") || label.includes("转发") || label.includes("推送")) return { name: "PaperPlaneRight", icon: PaperPlaneRight };
   if (label.includes("关闭") || label.includes("取消") || label.includes("清空")) return { name: "XCircle", icon: XCircle };
   if (label.includes("确认") || label.includes("通过") || label.includes("完成") || label.includes("成功")) return { name: "CheckCircle", icon: CheckCircle };
-  if (label.includes("展开") || label.includes("全屏")) return { name: "ArrowsOut", icon: ArrowsOut };
+  if (label.includes("展开") || label.includes("全屏") || label.includes("放大")) return { name: "ArrowsOut", icon: ArrowsOut };
   if (label.includes("收起") || label.includes("缩小")) return { name: "ArrowsIn", icon: ArrowsIn };
   if (label.includes("拖拽") || label.includes("移动")) return { name: "Resize", icon: Resize };
   if (label.includes("定位")) return { name: "MapPin", icon: MapPin };
@@ -460,9 +381,11 @@ const resolveFunctionIcon = (label: string): { name: string; icon: PhosphorIcon 
   if (label.includes("授权") || label.includes("权限") || label.includes("无权限")) return { name: "ShieldCheck", icon: ShieldCheck };
   if (label.includes("分配") || label.includes("移交") || label.includes("认领") || label.includes("释放") || label.includes("转交") || label.includes("抄送")) return { name: "UserGear", icon: UserGear };
   if (label.includes("驳回") || label.includes("失败") || label.includes("错误") || label.includes("异常")) return { name: "XCircle", icon: XCircle };
+  if (label.includes("消息")) return { name: "ChatCircle", icon: ChatCircle };
   if (label.includes("催办") || label.includes("订阅") || label.includes("告警") || label.includes("预警")) return { name: "Bell", icon: Bell };
   if (label.includes("文件夹")) return { name: "Folder", icon: Folder };
-  if (label.includes("附件") || label.includes("图片") || label.includes("视频") || label.includes("模板")) return { name: "FileText", icon: FileText };
+  if (label.includes("视频")) return { name: "VideoCamera", icon: VideoCamera };
+  if (label.includes("附件") || label.includes("图片") || label.includes("模板")) return { name: "FileText", icon: FileText };
   if (label.includes("打印")) return { name: "Printer", icon: Printer };
   if (label.includes("分享")) return { name: "ShareNetwork", icon: ShareNetwork };
   if (label.includes("链接") || label.includes("关联") || label.includes("绑定") || label.includes("连接") || label.includes("接入")) return { name: "Link", icon: Link };
@@ -599,27 +522,199 @@ const decorativeIcons: DecorativeIconItem[] = [
   },
 ];
 
+function CustomIconRuleDiagram({
+  index,
+  callout,
+  value,
+}: {
+  index: string;
+  callout: string;
+  value: string;
+}) {
+  const markerId = `annotation-arrow-${index}`;
+
+  return (
+    <div className="relative h-40 overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--neutral-50)]">
+      <div
+        className="absolute inset-0 opacity-50"
+        style={{
+          backgroundImage:
+            "linear-gradient(var(--neutral-200) 1px, transparent 1px), linear-gradient(90deg, var(--neutral-200) 1px, transparent 1px)",
+          backgroundSize: "16px 16px",
+        }}
+      />
+      {index === "01" ? (
+        <div className="absolute left-5 top-1/2 h-28 w-28 -translate-y-1/2 border border-[var(--product-blue-300)] bg-[var(--product-blue-100)] p-[10px]">
+          <div className="flex h-full w-full items-center justify-center overflow-hidden border border-[var(--success-border)] bg-[var(--success-bg)] text-[var(--text-body)]">
+            <PencilSimple size={82} weight="regular" className="shrink-0" aria-hidden="true" />
+          </div>
+          <span className="absolute left-1 top-1 text-[9px] font-semibold text-[var(--product-blue-700)]">安全区</span>
+          <span className="absolute bottom-4 left-[calc(50%+10px)] -translate-x-1/2 text-[9px] font-semibold text-[var(--success-text)]">绘制区</span>
+        </div>
+      ) : index === "03" ? (
+        <div className="absolute left-5 top-1/2 grid h-24 w-44 -translate-y-1/2 grid-cols-4 items-center gap-2 border border-dashed border-[var(--neutral-400)] bg-white px-3 text-[var(--text-body)]">
+          <VideoCamera size={30} weight="regular" aria-label="长方形：视频" />
+          <Stack size={28} weight="regular" aria-label="正方形：图层" />
+          <DownloadSimple size={28} weight="regular" aria-label="三角形：下载" />
+          <MagnifyingGlass size={28} weight="regular" aria-label="圆形：搜索" />
+        </div>
+      ) : (
+        <div className="absolute left-[18%] top-1/2 flex h-24 w-24 -translate-y-1/2 items-center justify-center border border-dashed border-[var(--neutral-400)] bg-white text-[var(--text-body)]">
+          <PencilSimple size={56} weight="regular" aria-hidden="true" />
+        </div>
+      )}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 360 176"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <marker id={markerId} markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="var(--product-blue-500)" />
+          </marker>
+        </defs>
+        <path
+          d={index === "03" ? "M302 52 H246 L192 88" : "M302 52 H246 L146 88"}
+          fill="none"
+          stroke="var(--product-blue-500)"
+          strokeWidth="1.5"
+          markerEnd={`url(#${markerId})`}
+        />
+      </svg>
+      <div className="absolute right-4 top-5 min-w-32 border border-[var(--product-blue-200)] bg-white px-3 py-2 shadow-sm">
+        <div className="text-xs font-semibold text-[var(--product-blue-600)]">{callout}</div>
+        <div className="mt-1 text-xs text-[var(--text-secondary)]">{value}</div>
+      </div>
+      <div className="absolute bottom-3 right-3 text-[10px] font-semibold tracking-[0.14em] text-[var(--text-tertiary)]">
+        24 × 24px FIGMA 画布
+      </div>
+    </div>
+  );
+}
+
+function UsageExamplesSection() {
+  const examples = [
+    {
+      index: "01",
+      title: "独立图标",
+      context: "空间有限、语义明确的快捷操作",
+      preview: (
+        <div className="flex gap-2">
+          <Button size="md" variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={16} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" title="搜索" className="w-11 px-0 md:w-8" />
+          <Button size="md" variant="ghost" icon={<SystemIcon as={GearSix} size={16} weight="regular" tone="neutral" label="设置" />} aria-label="设置" title="设置" className="w-11 px-0 md:w-8" />
+        </div>
+      ),
+      rule: "使用 Button 的 md 规格：桌面端按钮背景框为 32 × 32px；触屏点击热区最小为 44 × 44px。内部搭配 16px 图标，并提供 Tooltip、title 或 aria-label。",
+    },
+    {
+      index: "02",
+      title: "图标 + 文字",
+      context: "按钮、菜单、列表项与关键操作入口",
+      preview: (
+        <div className="flex flex-wrap gap-2">
+          <Button size="md" icon={<SystemIcon as={Plus} size={16} weight="regular" tone="inherit" label="新增" />} iconPosition="left">新建数据</Button>
+          <Button size="md" variant="outline" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="inherit" label="导出" />}>导出报告</Button>
+        </div>
+      ),
+      rule: "示例直接使用设计系统 Button 组件的 md 规格与 16px 左侧图标；图标补充语义，按钮文案承担主要表达。",
+    },
+  ];
+
+  return (
+    <section>
+      <SectionHeading
+        eyebrow="Usage Examples"
+        title="图标使用示例"
+        description="根据操作空间和理解成本，在独立图标与图标加文字两种方式中选择。状态图标统一收录在上方常用图标库中。"
+      />
+      <div className="mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-l-2 border-[var(--product-blue-500)] bg-[var(--product-blue-50)] px-5 py-4 text-sm text-[var(--text-secondary)]">
+        <span className="font-semibold text-[var(--text-primary)]">使用原则</span>
+        <span>辅助识别，不替代清晰文案</span>
+        <span>同组保持尺寸与权重一致</span>
+        <span>交互图标必须提供可访问名称</span>
+      </div>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {examples.map((example) => (
+          <article key={example.index} className="flex min-h-64 flex-col border border-[var(--neutral-200)] bg-white p-5">
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <div className="mb-2 text-xs font-semibold tracking-[0.16em] text-[var(--product-blue-500)]">{example.index}</div>
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">{example.title}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">{example.context}</p>
+              </div>
+            </div>
+            <div className="mb-5 flex min-h-24 items-center bg-[var(--neutral-50)] p-4">{example.preview}</div>
+            <p className="mt-auto border-t border-[var(--neutral-100)] pt-4 text-sm leading-relaxed text-[var(--text-secondary)]">{example.rule}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function IconCreationWorkflowsSection() {
+  return (
+    <section>
+      <SectionHeading
+        eyebrow="Two Workflows"
+        title="两种图标新增方式"
+        description="两条路径最终都要经过同一套小尺寸检查和页面预览，差别只在图标由谁先完成。"
+      />
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        {iconCreationPaths.map((path) => (
+          <article key={path.index} className="border border-[var(--neutral-200)] bg-white p-5 md:p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[var(--product-blue-50)] text-sm font-semibold text-[var(--product-blue-600)]">{path.index}</div>
+              <div>
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">{path.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-[var(--text-secondary)]">{path.suitable}</p>
+              </div>
+            </div>
+            <ol className="mt-5 space-y-3 border-t border-[var(--neutral-100)] pt-5">
+              {path.steps.map((step, stepIndex) => (
+                <li key={step} className="flex gap-3 text-sm leading-relaxed text-[var(--text-secondary)]">
+                  <span className="font-mono text-xs text-[var(--product-blue-500)]">{String(stepIndex + 1).padStart(2, "0")}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-5 bg-[var(--neutral-50)] px-4 py-3 text-xs leading-5 text-[var(--text-tertiary)]">{path.handoff}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function GuidelinesSection() {
+  const guidelines = [
+    ["01", "权重统一", "默认使用 regular，同一区域避免混用过多粗细。"],
+    ["02", "尺寸适配", "后台产品优先使用 16px / 20px，官网展示可使用 24px / 32px。"],
+    ["03", "颜色克制", "优先使用中性灰；品牌红只用于必要的品牌或强提醒场景。"],
+    ["04", "语义明确", "同一语义只保留一个主推荐图标，避免相近图形混用。"],
+    ["05", "文字协同", "关键操作和状态反馈需配合文字，不只依赖图形或颜色。"],
+    ["06", "装饰分离", "功能图标服务于识别和操作，不作为纯装饰元素堆叠。"],
+  ];
+
+  return (
+    <section>
+      <SectionHeading eyebrow="Guidelines" title="最佳实践" />
+      <div className="grid grid-cols-1 border-l border-t border-[var(--neutral-200)] md:grid-cols-2 xl:grid-cols-3">
+        {guidelines.map(([index, title, description]) => (
+          <div key={index} className="border-b border-r border-[var(--neutral-200)] bg-white p-5">
+            <div className="mb-4 text-xs font-semibold tracking-[0.16em] text-[var(--product-blue-500)]">{index}</div>
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">{title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function IconPage() {
-  const [copiedIcon, setCopiedIcon] = useState<string | null>(null);
   const [copiedDecorativeIcon, setCopiedDecorativeIcon] = useState<string | null>(null);
-
-  const copySvg = (item: CommonIconItem) => {
-    navigator.clipboard.writeText(item.svg);
-    setCopiedIcon(item.zhName);
-    setTimeout(() => setCopiedIcon(null), 2000);
-  };
-
-  const downloadCommonSvg = (item: CommonIconItem) => {
-    const blob = new Blob([item.svg], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${item.zhName}-${item.name}.svg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
 
   const copyDecorativeSvg = (item: DecorativeIconItem) => {
     navigator.clipboard.writeText(item.svg);
@@ -643,164 +738,55 @@ export default function IconPage() {
     <div className="space-y-20">
       <PageHeader
         title="图标系统"
-        description="本设计系统统一采用 Phosphor Icons，作为官网、门户和后台产品的基础图标库，保证图标风格一致、线性克制、识别清晰。"
+        description="新材道优先复用 Phosphor Icons 作为基础功能图标来源，但不受限于其完整图库；当业务语义没有合适图标时，可按统一规则设计自定义功能图标，并以自有装饰性图标补充品牌表达与模块识别。"
       />
 
       <section>
         <SectionHeading
-          eyebrow="Icon Source"
-          title="图标库说明"
-          description="基础功能图标统一来自 Phosphor Icons；装饰性图标作为新材道自有视觉资产补充，用于品牌表达和模块识别。"
+          eyebrow="Icon Sizes"
+          title="图标尺寸"
+          description="以编辑图标为统一样本，直观比较不同尺寸的实际视觉比例。这里的尺寸指 SVG 画布的宽高，包含 Phosphor Icons 图形自带的安全留白；后台产品优先使用 16px / 20px 画布，展示场景可使用更大尺寸。"
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          <div className="bg-white p-5">
-            <div className="mb-2 text-xs font-semibold text-[var(--text-tertiary)]">图标库名称</div>
-            <a
-              href="https://phosphoricons.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
-            >
-              Phosphor Icons
-            </a>
-            <p className="mt-3 text-xs leading-relaxed text-[var(--text-tertiary)]">
-              访问说明：如官网无法正常打开或图标加载失败，可使用魔法访问。
-            </p>
-          </div>
-          {[
-            ["React 包名", "@phosphor-icons/react"],
-            ["默认尺寸", "16px / 20px / 24px"],
-            ["默认颜色", "neutral-700"],
-            ["激活态颜色", "white"],
-            ["强调色", "product-blue-500 或 brand-600，按业务场景谨慎使用"],
-          ].map(([label, value]) => (
-            <div key={label} className="bg-white p-5">
-              <div className="mb-2 text-xs font-semibold text-[var(--text-tertiary)]">{label}</div>
-              <div className="font-mono text-sm text-[var(--text-primary)]">{value}</div>
-            </div>
+        <div className="grid grid-cols-2 gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)] md:grid-cols-3 xl:grid-cols-6">
+          {iconSizes.map((item) => (
+            <article key={item.size} className="flex min-h-56 flex-col bg-white">
+              <div className="flex min-h-32 flex-1 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-body)]">
+                <PencilSimple size={item.size} weight="regular" aria-hidden="true" />
+              </div>
+              <div className="border-t border-[var(--neutral-100)] p-4">
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="text-xl font-semibold tabular-nums text-[var(--text-primary)]">{item.size}</span>
+                  <span className="text-xs font-medium text-[var(--text-tertiary)]">px</span>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">{item.usage}</p>
+              </div>
+            </article>
           ))}
         </div>
       </section>
 
       <section>
         <SectionHeading
-          eyebrow="Icon Sizes"
-          title="图标尺寸规范"
-          description="图标尺寸与使用场景绑定。后台产品优先 16px / 20px，官网展示和空状态可使用更大尺寸。"
+          eyebrow="Custom Icon Design"
+          title="图标设计规范"
+          description="这套规范覆盖从提出需求、制作图标到页面接入的全过程。设计师可直接按 24px 画布操作，无需换算 SVG 内部坐标。"
         />
-        <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
-            <tr className="border-b border-[var(--neutral-200)]">
-              <th className="px-6 py-3 font-semibold">尺寸</th>
-              <th className="px-6 py-3 font-semibold">使用场景</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
-            {iconSizes.map((item) => (
-              <tr key={item.size}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--text-tertiary)]">
-                  {item.size}
-                </td>
-                <td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{item.usage}</td>
-              </tr>
-            ))}
-          </tbody>
-        </DocsTable>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Icon Weights"
-          title="图标权重规范"
-          description="默认使用 regular 权重，避免同一区域混用过多粗细。大尺寸展示可使用 light 或 duotone。"
-        />
-        <DocsTable>
-          <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
-            <tr className="border-b border-[var(--neutral-200)]">
-              <th className="px-6 py-3 font-semibold">权重</th>
-              <th className="px-6 py-3 font-semibold">使用建议</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
-            {iconWeights.map((item) => (
-              <tr key={item.weight}>
-                <td className="whitespace-nowrap px-6 py-4 font-mono text-xs text-[var(--text-tertiary)]">
-                  {item.weight}
-                </td>
-                <td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{item.usage}</td>
-              </tr>
-            ))}
-          </tbody>
-        </DocsTable>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <div className="bg-white p-6">
-          <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--text-secondary)]">
-            <li>默认使用 regular 权重</li>
-            <li>同一区域内不要混用过多权重</li>
-            <li>后台产品优先使用 16px / 20px</li>
-            <li>官网展示模块可使用 24px / 32px</li>
-            <li>图标颜色优先使用中性灰，不要滥用品牌红</li>
-            <li>图标必须服务于识别和操作，不作为纯装饰堆叠</li>
-          </ol>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {customIconStandards.map((item) => (
+            <article key={item.index} className="overflow-hidden border border-[var(--neutral-200)] bg-white">
+              <CustomIconRuleDiagram index={item.index} callout={item.callout} value={item.value} />
+              <div className="p-5">
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="text-xs font-semibold tracking-[0.16em] text-[var(--product-blue-500)]">{item.index}</span>
+                  <span className="h-px flex-1 bg-[var(--neutral-200)]" />
+                </div>
+                <h3 className="text-sm font-semibold text-[var(--text-primary)]">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{item.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
-      </section>
 
-      <section>
-        <SectionHeading
-          eyebrow="Usage Examples"
-          title="图标使用示例"
-          description="图标必须辅助识别和操作。状态图标需要配合文字或标签，不应只依赖颜色传达信息。"
-        />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--text-primary)]">A. 单独使用</h3>
-            <div className="mb-4 flex gap-3">
-              <Button variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" className="h-10 w-11 min-w-11 px-0 md:w-10 md:min-w-10" />
-              <Button variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" className="h-10 w-11 min-w-11 px-0 md:w-10 md:min-w-10" />
-            </div>
-            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-              适用于工具栏、表格操作、卡片入口、状态提示等场景。
-            </p>
-          </div>
-          <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--text-primary)]">B. 图标 + 文字</h3>
-            <div className="mb-4 space-y-3">
-              <Button icon={<SystemIcon as={Plus} size={16} weight="regular" label="新增" />} iconPosition="left">新建数据</Button>
-              <Button variant="outline" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="neutral" label="导出" />}>导出报告</Button>
-              <Button variant="text" tone="product" icon={<SystemIcon as={FileText} size={16} weight="regular" tone="product" label="详情" />}>查看详情</Button>
-            </div>
-            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-              适用于按钮、菜单、列表项、导航入口等场景。
-            </p>
-          </div>
-          <div className="bg-white p-5">
-            <h3 className="mb-4 text-base font-semibold text-[var(--text-primary)]">C. 状态图标</h3>
-            <div className="mb-4 space-y-3 text-sm">
-              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                <SystemIcon as={CheckCircle} size={20} weight="regular" tone="success" label="成功" />
-                成功：操作已完成
-              </div>
-              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                <SystemIcon as={WarningCircle} size={20} weight="regular" tone="warning" label="警告" />
-                警告：请检查配置
-              </div>
-              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                <SystemIcon as={XCircle} size={20} weight="regular" tone="danger" label="错误" />
-                错误：提交失败
-              </div>
-              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
-                <SystemIcon as={Info} size={20} weight="regular" tone="product" label="信息" />
-                信息：系统提示
-              </div>
-            </div>
-            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-              状态图标必须和文字或状态标签配合使用，避免只依赖颜色传达信息。
-            </p>
-          </div>
-        </div>
       </section>
 
       <section>
@@ -808,16 +794,17 @@ export default function IconPage() {
         <div className="mb-6 space-y-2 text-sm leading-relaxed text-[var(--text-secondary)]">
           <p>
             这里展示的是设计系统沉淀后的高频常用图标，不是 Phosphor Icons
-            的完整图标库。完整图标请前往{" "}
+            的完整图标库。完整图标请
+            {" "}
             <a
               href="https://phosphoricons.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
             >
-              Phosphor Icons
-            </a>{" "}
-            官网检索。
+              前往 Phosphor Icons 官网检索
+            </a>
+            。
           </p>
         </div>
         <div className="space-y-10">
@@ -834,29 +821,8 @@ export default function IconPage() {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
               {menuIcons.map((item) => {
                 const Icon = item.icon;
-                const isCopied = copiedIcon === item.zhName;
                 return (
                   <div key={item.zhName} className="group relative bg-white p-3">
-                    <div className="absolute right-2 top-2 z-10 flex gap-1 opacity-100 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
-                      <button
-                        type="button"
-                        onClick={() => copySvg(item)}
-                        title={isCopied ? "已复制" : "复制 SVG"}
-                        aria-label={isCopied ? "已复制" : "复制 SVG"}
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
-                      >
-                        {isCopied ? <Check size={14} weight="regular" /> : <Copy size={14} weight="regular" />}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => downloadCommonSvg(item)}
-                        title="下载 SVG"
-                        aria-label="下载 SVG"
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
-                      >
-                        <DownloadSimple size={14} weight="regular" />
-                      </button>
-                    </div>
                     <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-body)]">
                       <Icon size={24} weight="regular" />
                     </div>
@@ -885,7 +851,6 @@ export default function IconPage() {
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
               {functionIcons.map((item) => {
                 const Icon = item.icon;
-                const isCopied = copiedIcon === item.zhName;
                 return (
                   <div key={item.zhName} className="group relative flex items-center gap-3 bg-white p-3">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-body)]">
@@ -897,33 +862,40 @@ export default function IconPage() {
                         {shortIconName(item.name)}
                       </div>
                     </div>
-                    <div className="absolute right-2 top-2 z-10 flex gap-1 opacity-100 md:opacity-0 md:transition-opacity md:group-hover:opacity-100">
-                      <button
-                        type="button"
-                        onClick={() => copySvg(item)}
-                        title={isCopied ? "已复制" : "复制 SVG"}
-                        aria-label={isCopied ? "已复制" : "复制 SVG"}
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-6 md:w-6"
-                      >
-                        {isCopied ? <Check size={13} weight="regular" /> : <Copy size={13} weight="regular" />}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => downloadCommonSvg(item)}
-                        title="下载 SVG"
-                        aria-label="下载 SVG"
-                        className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-6 md:w-6"
-                      >
-                        <DownloadSimple size={13} weight="regular" />
-                      </button>
-                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
+
+          <div>
+            <div className="mb-4 flex items-end justify-between gap-4 border-b border-[var(--neutral-200)] pb-3">
+              <div>
+                <h3 className="text-lg font-semibold text-[var(--text-primary)]">状态图标</h3>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
+                  用于结果反馈、风险提示和系统状态；必须与文字配合，不以颜色作为唯一信息载体。
+                </p>
+              </div>
+              <span className="text-xs text-[var(--text-tertiary)]">{statusIcons.length} 个</span>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {statusIcons.map((item) => (
+                <div key={item.name} className="flex items-center gap-3 bg-white p-3">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[var(--neutral-50)]">
+                    <SystemIcon as={item.icon} size={20} weight="regular" tone={item.tone} label={item.zhName} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-xs font-medium text-[var(--text-primary)]">{item.zhName}</div>
+                    <div className="mt-0.5 truncate font-mono text-xs text-[var(--text-tertiary)]" title={item.name}>{item.name}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
+
+      <UsageExamplesSection />
 
       <section>
         <SectionHeading
@@ -931,7 +903,7 @@ export default function IconPage() {
           title="装饰性图标"
           description="装饰性图标用于品牌表达、模块入口、设计原则、空状态和专题页视觉补充。它们不承担直接操作功能。"
         />
-        <div className="mb-6 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="mb-6">
           <DocsTable>
             <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
               <tr className="border-b border-[var(--neutral-200)]">
@@ -953,23 +925,6 @@ export default function IconPage() {
             </tbody>
           </DocsTable>
 
-          <div className="bg-white p-6">
-            <div className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
-              Style DNA
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {decorativeIcons.slice(0, 6).map((item) => (
-                <div
-                  key={item.name}
-                  className="flex h-20 items-center justify-center bg-[var(--neutral-50)]"
-                  dangerouslySetInnerHTML={{ __html: item.svg }}
-                />
-              ))}
-            </div>
-            <p className="mt-5 text-xs leading-relaxed text-[var(--text-tertiary)]">
-              同一组装饰性图标需保持 48px 画布、2px 描边和红色点缀比例一致，避免出现插画化、面性填充或过度细节。
-            </p>
-          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5">
@@ -1012,30 +967,6 @@ export default function IconPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Workflow" title="如何新增常用图标" />
-        <div className="bg-white p-6">
-          <ol className="list-decimal space-y-3 pl-5 text-sm leading-relaxed text-[var(--text-secondary)]">
-            <li>在 Phosphor Icons 官网搜索需要的图标。</li>
-            <li>确认图标语义是否清晰，不要只因为好看而添加。</li>
-            <li>记录图标英文名和中文名。</li>
-            <li>
-              在 Codex 中提出新增需求，例如：“请在 IconPage 的常用图标库中新增
-              Database，中文名为数据资产。”
-            </li>
-            <li>
-              Codex 会自动在{" "}
-              <span className="font-mono text-xs text-[var(--text-primary)]">
-                src/pages/design-system/IconPage.tsx
-              </span>{" "}
-              中添加图标。
-            </li>
-            <li>页面检查无误后，在 Figma 设计组件库中同步新增同名图标组件。</li>
-            <li>保持 Codex 里的常用图标库和 Figma 里的图标组件库名称一致。</li>
-          </ol>
-        </div>
-      </section>
-
-      <section>
         <SectionHeading eyebrow="Governance" title="常用图标库管理原则" />
         <div className="bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--text-secondary)]">
@@ -1051,6 +982,10 @@ export default function IconPage() {
           </ul>
         </div>
       </section>
+
+      <GuidelinesSection />
+
+      <IconCreationWorkflowsSection />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import type { Icon as PhosphorIcon, IconWeight } from "@phosphor-icons/react";
 
-type IconTone = "neutral" | "muted" | "product" | "brand" | "danger" | "warning" | "success";
+type IconTone = "inherit" | "neutral" | "muted" | "product" | "brand" | "danger" | "warning" | "success";
 type IconSize = 12 | 16 | 20 | 24 | 32 | 48;
 
 export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, "color"> {
@@ -16,6 +16,7 @@ export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, "color"
 }
 
 const toneClass: Record<IconTone, string> = {
+  inherit: "text-current",
   neutral: "text-[var(--text-body)]",
   muted: "text-[var(--text-tertiary)]",
   product: "text-[var(--product-blue-500)]",
