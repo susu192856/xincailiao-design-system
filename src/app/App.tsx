@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import DocsLayout from "../components/docs/DocsLayout";
 import ColorsPage from "../pages/design-system/ColorsPage";
 import ButtonPage from "../pages/design-system/components/ButtonPage";
@@ -26,7 +26,6 @@ import TabsPage from "../pages/design-system/components/TabsPage";
 import SwitchPage from "../pages/design-system/components/SwitchPage";
 import CheckboxPage from "../pages/design-system/components/CheckboxPage";
 import RadioPage from "../pages/design-system/components/RadioPage";
-import TextareaPage from "../pages/design-system/components/TextareaPage";
 import ToastPage from "../pages/design-system/components/ToastPage";
 import TooltipPage from "../pages/design-system/components/TooltipPage";
 import TransferPage from "../pages/design-system/components/TransferPage";
@@ -147,9 +146,7 @@ export default function App() {
       <Route path="/components/radio" element={<DocsLayout />}>
         <Route index element={<RadioPage />} />
       </Route>
-      <Route path="/components/textarea" element={<DocsLayout />}>
-        <Route index element={<TextareaPage />} />
-      </Route>
+      <Route path="/components/textarea" element={<Navigate to="/components/input#textarea" replace />} />
       <Route path="/components/datepicker" element={<DocsLayout />}>
         <Route index element={<DatePickerPage />} />
       </Route>

@@ -3,6 +3,7 @@ export { default as XcBadge } from "./components/XcBadge.vue";
 export { default as XcBreadcrumb } from "./components/XcBreadcrumb.vue";
 export { default as XcButton } from "./components/XcButton.vue";
 export { default as XcCard } from "./components/XcCard.vue";
+export { default as XcChart } from "./components/XcChart.vue";
 export { default as XcCheckbox } from "./components/XcCheckbox.vue";
 export { default as XcCollapse } from "./components/XcCollapse.vue";
 export { default as XcDatePicker } from "./components/XcDatePicker.vue";

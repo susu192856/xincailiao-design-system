@@ -1,5 +1,4 @@
 import {
-  Archive,
   ArrowClockwise,
   ArrowCounterClockwise,
   ArrowLeft,
@@ -47,6 +46,7 @@ import {
   Printer,
   Prohibit,
   PushPin,
+  Question,
   QrCode,
   Repeat,
   Resize,
@@ -97,31 +97,18 @@ const iconSizes = [
 const customIconStandards = [
   {
     index: "01",
-    title: "尺寸",
-    callout: "Figma 直接使用 24 × 24px",
-    value: "有效绘图区 20 × 20px",
-    description: "在 Figma 中使用 24 × 24px 画布，四周各保留 2px 安全距离。图形至少有一个方向接近绿色绘图区边界，避免留白叠加后在 16px 页面中显得过小。",
+    title: "设计尺寸",
+    description: "使用 24 × 24px 画布制作。",
   },
   {
     index: "02",
-    title: "描边",
-    callout: "24px 画布使用 1.5px 描边",
-    value: "圆头端点 · 圆角连接",
-    description: "设计 24px 图标时直接使用 1.5px 描边；输出到 20px 或 16px 时统一检查，并按小尺寸规范调整为 1px 描边。同一图标不要混用多种线宽，端点和转折保持圆润。",
+    title: "描边与安全区",
+    description: "线性描边 1.5px，四周保留 2px 安全区。",
   },
   {
     index: "03",
-    title: "视差",
-    callout: "不同形态分别校正",
-    value: "默认圆角约 1.5px",
-    description: "正方形、长形、圆形和三角形的视觉面积不同，需要在同一画布中分别微调大小与位置。普通转角可用约 1.5px 圆角，较大的外框统一使用约 2px 圆角；只有语义需要时才使用斜线。",
-  },
-  {
-    index: "04",
-    title: "命名",
-    callout: "组件 PencilSimple",
-    value: "SVG ic-pencil-simple.svg",
-    description: "Figma 中保留可编辑描边的源组件；交付给页面的 SVG 副本需将描边轮廓化，避免不同环境出现线宽差异。代码组件使用 PascalCase，SVG 文件使用 ic-kebab-case.svg，Figma 组件使用 Icon / Name。",
+    title: "命名规则",
+    description: "代码名称使用大驼峰，例如 PencilSimple；SVG 文件名使用小写连字符，例如 ic-pencil-simple.svg。",
   },
 ];
 
@@ -234,19 +221,14 @@ const functionIcons: CommonIconItem[] = [
   makeCommonIcon("Star", "收藏", Star),
   makeCommonIcon("Flag", "标记", Flag),
   makeCommonIcon("Clipboard", "粘贴", Clipboard),
-  makeCommonIcon("ArrowsClockwise", "重做", ArrowsClockwise),
-  makeCommonIcon("Archive", "归档", Archive),
   makeCommonIcon("Prohibit", "禁用", Prohibit),
   makeCommonIcon("Lock", "锁定", Lock),
   makeCommonIcon("LockOpen", "解锁", LockOpen),
-  makeCommonIcon("ShieldCheck", "授权", ShieldCheck),
-  makeCommonIcon("ClipboardText", "审批", ClipboardText),
   makeCommonIcon("ChatCircle", "消息", ChatCircle),
   makeCommonIcon("Folder", "文件夹", Folder),
   makeCommonIcon("File", "文件", File),
   makeCommonIcon("ImageSquare", "图片", ImageSquare),
   makeCommonIcon("VideoCamera", "视频", VideoCamera),
-  makeCommonIcon("Archive", "压缩包", Archive),
   makeCommonIcon("Printer", "打印", Printer),
   makeCommonIcon("QrCode", "二维码", QrCode),
   makeCommonIcon("ArrowsClockwise", "同步", ArrowsClockwise),
@@ -257,7 +239,7 @@ const functionIcons: CommonIconItem[] = [
   makeCommonIcon("LinkBreak", "解绑", LinkBreak),
   makeCommonIcon("Link", "连接", Link),
   makeCommonIcon("SignOut", "退出", SignOut),
-  makeCommonIcon("Info", "提示", Info),
+  makeCommonIcon("Question", "提示", Question),
   makeCommonIcon("SpinnerGap", "加载中", SpinnerGap),
   makeCommonIcon("Empty", "不可用", Empty),
 ];
@@ -373,19 +355,9 @@ const decorativeIcons: DecorativeIconItem[] = [
   },
 ];
 
-function CustomIconRuleDiagram({
-  index,
-  callout,
-  value,
-}: {
-  index: string;
-  callout: string;
-  value: string;
-}) {
-  const markerId = `annotation-arrow-${index}`;
-
+function CustomIconRuleDiagram() {
   return (
-    <div className="relative h-40 overflow-hidden border-b border-[var(--neutral-200)] bg-[var(--neutral-50)]">
+    <div className="relative flex min-h-64 items-center justify-center overflow-hidden bg-[var(--neutral-50)] p-8">
       <div
         className="absolute inset-0 opacity-50"
         style={{
@@ -394,51 +366,12 @@ function CustomIconRuleDiagram({
           backgroundSize: "16px 16px",
         }}
       />
-      {index === "01" ? (
-        <div className="absolute left-5 top-1/2 h-28 w-28 -translate-y-1/2 border border-[var(--product-blue-300)] bg-[var(--product-blue-100)] p-[10px]">
-          <div className="flex h-full w-full items-center justify-center overflow-hidden border border-[var(--success-border)] bg-[var(--success-bg)] text-[var(--text-body)]">
-            <PencilSimple size={82} weight="regular" className="shrink-0" aria-hidden="true" />
-          </div>
-          <span className="absolute left-1 top-1 text-[9px] font-semibold text-[var(--product-blue-700)]">安全区</span>
-          <span className="absolute bottom-4 left-[calc(50%+10px)] -translate-x-1/2 text-[9px] font-semibold text-[var(--success-text)]">绘制区</span>
+      <div className="relative h-40 w-40 border border-[var(--product-blue-300)] bg-[var(--product-blue-100)] p-[13px]">
+        <div className="flex h-full w-full items-center justify-center border border-dashed border-[var(--success-border)] bg-white text-[var(--text-body)]">
+          <PencilSimple size={152} weight="regular" className="shrink-0" aria-label="编辑图标规范示例" />
         </div>
-      ) : index === "03" ? (
-        <div className="absolute left-5 top-1/2 grid h-24 w-44 -translate-y-1/2 grid-cols-4 items-center gap-2 border border-dashed border-[var(--neutral-400)] bg-white px-3 text-[var(--text-body)]">
-          <VideoCamera size={30} weight="regular" aria-label="长方形：视频" />
-          <Stack size={28} weight="regular" aria-label="正方形：图层" />
-          <DownloadSimple size={28} weight="regular" aria-label="三角形：下载" />
-          <MagnifyingGlass size={28} weight="regular" aria-label="圆形：搜索" />
-        </div>
-      ) : (
-        <div className="absolute left-[18%] top-1/2 flex h-24 w-24 -translate-y-1/2 items-center justify-center border border-dashed border-[var(--neutral-400)] bg-white text-[var(--text-body)]">
-          <PencilSimple size={56} weight="regular" aria-hidden="true" />
-        </div>
-      )}
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 360 176"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <defs>
-          <marker id={markerId} markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" fill="var(--product-blue-500)" />
-          </marker>
-        </defs>
-        <path
-          d={index === "03" ? "M302 52 H246 L192 88" : "M302 52 H246 L146 88"}
-          fill="none"
-          stroke="var(--product-blue-500)"
-          strokeWidth="1.5"
-          markerEnd={`url(#${markerId})`}
-        />
-      </svg>
-      <div className="absolute right-4 top-5 min-w-32 border border-[var(--product-blue-200)] bg-white px-3 py-2 shadow-sm">
-        <div className="text-xs font-semibold text-[var(--product-blue-600)]">{callout}</div>
-        <div className="mt-1 text-xs text-[var(--text-secondary)]">{value}</div>
-      </div>
-      <div className="absolute bottom-3 right-3 text-[10px] font-semibold tracking-[0.14em] text-[var(--text-tertiary)]">
-        24 × 24px FIGMA 画布
+        <span className="absolute left-2 top-2 text-[10px] font-semibold text-[var(--product-blue-700)]">24 × 24px</span>
+        <span className="absolute bottom-4 right-4 text-[10px] font-semibold text-[var(--success-text)]">2px 安全区</span>
       </div>
     </div>
   );
@@ -452,11 +385,11 @@ function UsageExamplesSection() {
       context: "空间有限、语义明确的快捷操作",
       preview: (
         <div className="flex gap-2">
-          <Button size="md" variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={16} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" title="搜索" className="w-11 px-0 md:w-8" />
-          <Button size="md" variant="ghost" icon={<SystemIcon as={GearSix} size={16} weight="regular" tone="neutral" label="设置" />} aria-label="设置" title="设置" className="w-11 px-0 md:w-8" />
+          <Button size="md" variant="ghost" icon={<SystemIcon as={MagnifyingGlass} size={20} weight="regular" tone="neutral" label="搜索" />} aria-label="搜索" title="搜索" className="h-11 w-11 px-0 md:h-9 md:w-9" />
+          <Button size="md" variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" title="设置" className="h-11 w-11 px-0 md:h-9 md:w-9" />
         </div>
       ),
-      rule: "使用 Button 的 md 规格：桌面端按钮背景框为 32 × 32px；触屏点击热区最小为 44 × 44px。内部搭配 16px 图标，并提供 Tooltip、title 或 aria-label。",
+      rule: "常规独立图标使用 20px：桌面端按钮背景为 36 × 36px，触屏点击热区为 44 × 44px。必须提供 Tooltip、title 或 aria-label。",
     },
     {
       index: "02",
@@ -468,7 +401,7 @@ function UsageExamplesSection() {
           <Button size="md" variant="outline" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="inherit" label="导出" />}>导出报告</Button>
         </div>
       ),
-      rule: "示例直接使用设计系统 Button 组件的 md 规格与 16px 左侧图标；图标补充语义，按钮文案承担主要表达。",
+      rule: "图标加文字使用设计系统 Button 的 md 规格与 16px 左侧图标；图标补充语义，按钮文案承担主要表达。",
     },
   ];
 
@@ -479,11 +412,21 @@ function UsageExamplesSection() {
         title="图标使用示例"
         description="根据操作空间和理解成本，在独立图标与图标加文字两种方式中选择。状态图标统一收录在上方常用图标库中。"
       />
-      <div className="mb-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-l-2 border-[var(--product-blue-500)] bg-[var(--product-blue-50)] px-5 py-4 text-sm text-[var(--text-secondary)]">
-        <span className="font-semibold text-[var(--text-primary)]">使用原则</span>
-        <span>辅助识别，不替代清晰文案</span>
-        <span>同组保持尺寸与权重一致</span>
-        <span>交互图标必须提供可访问名称</span>
+      <div className="mb-5 border-l-2 border-[var(--product-blue-500)] bg-[var(--product-blue-50)] px-5 py-4">
+        <div className="grid gap-3 text-sm text-[var(--text-secondary)] md:grid-cols-3">
+          <div><strong className="text-[var(--text-primary)]">紧凑操作</strong><span className="ml-2">16px 图标 · 32px 背景/热区</span></div>
+          <div><strong className="text-[var(--text-primary)]">常规操作</strong><span className="ml-2">20px 图标 · 36px 背景/热区</span></div>
+          <div><strong className="text-[var(--text-primary)]">触屏操作</strong><span className="ml-2">20/24px 图标 · 44px 最小热区</span></div>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-t border-[var(--product-blue-100)] pt-4 text-xs leading-5 text-[var(--text-secondary)]">
+          <span className="font-semibold text-[var(--text-primary)]">使用原则</span>
+          <span>图标与背景边缘至少间隔 8px</span>
+          <span>同组背景、热区和权重一致</span>
+          <span>不可点击图标无需热区</span>
+          <span>关键操作使用图标 + 文字</span>
+          <span>32/48px 仅用于入口、空状态和展示</span>
+          <span>交互图标必须提供可访问名称</span>
+        </div>
       </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {examples.map((example) => (
@@ -596,20 +539,21 @@ export default function IconPage() {
           title="图标设计规范"
           description="这套规范覆盖从提出需求、制作图标到页面接入的全过程。设计师可直接按 24px 画布操作，无需换算 SVG 内部坐标。"
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {customIconStandards.map((item) => (
-            <article key={item.index} className="overflow-hidden border border-[var(--neutral-200)] bg-white">
-              <CustomIconRuleDiagram index={item.index} callout={item.callout} value={item.value} />
-              <div className="p-5">
-                <div className="mb-3 flex items-center gap-3">
-                  <span className="text-xs font-semibold tracking-[0.16em] text-[var(--product-blue-500)]">{item.index}</span>
-                  <span className="h-px flex-1 bg-[var(--neutral-200)]" />
+        <div className="grid grid-cols-1 overflow-hidden border border-[var(--neutral-200)] bg-white lg:grid-cols-[minmax(280px,0.9fr)_minmax(360px,1.1fr)]">
+          <CustomIconRuleDiagram />
+          <div className="divide-y divide-[var(--neutral-100)] border-t border-[var(--neutral-200)] lg:border-l lg:border-t-0">
+            {customIconStandards.map((item) => (
+              <div key={item.index} className="flex gap-4 p-5">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center bg-[var(--product-blue-50)] text-xs font-semibold text-[var(--product-blue-600)]">
+                  {Number(item.index)}
+                </span>
+                <div>
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">{item.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-[var(--text-secondary)]">{item.description}</p>
                 </div>
-                <h3 className="text-sm font-semibold text-[var(--text-primary)]">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{item.description}</p>
               </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
 
       </section>
@@ -638,7 +582,7 @@ export default function IconPage() {
               <div>
                 <h3 className="text-lg font-semibold text-[var(--text-primary)]">菜单图标</h3>
                 <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
-                  用于左侧导航、顶部入口和后台模块菜单，保持 20px 尺寸与 regular 权重。
+                  按实际规格展示：20px 图标置于 36 × 36px 灰色背景，保持 regular 权重。
                 </p>
               </div>
               <span className="text-xs text-[var(--text-tertiary)]">{menuIcons.length} 个</span>
@@ -648,8 +592,10 @@ export default function IconPage() {
                 const Icon = item.icon;
                 return (
                   <div key={item.zhName} className="group relative bg-white p-3">
-                    <div className="mb-3 flex h-16 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-body)]">
-                      <Icon size={24} weight="regular" />
+                    <div className="mb-3 flex h-16 items-center justify-center text-[var(--text-body)]">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)]">
+                        <Icon size={20} weight="regular" />
+                      </div>
                     </div>
                     <div className="text-center">
                       <div className="text-xs font-medium text-[var(--text-primary)]">{item.zhName}</div>
@@ -668,7 +614,7 @@ export default function IconPage() {
               <div>
                 <h3 className="text-lg font-semibold text-[var(--text-primary)]">功能图标</h3>
                 <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
-                  覆盖表单、表格、流程、数据处理、权限、文件和反馈等高频操作；按显式白名单维护，一个语义只保留一个推荐图标。
+                  默认按实际规格展示：20px 图标置于 36 × 36px 灰色背景；一个语义只保留一个推荐图标。
                 </p>
               </div>
               <span className="text-xs text-[var(--text-tertiary)]">{functionIcons.length} 个</span>
@@ -698,7 +644,7 @@ export default function IconPage() {
               <div>
                 <h3 className="text-lg font-semibold text-[var(--text-primary)]">状态图标</h3>
                 <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
-                  用于结果反馈、风险提示和系统状态；必须与文字配合，不以颜色作为唯一信息载体。
+                  按实际规格展示：20px 图标置于 36 × 36px 灰色背景；必须与文字配合，不以颜色作为唯一信息载体。
                 </p>
               </div>
               <span className="text-xs text-[var(--text-tertiary)]">{statusIcons.length} 个</span>

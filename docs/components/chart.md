@@ -1,10 +1,10 @@
-# Chart Chart
+# Chart 图表
 
 > 用于新材道设计系统中的标准组件场景。
 
 - 规范页面：`/components/chart`
 - React 源码：`src/pages/design-system/components/ChartPage.tsx`
-- Vue 源码：暂未提供独立 Vue 源码，当前以 React 规范站源码为实现参考
+- Vue 源码：`packages/vue-ui/src/components/XcChart.vue`
 - Figma 组件名：`Chart`
 
 - 分类：数据与内容
@@ -38,6 +38,8 @@
 | `size` | `'sm' | 'md' | 'lg'` | `md` | 图表容器尺寸。 |
 | `showTable` | `boolean` | `—` | 是否在图表下方展示明细表。 |
 | `empty` | `boolean` | `—` | 空数据状态。 |
+| `loading` | `boolean` | `false` | 加载状态；保留标题并向辅助技术播报进度。 |
+| `ariaLabel` | `string` | 由标题生成 | 绘图区的无障碍名称。 |
 
 ## 变体、语义、尺寸与状态
 
@@ -109,7 +111,7 @@
 
 ## 开发实现说明
 
-当前组件已在 React 规范站中实现并展示状态，前端开发可先参考 `src/pages/design-system/components/ChartPage.tsx` 的 API、状态和 token 用法；Vue 版本后续按本清单补齐。
+Vue 组件负责标题、图例、加载、空状态、绘图区和可选明细表的统一结构；具体图形通过默认插槽接入。默认插槽可获得 `data`、`colors` 和 `chartType`，`table` 插槽用于提供等价的明细数据。复杂图表在窄屏允许绘图区内部横向滚动，但不得造成页面级溢出。
 
 ## Figma 同步要求
 

@@ -2,7 +2,7 @@
 
 > 用于多行文本录入，适合备注、说明、审核意见和长文本表单。
 
-- 规范页面：`/components/textarea`
+- 规范页面：`/components/input#textarea`（旧地址 `/components/textarea` 自动跳转）
 - React 源码：`src/components/ui/Textarea.tsx`
 - Vue 源码：`packages/vue-ui/src/components/XcTextarea.vue`
 - Figma 组件名：`Textarea`
@@ -13,15 +13,18 @@
 
 ## 定位与边界
 
-**适用：** 用于Textarea对应的标准场景，优先复用组件而不是在页面内重新绘制。
+**适用：** 用于备注、原因、说明等需要换行和上下文的多行纯文本；与 Input 共用标签、提示、状态和可访问性规则。
 
-**避免：** 不要绕过 Token、组件合同或可访问性要求制作局部特例。
+**避免：** 不要用于短名称、编号和单值参数，也不要替代富文本、代码或结构化配置编辑器。
 
 ## 结构 Anatomy
 
-- 根容器
-- 主要内容
-- 可选辅助内容
+- 字段容器
+- 标签文字
+- 多行输入容器
+- 占位文字
+- 帮助或错误文字
+- 可选字符计数
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
@@ -32,7 +35,7 @@
 | `error` | `boolean | string` | `—` | 错误状态或错误说明；不得只依赖颜色表达。 |
 | `helperText` | `string` | `—` | 字段下方的帮助或校验说明。 |
 | `required` | `boolean` | `—` | 必填标记；校验仍由表单逻辑负责。 |
-| `rows` | `number | array` | `—` | 文本域行数或表格行数据。 |
+| `rows` | `number` | `—` | 文本域初始可见行数，仍受尺寸最小高度约束。 |
 | `showCount` | `boolean` | `—` | 是否显示文本长度计数。 |
 | `maxLength` | `number` | `—` | 允许输入的最大字符数。 |
 
@@ -73,15 +76,15 @@
 
 ## 响应式
 
-桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+Small / Medium / Large 最小高度分别为 80 / 96 / 120px；窄屏保持全宽并允许纵向缩放，不产生页面级横向溢出。
 
 ## 可访问性
 
-必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+正式录入字段提供可见 label；错误与帮助文字通过 aria-describedby 关联；提供 focus-visible，状态不只依赖颜色。
 
 ## 内容规范
 
-内容必须定义长文本、空值、截断、换行和本地化边界。
+标签说明字段语义，placeholder 提供格式或写作提示；限制长度时组合使用 maxLength 与 showCount。
 
 ## 示例要求
 

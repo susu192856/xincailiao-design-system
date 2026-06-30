@@ -14,7 +14,7 @@
 - 基础规范页面：颜色、字体、图标、布局、间距、圆角、阴影
 - 组件规范页面：按钮、输入框、选择器、表格、卡片、弹窗、标签、Tabs、分页等
 - React 示例组件：`src/components/ui`
-- Vue 3 源码组件包：`packages/vue-ui`
+- Vue 3 源码组件包：`packages/vue-ui`（覆盖全部 32 个规范组件）
 - 设计 Token 源：`src/styles/tokens.css`
 - Figma Token 文件：`figma/tokens.json`
 - Markdown 规范文档：`docs/design-tokens`、`docs/components`

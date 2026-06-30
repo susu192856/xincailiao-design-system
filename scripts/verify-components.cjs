@@ -20,6 +20,7 @@ function routeToDoc(route) {
 
 function routeToPage(component) {
   if (component.name === "Icon") return "src/pages/design-system/IconPage.tsx";
+  if (component.name === "Textarea") return "src/pages/design-system/components/InputPage.tsx";
   return `src/pages/design-system/components/${component.name}Page.tsx`;
 }
 

@@ -1,11 +1,13 @@
-# 输入框 Input
+# 输入框 Input / Textarea
 
-> 用于单行文本录入，覆盖聚焦、错误、禁用、只读、必填和帮助信息等后台常见状态。
+> 输入框规范页统一说明单行 Input 与多行 Textarea，覆盖结构、尺寸、前后缀、聚焦、错误、禁用、只读、必填和帮助信息。
 
 - 规范页面：`/components/input`
 - React 源码：`src/components/ui/Input.tsx`
 - Vue 源码：`packages/vue-ui/src/components/XcInput.vue`
 - Figma 组件名：`Input`
+
+Textarea 的规范示例位于本页 `#textarea` 章节；组件源码与合同仍独立维护。
 
 - 分类：操作与输入
 - 合同版本：`0.2.0`
@@ -21,6 +23,7 @@
 
 - 标签
 - 输入容器
+- 占位文字
 - 前后缀
 - 帮助或错误文字
 ## Props

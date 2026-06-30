@@ -682,7 +682,7 @@
       "figmaName": "Chart",
       "route": "/components/chart",
       "reactSource": "src/pages/design-system/components/ChartPage.tsx",
-      "vueSource": null,
+      "vueSource": "packages/vue-ui/src/components/XcChart.vue",
       "props": [
         "chartType",
         "title",
@@ -692,7 +692,9 @@
         "data",
         "size",
         "showTable",
-        "empty"
+        "empty",
+        "loading",
+        "ariaLabel"
       ],
       "variants": [
         "line",
@@ -839,6 +841,16 @@
           "name": "empty",
           "type": "boolean",
           "description": "空数据状态。"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "加载状态；保留标题并向辅助技术播报进度。"
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "description": "绘图区的无障碍名称；未提供时由标题生成。"
         }
       ],
       "delivery": {
@@ -2090,6 +2102,7 @@
         "anatomy": [
           "标签",
           "输入容器",
+          "占位文字",
           "前后缀",
           "帮助或错误文字"
         ],
@@ -3529,16 +3542,19 @@
       "status": "stable",
       "contract": {
         "anatomy": [
-          "根容器",
-          "主要内容",
-          "可选辅助内容"
+          "字段容器",
+          "标签文字",
+          "多行输入容器",
+          "占位文字",
+          "帮助或错误文字",
+          "可选字符计数"
         ],
-        "usage": "用于Textarea对应的标准场景，优先复用组件而不是在页面内重新绘制。",
-        "avoid": "不要绕过 Token、组件合同或可访问性要求制作局部特例。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
-        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "定义鼠标、键盘、焦点、禁用与异步状态；触发后必须提供可感知反馈。",
-        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
+        "usage": "用于备注、原因、说明等需要换行和上下文的多行纯文本；与 Input 共用标签、提示、状态和可访问性规则。",
+        "avoid": "不要用于短名称、编号和单值参数，也不要替代富文本、代码或结构化配置编辑器。",
+        "responsive": "Small / Medium / Large 最小高度为 80/96/120px；窄屏保持全宽并允许纵向缩放，不产生页面级横向溢出。",
+        "accessibility": "正式录入字段提供可见 label；错误与帮助文字通过 aria-describedby 关联；提供 focus-visible，状态不只依赖颜色。",
+        "interaction": "支持键盘输入和纵向缩放；只读允许查看复制，禁用表示当前不可操作。",
+        "content": "标签说明字段语义，placeholder 提供格式或写作提示；限制长度时组合使用 maxLength 与 showCount。",
         "examples": {
           "basic": "Textarea 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Textarea 场景",
@@ -3579,8 +3595,8 @@
         },
         {
           "name": "rows",
-          "type": "number | array",
-          "description": "文本域行数或表格行数据。"
+          "type": "number",
+          "description": "文本域初始可见行数，仍受尺寸最小高度约束。"
         },
         {
           "name": "showCount",
