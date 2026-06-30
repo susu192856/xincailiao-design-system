@@ -231,9 +231,9 @@ export default function ShadowPage() {
               ["Shadow/2XL", "全屏预览 · 视频播放器 · 全局打断浮层", "全屏图片预览、全屏媒体播放、系统级打断弹窗"],
             ].map(([level, components, state]) => (
               <tr key={level}>
-                <td className="whitespace-nowrap font-token text-sm text-[var(--text-primary)]">{level}</td>
-                <td className="text-sm text-[var(--text-secondary)]">{components}</td>
-                <td className="text-sm text-[var(--text-secondary)]">{state}</td>
+                <td className="whitespace-nowrap font-token">{level}</td>
+                <td>{components}</td>
+                <td>{state}</td>
               </tr>
             ))}
           </tbody>

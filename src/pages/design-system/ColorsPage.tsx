@@ -344,9 +344,9 @@ export default function ColorsPage() {
                 ["删除 / 不可逆操作", "语义红色（Error）", "严禁用品牌红或黑色替代。红色 + 二次确认。"],
               ].map(([scenario, choice, reason]) => (
                 <tr key={scenario}>
-                  <td className="text-sm text-[var(--text-secondary)]">{scenario}</td>
-                  <td className="whitespace-nowrap text-sm font-semibold text-[var(--text-primary)]">{choice}</td>
-                  <td className="text-sm text-[var(--text-tertiary)]">{reason}</td>
+                  <td>{scenario}</td>
+                  <td className="whitespace-nowrap font-semibold">{choice}</td>
+                  <td>{reason}</td>
                 </tr>
               ))}
             </tbody>
