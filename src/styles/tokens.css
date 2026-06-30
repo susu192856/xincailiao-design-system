@@ -289,7 +289,7 @@
   --field-padding-x-md: 12px;
   --field-padding-x-lg: 12px;
   --field-border-default: var(--neutral-300);
-  --field-border-hover: var(--neutral-400);
+  --field-border-hover: var(--neutral-900);
   --field-border-focus: var(--neutral-900);
   --field-border-error: var(--error-text);
   --field-bg-disabled: var(--neutral-100);

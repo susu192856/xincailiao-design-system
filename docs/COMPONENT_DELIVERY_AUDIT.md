@@ -19,7 +19,7 @@ Component | Route | React Source | Vue Source | Web Page | Markdown Doc | Varian
 Button | /components/button | Yes | Yes | Yes | Yes | 4 | 7 | 6 | 1000
 Icon | /components/icon | Yes | Yes | Yes | Yes | 2 | 7 | 5 | 1069
 Input | /components/input | Yes | Yes | Yes | Yes | 3 | 0 | 8 | 172
-Textarea | /components/textarea | Yes | Yes | Yes | Yes | 2 | 2 | 7 | 147
+Textarea | /components/input#textarea | Yes | Yes | Yes | Yes | 2 | 2 | 8 | 332
 Form | /components/form | Yes | Yes | Yes | Yes | 4 | 5 | 6 | 217
 DescriptionList | /components/description-list | Yes | Yes | Yes | Yes | 6 | 6 | 6 | 146
 Collapse | /components/collapse | Yes | Yes | Yes | Yes | 2 | 2 | 6 | 154

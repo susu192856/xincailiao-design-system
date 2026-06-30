@@ -1,30 +1,32 @@
 <template>
-  <label class="xc-textarea">
-    <span v-if="label" class="xc-textarea__label">
+  <label class="xc-textarea" :class="{ 'xc-textarea--horizontal': labelPosition === 'left' }">
+    <span v-if="label" class="xc-textarea__label" :style="labelStyle">
       {{ label }}<span v-if="required" class="xc-textarea__required">*</span>
     </span>
-    <textarea
-      :id="controlId"
-      class="xc-textarea__control"
-      :class="controlClasses"
-      :name="name"
-      :rows="rows"
-      :value="modelValue"
-      :disabled="disabled"
-      :readonly="readOnly"
-      :required="required"
-      :maxlength="maxLength"
-      :placeholder="placeholder"
-      :aria-invalid="Boolean(error)"
-      :aria-describedby="messageId"
-      @input="handleInput"
-    />
-    <span v-if="error || helperText || showCount" class="xc-textarea__footer">
-      <span :id="messageId" class="xc-textarea__message" :class="{ 'xc-textarea__message--error': error }">
-        {{ error || helperText }}
-      </span>
-      <span v-if="showCount" class="xc-textarea__count">
-        {{ modelValue.length }}<template v-if="maxLength"> / {{ maxLength }}</template>
+    <span class="xc-textarea__body">
+      <textarea
+        :id="controlId"
+        class="xc-textarea__control"
+        :class="controlClasses"
+        :name="name"
+        :rows="rows"
+        :value="modelValue"
+        :disabled="disabled"
+        :readonly="readOnly"
+        :required="required"
+        :maxlength="maxLength"
+        :placeholder="placeholder"
+        :aria-invalid="Boolean(error)"
+        :aria-describedby="messageId"
+        @input="handleInput"
+      />
+      <span v-if="error || helperText || showCount" class="xc-textarea__footer">
+        <span :id="messageId" class="xc-textarea__message" :class="{ 'xc-textarea__message--error': error }">
+          {{ error || helperText }}
+        </span>
+        <span v-if="showCount" class="xc-textarea__count">
+          {{ modelValue.length }}<template v-if="maxLength"> / {{ maxLength }}</template>
+        </span>
       </span>
     </span>
   </label>
@@ -34,6 +36,7 @@
 import { computed, useId } from "vue";
 
 type TextareaSize = "sm" | "md" | "lg";
+type LabelPosition = "top" | "left";
 
 const props = withDefaults(
   defineProps<{
@@ -50,6 +53,8 @@ const props = withDefaults(
     maxLength?: number;
     rows?: number;
     name?: string;
+    labelPosition?: LabelPosition;
+    labelWidth?: number | string;
   }>(),
   {
     modelValue: "",
@@ -59,6 +64,8 @@ const props = withDefaults(
     required: false,
     showCount: false,
     rows: 4,
+    labelPosition: "top",
+    labelWidth: 96,
   },
 );
 
@@ -75,6 +82,10 @@ const controlClasses = computed(() => [
 const generatedId = useId();
 const controlId = computed(() => props.name || `textarea-${generatedId}`);
 const messageId = computed(() => (props.error || props.helperText ? `${controlId.value}-message` : undefined));
+const labelStyle = computed(() => {
+  if (props.labelPosition !== "left") return undefined;
+  return { width: typeof props.labelWidth === "number" ? `${props.labelWidth}px` : props.labelWidth };
+});
 
 function handleInput(event: Event) {
   emit("update:modelValue", (event.target as HTMLTextAreaElement).value);
@@ -86,12 +97,31 @@ function handleInput(event: Event) {
   display: block;
 }
 
+.xc-textarea--horizontal {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
 .xc-textarea__label {
   display: block;
   margin-bottom: 6px;
-  color: var(--neutral-900);
+  color: var(--text-secondary);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
+}
+
+.xc-textarea--horizontal .xc-textarea__label {
+  flex-shrink: 0;
+  margin-bottom: 0;
+  padding-top: 8px;
+  text-align: left;
+}
+
+.xc-textarea__body {
+  display: block;
+  min-width: 0;
+  flex: 1;
 }
 
 .xc-textarea__required {
@@ -125,8 +155,10 @@ function handleInput(event: Event) {
 
 .xc-textarea__control:focus {
   border-color: var(--field-border-focus);
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+}
+
+.xc-textarea__control:focus-visible {
+  outline: none;
 }
 
 .xc-textarea__control:disabled,
@@ -185,5 +217,17 @@ function handleInput(event: Event) {
 
 .xc-textarea__message--error {
   color: var(--error-text);
+}
+
+@media (max-width: 767px) {
+  .xc-textarea--horizontal {
+    display: block;
+  }
+
+  .xc-textarea--horizontal .xc-textarea__label {
+    width: auto !important;
+    margin-bottom: 6px;
+    padding-top: 0;
+  }
 }
 </style>

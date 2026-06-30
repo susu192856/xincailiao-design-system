@@ -37,6 +37,11 @@ body {
   outline-offset: var(--focus-ring-offset);
 }
 
+.field-single-border-focus:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+
 ::selection {
   background: var(--brand-100);
   color: var(--text-primary);

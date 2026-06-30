@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import DocsLayout from "../components/docs/DocsLayout";
 import ColorsPage from "../pages/design-system/ColorsPage";
 import ButtonPage from "../pages/design-system/components/ButtonPage";
@@ -146,7 +146,6 @@ export default function App() {
       <Route path="/components/radio" element={<DocsLayout />}>
         <Route index element={<RadioPage />} />
       </Route>
-      <Route path="/components/textarea" element={<Navigate to="/components/input#textarea" replace />} />
       <Route path="/components/datepicker" element={<DocsLayout />}>
         <Route index element={<DatePickerPage />} />
       </Route>

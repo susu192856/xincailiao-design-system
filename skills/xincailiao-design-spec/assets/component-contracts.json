@@ -50,7 +50,7 @@
         "image-error"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.2.1",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -2106,12 +2106,12 @@
           "前后缀",
           "帮助或错误文字"
         ],
-        "usage": "用于单行文本录入；搜索和筛选可在上下文明确时省略可见标签。",
+        "usage": "用于单行文本录入；数据空间和参数面板等高密度桌面配置页默认使用左右标签，搜索和筛选可在上下文明确时省略可见标签。",
         "avoid": "不要把 placeholder 当作唯一字段名称，也不要用禁用代替只读。",
-        "responsive": "桌面端使用 28/32/36px 三档高度；小于 768px 时统一至少 44px，label-left 回退为上下结构。",
+        "responsive": "桌面端使用 28/32/36px 三档高度；横向充足且纵向紧张的配置页默认使用 label-left；小于 768px 时统一至少 44px 并回退为上下结构。",
         "accessibility": "正式录入字段必须有可见 label；无可见标签的搜索或筛选必须提供 aria-label；错误状态使用 aria-invalid 并关联文字说明。",
-        "interaction": "点击标签聚焦输入框；Tab 进入、Shift+Tab 离开；错误出现后保持输入可编辑，并通过 aria-describedby 关联错误说明。",
-        "content": "标签使用业务名词，placeholder 只描述格式或示例；单位放在 suffix，不写入用户输入值。",
+        "interaction": "Hover 与 Focus 均使用 neutral-900 单边框，不叠加额外 2px 黑色外描边；点击标签聚焦输入框，Tab 进入、Shift+Tab 离开。",
+        "content": "标签使用 14px Regular 与 text-secondary；placeholder 只描述格式或示例；单位放在 suffix，不写入用户输入值。",
         "examples": {
           "basic": "Input 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Input 场景",
@@ -3501,7 +3501,7 @@
     {
       "name": "Textarea",
       "figmaName": "Textarea",
-      "route": "/components/textarea",
+      "route": "/components/input#textarea",
       "reactSource": "src/components/ui/Textarea.tsx",
       "vueSource": "packages/vue-ui/src/components/XcTextarea.vue",
       "props": [
@@ -3513,7 +3513,9 @@
         "required",
         "rows",
         "showCount",
-        "maxLength"
+        "maxLength",
+        "labelPosition",
+        "labelWidth"
       ],
       "variants": [
         "default",
@@ -3535,10 +3537,11 @@
         "error",
         "disabled",
         "readOnly",
-        "required"
+        "required",
+        "label-left"
       ],
       "category": "操作与输入",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.2.1",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -3551,10 +3554,10 @@
         ],
         "usage": "用于备注、原因、说明等需要换行和上下文的多行纯文本；与 Input 共用标签、提示、状态和可访问性规则。",
         "avoid": "不要用于短名称、编号和单值参数，也不要替代富文本、代码或结构化配置编辑器。",
-        "responsive": "Small / Medium / Large 最小高度为 80/96/120px；窄屏保持全宽并允许纵向缩放，不产生页面级横向溢出。",
+        "responsive": "Small / Medium / Large 最小高度为 80/96/120px；高密度桌面配置页可使用 label-left，窄屏回退为上下结构并保持全宽。",
         "accessibility": "正式录入字段提供可见 label；错误与帮助文字通过 aria-describedby 关联；提供 focus-visible，状态不只依赖颜色。",
-        "interaction": "支持键盘输入和纵向缩放；只读允许查看复制，禁用表示当前不可操作。",
-        "content": "标签说明字段语义，placeholder 提供格式或写作提示；限制长度时组合使用 maxLength 与 showCount。",
+        "interaction": "Hover 与 Focus 均使用 neutral-900 单边框，不叠加额外 2px 黑色外描边；支持键盘输入和纵向缩放。",
+        "content": "标签使用 14px Regular 与 text-secondary；placeholder 提供格式或写作提示；限制长度时组合使用 maxLength 与 showCount。",
         "examples": {
           "basic": "Textarea 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Textarea 场景",
@@ -3607,6 +3610,16 @@
           "name": "maxLength",
           "type": "number",
           "description": "允许输入的最大字符数。"
+        },
+        {
+          "name": "labelPosition",
+          "type": "'top' | 'left'",
+          "description": "标签布局；高密度桌面配置页可使用 left，移动端回退为 top。"
+        },
+        {
+          "name": "labelWidth",
+          "type": "number | string",
+          "description": "左右布局时的标签宽度。"
         }
       ],
       "delivery": {
@@ -3641,6 +3654,10 @@
         "counter": [
           "none",
           "visible"
+        ],
+        "labelPosition": [
+          "top",
+          "left"
         ]
       }
     },

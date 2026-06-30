@@ -1,7 +1,8 @@
 import { useId, useState } from "react";
-import type { ChangeEvent, TextareaHTMLAttributes } from "react";
+import type { ChangeEvent, CSSProperties, TextareaHTMLAttributes } from "react";
 
 type TextareaSize = "sm" | "md" | "lg";
+type LabelPosition = "top" | "left";
 
 export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label?: string;
@@ -10,6 +11,8 @@ export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   size?: TextareaSize;
   inputSize?: TextareaSize;
   showCount?: boolean;
+  labelPosition?: LabelPosition;
+  labelWidth?: number | string;
 };
 
 const sizeClasses: Record<TextareaSize, string> = {
@@ -25,6 +28,8 @@ export function Textarea({
   size,
   inputSize = "md",
   showCount = false,
+  labelPosition = "top",
+  labelWidth = 96,
   disabled,
   className = "",
   id,
@@ -37,6 +42,10 @@ export function Textarea({
   const textareaId = id ?? props.name ?? `textarea-${generatedId}`;
   const messageId = error || helperText ? `${textareaId}-message` : undefined;
   const resolvedSize = size ?? inputSize;
+  const isHorizontal = labelPosition === "left";
+  const labelStyle = isHorizontal
+    ? ({ "--textarea-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
+    : undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState(String(defaultValue ?? ""));
   const currentValue = value === undefined ? uncontrolledValue : String(value);
 
@@ -46,46 +55,55 @@ export function Textarea({
   };
 
   return (
-    <label className="block">
+    <label className={isHorizontal ? "block md:flex md:items-start md:gap-3" : "block"}>
       {label ? (
-        <span className="mb-1.5 block text-sm font-medium text-[var(--text-primary)]">
+        <span
+          className={[
+            "block text-sm font-normal text-[var(--text-secondary)]",
+            isHorizontal
+              ? "mb-1.5 w-auto md:mb-0 md:w-[var(--textarea-label-width)] md:shrink-0 md:pt-2 md:text-left"
+              : "mb-1.5",
+          ].join(" ")}
+          style={labelStyle}
+        >
           {label}
           {props.required ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
         </span>
       ) : null}
-      <textarea
-        id={textareaId}
-        disabled={disabled}
-        value={value}
-        defaultValue={defaultValue}
-        onChange={handleChange}
-        aria-invalid={Boolean(error)}
-        aria-describedby={messageId}
-        className={[
-          "w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
-          "placeholder:text-[var(--text-disabled)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
-          "focus-visible:outline focus-visible:outline-[var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
-          "resize-y",
-          error
-            ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
-            : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
-          sizeClasses[resolvedSize],
-          className,
-        ].join(" ")}
-        {...props}
-      />
-      {error || helperText || showCount ? (
-        <span className="mt-1.5 flex items-start justify-between gap-3 text-xs leading-[var(--type-caption-line-height)]">
-          <span id={messageId} className={error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}>
-            {error ?? helperText}
-          </span>
-          {showCount ? (
-            <span className="shrink-0 font-data text-[var(--text-tertiary)]">
-              {currentValue.length}{props.maxLength ? ` / ${props.maxLength}` : ""}
+      <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
+        <textarea
+          id={textareaId}
+          disabled={disabled}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          aria-invalid={Boolean(error)}
+          aria-describedby={messageId}
+          className={[
+            "field-single-border-focus w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
+            "placeholder:text-[var(--text-disabled)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
+            "resize-y",
+            error
+              ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
+              : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
+            sizeClasses[resolvedSize],
+            className,
+          ].join(" ")}
+          {...props}
+        />
+        {error || helperText || showCount ? (
+          <span className="mt-1.5 flex items-start justify-between gap-3 text-xs leading-[var(--type-caption-line-height)]">
+            <span id={messageId} className={error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}>
+              {error ?? helperText}
             </span>
-          ) : null}
-        </span>
-      ) : null}
+            {showCount ? (
+              <span className="shrink-0 font-data text-[var(--text-tertiary)]">
+                {currentValue.length}{props.maxLength ? ` / ${props.maxLength}` : ""}
+              </span>
+            ) : null}
+          </span>
+        ) : null}
+      </span>
     </label>
   );
 }

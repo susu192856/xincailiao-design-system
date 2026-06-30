@@ -1,4 +1,5 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import { Button } from "../../../components/ui/Button";
@@ -14,6 +15,14 @@ export default function FormPage() {
   return (
     <div className="space-y-16">
       <PageHeader title="表单" description="表单用于承载字段录入、校验反馈、权限配置和业务提交，是后台产品最高频的组合组件。" />
+
+      <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 text-sm leading-6 text-[var(--text-secondary)]">
+        <strong className="text-[var(--text-primary)]">前置页面：</strong>
+        表单由输入框组合而成。输入框的独立结构、尺寸、状态规则和字段宽度建议见{" "}
+        <Link to="/components/input" className="font-medium text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]">
+          输入框页面
+        </Link>。
+      </div>
       <section>
         <SectionHeading eyebrow="Layout" title="表单布局" description="表单不只是字段集合，还需要表达编辑密度、分组关系、状态反馈和提交路径。后台默认左对齐，官网预约类表单可适当放大尺寸。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -192,7 +201,7 @@ export default function FormPage() {
             <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--text-secondary)] md:grid-cols-3">
               <div className="bg-[var(--neutral-50)] p-4">
                 <h3 className="mb-2 font-semibold text-[var(--text-primary)]">字段宽度</h3>
-                <p>正式录入输入框建议 280px-360px；长文本、说明、地址类字段可跨列，最大不超过 720px。</p>
+                <p>正式录入输入框建议 360px；长文本、说明、地址类字段可跨列，不超过 480px。</p>
               </div>
               <div className="bg-[var(--neutral-50)] p-4">
                 <h3 className="mb-2 font-semibold text-[var(--text-primary)]">列数选择</h3>
@@ -209,7 +218,7 @@ export default function FormPage() {
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <SpecList items={["后台表单默认左对齐，避免居中排版影响扫描效率。", "必填、错误、禁用、只读状态必须在字段层面表达清楚。", "提交按钮放右侧，取消或返回放左侧；筛选工具栏按钮可左对齐。", "宽页面表单不要无限拉长输入框，常规输入建议 280px-360px，说明类字段可跨列。", "1000px 以上宽容器优先 2 列或左右 label，筛选工具栏可使用 3-4 列紧凑布局。", "审批、归档和权限锁定状态不要只依赖禁用按钮，需要在字段和说明文字中表达原因。", "开发落地优先复用 Form、FormSection、FormGrid、FormActions 组合，避免每个页面重新拼表单间距。"]} />
+        <SpecList items={["后台表单默认左对齐，避免居中排版影响扫描效率。", "必填、错误、禁用、只读状态必须在字段层面表达清楚。", "提交按钮放右侧，取消或返回放左侧；筛选工具栏按钮可左对齐。", "宽页面表单不要无限拉长输入框，常规输入建议 360px，长文本最多 480px。", "1000px 以上宽容器优先 2 列或左右 label，筛选工具栏可使用 3-4 列紧凑布局。", "审批、归档和权限锁定状态不要只依赖禁用按钮，需要在字段和说明文字中表达原因。", "开发落地优先复用 Form、FormSection、FormGrid、FormActions 组合，避免每个页面重新拼表单间距。"]} />
       </section>
     </div>
   );

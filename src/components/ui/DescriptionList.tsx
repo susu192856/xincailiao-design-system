@@ -3,12 +3,12 @@ import type { HTMLAttributes, ReactNode } from "react";
 type DescriptionItem = {
   label: ReactNode;
   value?: ReactNode;
-  span?: 1 | 2 | 3;
+  span?: 1 | 2 | 3 | 4;
 };
 
 export type DescriptionListProps = HTMLAttributes<HTMLDListElement> & {
   items: DescriptionItem[];
-  columns?: 1 | 2 | 3;
+  columns?: 1 | 2 | 3 | 4;
   bordered?: boolean;
   emptyText?: ReactNode;
   size?: "sm" | "md";
@@ -16,16 +16,18 @@ export type DescriptionListProps = HTMLAttributes<HTMLDListElement> & {
   labelWidth?: number | string;
 };
 
-const columnClasses: Record<1 | 2 | 3, string> = {
+const columnClasses: Record<1 | 2 | 3 | 4, string> = {
   1: "grid-cols-1",
   2: "grid-cols-1 md:grid-cols-2",
   3: "grid-cols-1 md:grid-cols-3",
+  4: "grid-cols-1 md:grid-cols-4",
 };
 
-const spanClasses: Record<1 | 2 | 3, string> = {
+const spanClasses: Record<1 | 2 | 3 | 4, string> = {
   1: "",
   2: "md:col-span-2",
   3: "md:col-span-3",
+  4: "md:col-span-4",
 };
 
 const sizeClasses = {

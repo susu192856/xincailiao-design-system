@@ -688,7 +688,7 @@
     "type": "color"
   },
   "foundation/field/border/hover": {
-    "value": "var(--neutral-400)",
+    "value": "var(--neutral-900)",
     "type": "color"
   },
   "foundation/field/border/focus": {

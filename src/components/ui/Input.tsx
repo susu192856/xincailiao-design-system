@@ -51,9 +51,9 @@ export function Input({
       {label ? (
         <span
           className={[
-            "block text-sm font-medium text-[var(--text-primary)]",
+            "block text-sm font-normal text-[var(--text-secondary)]",
             isHorizontal
-              ? "mb-1.5 w-auto md:mb-0 md:w-[var(--input-label-width)] md:shrink-0 md:pt-1.5 md:text-right"
+              ? "mb-1.5 w-auto md:mb-0 md:w-[var(--input-label-width)] md:shrink-0 md:pt-1.5 md:text-left"
               : "mb-1.5",
           ].join(" ")}
           style={labelStyle}
@@ -76,9 +76,8 @@ export function Input({
             aria-invalid={Boolean(error)}
             aria-describedby={error || helperText ? messageId : undefined}
             className={[
-              "w-full rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-primary)] outline-none transition-colors",
+              "field-single-border-focus w-full rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-primary)] outline-none transition-colors",
               "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--text-tertiary)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
-              "focus-visible:outline focus-visible:outline-[length:var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
               error
                 ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
                 : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",

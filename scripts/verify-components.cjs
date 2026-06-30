@@ -14,8 +14,9 @@ function exists(file) {
   return fs.existsSync(path.join(ROOT, file));
 }
 
-function routeToDoc(route) {
-  return `docs/components/${route.replace(/^\/components\//, "")}.md`;
+function routeToDoc(component) {
+  if (component.name === "Textarea") return "docs/components/input.md";
+  return `docs/components/${component.route.replace(/^\/components\//, "").split("#")[0]}.md`;
 }
 
 function routeToPage(component) {
@@ -65,6 +66,7 @@ const seenNames = new Set();
 
 for (const component of manifest.components) {
   const label = `${component.name} (${component.route})`;
+  const routePath = component.route.split("#")[0];
 
   if (seenRoutes.has(component.route)) errors.push(`${label}: duplicated route.`);
   if (seenNames.has(component.name)) errors.push(`${label}: duplicated name.`);
@@ -75,16 +77,16 @@ for (const component of manifest.components) {
     errors.push(`${label}: route must start with /components/.`);
   }
 
-  if (!app.includes(`path="${component.route}"`) && !app.includes(`path="${component.route.replace(/^\//, "")}"`)) {
+  if (!app.includes(`path="${routePath}"`) && !app.includes(`path="${routePath.replace(/^\//, "")}"`)) {
     errors.push(`${label}: route is not registered in src/app/App.tsx.`);
   }
 
-  if (!sidebar.includes(`path: "${component.route}"`)) {
+  if (!sidebar.includes(`path: "${routePath}"`)) {
     errors.push(`${label}: route is not present in DocsSidebar.`);
   }
 
-  if (!exists(routeToDoc(component.route))) {
-    errors.push(`${label}: generated docs file is missing at ${routeToDoc(component.route)}.`);
+  if (!exists(routeToDoc(component))) {
+    errors.push(`${label}: generated docs file is missing at ${routeToDoc(component)}.`);
   }
 
   const pageFile = routeToPage(component);

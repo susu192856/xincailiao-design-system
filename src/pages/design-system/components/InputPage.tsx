@@ -1,4 +1,6 @@
-import { CheckCircle, MagnifyingGlass } from "@phosphor-icons/react";
+import { CheckCircle, MagnifyingGlass, X, SpinnerGap, ArrowRight } from "@phosphor-icons/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import DocsTable from "../../../components/docs/DocsTable";
@@ -44,6 +46,73 @@ const textareaProps = [
   ["helperText / error", "string", "—", "帮助信息或错误说明，通过 aria-describedby 关联。"],
   ["readOnly / disabled", "boolean", "false", "语义与单行输入一致。"],
 ];
+
+function ClearableInput({
+  label,
+  placeholder,
+  defaultValue,
+}: {
+  label: string;
+  placeholder?: string;
+  defaultValue?: string;
+}) {
+  const [value, setValue] = useState(defaultValue ?? "");
+  return (
+    <div className="relative">
+      <Input
+        label={label}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      {value ? (
+        <button
+          type="button"
+          onClick={() => setValue("")}
+          aria-label={`清除${label}`}
+          className="absolute right-2 top-[30px] flex h-5 w-5 items-center justify-center rounded-full text-[var(--neutral-400)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-secondary)]"
+        >
+          <X size={12} weight="regular" />
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+function CharacterCountInput({
+  label,
+  placeholder,
+  defaultValue = "",
+  maxLength,
+}: {
+  label: string;
+  placeholder?: string;
+  defaultValue?: string;
+  maxLength: number;
+}) {
+  const [value, setValue] = useState(defaultValue);
+  const remaining = maxLength - value.length;
+  const isNear = remaining <= Math.ceil(maxLength * 0.15);
+  return (
+    <div>
+      <Input
+        label={label}
+        placeholder={placeholder}
+        value={value}
+        maxLength={maxLength}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <p
+        className={[
+          "mt-1 text-right text-xs",
+          isNear ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]",
+        ].join(" ")}
+      >
+        {value.length}&thinsp;/&thinsp;{maxLength}
+      </p>
+    </div>
+  );
+}
 
 export default function InputPage() {
   return (
@@ -175,9 +244,9 @@ export default function InputPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="States" title="单行输入状态" description="状态不能只依赖边框颜色；错误、只读和禁用必须同时有文字或上下文说明。" />
+        <SectionHeading eyebrow="States" title="输入状态" description="状态不能只依赖边框颜色；错误、只读和禁用必须同时有文字或上下文说明。同时展示各状态的完整 Token 映射和视觉示例。" />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_1fr]">
-          <ExampleCard title="可见状态示例">
+          <ExampleCard title="常见状态示例">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Input label="默认" placeholder="请输入内容" />
               <Input label="必填" placeholder="请输入内容" required />
@@ -205,6 +274,22 @@ export default function InputPage() {
             </tbody>
           </DocsTable>
         </div>
+        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+          <p className="mb-4 text-xs font-semibold text-[var(--text-tertiary)]">扩展状态：Focus 聚焦态与 Loading 加载中</p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <Input label="材料牌号" autoFocus placeholder="点击或 Tab 聚焦" />
+              <p className="mt-1.5 text-xs text-[var(--text-tertiary)]">蓝色边框 + 蓝色焦点环，键盘和鼠标聚焦一致。</p>
+            </div>
+            <div>
+              <div className="relative">
+                <Input label="数据校验中" readOnly />
+                <SpinnerGap size={16} weight="regular" className="absolute right-3 top-[30px] animate-spin text-[var(--text-tertiary)]" />
+              </div>
+              <p className="mt-1.5 text-xs text-[var(--text-tertiary)]">右侧加载图标 + 只读，表示异步等待校验结果。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="textarea" className="scroll-mt-6">
@@ -218,7 +303,7 @@ export default function InputPage() {
             <Textarea
               label="数据来源说明"
               placeholder="说明来源机构、采集方式和处理过程"
-              helperText="按“来源—方法—时间”顺序填写。"
+              helperText={"按「来源—方法—时间」顺序填写。"}
               maxLength={300}
               showCount
               required
@@ -264,6 +349,58 @@ export default function InputPage() {
       </section>
 
       <section>
+        <SectionHeading
+          eyebrow="Clearable & Character Count"
+          title="可清除与字符计数"
+          description="当输入框内容较长或需要快速清空时，提供清除按钮；当有字符限制时，显示实时计数帮助用户预判。"
+        />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <ExampleCard title="可清除输入">
+            <div className="space-y-4">
+              <ClearableInput label="搜索关键词" placeholder="输入内容后右侧出现清除按钮" />
+              <ClearableInput label="材料批号" defaultValue="MAT-2026-0618-TC4" />
+            </div>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">输入内容后右侧出现 × 图标，点击清空并恢复焦点。</p>
+          </ExampleCard>
+          <ExampleCard title="字符计数">
+            <div className="space-y-4">
+              <CharacterCountInput label="材料描述" placeholder="简要描述材料特征" maxLength={50} />
+              <CharacterCountInput label="备注说明" defaultValue="该批号样品已通过进场复验" maxLength={30} />
+            </div>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">右下角显示当前字数 / 最大字数，接近上限时计数变红。</p>
+          </ExampleCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Field Width"
+          title="字段宽度"
+          description="单个字段推荐 360px，最大不超过 480px。字段宽度属于表单组合话题——多列分布、宽页面左右结构、列数选择和按钮位置详见表单页面。"
+        />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <ExampleCard title="推荐 · 360px">
+            <Input label="材料牌号" placeholder="例如：TC4" style={{ maxWidth: 360 }} />
+            <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">常规单字段最佳宽度，适合大多数表单场景。</p>
+          </ExampleCard>
+          <ExampleCard title="最大 · 480px">
+            <Input label="供应商全称" placeholder="例如：宝山钢铁股份有限公司" style={{ maxWidth: 480 }} />
+            <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">字段内容预期较长时放宽，但不再超过此值。</p>
+          </ExampleCard>
+          <ExampleCard title="宽页面策略">
+            <p className="text-sm leading-6 text-[var(--text-secondary)]">宽表单不应简单拉长单字段，而是用多列栅格或左右 label 充分利用横向空间。</p>
+            <Link
+              to="/components/form"
+              className="group mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]"
+            >
+              查看表单页面
+              <ArrowRight size={14} weight="regular" />
+            </Link>
+          </ExampleCard>
+        </div>
+      </section>
+
+      <section>
         <SectionHeading eyebrow="API" title="属性与实现边界" />
         <div className="space-y-6">
           <div>
@@ -282,6 +419,14 @@ export default function InputPage() {
           </div>
         </div>
       </section>
+
+      <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 text-sm leading-6 text-[var(--text-secondary)]">
+        <strong className="text-[var(--text-primary)]">下一步：</strong>
+        输入框定义了单个字段的结构与状态规则。多个输入框如何组合成表单——包括分组标题、栅格排布、操作按钮、审批权限和密度切换——见{" "}
+        <Link to="/components/form" className="font-medium text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]">
+          表单页面
+        </Link>。
+      </div>
 
       <section>
         <SectionHeading eyebrow="Do / Don't" title="正确与错误示例" />
@@ -304,6 +449,8 @@ export default function InputPage() {
           "标签使用 14px Medium，输入与占位文字使用 14px Regular，辅助和错误文字使用 12px Regular。",
           "默认使用 Medium；紧凑筛选使用 Small，低密度重点字段使用 Large。",
           "前后缀图标统一使用 16px；单位和短标签不得写入用户输入值。",
+          "单个字段推荐宽度 360px，Max 480px。超出时先拆多列栅格再考虑左右 label，详见表单页面。",
+          "内容较长时提供清除按钮；有字数限制时显示实时字符计数。",
           "错误必须给出原因和修正方式；只读与禁用不能混用。",
           "Textarea 的 Small / Medium / Large 最小高度为 80 / 96 / 120px，长内容允许纵向滚动或缩放。",
           "帮助文字、错误信息和字符计数必须与对应控件保持关联，状态不能只依赖颜色。",

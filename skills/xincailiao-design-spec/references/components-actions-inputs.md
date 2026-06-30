@@ -5,7 +5,9 @@
 ## 共用规则
 
 - 控件高度按 sm/md/lg 等组件 Token 对齐。
-- 表单标签默认上置；宽后台配置页可左置，移动端回退上置。
+- 数据空间、参数面板等横向充足且纵向紧张的桌面配置页默认使用左置标签；弹窗、窄区和移动端使用上置标签。
+- Input / Textarea 标签使用 Body/M 14px Regular 与 `text-secondary`，不使用最深色或加粗与输入内容争抢层级。
+- Input / Textarea 的 Hover 与 Focus 均使用 `neutral-900` 单边框；Focus 不叠加额外 2px 黑色外描边，但键盘聚焦仍必须通过边框变化清晰可见。
 - placeholder 不能替代字段标签。
 - 错误状态同时提供文字说明。
 - readonly 可查看复制；disabled 不可操作且通常不提交。

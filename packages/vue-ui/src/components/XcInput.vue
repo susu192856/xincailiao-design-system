@@ -118,16 +118,16 @@ function handleInput(event: Event) {
 .xc-input__label {
   display: block;
   margin-bottom: 6px;
-  color: var(--neutral-900);
+  color: var(--text-secondary);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .xc-input--horizontal .xc-input__label {
   flex-shrink: 0;
   margin-bottom: 0;
   padding-top: 6px;
-  text-align: right;
+  text-align: left;
 }
 
 .xc-input__body {
@@ -187,8 +187,10 @@ function handleInput(event: Event) {
 
 .xc-input__control:focus {
   border-color: var(--field-border-focus);
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+}
+
+.xc-input__control:focus-visible {
+  outline: none;
 }
 
 .xc-input__control:disabled {

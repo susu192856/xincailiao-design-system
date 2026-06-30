@@ -76,7 +76,6 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         { name: "按钮", path: "/components/button", icon: <Square size={16} weight="regular" /> },
         { name: "图标", path: "/components/icon", icon: <Smiley size={16} weight="regular" /> },
         { name: "输入框", path: "/components/input", icon: <CursorText size={16} weight="regular" /> },
-        { name: "文本域", path: "/components/textarea", icon: <TextT size={16} weight="regular" /> },
         { name: "表单", path: "/components/form", icon: <ClipboardText size={16} weight="regular" /> },
         { name: "选择器", path: "/components/select", icon: <CaretDown size={16} weight="regular" /> },
         { name: "单选框", path: "/components/radio", icon: <CirclesFour size={16} weight="regular" /> },
