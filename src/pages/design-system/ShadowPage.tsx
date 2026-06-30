@@ -1,4 +1,5 @@
 import { SectionHeading, SpecList } from "../../components/docs/ComponentDoc";
+import DocsTable from "../../components/docs/DocsTable";
 import PageHeader from "../../components/docs/PageHeader";
 import { Button } from "../../components/ui/Button";
 
@@ -204,6 +205,39 @@ export default function ShadowPage() {
             ]}
           />
         </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Component Mapping"
+          title="组件 × 阴影等级"
+          description="将阴影等级映射到具体组件，减少设计稿和开发实现中的理解差异。以下为建议映射，同一组件在不同交互状态间可升降 1–2 级。"
+        />
+        <DocsTable>
+          <thead>
+            <tr>
+              <th>阴影等级</th>
+              <th>映射组件</th>
+              <th>适用状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ["Shadow/XS", "Button · Input · Select · Switch · Checkbox · Radio", "悬停（Hover）、聚焦（Focus）"],
+              ["Shadow/SM", "Card · Tag · Tooltip · 轻量 Popover", "静态卡片悬浮、可选卡片默认态、轻量浮层"],
+              ["Shadow/MD", "Dropdown · Popover · Tooltip（强调）", "下拉菜单展开、Popover 信息面板、强调浮层"],
+              ["Shadow/LG", "Drawer · 侧边面板 · 通知浮层", "抽屉展开、侧边筛选面板、强调通知卡片"],
+              ["Shadow/XL", "Modal · 重要确认弹窗", "模态框、全局通知、重要警告框"],
+              ["Shadow/2XL", "全屏预览 · 视频播放器 · 全局打断浮层", "全屏图片预览、全屏媒体播放、系统级打断弹窗"],
+            ].map(([level, components, state]) => (
+              <tr key={level}>
+                <td className="whitespace-nowrap font-token text-sm text-[var(--text-primary)]">{level}</td>
+                <td className="text-sm text-[var(--text-secondary)]">{components}</td>
+                <td className="text-sm text-[var(--text-secondary)]">{state}</td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
 
       <section>

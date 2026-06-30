@@ -320,6 +320,46 @@ export default function ColorsPage() {
 
       <section>
         <SectionHeading
+          eyebrow="Decision Guide"
+          title="任务黑 vs 产品蓝 — 如何选择"
+          description="这是新材道色彩模型中最需要判断力的一层：两个都可以用在按钮上，但承担的「语气」不同。以下场景帮助快速决策。"
+        />
+        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+          <DocsTable>
+            <thead>
+              <tr>
+                <th>如果你要……</th>
+                <th>用这个</th>
+                <th>理由</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["提交表单 / 确认发布 / 保存配置", "黑色（Task）", "改变业务流程的结果——用户需要感到'这件事定了'。"],
+                ["下一步 / 继续 / 完成", "黑色（Task）", "推进流程前进，不是辅助操作。"],
+                ["查看详情 / 了解更多 / 跳转链接", "蓝色（Product）", "引导探索，不改变数据状态。"],
+                ["筛选 / 搜索 / 下载 / 导出", "蓝色（Product）", "产品功能操作，不改变业务结果。"],
+                ["新建 / 创建 / 生成", "黑色（Task）", "新增是一条业务流程的起点，需要明确触发。"],
+                ["取消 / 返回 / 关闭（不改变数据）", "灰色（Ghost）", "用 outline 或文字按钮，保持操作层级合理。"],
+                ["删除 / 不可逆操作", "语义红色（Error）", "严禁用品牌红或黑色替代。红色 + 二次确认。"],
+              ].map(([scenario, choice, reason]) => (
+                <tr key={scenario}>
+                  <td className="text-sm text-[var(--text-secondary)]">{scenario}</td>
+                  <td className="whitespace-nowrap text-sm font-semibold text-[var(--text-primary)]">{choice}</td>
+                  <td className="text-sm text-[var(--text-tertiary)]">{reason}</td>
+                </tr>
+              ))}
+            </tbody>
+          </DocsTable>
+        </div>
+        <div className="mt-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+          <strong className="text-[var(--text-primary)]">简单记法：</strong>
+          黑色 = "我决定了一件事"；蓝色 = "我想看看 / 用用这个功能"。如果按钮同时改变数据又引导探索（少数情况），优先按"是否改变业务结果"来判断。
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           eyebrow="Semantic Colors"
           title="语义色"
           description="语义色用于状态反馈。尤其注意：错误/危险使用 error，不使用品牌红，避免品牌识别和风险提示混淆。"
@@ -371,7 +411,18 @@ export default function ColorsPage() {
           }, [] as ReactNode[])}
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+          <h3 className="text-base font-semibold text-[var(--text-primary)]">使用原则</h3>
+          <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--text-secondary)]">
+            <li><strong className="text-[var(--text-primary)]">序列数 ≤ 6：</strong>从 10 个色系中选取不同色系，相邻系列避免使用同一色系的近似层级。</li>
+            <li><strong className="text-[var(--text-primary)]">序列数 ≥ 7：</strong>配合线型、点型、透明度或图例分组，不只依赖颜色区分。</li>
+            <li><strong className="text-[var(--text-primary)]">面积图 / 饼图：</strong>颜色超过 6 类时应合并为"其他"，避免大量颜色削弱可读性。</li>
+            <li><strong className="text-[var(--text-primary)]">风险与阈值：</strong>优先使用 <span className="font-semibold">error-text</span> 或 <span className="font-semibold">warning-text</span> 标注异常和阈值线，不占用普通数据序列的颜色。</li>
+            <li><strong className="text-[var(--text-primary)]">品牌红在图表中：</strong>仅用于标注关键阈值、异常结果或业务重点，不作为普通序列色。</li>
+          </ul>
+        </div>
+
+        <div className="mt-5">
           <Link
             to="/components/chart"
             className="group flex items-center gap-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"

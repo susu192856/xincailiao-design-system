@@ -135,11 +135,15 @@ export default function TypographyPage() {
             <div className="mt-5 space-y-4">
               <RuleBadge ok>标题行高约 1.2–1.35，正文约 1.5–1.75。</RuleBadge>
               <RuleBadge ok>中文阅读正文控制在约 32–45 个汉字宽。</RuleBadge>
-              <RuleBadge ok>主正文使用 text-body（900），描述与标注至少使用 text-secondary / text-tertiary。</RuleBadge>
+              <RuleBadge ok>主正文使用 text-body（neutral-800），描述与标注至少使用 text-secondary / text-tertiary。</RuleBadge>
               <RuleBadge ok={false}>不要让 text-disabled（neutral-500）承担正常小字，它在白底仅约 2.64:1。</RuleBadge>
               <RuleBadge ok={false}>移动端不要机械缩小到桌面字号的 85%，优先重排布局并保持正文至少 14px。</RuleBadge>
             </div>
           </div>
+        </div>
+        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+          <strong className="text-[var(--text-primary)]">行长推荐值：</strong>
+          正文舒适阅读宽度为 <span className="font-semibold text-[var(--text-primary)]">640px–700px</span>（约 32–45 个汉字）；页面说明容器上限为 <span className="font-semibold text-[var(--text-primary)]">760px</span>，不作为长正文的推荐行长。表格、代码和栅格示例不受此限制。
         </div>
       </section>
     </div>
