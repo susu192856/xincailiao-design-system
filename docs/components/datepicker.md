@@ -2,7 +2,7 @@
 
 > 用于新材道设计系统中的标准组件场景。
 
-- 规范页面：`/components/datepicker`
+- 规范页面：`/components/select#date-picker`
 - React 源码：`src/components/ui/DatePicker.tsx`
 - Vue 源码：`packages/vue-ui/src/components/XcDatePicker.vue`
 - Figma 组件名：`Date Picker`

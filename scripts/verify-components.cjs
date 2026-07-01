@@ -16,12 +16,14 @@ function exists(file) {
 
 function routeToDoc(component) {
   if (component.name === "Textarea") return "docs/components/input.md";
+  if (component.name === "DatePicker") return "docs/components/datepicker.md";
   return `docs/components/${component.route.replace(/^\/components\//, "").split("#")[0]}.md`;
 }
 
 function routeToPage(component) {
   if (component.name === "Icon") return "src/pages/design-system/IconPage.tsx";
   if (component.name === "Textarea") return "src/pages/design-system/components/InputPage.tsx";
+  if (component.name === "DatePicker") return "src/pages/design-system/components/SelectPage.tsx";
   return `src/pages/design-system/components/${component.name}Page.tsx`;
 }
 

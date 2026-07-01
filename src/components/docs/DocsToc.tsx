@@ -14,7 +14,7 @@ export default function DocsToc() {
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const headings = Array.from(document.querySelectorAll<HTMLElement>(".docs-article h2"));
+      const headings = Array.from(document.querySelectorAll<HTMLElement>(".docs-article h2[data-docs-section]"));
       const nextItems = headings.map((heading, index) => {
         const id = `section-${index + 1}`;
         heading.id = id;

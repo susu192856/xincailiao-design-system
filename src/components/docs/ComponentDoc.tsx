@@ -19,7 +19,7 @@ export function SectionHeading({
         ) : null}
         <div className="flex items-center gap-3">
           <span className="h-5 w-0.5 shrink-0 bg-[var(--brand-600)]" aria-hidden="true" />
-          <h2 className="text-xl font-semibold leading-7 text-[var(--text-primary)]">{title}</h2>
+          <h2 data-docs-section className="text-xl font-semibold leading-7 text-[var(--text-primary)]">{title}</h2>
           <div className="hidden h-px flex-1 bg-gradient-to-r from-[var(--neutral-300)] to-transparent md:block" />
         </div>
       </div>
@@ -78,11 +78,13 @@ export function ExampleCard({
   description,
   children,
   tone = "default",
+  className = "",
 }: {
   title: string;
   description?: string;
   children: ReactNode;
   tone?: "default" | "recommended" | "avoid";
+  className?: string;
 }) {
   const toneClass = {
     default: "border-[var(--neutral-200)]",
@@ -91,7 +93,7 @@ export function ExampleCard({
   }[tone];
 
   return (
-    <div className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass].join(" ")}>
+    <div className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass, className].join(" ")}>
       <div className="mb-5">
         <div className="flex items-center gap-2">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
@@ -141,7 +143,7 @@ export function SpecList({ items }: { items: string[] }) {
     <div className="space-y-1.5">
       {items.map((item, index) => (
         <div key={item} className="flex items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-100)] bg-white px-4 py-2.5">
-          <span className="mt-0.5 shrink-0 font-data text-xs font-medium text-[var(--text-tertiary)]">
+          <span className="shrink-0 font-data text-xs font-medium leading-6 text-[var(--text-tertiary)]">
             {String(index + 1).padStart(2, "0")}
           </span>
           <p className="text-sm leading-6 text-[var(--text-secondary)]">{item}</p>

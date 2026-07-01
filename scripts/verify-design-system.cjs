@@ -42,7 +42,7 @@ for (const component of manifest.components) {
     errors.push(`${label}: incomplete design contract.`);
   }
 
-  const slug = component.name === "Textarea" ? "input" : component.route.replace("/components/", "").split("#")[0];
+  const slug = component.name === "Textarea" ? "input" : component.name === "DatePicker" ? "datepicker" : component.route.replace("/components/", "").split("#")[0];
   const doc = `docs/components/${slug}.md`;
   if (!exists(doc)) {
     errors.push(`${label}: missing Markdown doc.`);

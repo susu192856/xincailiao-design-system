@@ -8,7 +8,6 @@ import AvatarPage from "../pages/design-system/components/AvatarPage";
 import BadgePage from "../pages/design-system/components/BadgePage";
 import BreadcrumbPage from "../pages/design-system/components/BreadcrumbPage";
 import CollapsePage from "../pages/design-system/components/CollapsePage";
-import DatePickerPage from "../pages/design-system/components/DatePickerPage";
 import DescriptionListPage from "../pages/design-system/components/DescriptionListPage";
 import DeliveryPage from "../pages/design-system/DeliveryPage";
 import DrawerPage from "../pages/design-system/components/DrawerPage";
@@ -145,9 +144,6 @@ export default function App() {
       </Route>
       <Route path="/components/radio" element={<DocsLayout />}>
         <Route index element={<RadioPage />} />
-      </Route>
-      <Route path="/components/datepicker" element={<DocsLayout />}>
-        <Route index element={<DatePickerPage />} />
       </Route>
       <Route path="/components/upload" element={<DocsLayout />}>
         <Route index element={<UploadPage />} />

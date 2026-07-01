@@ -18,7 +18,7 @@ export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
 const sizeClasses: Record<TextareaSize, string> = {
   sm: "min-h-[var(--textarea-min-height-sm)] px-[var(--field-padding-x-sm)] py-2 text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)]",
   md: "min-h-[var(--textarea-min-height-md)] px-[var(--field-padding-x-md)] py-2 text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)]",
-  lg: "min-h-[var(--textarea-min-height-lg)] px-[var(--field-padding-x-lg)] py-3 text-[length:var(--type-body-l-size)] leading-[var(--type-body-l-line-height)]",
+  lg: "min-h-[var(--textarea-min-height-lg)] px-[var(--field-padding-x-lg)] py-3 text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)]",
 };
 
 export function Textarea({
@@ -41,6 +41,8 @@ export function Textarea({
   const generatedId = useId();
   const textareaId = id ?? props.name ?? `textarea-${generatedId}`;
   const messageId = error || helperText ? `${textareaId}-message` : undefined;
+  const countId = showCount ? `${textareaId}-count` : undefined;
+  const describedBy = [messageId, countId].filter(Boolean).join(" ") || undefined;
   const resolvedSize = size ?? inputSize;
   const isHorizontal = labelPosition === "left";
   const labelStyle = isHorizontal
@@ -55,52 +57,58 @@ export function Textarea({
   };
 
   return (
-    <label className={isHorizontal ? "block md:flex md:items-start md:gap-3" : "block"}>
+    <label className={isHorizontal ? "block md:flex md:items-start md:gap-2" : "block"}>
       {label ? (
         <span
           className={[
             "block text-sm font-normal text-[var(--text-secondary)]",
             isHorizontal
-              ? "mb-1.5 w-auto md:mb-0 md:w-[var(--textarea-label-width)] md:shrink-0 md:pt-2 md:text-left"
+              ? "mb-1.5 w-auto md:mb-0 md:w-[var(--textarea-label-width)] md:shrink-0 md:pt-2 md:text-right"
               : "mb-1.5",
           ].join(" ")}
           style={labelStyle}
         >
+          {props.required && isHorizontal ? <span className="mr-1 text-[var(--brand-600)]">*</span> : null}
           {label}
-          {props.required ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
+          {props.required && !isHorizontal ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
         </span>
       ) : null}
       <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
-        <textarea
+        <span className="relative block">
+          <textarea
           id={textareaId}
           disabled={disabled}
           value={value}
           defaultValue={defaultValue}
           onChange={handleChange}
           aria-invalid={Boolean(error)}
-          aria-describedby={messageId}
+          aria-describedby={describedBy}
           className={[
             "field-single-border-focus w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
-            "placeholder:text-[var(--text-disabled)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
+            "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
             "resize-y",
+            showCount ? "pb-7" : "",
             error
               ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
-              : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
+              : disabled
+                ? "border-[var(--field-border-default)]"
+                : props.readOnly
+                  ? "border-[var(--field-border-default)] focus:border-[var(--field-border-focus)]"
+                  : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
             sizeClasses[resolvedSize],
             className,
           ].join(" ")}
           {...props}
-        />
-        {error || helperText || showCount ? (
-          <span className="mt-1.5 flex items-start justify-between gap-3 text-xs leading-[var(--type-caption-line-height)]">
-            <span id={messageId} className={error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}>
-              {error ?? helperText}
+          />
+          {showCount ? (
+            <span id={countId} className="pointer-events-none absolute bottom-2 right-3 rounded-sm bg-white/90 px-1 text-xs font-normal text-[var(--text-tertiary)]">
+              {currentValue.length}{props.maxLength ? ` / ${props.maxLength}` : ""}
             </span>
-            {showCount ? (
-              <span className="shrink-0 font-data text-[var(--text-tertiary)]">
-                {currentValue.length}{props.maxLength ? ` / ${props.maxLength}` : ""}
-              </span>
-            ) : null}
+          ) : null}
+        </span>
+        {error || helperText ? (
+          <span id={messageId} className={`mt-1.5 block text-xs leading-[var(--type-caption-line-height)] ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>
+            {error ?? helperText}
           </span>
         ) : null}
       </span>

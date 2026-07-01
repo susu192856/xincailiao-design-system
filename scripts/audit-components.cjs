@@ -16,12 +16,16 @@ function exists(file) {
   return fs.existsSync(path.join(ROOT, file));
 }
 
-function routeToDoc(route) {
+function routeToDoc(route, componentName) {
+  if (componentName === "DatePicker") return "docs/components/datepicker.md";
+  if (componentName === "Textarea") return "docs/components/input.md";
   return `docs/components/${route.replace(/^\/components\//, "")}.md`;
 }
 
 function routeToPage(component) {
   if (component.name === "Icon") return "src/pages/design-system/IconPage.tsx";
+  if (component.name === "Textarea") return "src/pages/design-system/components/InputPage.tsx";
+  if (component.name === "DatePicker") return "src/pages/design-system/components/SelectPage.tsx";
   return `src/pages/design-system/components/${component.name}Page.tsx`;
 }
 
@@ -48,7 +52,7 @@ const generatedAt = new Intl.DateTimeFormat("en-CA", {
 }).format(new Date());
 
 const rows = manifest.components.map((component) => {
-  const doc = routeToDoc(component.route);
+  const doc = routeToDoc(component.route, component.name);
   const page = routeToPage(component);
 
   return {

@@ -28,6 +28,8 @@ export { Image } from "./Image";
 export type { ImageProps } from "./Image";
 export { Input } from "./Input";
 export type { InputProps } from "./Input";
+export { InputNumber } from "./InputNumber";
+export type { InputNumberProps } from "./InputNumber";
 export { Menu } from "./Menu";
 export type { MenuItem, MenuProps } from "./Menu";
 export { Modal } from "./Modal";

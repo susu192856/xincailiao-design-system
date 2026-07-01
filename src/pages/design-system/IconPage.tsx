@@ -6,6 +6,7 @@ import {
   ArrowsClockwise,
   ArrowsIn,
   ArrowsOut,
+  CalendarBlank,
   ChartBar,
   ChatCircle,
   Check,
@@ -242,6 +243,7 @@ const functionIcons: CommonIconItem[] = [
   makeCommonIcon("Question", "提示", Question),
   makeCommonIcon("SpinnerGap", "加载中", SpinnerGap),
   makeCommonIcon("Empty", "不可用", Empty),
+  makeCommonIcon("CalendarBlank", "日历", CalendarBlank),
 ];
 
 const decorativeIconStandards = [

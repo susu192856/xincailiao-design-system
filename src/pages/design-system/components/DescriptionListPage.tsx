@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { ArrowLeft, ImageSquare } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
@@ -35,28 +35,19 @@ const fullDetailItems = [
 export default function DescriptionListPage() {
   return (
     <div className="space-y-16">
-      <PageHeader title="描述列表" description="描述列表用于展示对象属性、材料参数、审批信息和详情页字段，强调标签和值之间的稳定对齐。" />
-
-      <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 text-sm leading-6 text-[var(--text-secondary)]">
-        <strong className="text-[var(--text-primary)]">信息流说明：</strong>
-        数据先通过{" "}
-        <Link to="/components/input" className="font-medium text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]">输入框</Link>{" "}
-        采集，再由{" "}
-        <Link to="/components/form" className="font-medium text-[var(--product-blue-500)] hover:text-[var(--product-blue-600)]">表单</Link>{" "}
-        组合成可提交的结构；提交后便进入本页的只读详情视图——三者构成"录入 → 提交 → 查看"的完整闭环。
-      </div>
+      <PageHeader title="详情与描述列表" description="详情页延续表单的横向扫描逻辑：常规字段默认采用左右标签，密集参数和窄屏才切换为上下结构。" note={<>关联页面：数据先通过 <Link to="/components/input" className="font-medium text-[var(--product-blue-500)]">输入框</Link> 采集，再由 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link> 组合提交，最终进入只读详情视图。</>} />
 
       <section>
         <SectionHeading
           eyebrow="Complete Detail Page"
-          title="完整详情页"
-          description="以下展示一个材料数据详情页的完整结构：标题 + 状态标签、参数描述列表和底部操作栏。这是后台中最常见的表单提交后的结果。"
+          title="详情页模式"
+          description="这是 DescriptionList 的上层页面模式，用于说明标题、状态、字段分组和操作栏如何组合；它们不是 DescriptionList 组件本身的 API。"
         />
         <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
           {/* 详情页头部 */}
           <div className="flex items-start justify-between gap-4 border-b border-[var(--neutral-200)] px-6 py-4">
             <div>
-              <h2 className="text-lg font-semibold text-[var(--text-primary)]">GH4169 高温合金</h2>
+              <h3 className="text-lg font-semibold text-[var(--text-primary)]">GH4169 高温合金</h3>
               <p className="mt-1 text-xs text-[var(--text-tertiary)]">材料编码：MAT-2026-0618-002 · 更新于 2026-06-30</p>
             </div>
             <Tag variant="success" size="sm">已校验</Tag>
@@ -80,6 +71,7 @@ export default function DescriptionListPage() {
               bordered={false}
               columns={4}
               size="sm"
+              layout="stacked"
               items={fullDetailItems.slice(5, 9)}
             />
           </div>
@@ -118,20 +110,20 @@ export default function DescriptionListPage() {
           </div>
         </div>
         <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">
-          完整详情页 = 页面标题 + 状态标签 + 分组的描述列表 + 底部操作栏。分组标题帮助扫描定位，力学性能等密集数值可用 4 列展示。
+          页面模式 = 标题 + 状态标签 + 分组的描述列表 + 底部操作栏；DescriptionList 组件本身只负责标签和值的只读呈现。
         </p>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Variants" title="展示类型" />
+        <SectionHeading eyebrow="Variants" title="展示结构与混用边界" description="同一详情页允许常规信息使用左右结构、密集参数使用上下结构，但必须按信息分组切换，不能在同一字段组内随意交替。" />
         <div className="space-y-5">
-          <ExampleCard title="标准网格 · 2 列" description="详情页默认使用 2 列，兼顾阅读宽度和字段密度。">
+          <ExampleCard title="标准网格 · 2 列左右结构" description="详情页默认使用 2 列，标签固定宽度并右对齐，延续编辑表单的扫描路径。">
             <DescriptionList items={materialItems} columns={2} />
           </ExampleCard>
-          <ExampleCard title="左右字段 · 行内对齐" description="宽详情页或抽屉详情中，标签固定宽度，值区域保持左对齐，便于快速扫读。">
+          <ExampleCard title="长标签 · 统一扩展宽度" description="同一信息组出现长业务标签时，整体扩展标签宽度，不单独调整某一字段。">
             <DescriptionList
               layout="inline"
-              labelWidth={92}
+              labelWidth={112}
               columns={2}
               items={[
                 { label: "数据空间", value: "新材料可信数据空间" },
@@ -141,10 +133,11 @@ export default function DescriptionListPage() {
               ]}
             />
           </ExampleCard>
-          <ExampleCard title="高密度参数 · 4 列" description="力学性能、物理参数等密集数值可使用 4 列，但不承载状态标签和长文本。">
+          <ExampleCard title="高密度参数 · 4 列上下结构" description="单元格横向空间不足时，按整个参数分组切换为上下结构；不承载状态标签和长文本。">
             <DescriptionList
               columns={4}
               size="sm"
+              layout="stacked"
               items={[
                 { label: "抗拉强度", value: "≥ 1280 MPa" },
                 { label: "屈服强度", value: "≥ 1030 MPa" },
@@ -176,8 +169,13 @@ export default function DescriptionListPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="材料图片 + 字段" description="材料图、显微组织图和检测附件应与关键字段形成同一信息组，避免图片和参数分离。">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-[160px_1fr]">
-              <div className="flex aspect-[4/3] items-center justify-center bg-[var(--neutral-50)] text-xs text-[var(--neutral-400)]">
-                显微组织图
+              <div className="flex aspect-[4/3] items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-[var(--neutral-50)]">
+                <div className="text-center">
+                  <div className="mx-auto mb-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--neutral-100)] text-[var(--text-tertiary)]">
+                    <ImageSquare size={16} weight="regular" aria-hidden="true" />
+                  </div>
+                  <p className="text-xs text-[var(--neutral-400)]">显微组织图</p>
+                </div>
               </div>
               <DescriptionList
                 bordered={false}
@@ -216,7 +214,7 @@ export default function DescriptionListPage() {
 
       <section>
         <SectionHeading eyebrow="States" title="后台常见状态" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           <ExampleCard title="空值与未填写">
             <DescriptionList
               columns={2}
@@ -230,6 +228,19 @@ export default function DescriptionListPage() {
               ]}
             />
             <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">空值统一显示 "未填写"，避免用户误以为页面加载失败。</p>
+          </ExampleCard>
+          <ExampleCard title="脱敏数据">
+            <DescriptionList
+              columns={2}
+              size="sm"
+              items={[
+                { label: "联系人", value: "王**" },
+                { label: "手机号", value: "138****6721" },
+                { label: "统一编号", value: "MAT-****-0618" },
+                { label: "部门", value: "材料数据运营组" },
+              ]}
+            />
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">脱敏字段保留部分信息以供辨识，其余用 * 代替，禁止直接暴露敏感原文。</p>
           </ExampleCard>
           <ExampleCard title="长文本与跨列">
             <DescriptionList
@@ -247,36 +258,41 @@ export default function DescriptionListPage() {
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
-            "详情页默认使用 2 列；性能参数等密集数值可使用 4 列；状态标签和文件链接建议 2 列。",
-            "标签使用 neutral-500，值使用 neutral-900，状态值可使用 Tag 组件。",
+            "常规详情字段默认使用 2 列左右结构；性能参数等密集数值可整组切换为 4 列上下结构。",
+            "标签使用 14px Regular、text-tertiary，固定宽度后右对齐；值使用 text-primary，状态值可使用 Tag。",
             "长文本使用 span 跨列，不要塞入 3 列以上的字段网格。",
-            "宽详情页可使用左右字段布局（layout='inline'），label 建议 76px-112px。",
+            "左右结构默认 label 88px、间隔 8px；同组长标签统一扩展到 96–120px，不逐项设置不同宽度。",
             "图文资料作为同一信息组：图片/附件在左（160px），关键字段在右紧随。",
-            "空值统一显示 '未填写' 或 '--'，不直接留空。",
+            "空值统一显示 '未填写' 或 '--'，不直接留空；敏感字段按业务规则脱敏，保留格式前缀。",
             "完整详情页结构：标题 → 状态标签 → 分组描述列表 → 底部操作栏。",
+            "分组区块纵向内边距统一 py-4，区块标题使用 text-xs uppercase + 字间距 0.16em。",
+            "同页允许按信息组混用左右和上下结构，但同一分组内保持一致；窄屏统一降级为上下结构。",
+            "示例与导航图标统一来自 @phosphor-icons/react，常规图标使用 16px regular。",
           ]}
         />
       </section>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Link
-          to="/components/input"
-          className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
-        >
-          <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
-          <div>
-            <h3 className="text-sm font-semibold text-[var(--text-primary)]">输入框</h3>
-            <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">单个字段的结构、尺寸与状态规则</p>
-          </div>
-        </Link>
-        <Link
           to="/components/form"
           className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
         >
           <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
           <div>
-            <h3 className="text-sm font-semibold text-[var(--text-primary)]">表单</h3>
+            <div className="text-xs text-[var(--text-tertiary)]">上一步</div>
+            <h3 className="mt-1 text-sm font-semibold text-[var(--text-primary)]">表单</h3>
             <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">多字段组合、布局、状态与提交路径</p>
+          </div>
+        </Link>
+        <Link
+          to="/components/input"
+          className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
+        >
+          <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
+          <div>
+            <div className="text-xs text-[var(--text-tertiary)]">链条起始</div>
+            <h3 className="mt-1 text-sm font-semibold text-[var(--text-primary)]">输入框</h3>
+            <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">单个字段的结构、尺寸与状态规则</p>
           </div>
         </Link>
       </div>

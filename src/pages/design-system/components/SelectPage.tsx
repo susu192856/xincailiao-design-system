@@ -1,6 +1,7 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import { Select } from "../../../components/ui/Select";
+import { DatePicker } from "../../../components/ui/DatePicker";
 
 const materialOptions = [
   { label: "金属材料", value: "metal" },
@@ -11,7 +12,7 @@ const materialOptions = [
 export default function SelectPage() {
   return (
     <div className="space-y-16">
-      <PageHeader title="选择器" description="选择器用于从固定枚举中选择单一值，适合状态、类型、分类和筛选条件。当前稳定合同仅覆盖原生单选；搜索、多选标签和远程加载属于后续复合选择器能力。" />
+      <PageHeader title="选择器" description="选择器用于从固定枚举或受约束范围中选择值，涵盖 Select 与日期选择。当前 Select 稳定合同覆盖原生单选；搜索、多选标签和远程加载属于后续复合选择器能力。" />
 
       <section>
         <SectionHeading eyebrow="Scope" title="使用边界" />
@@ -79,7 +80,7 @@ export default function SelectPage() {
         <SectionHeading
           eyebrow="Label Rules"
           title="名称与布局"
-          description="选择器与输入框采用同一套 label 规则。正式录入字段必须有名称；筛选工具栏可以省略名称，用 placeholder 承担提示。"
+          description="选择器与输入框采用同一套 label 规则。正式录入和多条件筛选必须保留可见名称；只有语义明确的独立全局搜索可以省略标签。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="上下结构">
@@ -95,6 +96,45 @@ export default function SelectPage() {
               <Select labelPosition="left" labelWidth={112} label="流通方式" defaultValue="contract" options={[{ label: "合约授权", value: "contract" }, { label: "人工审批", value: "audit" }]} />
             </div>
           </ExampleCard>
+        </div>
+      </section>
+
+      <section id="date-picker" className="scroll-mt-6">
+        <SectionHeading eyebrow="Date Picker" title="日期选择" description="用于选择单个日期，支持清除、最小/最大日期限制，适用于表单和筛选场景。" />
+        <div className="space-y-5">
+          <ExampleCard title="日期选择尺寸">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <DatePicker size="sm" label="Small · 28px" placeholder="选择日期" />
+              <DatePicker size="md" label="Medium · 32px" placeholder="选择日期" />
+              <DatePicker size="lg" label="Large · 36px" placeholder="选择日期" />
+            </div>
+          </ExampleCard>
+          <ExampleCard title="常见状态">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <DatePicker label="发布日期" placeholder="请选择日期" />
+              <DatePicker label="已选日期" value="2026-06-24" />
+              <DatePicker label="禁用日期" disabled placeholder="不可选" />
+              <DatePicker label="有效期至" error="请选择有效日期" />
+              <DatePicker label="区间限制" helperText="仅可选取 2026-06-01 至 2026-12-31" min="2026-06-01" max="2026-12-31" />
+            </div>
+          </ExampleCard>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <ExampleCard title="筛选日期范围">
+              <div className="flex flex-wrap items-end gap-3">
+                <DatePicker size="sm" label="开始日期" />
+                <span className="pb-1.5 text-sm text-[var(--text-tertiary)]">至</span>
+                <DatePicker size="sm" label="结束日期" />
+              </div>
+            </ExampleCard>
+            <ExampleCard title="详情页只读替代">
+              <span className="text-sm text-[var(--text-tertiary)]">生效日期</span>
+              <p className="mt-1 text-sm text-[var(--text-body)]">2026-06-24</p>
+            </ExampleCard>
+          </div>
+          <div className="border-l-2 border-[var(--neutral-900)] bg-white p-5 shadow-[var(--shadow-xs)]">
+            <h3 className="text-base font-semibold text-[var(--text-primary)]">日期选择规则</h3>
+            <div className="mt-4"><SpecList items={["日期选择用于精确到天的日期录入，不承担时间或复杂日期范围选择。", "表单和多条件筛选均保留可见标签，placeholder 不替代字段名称。", "通过 min / max 限制可选范围，避免用户选择无效日期。", "非必填日期允许清除；移动端使用系统原生日期选择器。"]} /></div>
+          </div>
         </div>
       </section>
 
@@ -207,7 +247,7 @@ export default function SelectPage() {
             "默认选项必须可解释，避免用不明确的“全部”覆盖实际状态。",
             "表格筛选区域优先使用 Small 或 Medium，减少工具栏高度。",
             "Small / Medium / Large 高度分别为 28px / 32px / 36px，选择文本统一 14px、常规字重。",
-            "正式录入字段使用 label；筛选工具栏可省略 label，但 placeholder 必须说明筛选维度。",
+            "正式录入和多条件筛选使用可见 label；placeholder 只承担格式或动作提示。",
             "宽表单可使用左右结构，label 推荐 96px–120px 宽，与输入框保持一致。",
             "错误状态需要搭配文字说明，保证状态可理解。",
             "后台权限、状态、分类等枚举需要有禁用项和加载态，避免用户误以为系统无响应。",

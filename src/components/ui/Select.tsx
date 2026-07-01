@@ -1,6 +1,6 @@
 import { useId, useRef, useState, useEffect, useCallback } from "react";
 import type { CSSProperties, KeyboardEvent, ReactNode, SelectHTMLAttributes } from "react";
-import { CaretDown, Check, MagnifyingGlass, X } from "@phosphor-icons/react";
+import { CaretDown, Check, MagnifyingGlass, SpinnerGap, X } from "@phosphor-icons/react";
 
 type SelectSize = "sm" | "md" | "lg";
 type LabelPosition = "top" | "left";
@@ -65,6 +65,7 @@ export function Select({
   renderTag,
   disabled,
   className = "",
+  style: selectStyle,
   id,
   required,
   ...props
@@ -208,9 +209,11 @@ export function Select({
         "focus-visible:outline focus-visible:outline-[var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
         error
           ? "border-[var(--field-border-error)]"
-          : open
-            ? "border-[var(--field-border-focus)]"
-            : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)]",
+          : disabled || loading
+            ? "border-[var(--field-border-default)]"
+            : open
+              ? "border-[var(--field-border-focus)]"
+              : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)]",
         sizeClasses[size],
         sizePadding[size],
         needsCustom ? "text-left" : "",
@@ -243,16 +246,13 @@ export function Select({
           })}
         </span>
       ) : (
-        <span className={["block truncate", triggerEmpty ? "text-[var(--text-tertiary)]" : "text-[var(--text-body)]"].join(" ")}>
+        <span className={["block truncate", triggerEmpty ? "text-[var(--neutral-400)]" : "text-[var(--text-body)]"].join(" ")}>
           {triggerText}
         </span>
       )}
       <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
         {loading ? (
-          <svg className="h-4 w-4 animate-spin text-[var(--text-tertiary)]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
-            <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
+          <SpinnerGap size={16} weight="regular" className="animate-spin text-[var(--text-tertiary)]" aria-hidden="true" />
         ) : (
           <CaretDown className={["h-4 w-4 text-[var(--text-tertiary)] transition-transform", open ? "rotate-180" : ""].join(" ")} />
         )}
@@ -263,17 +263,18 @@ export function Select({
   // If we don't need custom dropdown, render native select for simpler use cases
   if (!needsCustom) {
     return (
-      <label className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3" : "block"}>
+      <label className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2" : "block"}>
         {label ? (
           <span
             className={[
-              "block text-sm font-medium leading-[var(--type-body-m-line-height)] text-[var(--text-primary)]",
+              "block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]",
               isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5",
             ].join(" ")}
             style={labelStyle}
           >
+            {required && isHorizontal ? <span className="mr-1 text-[var(--brand-600)]">*</span> : null}
             {label}
-            {required ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
+            {required && !isHorizontal ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
           </span>
         ) : null}
         <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
@@ -286,15 +287,19 @@ export function Select({
               aria-busy={loading}
               value={(currentValue as string) ?? ""}
               onChange={(e) => setValue(e.target.value)}
+              style={{ color: triggerEmpty ? "var(--neutral-400)" : "var(--text-body)", ...selectStyle }}
               className={[
                 "w-full appearance-none rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
                 "disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
                 "focus-visible:outline focus-visible:outline-[var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
                 error
                   ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
-                  : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
+                  : disabled || loading
+                    ? "border-[var(--field-border-default)]"
+                    : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
                 sizeClasses[size],
                 sizePadding[size],
+                triggerEmpty ? "text-[var(--neutral-400)]" : "text-[var(--text-body)]",
                 className,
               ].join(" ")}
               {...props}
@@ -321,17 +326,18 @@ export function Select({
   // Custom dropdown render
   return (
     <div ref={containerRef} className={className}>
-      <label className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3" : "block"}>
+      <label className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2" : "block"}>
         {label ? (
           <span
             className={[
-              "block text-sm font-medium leading-[var(--type-body-m-line-height)] text-[var(--text-primary)]",
+              "block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]",
               isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5",
             ].join(" ")}
             style={labelStyle}
           >
+            {required && isHorizontal ? <span className="mr-1 text-[var(--brand-600)]">*</span> : null}
             {label}
-            {required ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
+            {required && !isHorizontal ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
           </span>
         ) : null}
         <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
@@ -348,7 +354,7 @@ export function Select({
                       value={search}
                       onChange={(e) => { setSearch(e.target.value); setFocusIdx(0); }}
                       placeholder="搜索..."
-                      className="w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--text-tertiary)]"
+                      className="w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
                       onKeyDown={handleKeyDown}
                     />
                   </div>

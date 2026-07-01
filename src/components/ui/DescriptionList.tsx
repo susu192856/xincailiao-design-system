@@ -1,6 +1,7 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 
 type DescriptionItem = {
+  key?: string | number;
   label: ReactNode;
   value?: ReactNode;
   span?: 1 | 2 | 3 | 4;
@@ -49,53 +50,58 @@ export function DescriptionList({
   bordered = true,
   emptyText = "--",
   size = "md",
-  layout = "stacked",
+  layout = "inline",
   labelWidth = 88,
   className = "",
   ...props
 }: DescriptionListProps) {
   const sizing = sizeClasses[size];
-  const labelStyle = layout === "inline" ? { width: typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } : undefined;
+  const labelStyle = layout === "inline"
+    ? ({ "--description-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
+    : undefined;
 
   return (
     <dl
       className={[
-        "grid rounded-[var(--radius-sm)] bg-white text-sm",
+        "grid rounded-[var(--radius-sm)] text-sm",
         columnClasses[columns],
-        bordered ? "border border-[var(--neutral-200)]" : "gap-x-8 gap-y-4",
+        bordered ? "gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)]" : "gap-x-8 gap-y-4 bg-white",
         className,
       ].join(" ")}
       {...props}
     >
-      {items.map((item, index) => (
-        <div
-          key={index}
-          className={[
-            spanClasses[item.span ?? 1],
-            bordered ? `border-b border-r border-[var(--neutral-200)] ${sizing.item}` : "",
-            layout === "inline" ? "flex items-start gap-3" : "",
-          ].join(" ")}
-        >
-          <dt
+      {items.map((item, index) => {
+        const effectiveSpan = Math.min(item.span ?? 1, columns) as 1 | 2 | 3 | 4;
+        return (
+          <div
+            key={item.key ?? index}
             className={[
-              sizing.label,
-              "shrink-0 text-[var(--text-tertiary)]",
-              layout === "inline" ? "pt-0.5" : "",
-            ].join(" ")}
-            style={labelStyle}
-          >
-            {item.label}
-          </dt>
-          <dd
-            className={[
-              layout === "inline" ? sizing.value.replace("mt-1 ", "") : sizing.value,
-              "min-w-0 text-[var(--text-primary)]",
+              spanClasses[effectiveSpan],
+              bordered ? `bg-white ${sizing.item}` : "",
+              layout === "inline" ? "block md:flex md:items-start md:gap-2" : "",
             ].join(" ")}
           >
-            {item.value ?? <span className="text-[var(--neutral-400)]">{emptyText}</span>}
-          </dd>
-        </div>
-      ))}
+            <dt
+              className={[
+                sizing.label,
+                "shrink-0 text-[var(--text-tertiary)]",
+                layout === "inline" ? "mb-1 w-auto pt-0.5 md:mb-0 md:w-[var(--description-label-width)] md:text-right" : "",
+              ].join(" ")}
+              style={labelStyle}
+            >
+              {item.label}
+            </dt>
+            <dd
+              className={[
+                layout === "inline" ? sizing.value.replace("mt-1 ", "") : sizing.value,
+                "min-w-0 text-[var(--text-primary)]",
+              ].join(" ")}
+            >
+              {item.value ?? <span className="text-[var(--neutral-400)]">{emptyText}</span>}
+            </dd>
+          </div>
+        );
+      })}
     </dl>
   );
 }

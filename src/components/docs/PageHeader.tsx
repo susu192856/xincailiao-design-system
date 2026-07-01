@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import type { ReactNode } from "react";
 import manifest from "../../../figma/components.manifest.json";
 import figmaSync from "../../../figma/sync.config.json";
 
@@ -7,6 +8,7 @@ type PageHeaderProps = {
   description?: string;
   version?: string;
   status?: "stable" | "review" | "draft";
+  note?: ReactNode;
 };
 
 const statusLabel = {
@@ -22,6 +24,7 @@ export default function PageHeader({
   description,
   version = "v2.0",
   status,
+  note,
 }: PageHeaderProps) {
   const location = useLocation();
   const componentStatus = manifest.components.find((component) => component.route === location.pathname)?.status;
@@ -51,6 +54,11 @@ export default function PageHeader({
           <p className="mt-4 max-w-[var(--content-reading-width)] text-base leading-6 text-[var(--text-primary)]">
             {description}
           </p>
+        ) : null}
+        {note ? (
+          <aside className="mt-4 max-w-[var(--content-reading-width)] border-l-2 border-[var(--brand-500)] bg-[var(--neutral-50)] px-3 py-2 text-sm leading-6 text-[var(--text-secondary)]">
+            {note}
+          </aside>
         ) : null}
       </div>
     </header>

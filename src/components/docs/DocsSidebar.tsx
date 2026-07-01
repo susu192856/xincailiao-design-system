@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   ArrowsLeftRight,
   ArrowsOutLineHorizontal,
-  Calendar,
   CaretDown,
   ChartBar,
   ChatCentered,
@@ -81,7 +80,6 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         { name: "单选框", path: "/components/radio", icon: <CirclesFour size={16} weight="regular" /> },
         { name: "复选框", path: "/components/checkbox", icon: <CheckSquare size={16} weight="regular" /> },
         { name: "开关", path: "/components/switch", icon: <ToggleRight size={16} weight="regular" /> },
-        { name: "日期选择", path: "/components/datepicker", icon: <Calendar size={16} weight="regular" /> },
       ],
     },
     {
@@ -89,7 +87,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
       items: [
         { name: "表格", path: "/components/table", icon: <Table size={16} weight="regular" /> },
         { name: "分页", path: "/components/pagination", icon: <ChartBar size={16} weight="regular" /> },
-        { name: "描述列表", path: "/components/description-list", icon: <ListBullets size={16} weight="regular" /> },
+        { name: "详情与描述列表", path: "/components/description-list", icon: <ListBullets size={16} weight="regular" /> },
         { name: "卡片", path: "/components/card", icon: <Rectangle size={16} weight="regular" /> },
         { name: "标签", path: "/components/tag", icon: <Tag size={16} weight="regular" /> },
         { name: "头像", path: "/components/avatar", icon: <UserCircle size={16} weight="regular" /> },

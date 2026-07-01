@@ -55,13 +55,25 @@ const actionAlignClasses: Record<FormActionAlign, string> = {
 };
 
 const stateToneClasses: Record<FormStateTone, string> = {
-  neutral: "border-[var(--neutral-200)] bg-[var(--neutral-50)] text-[var(--text-secondary)]",
-  product: "border-[var(--product-blue-200)] bg-[var(--product-blue-50)] text-[var(--product-blue-700)]",
-  success: "border-[var(--success-bg)] bg-[var(--success-bg)] text-[var(--success-text)]",
-  warning: "border-[var(--warning-bg)] bg-[var(--warning-bg)] text-[var(--warning-text)]",
-  danger: "border-[var(--error-bg)] bg-[var(--error-bg)] text-[var(--error-text)]",
+  neutral: "border-[var(--neutral-200)] bg-[var(--neutral-50)]",
+  product: "border-[var(--product-blue-200)] bg-[var(--product-blue-50)]",
+  success: "border-[var(--success-border)] bg-[var(--success-bg)]",
+  warning: "border-[var(--warning-border)] bg-[var(--warning-bg)]",
+  danger: "border-[var(--error-border)] bg-[var(--error-bg)]",
 };
 
+const stateTitleClasses: Record<FormStateTone, string> = {
+  neutral: "text-[var(--text-primary)]",
+  product: "text-[var(--product-blue-700)]",
+  success: "text-[var(--success-text)]",
+  warning: "text-[var(--warning-text)]",
+  danger: "text-[var(--error-text)]",
+};
+
+/**
+ * 仅负责表单语义与布局密度。字段依赖、校验时机、脏数据判断、
+ * 请求提交和服务端错误映射由业务表单逻辑管理。
+ */
 export function Form({ density = "standard", className = "", children, ...props }: FormProps) {
   return (
     <form className={[densityClasses[density], className].join(" ")} {...props}>
@@ -105,8 +117,8 @@ export function FormStateBanner({
 }: FormStateBannerProps) {
   return (
     <div className={["rounded-[var(--radius-sm)] border px-4 py-3", stateToneClasses[tone], className].join(" ")}>
-      <div className="text-sm font-semibold">{title}</div>
-      {description ? <div className="mt-1 text-xs leading-5 opacity-90">{description}</div> : null}
+      <div className={["text-sm font-semibold", stateTitleClasses[tone]].join(" ")}>{title}</div>
+      {description ? <div className="mt-1 text-xs leading-5 text-[var(--text-secondary)]">{description}</div> : null}
       {children ? <div className="mt-3">{children}</div> : null}
     </div>
   );
