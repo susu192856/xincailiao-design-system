@@ -43,7 +43,7 @@ export function Radio({
             "peer-checked:border-[var(--neutral-900)]",
             "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
             "peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--disabled-opacity)]",
-            error ? "border-[var(--error-text)]" : "border-[var(--neutral-300)]",
+            error ? "border-[var(--error-text)]" : "border-[var(--neutral-400)]",
             "bg-white",
           ].join(" ")}
             style={{
