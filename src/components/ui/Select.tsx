@@ -72,6 +72,7 @@ export function Select({
 }: SelectProps) {
   const generatedId = useId();
   const selectId = id ?? props.name ?? `select-${generatedId}`;
+  const labelId = label ? `${selectId}-label` : undefined;
   const messageId = error || helperText ? `${selectId}-message` : undefined;
   const isHorizontal = labelPosition === "left";
   const labelStyle = isHorizontal
@@ -200,20 +201,23 @@ export function Select({
       disabled={disabled || loading}
       aria-haspopup="listbox"
       aria-expanded={open}
+      aria-invalid={Boolean(error)}
+      aria-busy={loading}
+      aria-labelledby={labelId}
+      aria-label={label ? undefined : props["aria-label"]}
       aria-describedby={messageId}
       onClick={() => !disabled && !loading && setOpen((prev) => !prev)}
       onKeyDown={handleKeyDown}
       className={[
-        "relative flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal outline-none transition-colors duration-[var(--motion-duration-fast)]",
+        "field-single-border-focus relative flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal outline-none transition-colors duration-[var(--motion-duration-fast)]",
         "disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
-        "focus-visible:outline focus-visible:outline-[var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
         error
-          ? "border-[var(--field-border-error)]"
+          ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
           : disabled || loading
             ? "border-[var(--field-border-default)]"
             : open
               ? "border-[var(--field-border-focus)]"
-              : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)]",
+              : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
         sizeClasses[size],
         sizePadding[size],
         needsCustom ? "text-left" : "",
@@ -239,7 +243,7 @@ export function Select({
                   onClick={(e) => { e.stopPropagation(); removeValue(v); }}
                   className="inline-flex h-3 w-3 items-center justify-center rounded-sm hover:bg-[var(--neutral-300)]"
                 >
-                  <X size={10} weight="bold" />
+                  <X size={12} weight="regular" aria-hidden="true" />
                 </span>
               </span>
             );
@@ -254,7 +258,7 @@ export function Select({
         {loading ? (
           <SpinnerGap size={16} weight="regular" className="animate-spin text-[var(--text-tertiary)]" aria-hidden="true" />
         ) : (
-          <CaretDown className={["h-4 w-4 text-[var(--text-tertiary)] transition-transform", open ? "rotate-180" : ""].join(" ")} />
+          <CaretDown aria-hidden="true" className={["h-4 w-4 text-[var(--text-tertiary)] transition-transform", open ? "rotate-180" : ""].join(" ")} />
         )}
       </span>
     </button>
@@ -289,9 +293,8 @@ export function Select({
               onChange={(e) => setValue(e.target.value)}
               style={{ color: triggerEmpty ? "var(--neutral-400)" : "var(--text-body)", ...selectStyle }}
               className={[
-                "w-full appearance-none rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
+                "field-single-border-focus w-full appearance-none rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
                 "disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
-                "focus-visible:outline focus-visible:outline-[var(--focus-ring-width)] focus-visible:outline-offset-[var(--focus-ring-offset)] focus-visible:outline-[var(--focus-ring-color)]",
                 error
                   ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
                   : disabled || loading
@@ -311,7 +314,7 @@ export function Select({
                 </option>
               ))}
             </select>
-            <CaretDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" />
+            <CaretDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" />
           </span>
           {error || helperText ? (
             <span id={messageId} className={`mt-1.5 block text-xs leading-[var(--type-caption-line-height)] ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>
@@ -326,9 +329,10 @@ export function Select({
   // Custom dropdown render
   return (
     <div ref={containerRef} className={className}>
-      <label className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2" : "block"}>
+      <div className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2" : "block"}>
         {label ? (
           <span
+            id={labelId}
             className={[
               "block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]",
               isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5",
@@ -347,7 +351,7 @@ export function Select({
               <div className="absolute z-[var(--z-dropdown)] mt-1 w-full min-w-[180px] rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white shadow-[var(--shadow-lg)] animate-scale-in origin-top">
                 {searchable && (
                   <div className="flex items-center gap-2 border-b border-[var(--neutral-100)] px-3 py-2">
-                    <MagnifyingGlass className="h-4 w-4 shrink-0 text-[var(--text-tertiary)]" />
+                    <MagnifyingGlass aria-hidden="true" className="h-4 w-4 shrink-0 text-[var(--text-tertiary)]" />
                     <input
                       ref={searchInputRef}
                       type="text"
@@ -394,7 +398,7 @@ export function Select({
                                 : "border-[var(--neutral-300)] bg-white",
                               option.disabled ? "opacity-40" : "",
                             ].join(" ")}>
-                              {isSelected && <Check size={12} weight="bold" />}
+                              {isSelected && <Check size={12} weight="bold" aria-hidden="true" />}
                             </span>
                           )}
                           <span className="truncate">{option.label}</span>
@@ -412,7 +416,7 @@ export function Select({
             </span>
           ) : null}
         </span>
-      </label>
+      </div>
     </div>
   );
 }

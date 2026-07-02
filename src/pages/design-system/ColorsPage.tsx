@@ -212,7 +212,7 @@ export default function ColorsPage() {
         <SectionHeading
           eyebrow="Three-Color System"
           title="三色三角"
-          description="新材道产品界面的色彩体系由红、蓝、黑三种颜色构成。这不是三套可选配色方案，而是三种颜色的角色分工——红色负责宣告，蓝色负责交互，黑色负责让所有界面看起来像一家人。"
+          description="新材道产品界面的色彩体系由红、蓝、黑三种颜色构成。这不是三套可选配色方案，而是三种颜色的角色分工——红色负责品牌宣告，蓝色承载产品功能，黑色推进关键任务并建立结构秩序。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
@@ -244,17 +244,17 @@ export default function ColorsPage() {
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
-                <h3 className="text-base font-semibold text-[var(--text-primary)]">结构黑</h3>
+                <h3 className="text-base font-semibold text-[var(--text-primary)]">任务黑</h3>
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">neutral-900 · #1A1A1A</p>
-              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：结构骨架</strong>——贯穿所有场景。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">唯一同时出现在官网和后台的颜色。官网的正文和导航是黑的，后台的标题和核心按钮也是黑的——用户不会主动注意它，但抽掉它界面就会感到结构空洞。</p>
+              <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：任务推进与结构骨架</strong>——表达确定性并贯穿所有场景。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于提交、确认、保存和发布等结果型操作，也用于正文、标题与导航建立结构秩序。黑色主按钮强调“这件事定了”，不与产品蓝的探索型操作混用。</p>
             </div>
           </div>
         </div>
         <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">使用决策：</strong>
-          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色接管功能交互，黑色承担主操作按钮级结构骨架；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
+          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色接管功能交互，黑色承担任务型主操作和结构骨架；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
         </div>
       </section>
 

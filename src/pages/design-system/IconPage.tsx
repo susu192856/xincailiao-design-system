@@ -400,7 +400,7 @@ function UsageExamplesSection() {
       preview: (
         <div className="flex flex-wrap gap-2">
           <Button size="md" icon={<SystemIcon as={Plus} size={16} weight="regular" tone="inherit" label="新增" />} iconPosition="left">新建数据</Button>
-          <Button size="md" variant="outline" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="inherit" label="导出" />}>导出报告</Button>
+          <Button size="md" variant="outline" tone="product" icon={<SystemIcon as={DownloadSimple} size={16} weight="regular" tone="inherit" label="导出" />}>导出报告</Button>
         </div>
       ),
       rule: "图标加文字使用设计系统 Button 的 md 规格与 16px 左侧图标；图标补充语义，按钮文案承担主要表达。",

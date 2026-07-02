@@ -225,7 +225,7 @@ export default function InputPage() {
             </div>
           </div>
         </ExampleCard>
-        <div className="mt-5 border-l-2 border-[var(--neutral-900)] bg-white p-5 shadow-[var(--shadow-xs)]">
+        <div className="mt-5 border-l-2 border-[var(--success-solid)] bg-white p-5 shadow-[var(--shadow-xs)]">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">字段宽度规则</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--text-secondary)] md:grid-cols-3">
             <div className="bg-[var(--neutral-50)] p-4"><strong className="block text-[var(--text-primary)]">常规输入 · 360px</strong>名称、编号、单值参数的推荐宽度。</div>

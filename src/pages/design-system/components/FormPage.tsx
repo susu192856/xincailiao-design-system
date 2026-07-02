@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, ArrowsClockwise, CaretDown, CaretUp, DownloadSimple, MagnifyingGlass, Plus, Trash } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, ArrowsClockwise, CaretDown, CaretUp, DownloadSimple, Plus, Trash } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
@@ -10,9 +10,18 @@ import { Input } from "../../../components/ui/Input";
 import { Radio } from "../../../components/ui/Radio";
 import { Select } from "../../../components/ui/Select";
 import { Textarea } from "../../../components/ui/Textarea";
+import { Upload } from "../../../components/ui/Upload";
+import type { UploadFile } from "../../../components/ui/Upload";
 
 export default function FormPage() {
   const [advancedFiltersOpen, setAdvancedFiltersOpen] = useState(true);
+  const [attachmentFiles, setAttachmentFiles] = useState<UploadFile[]>([
+    { id: "form-attachment-1", name: "TC4-拉伸试验报告.pdf", size: 1_048_576, status: "done" },
+  ]);
+  const [imageFiles, setImageFiles] = useState<UploadFile[]>([
+    { id: "form-image-1", name: "试样断口-正面.jpg", size: 624_640, status: "done" },
+    { id: "form-image-2", name: "试样断口-侧面.jpg", size: 589_824, status: "done" },
+  ]);
 
   return (
     <div className="space-y-16">
@@ -28,10 +37,8 @@ export default function FormPage() {
                   <Select labelPosition="left" labelWidth={88} label="材料分类" placeholder="请选择分类" options={[{ label: "钛合金", value: "ti" }, { label: "铝合金", value: "al" }, { label: "高温合金", value: "heat" }]} required />
                   <Input labelPosition="left" labelWidth={88} label="屈服强度" suffix="MPa" placeholder="请输入数值" />
                   <Input labelPosition="left" labelWidth={88} label="数据来源" placeholder="实验采集 / 企业上传" />
-                </FormGrid>
-                <div className="mt-4">
                   <Textarea labelPosition="left" labelWidth={88} label="说明" placeholder="请输入数据来源、加工方式或备注" helperText="说明文本用于审计和后续数据治理，不建议为空。" maxLength={300} showCount />
-                </div>
+                </FormGrid>
               </FormSection>
               <FormActions>
                 <Button variant="ghost">取消</Button>
@@ -45,7 +52,7 @@ export default function FormPage() {
                 <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">一行筛选</h3>
                 <Form density="compact" className="max-w-[940px]">
                   <div className="grid grid-cols-1 gap-3 lg:grid-cols-[repeat(3,minmax(0,240px))_auto]">
-                    <Input labelPosition="left" labelWidth={64} label="材料名称" placeholder="搜索材料" prefix={<MagnifyingGlass size={16} weight="regular" aria-hidden="true" />} />
+                    <Input labelPosition="left" labelWidth={64} label="材料名称" placeholder="搜索材料" />
                     <Select labelPosition="left" labelWidth={64} label="数据状态" placeholder="全部" options={[{ label: "全部状态", value: "all" }, { label: "待审核", value: "review" }, { label: "已发布", value: "published" }]} />
                     <Select labelPosition="left" labelWidth={64} label="权限范围" placeholder="全部" options={[{ label: "全部权限", value: "all" }, { label: "团队可见", value: "team" }, { label: "公开流通", value: "public" }]} />
                     <div className="flex items-center justify-end gap-2"><Button tone="product">筛选</Button><Button variant="ghost">重置</Button></div>
@@ -61,9 +68,8 @@ export default function FormPage() {
                     <Select labelPosition="left" labelWidth={64} label="来源" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "实验采集", value: "lab" }]} />
                     <Input labelPosition="left" labelWidth={64} label="负责人" placeholder="请输入" />
                   </FormGrid>
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex min-h-8 flex-wrap items-center gap-5"><Checkbox className="flex h-8 items-center" label="仅看我负责的数据" /><Checkbox className="flex h-8 items-center" label="显示异常数据" /></div>
-                    <div className="flex items-center gap-2"><Button tone="product">筛选</Button><Button variant="ghost">重置</Button></div>
+                  <div className="flex items-center justify-end gap-2">
+                    <Button tone="product">筛选</Button><Button variant="ghost">重置</Button>
                   </div>
                 </Form>
               </div>
@@ -80,12 +86,9 @@ export default function FormPage() {
                       <Select labelPosition="left" labelWidth={64} label="治理状态" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "待复核", value: "review" }]} />
                     </> : null}
                   </FormGrid>
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex min-h-8 flex-wrap items-center gap-5"><Checkbox className="flex h-8 items-center" label="仅看我负责的数据" /><Checkbox className="flex h-8 items-center" label="显示异常数据" /></div>
-                    <div className="flex items-center gap-2">
-                      <Button variant="text" iconPosition="right" icon={advancedFiltersOpen ? <CaretUp size={16} weight="regular" aria-hidden="true" /> : <CaretDown size={16} weight="regular" aria-hidden="true" />} onClick={() => setAdvancedFiltersOpen((open) => !open)} aria-expanded={advancedFiltersOpen}>{advancedFiltersOpen ? "收起" : "展开"}</Button>
-                      <Button tone="product">筛选</Button><Button variant="ghost">重置</Button>
-                    </div>
+                  <div className="flex items-center justify-end gap-2">
+                    <Button variant="text" iconPosition="right" icon={advancedFiltersOpen ? <CaretUp size={16} weight="regular" aria-hidden="true" /> : <CaretDown size={16} weight="regular" aria-hidden="true" />} onClick={() => setAdvancedFiltersOpen((open) => !open)} aria-expanded={advancedFiltersOpen}>{advancedFiltersOpen ? "收起" : "展开"}</Button>
+                    <Button tone="product">筛选</Button><Button variant="ghost">重置</Button>
                   </div>
                 </Form>
               </div>
@@ -140,6 +143,38 @@ export default function FormPage() {
               </FormActions>
             </Form>
           </ExampleCard>
+          <ExampleCard title="资料与图片上传" description="用于检测报告、原始数据、证明材料及样品图片的组合录入。">
+            <Form className="max-w-[880px]">
+              <p className="text-xs leading-5 text-[var(--text-tertiary)]">此处直接复用 <Link to="/components/upload" className="font-medium text-[var(--product-blue-500)]">文件上传组件</Link>，组件样式、状态与规则调整会自动同步。</p>
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <Upload
+                  label="检测报告与数据附件"
+                  accept=".pdf,.xlsx,.xls,.csv"
+                  multiple
+                  maxFiles={5}
+                  maxSize={10 * 1024 * 1024}
+                  helperText="用于检测报告、原始数据和补充证明材料。"
+                  files={attachmentFiles}
+                  onChange={setAttachmentFiles}
+                />
+                <Upload
+                  label="样品与试验图片"
+                  accept=".png,.jpg,.jpeg"
+                  multiple
+                  maxFiles={6}
+                  maxSize={5 * 1024 * 1024}
+                  helperText="建议上传能说明样品状态和试验结果的图片。"
+                  listType="card"
+                  files={imageFiles}
+                  onChange={setImageFiles}
+                />
+              </div>
+              <FormActions>
+                <Button variant="ghost">取消</Button>
+                <Button>保存资料</Button>
+              </FormActions>
+            </Form>
+          </ExampleCard>
         </div>
       </section>
 
@@ -173,7 +208,7 @@ export default function FormPage() {
               <Input label="材料名称" value="TC4 数据集" disabled />
               <Select label="流通方式" defaultValue="contract" disabled options={[{ label: "合约授权", value: "contract" }]} />
               <FormActions>
-                <Button variant="outline" icon={<DownloadSimple size={16} weight="regular" aria-hidden="true" />}>导出</Button>
+                <Button variant="outline" tone="product" icon={<DownloadSimple size={16} weight="regular" aria-hidden="true" />}>导出</Button>
               </FormActions>
             </Form>
           </ExampleCard>
@@ -209,7 +244,7 @@ export default function FormPage() {
                 </div>
               </FormGrid>
             </Form>
-            <div className="mt-5 border-l-2 border-[var(--neutral-900)] bg-[var(--neutral-50)] p-4">
+            <div className="mt-5 border-l-2 border-[var(--success-solid)] bg-[var(--neutral-50)] p-4">
               <h4 className="text-sm font-semibold text-[var(--text-primary)]">宽度与换行规则</h4>
               <div className="mt-3 grid grid-cols-1 gap-3 text-xs leading-5 text-[var(--text-secondary)] md:grid-cols-3">
                 <div><strong className="block text-[var(--text-primary)]">控件宽度</strong>紧凑筛选建议 160–240px。</div>
