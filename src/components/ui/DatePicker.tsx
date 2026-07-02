@@ -61,7 +61,7 @@ export function DatePicker({
   };
 
   return (
-    <div className={`${isHorizontal ? "block sm:flex sm:items-start sm:gap-2" : "block"} ${className}`}>
+    <div className={`${isHorizontal ? "block sm:flex sm:items-start sm:gap-3" : "block"} ${className}`}>
       {label ? (
         <label htmlFor={inputId} style={labelStyle} className={`block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)] ${isHorizontal ? "mb-1.5 w-full shrink-0 sm:mb-0 sm:w-[var(--date-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5"}`}>
           {props.required && isHorizontal ? <span className="mr-1 text-[var(--brand-600)]">*</span> : null}{label}{props.required && !isHorizontal ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}

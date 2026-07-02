@@ -1,5 +1,5 @@
 import PageHeader from "../../../components/docs/PageHeader";
-import { ExampleCard, SectionHeading } from "../../../components/docs/ComponentDoc";
+import { ExampleCard, SectionCard, SectionHeading } from "../../../components/docs/ComponentDoc";
 import { Radio } from "../../../components/ui/Radio";
 
 export default function RadioPage() {
@@ -12,7 +12,7 @@ export default function RadioPage() {
 
       <section>
         <SectionHeading eyebrow="Sizes" title="尺寸" />
-        <div className="inline-flex flex-wrap items-end gap-8 rounded-[var(--radius-sm)] bg-white p-6">
+        <SectionCard className="inline-flex flex-wrap items-end gap-8">
           <div className="flex flex-col items-center gap-3">
             <Radio name="size-demo-sm" label="Small · 14px" size="sm" defaultChecked />
             <span className="text-xs text-[var(--text-tertiary)]">表格 / 紧凑区</span>
@@ -21,18 +21,18 @@ export default function RadioPage() {
             <Radio name="size-demo-md" label="Medium · 16px" size="md" defaultChecked />
             <span className="text-xs text-[var(--text-tertiary)]">表单默认</span>
           </div>
-        </div>
+        </SectionCard>
       </section>
 
       <section>
         <SectionHeading eyebrow="States" title="状态" />
-        <div className="inline-flex flex-wrap gap-6 rounded-[var(--radius-sm)] bg-white p-6">
+        <SectionCard className="inline-flex flex-wrap gap-6">
           <div className="pointer-events-none"><Radio name="s" label="未选" /></div>
           <div className="pointer-events-none"><Radio name="s" label="选中" defaultChecked /></div>
           <div className="pointer-events-none"><Radio name="s" label="错误" error="请选择处理策略" /></div>
           <div className="pointer-events-none"><Radio name="s" label="禁用" disabled /></div>
           <div className="pointer-events-none"><Radio name="s" label="禁用选中" defaultChecked disabled /></div>
-        </div>
+        </SectionCard>
       </section>
 
       <section>

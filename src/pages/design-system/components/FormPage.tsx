@@ -47,13 +47,13 @@ export default function FormPage() {
               </FormActions>
             </Form>
           </ExampleCard>
-          <ExampleCard title="表格页筛选与操作区" description="筛选负责缩小数据范围；新增、删除、同步等表格操作位于筛选区下方的独立工具栏，不与查询按钮混排。">
+          <ExampleCard title="表格页筛选与操作区" description="搜索框永远放第一位，用于跨字段搜索且通常不加左侧标签。不含标签时：普通筛选默认 220px，短枚举 180px，长文本、编号和名称使用 240px 或 280px，日期范围不小于 320px。筛选 / 重置固定在最后一行右侧；表格操作位于下方独立工具栏。">
             <div className="space-y-6">
               <div>
                 <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">一行筛选</h3>
                 <Form density="compact" className="max-w-[940px]">
-                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[repeat(3,minmax(0,240px))_auto]">
-                    <Input labelPosition="left" labelWidth={64} label="材料名称" placeholder="搜索材料" />
+                  <div className="grid grid-cols-1 gap-3 lg:grid-cols-[220px_220px_220px_auto]">
+                    <Input aria-label="跨字段搜索" placeholder="搜索材料、编号、名称" />
                     <Select labelPosition="left" labelWidth={64} label="数据状态" placeholder="全部" options={[{ label: "全部状态", value: "all" }, { label: "待审核", value: "review" }, { label: "已发布", value: "published" }]} />
                     <Select labelPosition="left" labelWidth={64} label="权限范围" placeholder="全部" options={[{ label: "全部权限", value: "all" }, { label: "团队可见", value: "team" }, { label: "公开流通", value: "public" }]} />
                     <div className="flex items-center justify-end gap-2"><Button tone="product">筛选</Button><Button variant="ghost">重置</Button></div>
@@ -64,6 +64,7 @@ export default function FormPage() {
                 <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">两行筛选</h3>
                 <Form density="compact" className="max-w-[940px]">
                   <FormGrid columns={3}>
+                    <Input aria-label="跨字段搜索" placeholder="搜索材料、编号、名称" />
                     <Input labelPosition="left" labelWidth={64} label="材料名称" placeholder="请输入" />
                     <Select labelPosition="left" labelWidth={64} label="状态" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "异常", value: "error" }]} />
                     <Select labelPosition="left" labelWidth={64} label="来源" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "实验采集", value: "lab" }]} />
@@ -75,9 +76,10 @@ export default function FormPage() {
                 </Form>
               </div>
               <div className="border-t border-[var(--neutral-200)] pt-5">
-                <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">三行筛选 · 可展开</h3>
+                <div className="mb-3 flex items-center justify-between"><h3 className="text-sm font-semibold text-[var(--text-primary)]">三行筛选 · 可展开</h3><Button variant="text" iconPosition="right" icon={advancedFiltersOpen ? <CaretUp size={16} weight="regular" aria-hidden="true" /> : <CaretDown size={16} weight="regular" aria-hidden="true" />} onClick={() => setAdvancedFiltersOpen((open) => !open)} aria-expanded={advancedFiltersOpen}>{advancedFiltersOpen ? "收起" : "展开"}</Button></div>
                 <Form density="compact" className="max-w-[940px]">
                   <FormGrid columns={3}>
+                    <Input aria-label="跨字段搜索" placeholder="搜索材料、编号、名称" />
                     <Input labelPosition="left" labelWidth={64} label="材料名称" placeholder="请输入" />
                     <Select labelPosition="left" labelWidth={64} label="状态" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "异常", value: "error" }]} />
                     <Select labelPosition="left" labelWidth={64} label="来源" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "实验采集", value: "lab" }]} />
@@ -88,7 +90,6 @@ export default function FormPage() {
                     </> : null}
                   </FormGrid>
                   <div className="flex items-center justify-end gap-2">
-                    <Button variant="text" iconPosition="right" icon={advancedFiltersOpen ? <CaretUp size={16} weight="regular" aria-hidden="true" /> : <CaretDown size={16} weight="regular" aria-hidden="true" />} onClick={() => setAdvancedFiltersOpen((open) => !open)} aria-expanded={advancedFiltersOpen}>{advancedFiltersOpen ? "收起" : "展开"}</Button>
                     <Button tone="product">筛选</Button><Button variant="ghost">重置</Button>
                   </div>
                 </Form>
@@ -131,7 +132,7 @@ export default function FormPage() {
                 <Select labelPosition="left" labelWidth={88} label="可见范围" defaultValue="team" options={[{ label: "仅自己", value: "private" }, { label: "所在团队", value: "team" }, { label: "全组织", value: "org" }]} />
                 <Select labelPosition="left" labelWidth={88} label="流通方式" defaultValue="contract" options={[{ label: "合约授权", value: "contract" }, { label: "人工审批", value: "audit" }, { label: "外部公开（不可选）", value: "public", disabled: true }]} />
               </FormGrid>
-              <div className="block md:flex md:items-start md:gap-2">
+              <div className="block md:flex md:items-start md:gap-3">
                 <div className="mb-1.5 w-auto shrink-0 pt-1.5 text-sm font-normal text-[var(--text-secondary)] md:mb-0 md:w-[88px] md:text-right">附加权限</div>
                 <div className="min-w-0 flex-1 space-y-3 rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
                   <Checkbox label="记录操作日志和审计时间线" description="用于流程追踪和链上存证感的视觉表达。" defaultChecked />
@@ -236,7 +237,7 @@ export default function FormPage() {
                 <Select size="sm" labelPosition="left" labelWidth={64} label="状态" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "异常", value: "error" }]} />
                 <Select size="sm" labelPosition="left" labelWidth={64} label="来源" placeholder="全部" options={[{ label: "全部", value: "all" }, { label: "实验采集", value: "lab" }]} />
                 <Input size="sm" labelPosition="left" labelWidth={64} label="负责人" placeholder="请输入" />
-                <div className="block md:flex md:items-center md:gap-2">
+                <div className="block md:flex md:items-center md:gap-3">
                   <span id="density-filter-label" className="mb-1.5 block text-sm font-normal text-[var(--text-secondary)] md:mb-0 md:w-16 md:shrink-0 md:text-right">数据范围</span>
                   <div role="radiogroup" aria-labelledby="density-filter-label" className="flex flex-wrap items-center gap-5">
                     <Radio name="density-filter" label="全部" defaultChecked size="sm" />
@@ -261,7 +262,7 @@ export default function FormPage() {
         <SectionHeading
           eyebrow="Wide Pages"
           title="宽页面表单"
-          description="当表单区域超过 1000px 时，优先使用左右标签与 2 列栅格。标签默认宽 88px、右对齐、间隔 8px；同组长标签统一扩展到 96–120px。"
+          description="当表单区域超过 1000px 时，优先使用左右标签与 2 列栅格。标签默认宽 88px、右对齐、间隔 12px；同组长标签统一扩展到 96–120px。"
         />
         <div className="grid grid-cols-1 gap-5">
           <ExampleCard title="数据配置页 - 左右 label">
@@ -286,7 +287,7 @@ export default function FormPage() {
             <div className="mt-6 border-t border-[var(--neutral-200)] pt-5">
               <h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">宽页面排列规则</h3>
               <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--text-secondary)] md:grid-cols-3">
-                <div className="bg-[var(--neutral-50)] p-4"><h4 className="mb-2 font-semibold text-[var(--text-primary)]">字段宽度</h4><p>标签与控件间隔 8px；常规输入建议 360px，长字段最大 480px；紧凑筛选控件建议 160–240px。</p></div>
+                <div className="bg-[var(--neutral-50)] p-4"><h4 className="mb-2 font-semibold text-[var(--text-primary)]">字段宽度</h4><p>标签与控件间隔 12px；常规输入建议 360px，长字段最大 480px；紧凑筛选控件建议 160–240px。</p></div>
                 <div className="bg-[var(--neutral-50)] p-4"><h4 className="mb-2 font-semibold text-[var(--text-primary)]">列数选择</h4><p>1000px 以上容器优先 2 列左右结构；紧凑筛选工具栏优先每行 3 个，空间充足时最多 4 个。</p></div>
                 <div className="bg-[var(--neutral-50)] p-4"><h4 className="mb-2 font-semibold text-[var(--text-primary)]">按钮位置</h4><p>编辑表单操作右对齐；筛选/重置位于筛选末行右侧；表格操作独立成栏。</p></div>
               </div>

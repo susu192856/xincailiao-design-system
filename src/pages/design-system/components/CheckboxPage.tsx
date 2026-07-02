@@ -1,5 +1,5 @@
 import PageHeader from "../../../components/docs/PageHeader";
-import { ExampleCard, SectionHeading } from "../../../components/docs/ComponentDoc";
+import { ExampleCard, SectionCard, SectionHeading } from "../../../components/docs/ComponentDoc";
 import { Checkbox } from "../../../components/ui/Checkbox";
 
 export default function CheckboxPage() {
@@ -12,7 +12,7 @@ export default function CheckboxPage() {
 
       <section>
         <SectionHeading eyebrow="Sizes" title="尺寸" />
-        <div className="inline-flex flex-wrap items-end gap-8 rounded-[var(--radius-sm)] bg-white p-6">
+        <SectionCard className="inline-flex flex-wrap items-end gap-8">
           <div className="flex flex-col items-center gap-3">
             <Checkbox label="Small · 14px" size="sm" defaultChecked />
             <span className="text-xs text-[var(--text-tertiary)]">表格行内</span>
@@ -21,19 +21,19 @@ export default function CheckboxPage() {
             <Checkbox label="Medium · 16px" size="md" defaultChecked />
             <span className="text-xs text-[var(--text-tertiary)]">表单默认</span>
           </div>
-        </div>
+        </SectionCard>
       </section>
 
       <section>
         <SectionHeading eyebrow="States" title="状态" />
-        <div className="inline-flex flex-wrap gap-6 rounded-[var(--radius-sm)] bg-white p-6">
+        <SectionCard className="inline-flex flex-wrap gap-6">
           <div className="pointer-events-none"><Checkbox label="未选" /></div>
           <div className="pointer-events-none"><Checkbox label="选中" defaultChecked /></div>
           <div className="pointer-events-none"><Checkbox label="半选" checked={false} indeterminate /></div>
           <div className="pointer-events-none"><Checkbox label="错误" error="请确认数据来源合法" /></div>
           <div className="pointer-events-none"><Checkbox label="禁用" disabled /></div>
           <div className="pointer-events-none"><Checkbox label="禁用选中" defaultChecked disabled /></div>
-        </div>
+        </SectionCard>
       </section>
 
       <section>

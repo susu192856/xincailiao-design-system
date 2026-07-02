@@ -1,6 +1,6 @@
 import { useId, useRef, useState, useEffect, useCallback } from "react";
 import type { CSSProperties, KeyboardEvent, ReactNode, SelectHTMLAttributes } from "react";
-import { CaretDown, Check, MagnifyingGlass, SpinnerGap, X } from "@phosphor-icons/react";
+import { CaretDown, MagnifyingGlass, SpinnerGap, X } from "@phosphor-icons/react";
 
 type SelectSize = "sm" | "md" | "lg";
 type LabelPosition = "top" | "left";
@@ -27,6 +27,7 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" |
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
   renderTag?: (option: SelectOption, onRemove: () => void) => ReactNode;
+  defaultOpen?: boolean;
 };
 
 const sizeClasses: Record<SelectSize, string> = {
@@ -63,6 +64,7 @@ export function Select({
   defaultValue,
   onChange,
   renderTag,
+  defaultOpen = false,
   disabled,
   className = "",
   style: selectStyle,
@@ -82,7 +84,7 @@ export function Select({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const [search, setSearch] = useState("");
   const [focusIdx, setFocusIdx] = useState(-1);
 
@@ -92,8 +94,6 @@ export function Select({
   );
   const currentValue = isControlled ? controlledValue : internalValue;
   const valuesArr = Array.isArray(currentValue) ? currentValue : currentValue ? [currentValue] : [];
-
-  const needsCustom = searchable || multiple;
 
   const filteredOptions = searchable && search
     ? options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()))
@@ -206,7 +206,17 @@ export function Select({
       aria-labelledby={labelId}
       aria-label={label ? undefined : props["aria-label"]}
       aria-describedby={messageId}
-      onClick={() => !disabled && !loading && setOpen((prev) => !prev)}
+      onClick={() => {
+        if (disabled || loading) return;
+        setOpen((prev) => {
+          const next = !prev;
+          if (next) {
+            const selectedIndex = filteredOptions.findIndex((option) => valuesArr.includes(option.value) && !option.disabled);
+            setFocusIdx(selectedIndex);
+          }
+          return next;
+        });
+      }}
       onKeyDown={handleKeyDown}
       className={[
         "field-single-border-focus relative flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal outline-none transition-colors duration-[var(--motion-duration-fast)]",
@@ -220,7 +230,7 @@ export function Select({
               : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
         sizeClasses[size],
         sizePadding[size],
-        needsCustom ? "text-left" : "",
+        "text-left",
         className,
       ].join(" ")}
     >
@@ -264,72 +274,16 @@ export function Select({
     </button>
   );
 
-  // If we don't need custom dropdown, render native select for simpler use cases
-  if (!needsCustom) {
-    return (
-      <label className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2" : "block"}>
-        {label ? (
-          <span
-            className={[
-              "block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]",
-              isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5",
-            ].join(" ")}
-            style={labelStyle}
-          >
-            {required && isHorizontal ? <span className="mr-1 text-[var(--brand-600)]">*</span> : null}
-            {label}
-            {required && !isHorizontal ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
-          </span>
-        ) : null}
-        <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
-          <span className="relative block">
-            <select
-              id={selectId}
-              disabled={disabled || loading}
-              aria-invalid={Boolean(error)}
-              aria-describedby={messageId}
-              aria-busy={loading}
-              value={(currentValue as string) ?? ""}
-              onChange={(e) => setValue(e.target.value)}
-              style={{ color: triggerEmpty ? "var(--neutral-400)" : "var(--text-body)", ...selectStyle }}
-              className={[
-                "field-single-border-focus w-full appearance-none rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
-                "disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
-                error
-                  ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
-                  : disabled || loading
-                    ? "border-[var(--field-border-default)]"
-                    : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
-                sizeClasses[size],
-                sizePadding[size],
-                triggerEmpty ? "text-[var(--neutral-400)]" : "text-[var(--text-body)]",
-                className,
-              ].join(" ")}
-              {...props}
-            >
-              {placeholder ? <option value="" disabled={required}>{placeholder}</option> : null}
-              {options.map((option) => (
-                <option key={option.value} value={option.value} disabled={option.disabled}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <CaretDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" />
-          </span>
-          {error || helperText ? (
-            <span id={messageId} className={`mt-1.5 block text-xs leading-[var(--type-caption-line-height)] ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>
-              {error ?? helperText}
-            </span>
-          ) : null}
-        </span>
-      </label>
-    );
-  }
-
-  // Custom dropdown render
   return (
-    <div ref={containerRef} className={className}>
-      <div className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-2" : "block"}>
+    <div ref={containerRef} className={className} style={selectStyle}>
+      {props.name ? (
+        <input
+          type="hidden"
+          name={props.name}
+          value={Array.isArray(currentValue) ? currentValue.join(",") : currentValue ?? ""}
+        />
+      ) : null}
+      <div className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3" : "block"}>
         {label ? (
           <span
             id={labelId}
@@ -348,9 +302,9 @@ export function Select({
           <span className="relative">
             {trigger}
             {open && (
-              <div className="absolute z-[var(--z-dropdown)] mt-1 w-full min-w-[180px] rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white shadow-[var(--shadow-lg)] animate-scale-in origin-top">
+              <div className="absolute z-[var(--z-dropdown)] mt-1 w-full min-w-[180px] max-w-[480px] overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-1 shadow-[var(--shadow-lg)] animate-scale-in origin-top">
                 {searchable && (
-                  <div className="flex items-center gap-2 border-b border-[var(--neutral-100)] px-3 py-2">
+                  <div className="mb-1 flex items-center gap-2 border-b border-[var(--neutral-200)] px-2 py-2">
                     <MagnifyingGlass aria-hidden="true" className="h-4 w-4 shrink-0 text-[var(--text-tertiary)]" />
                     <input
                       ref={searchInputRef}
@@ -358,12 +312,12 @@ export function Select({
                       value={search}
                       onChange={(e) => { setSearch(e.target.value); setFocusIdx(0); }}
                       placeholder="搜索..."
-                      className="w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
+                      className="field-single-border-focus w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
                       onKeyDown={handleKeyDown}
                     />
                   </div>
                 )}
-                <ul ref={listRef} role="listbox" aria-multiselectable={multiple} className="max-h-60 overflow-y-auto py-1">
+                <ul ref={listRef} role="listbox" aria-multiselectable={multiple} className="max-h-48 overflow-y-auto">
                   {filteredOptions.length === 0 ? (
                     <li className="px-3 py-5 text-center text-sm text-[var(--text-tertiary)]">无匹配选项</li>
                   ) : (
@@ -377,12 +331,16 @@ export function Select({
                           aria-selected={isSelected}
                           aria-disabled={option.disabled}
                           className={[
-                            "flex cursor-pointer items-center gap-3 px-3 py-2 text-sm transition-colors",
+                            "flex min-h-8 cursor-pointer items-center gap-2 rounded-[var(--radius-xs)] px-2 py-1.5 text-sm transition-colors duration-[var(--motion-duration-fast)]",
                             option.disabled
                               ? "cursor-not-allowed text-[var(--text-disabled)]"
-                              : isFocused
-                                ? "bg-[var(--neutral-100)] text-[var(--text-body)]"
-                                : "text-[var(--text-body)] hover:bg-[var(--neutral-50)]",
+                              : isSelected
+                                ? isFocused
+                                  ? "bg-[var(--neutral-200)] text-[var(--neutral-900)]"
+                                  : "bg-[var(--neutral-100)] text-[var(--neutral-900)] hover:bg-[var(--neutral-200)]"
+                                : isFocused
+                                  ? "bg-[var(--neutral-100)] text-[var(--text-body)]"
+                                  : "text-[var(--text-body)] hover:bg-[var(--neutral-50)]",
                           ].join(" ")}
                           onMouseEnter={() => !option.disabled && setFocusIdx(idx)}
                           onClick={() => {
@@ -392,16 +350,22 @@ export function Select({
                         >
                           {multiple && (
                             <span className={[
-                              "flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border transition-colors",
+                              "flex shrink-0 items-center justify-center rounded-[var(--radius-sm)] border transition-colors",
                               isSelected
-                                ? "border-[var(--product-blue-500)] bg-[var(--product-blue-500)] text-white"
-                                : "border-[var(--neutral-300)] bg-white",
+                                ? "border-[var(--neutral-900)] bg-[var(--neutral-900)]"
+                                : "border-[var(--neutral-400)] bg-white",
                               option.disabled ? "opacity-[var(--disabled-opacity)]" : "",
-                            ].join(" ")}>
-                              {isSelected && <Check size={12} weight="bold" aria-hidden="true" />}
+                            ].join(" ")}
+                              style={{ width: "14px", height: "14px" }}
+                            >
+                              {isSelected ? (
+                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                                  <path d="M2 5L4.5 7.5L8.5 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                              ) : null}
                             </span>
                           )}
-                          <span className="truncate">{option.label}</span>
+                          <span className="min-w-0 flex-1 truncate">{option.label}</span>
                         </li>
                       );
                     })

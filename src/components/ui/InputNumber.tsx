@@ -1,5 +1,5 @@
 import { Minus, Plus } from "@phosphor-icons/react";
-import { useId, useState, type ChangeEvent, type InputHTMLAttributes } from "react";
+import { useId, useState, type ChangeEvent, type CSSProperties, type InputHTMLAttributes } from "react";
 
 type InputNumberSize = "sm" | "md" | "lg";
 
@@ -9,6 +9,8 @@ export type InputNumberProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type
   error?: string;
   size?: InputNumberSize;
   suffix?: string;
+  labelPosition?: "top" | "left";
+  labelWidth?: number | string;
   onValueChange?: (value: number | "") => void;
 };
 
@@ -26,6 +28,8 @@ export function InputNumber({
   error,
   size = "md",
   suffix,
+  labelPosition = "top",
+  labelWidth = 96,
   min,
   max,
   step = 1,
@@ -69,31 +73,37 @@ export function InputNumber({
 
   const atMin = currentValue !== "" && minValue !== undefined && Number(currentValue) <= minValue;
   const atMax = currentValue !== "" && maxValue !== undefined && Number(currentValue) >= maxValue;
+  const isHorizontal = labelPosition === "left";
+  const labelStyle = isHorizontal
+    ? ({ "--input-number-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
+    : undefined;
 
   return (
-    <div className="block w-full max-w-[220px]">
-      {label ? <label htmlFor={inputId} className="mb-1.5 block text-sm font-normal text-[var(--text-secondary)]">{label}</label> : null}
-      <div className={`field-single-border-focus flex overflow-hidden rounded-[var(--radius-sm)] border bg-white transition-colors ${error ? "border-[var(--field-border-error)]" : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus-within:border-[var(--field-border-focus)]"} ${disabled ? "bg-[var(--neutral-100)]" : ""} ${sizeClasses[size]}`}>
-        <button type="button" aria-label={`减少${label ?? "数值"}`} disabled={disabled || readOnly || atMin} onClick={() => adjust(-1)} className="flex w-8 shrink-0 items-center justify-center border-r border-[var(--neutral-200)] text-[var(--text-secondary)] hover:bg-[var(--neutral-50)] disabled:cursor-not-allowed disabled:text-[var(--neutral-300)]"><Minus size={16} weight="regular" aria-hidden="true" /></button>
-        <input
-          {...props}
-          id={inputId}
-          type="number"
-          min={min}
-          max={max}
-          step={step}
-          disabled={disabled}
-          readOnly={readOnly}
-          value={currentValue}
-          onChange={handleChange}
-          aria-invalid={Boolean(error)}
-          aria-describedby={error || helperText ? messageId : undefined}
-          className={`input-number-field min-w-0 flex-1 bg-transparent px-2 text-center font-normal text-[var(--text-primary)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)] ${className}`}
-        />
-        {suffix ? <span className="flex shrink-0 items-center px-1 text-xs text-[var(--text-tertiary)]">{suffix}</span> : null}
-        <button type="button" aria-label={`增加${label ?? "数值"}`} disabled={disabled || readOnly || atMax} onClick={() => adjust(1)} className="flex w-8 shrink-0 items-center justify-center border-l border-[var(--neutral-200)] text-[var(--text-secondary)] hover:bg-[var(--neutral-50)] disabled:cursor-not-allowed disabled:text-[var(--neutral-300)]"><Plus size={16} weight="regular" aria-hidden="true" /></button>
+    <div className={isHorizontal ? "flex w-full max-w-[360px] flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3" : "block w-full max-w-[220px]"}>
+      {label ? <label htmlFor={inputId} className={isHorizontal ? "w-full shrink-0 text-sm font-normal text-[var(--text-secondary)] sm:w-[var(--input-number-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5 block text-sm font-normal text-[var(--text-secondary)]"} style={labelStyle}>{label}</label> : null}
+      <div className={isHorizontal ? "min-w-0 flex-1" : "block"}>
+        <div className={`field-single-border-focus flex overflow-hidden rounded-[var(--radius-sm)] border bg-white transition-colors ${error ? "border-[var(--field-border-error)]" : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus-within:border-[var(--field-border-focus)]"} ${disabled ? "bg-[var(--neutral-100)]" : ""} ${sizeClasses[size]}`}>
+          <button type="button" aria-label={`减少${label ?? "数值"}`} disabled={disabled || readOnly || atMin} onClick={() => adjust(-1)} className="flex w-8 shrink-0 items-center justify-center border-r border-[var(--neutral-200)] text-[var(--text-secondary)] hover:bg-[var(--neutral-50)] disabled:cursor-not-allowed disabled:text-[var(--neutral-300)]"><Minus size={16} weight="regular" aria-hidden="true" /></button>
+          <input
+            {...props}
+            id={inputId}
+            type="number"
+            min={min}
+            max={max}
+            step={step}
+            disabled={disabled}
+            readOnly={readOnly}
+            value={currentValue}
+            onChange={handleChange}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error || helperText ? messageId : undefined}
+            className={`input-number-field min-w-0 flex-1 bg-transparent px-2 text-center font-normal text-[var(--text-primary)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)] ${className}`}
+          />
+          {suffix ? <span className="flex shrink-0 items-center px-1 text-xs text-[var(--text-tertiary)]">{suffix}</span> : null}
+          <button type="button" aria-label={`增加${label ?? "数值"}`} disabled={disabled || readOnly || atMax} onClick={() => adjust(1)} className="flex w-8 shrink-0 items-center justify-center border-l border-[var(--neutral-200)] text-[var(--text-secondary)] hover:bg-[var(--neutral-50)] disabled:cursor-not-allowed disabled:text-[var(--neutral-300)]"><Plus size={16} weight="regular" aria-hidden="true" /></button>
+        </div>
+        {error || helperText ? <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>{error ?? helperText}</span> : null}
       </div>
-      {error || helperText ? <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>{error ?? helperText}</span> : null}
     </div>
   );
 }

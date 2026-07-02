@@ -86,7 +86,7 @@ export function Input({
   const describedBy = [error || helperText ? messageId : null, showCount ? countId : null].filter(Boolean).join(" ") || undefined;
 
   return (
-    <div className={isHorizontal ? "block md:flex md:items-start md:gap-2" : "block"}>
+    <div className={isHorizontal ? "block md:flex md:items-start md:gap-3" : "block"}>
       {label ? (
         <label
           htmlFor={inputId}

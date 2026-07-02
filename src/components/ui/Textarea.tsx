@@ -57,7 +57,7 @@ export function Textarea({
   };
 
   return (
-    <label className={isHorizontal ? "block md:flex md:items-start md:gap-2" : "block"}>
+    <label className={isHorizontal ? "block md:flex md:items-start md:gap-3" : "block"}>
       {label ? (
         <span
           className={[
