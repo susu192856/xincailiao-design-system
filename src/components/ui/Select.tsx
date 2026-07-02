@@ -396,7 +396,7 @@ export function Select({
                               isSelected
                                 ? "border-[var(--product-blue-500)] bg-[var(--product-blue-500)] text-white"
                                 : "border-[var(--neutral-300)] bg-white",
-                              option.disabled ? "opacity-40" : "",
+                              option.disabled ? "opacity-[var(--disabled-opacity)]" : "",
                             ].join(" ")}>
                               {isSelected && <Check size={12} weight="bold" aria-hidden="true" />}
                             </span>

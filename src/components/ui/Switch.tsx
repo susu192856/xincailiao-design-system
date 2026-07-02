@@ -35,16 +35,19 @@ export function Switch({
   ...props
 }: SwitchProps) {
   const switchId = id ?? props.name;
+  const messageId = error || helperText ? `${switchId}-message` : undefined;
 
   return (
     <div className={className}>
-      <label className={["inline-flex items-start gap-3", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
+      <label className={["inline-flex items-start gap-[var(--selection-control-gap)]", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
         <span className="relative mt-0.5 shrink-0">
           <input
             type="checkbox"
             id={switchId}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
+            aria-checked={props.checked}
+            aria-describedby={messageId}
             className="peer sr-only"
             role="switch"
             {...props}
@@ -53,7 +56,7 @@ export function Switch({
             "block rounded-full transition-colors peer-checked:bg-[var(--product-blue-500)]",
             error ? "bg-[var(--neutral-200)] ring-1 ring-[var(--error-text)]" : "bg-[var(--neutral-300)]",
             "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
-            "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",
+            "peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--disabled-opacity)]",
             trackSizes[size],
           ].join(" ")} />
           <span className={[
@@ -68,9 +71,9 @@ export function Switch({
         </span>
       </label>
       {error ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
+        <p id={messageId} className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
       ) : helperText ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
+        <p id={messageId} className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
       ) : null}
     </div>
   );

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading } from "../../../components/docs/ComponentDoc";
+import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
 import { Checkbox } from "../../../components/ui/Checkbox";
 import { Form, FormActions, FormGrid, FormSection, FormStateBanner } from "../../../components/ui/Form";
@@ -291,6 +292,49 @@ export default function FormPage() {
               </div>
             </div>
           </ExampleCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="API" title="属性与实现边界" />
+        <div className="space-y-6">
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">Form</h3>
+            <DocsTable>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
+                {[
+                  ["density", "standard | compact", "standard", "标准表单 space-y-6；紧凑筛选 space-y-4。"],
+                  ["className", "string", "—", "透传至 <form>。"],
+                ].map(([name, type, defaultValue, rule]) => <tr key={name}><td className="px-6 py-4 text-sm text-[var(--text-primary)]">{name}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{type}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{defaultValue}</td><td className="px-6 py-4 text-sm leading-6 text-[var(--text-secondary)]">{rule}</td></tr>)}
+              </tbody>
+            </DocsTable>
+          </div>
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">FormGrid</h3>
+            <DocsTable>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
+                {[
+                  ["columns", "1 | 2 | 3 | 4", "1", "响应式栅格；每行字段数按容器宽度自适应。"],
+                  ["className", "string", "—", "可覆盖 gap 等栅格属性。"],
+                ].map(([name, type, defaultValue, rule]) => <tr key={name}><td className="px-6 py-4 text-sm text-[var(--text-primary)]">{name}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{type}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{defaultValue}</td><td className="px-6 py-4 text-sm leading-6 text-[var(--text-secondary)]">{rule}</td></tr>)}
+              </tbody>
+            </DocsTable>
+          </div>
+          <div>
+            <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">FormSection / FormActions / FormStateBanner</h3>
+            <DocsTable>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">组件</th><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
+                {[
+                  ["FormSection", "title / description", "—", "表单区块标题和说明；替代自由 <h3>。"],
+                  ["FormActions", "align", "end", "按钮对齐：start / end / between。"],
+                  ["FormStateBanner", "tone / title / description", "neutral", "表单全局状态提示，tone 可选 neutral/product/success/warning/danger。"],
+                ].map(([component, attrs, defaultValue, rule]) => <tr key={component}><td className="px-6 py-4 text-sm font-semibold text-[var(--text-primary)]">{component}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{attrs}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{defaultValue}</td><td className="px-6 py-4 text-sm leading-6 text-[var(--text-secondary)]">{rule}</td></tr>)}
+              </tbody>
+            </DocsTable>
+          </div>
         </div>
       </section>
 

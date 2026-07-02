@@ -8,11 +8,6 @@ export type RadioProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "s
   size?: "sm" | "md";
 };
 
-const controlSizes = {
-  sm: "h-3.5 w-3.5",
-  md: "h-4 w-4",
-};
-
 export function Radio({
   label,
   description,
@@ -25,28 +20,38 @@ export function Radio({
   ...props
 }: RadioProps) {
   const radioId = id ?? props.name;
+  const messageId = error || helperText ? `${radioId}-message` : undefined;
+  const controlSize = size === "sm" ? "14px" : "var(--selection-control-size)";
+  const checkedRingWidth = size === "sm" ? "4px" : "5px";
 
   return (
     <div className={className}>
-      <label className={["inline-flex items-start gap-2.5", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
-        <span className={["relative mt-0.5 flex shrink-0 items-center justify-center", controlSizes[size]].join(" ")}>
+      <label className={["inline-flex items-start gap-[var(--selection-control-gap)]", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
+        <span className="relative mt-0.5 flex shrink-0 items-center justify-center" style={{ width: controlSize, height: controlSize }}>
           <input
             type="radio"
             id={radioId}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
+            aria-checked={props.checked}
+            aria-describedby={messageId}
             className="peer sr-only"
             {...props}
           />
           <span className={[
             "block rounded-full border transition-colors",
-            controlSizes[size],
-            "peer-checked:border-[var(--neutral-900)] peer-checked:border-[5px]",
+            "peer-checked:border-[var(--neutral-900)]",
             "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
-            "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",
+            "peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--disabled-opacity)]",
             error ? "border-[var(--error-text)]" : "border-[var(--neutral-300)]",
             "bg-white",
-          ].join(" ")} />
+          ].join(" ")}
+            style={{
+              width: controlSize,
+              height: controlSize,
+              borderWidth: checkedRingWidth,
+            }}
+          />
         </span>
         <span className="min-w-0">
           {label ? <span className="block text-sm text-[var(--text-body)]">{label}</span> : null}
@@ -54,9 +59,9 @@ export function Radio({
         </span>
       </label>
       {error ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
+        <p id={messageId} className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
       ) : helperText ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
+        <p id={messageId} className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
       ) : null}
     </div>
   );

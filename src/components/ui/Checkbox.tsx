@@ -9,11 +9,6 @@ export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" |
   size?: "sm" | "md";
 };
 
-const controlSizes = {
-  sm: "h-3.5 w-3.5",
-  md: "h-4 w-4",
-};
-
 export function Checkbox({
   label,
   description,
@@ -27,29 +22,34 @@ export function Checkbox({
   ...props
 }: CheckboxProps) {
   const checkId = id ?? props.name;
+  const messageId = error || helperText ? `${checkId}-message` : undefined;
+  const controlSize = size === "sm" ? "14px" : "var(--selection-control-size)";
 
   return (
     <div className={className}>
-      <label className={["inline-flex items-start gap-2.5", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
-        <span className={["relative mt-0.5 flex shrink-0 items-center justify-center", controlSizes[size]].join(" ")}>
+      <label className={["inline-flex items-start gap-[var(--selection-control-gap)]", disabled ? "cursor-not-allowed" : "cursor-pointer"].join(" ")}>
+        <span className="relative mt-0.5 flex shrink-0 items-center justify-center" style={{ width: controlSize, height: controlSize }}>
           <input
             type="checkbox"
             id={checkId}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
+            aria-checked={indeterminate ? "mixed" : props.checked}
+            aria-describedby={messageId}
             className="peer sr-only"
             {...props}
           />
           <span className={[
             "block rounded-[var(--radius-sm)] border transition-colors",
-            controlSizes[size],
             "peer-checked:bg-[var(--neutral-900)] peer-checked:border-[var(--neutral-900)]",
             "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
             error ? "border-[var(--error-text)]" : "border-[var(--neutral-300)]",
             "bg-white",
-            "peer-disabled:cursor-not-allowed peer-disabled:opacity-40",
+            "peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--disabled-opacity)]",
             indeterminate ? "border-[var(--neutral-900)] bg-[var(--neutral-900)]" : "",
-          ].join(" ")} />
+          ].join(" ")}
+            style={{ width: controlSize, height: controlSize }}
+          />
           <svg
             className={["pointer-events-none absolute", indeterminate ? "hidden" : "hidden peer-checked:block"].join(" ")}
             width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"
@@ -64,9 +64,9 @@ export function Checkbox({
         </span>
       </label>
       {error ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
+        <p id={messageId} className="mt-1.5 text-xs leading-5 text-[var(--error-text)]">{error}</p>
       ) : helperText ? (
-        <p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
+        <p id={messageId} className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">{helperText}</p>
       ) : null}
     </div>
   );

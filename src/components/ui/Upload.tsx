@@ -126,6 +126,7 @@ export function Upload({
               : error
                 ? "cursor-pointer border-[var(--error-text)] bg-[var(--error-bg)]"
                 : "cursor-pointer border-[var(--neutral-300)] bg-[var(--neutral-50)] hover:border-[var(--product-blue-400)] hover:bg-[var(--product-blue-50)]",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring-color)]",
         ].join(" ")}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -161,8 +162,7 @@ export function Upload({
                 "flex items-center gap-3 rounded-[var(--radius-sm)] border bg-white p-3",
                 file.status === "error" ? "border-[var(--error-text)]" : "border-[var(--neutral-200)]",
                 listType === "card" ? "flex-col items-center text-center" : "",
-              ].join(" ")}
-            >
+              ].join(" ")}>
               {listType === "card" ? (
                 <>
                   {file.status === "error" ? (
