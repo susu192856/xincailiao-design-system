@@ -1,4 +1,4 @@
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDown, SpinnerGap } from "@phosphor-icons/react";
 import { useId, useState, type ChangeEvent, type CSSProperties, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from "react";
 
 type InputSize = "sm" | "md" | "lg";
@@ -20,6 +20,7 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "p
   /** 与输入框共享边框的可交互后置控件，例如数量级单位选择。 */
   suffixAddon?: ReactNode;
   showCount?: boolean;
+  loading?: boolean;
 };
 
 export type InputAffixSelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
@@ -32,7 +33,7 @@ export function InputAffixSelect({ options, className = "", ...props }: InputAff
     <span className="relative block h-full">
       <select
         {...props}
-        className={`h-full min-w-[76px] cursor-pointer appearance-none bg-[var(--neutral-50)] px-3 pr-7 text-sm font-normal text-[var(--text-primary)] outline-none hover:bg-[var(--neutral-100)] focus:bg-white disabled:cursor-not-allowed disabled:text-[var(--neutral-400)] ${className}`}
+        className={`h-full min-w-[76px] cursor-pointer appearance-none bg-[var(--neutral-50)] px-3 pr-7 text-sm font-normal text-[var(--text-primary)] outline-none hover:bg-[var(--neutral-100)] focus:bg-white disabled:cursor-not-allowed disabled:text-[var(--text-disabled)] ${className}`}
       >
         {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
@@ -60,6 +61,7 @@ export function Input({
   prefixAddon,
   suffixAddon,
   showCount = false,
+  loading = false,
   disabled,
   className = "",
   id,
@@ -74,6 +76,10 @@ export function Input({
   const countId = `${inputId}-count`;
   const isHorizontal = labelPosition === "left";
   const resolvedPrefix = prefix ?? icon;
+  const isDisabled = disabled || loading;
+  const resolvedSuffix = loading ? (
+    <SpinnerGap size={16} weight="regular" className="animate-spin" aria-hidden="true" />
+  ) : suffix;
   const labelStyle = isHorizontal
     ? ({ "--input-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
     : undefined;
@@ -104,7 +110,7 @@ export function Input({
         </label>
       ) : null}
       <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
-        <span className={`flex overflow-hidden rounded-[var(--radius-sm)] ${prefixAddon || suffixAddon ? "field-single-border-focus border border-[var(--field-border-default)] bg-white hover:border-[var(--field-border-hover)] focus-within:border-[var(--field-border-focus)]" : ""}`}>
+        <span className={`flex overflow-hidden rounded-[var(--radius-sm)] ${prefixAddon || suffixAddon ? `field-single-border-focus border bg-white ${error ? "border-[var(--field-border-error)]" : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus-within:border-[var(--field-border-focus)]"}` : ""}`}>
           {prefixAddon ? <span className="shrink-0 border-r border-[var(--field-border-default)]">{prefixAddon}</span> : null}
           <span className="relative min-w-0 flex-1">
           {resolvedPrefix ? (
@@ -115,7 +121,8 @@ export function Input({
           <input
             {...props}
             id={inputId}
-            disabled={disabled}
+            disabled={isDisabled}
+            readOnly={loading || props.readOnly}
             value={value}
             defaultValue={defaultValue}
             onChange={handleChange}
@@ -124,24 +131,24 @@ export function Input({
             className={[
               "w-full bg-white font-normal text-[var(--text-primary)] outline-none transition-colors",
               prefixAddon || suffixAddon ? "border-0 rounded-none" : "field-single-border-focus rounded-[var(--radius-sm)] border",
-              "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--neutral-50)] read-only:text-[var(--text-tertiary)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+              "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
               error
                 ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
-                : disabled
+                : isDisabled
                   ? "border-[var(--field-border-default)]"
                   : props.readOnly
                     ? "border-[var(--field-border-default)] focus:border-[var(--field-border-focus)]"
                     : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
               resolvedPrefix ? "pl-9" : "",
-              suffix ? "pr-10" : "",
+              resolvedSuffix ? "pr-10" : "",
               showCount ? "pr-16" : "",
               sizeClasses[size],
               className,
             ].join(" ")}
           />
-          {suffix ? (
+          {resolvedSuffix ? (
             <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-tertiary)]">
-              {suffix}
+              {resolvedSuffix}
             </span>
           ) : null}
           {showCount ? (

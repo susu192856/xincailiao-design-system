@@ -22,7 +22,6 @@
 - 标签
 - 日期输入容器
 - 日历图标
-- 清除按钮
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
@@ -32,7 +31,9 @@
 | `error` | `string` | `—` | 错误提示；覆盖 helperText 显示。 |
 | `size` | `'sm' | 'md' | 'lg'` | `md` | 组件尺寸，映射到控件高度 Token。 |
 | `value` | `string` | `—` | 当前日期值 YYYY-MM-DD 格式。 |
-| `clearable` | `boolean` | `—` | 是否显示清除按钮。 |
+| `open` | `boolean` | `—` | 受控面板开合状态。 |
+| `defaultOpen` | `boolean` | `false` | 面板初始展开状态。 |
+| `onOpenChange` | `(open: boolean) => void` | `—` | 面板开合变化回调。 |
 | `disabled` | `boolean` | `false` | 禁用状态。 |
 | `min` | `string` | `—` | 最小可选日期 YYYY-MM-DD。 |
 | `max` | `string` | `—` | 最大可选日期 YYYY-MM-DD。 |
@@ -42,7 +43,6 @@
 ### Variants
 
 - `default`
-- `with-clear`
 
 ### Tones
 

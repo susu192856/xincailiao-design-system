@@ -51,6 +51,7 @@ body {
 .field-single-border-focus:focus-visible {
   outline: none;
   outline-offset: 0;
+  box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 3px var(--focus-ring-color);
 }
 
 ::selection {
@@ -117,9 +118,6 @@ code:not(pre code) {
 
 pre {
   border-radius: var(--radius-sm);
-  border: 1px solid var(--docs-border);
-  background: var(--neutral-950);
-  box-shadow: var(--docs-soft-shadow);
 }
 
 .docs-content section[id] {

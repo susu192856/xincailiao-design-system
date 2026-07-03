@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import DocsTable from "../../../components/docs/DocsTable";
+import CodeBlock from "../../../components/docs/CodeBlock";
+import { Checkbox } from "../../../components/ui/Checkbox";
 import { Input, InputAffixSelect } from "../../../components/ui/Input";
 import { InputNumber } from "../../../components/ui/InputNumber";
 import { Textarea } from "../../../components/ui/Textarea";
@@ -19,15 +21,6 @@ const anatomyRows = [
 
 const anatomyMarkerClass = "absolute z-10 hidden h-5 w-5 items-center justify-center rounded-full border border-[var(--product-blue-500)] bg-[var(--product-blue-500)] font-data text-[10px] font-medium text-white shadow-sm sm:flex";
 
-const stateRows = [
-  ["Default", "field-border-default", "可输入，白色背景。"],
-  ["Hover", "field-border-hover", "仅可编辑控件在桌面指针悬停时增强边框；只读和禁用不响应。"],
-  ["Focus", "field-border-focus + focus ring", "键盘和点击聚焦均显示清晰焦点。"],
-  ["Error", "field-border-error + error-text", "保留可编辑，并显示具体错误原因。"],
-  ["Read only", "field-bg-readonly", "可查看、选择和复制，不可修改。"],
-  ["Disabled", "field-bg-disabled", "不可操作，需在上下文中说明禁用原因。"],
-];
-
 const inputProps = [
   ["label", "string", "—", "可见字段名称；正式录入场景必须提供。"],
   ["placeholder", "string", "—", "格式、示例或动作提示，不替代 label。"],
@@ -38,6 +31,7 @@ const inputProps = [
   ["showCount", "boolean", "false", "在控件内部右侧显示字符计数，建议与 maxLength 配合。"],
   ["helperText", "string", "—", "字段用途、格式或限制说明。"],
   ["error", "string", "—", "错误说明，同时驱动错误边框和 aria-invalid。"],
+  ["loading", "boolean", "false", "异步校验中；输入框只读并显示旋转器替代后缀。"],
   ["labelPosition", "top | left", "top", "宽页面可使用 left；窄屏自动回到上下结构。"],
   ["labelWidth", "number | string", "96", "左右结构中的标签宽度，推荐 96–120px。"],
   ["readOnly / disabled", "boolean", "false", "分别表达可复制不可改、当前不可操作。"],
@@ -56,30 +50,122 @@ function ClearableInput({
   label,
   placeholder,
   defaultValue,
+  labelPosition = "top",
+  labelWidth = 96,
 }: {
   label: string;
   placeholder?: string;
   defaultValue?: string;
+  labelPosition?: "top" | "left";
+  labelWidth?: number | string;
 }) {
   const [value, setValue] = useState(defaultValue ?? "");
   const inputId = useId();
+
+  const sharedProps = {
+    id: inputId,
+    label,
+    placeholder,
+    labelPosition,
+    labelWidth: labelPosition === "left" ? labelWidth : undefined,
+    value,
+    onChange: (e: { target: { value: string } }) => setValue(e.target.value),
+  };
+
   return (
-    <div>
-      <label htmlFor={inputId} className="mb-1.5 block text-sm font-normal text-[var(--text-secondary)]">{label}</label>
-      <div className="relative">
-        <Input id={inputId} aria-label={label} placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)} className="pr-10" />
-        {value ? (
+    <Input
+      {...sharedProps}
+      suffix={
+        value ? (
           <button
             type="button"
             onClick={() => setValue("")}
             aria-label={`清除${label}`}
-            className="absolute inset-y-0 right-0 flex w-8 items-center justify-center text-[var(--text-tertiary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--focus-ring-color)]"
+            className="flex h-5 w-5 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
           >
-            <X size={16} weight="regular" aria-hidden="true" />
+            <X size={14} weight="regular" aria-hidden="true" />
           </button>
-        ) : null}
-      </div>
-    </div>
+        ) : undefined
+      }
+    />
+  );
+}
+
+function InteractivePlaygroundSection() {
+  const [labelText, setLabelText] = useState("材料牌号");
+  const [placeholder, setPlaceholder] = useState("例如：TC4");
+  const [size, setSize] = useState<"sm" | "md" | "lg">("md");
+  const [labelPos, setLabelPos] = useState<"top" | "left">("left");
+  const [prefixType, setPrefixType] = useState<"none" | "search" | "currency">("search");
+  const [state, setState] = useState<"default" | "error" | "disabled" | "loading" | "readOnly">("default");
+  const [showCount, setShowCount] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const prefixMap = {
+    none: undefined,
+    search: <MagnifyingGlass size={16} weight="regular" aria-hidden="true" />,
+    currency: "¥",
+  };
+
+  const stateProps = {
+    default: {},
+    error: { error: "编号格式应为 MAT-年份-序号" } as Record<string, unknown>,
+    disabled: { disabled: true },
+    loading: { loading: true },
+    readOnly: { readOnly: true },
+  };
+
+  const resetPlayground = () => {
+    setLabelText("材料牌号");
+    setPlaceholder("例如：TC4");
+    setSize("md");
+    setLabelPos("left");
+    setPrefixType("search");
+    setState("default");
+    setShowCount(false);
+    setInputValue("");
+  };
+
+  const sizeLabel = { sm: "Small · 28px", md: "Medium · 32px", lg: "Large · 36px" }[size];
+  const positionLabel = labelPos === "top" ? "上下标签" : "左右标签";
+  const prefixLabel = { none: "无前缀", search: "搜索图标", currency: "货币符号" }[prefixType];
+  const stateLabel = { default: "默认", error: "错误", disabled: "禁用", loading: "加载", readOnly: "只读" }[state];
+  const optionClass = (selected: boolean) => `rounded-[var(--radius-sm)] border px-3 py-2 text-xs font-medium transition-colors ${selected ? "border-[var(--neutral-900)] bg-[var(--neutral-900)] text-white" : "border-[var(--neutral-200)] bg-white text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]"}`;
+
+  return (
+    <section>
+      <SectionHeading
+        eyebrow="Playground"
+        title="即时体验"
+        description="选择内容、外观和状态，直接比较输入框在真实业务场景中的变化。"
+      />
+      <SectionCard className="overflow-hidden !p-0">
+        <div className="flex items-center justify-between gap-4 border-b border-[var(--neutral-200)] px-5 py-4 md:px-6">
+          <div><h3 className="text-sm font-semibold text-[var(--text-primary)]">自定义输入框</h3><p className="mt-1 text-xs text-[var(--text-tertiary)]">调整左侧选项，右侧结果会立即更新。</p></div>
+          <button type="button" onClick={resetPlayground} className="shrink-0 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]">恢复默认</button>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[360px_minmax(0,1fr)]">
+          <div className="space-y-7 p-5 md:p-6 lg:border-r lg:border-[var(--neutral-200)]">
+            <div><h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">内容</h4><div className="space-y-4"><Input label="标签文字" value={labelText} onChange={(e) => setLabelText(e.target.value)} /><Input label="占位提示" value={placeholder} onChange={(e) => setPlaceholder(e.target.value)} /><Input label="示例输入值" value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="也可直接在右侧输入" /></div></div>
+            <div className="border-t border-[var(--neutral-200)] pt-6"><h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">外观</h4><div className="space-y-5">
+              <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">尺寸</div><div className="flex flex-wrap gap-2">{([['sm','Small'],['md','Medium'],['lg','Large']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={size===key} onClick={()=>setSize(key)} className={optionClass(size===key)}>{label}</button>)}</div></div>
+              <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">标签布局</div><div className="flex gap-2">{([['top','上下标签'],['left','左右标签']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={labelPos===key} onClick={()=>setLabelPos(key)} className={optionClass(labelPos===key)}>{label}</button>)}</div></div>
+              <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">前缀</div><div className="flex flex-wrap gap-2">{([['none','无'],['search','搜索图标'],['currency','¥ 货币']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={prefixType===key} onClick={()=>setPrefixType(key)} className={optionClass(prefixType===key)}>{label}</button>)}</div></div>
+            </div></div>
+            <div className="border-t border-[var(--neutral-200)] pt-6"><h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">状态</h4><div className="space-y-4">
+              <div className="flex flex-wrap gap-2">{([['default','默认'],['error','错误'],['disabled','禁用'],['loading','加载'],['readOnly','只读']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={state===key} onClick={()=>setState(key)} className={optionClass(state===key)}>{label}</button>)}</div>
+              <Checkbox id="play-show-count" size="sm" checked={showCount} onChange={(e)=>setShowCount(e.target.checked)} label="显示字符计数" description="最多输入 20 个字符" />
+            </div></div>
+          </div>
+          <div className="bg-[var(--neutral-50)] p-5 md:p-8">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold text-[var(--text-primary)]">实时预览</h4><p className="mt-1 text-xs text-[var(--text-tertiary)]">可直接在下方输入框中体验。</p></div><div className="flex flex-wrap gap-1.5">{[sizeLabel,positionLabel,prefixLabel,stateLabel].map(item=><span key={item} className="rounded-full border border-[var(--neutral-200)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-secondary)]">{item}</span>)}</div></div>
+            <div className="flex min-h-[360px] items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-white p-6 md:p-10">
+              <div className="w-full max-w-[480px] rounded-[var(--radius-sm)] border border-[var(--neutral-100)] bg-white p-5 shadow-[var(--shadow-xs)]"><Input label={labelText||undefined} placeholder={placeholder} size={size} labelPosition={labelPos} labelWidth={88} prefix={prefixMap[prefixType]} showCount={showCount} maxLength={showCount?20:undefined} value={inputValue} onChange={(e)=>setInputValue(e.target.value)} {...stateProps[state]} /></div>
+            </div>
+          </div>
+        </div>
+      </SectionCard>
+    </section>
   );
 }
 
@@ -100,12 +186,12 @@ export default function InputPage() {
         />
         <SectionCard className="md:p-6">
             <div className="relative mx-auto max-w-[448px] py-2 sm:pl-6">
-              <span aria-hidden="true" className={`${anatomyMarkerClass} left-[28px] -top-2`}>1</span>
-              <span aria-hidden="true" className={`${anatomyMarkerClass} left-[68px] -top-2`}>2</span>
-              <span aria-hidden="true" className={`${anatomyMarkerClass} left-[116px] top-1`}>3</span>
+              <span aria-hidden="true" className={`${anatomyMarkerClass} left-[24px] -top-2`}>1</span>
+              <span aria-hidden="true" className={`${anatomyMarkerClass} left-[64px] -top-2`}>2</span>
+              <span aria-hidden="true" className={`${anatomyMarkerClass} left-[114px] -top-2`}>3</span>
               <span aria-hidden="true" className={`${anatomyMarkerClass} left-[168px] -top-2`}>4</span>
-              <span aria-hidden="true" className={`${anatomyMarkerClass} right-0 top-1`}>5</span>
-              <span aria-hidden="true" className={`${anatomyMarkerClass} bottom-0 left-[116px]`}>6</span>
+              <span aria-hidden="true" className={`${anatomyMarkerClass} right-0 -top-2`}>5</span>
+              <span aria-hidden="true" className={`${anatomyMarkerClass} -bottom-1 left-[114px]`}>6</span>
               <Input
                 labelPosition="left"
                 labelWidth={88}
@@ -141,6 +227,18 @@ export default function InputPage() {
       </section>
 
       <section>
+        <SectionHeading eyebrow="Structures" title="输入框类型与能力" description="先选择基础输入类型，再按业务语义叠加前后缀形式或清除能力；附加能力不改变输入值的基础类型。" />
+        <SectionCard className="md:p-6">
+          <div className="space-y-6">
+            <div><h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">基础类型</h3><div className="max-w-[492px] space-y-4"><Input labelPosition="left" labelWidth={96} label="文本输入" placeholder="例如：MAT-2026-001" helperText="名称、编号和单值文本。" /><InputNumber label="数值步进器" labelPosition="left" labelWidth={96} defaultValue={0.5} min={0} max={10} step={0.5} suffix="°C" helperText="用于连续数值调整；支持直接输入、步长、边界和单位。" /></div></div>
+            <div className="border-t border-[var(--neutral-200)] pt-5"><h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">前后缀形式</h3><div className="max-w-[492px] space-y-4"><Input labelPosition="left" labelWidth={96} label="固定前后缀" placeholder="0.00" prefix="¥" suffix="CNY" helperText="固定币种和单位只补充格式，不写入输入值。" /><Input labelPosition="left" labelWidth={96} label="搜索前缀" placeholder="请输入材料名称" prefix={<MagnifyingGlass size={16} weight="regular" aria-hidden="true" />} helperText="图标只强化检索语义，仍需提供可访问名称。" /><Input labelPosition="left" labelWidth={96} label="状态后缀" defaultValue="MAT-2026-001" suffix={<CheckCircle size={16} weight="regular" aria-hidden="true" />} readOnly helperText="状态图标需配合文字解释校验结论。" /><Input labelPosition="left" labelWidth={96} label="可交互前缀" inputMode="tel" placeholder="请输入手机号" prefixAddon={<InputAffixSelect aria-label="国家或地区区号" defaultValue="+86" options={[{label:"+86",value:"+86"},{label:"+852",value:"+852"}]} />} /><Input labelPosition="left" labelWidth={96} label="可交互后缀" inputMode="decimal" placeholder="请输入数量" suffixAddon={<InputAffixSelect aria-label="数量级单位" defaultValue="万" options={[{label:"百",value:"百"},{label:"万",value:"万"}]} />} helperText="可交互前后缀会改变输入值解释。" /></div></div>
+            <div className="border-t border-[var(--neutral-200)] pt-5"><h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">附加能力</h3><div className="max-w-[492px]"><ClearableInput label="可清除输入" labelPosition="left" labelWidth={96} defaultValue="MAT-2026-0618-TC4" /></div></div>
+          </div>
+        </SectionCard>
+        <CodeBlock lang="tsx" label="类型与能力" code={`<Input label="文本输入" />\n<Input prefix="¥" suffix="CNY" />\n<InputNumber min={0} max={10} step={0.5} />`} />
+      </section>
+
+      <section>
         <SectionHeading eyebrow="Sizes" title="输入框尺寸" description="单行 Input 使用固定控件高度，多行 Textarea 使用最小高度；两者文字均为 14px，并共享 Small / Medium / Large 三级语义。" />
         <ExampleCard title="单行 Input · Small / Medium / Large">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -167,61 +265,55 @@ export default function InputPage() {
             </div>
           </ExampleCard>
         </div>
+        <CodeBlock
+          lang="tsx"
+          label="尺寸"
+          code={`// Input 三档尺寸
+<Input size="sm" label="Small" placeholder="表格筛选" />
+<Input size="md" label="Medium" placeholder="默认表单" />
+<Input size="lg" label="Large" placeholder="重点字段" />
+
+// Textarea 三档尺寸
+<Textarea size="sm" label="Small" placeholder="简短备注" />
+<Textarea size="md" label="Medium" placeholder="默认说明输入" />
+<Textarea size="lg" label="Large" placeholder="长说明或治理记录" />`}
+        />
       </section>
 
       <section>
-        <SectionHeading eyebrow="States" title="输入状态" description="状态不能只依赖边框颜色；错误、只读和禁用必须同时有文字或上下文说明。同时展示各状态的完整 Token 映射和视觉示例。" />
+        <SectionHeading eyebrow="States" title="输入状态" description="状态不能只依赖边框颜色；错误、只读和禁用必须同时有文字或上下文说明。" />
         <div className="space-y-5">
           <SectionCard className="md:p-6">
-            <div className="max-w-[436px] space-y-4">
+            <div className="max-w-[672px] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
               <Input labelPosition="left" labelWidth={64} label="默认" placeholder="请输入内容" />
               <Input labelPosition="left" labelWidth={64} label="Hover" defaultValue="可编辑内容" className="!border-[var(--field-border-hover)]" helperText="仅桌面指针悬停时增强边框。" />
-              <Input labelPosition="left" labelWidth={64} label="Focus" placeholder="点击或 Tab 聚焦" className="!border-[var(--field-border-focus)] ring-1 ring-[var(--neutral-900)]" helperText="键盘和鼠标聚焦均显示清晰焦点。" />
+              <Input labelPosition="left" labelWidth={64} label="Focus" placeholder="点击或 Tab 聚焦" autoFocus className="!border-[var(--field-border-focus)] [box-shadow:0_0_0_1px_#FFFFFF,_0_0_0_3px_var(--focus-ring-color)]" helperText="键盘和鼠标聚焦均显示清晰焦点。" />
               <Input labelPosition="left" labelWidth={64} label="必填" placeholder="请输入内容" required />
               <Input labelPosition="left" labelWidth={64} label="错误" defaultValue="ABC" error="编号格式应为 MAT-年份-序号" />
               <Input labelPosition="left" labelWidth={64} label="只读" value="系统计算结果" readOnly helperText="可以查看和复制。" />
               <Input labelPosition="left" labelWidth={64} label="禁用" value="等待上一步完成" disabled helperText="当前流程节点不可操作。" />
-              <Input labelPosition="left" labelWidth={64} label="Loading" value="正在校验…" readOnly suffix={<SpinnerGap size={16} weight="regular" className="animate-spin" aria-hidden="true" />} helperText="保留已有内容，并显示当前任务。" />
+              <Input labelPosition="left" labelWidth={64} label="Loading" value="正在校验…" loading helperText="保留已有内容，输入框只读并显示旋转器。" />
             </div>
           </SectionCard>
-          <DocsTable>
-            <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]">
-              <tr className="border-b border-[var(--neutral-200)]">
-                <th className="px-6 py-3 font-semibold">状态</th>
-                <th className="px-6 py-3 font-semibold">Token</th>
-                <th className="px-6 py-3 font-semibold">说明</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
-              {stateRows.map(([state, token, rule]) => (
-                <tr key={state}>
-                  <td className="px-6 py-4 text-sm font-semibold text-[var(--text-primary)]">{state}</td>
-                  <td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{token}</td>
-                  <td className="px-6 py-4 text-sm leading-6 text-[var(--text-secondary)]">{rule}</td>
-                </tr>
-              ))}
-            </tbody>
-          </DocsTable>
-        </div>
-      </section>
+          <CodeBlock
+                lang="tsx"
+                label="状态"
+                code={`// 可选标记
+<Input label="必填" placeholder="请输入内容" required />
 
-      <section>
-        <SectionHeading
-          eyebrow="Structures"
-          title="输入框类型"
-          description="日常项目长表单默认使用左右结构；上下结构保留给窄容器、移动端、弹窗和少量独立字段。结构变化不改变字段状态语义。"
-        />
-        <SectionCard className="md:p-6">
-          <div className="max-w-[492px] space-y-4">
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">基础输入</div><div><Input aria-label="样品编号" placeholder="例如：MAT-2026-001" /><p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">名称、编号和单值文本。</p></div></div>
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">文字前后缀</div><div><Input aria-label="采购金额" placeholder="0.00" prefix="¥" suffix="CNY" /><p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">固定币种和单位只补充格式，不写入输入值。</p></div></div>
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">搜索前缀</div><div><Input aria-label="搜索材料" placeholder="请输入材料名称" prefix={<MagnifyingGlass size={16} weight="regular" aria-hidden="true" />} /><p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">图标只强化检索语义，仍需提供可访问名称。</p></div></div>
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">状态后缀</div><Input aria-label="材料编码" defaultValue="MAT-2026-001" suffix={<CheckCircle size={16} weight="regular" aria-hidden="true" />} helperText="状态图标需配合文字解释校验结论。" readOnly /></div>
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">可交互前后缀</div><div className="space-y-3"><Input aria-label="手机号码" inputMode="tel" placeholder="请输入手机号" prefixAddon={<InputAffixSelect aria-label="国家或地区区号" defaultValue="+86" options={[{ label: "+86", value: "+86" }, { label: "+852", value: "+852" }, { label: "+853", value: "+853" }]} />} /><Input aria-label="采购数量" inputMode="decimal" placeholder="请输入数量" suffixAddon={<InputAffixSelect aria-label="数量级单位" defaultValue="万" options={[{ label: "百", value: "百" }, { label: "万", value: "万" }, { label: "百万", value: "百万" }]} />} helperText="前缀用于区号，后缀用于可切换单位；两者都会改变输入值解释。" /></div></div>
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">可清除输入</div><ClearableInput label="材料批号" defaultValue="MAT-2026-0618-TC4" /></div>
-            <div className="grid grid-cols-1 items-start gap-3 md:grid-cols-[120px_360px]"><div className="pt-1.5 text-right text-sm text-[var(--text-secondary)]">数值步进器</div><InputNumber aria-label="温度增量" defaultValue={0.5} min={0} max={10} step={0.5} suffix="°C" helperText="用于连续数值调整；支持直接输入、步长、边界和单位。" /></div>
-          </div>
-        </SectionCard>
+// 错误 — 必须给出修正方式
+<Input label="编号" defaultValue="ABC" error="编号格式应为 MAT-年份-序号" />
+
+// 只读 — 可选中、可复制
+<Input label="计算结果" value="系统计算结果" readOnly />
+
+// 禁用 — 不可操作，需在上下文中说明原因
+<Input label="当前节点" value="等待上一步完成" disabled />
+
+// Loading — 校验中
+<Input label="校验" value="正在校验…" loading />`}
+          />
+        </div>
       </section>
 
       <section>
@@ -231,7 +323,7 @@ export default function InputPage() {
             <ExampleCard title="上下标签 - 局部例外"><div className="max-w-[360px] space-y-4"><Input label="材料名称" placeholder="请输入材料名称" helperText="适合弹窗、窄卡片、移动端或需要强调的独立字段。" /><Textarea label="补充说明" placeholder="补充材料来源或用途" /></div></ExampleCard>
             <ExampleCard title="左右标签 - 项目默认"><div className="max-w-[640px] space-y-4"><Input labelPosition="left" labelWidth={88} label="名称" placeholder="请输入材料名称" required /><Input labelPosition="left" labelWidth={88} label="材料数据来源" placeholder="实验采集 / 企业上传" helperText="不同长度标签使用同一宽度并右对齐；移动端自动回到上下结构。" /></div></ExampleCard>
           </div>
-          <div className="mt-6 border-t border-[var(--neutral-200)] pt-5">
+          <div className="mt-5 border-t border-[var(--neutral-200)] pt-5">
             <h4 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">标签结构使用规则</h4>
             <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--text-secondary)] md:grid-cols-3">
               <div className="bg-[var(--neutral-50)] p-4"><strong className="block text-[var(--text-primary)]">按容器选择</strong>主编辑区使用左右结构；弹窗、窄容器和移动端使用上下结构。</div>
@@ -240,6 +332,18 @@ export default function InputPage() {
             </div>
           </div>
         </div>
+        <CodeBlock
+            lang="tsx"
+            label="标签结构"
+            code={`// 上下标签 — 弹窗、窄容器
+<Input label="材料名称" placeholder="请输入材料名称" />
+
+// 左右标签 — 主编辑区（项目默认）
+<Input labelPosition="left" labelWidth={88} label="名称" placeholder="请输入" required />
+
+// 长标签扩展宽度
+<Input labelPosition="left" labelWidth={120} label="材料数据来源" placeholder="实验采集 / 企业上传" />`}
+        />
       </section>
 
       <section id="textarea" className="scroll-mt-6">
@@ -271,21 +375,37 @@ export default function InputPage() {
           <strong className="text-[var(--text-primary)]">边界提醒：</strong>
           文本域不承载富文本排版、代码校验、语法高亮、公式编辑或结构化 JSON 配置——这些是专用编辑器的职责。
         </div>
+        <CodeBlock
+          lang="tsx"
+          label="Textarea"
+          code={`// 标准结构 + 字数统计
+<Textarea
+  label="数据来源说明"
+  placeholder="说明来源机构、采集方式和处理过程"
+  helperText="按「来源—方法—时间」顺序填写。"
+  maxLength={300}
+  showCount
+  required
+/>
+
+// 错误
+<Textarea label="审核意见" placeholder="请输入驳回原因" error="驳回时必须填写审核意见" />
+
+// 只读
+<Textarea label="系统摘要" value="该内容由系统生成，可查看复制。" readOnly />
+
+// 禁用
+<Textarea label="当前节点" value="审批完成前不可编辑。" disabled />`}
+        />
       </section>
 
-      <section>
-        <SectionHeading eyebrow="Do / Don't" title="正确与错误示例" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div className="flex overflow-hidden rounded-[var(--radius-sm)]"><div className="flex min-w-0 flex-1 flex-col"><ExampleCard className="h-full flex-1" title="正确：字段语义与反馈完整"><Input label="试验温度" placeholder="例如：25" suffix="℃" helperText="填写试验时的环境温度。" required /></ExampleCard><div className="h-0.5 w-full shrink-0 bg-[var(--success-solid)]" /></div></div>
-          <div className="flex overflow-hidden rounded-[var(--radius-sm)]"><div className="flex min-w-0 flex-1 flex-col"><ExampleCard className="h-full flex-1" title="错误：只依赖占位符和颜色"><div aria-hidden="true" className="mb-1.5 h-5" /><Input aria-label="错误示例：材料编号" placeholder="材料编号" className="border-[var(--error-text)]" /><p className="mt-1.5 text-xs leading-5 text-[var(--text-tertiary)]">缺少可见字段名和错误原因；输入后占位文字消失，颜色也无法说明如何修正。</p></ExampleCard><div className="h-0.5 w-full shrink-0 bg-[var(--error-solid)]" /></div></div>
-        </div>
-      </section>
+      <InteractivePlaygroundSection />
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList items={[
           "短名称、编号、关键词和单值参数使用 Input；备注、原因和说明使用 Textarea。",
-          "正式录入字段必须有可见标签；placeholder 只提供格式或示例。",
+          "正式录入字段必须有可见标签；placeholder 只提供格式或示例——不要只依赖占位符和颜色表达状态。",
           "标签、输入与占位文字使用 14px Regular；辅助和错误文字使用 12px Regular。",
           "默认使用 Medium；紧凑筛选使用 Small，低密度重点字段使用 Large。",
           "页面图标统一来自 @phosphor-icons/react，不使用临时手绘 SVG；输入框前后缀图标使用 16px / Regular。",
@@ -297,6 +417,10 @@ export default function InputPage() {
           "Textarea 的 Small / Medium / Large 最小高度为 80 / 96 / 120px，长内容允许纵向滚动或缩放。",
           "帮助文字、错误信息和字符计数必须与对应控件保持关联，状态不能只依赖颜色。",
         ]} />
+        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
+          <strong className="text-[var(--text-primary)]">常见错误：</strong>
+          只用 placeholder 替代 label、只用红色边框表示错误而不给修正文字——这两种做法会让用户在输入后失去上下文，也无法知道如何修正。
+        </div>
       </section>
 
       <section>

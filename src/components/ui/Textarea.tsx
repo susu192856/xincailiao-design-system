@@ -9,16 +9,15 @@ export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   helperText?: string;
   error?: string;
   size?: TextareaSize;
-  inputSize?: TextareaSize;
   showCount?: boolean;
   labelPosition?: LabelPosition;
   labelWidth?: number | string;
 };
 
 const sizeClasses: Record<TextareaSize, string> = {
-  sm: "min-h-[var(--textarea-min-height-sm)] px-[var(--field-padding-x-sm)] py-2 text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)]",
-  md: "min-h-[var(--textarea-min-height-md)] px-[var(--field-padding-x-md)] py-2 text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)]",
-  lg: "min-h-[var(--textarea-min-height-lg)] px-[var(--field-padding-x-lg)] py-3 text-[length:var(--type-body-m-size)] leading-[var(--type-body-m-line-height)]",
+  sm: "min-h-[var(--textarea-min-height-sm)] px-[var(--field-padding-x-sm)] py-2 text-sm",
+  md: "min-h-[var(--textarea-min-height-md)] px-[var(--field-padding-x-md)] py-2 text-sm",
+  lg: "min-h-[var(--textarea-min-height-lg)] px-[var(--field-padding-x-lg)] py-3 text-sm",
 };
 
 export function Textarea({
@@ -26,7 +25,6 @@ export function Textarea({
   helperText,
   error,
   size,
-  inputSize = "md",
   showCount = false,
   labelPosition = "top",
   labelWidth = 96,
@@ -43,7 +41,7 @@ export function Textarea({
   const messageId = error || helperText ? `${textareaId}-message` : undefined;
   const countId = showCount ? `${textareaId}-count` : undefined;
   const describedBy = [messageId, countId].filter(Boolean).join(" ") || undefined;
-  const resolvedSize = size ?? inputSize;
+  const resolvedSize = size;
   const isHorizontal = labelPosition === "left";
   const labelStyle = isHorizontal
     ? ({ "--textarea-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
@@ -84,7 +82,7 @@ export function Textarea({
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy}
           className={[
-            "field-single-border-focus w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
+            "field-single-border-focus w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-primary)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
             "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
             "resize-y",
             showCount ? "pb-7" : "",
@@ -95,7 +93,7 @@ export function Textarea({
                 : props.readOnly
                   ? "border-[var(--field-border-default)] focus:border-[var(--field-border-focus)]"
                   : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
-            sizeClasses[resolvedSize],
+            sizeClasses[resolvedSize ?? "md"],
             className,
           ].join(" ")}
           {...props}

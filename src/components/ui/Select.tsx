@@ -11,6 +11,11 @@ type SelectOption = {
   disabled?: boolean;
 };
 
+type SelectOptionGroup = {
+  label: string;
+  options: SelectOption[];
+};
+
 export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "value" | "onChange"> & {
   label?: string;
   helperText?: string;
@@ -18,16 +23,20 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" |
   size?: SelectSize;
   labelPosition?: LabelPosition;
   labelWidth?: number | string;
-  options: SelectOption[];
+  options: SelectOption[] | SelectOptionGroup[];
   placeholder?: string;
   loading?: boolean;
   searchable?: boolean;
   multiple?: boolean;
+  clearable?: boolean;
   value?: string | string[];
   defaultValue?: string | string[];
   onChange?: (value: string | string[]) => void;
+  filterOption?: (option: SelectOption, search: string) => boolean;
   renderTag?: (option: SelectOption, onRemove: () => void) => ReactNode;
+  open?: boolean;
   defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 const sizeClasses: Record<SelectSize, string> = {
@@ -42,6 +51,25 @@ const sizePadding: Record<SelectSize, string> = {
   lg: "pl-[var(--field-padding-x-lg)] pr-9",
 };
 
+const tagSizeClasses: Record<SelectSize, string> = {
+  sm: "h-5 px-1 text-[11px]",
+  md: "h-6 px-1.5 text-xs",
+  lg: "h-7 px-2 text-xs",
+};
+
+function isGrouped(options: SelectOption[] | SelectOptionGroup[]): options is SelectOptionGroup[] {
+  return options.length > 0 && "options" in options[0];
+}
+
+function flattenOptions(options: SelectOption[] | SelectOptionGroup[]): SelectOption[] {
+  if (!isGrouped(options)) return options;
+  return options.flatMap((g) => g.options);
+}
+
+function defaultFilterOption(option: SelectOption, search: string): boolean {
+  return option.label.toLowerCase().includes(search.toLowerCase());
+}
+
 function getSelectedLabels(options: SelectOption[], values: string[]): string {
   return values
     .map((v) => options.find((o) => o.value === v)?.label ?? v)
@@ -55,16 +83,20 @@ export function Select({
   size = "md",
   labelPosition = "top",
   labelWidth = 96,
-  options,
+  options: rawOptions,
   placeholder,
   loading = false,
   searchable = false,
   multiple = false,
+  clearable = false,
   value: controlledValue,
   defaultValue,
   onChange,
+  filterOption = defaultFilterOption,
   renderTag,
+  open: controlledOpen,
   defaultOpen = false,
+  onOpenChange,
   disabled,
   className = "",
   style: selectStyle,
@@ -84,7 +116,13 @@ export function Select({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const [open, setOpen] = useState(defaultOpen);
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = useCallback((next: boolean | ((previous: boolean) => boolean)) => {
+    const resolved = typeof next === "function" ? next(open) : next;
+    if (controlledOpen === undefined) setInternalOpen(resolved);
+    onOpenChange?.(resolved);
+  }, [controlledOpen, onOpenChange, open]);
   const [search, setSearch] = useState("");
   const [focusIdx, setFocusIdx] = useState(-1);
 
@@ -95,9 +133,11 @@ export function Select({
   const currentValue = isControlled ? controlledValue : internalValue;
   const valuesArr = Array.isArray(currentValue) ? currentValue : currentValue ? [currentValue] : [];
 
+  const allOptions = flattenOptions(rawOptions);
+
   const filteredOptions = searchable && search
-    ? options.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()))
-    : options;
+    ? allOptions.filter((o) => filterOption(o, search))
+    : allOptions;
 
   const setValue = useCallback(
     (next: string | string[]) => {
@@ -188,10 +228,11 @@ export function Select({
       ? placeholder ?? ""
       : `已选 ${valuesArr.length} 项`
     : currentValue
-      ? options.find((o) => o.value === currentValue)?.label ?? String(currentValue)
+      ? allOptions.find((o) => o.value === currentValue)?.label ?? String(currentValue)
       : placeholder ?? "";
 
   const triggerEmpty = multiple ? valuesArr.length === 0 : !currentValue;
+  const showClear = clearable && !disabled && !loading && !triggerEmpty;
 
   // Render the trigger
   const trigger = (
@@ -219,14 +260,16 @@ export function Select({
       }}
       onKeyDown={handleKeyDown}
       className={[
-        "field-single-border-focus relative flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal outline-none transition-colors duration-[var(--motion-duration-fast)]",
+        "relative flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal outline-none transition-colors duration-[var(--motion-duration-fast)]",
         "disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
         error
           ? "border-[var(--field-border-error)] focus:border-[var(--field-border-error)]"
           : disabled || loading
             ? "border-[var(--field-border-default)]"
             : open
-              ? "border-[var(--field-border-focus)]"
+              ? searchable
+                ? "border-[var(--field-border-default)]"
+                : "border-[var(--field-border-focus)]"
               : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
         sizeClasses[size],
         sizePadding[size],
@@ -237,13 +280,13 @@ export function Select({
       {multiple && valuesArr.length > 0 ? (
         <span className="flex flex-wrap gap-1 mr-2 min-w-0">
           {valuesArr.map((v) => {
-            const opt = options.find((o) => o.value === v);
+            const opt = allOptions.find((o) => o.value === v);
             return renderTag ? (
               renderTag(opt ?? { label: v, value: v }, () => removeValue(v))
             ) : (
               <span
                 key={v}
-                className="inline-flex items-center gap-1 rounded-sm bg-[var(--neutral-100)] px-1.5 py-0.5 text-xs text-[var(--text-secondary)]"
+                className={`inline-flex items-center gap-1 rounded-sm bg-[var(--neutral-100)] text-[var(--text-secondary)] ${tagSizeClasses[size]}`}
               >
                 {opt?.label ?? v}
                 <span
@@ -271,6 +314,18 @@ export function Select({
           <CaretDown aria-hidden="true" className={["h-4 w-4 text-[var(--text-tertiary)] transition-transform", open ? "rotate-180" : ""].join(" ")} />
         )}
       </span>
+      {showClear ? (
+        <span className="pointer-events-none absolute right-10 top-1/2 -translate-y-1/2">
+          <button
+            type="button"
+            aria-label="清除选中值"
+            className="pointer-events-auto flex h-4 w-4 items-center justify-center rounded-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+            onClick={(e) => { e.stopPropagation(); setValue(multiple ? [] : ""); }}
+          >
+            <X size={14} weight="regular" aria-hidden="true" />
+          </button>
+        </span>
+      ) : null}
     </button>
   );
 
@@ -285,8 +340,8 @@ export function Select({
       ) : null}
       <div className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3" : "block"}>
         {label ? (
-          <span
-            id={labelId}
+          <label
+            htmlFor={selectId}
             className={[
               "block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]",
               isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5",
@@ -296,7 +351,7 @@ export function Select({
             {required && isHorizontal ? <span className="mr-1 text-[var(--brand-600)]">*</span> : null}
             {label}
             {required && !isHorizontal ? <span className="ml-1 text-[var(--brand-600)]">*</span> : null}
-          </span>
+          </label>
         ) : null}
         <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
           <span className="relative">
@@ -312,7 +367,8 @@ export function Select({
                       value={search}
                       onChange={(e) => { setSearch(e.target.value); setFocusIdx(0); }}
                       placeholder="搜索..."
-                      className="field-single-border-focus w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
+                      className="w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
+                      style={{ outline: "none", boxShadow: "none" }}
                       onKeyDown={handleKeyDown}
                     />
                   </div>
@@ -320,6 +376,65 @@ export function Select({
                 <ul ref={listRef} role="listbox" aria-multiselectable={multiple} className="max-h-48 overflow-y-auto">
                   {filteredOptions.length === 0 ? (
                     <li className="px-3 py-5 text-center text-sm text-[var(--text-tertiary)]">无匹配选项</li>
+                  ) : isGrouped(rawOptions) && !search ? (
+                    rawOptions.map((group) => {
+                      const groupOptions = group.options.filter((o) => filteredOptions.some((fo) => fo.value === o.value));
+                      if (groupOptions.length === 0) return null;
+                      return (
+                        <li key={group.label}>
+                          <span className="block px-2 py-1.5 text-xs font-semibold text-[var(--text-tertiary)]">{group.label}</span>
+                          <ul role="group" aria-label={group.label}>
+                            {groupOptions.map((option) => {
+                              const flatIdx = filteredOptions.findIndex((o) => o.value === option.value);
+                              const isSelected = valuesArr.includes(option.value);
+                              const isFocused = flatIdx === focusIdx;
+                              return (
+                                <li
+                                  key={option.value}
+                                  role="option"
+                                  aria-selected={isSelected}
+                                  aria-disabled={option.disabled}
+                                  className={[
+                                    "flex min-h-8 cursor-pointer items-center gap-2 rounded-[var(--radius-xs)] px-2 py-1.5 text-sm transition-colors duration-[var(--motion-duration-fast)]",
+                                    option.disabled
+                                      ? "cursor-not-allowed text-[var(--text-disabled)]"
+                                      : isSelected
+                                        ? "bg-[var(--neutral-100)] text-[var(--neutral-900)]"
+                                        : isFocused
+                                          ? "bg-[var(--neutral-100)] text-[var(--neutral-900)]"
+                                          : "text-[var(--text-body)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]",
+                                  ].join(" ")}
+                                  onMouseEnter={() => !option.disabled && setFocusIdx(flatIdx)}
+                                  onClick={() => {
+                                    if (option.disabled) return;
+                                    selectOption(option.value);
+                                  }}
+                                >
+                                  {multiple && (
+                                    <span className={[
+                                      "flex shrink-0 items-center justify-center rounded-[var(--radius-sm)] border transition-colors",
+                                      isSelected
+                                        ? "border-[var(--neutral-900)] bg-[var(--neutral-900)]"
+                                        : "border-[var(--neutral-400)] bg-white",
+                                      option.disabled ? "opacity-[var(--disabled-opacity)]" : "",
+                                    ].join(" ")}
+                                      style={{ width: "14px", height: "14px" }}
+                                    >
+                                      {isSelected ? (
+                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                                          <path d="M2 5L4.5 7.5L8.5 2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                      ) : null}
+                                    </span>
+                                  )}
+                                  <span className="min-w-0 flex-1 truncate">{option.label}</span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </li>
+                      );
+                    })
                   ) : (
                     filteredOptions.map((option, idx) => {
                       const isSelected = valuesArr.includes(option.value);
@@ -335,12 +450,10 @@ export function Select({
                             option.disabled
                               ? "cursor-not-allowed text-[var(--text-disabled)]"
                               : isSelected
-                                ? isFocused
-                                  ? "bg-[var(--neutral-200)] text-[var(--neutral-900)]"
-                                  : "bg-[var(--neutral-100)] text-[var(--neutral-900)] hover:bg-[var(--neutral-200)]"
+                                ? "bg-[var(--neutral-100)] text-[var(--neutral-900)]"
                                 : isFocused
-                                  ? "bg-[var(--neutral-100)] text-[var(--text-body)]"
-                                  : "text-[var(--text-body)] hover:bg-[var(--neutral-50)]",
+                                  ? "bg-[var(--neutral-100)] text-[var(--neutral-900)]"
+                                  : "text-[var(--text-body)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]",
                           ].join(" ")}
                           onMouseEnter={() => !option.disabled && setFocusIdx(idx)}
                           onClick={() => {
