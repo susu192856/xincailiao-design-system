@@ -34,6 +34,11 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" |
   onChange?: (value: string | string[]) => void;
   filterOption?: (option: SelectOption, search: string) => boolean;
   renderTag?: (option: SelectOption, onRemove: () => void) => ReactNode;
+  searchPlaceholder?: string;
+  noMatchText?: string;
+  clearLabel?: string;
+  selectedCountText?: string;
+  removeLabel?: string;
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -94,6 +99,11 @@ export function Select({
   onChange,
   filterOption = defaultFilterOption,
   renderTag,
+  searchPlaceholder = "搜索...",
+  noMatchText = "无匹配选项",
+  clearLabel = "清除选中值",
+  selectedCountText = "已选 {count} 项",
+  removeLabel = "移除 {label}",
   open: controlledOpen,
   defaultOpen = false,
   onOpenChange,
@@ -226,7 +236,7 @@ export function Select({
   const triggerText = multiple
     ? valuesArr.length === 0
       ? placeholder ?? ""
-      : `已选 ${valuesArr.length} 项`
+      : selectedCountText.replace("{count}", String(valuesArr.length))
     : currentValue
       ? allOptions.find((o) => o.value === currentValue)?.label ?? String(currentValue)
       : placeholder ?? "";
@@ -267,9 +277,7 @@ export function Select({
           : disabled || loading
             ? "border-[var(--field-border-default)]"
             : open
-              ? searchable
-                ? "border-[var(--field-border-default)]"
-                : "border-[var(--field-border-focus)]"
+              ? "border-[var(--field-border-focus)]"
               : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
         sizeClasses[size],
         sizePadding[size],
@@ -292,7 +300,7 @@ export function Select({
                 <span
                   role="button"
                   tabIndex={-1}
-                  aria-label={`移除 ${opt?.label ?? v}`}
+                  aria-label={removeLabel.replace("{label}", opt?.label ?? v)}
                   onClick={(e) => { e.stopPropagation(); removeValue(v); }}
                   className="inline-flex h-3 w-3 items-center justify-center rounded-sm hover:bg-[var(--neutral-300)]"
                 >
@@ -318,7 +326,7 @@ export function Select({
         <span className="pointer-events-none absolute right-10 top-1/2 -translate-y-1/2">
           <button
             type="button"
-            aria-label="清除选中值"
+            aria-label={clearLabel}
             className="pointer-events-auto flex h-4 w-4 items-center justify-center rounded-sm text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
             onClick={(e) => { e.stopPropagation(); setValue(multiple ? [] : ""); }}
           >
@@ -330,7 +338,7 @@ export function Select({
   );
 
   return (
-    <div ref={containerRef} className={className} style={selectStyle}>
+    <div ref={containerRef} className={`w-full ${className}`} style={selectStyle}>
       {props.name ? (
         <input
           type="hidden"
@@ -366,7 +374,7 @@ export function Select({
                       type="text"
                       value={search}
                       onChange={(e) => { setSearch(e.target.value); setFocusIdx(0); }}
-                      placeholder="搜索..."
+                      placeholder={searchPlaceholder}
                       className="w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
                       style={{ outline: "none", boxShadow: "none" }}
                       onKeyDown={handleKeyDown}
@@ -375,7 +383,7 @@ export function Select({
                 )}
                 <ul ref={listRef} role="listbox" aria-multiselectable={multiple} className="max-h-48 overflow-y-auto">
                   {filteredOptions.length === 0 ? (
-                    <li className="px-3 py-5 text-center text-sm text-[var(--text-tertiary)]">无匹配选项</li>
+                    <li className="px-3 py-5 text-center text-sm text-[var(--text-tertiary)]">{noMatchText}</li>
                   ) : isGrouped(rawOptions) && !search ? (
                     rawOptions.map((group) => {
                       const groupOptions = group.options.filter((o) => filteredOptions.some((fo) => fo.value === o.value));

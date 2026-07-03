@@ -53,9 +53,10 @@ function ClearableInput({
   labelPosition = "top",
   labelWidth = 96,
 }: {
-  label: string;
+  label?: string;
   placeholder?: string;
   defaultValue?: string;
+  size?: "sm" | "md" | "lg";
   labelPosition?: "top" | "left";
   labelWidth?: number | string;
 }) {
@@ -96,7 +97,8 @@ function InteractivePlaygroundSection() {
   const [placeholder, setPlaceholder] = useState("例如：TC4");
   const [size, setSize] = useState<"sm" | "md" | "lg">("md");
   const [labelPos, setLabelPos] = useState<"top" | "left">("left");
-  const [prefixType, setPrefixType] = useState<"none" | "search" | "currency">("search");
+  const [prefixType, setPrefixType] = useState<"none" | "search" | "currency" | "prefixAddon" | "suffixAddon">("search");
+  const [extra, setExtra] = useState<"none" | "clearable" | "stepper">("none");
   const [state, setState] = useState<"default" | "error" | "disabled" | "loading" | "readOnly">("default");
   const [showCount, setShowCount] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -105,6 +107,8 @@ function InteractivePlaygroundSection() {
     none: undefined,
     search: <MagnifyingGlass size={16} weight="regular" aria-hidden="true" />,
     currency: "¥",
+    prefixAddon: <InputAffixSelect aria-label="国家或地区区号" defaultValue="+86" options={[{label:"+86",value:"+86"},{label:"+852",value:"+852"}]} />,
+    suffixAddon: undefined,
   };
 
   const stateProps = {
@@ -121,6 +125,7 @@ function InteractivePlaygroundSection() {
     setSize("md");
     setLabelPos("left");
     setPrefixType("search");
+    setExtra("none");
     setState("default");
     setShowCount(false);
     setInputValue("");
@@ -128,9 +133,10 @@ function InteractivePlaygroundSection() {
 
   const sizeLabel = { sm: "Small · 28px", md: "Medium · 32px", lg: "Large · 36px" }[size];
   const positionLabel = labelPos === "top" ? "上下标签" : "左右标签";
-  const prefixLabel = { none: "无前缀", search: "搜索图标", currency: "货币符号" }[prefixType];
+  const prefixLabel = { none: "无前缀", search: "搜索图标", currency: "¥ 货币", prefixAddon: "可交互前缀", suffixAddon: "可交互后缀" }[prefixType];
+  const extraLabel = { none: "无", clearable: "一键清除", stepper: "数值步进" }[extra];
   const stateLabel = { default: "默认", error: "错误", disabled: "禁用", loading: "加载", readOnly: "只读" }[state];
-  const optionClass = (selected: boolean) => `rounded-[var(--radius-sm)] border px-3 py-2 text-xs font-medium transition-colors ${selected ? "border-[var(--neutral-900)] bg-[var(--neutral-900)] text-white" : "border-[var(--neutral-200)] bg-white text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]"}`;
+  const optionClass = (selected: boolean) => `rounded-[var(--radius-sm)] border px-2 py-1 text-xs font-medium transition-colors ${selected ? "border-[var(--neutral-900)] bg-[var(--neutral-900)] text-white" : "border-[var(--neutral-200)] bg-white text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]"}`;
 
   return (
     <section>
@@ -142,7 +148,7 @@ function InteractivePlaygroundSection() {
       <SectionCard className="overflow-hidden !p-0">
         <div className="flex items-center justify-between gap-4 border-b border-[var(--neutral-200)] px-5 py-4 md:px-6">
           <div><h3 className="text-sm font-semibold text-[var(--text-primary)]">自定义输入框</h3><p className="mt-1 text-xs text-[var(--text-tertiary)]">调整左侧选项，右侧结果会立即更新。</p></div>
-          <button type="button" onClick={resetPlayground} className="shrink-0 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white px-3 py-2 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]">恢复默认</button>
+          <button type="button" onClick={resetPlayground} className="shrink-0 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white px-2 py-1 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--neutral-400)] hover:text-[var(--text-primary)]">恢复默认</button>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-[360px_minmax(0,1fr)]">
           <div className="space-y-7 p-5 md:p-6 lg:border-r lg:border-[var(--neutral-200)]">
@@ -150,7 +156,8 @@ function InteractivePlaygroundSection() {
             <div className="border-t border-[var(--neutral-200)] pt-6"><h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">外观</h4><div className="space-y-5">
               <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">尺寸</div><div className="flex flex-wrap gap-2">{([['sm','Small'],['md','Medium'],['lg','Large']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={size===key} onClick={()=>setSize(key)} className={optionClass(size===key)}>{label}</button>)}</div></div>
               <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">标签布局</div><div className="flex gap-2">{([['top','上下标签'],['left','左右标签']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={labelPos===key} onClick={()=>setLabelPos(key)} className={optionClass(labelPos===key)}>{label}</button>)}</div></div>
-              <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">前缀</div><div className="flex flex-wrap gap-2">{([['none','无'],['search','搜索图标'],['currency','¥ 货币']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={prefixType===key} onClick={()=>setPrefixType(key)} className={optionClass(prefixType===key)}>{label}</button>)}</div></div>
+              <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">前缀 / 后缀</div><div className="flex flex-wrap gap-2">{([['none','无'],['search','搜索图标'],['currency','¥ 货币'],['prefixAddon','可交互前缀'],['suffixAddon','可交互后缀']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={prefixType===key} onClick={()=>setPrefixType(key)} className={optionClass(prefixType===key)}>{label}</button>)}</div></div>
+              <div><div className="mb-2 text-xs font-medium text-[var(--text-secondary)]">附加能力</div><div className="flex flex-wrap gap-2">{([['none','无'],['clearable','一键清除'],['stepper','数值步进']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={extra===key} onClick={()=>setExtra(key)} className={optionClass(extra===key)}>{label}</button>)}</div></div>
             </div></div>
             <div className="border-t border-[var(--neutral-200)] pt-6"><h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">状态</h4><div className="space-y-4">
               <div className="flex flex-wrap gap-2">{([['default','默认'],['error','错误'],['disabled','禁用'],['loading','加载'],['readOnly','只读']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={state===key} onClick={()=>setState(key)} className={optionClass(state===key)}>{label}</button>)}</div>
@@ -158,9 +165,17 @@ function InteractivePlaygroundSection() {
             </div></div>
           </div>
           <div className="bg-[var(--neutral-50)] p-5 md:p-8">
-            <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold text-[var(--text-primary)]">实时预览</h4><p className="mt-1 text-xs text-[var(--text-tertiary)]">可直接在下方输入框中体验。</p></div><div className="flex flex-wrap gap-1.5">{[sizeLabel,positionLabel,prefixLabel,stateLabel].map(item=><span key={item} className="rounded-full border border-[var(--neutral-200)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-secondary)]">{item}</span>)}</div></div>
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold text-[var(--text-primary)]">实时预览</h4><p className="mt-1 text-xs text-[var(--text-tertiary)]">可直接在下方输入框中体验。</p></div><div className="flex flex-wrap gap-1.5">{[sizeLabel,positionLabel,prefixLabel,extraLabel,stateLabel].filter(Boolean).map(item=><span key={item} className="rounded-full border border-[var(--neutral-200)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-secondary)]">{item}</span>)}</div></div>
             <div className="flex min-h-[360px] items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-white p-6 md:p-10">
-              <div className="w-full max-w-[480px] rounded-[var(--radius-sm)] border border-[var(--neutral-100)] bg-white p-5 shadow-[var(--shadow-xs)]"><Input label={labelText||undefined} placeholder={placeholder} size={size} labelPosition={labelPos} labelWidth={88} prefix={prefixMap[prefixType]} showCount={showCount} maxLength={showCount?20:undefined} value={inputValue} onChange={(e)=>setInputValue(e.target.value)} {...stateProps[state]} /></div>
+              <div className="w-full max-w-[480px]">
+                {extra === "stepper" ? (
+                  <InputNumber label={labelText||undefined} placeholder={placeholder} size={size} labelPosition={labelPos} labelWidth={88} defaultValue={0.5} min={0} max={10} step={0.5} suffix="°C" {...stateProps[state]} />
+                ) : extra === "clearable" ? (
+                  <ClearableInput label={labelText||undefined} placeholder={placeholder} size={size} labelPosition={labelPos} labelWidth={labelPos === "left" ? 88 : undefined} defaultValue={inputValue || "MAT-2026-0618-TC4"} />
+                ) : (
+                  <Input label={labelText||undefined} placeholder={placeholder} size={size} labelPosition={labelPos} labelWidth={88} prefix={prefixMap[prefixType]} suffixAddon={prefixType === "suffixAddon" ? <InputAffixSelect aria-label="数量级单位" defaultValue="万" options={[{label:"百",value:"百"},{label:"万",value:"万"}]} /> : undefined} showCount={showCount} maxLength={showCount?20:undefined} value={inputValue} onChange={(e)=>setInputValue(e.target.value)} {...stateProps[state]} />
+                )}
+              </div>
             </div>
           </div>
         </div>

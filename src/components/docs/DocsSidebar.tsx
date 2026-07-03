@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import {
   ArrowsLeftRight,
   ArrowsOutLineHorizontal,
+  CalendarBlank,
   CaretDown,
   ChartBar,
   ChatCentered,
@@ -76,7 +77,8 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
         { name: "图标", path: "/components/icon", icon: <Smiley size={16} weight="regular" /> },
         { name: "输入框", path: "/components/input", icon: <CursorText size={16} weight="regular" /> },
         { name: "表单", path: "/components/form", icon: <ClipboardText size={16} weight="regular" /> },
-        { name: "选择器与日期选择", path: "/components/select", icon: <CaretDown size={16} weight="regular" /> },
+        { name: "选择器", path: "/components/select", icon: <CaretDown size={16} weight="regular" /> },
+        { name: "日期选择", path: "/components/date-picker", icon: <CalendarBlank size={16} weight="regular" /> },
         { name: "单选框", path: "/components/radio", icon: <CirclesFour size={16} weight="regular" /> },
         { name: "复选框", path: "/components/checkbox", icon: <CheckSquare size={16} weight="regular" /> },
         { name: "开关", path: "/components/switch", icon: <ToggleRight size={16} weight="regular" /> },

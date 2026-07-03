@@ -1108,7 +1108,7 @@
         {
             "name": "DatePicker",
             "figmaName": "Date Picker",
-            "route": "/components/select#date-picker",
+            "route": "/components/date-picker",
             "reactSource": "src/components/ui/DatePicker.tsx",
             "vueSource": "packages/vue-ui/src/components/XcDatePicker.vue",
             "props": [

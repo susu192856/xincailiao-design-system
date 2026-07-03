@@ -4,6 +4,7 @@ import ColorsPage from "../pages/design-system/ColorsPage";
 import ButtonPage from "../pages/design-system/components/ButtonPage";
 import CardPage from "../pages/design-system/components/CardPage";
 import ChartPage from "../pages/design-system/components/ChartPage";
+import DatePickerPage from "../pages/design-system/components/DatePickerPage";
 import AvatarPage from "../pages/design-system/components/AvatarPage";
 import BadgePage from "../pages/design-system/components/BadgePage";
 import BreadcrumbPage from "../pages/design-system/components/BreadcrumbPage";
@@ -87,6 +88,9 @@ export default function App() {
       </Route>
       <Route path="/components/select" element={<DocsLayout />}>
         <Route index element={<SelectPage />} />
+      </Route>
+      <Route path="/components/date-picker" element={<DocsLayout />}>
+        <Route index element={<DatePickerPage />} />
       </Route>
       <Route path="/components/tree" element={<DocsLayout />}>
         <Route index element={<TreePage />} />

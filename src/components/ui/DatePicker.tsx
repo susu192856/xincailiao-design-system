@@ -27,9 +27,9 @@ export type DatePickerProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type"
 };
 
 const sizeClasses: Record<DatePickerSize, string> = {
-  sm: "h-[var(--control-height-sm)] pl-[var(--field-padding-x-sm)] pr-8 text-sm",
-  md: "h-[var(--control-height-md)] pl-[var(--field-padding-x-md)] pr-9 text-sm",
-  lg: "h-[var(--control-height-lg)] pl-[var(--field-padding-x-lg)] pr-9 text-sm",
+  sm: "h-[var(--control-height-sm)] pl-[var(--field-padding-x-sm)] text-sm",
+  md: "h-[var(--control-height-md)] pl-[var(--field-padding-x-md)] text-sm",
+  lg: "h-[var(--control-height-lg)] pl-[var(--field-padding-x-lg)] text-sm",
 };
 
 function parseDate(value?: string) {
@@ -173,9 +173,11 @@ export function DatePicker({
                 ? "border-[var(--field-border-error)]"
                 : disabled
                   ? "border-[var(--field-border-default)]"
-                  : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
+                  : open
+                    ? "border-[var(--field-border-focus)]"
+                    : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
               sizeClasses[size],
-              "px-3 gap-2",
+              "relative pr-2",
             ].join(" ")}
             style={{ outline: "none" }}
           >
@@ -186,11 +188,13 @@ export function DatePicker({
             <span className={["min-w-0 flex-1 text-center", !currentRange[1] ? "text-[var(--neutral-400)]" : ""].join(" ")}>
               {currentRange[1] || placeholder?.split("至")[1]?.trim() || "YYYY-MM-DD"}
             </span>
-            <CalendarBlank aria-hidden="true" className="h-4 w-4 shrink-0 text-[var(--text-tertiary)]" />
+            <span className="absolute right-2 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)] pointer-events-none">
+              <CalendarBlank aria-hidden="true" className="h-4 w-4" />
+            </span>
           </button>
         ) : (
           /* Single date trigger */
-          <>
+          <div className="relative flex w-full items-center">
             <input
               ref={inputRef}
               id={inputId}
@@ -213,16 +217,18 @@ export function DatePicker({
                   ? "border-[var(--field-border-error)]"
                   : disabled
                     ? "border-[var(--field-border-default)]"
-                    : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)]",
+                    : open
+                      ? "border-[var(--field-border-focus)]"
+                      : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus:border-[var(--field-border-focus)] peer-hover:border-[var(--field-border-hover)]",
                 sizeClasses[size],
               ].join(" ")}
               style={{ outline: "none", boxShadow: "none" }}
               {...props}
             />
-            <button type="button" disabled={disabled} aria-label={label ? `打开${label}日期面板` : "打开日期面板"} aria-expanded={open} onMouseDown={(e) => e.preventDefault()} onClick={() => { setViewMonth(parseDate(currentValue)); setOpen((previous) => !previous); }} className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)] disabled:cursor-not-allowed">
+            <button type="button" disabled={disabled} aria-label={label ? `打开${label}日期面板` : "打开日期面板"} aria-expanded={open} onMouseDown={(e) => e.preventDefault()} onClick={() => { setViewMonth(parseDate(currentValue)); setOpen((previous) => !previous); }} className="absolute right-2 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)] disabled:cursor-not-allowed peer">
               <CalendarBlank aria-hidden="true" className="h-4 w-4" />
             </button>
-          </>
+          </div>
         )}
         {open ? (
           <div className="absolute left-0 right-0 z-[var(--z-dropdown)] mt-1 w-full rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-3 shadow-[var(--shadow-lg)]">
