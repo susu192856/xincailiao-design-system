@@ -175,7 +175,7 @@ export default function InputPage() {
       <PageHeader
         title="输入框"
         description="输入框家族用于采集文本、参数和筛选条件，包括单行 Input 与多行 Textarea。先按内容长度选择结构，再统一应用标签、提示、状态和可访问性规则。"
-        note={<>关联页面：多个输入框如何组成分组、栅格和提交路径见 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link>；提交后的只读字段呈现见 <Link to="/components/description-list" className="font-medium text-[var(--product-blue-500)]">详情与描述列表</Link>。</>}
+        note={<>关联页面：多个输入框如何组成分组、栅格和提交路径见 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link>；提交后的只读字段呈现见 <Link to="/components/description-list" className="font-medium text-[var(--product-blue-500)]">详情与描述列表</Link>；日期选择见 <Link to="/components/select" className="font-medium text-[var(--product-blue-500)]">选择器与日期选择</Link>。</>}
       />
 
       <section>
