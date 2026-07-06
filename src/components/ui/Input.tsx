@@ -1,5 +1,6 @@
-import { CaretDown, SpinnerGap } from "@phosphor-icons/react";
-import { useId, useState, type ChangeEvent, type CSSProperties, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from "react";
+import { SpinnerGap } from "@phosphor-icons/react";
+import { useId, useState, type ChangeEvent, type CSSProperties, type InputHTMLAttributes, type ReactNode } from "react";
+import { Select } from "./Select";
 
 type InputSize = "sm" | "md" | "lg";
 type LabelPosition = "top" | "left";
@@ -23,21 +24,29 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "p
   loading?: boolean;
 };
 
-export type InputAffixSelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
+export type InputAffixSelectProps = {
   options: Array<{ label: string; value: string }>;
   "aria-label": string;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
+  size?: InputSize;
+  side?: "start" | "end";
+  className?: string;
 };
 
-export function InputAffixSelect({ options, className = "", ...props }: InputAffixSelectProps) {
+export function InputAffixSelect({ options, className = "", size = "md", side = "start", onChange, ...props }: InputAffixSelectProps) {
   return (
-    <span className="relative block h-full">
-      <select
+    <span className={`relative flex h-full min-w-[76px] self-stretch bg-[var(--neutral-50)] ${side === "end" ? "border-l" : "border-r"} border-[var(--field-border-default)] ${side === "end" ? "rounded-r-[var(--radius-sm)]" : "rounded-l-[var(--radius-sm)]"}`}>
+      <Select
         {...props}
-        className={`h-full min-w-[76px] cursor-pointer appearance-none bg-[var(--neutral-50)] px-3 pr-7 text-sm font-normal text-[var(--text-primary)] outline-none hover:bg-[var(--neutral-100)] focus:bg-white disabled:cursor-not-allowed disabled:text-[var(--text-disabled)] ${className}`}
-      >
-        {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-      </select>
-      <CaretDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)]" size={14} weight="regular" aria-hidden="true" />
+        options={options}
+        onChange={(next) => onChange?.(Array.isArray(next) ? next[0] ?? "" : next)}
+        size={size}
+        dropdownAlign={side === "end" ? "end" : "start"}
+        className={`min-w-[76px] !rounded-none !border-0 !bg-[var(--neutral-50)] hover:!bg-[var(--neutral-100)] ${className}`}
+      />
     </span>
   );
 }
@@ -110,8 +119,8 @@ export function Input({
         </label>
       ) : null}
       <span className={isHorizontal ? "min-w-0 flex-1" : "block"}>
-        <span className={`flex overflow-hidden rounded-[var(--radius-sm)] ${prefixAddon || suffixAddon ? `field-single-border-focus border bg-white ${error ? "border-[var(--field-border-error)]" : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus-within:border-[var(--field-border-focus)]"}` : ""}`}>
-          {prefixAddon ? <span className="shrink-0 border-r border-[var(--field-border-default)]">{prefixAddon}</span> : null}
+        <span className={`flex rounded-[var(--radius-sm)] ${prefixAddon || suffixAddon ? `field-single-border-focus overflow-visible border bg-white ${error ? "border-[var(--field-border-error)]" : "border-[var(--field-border-default)] hover:border-[var(--field-border-hover)] focus-within:border-[var(--field-border-focus)]"}` : "overflow-hidden"}`}>
+          {prefixAddon ? <span className="flex shrink-0 self-stretch">{prefixAddon}</span> : null}
           <span className="relative min-w-0 flex-1">
           {resolvedPrefix ? (
             <span className="pointer-events-none absolute left-3 top-1/2 flex -translate-y-1/2 text-[var(--text-tertiary)]">
@@ -147,7 +156,7 @@ export function Input({
             ].join(" ")}
           />
           {resolvedSuffix ? (
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-tertiary)]">
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-tertiary)]">
               {resolvedSuffix}
             </span>
           ) : null}
@@ -157,7 +166,7 @@ export function Input({
             </span>
           ) : null}
           </span>
-          {suffixAddon ? <span className="shrink-0 border-l border-[var(--field-border-default)]">{suffixAddon}</span> : null}
+          {suffixAddon ? <span className="flex shrink-0 self-stretch">{suffixAddon}</span> : null}
         </span>
         {error || helperText ? (
           <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>

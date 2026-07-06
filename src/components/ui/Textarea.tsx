@@ -82,7 +82,7 @@ export function Textarea({
           aria-invalid={Boolean(error)}
           aria-describedby={describedBy}
           className={[
-            "field-single-border-focus w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-primary)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
+            "field-border-only-focus w-full rounded-[var(--radius-sm)] border bg-white text-[var(--text-primary)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
             "placeholder:text-[var(--neutral-400)] read-only:bg-[var(--field-bg-readonly)] read-only:text-[var(--text-secondary)] disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
             "resize-y",
             showCount ? "pb-7" : "",

@@ -42,6 +42,7 @@ export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" |
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  dropdownAlign?: "start" | "end";
 };
 
 const sizeClasses: Record<SelectSize, string> = {
@@ -107,6 +108,7 @@ export function Select({
   open: controlledOpen,
   defaultOpen = false,
   onOpenChange,
+  dropdownAlign = "start",
   disabled,
   className = "",
   style: selectStyle,
@@ -365,7 +367,7 @@ export function Select({
           <span className="relative">
             {trigger}
             {open && (
-              <div className="absolute z-[var(--z-dropdown)] mt-1 w-full min-w-[180px] max-w-[480px] overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-1 shadow-[var(--shadow-lg)] animate-scale-in origin-top">
+              <div className={`absolute z-[var(--z-dropdown)] mt-1 w-full min-w-[180px] max-w-[480px] overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-1 shadow-[var(--shadow-lg)] animate-scale-in origin-top ${dropdownAlign === "end" ? "right-0" : "left-0"}`}>
                 {searchable && (
                   <div className="mb-1 flex items-center gap-2 border-b border-[var(--neutral-200)] px-2 py-2">
                     <MagnifyingGlass aria-hidden="true" className="h-4 w-4 shrink-0 text-[var(--text-tertiary)]" />

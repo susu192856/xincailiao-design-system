@@ -12,8 +12,8 @@ const manifestPath = path.join(ROOT, "figma/components.manifest.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 
 const groups = {
-  "操作与输入": ["Button", "Icon", "Input", "Textarea", "Form", "Select", "Radio", "Checkbox", "Switch"],
-  "数据与内容": ["Table", "Pagination", "DescriptionList", "Card", "Tag", "Empty", "Image", "Avatar", "Badge"],
+  "操作与输入": ["Button", "Icon", "Input", "Textarea", "Form", "Select", "DatePicker", "Upload", "Radio", "Checkbox", "Switch"],
+  "数据与内容": ["Table", "Pagination", "DescriptionList", "Card", "Tag", "Empty", "Image", "Avatar", "Badge", "Chart"],
   "导航与组织": ["Menu", "Tabs", "Breadcrumb", "Collapse", "Tree", "Transfer"],
   "反馈与浮层": ["Modal", "Drawer", "Tooltip", "Popover", "Toast"],
 };
@@ -34,6 +34,8 @@ const propCatalog = {
   items: ["array", "组件条目数据。"],
   options: ["array", "可选择项集合，包含 label、value 和 disabled。"],
   open: ["boolean", "浮层或面板的受控打开状态。"],
+  defaultOpen: ["boolean", "非受控浮层或面板的初始打开状态。"],
+  onOpenChange: ["(open: boolean) => void", "浮层或面板开合变化回调。"],
   placement: ["'top' | 'right' | 'bottom' | 'left'", "浮层或抽屉位置。"],
   title: ["ReactNode | string", "组件标题。"],
   description: ["ReactNode | string", "辅助说明。"],
@@ -95,6 +97,22 @@ const propCatalog = {
   activeKey: ["string", "当前激活项；React canonical 字段为 value。"],
   value: ["string", "当前受控值。"],
   defaultValue: ["string", "默认值。"],
+  range: ["boolean", "启用起止范围选择模式。"],
+  rangeValue: ["[string, string]", "受控的起止范围值。"],
+  defaultRangeValue: ["[string, string]", "非受控的起止范围初始值。"],
+  onRangeChange: ["(value: [string, string]) => void", "范围确认后的变化回调。"],
+  showTime: ["boolean", "在日期面板中启用时间选择。"],
+  min: ["string | number", "允许选择或输入的最小值。"],
+  accept: ["string", "允许上传的文件类型。"],
+  maxFiles: ["number", "允许上传的最大文件数。"],
+  maxSize: ["number", "单个文件允许的最大体积。"],
+  listType: ["string", "上传列表的展示形式。"],
+  chartType: ["string", "图表类型，决定数据的视觉编码。"],
+  legendItems: ["array", "图例条目集合。"],
+  colors: ["string[]", "图表数据系列颜色。"],
+  showTable: ["boolean", "是否同时提供可访问的数据表格。"],
+  empty: ["boolean", "是否展示空数据状态。"],
+  ariaLabel: ["string", "图表或控件的可访问名称。"],
   orientation: ["'vertical' | 'horizontal'", "菜单或导航的排列方向。"],
   collapsed: ["boolean", "是否收起文字并使用紧凑图标导航。"],
   icon: ["ReactNode | slot", "图标插槽；遵循 Icon 规范。"],
@@ -214,6 +232,15 @@ const componentRules = {
     content: "标签使用业务名词，placeholder 只描述格式或示例；单位放在 suffix，不写入用户输入值。",
     responsive: "桌面端使用 28/32/36px 三档高度；小于 768px 时统一至少 44px，label-left 回退为上下结构。",
     accessibility: "正式录入字段必须有可见 label；无可见标签的搜索或筛选必须提供 aria-label；错误状态使用 aria-invalid 并关联文字说明。",
+  },
+  DatePicker: {
+    anatomy: ["标签", "日期输入容器", "日历图标", "日历或时间面板", "辅助或错误文字"],
+    usage: "用于单日期、起止日期和日期时间录入；仅记录时分时使用 TimePicker。",
+    avoid: "不要用两个独立日期字段代替范围模式，也不要把日期时间拆成互不关联的字段。",
+    responsive: "桌面端使用 28/32/36px 三档高度；单日期 280–360px，范围至少 320px，日期时间单项至少 340px、范围至少 480px；窄容器改用上下布局或分步选择。",
+    accessibility: "必须有可见标签或 aria-label；支持 Tab、Escape 和手动输入；图标与清除按钮提供独立可访问名称。",
+    interaction: "单日期选择后立即完成；范围按起始确认、结束确认两步完成；日期时间必须确认后写入；点击外部或 Escape 关闭。",
+    content: "日期使用 YYYY-MM-DD，日期时间使用 YYYY-MM-DD HH:mm；标签使用业务名词。",
   },
   Icon: {
     anatomy: ["固定尺寸容器", "Phosphor 图形或业务装饰图形", "可选品牌红识别短线"],
@@ -447,10 +474,10 @@ for (const component of manifest.components) {
 }
 
 manifest.version = "0.2.0";
-manifest.updatedAt = "2026-06-23";
+manifest.updatedAt = "2026-07-06";
 manifest.scope = {
   foundations: ["首页", "布局", "颜色", "字体", "间距", "阴影", "圆角"],
-  componentCount: 29,
+  componentCount: manifest.components.length,
   foundationCount: 7,
 };
 manifest.authority = [
@@ -467,4 +494,8 @@ manifest.figmaTarget = {
 };
 
 fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+fs.writeFileSync(
+  path.join(ROOT, "skills/xincailiao-design-spec/assets/component-contracts.json"),
+  `${JSON.stringify(manifest, null, 2)}\n`,
+);
 console.log(`Normalized ${manifest.components.length} component contracts.`);

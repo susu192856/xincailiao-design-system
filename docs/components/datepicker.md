@@ -1,8 +1,8 @@
-# DatePicker DatePicker
+# DatePicker 日期选择
 
 > 用于新材道设计系统中的标准组件场景。
 
-- 规范页面：`/components/select#date-picker`
+- 规范页面：`/components/date-picker`
 - React 源码：`src/components/ui/DatePicker.tsx`
 - Vue 源码：`packages/vue-ui/src/components/XcDatePicker.vue`
 - Figma 组件名：`Date Picker`
@@ -13,15 +13,17 @@
 
 ## 定位与边界
 
-**适用：** 用于精确到天的日期录入，适用于表单、筛选、数据查询等场景。不应用于时间选择或日期范围选择。
+**适用：** 用于单日期、起止日期及需要精确到分钟的日期时间录入；仅记录时分时使用同页的 TimePicker。
 
-**避免：** 不要用在需要日期范围、时间精度或多选日期的场景。不要省略标签，除非筛选区上下文已明确。
+**避免：** 不要用两个独立日期字段代替范围模式，也不要把日期时间拆成互不关联的字段。不要省略标签，除非筛选区上下文已明确。
 
 ## 结构 Anatomy
 
 - 标签
 - 日期输入容器
 - 日历图标
+- 日历或时间面板
+- 辅助或错误文字
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
@@ -31,18 +33,29 @@
 | `error` | `string` | `—` | 错误提示；覆盖 helperText 显示。 |
 | `size` | `'sm' | 'md' | 'lg'` | `md` | 组件尺寸，映射到控件高度 Token。 |
 | `value` | `string` | `—` | 当前日期值 YYYY-MM-DD 格式。 |
+| `defaultValue` | `string` | `—` | 非受控单日期初始值。 |
+| `onChange` | `(value: string) => void` | `—` | 单日期值变化回调。 |
+| `range` | `boolean` | `false` | 启用起止日期范围模式。 |
+| `rangeValue / defaultRangeValue` | `[string, string]` | `—` | 受控或非受控的起止日期值。 |
+| `onRangeChange` | `(value: [string, string]) => void` | `—` | 日期范围确认后的变化回调。 |
+| `showTime` | `boolean` | `false` | 在日历面板中增加时分选择；值格式为 YYYY-MM-DD HH:mm。 |
 | `open` | `boolean` | `—` | 受控面板开合状态。 |
 | `defaultOpen` | `boolean` | `false` | 面板初始展开状态。 |
 | `onOpenChange` | `(open: boolean) => void` | `—` | 面板开合变化回调。 |
 | `disabled` | `boolean` | `false` | 禁用状态。 |
 | `min` | `string` | `—` | 最小可选日期 YYYY-MM-DD。 |
 | `max` | `string` | `—` | 最大可选日期 YYYY-MM-DD。 |
+| `labelPosition` | `'top' | 'left'` | `top` | 标签布局；窄容器回退为上下结构。 |
+| `labelWidth` | `number | string` | `96` | 左右布局标签宽度，推荐 88–120px。 |
 
 ## 变体、语义、尺寸与状态
 
 ### Variants
 
 - `default`
+- `range`
+- `date-time`
+- `range-time`
 
 ### Tones
 
@@ -71,15 +84,21 @@
 
 ## 响应式
 
-桌面端使用 28/32/36px 三档高度；移动端触发系统原生日期选择器。
+桌面端使用 28/32/36px 三档高度；移动端可触发系统原生日期选择器。单日期推荐 280–360px，范围不小于 320px；日期时间单项不小于 340px，日期时间范围不小于 480px。窄容器应改用上下布局或分步选择，不能挤压文字与图标。
 
 ## 可访问性
 
-必须有可见标签或 aria-label；通过 min/max 限制可选范围；键盘支持 Tab 进入和手动输入。
+必须有可见标签或 aria-label；通过 min/max 限制可选范围；键盘支持 Tab、Escape 和手动输入；图标按钮与清除按钮提供独立可访问名称。
 
 ## 内容规范
 
-日期格式使用 YYYY-MM-DD；标签使用业务名词。
+日期格式使用 YYYY-MM-DD，日期时间使用 YYYY-MM-DD HH:mm；标签使用业务名词。
+
+## 确认规则
+
+- 单日期：选择日期后立即完成，不显示确认按钮。
+- 起止日期：按“起始日期 → 确认 → 结束日期 → 确认”完成，避免误触覆盖已选范围。
+- 日期时间：日期与时间共同组成最终值，必须点击确认后写入。
 
 ## 示例要求
 

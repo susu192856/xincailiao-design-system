@@ -1,6 +1,6 @@
 {
   "version": "0.2.0",
-  "updatedAt": "2026-06-26",
+  "updatedAt": "2026-07-06",
   "source": {
     "tokens": "figma/tokens.json",
     "reactComponents": "src/components/ui",
@@ -50,7 +50,7 @@
         "image-error"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.2.1",
+      "contractVersion": "0.2.0",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -444,40 +444,12 @@
           "文字标签",
           "加载指示器"
         ],
-        "usage": "用于触发明确操作；每个独立操作区域只保留一个主操作。task、product、brand 是三色三角的平级主操作语义，按页面类型和操作意图选择。",
-        "avoid": "不要用颜色代替层级；同一按钮组禁止同时出现多个不同 tone 的 solid 按钮，后台常规操作禁止使用 brand 替代 task 或 product。",
+        "usage": "用于触发明确操作；每个独立操作区域只保留一个主操作。",
+        "avoid": "不要用颜色代替层级；同一按钮组禁止同时出现 task 与 product 两个 solid 按钮。",
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "Space 或 Enter 触发；loading 时保留原宽度、设置 busy 并阻止重复提交；图标按钮必须提供可访问名称。",
-        "content": "task 使用提交、确认、发布、创建等推进任务的动词；product 使用分析、生成、连接、筛选、导出等调用能力的动词；brand 使用预约演示、立即体验等品牌转化文案。",
-        "triToneRule": "交付任务选 task 黑色，调用能力选 product 蓝色，品牌转化选 brand 红色；同组只保留一个 solid，danger/warning/success 只由明确状态触发。",
-        "pagePatterns": [
-          {
-            "pageType": "官网 / 营销页",
-            "primary": "brand solid",
-            "secondary": "neutral outline 或 text"
-          },
-          {
-            "pageType": "门户 / 数据空间首页",
-            "primary": "brand 或 product solid",
-            "secondary": "neutral outline / product text"
-          },
-          {
-            "pageType": "后台 / 管理系统",
-            "primary": "task solid",
-            "secondary": "product outline 或 text"
-          },
-          {
-            "pageType": "应用平台 / AI 能力页",
-            "primary": "product solid",
-            "secondary": "neutral ghost / task outline"
-          },
-          {
-            "pageType": "危险确认",
-            "primary": "danger solid",
-            "secondary": "neutral ghost"
-          }
-        ],
+        "content": "task 使用提交、确认、发布、创建等推进任务的动词；product 使用分析、生成、连接、筛选、导出等调用能力的动词。",
         "examples": {
           "basic": "Button 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Button 场景",
@@ -775,82 +747,78 @@
       "status": "stable",
       "contract": {
         "anatomy": [
-          "标题区",
-          "副标题与口径说明",
-          "图例区",
-          "绘图区",
-          "坐标与网格",
-          "可选明细表"
+          "根容器",
+          "主要内容",
+          "可选辅助内容"
         ],
-        "usage": "用于在页面中展示数据可视化图表。先判断数据关系（趋势/比较/构成/分布/偏离），再选择图表类型和配色模型。每个图表必须回答一个明确业务问题。",
-        "avoid": "不要把 10 个色系当作装饰色随机排列；不要用分类色表达连续强弱；环图不超过 5 个切片；折线图不超过 4 条系列；柱状图必须从零基线开始。",
-        "responsive": "桌面端图表容器固定比例；移动端标题、图例、图表、表格纵向堆叠；复杂图表允许横向滚动，不压缩到不可读。",
-        "accessibility": "图表必须有可见标题和坐标说明；SVG 提供 role=img 和 aria-label；状态信息不只用颜色表达；明细表作为视觉替代方案。",
-        "interaction": "悬浮提示只补充精确值；图例不承载筛选入口；阈值线使用语义色和文字标注；空状态保留标题和筛选条件。",
-        "content": "标题回答业务问题；副标题说明口径、时间范围、样本量；坐标轴文字使用说明字号；明细表字段短而明确。",
-        "colorRules": "分类对比用 2-6 个不同色系，相邻系列避免同色系近似层级；连续强弱选单一色系由浅到深；正负发散以暖色表负向、冷色表正向；非数据颜色使用语义色。",
+        "usage": "用于Chart对应的标准场景，优先复用组件而不是在页面内重新绘制。",
+        "avoid": "不要绕过 Token、组件合同或可访问性要求制作局部特例。",
+        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
+        "accessibility": "使用正确语义结构；图片或装饰内容必须提供合适的替代文本策略。",
+        "interaction": "组件本身不承担交互时，不得伪装成可点击元素。",
+        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
         "examples": {
           "basic": "Chart 默认结构与尺寸",
-          "business": "新材道后台数据看板中的真实 Chart 场景",
-          "boundary": "空数据、单系列、多系列溢出、移动端重排",
-          "wrong": "绕过组件、混用分类色和连续色、环图超过 5 切片、柱状图非零基线"
+          "business": "新材道后台或门户中的真实 Chart 场景",
+          "boundary": "长内容、空数据、禁用、加载或窄屏边界",
+          "wrong": "绕过组件、硬编码数值或仅依赖颜色表达状态"
         }
       },
       "propDefinitions": [
         {
           "name": "chartType",
           "type": "string",
-          "description": "图表类型；决定绘图区渲染方式和默认交互。"
+          "description": "图表类型，决定数据的视觉编码。"
         },
         {
           "name": "title",
-          "type": "string",
-          "description": "图表标题，回答业务问题。"
+          "type": "ReactNode | string",
+          "description": "组件标题。"
         },
         {
           "name": "description",
-          "type": "string",
-          "description": "副标题说明口径、时间范围和样本量。"
+          "type": "ReactNode | string",
+          "description": "辅助说明。"
         },
         {
           "name": "legendItems",
           "type": "array",
-          "description": "图例项，每项含名称、颜色和形态。"
+          "description": "图例条目集合。"
         },
         {
           "name": "colors",
-          "type": "array",
-          "description": "数据色组合，优先从 10 个数据色系中选取。"
+          "type": "string[]",
+          "description": "图表数据系列颜色。"
         },
         {
           "name": "data",
           "type": "array",
-          "description": "图表数据源。"
+          "description": "组件数据源。"
         },
         {
           "name": "size",
-          "type": "'sm' | 'md' | 'lg'",
-          "description": "图表容器尺寸。"
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "showTable",
           "type": "boolean",
-          "description": "是否在图表下方展示明细表。"
+          "description": "是否同时提供可访问的数据表格。"
         },
         {
           "name": "empty",
           "type": "boolean",
-          "description": "空数据状态。"
+          "description": "是否展示空数据状态。"
         },
         {
           "name": "loading",
           "type": "boolean",
-          "description": "加载状态；保留标题并向辅助技术播报进度。"
+          "description": "异步处理中状态；阻止重复操作。"
         },
         {
           "name": "ariaLabel",
           "type": "string",
-          "description": "绘图区的无障碍名称；未提供时由标题生成。"
+          "description": "图表或控件的可访问名称。"
         }
       ],
       "delivery": {
@@ -1108,7 +1076,7 @@
     {
       "name": "DatePicker",
       "figmaName": "Date Picker",
-      "route": "/components/select#date-picker",
+      "route": "/components/date-picker",
       "reactSource": "src/components/ui/DatePicker.tsx",
       "vueSource": "packages/vue-ui/src/components/XcDatePicker.vue",
       "props": [
@@ -1117,14 +1085,28 @@
         "error",
         "size",
         "value",
-        "clearable",
+        "defaultValue",
+        "onChange",
+        "range",
+        "rangeValue",
+        "defaultRangeValue",
+        "onRangeChange",
+        "showTime",
+        "open",
+        "defaultOpen",
+        "onOpenChange",
         "disabled",
         "min",
-        "max"
+        "max",
+        "labelPosition",
+        "labelWidth",
+        "required"
       ],
       "variants": [
         "default",
-        "with-clear"
+        "range",
+        "date-time",
+        "range-time"
       ],
       "tones": [
         "neutral"
@@ -1153,10 +1135,6 @@
           "disabled",
           "error",
           "range-limited"
-        ],
-        "clearable": [
-          "none",
-          "with-clear"
         ]
       },
       "category": "操作与输入",
@@ -1167,66 +1145,127 @@
           "标签",
           "日期输入容器",
           "日历图标",
-          "清除按钮"
+          "日历或时间面板",
+          "辅助或错误文字"
         ],
-        "usage": "用于精确到天的日期录入，适用于表单、筛选、数据查询等场景。不应用于时间选择或日期范围选择。",
-        "avoid": "不要用在需要日期范围、时间精度或多选日期的场景。不要省略标签，除非筛选区上下文已明确。",
-        "responsive": "桌面端使用 28/32/36px 三档高度；移动端触发系统原生日期选择器。",
-        "accessibility": "必须有可见标签或 aria-label；通过 min/max 限制可选范围；键盘支持 Tab 进入和手动输入。",
-        "interaction": "点击日历图标或聚焦输入框触发日期面板；支持手动输入和清除；min/max 之外日期不可交互。",
-        "content": "日期格式使用 YYYY-MM-DD；标签使用业务名词。",
+        "usage": "用于单日期、起止日期和日期时间录入；仅记录时分时使用 TimePicker。",
+        "avoid": "不要用两个独立日期字段代替范围模式，也不要把日期时间拆成互不关联的字段。",
+        "responsive": "桌面端使用 28/32/36px 三档高度；单日期 280–360px，范围至少 320px，日期时间单项至少 340px、范围至少 480px；窄容器改用上下布局或分步选择。",
+        "accessibility": "必须有可见标签或 aria-label；支持 Tab、Escape 和手动输入；图标与清除按钮提供独立可访问名称。",
+        "interaction": "单日期选择后立即完成；范围按起始确认、结束确认两步完成；日期时间必须确认后写入；点击外部或 Escape 关闭。",
+        "content": "日期使用 YYYY-MM-DD，日期时间使用 YYYY-MM-DD HH:mm；标签使用业务名词。",
         "examples": {
-          "basic": "DatePicker 默认结构与尺寸",
-          "business": "新材道后台筛选表单或详情页中的真实 DatePicker 场景",
-          "boundary": "禁用、错误、区间限制和移动端原生选择器",
+          "basic": "Date Picker 默认结构与尺寸",
+          "business": "新材道后台或门户中的真实 Date Picker 场景",
+          "boundary": "长内容、空数据、禁用、加载或窄屏边界",
           "wrong": "绕过组件、硬编码数值或仅依赖颜色表达状态"
         }
       },
       "propDefinitions": [
         {
           "name": "label",
-          "type": "string",
-          "description": "字段标签文字。"
+          "type": "ReactNode | string",
+          "description": "组件可见标签。"
         },
         {
           "name": "helperText",
           "type": "string",
-          "description": "字段下方的帮助说明。"
+          "description": "字段下方的帮助或校验说明。"
         },
         {
           "name": "error",
-          "type": "string",
-          "description": "错误提示；覆盖 helperText 显示。"
+          "type": "boolean | string",
+          "description": "错误状态或错误说明；不得只依赖颜色表达。"
         },
         {
           "name": "size",
-          "type": "'sm' | 'md' | 'lg'",
-          "description": "组件尺寸，映射到控件高度 Token。"
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "value",
           "type": "string",
-          "description": "当前日期值 YYYY-MM-DD 格式。"
+          "description": "当前受控值。"
         },
         {
-          "name": "clearable",
+          "name": "defaultValue",
+          "type": "string",
+          "description": "默认值。"
+        },
+        {
+          "name": "onChange",
+          "type": "function",
+          "description": "值或状态变化回调。"
+        },
+        {
+          "name": "range",
           "type": "boolean",
-          "description": "是否显示清除按钮。"
+          "description": "启用起止范围选择模式。"
+        },
+        {
+          "name": "rangeValue",
+          "type": "[string, string]",
+          "description": "受控的起止范围值。"
+        },
+        {
+          "name": "defaultRangeValue",
+          "type": "[string, string]",
+          "description": "非受控的起止范围初始值。"
+        },
+        {
+          "name": "onRangeChange",
+          "type": "(value: [string, string]) => void",
+          "description": "范围确认后的变化回调。"
+        },
+        {
+          "name": "showTime",
+          "type": "boolean",
+          "description": "在日期面板中启用时间选择。"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "description": "浮层或面板的受控打开状态。"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "description": "非受控浮层或面板的初始打开状态。"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "description": "浮层或面板开合变化回调。"
         },
         {
           "name": "disabled",
           "type": "boolean",
-          "description": "禁用状态。"
+          "description": "禁用状态；不可交互但仍保留上下文。"
         },
         {
           "name": "min",
-          "type": "string",
-          "description": "最小可选日期 YYYY-MM-DD。"
+          "type": "string | number",
+          "description": "允许选择或输入的最小值。"
         },
         {
           "name": "max",
-          "type": "string",
-          "description": "最大可选日期 YYYY-MM-DD。"
+          "type": "number",
+          "description": "徽标最大显示数字。"
+        },
+        {
+          "name": "labelPosition",
+          "type": "'top' | 'left'",
+          "description": "标签布局；移动端统一回退为 top。"
+        },
+        {
+          "name": "labelWidth",
+          "type": "number | string",
+          "description": "左右布局时的标签宽度。"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "description": "必填标记；校验仍由表单逻辑负责。"
         }
       ],
       "delivery": {
@@ -2102,16 +2141,15 @@
         "anatomy": [
           "标签",
           "输入容器",
-          "占位文字",
           "前后缀",
           "帮助或错误文字"
         ],
-        "usage": "用于单行文本录入；数据空间和参数面板等高密度桌面配置页默认使用左右标签，搜索和筛选可在上下文明确时省略可见标签。",
+        "usage": "用于单行文本录入；搜索和筛选可在上下文明确时省略可见标签。",
         "avoid": "不要把 placeholder 当作唯一字段名称，也不要用禁用代替只读。",
-        "responsive": "桌面端使用 28/32/36px 三档高度；横向充足且纵向紧张的配置页默认使用 label-left；小于 768px 时统一至少 44px 并回退为上下结构。",
+        "responsive": "桌面端使用 28/32/36px 三档高度；小于 768px 时统一至少 44px，label-left 回退为上下结构。",
         "accessibility": "正式录入字段必须有可见 label；无可见标签的搜索或筛选必须提供 aria-label；错误状态使用 aria-invalid 并关联文字说明。",
-        "interaction": "Hover 与 Focus 均使用 neutral-900 单边框，不叠加额外 2px 黑色外描边；点击标签聚焦输入框，Tab 进入、Shift+Tab 离开。",
-        "content": "标签使用 14px Regular 与 text-secondary；placeholder 只描述格式或示例；单位放在 suffix，不写入用户输入值。",
+        "interaction": "点击标签聚焦输入框；Tab 进入、Shift+Tab 离开；错误出现后保持输入可编辑，并通过 aria-describedby 关联错误说明。",
+        "content": "标签使用业务名词，placeholder 只描述格式或示例；单位放在 suffix，不写入用户输入值。",
         "examples": {
           "basic": "Input 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Input 场景",
@@ -2194,7 +2232,8 @@
           "error",
           "disabled",
           "readOnly",
-          "required"
+          "required",
+          "loading"
         ],
         "labelPosition": [
           "top",
@@ -2209,6 +2248,14 @@
           "none",
           "icon",
           "unit"
+        ],
+        "prefixAddon": [
+          "none",
+          "country-code"
+        ],
+        "suffixAddon": [
+          "none",
+          "unit-select"
         ]
       }
     },
@@ -2848,11 +2895,7 @@
         "single",
         "multiple"
       ],
-      "tones": [
-        "neutral",
-        "product",
-        "danger"
-      ],
+      "tones": [],
       "sizes": [
         "sm",
         "md",
@@ -2947,28 +2990,29 @@
         "nodeId": null
       },
       "figmaProperties": {
-        "variant": [
-          "single",
-          "multiple"
-        ],
-        "tone": [
-          "neutral",
-          "product",
-          "danger"
-        ],
         "size": [
           "sm",
           "md",
           "lg"
         ],
+        "variant": [
+          "single",
+          "multiple",
+          "searchable"
+        ],
+        "labelPosition": [
+          "top",
+          "left"
+        ],
         "state": [
           "placeholder",
           "selected",
+          "hover",
           "focus",
+          "open",
           "error",
           "disabled",
-          "loading",
-          "disabled-option"
+          "loading"
         ]
       }
     },
@@ -3148,7 +3192,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "定义鼠标、键盘、焦点、禁用与异步状态；触发后必须提供可感知反馈。",
-        "content": "数字列使用与正文相同的常规数字字体，不使用等宽数字或特殊数字字体；数值仅通过字号、字重和颜色区分层级，不通过字体族区分。长文本、空值、截断、换行和本地化边界必须定义。",
+        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
         "examples": {
           "basic": "Table 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Table 场景",
@@ -3541,23 +3585,20 @@
         "label-left"
       ],
       "category": "操作与输入",
-      "contractVersion": "0.2.1",
+      "contractVersion": "0.2.0",
       "status": "stable",
       "contract": {
         "anatomy": [
-          "字段容器",
-          "标签文字",
-          "多行输入容器",
-          "占位文字",
-          "帮助或错误文字",
-          "可选字符计数"
+          "根容器",
+          "主要内容",
+          "可选辅助内容"
         ],
-        "usage": "用于备注、原因、说明等需要换行和上下文的多行纯文本；与 Input 共用标签、提示、状态和可访问性规则。",
-        "avoid": "不要用于短名称、编号和单值参数，也不要替代富文本、代码或结构化配置编辑器。",
-        "responsive": "Small / Medium / Large 最小高度为 80/96/120px；高密度桌面配置页可使用 label-left，窄屏回退为上下结构并保持全宽。",
-        "accessibility": "正式录入字段提供可见 label；错误与帮助文字通过 aria-describedby 关联；提供 focus-visible，状态不只依赖颜色。",
-        "interaction": "Hover 与 Focus 均使用 neutral-900 单边框，不叠加额外 2px 黑色外描边；支持键盘输入和纵向缩放。",
-        "content": "标签使用 14px Regular 与 text-secondary；placeholder 提供格式或写作提示；限制长度时组合使用 maxLength 与 showCount。",
+        "usage": "用于Textarea对应的标准场景，优先复用组件而不是在页面内重新绘制。",
+        "avoid": "不要绕过 Token、组件合同或可访问性要求制作局部特例。",
+        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
+        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
+        "interaction": "定义鼠标、键盘、焦点、禁用与异步状态；触发后必须提供可感知反馈。",
+        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
         "examples": {
           "basic": "Textarea 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Textarea 场景",
@@ -3598,8 +3639,8 @@
         },
         {
           "name": "rows",
-          "type": "number",
-          "description": "文本域初始可见行数，仍受尺寸最小高度约束。"
+          "type": "number | array",
+          "description": "文本域行数或表格行数据。"
         },
         {
           "name": "showCount",
@@ -3614,7 +3655,7 @@
         {
           "name": "labelPosition",
           "type": "'top' | 'left'",
-          "description": "标签布局；高密度桌面配置页可使用 left，移动端回退为 top。"
+          "description": "标签布局；移动端统一回退为 top。"
         },
         {
           "name": "labelWidth",
@@ -4202,69 +4243,68 @@
       "status": "stable",
       "contract": {
         "anatomy": [
-          "上传区域",
-          "文件列表",
-          "进度指示",
-          "操作按钮"
+          "根容器",
+          "主要内容",
+          "可选辅助内容"
         ],
-        "usage": "用于文件选择与上传，支持拖拽、多文件、格式和大小限制。适用于材料数据导入、检测报告上传和图片附件场景。",
-        "avoid": "不要在不提供格式说明时直接限制上传；不要在上传失败后清除用户已选文件信息。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时上传区域可纵向排列，交互目标不小于 44px。",
-        "accessibility": "必须有可见标签或 aria-label；错误状态提供文字说明；上传按钮可通过键盘触发。",
-        "interaction": "支持点击选择、拖拽上传；上传中显示进度；上传完成可移除；maxFiles 和 maxSize 前置校验。",
-        "content": "标签使用业务名词；helperText 说明格式和大小限制；error 说明具体失败原因。",
+        "usage": "用于Upload对应的标准场景，优先复用组件而不是在页面内重新绘制。",
+        "avoid": "不要绕过 Token、组件合同或可访问性要求制作局部特例。",
+        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
+        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
+        "interaction": "定义鼠标、键盘、焦点、禁用与异步状态；触发后必须提供可感知反馈。",
+        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
         "examples": {
           "basic": "Upload 默认结构与尺寸",
-          "business": "新材道后台材料数据导入或检测报告上传场景",
-          "boundary": "多文件、大小限制、格式限制、禁用、错误和空列表",
+          "business": "新材道后台或门户中的真实 Upload 场景",
+          "boundary": "长内容、空数据、禁用、加载或窄屏边界",
           "wrong": "绕过组件、硬编码数值或仅依赖颜色表达状态"
         }
       },
       "propDefinitions": [
         {
           "name": "label",
-          "type": "string",
-          "description": "字段标签文字。"
+          "type": "ReactNode | string",
+          "description": "组件可见标签。"
         },
         {
           "name": "helperText",
           "type": "string",
-          "description": "字段下方的帮助说明，如格式和大小限制。"
+          "description": "字段下方的帮助或校验说明。"
         },
         {
           "name": "error",
-          "type": "string",
-          "description": "错误提示；覆盖 helperText 显示。"
+          "type": "boolean | string",
+          "description": "错误状态或错误说明；不得只依赖颜色表达。"
         },
         {
           "name": "accept",
           "type": "string",
-          "description": "允许的文件格式，如 '.pdf,.xlsx'。"
+          "description": "允许上传的文件类型。"
         },
         {
           "name": "multiple",
           "type": "boolean",
-          "description": "是否允许多文件上传。"
+          "description": "是否允许多选；仅原生多选能力，不包含搜索式复合选择器。"
         },
         {
           "name": "maxFiles",
           "type": "number",
-          "description": "最大文件数量。"
+          "description": "允许上传的最大文件数。"
         },
         {
           "name": "maxSize",
           "type": "number",
-          "description": "单个文件最大字节数。"
+          "description": "单个文件允许的最大体积。"
         },
         {
           "name": "disabled",
           "type": "boolean",
-          "description": "禁用状态。"
+          "description": "禁用状态；不可交互但仍保留上下文。"
         },
         {
           "name": "listType",
-          "type": "'text' | 'card'",
-          "description": "文件列表展示样式。"
+          "type": "string",
+          "description": "上传列表的展示形式。"
         }
       ],
       "delivery": {
@@ -4289,7 +4329,7 @@
       "阴影",
       "圆角"
     ],
-    "componentCount": 29,
+    "componentCount": 32,
     "foundationCount": 7
   },
   "authority": [

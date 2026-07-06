@@ -54,6 +54,12 @@ body {
   box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 3px var(--focus-ring-color);
 }
 
+.field-border-only-focus:focus-visible {
+  outline: none;
+  outline-offset: 0;
+  box-shadow: none;
+}
+
 ::selection {
   background: var(--brand-100);
   color: var(--text-primary);

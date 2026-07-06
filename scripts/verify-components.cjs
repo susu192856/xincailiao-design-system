@@ -23,7 +23,7 @@ function routeToDoc(component) {
 function routeToPage(component) {
   if (component.name === "Icon") return "src/pages/design-system/IconPage.tsx";
   if (component.name === "Textarea") return "src/pages/design-system/components/InputPage.tsx";
-  if (component.name === "DatePicker") return "src/pages/design-system/components/SelectPage.tsx";
+  if (component.name === "DatePicker") return "src/pages/design-system/components/DatePickerPage.tsx";
   return `src/pages/design-system/components/${component.name}Page.tsx`;
 }
 

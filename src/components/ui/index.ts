@@ -14,6 +14,8 @@ export { Collapse } from "./Collapse";
 export type { CollapseProps } from "./Collapse";
 export { DatePicker } from "./DatePicker";
 export type { DatePickerProps } from "./DatePicker";
+export { TimePicker } from "./TimePicker";
+export type { TimePickerProps } from "./TimePicker";
 export { DescriptionList } from "./DescriptionList";
 export type { DescriptionListProps } from "./DescriptionList";
 export { Drawer } from "./Drawer";
