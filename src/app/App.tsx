@@ -11,6 +11,7 @@ import BreadcrumbPage from "../pages/design-system/components/BreadcrumbPage";
 import CollapsePage from "../pages/design-system/components/CollapsePage";
 import DescriptionListPage from "../pages/design-system/components/DescriptionListPage";
 import DeliveryPage from "../pages/design-system/DeliveryPage";
+import FeedbackPage from "../pages/design-system/FeedbackPage";
 import DrawerPage from "../pages/design-system/components/DrawerPage";
 import EmptyPage from "../pages/design-system/components/EmptyPage";
 import FormPage from "../pages/design-system/components/FormPage";
@@ -52,6 +53,9 @@ export default function App() {
       </Route>
       <Route path="/delivery" element={<DocsLayout />}>
         <Route index element={<DeliveryPage />} />
+      </Route>
+      <Route path="/feedback" element={<DocsLayout />}>
+        <Route index element={<FeedbackPage />} />
       </Route>
       <Route path="/layout" element={<DocsLayout />}>
         <Route index element={<LayoutPage />} />

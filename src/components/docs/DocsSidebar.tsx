@@ -124,6 +124,7 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
     {
       title: "交付",
       items: [
+        { name: "反馈记录", path: "/feedback", icon: <ClipboardText size={16} weight="regular" /> },
         { name: "交付与同步", path: "/delivery", icon: <GitBranch size={16} weight="regular" /> },
       ],
     },

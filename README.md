@@ -46,6 +46,24 @@ npm run dev
 http://127.0.0.1:5173/
 ```
 
+## 反馈收集
+
+规范站每个页面右下角都有反馈入口。默认情况下，反馈记录保存在当前浏览器，便于本机预览和调试；如果需要汇总所有人的提交，需要配置共享反馈接口。
+
+本地启动反馈接口：
+
+```bash
+npm run feedback:server
+```
+
+再复制 `.env.example` 为 `.env.local`，并设置：
+
+```text
+VITE_FEEDBACK_API_URL=http://127.0.0.1:8787/api/feedback
+```
+
+生产环境需要把 `scripts/feedback-server.cjs` 或等价接口部署到团队可访问的服务器，并把 `VITE_FEEDBACK_API_URL` 指向该地址。真实反馈数据默认写入 `feedback-data/`，该目录已加入 `.gitignore`，避免误提交用户反馈。
+
 ## 构建
 
 ```bash

@@ -21,12 +21,13 @@ if (redirectedPath) {
 try {
   const known = ["/", "/layout", "/design-system/colors", "/typography", "/spacing", "/shadow", "/radius",
     "/components/select", "/components/button", "/components/icon", "/components/input", "/components/form",
+    "/components/date-picker",
     "/components/radio", "/components/checkbox", "/components/switch", "/components/table", "/components/pagination",
     "/components/description-list", "/components/card", "/components/tag", "/components/avatar", "/components/badge",
     "/components/image", "/components/chart", "/components/empty", "/components/upload", "/components/menu",
     "/components/tabs", "/components/breadcrumb", "/components/collapse", "/components/tree", "/components/transfer",
     "/components/modal", "/components/drawer", "/components/tooltip", "/components/popover", "/components/toast",
-    "/delivery",
+    "/delivery", "/feedback",
   ];
   const currentPath = window.location.pathname;
   if (currentPath !== "/" && !known.includes(currentPath)) {

@@ -10,6 +10,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "feedback:server": "node scripts/feedback-server.cjs",
     "export": "node scripts/export.cjs",
     "sync:skill-assets": "node scripts/sync-skill-assets.cjs",
     "contracts:normalize": "node scripts/normalize-component-contracts.cjs",

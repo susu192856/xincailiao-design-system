@@ -221,7 +221,7 @@ export default function InputPage() {
                 labelPosition="left"
                 labelWidth={88}
                 label="材料牌号"
-                placeholder="例如：TC4"
+                placeholder="请输入"
                 prefix={<MagnifyingGlass size={16} weight="regular" aria-hidden="true" />}
                 helperText="输入牌号后匹配材料主数据。"
                 maxLength={20}
@@ -252,7 +252,7 @@ export default function InputPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Structures" title="输入框类型与能力" description="先选择基础输入类型，再按业务语义叠加前后缀形式或清除能力；附加能力不改变输入值的基础类型。" />
+        <SectionHeading eyebrow="Types" title="输入框类型与能力" description="先选择基础输入类型，再按业务语义叠加前后缀形式或清除能力；附加能力不改变输入值的基础类型。" />
         <SectionCard className="md:p-6">
           <div className="space-y-6">
             <div><h3 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">基础类型</h3><div className="max-w-[492px] space-y-4"><Input labelPosition="left" labelWidth={96} label="文本输入" placeholder="例如：MAT-2026-001" helperText="名称、编号和单值文本。" /><InputNumber label="数值步进器" labelPosition="left" labelWidth={96} defaultValue={0.5} min={0} max={10} step={0.5} suffix="°C" helperText="用于连续数值调整；支持直接输入、步长、边界和单位。" /></div></div>
@@ -262,6 +262,8 @@ export default function InputPage() {
         </SectionCard>
         <CodeBlock lang="tsx" label="类型与能力" code={`<Input label="文本输入" />\n<Input label="采购金额" prefix="¥" />\n<Input label="抗拉强度" suffix="MPa" />\n<InputNumber min={0} max={10} step={0.5} />`} />
       </section>
+
+      <InteractivePlaygroundSection />
 
       <section>
         <SectionHeading eyebrow="Sizes" title="输入框尺寸" description="单行 Input 使用固定控件高度，多行 Textarea 使用最小高度；两者文字均为 14px，并共享 Small / Medium / Large 三级语义。" />
@@ -423,8 +425,6 @@ export default function InputPage() {
 <Textarea label="当前节点" value="审批完成前不可编辑。" disabled />`}
         />
       </section>
-
-      <InteractivePlaygroundSection />
 
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />

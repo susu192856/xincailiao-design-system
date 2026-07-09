@@ -4,6 +4,7 @@ import { List, X } from "@phosphor-icons/react";
 import DocsSidebar from "./DocsSidebar";
 import DocsToc from "./DocsToc";
 import { HomeHero } from "../../pages/design-system/HomePage";
+import FeedbackFloatingButton from "../feedback/FeedbackFloatingButton";
 
 export default function DocsLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -59,6 +60,7 @@ export default function DocsLayout() {
           ) : null}
         </div>
       </main>
+      <FeedbackFloatingButton />
     </div>
   );
 }
