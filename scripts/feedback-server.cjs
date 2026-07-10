@@ -33,7 +33,7 @@ function writeEntries(entries) {
 function sendJson(res, status, payload) {
   res.writeHead(status, {
     "Access-Control-Allow-Origin": process.env.FEEDBACK_ALLOW_ORIGIN || "*",
-    "Access-Control-Allow-Methods": "GET,POST,DELETE,OPTIONS",
+    "Access-Control-Allow-Methods": "GET,POST,PATCH,DELETE,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type,Accept",
     "Cache-Control": "no-store",
     "Content-Type": "application/json; charset=utf-8",
@@ -65,10 +65,12 @@ function readJson(req) {
 function normalizeDraft(input) {
   return {
     module: String(input.module || "其他"),
+    pageName: String(input.pageName || input.pagePath || "未命名页面"),
     pagePath: String(input.pagePath || "/"),
     detail: String(input.detail || "").trim(),
     screenshots: Array.isArray(input.screenshots) ? input.screenshots.slice(0, 3) : [],
     submitDate: String(input.submitDate || new Date().toISOString().slice(0, 10)),
+    status: input.status === "resolved" ? "resolved" : "pending",
     submitter: input.submitter ? String(input.submitter) : undefined,
     note: input.note ? String(input.note) : undefined,
   };
@@ -123,6 +125,16 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "DELETE" && pathname.startsWith("/api/feedback/")) {
       const id = decodeURIComponent(pathname.slice("/api/feedback/".length));
       writeEntries(readEntries().filter((entry) => entry.id !== id));
+      sendJson(res, 200, { ok: true });
+      return;
+    }
+
+    if (req.method === "PATCH" && pathname.startsWith("/api/feedback/")) {
+      const id = decodeURIComponent(pathname.slice("/api/feedback/".length));
+      const payload = await readJson(req);
+      const status = payload.status === "resolved" ? "resolved" : "pending";
+      const entries = readEntries().map((entry) => entry.id === id ? { ...entry, status } : entry);
+      writeEntries(entries);
       sendJson(res, 200, { ok: true });
       return;
     }

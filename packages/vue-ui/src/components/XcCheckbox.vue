@@ -96,11 +96,20 @@ function handleChange(event: Event) {
   color: #fff;
   font-size: 12px;
   line-height: 1;
+  transition: border-color 120ms ease, background-color 120ms ease;
 }
 
-.xc-checkbox__box--checked,
-.xc-checkbox__box--indeterminate {
+.xc-checkbox:hover:not(.xc-checkbox--disabled) .xc-checkbox__box {
   border-color: var(--product-blue-500);
+}
+
+.xc-checkbox__box--checked {
+  border-color: var(--product-blue-500);
+  background: var(--product-blue-500);
+}
+
+.xc-checkbox__box--indeterminate {
+  border-color: transparent;
   background: var(--product-blue-500);
 }
 
@@ -109,8 +118,19 @@ function handleChange(event: Event) {
 }
 
 .xc-checkbox--disabled .xc-checkbox__box {
-  border-color: var(--neutral-200);
-  background: var(--neutral-100);
+  border-color: var(--neutral-400);
+  background: var(--neutral-200);
+}
+
+.xc-checkbox--disabled .xc-checkbox__box--checked,
+.xc-checkbox--disabled .xc-checkbox__box--indeterminate {
+  border-color: var(--neutral-400);
+  background: var(--neutral-400);
+}
+
+.xc-checkbox:has(.xc-checkbox__input:focus-visible) .xc-checkbox__box {
+  outline: 2px solid var(--product-blue-500);
+  outline-offset: 2px;
 }
 
 .xc-checkbox__content {

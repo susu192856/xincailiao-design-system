@@ -91,10 +91,16 @@ function handleChange() {
   border: 1px solid var(--neutral-300);
   border-radius: var(--radius-full);
   background: #fff;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.xc-radio:hover:not(.xc-radio--disabled) .xc-radio__dot {
+  border-color: var(--product-blue-500);
 }
 
 .xc-radio__dot--checked {
   border-color: var(--product-blue-500);
+  background: var(--product-blue-500);
 }
 
 .xc-radio__dot--checked::after {
@@ -104,7 +110,7 @@ function handleChange() {
   width: 6px;
   height: 6px;
   border-radius: var(--radius-full);
-  background: var(--product-blue-500);
+  background: #fff;
   content: "";
 }
 
@@ -113,8 +119,22 @@ function handleChange() {
 }
 
 .xc-radio--disabled .xc-radio__dot {
-  border-color: var(--neutral-200);
-  background: var(--neutral-100);
+  border-color: var(--neutral-400);
+  background: var(--neutral-200);
+}
+
+.xc-radio--disabled .xc-radio__dot--checked {
+  border-color: var(--neutral-400);
+  background: var(--neutral-400);
+}
+
+.xc-radio--disabled .xc-radio__dot--checked::after {
+  background: #fff;
+}
+
+.xc-radio:has(.xc-radio__input:focus-visible) .xc-radio__dot {
+  outline: 2px solid var(--product-blue-500);
+  outline-offset: 2px;
 }
 
 .xc-radio__content {

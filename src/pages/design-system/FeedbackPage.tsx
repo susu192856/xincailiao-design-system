@@ -5,6 +5,7 @@ import { ExampleCard, SectionCard, SectionHeading } from "../../components/docs/
 import { Button } from "../../components/ui/Button";
 import { Empty } from "../../components/ui/Empty";
 import { Select } from "../../components/ui/Select";
+import { Tabs } from "../../components/ui/Tabs";
 import { Tag } from "../../components/ui/Tag";
 import {
   Table,
@@ -21,6 +22,7 @@ import {
   deleteFeedbackEntry,
   FEEDBACK_STORAGE_EVENT,
   listFeedbackEntries,
+  updateFeedbackEntryStatus,
   type FeedbackDataSource,
   type FeedbackEntry,
 } from "../../lib/feedback";
@@ -81,12 +83,16 @@ function useFeedbackEntries() {
 export default function FeedbackPage() {
   const { entries, source, loading, refresh } = useFeedbackEntries();
   const [moduleFilter, setModuleFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState<FeedbackEntry["status"]>("pending");
 
-  const filteredEntries = useMemo(() => (
+  const moduleFilteredEntries = useMemo(() => (
     moduleFilter === "all" ? entries : entries.filter((entry) => entry.module === moduleFilter)
   ), [entries, moduleFilter]);
+  const filteredEntries = useMemo(() => moduleFilteredEntries.filter((entry) => entry.status === statusFilter), [moduleFilteredEntries, statusFilter]);
 
   const latestEntry = entries[0];
+  const pendingCount = moduleFilteredEntries.filter((entry) => entry.status === "pending").length;
+  const resolvedCount = moduleFilteredEntries.filter((entry) => entry.status === "resolved").length;
   const moduleCounts = useMemo(() => {
     return entries.reduce<Record<string, number>>((result, entry) => {
       result[entry.module] = (result[entry.module] ?? 0) + 1;
@@ -96,6 +102,11 @@ export default function FeedbackPage() {
 
   const handleDelete = async (id: string) => {
     await deleteFeedbackEntry(id);
+    await refresh();
+  };
+
+  const handleStatusChange = async (id: string, status: FeedbackEntry["status"]) => {
+    await updateFeedbackEntryStatus(id, status);
     await refresh();
   };
 
@@ -144,17 +155,29 @@ export default function FeedbackPage() {
         <SectionHeading
           eyebrow="Records"
           title="反馈明细"
-          description="按模块筛选后查看提交页面、描述、截图、日期、提交人和备注。"
+          description="按处理状态和模块筛选后查看页面、描述、截图、日期、提交人和备注。"
         />
         <ExampleCard title="全部反馈" description="提交后记录会立即出现在这里。">
-          <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <Select
-              aria-label="按模块筛选反馈"
-              className="md:w-48"
-              value={moduleFilter}
-              options={allModules}
-              onChange={(value) => setModuleFilter(Array.isArray(value) ? value[0] ?? "all" : value)}
-            />
+          <div className="mb-4 flex flex-col gap-3 border-b border-[var(--neutral-200)] pb-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center">
+              <Tabs
+                value={statusFilter}
+                onValueChange={(value) => setStatusFilter(value === "resolved" ? "resolved" : "pending")}
+                variant="segment"
+                size="sm"
+                items={[
+                  { value: "pending", label: "未修改", badge: pendingCount },
+                  { value: "resolved", label: "已修改", badge: resolvedCount },
+                ]}
+              />
+              <Select
+                aria-label="按模块筛选反馈"
+                className="md:w-48"
+                value={moduleFilter}
+                options={allModules}
+                onChange={(value) => setModuleFilter(Array.isArray(value) ? value[0] ?? "all" : value)}
+              />
+            </div>
             <Button
               variant="outline"
               tone="danger"
@@ -177,6 +200,7 @@ export default function FeedbackPage() {
                   <TableRow>
                     <TableHead>模块</TableHead>
                     <TableHead>页面</TableHead>
+                    <TableHead>状态</TableHead>
                     <TableHead>描述详情</TableHead>
                     <TableHead>截图</TableHead>
                     <TableHead>提交日期</TableHead>
@@ -189,7 +213,13 @@ export default function FeedbackPage() {
                   {filteredEntries.length ? filteredEntries.map((entry) => (
                     <TableRow key={entry.id}>
                       <TableCell><Tag size="sm" tone="product">{entry.module}</Tag></TableCell>
-                      <TableCell className="font-mono text-xs">{entry.pagePath}</TableCell>
+                      <TableCell className="min-w-[160px]">
+                        <p className="text-sm text-[var(--text-primary)]">{entry.pageName}</p>
+                        <p className="mt-1 font-mono text-xs text-[var(--text-tertiary)]">{entry.pagePath}</p>
+                      </TableCell>
+                      <TableCell>
+                        <Tag size="sm" tone={entry.status === "resolved" ? "success" : "warning"}>{entry.status === "resolved" ? "已修改" : "未修改"}</Tag>
+                      </TableCell>
                       <TableCell className="min-w-[220px] max-w-[320px]">
                         <p className="line-clamp-3 text-sm leading-5 text-[var(--text-secondary)]">{entry.detail}</p>
                         <p className="mt-2 text-xs text-[var(--text-tertiary)]">创建：{formatDateTime(entry.createdAt)}</p>
@@ -220,13 +250,24 @@ export default function FeedbackPage() {
                         <p className="line-clamp-3 text-sm leading-5">{entry.note || "无"}</p>
                       </TableCell>
                       <TableCell align="right">
-                        <Button variant="text" tone="danger" size="sm" className="h-auto px-0 py-0" onClick={() => handleDelete(entry.id)}>
-                          删除
-                        </Button>
+                        <div className="flex justify-end gap-2">
+                          <Button
+                            variant="text"
+                            tone={entry.status === "resolved" ? "neutral" : "success"}
+                            size="sm"
+                            className="h-auto px-0 py-0"
+                            onClick={() => handleStatusChange(entry.id, entry.status === "resolved" ? "pending" : "resolved")}
+                          >
+                            {entry.status === "resolved" ? "设为未修改" : "标记已修改"}
+                          </Button>
+                          <Button variant="text" tone="danger" size="sm" className="h-auto px-0 py-0" onClick={() => handleDelete(entry.id)}>
+                            删除
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   )) : (
-                    <TableEmpty colSpan={8} title="没有匹配的反馈" description="切换筛选模块后再查看。" />
+                    <TableEmpty colSpan={9} title="没有匹配的反馈" description="切换状态或筛选模块后再查看。" />
                   )}
                 </TableBody>
               </Table>

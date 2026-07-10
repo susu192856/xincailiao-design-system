@@ -245,7 +245,7 @@ export function DatePicker({
             onClick={() => handleRangeFocusOrClick("click")}
             onKeyDown={(e) => { if (e.key === "Escape") closePanel(); }}
             className={[
-              "flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal text-[var(--text-body)] outline-none transition-colors duration-[var(--motion-duration-fast)]",
+              "flex w-full items-center rounded-[var(--radius-sm)] border bg-white font-normal outline-none transition-colors duration-[var(--motion-duration-fast)]",
               "disabled:cursor-not-allowed disabled:bg-[var(--field-bg-disabled)] disabled:text-[var(--text-disabled)]",
               error
                 ? "border-[var(--field-border-error)]"
@@ -259,11 +259,11 @@ export function DatePicker({
             ].join(" ")}
             style={{ outline: "none" }}
           >
-            <span className={["min-w-0 flex-1 truncate px-1 text-center", !currentRange[0] ? "text-[var(--neutral-400)]" : ""].join(" ")}>
+            <span className={["min-w-0 flex-1 truncate px-1 text-center", currentRange[0] ? "text-[var(--text-body)]" : "text-[var(--neutral-400)]"].join(" ")}>
               {currentRange[0] || placeholder?.split("至")[0]?.trim() || "起始日期"}
             </span>
             <span className="h-px w-4 shrink-0 bg-[var(--neutral-400)]" aria-hidden="true" />
-            <span className={["min-w-0 flex-1 truncate px-1 text-center", !currentRange[1] ? "text-[var(--neutral-400)]" : ""].join(" ")}>
+            <span className={["min-w-0 flex-1 truncate px-1 text-center", currentRange[1] ? "text-[var(--text-body)]" : "text-[var(--neutral-400)]"].join(" ")}>
               {currentRange[1] || placeholder?.split("至")[1]?.trim() || "结束日期"}
             </span>
           </button>

@@ -8,10 +8,12 @@ export type FeedbackScreenshot = {
 export type FeedbackEntry = {
   id: string;
   module: string;
+  pageName: string;
   pagePath: string;
   detail: string;
   screenshots: FeedbackScreenshot[];
   submitDate: string;
+  status: "pending" | "resolved";
   submitter?: string;
   note?: string;
   createdAt: string;
@@ -90,10 +92,12 @@ function normalizeFeedbackEntry(value: unknown): FeedbackEntry | null {
   return {
     id: String(entry.id),
     module: String(entry.module),
+    pageName: entry.pageName ? String(entry.pageName) : String(entry.pagePath),
     pagePath: String(entry.pagePath),
     detail: String(entry.detail),
     screenshots: Array.isArray(entry.screenshots) ? entry.screenshots.filter(isFeedbackScreenshot) : [],
     submitDate: String(entry.submitDate),
+    status: entry.status === "resolved" ? "resolved" : "pending",
     submitter: entry.submitter ? String(entry.submitter) : undefined,
     note: entry.note ? String(entry.note) : undefined,
     createdAt: String(entry.createdAt),
@@ -209,6 +213,32 @@ export async function deleteFeedbackEntry(id: string): Promise<FeedbackDataSourc
   }
 
   writeLocalFeedbackEntries(readLocalFeedbackEntries().filter((entry) => entry.id !== id));
+  return localSource(undefined, false);
+}
+
+export async function updateFeedbackEntryStatus(id: string, status: FeedbackEntry["status"]): Promise<FeedbackDataSource> {
+  const endpoint = getFeedbackApiUrl();
+  if (endpoint) {
+    try {
+      const response = await fetch(`${endpoint}/${encodeURIComponent(id)}`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
+      await parseFeedbackResponse(response);
+      window.dispatchEvent(new CustomEvent(FEEDBACK_STORAGE_EVENT));
+      return remoteSource(endpoint);
+    } catch (error) {
+      const entries = readLocalFeedbackEntries().map((entry) => entry.id === id ? { ...entry, status } : entry);
+      writeLocalFeedbackEntries(entries);
+      return localSource(error instanceof Error ? error.message : "远程接口更新失败", true);
+    }
+  }
+
+  writeLocalFeedbackEntries(readLocalFeedbackEntries().map((entry) => entry.id === id ? { ...entry, status } : entry));
   return localSource(undefined, false);
 }
 

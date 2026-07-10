@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from "react";
+import { useId, type InputHTMLAttributes } from "react";
 
 export type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> & {
   label?: string;
@@ -21,7 +21,8 @@ export function Checkbox({
   id,
   ...props
 }: CheckboxProps) {
-  const checkId = id ?? props.name;
+  const generatedId = useId();
+  const checkId = id ?? `checkbox-${generatedId.replace(/:/g, "")}`;
   const messageId = error || helperText ? `${checkId}-message` : undefined;
   const controlSize = size === "sm" ? "14px" : "var(--selection-control-size)";
 
@@ -41,12 +42,19 @@ export function Checkbox({
           />
           <span className={[
             "block rounded-[var(--radius-sm)] border transition-colors",
-            "peer-checked:bg-[var(--neutral-900)] peer-checked:border-[var(--neutral-900)]",
-            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
+            "peer-hover:border-[var(--product-blue-500)]",
+            "peer-checked:border-[var(--product-blue-500)] peer-checked:bg-[var(--product-blue-500)]",
+            "peer-checked:peer-active:border-[var(--product-blue-600)] peer-checked:peer-active:bg-[var(--product-blue-600)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--product-blue-500)]",
             error ? "border-[var(--error-text)]" : "border-[var(--neutral-400)]",
             "bg-white",
-            "peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--disabled-opacity)]",
-            indeterminate ? "border-[var(--neutral-900)] bg-[var(--neutral-900)]" : "",
+            "peer-disabled:cursor-not-allowed peer-disabled:border-[var(--neutral-400)] peer-disabled:bg-[var(--neutral-200)]",
+            "peer-checked:peer-disabled:border-[var(--neutral-400)] peer-checked:peer-disabled:bg-[var(--neutral-400)]",
+            indeterminate
+              ? disabled
+                ? "!border-[var(--neutral-400)] !bg-[var(--neutral-400)]"
+                : "!border-transparent !bg-[var(--product-blue-500)]"
+              : "",
           ].join(" ")}
             style={{ width: controlSize, height: controlSize }}
           />

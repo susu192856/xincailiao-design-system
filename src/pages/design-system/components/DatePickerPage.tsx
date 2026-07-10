@@ -27,14 +27,6 @@ const datePickerProps = [
   ["helperText / error", "string", "—", "字段用途说明或错误修正信息，通过 aria-describedby 关联。"],
 ];
 
-const modelRows = [
-  ["单点 × 日期精度", "DatePicker", "发布日期、到期日", "一个字段记录一个自然日，面板选择后直接写入。"],
-  ["范围 × 日期精度", "DatePicker range", "查询区间、有效期", "同一触发器内完成起始和结束日期，不拆成两个字段。"],
-  ["单点 × 分钟精度", "DatePicker showTime", "发布时间、预约时间", "日期是主信息，时间是精度扩展；值格式为 YYYY-MM-DD HH:mm。"],
-  ["范围 × 分钟精度", "DatePicker range showTime", "活动起止时间、可预约时段", "每个端点都携带时间，使用同一范围控件完成。"],
-  ["无日期 × 分钟精度", "TimePicker", "每日班次、固定提醒时间", "仅当业务完全不关心日期时使用，作为日期选择体系的特例。"],
-];
-
 function DatePickerPlaygroundSection() {
   const [mode, setMode] = useState<"date" | "dateTime" | "range" | "time">("date");
   const [size, setSize] = useState<"sm" | "md" | "lg">("md");
@@ -96,44 +88,16 @@ export default function DatePickerPage() {
       />
 
       <section>
-        <SectionHeading eyebrow="Model" title="日期输入模型" description="把日期、日期范围和日期时间归纳为两个判断维度：选择数量与时间精度。阅读页面时先确定模型，再看对应示例和实现属性。" />
-        <SectionCard className="overflow-hidden !p-0">
-          <div className="divide-y divide-[var(--neutral-200)]">
-            {modelRows.map(([model, component, scene, rule]) => (
-              <div key={model} className="grid gap-3 p-5 md:grid-cols-[160px_180px_minmax(0,1fr)] md:items-start">
-                <strong className="text-sm text-[var(--text-primary)]">{model}</strong>
-                <code className="w-fit rounded-[var(--radius-sm)] bg-[var(--neutral-100)] px-2 py-1 font-data text-xs text-[var(--text-secondary)]">{component}</code>
-                <p className="text-sm leading-6 text-[var(--text-secondary)]"><span className="text-[var(--text-primary)]">{scene}</span>：{rule}</p>
-              </div>
-            ))}
-          </div>
-        </SectionCard>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Structure" title="字段结构差异" description="日期选择继承输入框的字段结构，只在触发器、面板和日期值表达上补充差异规则。" />
-        <SectionCard className="md:p-6">
-          <div className="grid grid-cols-1 gap-4 text-sm leading-6 text-[var(--text-secondary)] md:grid-cols-2">
-            <div className="bg-[var(--neutral-50)] p-4"><strong className="block text-[var(--text-primary)]">继承字段结构</strong>标签、必填状态、辅助信息、错误信息和左右 / 上下标签布局沿用输入框规则，不在本页重复展开。</div>
-            <div className="bg-[var(--neutral-50)] p-4"><strong className="block text-[var(--text-primary)]">日期触发器</strong>输入区域展示日期值并控制日历面板；单日期显示一个值，范围模式显示起止两个值。</div>
-            <div className="bg-[var(--neutral-50)] p-4"><strong className="block text-[var(--text-primary)]">日历面板</strong>面板跟随触发器展开，承载月份切换、日期选择、范围确认和 showTime 时间精度。</div>
-            <div className="bg-[var(--neutral-50)] p-4"><strong className="block text-[var(--text-primary)]">宽度差异</strong>单日期推荐 280-360px；范围不小于 320px；日期时间单项不小于 340px，范围不小于 480px。</div>
-          </div>
-        </SectionCard>
-      </section>
-
-      <section>
         <SectionHeading eyebrow="Types" title="日期选择形态" description="四种常用形态来自同一个模型：单点或范围决定选择方式，日期或分钟决定是否显示时间选择。" />
         <SectionCard className="overflow-hidden !p-0">
           <div className="divide-y divide-[var(--neutral-200)]">
             <div className="grid gap-4 p-5 md:grid-cols-[140px_minmax(0,1fr)_220px] md:items-center"><div><strong className="text-sm text-[var(--text-primary)]">单日期</strong><p className="mt-1 text-xs text-[var(--text-tertiary)]">发布日期、到期日</p></div><p className="text-sm text-[var(--text-secondary)]">只需要一个自然日，选择后立即写入。</p><DatePicker defaultValue="2026-07-02" /></div>
             <div className="grid gap-4 p-5 md:grid-cols-[140px_minmax(0,1fr)_320px] md:items-center"><div><strong className="text-sm text-[var(--text-primary)]">起止日期</strong><p className="mt-1 text-xs text-[var(--text-tertiary)]">查询区间、活动周期</p></div><p className="text-sm text-[var(--text-secondary)]">在同一触发器内分步确认起始和结束日期。</p><DatePicker range defaultRangeValue={["2026-07-06", "2026-08-12"]} /></div>
             <div className="grid gap-4 p-5 md:grid-cols-[140px_minmax(0,1fr)_340px] md:items-center"><div><strong className="text-sm text-[var(--text-primary)]">日期 + 时间</strong><p className="mt-1 text-xs text-[var(--text-tertiary)]">发布时间、预约时间</p></div><p className="text-sm text-[var(--text-secondary)]">同一任务同时需要日期和分钟精度，使用 DatePicker showTime。</p><DatePicker showTime defaultValue="2026-07-02 14:30" /></div>
-            <div className="grid gap-4 p-5 md:grid-cols-[140px_minmax(0,1fr)_480px] md:items-center"><div><strong className="text-sm text-[var(--text-primary)]">起止日期 + 时间</strong><p className="mt-1 text-xs text-[var(--text-tertiary)]">活动起止时间</p></div><p className="text-sm text-[var(--text-secondary)]">范围两端都需要分钟精度时，在同一范围控件中处理。</p><DatePicker range showTime defaultRangeValue={["2026-07-06 09:00", "2026-08-12 18:00"]} /></div>
-            <div className="grid gap-4 bg-[var(--neutral-50)] p-5 md:grid-cols-[140px_minmax(0,1fr)_220px] md:items-center"><div><strong className="text-sm text-[var(--text-primary)]">独立时间</strong><p className="mt-1 text-xs text-[var(--text-tertiary)]">少量特例</p></div><p className="text-sm text-[var(--text-secondary)]">只有“每日固定时间”这类完全没有日期语义的场景，才单独使用 TimePicker。</p><TimePicker defaultValue="14:30" /></div>
+            <div className="grid gap-4 bg-white p-5 md:grid-cols-[140px_minmax(0,1fr)_220px] md:items-center"><div><strong className="text-sm text-[var(--text-primary)]">独立时间</strong><p className="mt-1 text-xs text-[var(--text-tertiary)]">少量特例</p></div><p className="text-sm text-[var(--text-secondary)]">只有“每日固定时间”这类完全没有日期语义的场景，才单独使用 TimePicker。</p><TimePicker defaultValue="14:30" /></div>
           </div>
         </SectionCard>
-        <CodeBlock lang="tsx" label="类型" code={`<DatePicker label="发布日期" defaultValue="2026-07-02" />\n<DatePicker range label="起止日期" defaultRangeValue={["2026-07-06", "2026-08-12"]} />\n<DatePicker showTime label="发布时间" defaultValue="2026-07-02 14:30" />\n<DatePicker range showTime label="活动起止时间"\n  defaultRangeValue={["2026-07-06 09:00", "2026-08-12 18:00"]} />\n\n// 仅当业务没有日期语义时使用\n<TimePicker label="每日提醒时间" defaultValue="14:30" />`} />
+        <CodeBlock lang="tsx" label="类型" code={`<DatePicker label="发布日期" defaultValue="2026-07-02" />\n<DatePicker range label="起止日期" defaultRangeValue={["2026-07-06", "2026-08-12"]} />\n<DatePicker showTime label="发布时间" defaultValue="2026-07-02 14:30" />\n\n// 仅当业务没有日期语义时使用\n<TimePicker label="每日提醒时间" defaultValue="14:30" />`} />
       </section>
 
       <DatePickerPlaygroundSection />
@@ -195,9 +159,9 @@ export default function DatePickerPage() {
         <SectionHeading eyebrow="Panels" title="日历面板" description="单日期面板直接展示完整月份；范围选择按起止顺序分步确认；showTime 在面板右侧展开时间选择列。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="单日期"><div className="max-w-[480px] pb-[300px]"><DatePicker label="发布日期" open /></div></ExampleCard>
-          <ExampleCard title="起止日期 · 顺序选择"><div className="max-w-[420px] pb-[300px]"><DatePicker range label="起止日期" placeholder="开始日期至结束日期" open /></div><p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">先选择起始日期并确认，焦点自动进入结束日期；再次确认后完成范围。</p></ExampleCard>
+          <ExampleCard title="起止日期 · 顺序选择"><div className="max-w-[420px] pb-[340px]"><DatePicker range label="起止日期" placeholder="开始日期至结束日期" open /></div><p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">先选择起始日期并确认，焦点自动进入结束日期；再次确认后完成范围。</p></ExampleCard>
           <ExampleCard title="日期 + 时间"><div className="max-w-[480px] pb-[380px]"><DatePicker showTime label="发布时间" placeholder="YYYY-MM-DD HH:mm" open /></div><p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">日历右侧显示时间选择列，选定日期后可调整小时和分钟。</p></ExampleCard>
-          <ExampleCard title="独立时间"><div className="max-w-[300px] pb-[220px]"><TimePicker label="每日提醒" placeholder="HH:mm" open /></div><p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">独立时间下拉面板展示时与分两列，不含日历；仅在业务无日期语义时使用。</p></ExampleCard>
+          <ExampleCard title="独立时间"><div className="max-w-[300px] pb-[260px]"><TimePicker label="每日提醒" placeholder="HH:mm" open /></div><p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">独立时间下拉面板展示时、分两列，不含日历；仅在业务无日期语义时使用。</p></ExampleCard>
         </div>
         <div className="mt-5 grid grid-cols-1 gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 text-sm text-[var(--text-secondary)] md:grid-cols-4">
           <p><strong className="block text-[var(--text-primary)]">面板宽度</strong>日历面板推荐 320–420px，跟随输入区域。</p>

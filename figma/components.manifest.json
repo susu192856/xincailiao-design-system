@@ -839,6 +839,9 @@
       "reactSource": "src/components/ui/Checkbox.tsx",
       "vueSource": "packages/vue-ui/src/components/XcCheckbox.vue",
       "props": [
+        "label",
+        "description",
+        "size",
         "checked",
         "indeterminate",
         "disabled",
@@ -856,6 +859,7 @@
         "danger"
       ],
       "sizes": [
+        "sm",
         "md"
       ],
       "states": [
@@ -881,7 +885,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "Space 切换；父级部分选择使用 indeterminate，禁用项仍保留上下文说明。",
-        "content": "选择项使用可独立理解的短句；协议文案说明责任和操作后果。",
+        "content": "选择项使用可独立理解的短句；协议文案说明责任和操作后果；选中与半选使用产品蓝，默认与禁用使用中性灰，品牌红不进入常规选择控件。",
         "examples": {
           "basic": "Checkbox 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Checkbox 场景",
@@ -890,6 +894,21 @@
         }
       },
       "propDefinitions": [
+        {
+          "name": "label",
+          "type": "string",
+          "description": "复选项的可见标签。"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "标签下方的结果、权限或限制说明。"
+        },
+        {
+          "name": "size",
+          "type": "sm | md",
+          "description": "控件尺寸；紧凑区域使用 sm，表单默认使用 md。"
+        },
         {
           "name": "checked",
           "type": "boolean",
@@ -933,6 +952,7 @@
           "danger"
         ],
         "size": [
+          "sm",
           "md"
         ],
         "state": [
@@ -2774,6 +2794,10 @@
       "reactSource": "src/components/ui/Radio.tsx",
       "vueSource": "packages/vue-ui/src/components/XcRadio.vue",
       "props": [
+        "name",
+        "label",
+        "description",
+        "size",
         "checked",
         "disabled",
         "error",
@@ -2790,6 +2814,7 @@
         "danger"
       ],
       "sizes": [
+        "sm",
         "md"
       ],
       "states": [
@@ -2815,7 +2840,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "方向键在组内切换，Space 选中；同组共享 name 和可访问组标签。",
-        "content": "选项文案保持同一语法结构，高风险选项直接说明影响与限制。",
+        "content": "选项文案保持同一语法结构，高风险选项直接说明影响与限制；选中使用产品蓝，默认与禁用使用中性灰，品牌红不进入常规选择控件。",
         "examples": {
           "basic": "Radio 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Radio 场景",
@@ -2824,6 +2849,26 @@
         }
       },
       "propDefinitions": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "同组单选框共享的原生 name，用于建立互斥关系。"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "单选项的可见标签。"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "标签下方的结果或限制说明。"
+        },
+        {
+          "name": "size",
+          "type": "sm | md",
+          "description": "控件尺寸；紧凑区域使用 sm，表单默认使用 md。"
+        },
         {
           "name": "checked",
           "type": "boolean",
@@ -2862,6 +2907,7 @@
           "danger"
         ],
         "size": [
+          "sm",
           "md"
         ],
         "state": [
@@ -3064,7 +3110,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "点击标签或 Space 切换；异步保存期间显示进行中并在失败时回滚和提示。",
-        "content": "标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果。",
+        "content": "标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果；开启使用产品蓝，关闭与禁用使用中性灰，品牌红不进入常规开关。",
         "examples": {
           "basic": "Switch 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Switch 场景",

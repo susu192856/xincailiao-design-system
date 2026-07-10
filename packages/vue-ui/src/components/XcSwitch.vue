@@ -74,7 +74,6 @@ function toggle() {
 .xc-switch:disabled {
   color: var(--neutral-400);
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
 .xc-switch__track {
@@ -127,6 +126,27 @@ function toggle() {
 
 .xc-switch--checked .xc-switch__track {
   background: var(--product-blue-500);
+}
+
+.xc-switch:hover:not(:disabled) .xc-switch__track {
+  background: var(--neutral-400);
+}
+
+.xc-switch--checked:hover:not(:disabled) .xc-switch__track {
+  background: var(--product-blue-600);
+}
+
+.xc-switch:focus-visible .xc-switch__track {
+  outline: 2px solid var(--product-blue-500);
+  outline-offset: 2px;
+}
+
+.xc-switch:disabled .xc-switch__track {
+  background: var(--neutral-200);
+}
+
+.xc-switch--checked:disabled .xc-switch__track {
+  background: var(--neutral-400);
 }
 
 .xc-switch--error .xc-switch__track {

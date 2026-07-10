@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from "react";
+import { useId, type InputHTMLAttributes } from "react";
 
 export type SwitchProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> & {
   label?: string;
@@ -34,7 +34,8 @@ export function Switch({
   id,
   ...props
 }: SwitchProps) {
-  const switchId = id ?? props.name;
+  const generatedId = useId();
+  const switchId = id ?? `switch-${generatedId.replace(/:/g, "")}`;
   const messageId = error || helperText ? `${switchId}-message` : undefined;
 
   return (
@@ -46,17 +47,16 @@ export function Switch({
             id={switchId}
             disabled={disabled}
             aria-invalid={error ? true : undefined}
-            aria-checked={props.checked}
             aria-describedby={messageId}
             className="peer sr-only"
             role="switch"
             {...props}
           />
           <span className={[
-            "block rounded-full transition-colors peer-checked:bg-[var(--product-blue-500)]",
+            "block rounded-full transition-colors peer-hover:bg-[var(--neutral-400)] peer-checked:bg-[var(--product-blue-500)] peer-checked:peer-hover:bg-[var(--product-blue-600)]",
             error ? "bg-[var(--neutral-100)] ring-1 ring-[var(--error-text)]" : "bg-[var(--neutral-300)]",
-            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
-            "peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--disabled-opacity)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--product-blue-500)]",
+            "peer-disabled:cursor-not-allowed peer-disabled:bg-[var(--neutral-200)] peer-checked:peer-disabled:bg-[var(--neutral-400)]",
             trackSizes[size],
           ].join(" ")} />
           <span className={[
@@ -66,7 +66,7 @@ export function Switch({
           ].join(" ")} />
         </span>
         <span className="min-w-0">
-          {label ? <span className="block text-sm text-[var(--text-body)]">{label}</span> : null}
+          {label ? <span className={`block text-sm ${disabled ? "text-[var(--text-disabled)]" : "text-[var(--text-body)]"}`}>{label}</span> : null}
           {description ? <span className="mt-1 block text-xs leading-5 text-[var(--text-tertiary)]">{description}</span> : null}
         </span>
       </label>
