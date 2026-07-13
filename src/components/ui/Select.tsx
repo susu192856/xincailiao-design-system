@@ -348,13 +348,13 @@ export function Select({
           value={Array.isArray(currentValue) ? currentValue.join(",") : currentValue ?? ""}
         />
       ) : null}
-      <div className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-start sm:gap-3" : "block"}>
+      <div className={isHorizontal ? "flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3" : "block"}>
         {label ? (
           <label
             htmlFor={selectId}
             className={[
               "block text-sm font-normal leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]",
-              isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:pt-1.5 sm:text-right" : "mb-1.5",
+              isHorizontal ? "w-full shrink-0 sm:w-[var(--select-label-width)] sm:text-right" : "mb-1.5",
             ].join(" ")}
             style={labelStyle}
           >
@@ -377,6 +377,7 @@ export function Select({
                       value={search}
                       onChange={(e) => { setSearch(e.target.value); setFocusIdx(0); }}
                       placeholder={searchPlaceholder}
+                      aria-label={searchPlaceholder}
                       className="w-full border-none bg-transparent text-sm text-[var(--text-body)] outline-none placeholder:text-[var(--neutral-400)]"
                       style={{ outline: "none", boxShadow: "none" }}
                       onKeyDown={handleKeyDown}

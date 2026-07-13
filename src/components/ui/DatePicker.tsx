@@ -93,6 +93,7 @@ export function DatePicker({
   const generatedId = useId();
   const inputId = id ?? `datepicker-${generatedId}`;
   const messageId = error || helperText ? `${inputId}-message` : undefined;
+  const accessibleLabel = props["aria-label"] ?? label ?? (range ? "日期范围" : showTime ? "日期和时间" : "日期");
   const isHorizontal = labelPosition === "left";
   const labelStyle = isHorizontal ? ({ "--date-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties) : undefined;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -239,6 +240,7 @@ export function DatePicker({
             disabled={disabled}
             aria-haspopup="dialog"
             aria-expanded={open}
+            aria-label={accessibleLabel}
             aria-invalid={Boolean(error)}
             aria-describedby={messageId}
             onFocus={() => handleRangeFocusOrClick("focus")}
@@ -305,6 +307,7 @@ export function DatePicker({
               value={displayValue}
               disabled={disabled}
               placeholder={placeholder ?? "请选择日期"}
+              aria-label={accessibleLabel}
               inputMode="numeric"
               maxLength={showTime ? 16 : 10}
               aria-invalid={Boolean(error)}

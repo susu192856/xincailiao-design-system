@@ -7,13 +7,16 @@ import {
   Trash,
   WarningCircle,
 } from "@phosphor-icons/react";
+import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { SectionHeading } from "../../../components/docs/ComponentDoc";
+import CodeBlock from "../../../components/docs/CodeBlock";
 import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
 
 type ButtonTone = "task" | "neutral" | "product" | "brand" | "danger" | "warning" | "success";
 type ButtonVariant = "solid" | "outline" | "ghost" | "text";
+type ButtonContent = "text" | "icon-left" | "icon-right" | "icon-only";
 
 function SpecCard({
   title,
@@ -322,6 +325,72 @@ const layoutRows = [
   ["2xl", "56px", "40px", "4px", "16px", "首屏强转化 / 大屏展示", "只用于少量品牌转化区；不进入后台和高密度界面。"],
 ];
 
+function ButtonPlaygroundSection() {
+  const [variant, setVariant] = useState<ButtonVariant>("solid");
+  const [tone, setTone] = useState<ButtonTone>("task");
+  const [size, setSize] = useState<"sm" | "md" | "lg">("md");
+  const [state, setState] = useState<"default" | "loading" | "disabled">("default");
+  const [content, setContent] = useState<ButtonContent>("text");
+  const optionClass = (active: boolean) => `rounded-[var(--radius-sm)] border px-3 py-2 text-xs font-medium transition-colors ${active ? "border-[var(--neutral-900)] bg-[var(--neutral-900)] text-white" : "border-[var(--neutral-200)] bg-white text-[var(--text-secondary)] hover:border-[var(--neutral-400)]"}`;
+  const label = tone === "product" ? "运行分析" : tone === "brand" ? "预约演示" : tone === "danger" ? "删除数据" : "提交审核";
+  const stateProp = state === "loading" ? " loading" : state === "disabled" ? " disabled" : "";
+  const contentOptions: { value: ButtonContent; label: string }[] = [
+    { value: "text", label: "纯文字" },
+    { value: "icon-left", label: "左图标 + 文字" },
+    { value: "icon-right", label: "文字 + 右图标" },
+    { value: "icon-only", label: "单个图标" },
+  ];
+  const iconOnlyClass = size === "lg" ? "w-11 px-0 md:w-9" : "w-11 px-0 md:w-8";
+  const code = content === "text"
+    ? `<Button variant="${variant}" tone="${tone}" size="${size}"${stateProp}>\n  ${label}\n</Button>`
+    : content === "icon-only"
+      ? `import { PencilSimple } from "@phosphor-icons/react";\n\n<Button\n  variant="${variant}"\n  tone="${tone}"\n  size="${size}"${stateProp}\n  icon={<PencilSimple size={16} />}\n  aria-label="编辑"\n  title="编辑"\n  className="${iconOnlyClass}"\n/>`
+      : `import { ${content === "icon-left" ? "Plus" : "ArrowRight"} } from "@phosphor-icons/react";\n\n<Button\n  variant="${variant}"\n  tone="${tone}"\n  size="${size}"${stateProp}\n  icon={<${content === "icon-left" ? "Plus" : "ArrowRight"} size={16} />}\n  iconPosition="${content === "icon-left" ? "left" : "right"}"\n>\n  ${label}\n</Button>`;
+
+  return (
+    <section>
+      <SectionHeading
+        eyebrow="Playground"
+        title="即时体验"
+        description="调整按钮类型、内容形式、业务语义、尺寸和状态，观察同一 API 如何映射到视觉与交互。"
+      />
+      <SpecCard title="按钮配置" description="选择属性后，预览和代码会同步更新。">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.8fr)]">
+          <div className="space-y-5">
+            <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">类型</p><div className="flex flex-wrap gap-2">{(["solid", "outline", "ghost", "text"] as const).map((item) => <button key={item} type="button" aria-pressed={variant === item} onClick={() => setVariant(item)} className={optionClass(variant === item)}>{item}</button>)}</div></div>
+            <div>
+              <p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">内容形式</p>
+              <div className="flex flex-wrap gap-2">{contentOptions.map((item) => <button key={item.value} type="button" aria-pressed={content === item.value} onClick={() => setContent(item.value)} className={optionClass(content === item.value)}>{item.label}</button>)}</div>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">选择 text 类型并搭配左右图标，即为无背景的文字 + 图标按钮。</p>
+            </div>
+            <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">语义</p><div className="flex flex-wrap gap-2">{(["task", "product", "brand", "danger"] as const).map((item) => <button key={item} type="button" aria-pressed={tone === item} onClick={() => setTone(item)} className={optionClass(tone === item)}>{item}</button>)}</div></div>
+            <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">尺寸</p><div className="flex flex-wrap gap-2">{(["sm", "md", "lg"] as const).map((item) => <button key={item} type="button" aria-pressed={size === item} onClick={() => setSize(item)} className={optionClass(size === item)}>{item}</button>)}</div></div>
+            <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">状态</p><div className="flex flex-wrap gap-2">{(["default", "loading", "disabled"] as const).map((item) => <button key={item} type="button" aria-pressed={state === item} onClick={() => setState(item)} className={optionClass(state === item)}>{item}</button>)}</div></div>
+          </div>
+          <div className="flex min-h-48 items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-[var(--neutral-50)] p-6">
+            {content === "icon-only" ? (
+              <Button variant={variant} tone={tone} size={size} loading={state === "loading"} disabled={state === "disabled"} icon={<PencilSimple size={16} className="h-4 w-4" weight="regular" />} aria-label="编辑" title="编辑" className={iconOnlyClass} />
+            ) : (
+              <Button
+                variant={variant}
+                tone={tone}
+                size={size}
+                loading={state === "loading"}
+                disabled={state === "disabled"}
+                icon={content === "icon-left" ? <Plus size={16} className="h-4 w-4" weight="regular" /> : content === "icon-right" ? <ArrowRight size={16} className="h-4 w-4" weight="regular" /> : undefined}
+                iconPosition={content === "icon-right" ? "right" : "left"}
+              >
+                {label}
+              </Button>
+            )}
+          </div>
+        </div>
+      </SpecCard>
+      <CodeBlock lang="tsx" label="当前按钮配置" code={code} />
+    </section>
+  );
+}
+
 export default function ButtonPage() {
   return (
     <div className="space-y-20">
@@ -345,6 +414,8 @@ export default function ButtonPage() {
         </div>
       </section>
 
+      <ButtonPlaygroundSection />
+
       <section>
         <SectionHeading
           eyebrow="States"
@@ -353,6 +424,7 @@ export default function ButtonPage() {
         />
         <div className="space-y-4">
           <SpecCard title="状态矩阵" description="状态样张只用于展示组件视觉，不响应鼠标、键盘或点击交互。">
+            <p className="mb-3 text-xs leading-5 text-[var(--text-tertiary)] md:hidden">状态列较多，可在下方区域左右滑动查看完整矩阵。</p>
             <div className="overflow-x-auto">
               <div className="min-w-[760px] space-y-2">
                 <div className="grid grid-cols-[190px_repeat(4,minmax(104px,1fr))] items-center gap-0.5 border-b border-[var(--neutral-200)] px-3 pb-3 text-center text-xs text-[var(--text-tertiary)]">

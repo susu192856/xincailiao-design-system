@@ -128,7 +128,7 @@ export function Tag({
         className={[
           "inline-flex items-center gap-1.5 font-normal",
           disabled ? "opacity-50" : "",
-          sizeClasses[size],
+          size === "sm" ? "px-0 py-0 text-sm" : sizeClasses[size],
           className,
         ].join(" ")}
         {...props}

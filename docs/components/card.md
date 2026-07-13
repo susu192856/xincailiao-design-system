@@ -1,6 +1,6 @@
 # 卡片 Card
 
-> 用于承载一组相关业务内容，适合指标、入口、列表项和状态摘要。
+> 用于承载可独立理解、重复排列、整体移动或操作的信息单元。
 
 - 规范页面：`/components/card`
 - React 源码：`src/components/ui/Card.tsx`
@@ -8,30 +8,31 @@
 - Figma 组件名：`Card`
 
 - 分类：数据与内容
-- 合同版本：`0.2.0`
+- 合同版本：`0.3.0`
 - 规范状态：稳定
 
 ## 定位与边界
 
-**适用：** 用于组织一个主题的信息摘要、入口或可比较对象。
+**适用：** 用于组织一个可独立理解的对象、入口或摘要；该单元可以脱离当前页面位置仍保持完整语义。
 
-**避免：** 不要把所有内容都放入卡片，也不要同时让卡片整体和内部多个区域争夺主点击行为。
+**避免：** 页面大分区、连续阅读内容和单纯视觉分隔不使用 Card。不要同时让卡片整体和内部按钮、链接争夺主点击行为。
 
 ## 结构 Anatomy
 
-- 容器
-- 标题与摘要
-- 主体内容
-- 状态或操作区
+- `Card` 容器
+- `CardHeader` 标题与摘要
+- `CardContent` 主体内容
+- `CardFooter` 补充信息或主操作
+- `CardActions` 标题区辅助操作
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `variant` | `string` | `default` | 组件的结构或视觉层级；不得承载业务颜色语义。 |
-| `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
-| `status` | `string` | `—` | 状态语义；不能只依赖颜色表达。 |
-| `interactive` | `boolean` | `—` | 是否允许卡片作为整体交互目标。 |
-| `selected` | `boolean` | `—` | 表格行或可交互容器的选中状态。 |
+| `variant` | `'plain' \| 'outlined' \| 'muted'` | `plain` | 容器视觉层级，不表示业务场景。 |
+| `size` | `'sm' \| 'md' \| 'lg'` | `md` | 对应 16、24、32px 内边距。 |
+| `status` | `'default' \| 'product' \| 'brand' \| 'success' \| 'warning' \| 'error'` | `default` | 顶部状态线，仅作辅助识别。 |
+| `interactive` | `boolean` | `false` | 是否允许卡片作为整体交互目标；启用后提供焦点和键盘触发。 |
+| `selected` | `boolean` | `false` | 可选择卡片的辅助选中反馈。 |
 | `disabled` | `boolean` | `false` | 禁用状态；不可交互但仍保留上下文。 |
 | `loading` | `boolean` | `false` | 异步处理中状态；阻止重复操作。 |
 
@@ -48,7 +49,7 @@
 - `neutral`
 - `product`
 - `brand`
-- `danger`
+- `error`
 - `warning`
 - `success`
 
@@ -62,31 +63,34 @@
 
 - `default`
 - `hover`
-- `active`
+- `focus`
 - `disabled`
 - `selected`
 - `with-status`
 - `loading`
-- `empty`
 
 
 ## 使用指南
 
+- `plain`、`outlined`、`muted` 是组件 Variant；数据资产、功能入口、状态摘要属于业务使用模式，不是 Variant。
+- `sm`、`md`、`lg` 分别使用 16、24、32px 内边距；同组卡片保持尺寸一致。
+- 整体可点击卡片内部不得再放置按钮或链接；存在内部操作时取消整卡交互。
+- 批量选择显示 Checkbox，互斥方案显示 Radio；整卡选中样式只作为辅助反馈。
 - 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
 - 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
 - Figma 属性、网页示例和前端源码 API 需要保持同名同义。
 
 ## 响应式
 
-桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+卡片网格在窄屏改为单列；Header、Content、Footer 内部内容按需要纵向排列，页面不得因固定卡片宽度产生横向溢出。
 
 ## 可访问性
 
-必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+整体可交互卡片必须提供 `role="button"`、可见 `focus-visible`，并支持 Enter 与 Space；禁用和加载状态退出 Tab 顺序。状态与选中不能只依赖边框或颜色。
 
 ## 内容规范
 
-标题明确对象，描述控制在两到三行；状态、指标和操作按固定位置排列。
+标题明确对象，描述控制在两到三行；主操作不超过一个。顶部状态线不能替代标题、标签或状态说明。Card 可以组合 DescriptionList、Tag 和 Button，但不替代这些组件的语义。
 
 ## 示例要求
 

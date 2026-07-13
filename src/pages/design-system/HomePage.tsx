@@ -57,7 +57,7 @@ const sections = [
     eyebrow: "Principles",
     title: "设计原则",
     items: [
-      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: <><p className="font-medium text-[var(--text-primary)]">色彩克制</p><p>品牌红仅作为品牌签名出现，产品蓝仅用于可交互元素，大面积使用白色和灰阶构建界面。</p><p className="mt-3 font-medium text-[var(--text-primary)]">装饰克制</p><p>以信息传达为优先，减少无关视觉噪声。官网等品牌叙事层允许适度的视觉强化，装饰元素遵循统一数值梯度。</p></> },
+      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: <><p className="font-medium text-[var(--text-primary)]">色彩克制</p><p>品牌红仅作为品牌签名出现；产品蓝用于产品能力以及 Radio、Checkbox、Switch 的选中状态；所有表单控件的 Focus 使用中性黑，大面积使用白色和灰阶构建界面。</p><p className="mt-3 font-medium text-[var(--text-primary)]">装饰克制</p><p>以信息传达为优先，减少无关视觉噪声。官网等品牌叙事层允许适度的视觉强化，装饰元素遵循统一数值梯度。</p></> },
       { icon: <PrincipleIcon type="clarity" />, title: "清晰", desc: <><p className="font-medium text-[var(--text-primary)]">信息层级清晰</p><p>通过严格的字号、字重、灰度体系，确保用户快速建立信息浏览动线。</p><p className="mt-3 font-medium text-[var(--text-primary)]">操作路径清晰</p><p>视觉权重递进明确，用户能无歧义地找到主行动点。</p></> },
       { icon: <PrincipleIcon type="trust" />, title: "可信", desc: <><p className="font-medium text-[var(--text-primary)]">结构可信</p><p>通过稳定结构和明确边界，建立数据治理的可靠感。</p><p className="mt-3 font-medium text-[var(--text-primary)]">反馈可信</p><p>状态反馈及时准确，权限标识清晰可辨，操作结果可预期。</p></> },
       { icon: <PrincipleIcon type="efficiency" />, title: "高效", desc: <><p className="font-medium text-[var(--text-primary)]">操作高效</p><p>面向材料工程师、工艺师、数据运营方等专业用户，减少无效步骤。</p><p className="mt-3 font-medium text-[var(--text-primary)]">信息密度高效</p><p>紧凑而有序地呈现高密度数据，减少不必要的留白和滚动。</p></> },

@@ -1,5 +1,5 @@
 <template>
-  <nav class="xc-pagination" aria-label="Pagination">
+  <nav class="xc-pagination" :class="[`xc-pagination--${size}`, { 'xc-pagination--compact': compact }]" aria-label="Pagination">
     <button
       type="button"
       class="xc-pagination__control"
@@ -10,7 +10,9 @@
       ‹
     </button>
 
-    <template v-for="item in visibleItems" :key="item.key">
+    <span class="xc-pagination__summary">{{ page }} / {{ total }}</span>
+
+    <template v-if="!compact" v-for="item in visibleItems" :key="item.key">
       <span v-if="item.type === 'ellipsis'" class="xc-pagination__ellipsis">...</span>
       <button
         v-else
@@ -49,9 +51,13 @@ const props = withDefaults(
     page: number;
     total: number;
     disabled?: boolean;
+    compact?: boolean;
+    size?: "sm" | "md";
   }>(),
   {
     disabled: false,
+    compact: false,
+    size: "md",
   },
 );
 
@@ -102,8 +108,12 @@ function setPage(nextPage: number) {
 <style scoped>
 .xc-pagination {
   display: inline-flex;
+  width: 100%;
+  max-width: 100%;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 4px;
+  container-type: inline-size;
 }
 
 .xc-pagination__control,
@@ -162,5 +172,42 @@ function setPage(nextPage: number) {
   width: 28px;
   color: var(--neutral-500);
   font-size: 14px;
+}
+
+.xc-pagination__summary {
+  display: none;
+  padding: 0 8px;
+  color: var(--neutral-700);
+  white-space: nowrap;
+}
+
+.xc-pagination--compact .xc-pagination__summary {
+  display: inline-flex;
+}
+
+.xc-pagination--sm .xc-pagination__control,
+.xc-pagination--sm .xc-pagination__page {
+  height: 28px;
+  min-width: 28px;
+  font-size: 12px;
+}
+
+@container (max-width: 480px) {
+  .xc-pagination__page,
+  .xc-pagination__ellipsis {
+    display: none;
+  }
+
+  .xc-pagination__summary {
+    display: inline-flex;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .xc-pagination__control {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 </style>

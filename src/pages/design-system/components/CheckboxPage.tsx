@@ -21,7 +21,7 @@ const sizeRows = [
 const stateSamples = [
   { label: "未选" },
   { label: "已选", defaultChecked: true },
-  { label: "半选", checked: false, indeterminate: true },
+  { label: "半选", checked: false, indeterminate: true, readOnly: true },
   { label: "未选禁用", disabled: true },
   { label: "已选禁用", defaultChecked: true, disabled: true },
 ];
@@ -72,7 +72,7 @@ export default function CheckboxPage() {
             label="Checkbox"
             code={`<Checkbox label="允许查看材料数据" />
 <Checkbox label="允许下载报告" defaultChecked />
-<Checkbox label="全选当前页" checked={false} indeterminate />
+<Checkbox label="全选当前页" checked={false} indeterminate readOnly />
 <Checkbox label="允许配置合约" disabled />`}
           />
         </div>
@@ -94,7 +94,7 @@ export default function CheckboxPage() {
           </ExampleCard>
           <ExampleCard title="表格批量选择" description="父级半选用于表达当前页只选中了部分数据。">
             <div className="space-y-2">
-              <Checkbox label="全选当前页" size="sm" checked={false} indeterminate />
+              <Checkbox label="全选当前页" size="sm" checked={false} indeterminate readOnly />
               <div className="h-px bg-[var(--neutral-200)]" />
               <Checkbox label="TC4 钛合金数据集" size="sm" defaultChecked />
               <Checkbox label="铝合金疲劳性能数据" size="sm" />

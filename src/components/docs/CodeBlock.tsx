@@ -27,7 +27,6 @@ export default function CodeBlock({ code, lang = "tsx", label }: CodeBlockProps)
       >
         <span>
           <span className="block text-sm font-medium text-[var(--text-primary)]">{open ? "收起实现代码" : "查看实现代码"}</span>
-          <span className="mt-0.5 block text-xs text-[var(--text-tertiary)]">供开发人员按需查看，不影响设计规范阅读</span>
         </span>
         {open ? <CaretUp size={16} weight="regular" aria-hidden="true" /> : <CaretDown size={16} weight="regular" aria-hidden="true" />}
       </button>

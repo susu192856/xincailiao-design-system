@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, KeyboardEvent, MouseEvent } from "react";
 
 export type CardProps = HTMLAttributes<HTMLDivElement> & {
   variant?: "plain" | "outlined" | "muted";
@@ -41,8 +41,29 @@ export function Card({
   loading = false,
   className = "",
   children,
+  onClick,
+  onKeyDown,
+  role,
+  tabIndex,
   ...props
 }: CardProps) {
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (disabled || loading) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    onClick?.(event);
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented || !interactive || disabled || loading) return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    event.currentTarget.click();
+  };
+
   return (
     <div
       className={[
@@ -51,13 +72,19 @@ export function Card({
         variantClasses[variant],
         status !== "default" ? "before:absolute before:left-0 before:top-0 before:h-0.5 before:w-full" : "",
         statusClasses[status],
-        interactive && !disabled ? "cursor-pointer transition-colors hover:bg-[var(--neutral-50)]" : "",
+        interactive && !disabled && !loading ? "cursor-pointer transition-colors hover:bg-[var(--neutral-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring-color)]" : "",
         selected ? "ring-1 ring-[var(--neutral-900)]" : "",
         disabled ? "cursor-not-allowed opacity-55" : "",
         loading ? "overflow-hidden" : "",
         className,
       ].join(" ")}
       aria-disabled={disabled || undefined}
+      aria-busy={loading || undefined}
+      aria-pressed={interactive ? selected : undefined}
+      role={interactive ? role ?? "button" : role}
+      tabIndex={interactive ? disabled || loading ? -1 : tabIndex ?? 0 : tabIndex}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       {...props}
     >
       {children}

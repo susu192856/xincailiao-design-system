@@ -1,4 +1,5 @@
-import { ChartLine, Database, FileText, LockKey, Plus, WarningCircle } from "@phosphor-icons/react";
+import { ChartLine, Database, FileText, LockKey, Plus } from "@phosphor-icons/react";
+import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import { Badge } from "../../../components/ui/Badge";
@@ -6,216 +7,93 @@ import { Button } from "../../../components/ui/Button";
 import { Card, CardActions, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/Card";
 import { Tag } from "../../../components/ui/Tag";
 
+const anatomy = [
+  ["Header", "对象标题、简短说明和必要状态"],
+  ["Content", "与当前对象直接相关的摘要或操作内容"],
+  ["Footer", "补充信息、次级操作或唯一主操作"],
+  ["Actions", "标题区辅助操作，数量保持克制"],
+];
+
 export default function CardPage() {
+  const [selected, setSelected] = useState(true);
+
   return (
     <div className="space-y-16">
-      <PageHeader title="卡片" description="卡片用于承载一组完整信息，适合数据资产、功能入口、状态摘要和模块化内容。" />
+      <PageHeader title="卡片" description="卡片是承载独立信息单元的容器型复合组件，用于可重复、可移动或可整体操作的内容；普通页面分区不默认使用卡片。" />
 
       <section>
-        <SectionHeading eyebrow="Variants" title="卡片类型" description="卡片只用于独立信息单元，不作为页面大分区的默认容器。后台场景优先保持白底、浅灰信息区和明确操作层级。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <Card variant="outlined" status="brand">
-            <CardHeader>
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-secondary)]">
-                <Database size={18} weight="regular" />
-              </div>
-              <CardTitle>数据资产卡片</CardTitle>
-              <CardDescription>承载材料数据资产摘要和状态。</CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              <Tag variant="brand">关键节点</Tag>
-              <Tag>已治理</Tag>
-            </CardContent>
-          </Card>
-          <Card variant="outlined" status="product">
-            <CardHeader>
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-secondary)]">
-                <FileText size={18} weight="regular" />
-              </div>
-              <CardTitle>功能入口卡片</CardTitle>
-              <CardDescription>用于工作台、首页和能力入口。</CardDescription>
-            </CardHeader>
-            <CardFooter>
-              <Button size="sm" icon={<Plus size={15} weight="regular" />}>
-                进入模块
-              </Button>
-            </CardFooter>
-          </Card>
-          <Card variant="outlined" status="product">
-            <CardHeader>
-              <div className="mb-4 flex items-center justify-between">
-                <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-[var(--neutral-50)] text-[var(--text-secondary)]">
-                  <ChartLine size={18} weight="regular" />
-                </div>
-                <Badge count={12} tone="product" size="sm" />
-              </div>
-              <CardTitle>状态摘要卡片</CardTitle>
-              <CardDescription>用于指标、任务和流程概览。</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="font-data text-3xl font-semibold text-[var(--text-primary)]">128</div>
-              <p className="mt-1 text-sm text-[var(--text-secondary)]">本周新增数据集</p>
-            </CardContent>
-          </Card>
+        <SectionHeading eyebrow="Boundary" title="使用边界" description="先判断内容是否能独立理解，再决定是否使用 Card。边框、白底或内边距本身不是使用卡片的理由。" />
+        <div className="grid gap-5 lg:grid-cols-2">
+          <ExampleCard title="适合使用 Card" description="内容可以作为独立对象重复排列、整体移动或进入详情。">
+            <div className="grid gap-3 sm:grid-cols-3">
+              {["独立主题", "稳定结构", "可重复排列"].map((item, index) => <div key={item} className="border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4"><span className="text-xs text-[var(--text-tertiary)]">0{index + 1}</span><p className="mt-2 text-sm font-semibold text-[var(--text-primary)]">{item}</p></div>)}
+            </div>
+          </ExampleCard>
+          <ExampleCard title="不使用 Card" description="内容只是页面章节、视觉分隔或连续阅读的一部分。">
+            <div className="space-y-3 border-l-2 border-[var(--neutral-300)] pl-4 text-sm leading-6 text-[var(--text-secondary)]">
+              <p>页面大分区使用 Section 与间距建立层级。</p>
+              <p>键值信息使用 DescriptionList，结构化数据使用 Table。</p>
+              <p>仅需背景或边框时使用普通布局容器，不包装成 Card。</p>
+            </div>
+          </ExampleCard>
         </div>
       </section>
 
       <section>
-        <SectionHeading eyebrow="States" title="卡片状态" description="后台卡片需要表达可点击、已选中、加载、空数据和权限限制，不依赖大阴影或大面积色块。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <Card variant="outlined" interactive selected status="product">
-            <CardHeader>
-              <CardTitle>选中数据集</CardTitle>
-              <CardDescription>用于数据集选择、批量配置和可切换方案。</CardDescription>
-            </CardHeader>
-            <CardContent className="grid grid-cols-3 gap-3">
-              {["成分", "工艺", "性能"].map((item) => (
-                <div key={item} className="rounded-sm bg-[var(--neutral-50)] p-3 text-sm text-[var(--text-secondary)]">
-                  {item}
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-          <Card variant="outlined" loading status="product">
-            <CardHeader>
-              <CardTitle>加载状态</CardTitle>
-              <CardDescription>数据计算或接口等待时保留卡片结构。</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-24 rounded-sm bg-[var(--neutral-50)]" />
-            </CardContent>
-          </Card>
-          <Card variant="muted" status="warning">
-            <CardHeader>
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)]">
-                <WarningCircle size={18} weight="regular" />
-              </div>
-              <CardTitle>空数据状态</CardTitle>
-              <CardDescription>卡片内暂无内容时提供下一步入口，不留空白容器。</CardDescription>
-            </CardHeader>
-            <CardFooter className="border-none pt-0">
-              <Button size="sm" variant="outline">
-                创建数据集
-              </Button>
-            </CardFooter>
-          </Card>
-          <Card variant="muted" disabled>
-            <CardHeader>
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)]">
-                <LockKey size={18} weight="regular" />
-              </div>
-              <CardTitle>权限限制</CardTitle>
-              <CardDescription>用户能看到模块存在，但不能进入高权限操作。</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tag>仅管理员可配置</Tag>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Header Actions" title="标题与操作区" description="后台卡片标题区常包含状态、辅助操作和唯一主操作，操作数量需要保持克制。" />
-        <ExampleCard title="带操作区卡片">
-          <Card variant="outlined" status="product">
-            <CardHeader className="flex items-start justify-between gap-4">
-              <div>
-                <CardTitle>数据治理任务</CardTitle>
-                <CardDescription>展示解析、清洗、标准化和发布的当前进度。</CardDescription>
-              </div>
-              <CardActions>
-                <Button size="sm" variant="ghost">导出</Button>
-                <Button size="sm" tone="task">新建任务</Button>
-              </CardActions>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-4">
-              {[
-                ["解析中", "12"],
-                ["待复核", "8"],
-                ["已发布", "128"],
-                ["异常", "3"],
-              ].map(([label, value], index) => (
-                <div key={label} className="rounded-sm bg-[var(--neutral-50)] p-3">
-                  <div className="font-data text-xl font-semibold text-[var(--text-primary)]">{value}</div>
-                  <p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p>
-                  {index === 3 ? <div className="mt-2 h-1 w-5 bg-[var(--brand-600)]" /> : null}
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+        <SectionHeading eyebrow="Anatomy" title="结构" description="Card 提供稳定的容器、间距与状态；Header、Content、Footer 和 Actions 按信息需要组合，不要求全部出现。" />
+        <ExampleCard title="标准结构">
+          <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
+            <Card variant="outlined">
+              <CardHeader className="flex items-start justify-between gap-4">
+                <div><CardTitle>数据治理任务</CardTitle><CardDescription>解析、清洗和发布材料数据。</CardDescription></div>
+                <CardActions><Button size="sm" variant="ghost">导出</Button></CardActions>
+              </CardHeader>
+              <CardContent className="grid grid-cols-3 gap-3">
+                {[["处理中", "12"], ["待复核", "8"], ["已发布", "128"]].map(([label, value]) => <div key={label} className="bg-[var(--neutral-50)] p-3"><p className="text-xl font-semibold text-[var(--text-primary)]">{value}</p><p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p></div>)}
+              </CardContent>
+              <CardFooter className="flex items-center justify-between gap-3"><span className="text-xs text-[var(--text-tertiary)]">更新于 10 分钟前</span><Button size="sm" tone="task">查看任务</Button></CardFooter>
+            </Card>
+            <div className="divide-y divide-[var(--neutral-200)] border border-[var(--neutral-200)] bg-[var(--neutral-50)]">{anatomy.map(([name, description]) => <div key={name} className="p-4"><p className="text-sm font-semibold text-[var(--text-primary)]">{name}</p><p className="mt-1 text-xs leading-5 text-[var(--text-secondary)]">{description}</p></div>)}</div>
+          </div>
         </ExampleCard>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Status" title="状态语义" description="卡片顶部 2px 状态线只用于状态识别，不替代标题和标签说明。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <Card variant="outlined" size="sm" status="success">
-            <CardTitle>成功</CardTitle>
-            <CardDescription>任务完成、数据已发布。</CardDescription>
-          </Card>
-          <Card variant="outlined" size="sm" status="warning">
-            <CardTitle>警告</CardTitle>
-            <CardDescription>待审核、需补充、存在风险。</CardDescription>
-          </Card>
-          <Card variant="outlined" size="sm" status="error">
-            <CardTitle>异常</CardTitle>
-            <CardDescription>解析失败、权限异常、流程中断。</CardDescription>
-          </Card>
+        <SectionHeading eyebrow="Variants & Sizes" title="视觉类型与尺寸" description="组件类型只描述容器层级，业务内容不作为 Variant。后台默认使用 outlined；plain 和 muted 仅在已有清晰层级时使用。" />
+        <div className="grid gap-5 md:grid-cols-3">
+          {[{ variant: "plain" as const, title: "Plain", description: "父级已有边界时使用。" }, { variant: "outlined" as const, title: "Outlined · 默认", description: "独立卡片和卡片列表。" }, { variant: "muted" as const, title: "Muted", description: "轻量摘要或辅助信息。" }].map((item) => <Card key={item.variant} variant={item.variant}><CardTitle>{item.title}</CardTitle><CardDescription>{item.description}</CardDescription></Card>)}
+        </div>
+        <div className="mt-5 grid gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)] md:grid-cols-3">
+          {[["Small", "16px", "紧凑入口与小型摘要"], ["Medium · 默认", "24px", "常规业务卡片"], ["Large", "32px", "低频阅读与重点概览"]].map(([name, padding, scene]) => <div key={name} className="bg-white p-5"><p className="text-sm font-semibold text-[var(--text-primary)]">{name}</p><p className="mt-1 text-xs text-[var(--text-tertiary)]">内边距 {padding}</p><div className="mt-4 bg-[var(--neutral-50)] p-3 text-xs text-[var(--text-secondary)]">{scene}</div></div>)}
         </div>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Composition" title="后台组合示例" description="卡片可组合成工作台，但每张卡片必须有清晰边界、标题和状态，不把整页切成过多装饰块。" />
-        <div className="rounded-sm bg-white p-6">
-          <div className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
-            <Card variant="outlined">
-              <CardHeader>
-                <CardTitle>材料数据概览</CardTitle>
-                <CardDescription>用于工作台首页的关键指标承载。</CardDescription>
-              </CardHeader>
-              <CardContent className="grid grid-cols-3 gap-3">
-                {[
-                  ["数据集", "1,284"],
-                  ["待治理", "36"],
-                  ["异常任务", "8"],
-                ].map(([label, value]) => (
-                  <div key={label} className="rounded-sm bg-[var(--neutral-50)] p-4">
-                    <div className="font-data text-2xl font-semibold text-[var(--text-primary)]">{value}</div>
-                    <p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-            <Card variant="outlined">
-              <CardHeader>
-                <CardTitle>近期任务</CardTitle>
-                <CardDescription>显示需要用户处理的高频事项。</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {["解析失败", "权限申请", "模型推荐"].map((item, index) => (
-                  <div key={item} className="flex items-center justify-between rounded-sm bg-[var(--neutral-50)] px-3 py-2 text-sm">
-                    <span className="text-[var(--text-secondary)]">{item}</span>
-                    <Badge count={index + 1} tone={index === 0 ? "brand" : "neutral"} size="sm" />
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
+        <SectionHeading eyebrow="Interaction" title="交互与状态" description="整体可点击卡片必须可聚焦并支持 Enter、Space；卡片内部存在按钮或链接时，不再把整个卡片设为交互目标。" />
+        <div className="grid gap-5 md:grid-cols-3">
+          <Card variant="outlined" interactive selected={selected} onClick={() => setSelected((value) => !value)} aria-label={`${selected ? "取消选择" : "选择"} TC4 数据集`}>
+            <CardHeader><CardTitle>可选择卡片</CardTitle><CardDescription>点击或使用键盘切换选择。</CardDescription></CardHeader>
+            <CardContent><Tag variant={selected ? "brand" : "neutral"}>{selected ? "已选中" : "未选中"}</Tag></CardContent>
+          </Card>
+          <Card variant="outlined" loading aria-label="数据计算卡片，加载中"><CardHeader><CardTitle>加载状态</CardTitle><CardDescription>保留结构并阻止重复操作。</CardDescription></CardHeader><CardContent><div className="h-16 bg-[var(--neutral-50)]" /></CardContent></Card>
+          <Card variant="muted" disabled><CardHeader><div className="mb-3 flex h-9 w-9 items-center justify-center bg-white text-[var(--text-tertiary)]"><LockKey size={18} /></div><CardTitle>禁用状态</CardTitle><CardDescription>保留上下文，但不可进入或操作。</CardDescription></CardHeader></Card>
         </div>
+        <p className="mt-4 border-l-2 border-[var(--neutral-300)] bg-[var(--neutral-50)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">选择规则：</strong>批量选择或多选必须显示 Checkbox；互斥方案必须显示 Radio。只有选择关系已由上下文明确时，才能使用整卡选中样式作为辅助反馈。</p>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <SpecList
-          items={[
-            "卡片不是页面分区的默认样式，只用于承载独立、可重复或可操作的信息单元。",
-            "卡片内标题、描述、操作应形成清晰层级，不堆叠过多边框。",
-            "后台数据卡片保持克制，不使用大阴影和大圆角。",
-            "卡片操作按钮应控制数量，主操作不超过一个，状态说明优先用标签和短文案。",
-            "状态线只能作为快速识别辅助，具体状态仍需通过标题、标签或说明文字表达。",
-            "禁用卡片保留结构和信息，但降低透明度并禁止交互。",
-          ]}
-        />
+        <SectionHeading eyebrow="Patterns" title="业务使用模式" description="以下是 Card 的内容组合方式，不是组件 Variant；它们复用相同容器、尺寸和状态 API。" />
+        <div className="grid gap-5 md:grid-cols-3">
+          <Card variant="outlined" status="brand"><CardHeader><div className="mb-4 flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><Database size={18} /></div><CardTitle>数据资产</CardTitle><CardDescription>展示对象摘要、分类与治理状态。</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Tag variant="brand">关键节点</Tag><Tag>已治理</Tag></CardContent></Card>
+          <Card variant="outlined" status="product"><CardHeader><div className="mb-4 flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><FileText size={18} /></div><CardTitle>功能入口</CardTitle><CardDescription>用于工作台和聚合首页的能力入口。</CardDescription></CardHeader><CardFooter><Button size="sm" icon={<Plus size={15} />}>进入模块</Button></CardFooter></Card>
+          <Card variant="outlined"><CardHeader><div className="mb-4 flex items-center justify-between"><div className="flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><ChartLine size={18} /></div><Badge count={12} tone="product" size="sm" /></div><CardTitle>状态摘要</CardTitle><CardDescription>用于指标、任务和流程概览。</CardDescription></CardHeader><CardContent><p className="text-3xl font-semibold text-[var(--text-primary)]">128</p><p className="mt-1 text-sm text-[var(--text-secondary)]">本周新增数据集</p></CardContent></Card>
+        </div>
+        <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">顶部 2px 状态线仅作快速识别辅助；具体状态仍需由标题、标签或说明文字表达。</p>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Guidelines" title="使用规则" />
+        <SpecList items={["Card 是容器型复合组件，不是页面分区的默认样式。", "业务模式不等于组件 Variant；统一复用 plain、outlined、muted 和尺寸属性。", "整体可点击与内部多操作二选一，避免嵌套交互目标。", "后台卡片优先使用边框和间距建立层级，不使用大阴影和大圆角。", "主操作不超过一个；状态颜色必须同时配合文字、标签或图标。", "Card 可组合 DescriptionList、Tag、Button 等组件，但不替代这些组件自身的语义。"]} />
       </section>
     </div>
   );

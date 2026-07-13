@@ -25,7 +25,7 @@ function routeToDoc(route, componentName) {
 function routeToPage(component) {
   if (component.name === "Icon") return "src/pages/design-system/IconPage.tsx";
   if (component.name === "Textarea") return "src/pages/design-system/components/InputPage.tsx";
-  if (component.name === "DatePicker") return "src/pages/design-system/components/SelectPage.tsx";
+  if (component.name === "DatePicker") return "src/pages/design-system/components/DatePickerPage.tsx";
   return `src/pages/design-system/components/${component.name}Page.tsx`;
 }
 
@@ -130,7 +130,7 @@ The verification gate checks component routes, sidebar entries, Markdown docs, R
 - React source components live in \`src/components/ui\` and are exported from \`src/components/ui/index.ts\`.
 - Vue source components live in \`packages/vue-ui/src/components\` and are exported from \`packages/vue-ui/src/index.ts\`.
 - Figma handoff metadata lives in \`figma/components.manifest.json\`; actual Figma file synchronization should be done only after explicit authorization.
-- Git commit, push, PR, and GitHub Pages deployment are intentionally not performed in this local preview iteration.
+- Git commit, push, PR, and GitHub Pages deployment are performed only after explicit user authorization.
 `;
 
 fs.writeFileSync(path.join(ROOT, OUTPUT), content);

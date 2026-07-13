@@ -189,7 +189,7 @@ export default function ColorsPage() {
       display: "product-blue-500",
       variable: "color/action/product",
       context: "链接/功能操作",
-      usage: "链接、筛选、下载、焦点和产品功能使用产品蓝。",
+      usage: "链接、分析、生成、连接、下载和功能型操作使用产品蓝；Radio、Checkbox、Switch 的选中状态也使用产品蓝。",
     },
     {
       semantic: "品牌强调",
@@ -236,7 +236,7 @@ export default function ColorsPage() {
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">product-blue-500 · #006DEA</p>
               <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：产品功能语言</strong>——标记可交互、可操作的元素。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于所有产品的按钮、链接、选中态、数据图表。产品之间的区分不靠换颜色，靠各自独有的界面核心元素。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于功能按钮、链接、分析生成能力、数据图表，以及 Radio、Checkbox、Switch 的选中状态。所有表单控件的 Focus 使用中性黑，避免把状态蓝与键盘焦点混为一体。</p>
             </div>
           </div>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
@@ -248,13 +248,13 @@ export default function ColorsPage() {
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">neutral-900 · #1A1A1A</p>
               <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：任务推进与结构骨架</strong>——表达确定性并贯穿所有场景。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于提交、确认、保存和发布等结果型操作，也用于正文、标题与导航建立结构秩序。黑色主按钮强调“这件事定了”，不与产品蓝的探索型操作混用。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于提交、确认、保存和发布等结果型操作，也用于正文、标题、导航以及所有表单控件的边框与 Focus 建立结构秩序。黑色强调确定性，不与产品蓝的选中状态混用。</p>
             </div>
           </div>
         </div>
         <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">使用决策：</strong>
-          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色接管功能交互，黑色承担任务型主操作和结构骨架；红色退到顶栏 Logo。黑色始终在两端存在——这就是品牌连续性。
+          用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色承载产品能力和选择状态，黑色承担任务型主操作、输入字段框架和结构骨架；红色退到顶栏 Logo。黑色输入框架与蓝色状态反馈共同形成稳重且易识别的交互语言。
         </div>
       </section>
 

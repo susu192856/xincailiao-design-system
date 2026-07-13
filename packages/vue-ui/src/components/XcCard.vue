@@ -1,5 +1,16 @@
 <template>
-  <section class="xc-card" :class="cardClasses" :aria-disabled="disabled || undefined">
+  <section
+    class="xc-card"
+    :class="cardClasses"
+    :aria-disabled="disabled || undefined"
+    :aria-busy="loading || undefined"
+    :aria-pressed="interactive ? selected : undefined"
+    :role="interactive ? 'button' : undefined"
+    :tabindex="interactive ? disabled || loading ? -1 : 0 : undefined"
+    @click="handleClick"
+    @keydown.enter.prevent="activate"
+    @keydown.space.prevent="activate"
+  >
     <header v-if="$slots.header || title || description" class="xc-card__header">
       <slot name="header">
         <h3 v-if="title" class="xc-card__title">{{ title }}</h3>
@@ -51,6 +62,22 @@ const props = withDefaults(
     divided: false,
   },
 );
+
+const emit = defineEmits<{ click: [event: MouseEvent | KeyboardEvent] }>();
+
+function handleClick(event: MouseEvent) {
+  if (props.disabled || props.loading) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  if (props.interactive) emit("click", event);
+}
+
+function activate(event: KeyboardEvent) {
+  if (!props.interactive || props.disabled || props.loading) return;
+  emit("click", event);
+}
 
 const cardClasses = computed(() => [
   `xc-card--${props.size ?? props.padding}`,
@@ -152,6 +179,11 @@ const cardClasses = computed(() => [
 
 .xc-card--interactive:hover {
   background: var(--neutral-50);
+}
+
+.xc-card--interactive:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
 }
 
 .xc-card--selected {

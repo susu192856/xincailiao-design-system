@@ -529,7 +529,7 @@
         "neutral",
         "product",
         "brand",
-        "danger",
+        "error",
         "warning",
         "success"
       ],
@@ -541,29 +541,29 @@
       "states": [
         "default",
         "hover",
-        "active",
+        "focus",
         "disabled",
         "selected",
         "with-status",
-        "loading",
-        "empty"
+        "loading"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.3.0",
       "status": "stable",
       "contract": {
         "anatomy": [
-          "容器",
-          "标题与摘要",
-          "主体内容",
-          "状态或操作区"
+          "Card 容器",
+          "CardHeader 标题与摘要",
+          "CardContent 主体内容",
+          "CardFooter 补充信息或主操作",
+          "CardActions 标题区辅助操作"
         ],
-        "usage": "用于组织一个主题的信息摘要、入口或可比较对象。",
-        "avoid": "不要把所有内容都放入卡片，也不要同时让卡片整体和内部多个区域争夺主点击行为。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
-        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "可交互卡片提供完整焦点态和键盘触发；禁用、选中、加载状态不能只依赖阴影。",
-        "content": "标题明确对象，描述控制在两到三行；状态、指标和操作按固定位置排列。",
+        "usage": "用于组织可独立理解、重复排列、整体移动或操作的信息单元；数据资产、功能入口和状态摘要属于业务模式，不是组件 Variant。",
+        "avoid": "页面大分区、连续阅读内容和单纯视觉分隔不使用 Card；整卡交互与内部按钮或链接不能并存。",
+        "responsive": "卡片网格在窄屏改为单列，内部内容按需纵向排列，页面不得因固定卡片宽度产生横向溢出。",
+        "accessibility": "整体可交互卡片提供 role=button、可见 focus-visible，并支持 Enter 与 Space；禁用和加载状态退出 Tab 顺序。",
+        "interaction": "整体可点击与内部多操作二选一；批量选择显示 Checkbox，互斥方案显示 Radio，整卡选中样式只作为辅助反馈。",
+        "content": "标题明确对象，描述控制在两到三行，主操作不超过一个；状态线不能替代标题、标签或状态说明。",
         "examples": {
           "basic": "Card 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Card 场景",
@@ -574,28 +574,28 @@
       "propDefinitions": [
         {
           "name": "variant",
-          "type": "string",
-          "description": "组件的结构或视觉层级；不得承载业务颜色语义。"
+          "type": "'plain' | 'outlined' | 'muted'",
+          "description": "容器视觉层级，不表示业务场景。"
         },
         {
           "name": "size",
-          "type": "string",
-          "description": "组件尺寸，必须映射到组件尺寸 Token。"
+          "type": "'sm' | 'md' | 'lg'",
+          "description": "对应 16、24、32px 内边距。"
         },
         {
           "name": "status",
-          "type": "string",
-          "description": "状态语义；不能只依赖颜色表达。"
+          "type": "'default' | 'product' | 'brand' | 'success' | 'warning' | 'error'",
+          "description": "顶部状态线，仅作辅助识别。"
         },
         {
           "name": "interactive",
           "type": "boolean",
-          "description": "是否允许卡片作为整体交互目标。"
+          "description": "是否允许卡片作为整体交互目标；启用后提供焦点和键盘触发。"
         },
         {
           "name": "selected",
           "type": "boolean",
-          "description": "表格行或可交互容器的选中状态。"
+          "description": "可选择卡片的辅助选中反馈。"
         },
         {
           "name": "disabled",
@@ -628,7 +628,7 @@
           "neutral",
           "product",
           "brand",
-          "danger",
+          "error",
           "warning",
           "success"
         ],
@@ -640,12 +640,11 @@
         "state": [
           "default",
           "hover",
-          "active",
+          "focus",
           "disabled",
           "selected",
           "with-status",
-          "loading",
-          "empty"
+          "loading"
         ]
       }
     },
@@ -885,7 +884,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "Space 切换；父级部分选择使用 indeterminate，禁用项仍保留上下文说明。",
-        "content": "选择项使用可独立理解的短句；协议文案说明责任和操作后果；选中与半选使用产品蓝，默认与禁用使用中性灰，品牌红不进入常规选择控件。",
+        "content": "选择项使用可独立理解的短句；协议文案说明责任和操作后果；选中、半选与悬停使用产品蓝，Focus 使用中性黑，默认与禁用使用中性灰，品牌红不进入常规选择控件。",
         "examples": {
           "basic": "Checkbox 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Checkbox 场景",
@@ -2552,8 +2551,12 @@
         "total",
         "pageSize",
         "disabled",
-        "showJumper",
-        "showSizeChanger"
+        "compact",
+        "size",
+        "totalItems",
+        "showTotal",
+        "showQuickJumper",
+        "pageSizeOptions"
       ],
       "variants": [
         "short",
@@ -2578,7 +2581,7 @@
         "ellipsis"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.3.0",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -2590,10 +2593,10 @@
         ],
         "usage": "用于将长列表分段浏览，并保持筛选、排序和选择上下文。",
         "avoid": "不要在数据量较少时显示分页，也不要在移动端强塞完整页码序列。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
+        "responsive": "分页内部禁止折行；分页可用宽度小于 480px 时自动切换紧凑结构，隐藏总数、快速跳转和每页条数等次要信息，翻页按钮触控目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "当前页不可重复触发；翻页后焦点与滚动位置按列表场景恢复。",
-        "content": "显示总量、当前范围或总页数中的必要信息；移动端优先上一页/下一页。",
+        "interaction": "总页数不超过 7 页使用短分页，超过 7 页使用长分页折叠；窄容器使用紧凑分页。当前页不可重复触发；翻页后焦点与滚动位置按列表场景恢复。",
+        "content": "Small 为 28px，用于紧凑表格；Medium 为 32px，用于常规页面。与表格组合时作为 footer 与数据区共用外边框，通过顶部边框分隔；总数在左、分页在右且保持单行。移动端显示当前页 / 总页数。",
         "examples": {
           "basic": "Pagination 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Pagination 场景",
@@ -2623,14 +2626,34 @@
           "description": "禁用状态；不可交互但仍保留上下文。"
         },
         {
-          "name": "showJumper",
+          "name": "compact",
+          "type": "boolean",
+          "description": "只显示上一页、当前页 / 总页数和下一页。"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "description": "页码按钮尺寸。"
+        },
+        {
+          "name": "totalItems",
+          "type": "number",
+          "description": "数据总条数。"
+        },
+        {
+          "name": "showTotal",
+          "type": "boolean",
+          "description": "是否显示总条数。"
+        },
+        {
+          "name": "showQuickJumper",
           "type": "boolean",
           "description": "是否显示页码快速跳转。"
         },
         {
-          "name": "showSizeChanger",
-          "type": "boolean",
-          "description": "是否显示每页条数切换。"
+          "name": "pageSizeOptions",
+          "type": "number[]",
+          "description": "可选的每页条数。"
         }
       ],
       "delivery": {
@@ -2840,7 +2863,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "方向键在组内切换，Space 选中；同组共享 name 和可访问组标签。",
-        "content": "选项文案保持同一语法结构，高风险选项直接说明影响与限制；选中使用产品蓝，默认与禁用使用中性灰，品牌红不进入常规选择控件。",
+        "content": "选项文案保持同一语法结构，高风险选项直接说明影响与限制；选中与悬停使用产品蓝，Focus 使用中性黑，默认与禁用使用中性灰，品牌红不进入常规选择控件。",
         "examples": {
           "basic": "Radio 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Radio 场景",
@@ -3110,7 +3133,7 @@
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "点击标签或 Space 切换；异步保存期间显示进行中并在失败时回滚和提示。",
-        "content": "标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果；开启使用产品蓝，关闭与禁用使用中性灰，品牌红不进入常规开关。",
+        "content": "标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果；开启使用产品蓝，Focus 使用中性黑，关闭与禁用使用中性灰，品牌红不进入常规开关。",
         "examples": {
           "basic": "Switch 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Switch 场景",
@@ -3186,18 +3209,27 @@
       "vueSource": "packages/vue-ui/src/components/XcTable.vue",
       "props": [
         "density",
+        "variant",
         "selected",
         "disabled",
         "align",
+        "sticky",
+        "maxHeight",
+        "sortable",
+        "sortDirection",
+        "onSort",
         "TableEmpty",
         "TableSkeletonRows"
       ],
       "variants": [
-        "basic",
+        "line",
+        "grid",
         "selectable",
         "with-toolbar",
         "with-pagination",
-        "wide-scroll"
+        "wide-scroll",
+        "sticky-header-columns",
+        "expandable"
       ],
       "tones": [
         "neutral",
@@ -3220,25 +3252,31 @@
         "error",
         "no-permission",
         "partial-selected",
-        "overflow"
+        "overflow",
+        "expanded-row",
+        "sorted-ascending",
+        "sorted-descending",
+        "filtered"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.3.1",
       "status": "stable",
       "contract": {
         "anatomy": [
           "筛选/工具栏",
           "表头",
           "数据行",
+          "固定表头/列",
+          "展开内容行",
           "空态/加载态",
           "分页"
         ],
-        "usage": "用于高密度结构化数据；文本左对齐、可比较数字右对齐、操作右对齐。",
+        "usage": "用于高密度结构化数据；通栏型为默认，格子型仅用于行列关系明确的参数矩阵；文本、日期时间和操作左对齐，短枚举居中，可比较数字右对齐。",
         "avoid": "不要强行压缩大量列；优先保留列宽并允许横向滚动。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
-        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "定义鼠标、键盘、焦点、禁用与异步状态；触发后必须提供可感知反馈。",
-        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
+        "responsive": "宽表格只在 TableContainer 内横向滚动；长表格设置 maxHeight 后纵向滚动并固定表头。列距由相邻单元格水平内边距产生，最小 24px；空间不足时调整列宽或横向滚动，不压缩列距。固定首列与操作列使用实体背景和轻量内侧阴影提示边界；窄屏页面本身不得产生横向溢出。",
+        "accessibility": "排序使用可聚焦按钮并通过 aria-sort 表达方向；选择、展开和图标操作必须提供可访问名称，状态不得只依赖颜色。",
+        "interaction": "筛选控件放在表格上方，表头保持字段标签；仅明确可比较的列增加排序。1 个操作显示高频文字，2 个显示两个短文字；3 个及以上仅在存在明确主操作时保留一个文字入口，否则只显示更多。更多菜单使用文字项，危险操作分组并保留确认步骤。",
+        "content": "通栏型与格子型共用语义对齐规则：名称、描述、日期时间、编号和操作左对齐，状态、布尔值和短枚举居中，可比较数值右对齐；格子型只强化逐格核对，不改变内容方向。正文使用中性色 800 与 Regular，表头使用中性色 600 与 Semibold；内容默认单行省略。列距不使用 gap，而由单元格水平内边距形成：compact 24px、standard 32px、comfortable 40px。",
         "examples": {
           "basic": "Table 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Table 场景",
@@ -3251,6 +3289,11 @@
           "name": "density",
           "type": "'compact' | 'standard' | 'comfortable'",
           "description": "数据密度。"
+        },
+        {
+          "name": "variant",
+          "type": "'line' | 'grid'",
+          "description": "表格分隔形式；line 为默认通栏型，grid 为逐格对照型。"
         },
         {
           "name": "selected",
@@ -3266,6 +3309,31 @@
           "name": "align",
           "type": "'left' | 'center' | 'right'",
           "description": "内容对齐方式。"
+        },
+        {
+          "name": "sticky",
+          "type": "'left' | 'right' | 'top' | 'bottom'",
+          "description": "固定表头、数据行或单元格到滚动容器边缘。"
+        },
+        {
+          "name": "maxHeight",
+          "type": "number | string",
+          "description": "表格容器最大高度；超出后启用纵向滚动。"
+        },
+        {
+          "name": "sortable",
+          "type": "boolean",
+          "description": "表头是否提供键盘可操作的排序入口。"
+        },
+        {
+          "name": "sortDirection",
+          "type": "'asc' | 'desc' | null",
+          "description": "当前排序方向，并同步映射到 aria-sort。"
+        },
+        {
+          "name": "onSort",
+          "type": "(direction) => void",
+          "description": "排序方向变化回调。"
         },
         {
           "name": "TableEmpty",

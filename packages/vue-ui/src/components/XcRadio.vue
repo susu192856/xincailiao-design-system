@@ -133,7 +133,7 @@ function handleChange() {
 }
 
 .xc-radio:has(.xc-radio__input:focus-visible) .xc-radio__dot {
-  outline: 2px solid var(--product-blue-500);
+  outline: 2px solid var(--neutral-900);
   outline-offset: 2px;
 }
 

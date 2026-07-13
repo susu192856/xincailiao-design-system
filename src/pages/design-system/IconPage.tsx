@@ -71,6 +71,7 @@ import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import DocsTable from "../../components/docs/DocsTable";
 import { SectionHeading } from "../../components/docs/ComponentDoc";
+import CodeBlock from "../../components/docs/CodeBlock";
 import PageHeader from "../../components/docs/PageHeader";
 import { Icon as SystemIcon, Button } from "../../components/ui";
 
@@ -667,6 +668,21 @@ export default function IconPage() {
           </div>
         </div>
       </section>
+
+      <CodeBlock
+        lang="tsx"
+        label="图标引用"
+        code={`import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Icon } from "@/components/ui";
+
+<Icon
+  as={MagnifyingGlass}
+  size={20}
+  weight="regular"
+  tone="neutral"
+  label="搜索"
+/>`}
+      />
 
       <UsageExamplesSection />
 

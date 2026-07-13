@@ -193,11 +193,17 @@ pre {
 
 .docs-table td.font-data,
 .docs-table .font-data {
-  font-family: "D-DIN-Pro", "DIN Alternate", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  font-family: inherit;
   font-size: var(--type-body-m-size);
   line-height: var(--type-body-m-line-height);
   font-weight: var(--type-body-m-weight-medium);
   font-variant-numeric: tabular-nums;
+}
+
+/* 表格内的日期、时间、编号和业务数值统一使用正文数字字体。 */
+[data-table-variant] th,
+[data-table-variant] td {
+  font-family: inherit;
 }
 
 .docs-table td.font-token,
@@ -256,12 +262,12 @@ pre {
   color: var(--text-secondary);
 }
 
-.docs-article table:not([data-docs-table]) thead,
-.docs-article table:not([data-docs-table]) > tbody:first-child > tr:first-child {
+.docs-article table:not([data-docs-table]):not([data-table-variant]) thead,
+.docs-article table:not([data-docs-table]):not([data-table-variant]) > tbody:first-child > tr:first-child {
   background: linear-gradient(180deg, #FAFAFA 0%, #F4F5F7 100%);
 }
 
-.docs-article table:not([data-docs-table]) th {
+.docs-article table:not([data-docs-table]):not([data-table-variant]) th {
   border-bottom: 1px solid var(--docs-border);
   color: var(--text-body);
   font-size: 0.75rem;
@@ -269,12 +275,12 @@ pre {
   letter-spacing: 0.02em;
 }
 
-.docs-article table:not([data-docs-table]) td {
+.docs-article table:not([data-docs-table]):not([data-table-variant]) td {
   border-bottom: 1px solid var(--neutral-100);
   color: var(--text-body);
 }
 
-.docs-article table:not([data-docs-table]) tr:last-child td {
+.docs-article table:not([data-docs-table]):not([data-table-variant]) tr:last-child td {
   border-bottom: 0;
 }
 
@@ -382,3 +388,31 @@ pre {
   .input-number-field {
     appearance: textfield;
   }
+
+.pagination-responsive {
+  container-type: inline-size;
+}
+
+.pagination-compact {
+  display: none;
+}
+
+@container (max-width: 480px) {
+  .pagination-responsive .pagination-full,
+  .pagination-responsive .pagination-meta,
+  .pagination-responsive .pagination-extension {
+    display: none;
+  }
+
+  .pagination-responsive .pagination-compact {
+    display: inline-flex;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .pagination-responsive .pagination-compact button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

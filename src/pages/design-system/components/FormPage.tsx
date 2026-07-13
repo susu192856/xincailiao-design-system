@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading } from "../../../components/docs/ComponentDoc";
+import CodeBlock from "../../../components/docs/CodeBlock";
 import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
 import { Checkbox } from "../../../components/ui/Checkbox";
@@ -107,6 +108,23 @@ export default function FormPage() {
           </ExampleCard>
         </div>
       </section>
+
+      <CodeBlock
+        lang="tsx"
+        label="表单布局"
+        code={`<Form>
+  <FormSection title="基础信息">
+    <FormGrid columns={2}>
+      <Input label="数据集名称" required />
+      <Select label="数据来源" options={sourceOptions} />
+    </FormGrid>
+  </FormSection>
+  <FormActions>
+    <Button variant="ghost">取消</Button>
+    <Button>保存配置</Button>
+  </FormActions>
+</Form>`}
+      />
 
       <section>
         <SectionHeading eyebrow="Backend Patterns" title="后台组合场景" description="后台表单经常与权限、流程、校验和只读结果混合出现，设计上要明确哪些字段可编辑、哪些字段只是系统记录。" />

@@ -107,7 +107,7 @@ import "@xincailiao/vue-ui/styles.css";
 |-------|------|
 | `--radius-sm` | 圆角 Token |
 | `--product-blue-600` | 颜色 Token（按下） |
-| `--product-blue-500` | 颜色 Token（选中 / 悬停 / 焦点） |
+| `--product-blue-500` | 颜色 Token（选中 / 悬停） |
 | `--neutral-900` | 颜色 Token |
 | `--neutral-800` | 颜色 Token |
 | `--neutral-700` | 颜色 Token |

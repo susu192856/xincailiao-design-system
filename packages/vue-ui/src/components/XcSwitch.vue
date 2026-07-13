@@ -137,7 +137,7 @@ function toggle() {
 }
 
 .xc-switch:focus-visible .xc-switch__track {
-  outline: 2px solid var(--product-blue-500);
+  outline: 2px solid var(--neutral-900);
   outline-offset: 2px;
 }
 

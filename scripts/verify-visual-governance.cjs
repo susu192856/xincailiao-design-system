@@ -78,6 +78,37 @@ const app = read(path.join(ROOT, "src/app/App.tsx"));
 const sidebar = read(path.join(ROOT, "src/components/docs/DocsSidebar.tsx"));
 const manifest = JSON.parse(read(path.join(ROOT, "figma/components.manifest.json")));
 
+const operationInputPages = [
+  "src/pages/design-system/components/ButtonPage.tsx",
+  "src/pages/design-system/IconPage.tsx",
+  "src/pages/design-system/components/InputPage.tsx",
+  "src/pages/design-system/components/FormPage.tsx",
+  "src/pages/design-system/components/SelectPage.tsx",
+  "src/pages/design-system/components/DatePickerPage.tsx",
+  "src/pages/design-system/components/RadioPage.tsx",
+  "src/pages/design-system/components/CheckboxPage.tsx",
+  "src/pages/design-system/components/SwitchPage.tsx",
+];
+
+for (const relativePath of operationInputPages) {
+  const source = read(path.join(ROOT, relativePath));
+  if (!source.includes("CodeBlock")) {
+    errors.push(`${relativePath}: operation and input pages must provide a collapsible implementation code entry.`);
+  }
+}
+
+for (const relativePath of [
+  "src/pages/design-system/components/ButtonPage.tsx",
+  "src/pages/design-system/components/InputPage.tsx",
+  "src/pages/design-system/components/SelectPage.tsx",
+  "src/pages/design-system/components/DatePickerPage.tsx",
+]) {
+  const source = read(path.join(ROOT, relativePath));
+  if (!source.includes('title="即时体验"')) {
+    errors.push(`${relativePath}: multi-property controls must provide an interactive playground.`);
+  }
+}
+
 if (!docsTable.includes("docs-table")) {
   errors.push("DocsTable must expose the docs-table class for shared typography and spacing.");
 }

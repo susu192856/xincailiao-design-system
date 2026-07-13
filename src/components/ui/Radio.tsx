@@ -43,7 +43,7 @@ export function Radio({
             "peer-hover:border-[var(--product-blue-500)]",
             "peer-checked:border-[var(--product-blue-500)] peer-checked:bg-[var(--product-blue-500)] peer-checked:[&_.radio-dot]:opacity-100",
             "peer-checked:peer-active:border-[var(--product-blue-600)] peer-checked:peer-active:bg-[var(--product-blue-600)]",
-            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--product-blue-500)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--neutral-900)]",
             "peer-disabled:cursor-not-allowed peer-disabled:border-[var(--neutral-400)] peer-disabled:bg-[var(--neutral-200)]",
             "peer-checked:peer-disabled:border-[var(--neutral-400)] peer-checked:peer-disabled:bg-[var(--neutral-400)]",
             error ? "!border-[var(--error-text)]" : "",

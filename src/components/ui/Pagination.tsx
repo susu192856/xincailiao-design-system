@@ -52,17 +52,18 @@ export function Pagination({
   return (
     <nav
       className={[
-        "flex flex-wrap items-center gap-2",
+        "pagination-responsive flex w-full flex-nowrap items-center gap-2",
         compact ? "text-sm" : "",
         className,
       ].join(" ")}
       aria-label="Pagination"
     >
       {showTotal && typeof totalItems === "number" ? (
-        <span className="mr-2 text-sm text-[var(--text-tertiary)]">
+        <span className="pagination-meta mr-2 shrink-0 text-sm text-[var(--text-tertiary)]">
           共 {totalItems} 条{pageSize ? ` / ${pageSize} 条每页` : ""}
         </span>
       ) : null}
+      <span className={compact ? "inline-flex shrink-0 items-center gap-1" : "pagination-full inline-flex shrink-0 items-center gap-1"}>
       <button
         type="button"
         disabled={disabled || page <= 1}
@@ -122,8 +123,32 @@ export function Pagination({
       >
         <CaretRight className="h-4 w-4" />
       </button>
+      </span>
+      {!compact ? (
+        <span className="pagination-compact shrink-0 items-center gap-1">
+          <button
+            type="button"
+            disabled={disabled || page <= 1}
+            onClick={() => onPageChange?.(page - 1)}
+            aria-label="上一页"
+            className={["flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--neutral-100)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:opacity-40", iconButtonSize].join(" ")}
+          >
+            <CaretLeft className="h-4 w-4" />
+          </button>
+          <span className={[size === "sm" ? "h-7 leading-7 text-xs" : "h-8 leading-8 text-sm", "px-2 text-[var(--text-secondary)]"].join(" ")}>{page} / {total}</span>
+          <button
+            type="button"
+            disabled={disabled || page >= total}
+            onClick={() => onPageChange?.(page + 1)}
+            aria-label="下一页"
+            className={["flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--neutral-100)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:opacity-40", iconButtonSize].join(" ")}
+          >
+            <CaretRight className="h-4 w-4" />
+          </button>
+        </span>
+      ) : null}
       {showQuickJumper ? (
-        <span className="ml-2 inline-flex items-center gap-2 text-sm text-[var(--text-tertiary)]">
+        <span className="pagination-extension ml-2 inline-flex shrink-0 items-center gap-2 text-sm text-[var(--text-tertiary)]">
           跳至
           <input
             disabled={disabled}
@@ -150,7 +175,7 @@ export function Pagination({
           value={pageSize}
           onChange={(event) => onPageSizeChange?.(Number(event.target.value))}
           className={[
-            "ml-2 rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-[var(--text-secondary)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+            "pagination-extension ml-2 shrink-0 rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-[var(--text-secondary)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
             size === "sm" ? "h-7 text-xs" : "h-8 text-sm",
           ].join(" ")}
           aria-label="每页条数"

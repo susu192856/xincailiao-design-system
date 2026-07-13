@@ -111,6 +111,7 @@ export function TimePicker({
   const generatedId = useId();
   const inputId = id ?? `timepicker-${generatedId}`;
   const messageId = error || helperText ? `${inputId}-message` : undefined;
+  const accessibleLabel = props["aria-label"] ?? label ?? "时间";
   const isHorizontal = labelPosition === "left";
   const labelStyle = isHorizontal
     ? ({ "--time-label-width": typeof labelWidth === "number" ? `${labelWidth}px` : labelWidth } as CSSProperties)
@@ -241,9 +242,11 @@ export function TimePicker({
               ref={inputRef}
               id={inputId}
               type="text"
+              {...props}
               value={displayValue}
               disabled={disabled}
               placeholder={placeholder ?? "请选择时间"}
+              aria-label={accessibleLabel}
               readOnly={false}
               aria-invalid={Boolean(error)}
               aria-describedby={messageId}

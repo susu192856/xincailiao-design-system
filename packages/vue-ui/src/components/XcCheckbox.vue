@@ -129,7 +129,7 @@ function handleChange(event: Event) {
 }
 
 .xc-checkbox:has(.xc-checkbox__input:focus-visible) .xc-checkbox__box {
-  outline: 2px solid var(--product-blue-500);
+  outline: 2px solid var(--neutral-900);
   outline-offset: 2px;
 }
 
