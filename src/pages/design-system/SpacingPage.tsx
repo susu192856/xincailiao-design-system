@@ -72,7 +72,7 @@ export default function SpacingPage() {
       <section>
         <SectionHeading
           eyebrow="Spacing Tokens"
-          title="间距 Token"
+          title="间距设计变量（Token）"
           description="间距用于建立信息之间的亲疏关系。后台优先保证密度与效率，官网和门户通过更大的区块间距建立叙事节奏。"
         />
         <DocsTable>
@@ -107,7 +107,7 @@ export default function SpacingPage() {
         <SectionHeading
           eyebrow="Spacing Preview"
           title="间距视觉示例"
-          description="用横向尺度展示不同间距 token 的视觉差异，便于判断组件内部留白和页面区块节奏。"
+          description="用横向尺度展示不同间距设计变量（Token）的视觉差异，便于判断组件内部留白和页面区块节奏。"
         />
         <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
           <div className="flex items-end gap-4">
@@ -162,7 +162,7 @@ export default function SpacingPage() {
         <SectionHeading
           eyebrow="Spacing Recipes"
           title="场景间距配方"
-          description="将 token 转译为常见页面的可执行间距，减少设计稿和代码实现中的随意取值。"
+          description="将设计变量（Token）转译为常见页面的可执行间距，减少设计稿和代码实现中的随意取值。"
         />
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">

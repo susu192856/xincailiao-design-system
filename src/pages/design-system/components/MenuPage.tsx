@@ -7,7 +7,7 @@ import { Tag } from "../../../components/ui/Tag";
 
 const primaryItems = [
   { key: "home", label: "工作台", icon: <HouseSimple size={16} weight="regular" /> },
-  { key: "data", label: "数据资产", icon: <Database size={16} weight="regular" />, badge: <Badge count={8} tone="product" size="sm" /> },
+  { key: "data", label: "数据资产（8）", icon: <Database size={16} weight="regular" /> },
   { key: "table", label: "材料表格", icon: <Table size={16} weight="regular" /> },
   { key: "chart", label: "数据看板", icon: <ChartBar size={16} weight="regular" /> },
   { key: "setting", label: "系统配置", icon: <GearSix size={16} weight="regular" />, disabled: true },
@@ -31,7 +31,7 @@ const groupedItems = [
     label: "系统管理",
     children: [
       { key: "member", label: "成员权限", icon: <UserCircle size={16} weight="regular" /> },
-      { key: "approval", label: "待办审批", icon: <Bell size={16} weight="regular" />, badge: <Badge count={12} tone="brand" size="sm" /> },
+      { key: "approval", label: "待办审批", icon: <Bell size={16} weight="regular" />, badge: <Badge count={12} tone="info" size="sm" /> },
       { key: "config", label: "系统配置", icon: <GearSix size={16} weight="regular" />, disabled: true },
     ],
   },
@@ -88,7 +88,7 @@ export default function MenuPage() {
             <div className="space-y-4">
               <Menu
                 items={[
-                  { key: "approval", label: "待办审批", icon: <Bell size={16} weight="regular" />, badge: <Badge count={12} tone="brand" size="sm" /> },
+                  { key: "approval", label: "待办审批", icon: <Bell size={16} weight="regular" />, badge: <Badge count={12} tone="info" size="sm" /> },
                   { key: "member", label: "成员权限", icon: <UserCircle size={16} weight="regular" /> },
                   { key: "config", label: "系统配置", icon: <GearSix size={16} weight="regular" />, disabled: true },
                 ]}

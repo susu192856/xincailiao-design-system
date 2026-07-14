@@ -33,7 +33,7 @@ export default function ToastPage() {
 
       <section>
         <SectionHeading eyebrow="Demo" title="真实组件触发" />
-        <ExampleCard title="操作反馈" description="页面内触发 toast，应用根节点应放置 ToastContainer。">
+        <ExampleCard title="操作反馈" description="页面内触发轻提示（toast），应用根节点应放置提示容器（ToastContainer）。">
           <div className="flex flex-wrap gap-3">
             <Button tone="product" onClick={() => { setShowContainer(true); toast({ variant: "success", title: "保存成功", description: "数据已同步至数据空间。" }); }}>
               成功提示
@@ -103,7 +103,7 @@ export default function ToastPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           <div className="bg-white p-5">
             <Tag variant="success" size="sm">保存 / 发布成功</Tag>
-            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">用户无需停留处理，toast 自动消失。</p>
+            <p className="mt-3 text-sm leading-6 text-[var(--text-tertiary)]">用户无需停留处理，轻提示（toast）自动消失。</p>
           </div>
           <div className="bg-white p-5">
             <Tag variant="error" size="sm">提交失败</Tag>

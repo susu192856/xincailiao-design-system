@@ -56,30 +56,30 @@ export default function TagPage() {
       <PageHeader title="标签" description="标签用于表达分类、状态、属性和轻量提示，帮助用户快速识别数据对象的关键属性。色彩含义参见颜色页" />
 
       <section>
-        <SectionHeading eyebrow="Concept" title="分类标签 vs 状态标签" description="标签有两种本质不同的用途，选色逻辑完全不同。当分类和状态同时出现时，状态标签使用 dot 模式（圆点 + 黑色文字），分类标签保留彩色——两者互不干扰。" />
+        <SectionHeading eyebrow="Concept" title="分类标签与状态标签" description="先判断标签回答的是“它是什么”还是“它处于什么状态”，再选择颜色。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3 text-base font-semibold text-[var(--text-primary)]">分类标签</h3>
-            <p className="mb-4 text-sm leading-6 text-[var(--text-tertiary)]">表达"是什么类型/归属"——材料品类、数据来源、业务板块。11 种 variant 覆盖品牌强调、功能归属和多分类场景。</p>
+            <p className="mb-4 text-sm leading-6 text-[var(--text-secondary)]">表达类型或归属，例如材料品类、数据来源和业务板块。</p>
             <div className="flex flex-wrap gap-1.5">
-              <Tag variant="brand" size="sm">重点项目</Tag>
-              <Tag variant="product" size="sm">数据空间</Tag>
-              <Tag variant="teal" size="sm">材料属性</Tag>
-              <Tag variant="violet" size="sm">检测类型</Tag>
-              <Tag variant="slate" size="sm">标准规范</Tag>
-              <Tag variant="cyan" size="sm">工艺分类</Tag>
-              <Tag size="sm">默认分类</Tag>
+              <Tag variant="orange" size="sm">热处理</Tag>
+              <Tag variant="blue" size="sm">数据空间</Tag>
+              <Tag variant="green" size="sm">材料属性</Tag>
+              <Tag variant="pink" size="sm">样品类型</Tag>
+              <Tag variant="magenta" size="sm">分析方法</Tag>
+              <Tag variant="purple" size="sm">检测类型</Tag>
+              <Tag variant="amber" size="sm">标准规范</Tag>
+              <Tag variant="indigo" size="sm">工艺分类</Tag>
+              <Tag variant="neutral" size="sm">其他属性</Tag>
             </div>
-            <div className="mt-4 space-y-1.5 border-t border-[var(--neutral-200)] pt-3 text-xs leading-5 text-[var(--text-tertiary)]">
-              <p><span className="font-semibold text-[var(--text-secondary)]">brand</span>（红）— 关键/重点项目，平时少见</p>
-              <p><span className="font-semibold text-[var(--text-secondary)]">product</span>（蓝）— 产品功能直接关联</p>
-              <p><span className="font-semibold text-[var(--text-secondary)]">teal / violet / slate / cyan</span> — 多分类区分</p>
-              <p><span className="font-semibold text-[var(--text-secondary)]">neutral</span>（灰）— 默认，最常用</p>
+            <div className="mt-4 space-y-2 border-t border-[var(--neutral-200)] pt-3 text-xs leading-5 text-[var(--text-tertiary)]">
+              <p><strong className="text-[var(--text-secondary)]">有色：</strong>8 种数据色相，建立稳定分类映射。</p>
+              <p><strong className="text-[var(--text-secondary)]">中性：</strong>无需颜色区分时使用 neutral；coral / red 不用于分类。</p>
             </div>
           </div>
           <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3 text-base font-semibold text-[var(--text-primary)]">状态标签</h3>
-            <p className="mb-4 text-sm leading-6 text-[var(--text-tertiary)]">表达"当前处于什么阶段"——审批中、已通过、异常、已归档。颜色必须传递准确的语义信号。</p>
+            <p className="mb-4 text-sm leading-6 text-[var(--text-secondary)]">表达当前阶段或结果，例如审批中、已通过、异常和已归档。</p>
             <div className="flex flex-wrap gap-1.5">
               <Tag variant="success" size="sm">已完成</Tag>
               <Tag variant="warning" size="sm">待确认</Tag>
@@ -87,18 +87,21 @@ export default function TagPage() {
               <Tag variant="info" size="sm">进行中</Tag>
             </div>
             <div className="mt-4 border-t border-[var(--neutral-200)] pt-3 text-xs leading-5 text-[var(--text-tertiary)]">
-              <p>success（绿）= 正向完成 · warning（琥珀）= 需关注 · error（红）= 失败/危险 · info（蓝）= 信息/流转中</p>
-              <p className="mt-1 font-semibold text-[var(--text-secondary)]">neutral 不用于任何状态。</p>
+              <p><span className="font-token">success / warning / error / info</span></p>
+              <p className="mt-1 text-[var(--text-secondary)]">状态必须使用语义色；neutral 不表达业务状态。</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-5 rounded-sm border border-[var(--info-bg)] bg-[var(--info-bg)] p-4">
-          <p className="text-sm font-semibold text-[var(--info-text)]">同屏共存：dot 模式 vs 背景模式</p>
-          <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">状态标签有两种展示方式：<span className="font-semibold text-[var(--text-primary)]">dot 模式</span>（圆点+黑色文字，表格专用）和<span className="font-semibold text-[var(--text-primary)]">背景模式</span>（全彩背景，详情页/卡片专用）。当与分类标签同屏时，状态统一用 dot 模式。</p>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Display" title="圆点模式与浅底模式" description="表格状态列使用圆点模式（dot）；详情页和卡片中的独立状态使用浅底模式（soft）。" />
+        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-4">
+          <p className="text-sm leading-6 text-[var(--text-secondary)]">分类和状态同屏时，状态统一使用圆点模式，避免两个彩色标签争夺注意力。</p>
           <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
             <div>
-              <p className="mb-2 text-xs font-medium text-[var(--text-tertiary)]">dot 模式 — 表格状态列，与分类共存</p>
+              <p className="mb-2 text-xs font-medium text-[var(--text-tertiary)]">圆点模式（dot）— 表格状态列，与分类共存</p>
               <TableContainer>
                 <Table density="compact">
                   <TableHeader>
@@ -117,7 +120,7 @@ export default function TagPage() {
                     ].map(([name, category, status, variant]) => (
                       <TableRow key={name}>
                         <TableCell>{name}</TableCell>
-                        <TableCell><Tag size="sm" variant={category === "金属材料" ? "slate" : "teal"}>{category}</Tag></TableCell>
+                        <TableCell><Tag size="sm" variant={category === "金属材料" ? "amber" : "green"}>{category}</Tag></TableCell>
                         <TableCell><Tag size="sm" variant={variant as TagVariant} dot>{status}</Tag></TableCell>
                       </TableRow>
                     ))}
@@ -126,7 +129,7 @@ export default function TagPage() {
               </TableContainer>
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium text-[var(--text-tertiary)]">背景模式 — 详情页/卡片，状态独立出现</p>
+              <p className="mb-2 text-xs font-medium text-[var(--text-tertiary)]">浅底模式（soft）— 详情页或卡片，状态独立出现</p>
               <DescriptionList
                 items={[
                   { label: "交付状态", value: <Tag size="sm" variant="success">交付完成</Tag> },
@@ -138,16 +141,16 @@ export default function TagPage() {
                 bordered
                 size="sm"
                 layout="inline"
-                labelWidth={72}
+                labelWidth={88}
               />
             </div>
           </div>
-          <p className="mt-2 text-xs text-[var(--text-tertiary)]">左：分类彩色标签 + 状态 dot 模式，两者各司其职。右：无分类标签时，状态可用全彩背景模式。</p>
+          <p className="mt-2 text-xs text-[var(--text-tertiary)]">左：分类彩色标签加状态圆点模式，两者各司其职。右：无分类标签时，状态可使用浅底模式。</p>
         </div>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Status Mapping" title="状态标签映射表" description="按状态语义匹配 variant，而非按颜色偏好选择。22 个常见状态覆盖交付、审批、内容、运维四类场景。" />
+        <SectionHeading eyebrow="Status Mapping" title="状态标签映射表" description="按状态含义选择颜色语义（tone），不按个人颜色偏好选择。21 个常见状态覆盖交付、审批、内容、运维四类场景。" />
         <DocsTable>
             <thead>
               <tr className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] text-xs text-[var(--text-tertiary)]">
@@ -173,12 +176,12 @@ export default function TagPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="States" title="尺寸与交互" description="后台表格内优先使用 sm + dot 模式；可移除标签用于筛选条件，不用于普通状态展示。" />
+        <SectionHeading eyebrow="States" title="尺寸与交互" description="后台和数据密集场景统一优先使用小尺寸（sm）；中尺寸（md）仅用于少量宽松展示，不通过放大字号制造强调。可移除标签用于筛选条件，不用于普通状态展示。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="sm（22px）— 表格专用">
+          <ExampleCard title="小尺寸（sm，22px）— 后台默认">
             <div className="space-y-3">
               <div className="flex flex-wrap gap-2">
-                <Tag size="sm">分类</Tag>
+                <Tag size="sm" variant="amber">材料分类</Tag>
                 <Tag size="sm" variant="success">状态</Tag>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -187,49 +190,63 @@ export default function TagPage() {
                 <Tag size="sm" variant="error" dot>异常</Tag>
                 <Tag size="sm" variant="info" dot>进行中</Tag>
               </div>
-              <p className="text-xs text-[var(--neutral-400)]">上行：背景模式（筛选面板/独立出现） · 下行：dot 模式（表格状态列/与分类共存）</p>
+              <p className="text-xs text-[var(--neutral-400)]">上行：浅底模式（筛选面板或独立出现） · 下行：圆点模式（表格状态列或与分类共存）</p>
             </div>
           </ExampleCard>
-          <ExampleCard title="md（26px）— 页面/卡片专用">
+          <ExampleCard title="中尺寸（md，26px）— 非默认宽松场景">
             <div className="space-y-3">
               <div className="flex flex-wrap gap-2">
-                <Tag size="md">默认分类</Tag>
-                <Tag size="md" variant="product">数据空间</Tag>
-                <Tag size="md" variant="brand">重点项目</Tag>
+                <Tag size="md" variant="green">材料属性</Tag>
+                <Tag size="md" variant="blue">数据空间</Tag>
+                <Tag size="md" variant="amber">重点项目</Tag>
               </div>
               <div className="flex flex-wrap gap-2">
                 <Tag size="md" variant="success">交付完成</Tag>
                 <Tag size="md" variant="error">异常</Tag>
                 <Tag size="md" variant="warning">待审核</Tag>
               </div>
-              <p className="text-xs text-[var(--neutral-400)]">md 默认使用背景模式，用于详情页字段、卡片标题区等需要视觉重量感的场景。</p>
+              <p className="text-xs text-[var(--neutral-400)]">中尺寸（md）仍使用 12px 常规字重，只增加高度与水平留白。后台详情和卡片通常继续使用 sm，仅在版面明显宽松且需要更大点击容器时采用。</p>
             </div>
           </ExampleCard>
           <ExampleCard title="可关闭标签">
             <div className="flex flex-wrap gap-3">
-              <Tag closable>热处理</Tag>
-              <Tag variant="product" closable>数据空间</Tag>
-              <Tag variant="brand" closable>关键结论</Tag>
+              <Tag size="sm" closable>热处理</Tag>
+              <Tag size="sm" variant="blue" closable>数据空间</Tag>
+              <Tag size="sm" variant="purple" closable>关键结论</Tag>
             </div>
             <p className="mt-3 text-xs text-[var(--neutral-400)]">用于筛选条件和已选项，点击 × 移除。不用于普通状态展示。</p>
           </ExampleCard>
-          <ExampleCard title="dot 模式 — 四种状态色">
-            <p className="mb-3 text-xs text-[var(--text-tertiary)]">dot 模式仅用于表格状态列，始终 sm 尺寸。</p>
+          <ExampleCard title="禁用态">
+            <div className="flex flex-wrap gap-3">
+              <Tag size="sm" variant="indigo" disabled>权限受限</Tag>
+              <Tag size="sm" variant="blue" closable disabled>不可移除</Tag>
+              <Tag size="sm" variant="warning" disabled>流程锁定</Tag>
+            </div>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">禁用态降低整体透明度；可关闭标签同时禁用关闭按钮，不允许仅改变颜色而保留交互。</p>
+          </ExampleCard>
+          <ExampleCard title="长标签与窄容器">
+            <div className="w-full max-w-[180px] border border-dashed border-[var(--neutral-300)] p-3">
+              <Tag variant="indigo" className="max-w-full" title="新材料可信数据空间内部共享分类">新材料可信数据空间内部共享分类</Tag>
+            </div>
+            <p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">标签保持单行并在容器内截断；完整名称通过标题属性（title）或业务文字提示（Tooltip）提供，父容器负责标签之间换行。</p>
+          </ExampleCard>
+          <ExampleCard title="圆点模式（dot）— 四种状态色">
+            <p className="mb-3 text-xs text-[var(--text-tertiary)]">圆点模式仅用于表格状态列，始终使用小尺寸（sm）。</p>
             <div className="space-y-2">
               <div className="flex items-center gap-4">
-                <span className="w-16 text-xs text-[var(--text-tertiary)]">success</span>
+                <span className="w-24 text-xs text-[var(--text-tertiary)]">成功（success）</span>
                 <Tag size="sm" variant="success" dot>已完成</Tag>
               </div>
               <div className="flex items-center gap-4">
-                <span className="w-16 text-xs text-[var(--text-tertiary)]">warning</span>
+                <span className="w-24 text-xs text-[var(--text-tertiary)]">警告（warning）</span>
                 <Tag size="sm" variant="warning" dot>待确认</Tag>
               </div>
               <div className="flex items-center gap-4">
-                <span className="w-16 text-xs text-[var(--text-tertiary)]">error</span>
+                <span className="w-24 text-xs text-[var(--text-tertiary)]">错误（error）</span>
                 <Tag size="sm" variant="error" dot>异常</Tag>
               </div>
               <div className="flex items-center gap-4">
-                <span className="w-16 text-xs text-[var(--text-tertiary)]">info</span>
+                <span className="w-24 text-xs text-[var(--text-tertiary)]">信息（info）</span>
                 <Tag size="sm" variant="info" dot>进行中</Tag>
               </div>
             </div>
@@ -243,9 +260,9 @@ export default function TagPage() {
           <div className="rounded-sm border border-[var(--neutral-200)] p-4">
             <div className="mb-3 text-sm font-semibold text-[var(--text-primary)]">已选条件</div>
             <div className="flex flex-wrap gap-2">
-              <Tag closable>材料类型：钛合金</Tag>
-              <Tag closable>状态：已治理</Tag>
-              <Tag closable>空间：组织内</Tag>
+              <Tag size="sm" closable>材料类型：钛合金</Tag>
+              <Tag size="sm" closable>状态：已治理</Tag>
+              <Tag size="sm" closable>空间：组织内</Tag>
               <Button variant="text" size="sm" className="h-auto px-0 py-0 text-[var(--text-tertiary)]">清空</Button>
             </div>
           </div>
@@ -256,11 +273,16 @@ export default function TagPage() {
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
-            "先判断是「分类标签」还是「状态标签」——两者选色逻辑完全不同。分类用 brand/product/teal 等 7 种，状态用 success/warning/error/info 4 种。",
-            "状态标签必须使用语义色，状态名称和颜色语义严格对应。neutral 不用于任何状态。",
+            "先判断是「分类标签」还是「状态标签」——两者选色逻辑完全不同。有色分类从数据可视化色板选用 8 种色相；珊瑚和红色不用于分类，状态使用 success / warning / error / info 4 种。",
+            "状态标签必须使用语义色，状态名称和颜色语义严格对应。中性语义（neutral）不用于任何状态。",
+            "soft 状态标签使用专用高对比文字 Token，12px 文本与浅色背景的对比度不得低于 4.5:1。",
+            "圆点模式使用 success-dot / warning-dot / error-dot / info-dot，不复用较深的状态文字色；圆点必须与可读状态文字同时出现。",
+            "后台表格、详情字段、筛选条件、可关闭和禁用标签默认使用 sm；md 不放大字号，只在少量宽松展示或需要更大容器时使用。",
             "表格中分类和状态同时出现时，状态标签使用 dot 模式（`<Tag dot>`），分类保留彩色。独立出现时状态可用背景模式。",
-            "品牌红标签仅用于关键节点和重点提示，不用于普通分类或后台常规状态。",
-            "超过 7 个分类时优先合并分组或统一使用 neutral variant。",
+            "coral 与 red 不作为分类 tone；品牌表达使用品牌组件，错误状态使用 error，不要通过相近红色替代语义。",
+            "neutral 用于无需颜色区分、没有稳定颜色映射或仅作普通属性提示的分类；不要为了丰富页面而强行分配有色标签。",
+            "同一业务分类必须保持固定 tone；同屏出现过多色相时优先合并分组，避免把 8 种可用色当成必须全部使用。",
+            "分类标签固定使用 soft 外观；outline 与 solid 不作为分类标签类型，避免重新出现过重边框或大面积色块。",
             "颜色不能是唯一的信息区分方式，必须配合文字描述。",
           ]}
         />

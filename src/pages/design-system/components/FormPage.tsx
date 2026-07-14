@@ -154,7 +154,7 @@ export default function FormPage() {
                 <div className="mb-1.5 w-auto shrink-0 pt-1.5 text-sm font-normal text-[var(--text-secondary)] md:mb-0 md:w-[88px] md:text-right">附加权限</div>
                 <div className="min-w-0 flex-1 space-y-3 rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
                   <Checkbox label="记录操作日志和审计时间线" description="用于流程追踪和链上存证感的视觉表达。" defaultChecked />
-                  <Checkbox label="允许下游业务系统调用" description="开启后可被 AI 应用和业务系统读取。" />
+                  <Checkbox label="允许下游业务系统调用" description="开启后可被人工智能（AI）应用和业务系统读取。" />
                 </div>
               </div>
               <FormActions>
@@ -184,7 +184,6 @@ export default function FormPage() {
                   maxFiles={6}
                   maxSize={5 * 1024 * 1024}
                   helperText="建议上传能说明样品状态和试验结果的图片。"
-                  listType="card"
                   files={imageFiles}
                   onChange={setImageFiles}
                 />
@@ -236,7 +235,7 @@ export default function FormPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Density" title="密度、结构与混用边界" description="同一项目允许左右和上下结构共存，但必须由容器角色决定。同一 FormSection 内的同级字段保持一致，不能逐字段随意混用。" />
+        <SectionHeading eyebrow="Density" title="密度、结构与混用边界" description="同一项目允许左右和上下结构共存，但必须由容器角色决定。同一表单分组（FormSection）内的同级字段保持一致，不能逐字段随意混用。" />
         <div className="grid grid-cols-1 gap-5">
           <ExampleCard title="主编辑区 · 左右结构">
             <Form className="max-w-[456px]">
@@ -283,7 +282,7 @@ export default function FormPage() {
           description="当表单区域超过 1000px 时，优先使用左右标签与 2 列栅格。标签默认宽 88px、右对齐、间隔 12px；同组长标签统一扩展到 96–120px。"
         />
         <div className="grid grid-cols-1 gap-5">
-          <ExampleCard title="数据配置页 - 左右 label">
+          <ExampleCard title="数据配置页 - 左右标签（label）">
             <div className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-5">
               <Form className="max-w-[960px]">
                 <FormSection title="基础参数" description="适用于数据接入、解析规则、模型参数等字段多、页面宽的后台配置页。" className="p-6">

@@ -103,8 +103,8 @@ export default function DatePickerPage() {
       <DatePickerPlaygroundSection />
 
       <section>
-        <SectionHeading eyebrow="Sizes" title="日期选择尺寸" description="尺寸控制控件高度，与 Select 和 Input 保持一致的 28 / 32 / 36px 三档。" />
-        <ExampleCard title="Small / Medium / Large">
+        <SectionHeading eyebrow="Sizes" title="日期选择尺寸" description="尺寸控制控件高度，与选择器（Select）和输入框（Input）保持一致的 28 / 32 / 36px 三档。" />
+        <ExampleCard title="小 / 中 / 大（Small / Medium / Large）">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             <DatePicker size="sm" label="Small · 28px" placeholder="请选择日期" helperText="表格筛选、紧凑工具栏。" />
             <DatePicker size="md" label="Medium · 32px" placeholder="请选择日期" helperText="后台表单默认尺寸。" />
@@ -156,7 +156,7 @@ export default function DatePickerPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Panels" title="日历面板" description="单日期面板直接展示完整月份；范围选择按起止顺序分步确认；showTime 在面板右侧展开时间选择列。" />
+        <SectionHeading eyebrow="Panels" title="日历面板" description="单日期面板直接展示完整月份；范围选择按起止顺序分步确认；显示时间（showTime）在面板右侧展开时间选择列。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="单日期"><div className="max-w-[480px] pb-[300px]"><DatePicker label="发布日期" open /></div></ExampleCard>
           <ExampleCard title="起止日期 · 顺序选择"><div className="max-w-[420px] pb-[340px]"><DatePicker range label="起止日期" placeholder="开始日期至结束日期" open /></div><p className="mt-3 text-xs leading-5 text-[var(--text-tertiary)]">先选择起始日期并确认，焦点自动进入结束日期；再次确认后完成范围。</p></ExampleCard>

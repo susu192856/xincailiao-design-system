@@ -20,7 +20,8 @@
     "verify:design-system": "node scripts/verify-design-system.cjs",
     "verify:maturity": "node scripts/verify-maturity.cjs",
     "verify:vue-ui": "node scripts/verify-vue-ui.cjs",
-    "verify": "npm run verify:components && npm run verify:visual && npm run verify:design-system && npm run verify:maturity && npm run verify:vue-ui && npm run build"
+    "verify:terminology": "node scripts/verify-doc-terminology.cjs",
+    "verify": "npm run verify:components && npm run verify:visual && npm run verify:design-system && npm run verify:maturity && npm run verify:vue-ui && npm run verify:terminology && npm run build"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

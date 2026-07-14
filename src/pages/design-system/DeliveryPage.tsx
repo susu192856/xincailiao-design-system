@@ -61,7 +61,7 @@ export default function DeliveryPage() {
     <div className="space-y-16">
       <PageHeader
         title="交付与同步"
-        description="新材道设计规范不是单一文稿，而是一套由 Codex 维护的规则源头。网页负责直观看规则，代码负责交付前端，Figma 负责设计调用，三者共享 Token、组件合同和成熟度门槛。"
+        description="新材道设计规范不是单一文稿，而是一套由 Codex（代码协作工具）维护的规则源头。网页负责直观看规则，代码负责交付前端，Figma（设计工具）负责设计调用，三者共享设计变量（Token）、组件合同和成熟度门槛。"
         status="stable"
       />
 
@@ -69,7 +69,7 @@ export default function DeliveryPage() {
         <SectionHeading
           eyebrow="One Source"
           title="一套源头，三类交付"
-          description="Codex 不需要把所有内容塞进一个文件；它需要维护同一仓库中的结构化源头，并让不同产物从同一套规则生成或对齐。"
+          description="Codex（代码协作工具）不需要把所有内容塞进一个文件；它需要维护同一仓库中的结构化源头，并让不同产物从同一套规则生成或对齐。"
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {deliveryCards.map((card) => (
@@ -102,7 +102,7 @@ export default function DeliveryPage() {
         <SectionHeading
           eyebrow="Source Map"
           title="规则源头与产物映射"
-          description="前端、设计师和 Codex 都必须引用这些源头，避免出现网页、代码和 Figma 各自维护一套样式的情况。"
+          description="前端、设计师和 Codex（代码协作工具）都必须引用这些源头，避免出现网页、代码和 Figma（设计工具）各自维护一套样式的情况。"
         />
         <DocsTable caption="说明型表格统一使用 DocsTable；表头、单元格和代码列字号由全局样式控制。">
           <thead>
@@ -130,10 +130,10 @@ export default function DeliveryPage() {
         <SectionHeading
           eyebrow="Gates"
           title="交付门槛"
-          description="只有通过网页、代码、Figma 三条链路的内容，才算真正可交付。"
+          description="只有通过网页、代码、Figma（设计工具）三条链路的内容，才算真正可交付。"
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-          <ExampleCard title="当前状态" description="从组件 manifest 和 Figma 同步配置读取。">
+          <ExampleCard title="当前状态" description="从组件清单（manifest）和 Figma（设计工具）同步配置读取。">
             <div className="grid grid-cols-2 gap-3">
               {[
                 ["组件总数", `${manifest.components.length}`],
@@ -152,7 +152,7 @@ export default function DeliveryPage() {
             </p>
           </ExampleCard>
 
-          <ExampleCard title="每轮交付必须完成" description="设计师在 Codex 中发起任务时，按这四步验收。">
+          <ExampleCard title="每轮交付必须完成" description="设计师在 Codex（代码协作工具）中发起任务时，按这四步验收。">
             <SpecList
               items={[
                 "网页规范站能直观看到规则、状态和示例，桌面与 375px 移动端无页面级横向溢出。",
@@ -168,8 +168,8 @@ export default function DeliveryPage() {
       <section>
         <SectionHeading
           eyebrow="Workflow"
-          title="设计师在 Codex 中的维护方式"
-          description="把设计反馈写成页面组、问题类型和验收视口，Codex 才能稳定修复并持续维护。"
+          title="设计师在 Codex（代码协作工具）中的维护方式"
+          description="把设计反馈写成页面组、问题类型和验收视口，Codex（代码协作工具）才能稳定修复并持续维护。"
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <ExampleCard title="推荐描述" tone="recommended">
@@ -198,7 +198,7 @@ export default function DeliveryPage() {
         <SectionHeading
           eyebrow="Next"
           title="下一阶段"
-          description="当前仓库已具备同源交付结构，后续重点是逐页视觉审计和 Figma 组件落地。"
+          description="当前仓库已具备同源交付结构，后续重点是逐页视觉审计和 Figma（设计工具）组件落地。"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[

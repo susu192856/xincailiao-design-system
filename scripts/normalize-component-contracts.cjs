@@ -33,6 +33,11 @@ const propCatalog = {
   required: ["boolean", "必填标记；校验仍由表单逻辑负责。"],
   items: ["array", "组件条目数据。"],
   options: ["array", "可选择项集合，包含 label、value 和 disabled。"],
+  compact: ["boolean", "是否使用紧凑分页布局。"],
+  totalItems: ["number", "数据总条数，用于计算总页数和当前展示范围。"],
+  showTotal: ["boolean", "是否显示总条数或当前展示范围。"],
+  showQuickJumper: ["boolean", "是否显示页码快速跳转输入。"],
+  pageSizeOptions: ["number[]", "可选择的每页条数集合。"],
   open: ["boolean", "浮层或面板的受控打开状态。"],
   defaultOpen: ["boolean", "非受控浮层或面板的初始打开状态。"],
   onOpenChange: ["(open: boolean) => void", "浮层或面板开合变化回调。"],
@@ -83,11 +88,14 @@ const propCatalog = {
   dot: ["boolean", "仅显示状态点。"],
   showZero: ["boolean", "数字为零时是否显示。"],
   src: ["string", "图片资源地址。"],
+  fallbackKey: ["string", "默认头像池的稳定分配键，后台应传用户唯一标识。"],
   name: ["string", "可访问名称或表单名称。"],
+  shape: ["'circle' | 'square'", "头像外形；人员默认圆形，组织或系统身份可使用方形。"],
   status: ["string", "状态语义。"],
   ratio: ["string", "媒体宽高比。"],
   fit: ["'cover' | 'contain'", "媒体填充方式。"],
   caption: ["ReactNode | string", "图片说明。"],
+  placeholder: ["'error' | 'default'", "图片未配置时显示错误占位或系统默认图。"],
   maxItems: ["number", "面包屑折叠前的最大条目数。"],
   selectedKey: ["string", "当前选中的节点。"],
   defaultExpandedKeys: ["string[]", "默认展开节点。"],
@@ -106,7 +114,8 @@ const propCatalog = {
   accept: ["string", "允许上传的文件类型。"],
   maxFiles: ["number", "允许上传的最大文件数。"],
   maxSize: ["number", "单个文件允许的最大体积。"],
-  listType: ["string", "上传列表的展示形式。"],
+  files: ["UploadFile[]", "受控文件列表。"],
+  onRemove: ["(file: UploadFile) => void", "删除文件后的回调。"],
   chartType: ["string", "图表类型，决定数据的视觉编码。"],
   legendItems: ["array", "图例条目集合。"],
   colors: ["string[]", "图表数据系列颜色。"],
@@ -192,16 +201,31 @@ const canonical = {
   Tag: {
     props: ["variant", "tone", "size", "disabled", "closable", "icon", "dot"],
     variants: ["soft", "outline", "solid"],
-    tones: ["neutral", "product", "brand", "danger", "warning", "success", "info", "teal", "violet", "slate", "cyan"],
+    tones: ["neutral", "warning", "success", "error", "info", "amber", "orange", "pink", "magenta", "purple", "indigo", "blue", "green"],
   },
   Avatar: {
-    props: ["name", "src", "size", "status", "disabled"],
-    variants: ["image", "initial"],
+    props: ["name", "src", "fallbackKey", "variant", "shape", "size", "status", "disabled"],
+    variants: ["default", "image", "initial"],
+    tones: [],
     sizes: ["sm", "md", "lg", "xl"],
     states: ["default", "online", "busy", "offline", "disabled", "image-error"],
+    figmaProperties: {
+      variant: ["default", "image", "initial"],
+      shape: ["circle", "square"],
+      size: ["sm", "md", "lg", "xl"],
+      state: ["default", "online", "busy", "offline", "disabled", "image-error"],
+    },
+  },
+  Badge: {
+    props: ["count", "dot", "max", "tone", "size", "showZero"],
+    variants: ["count", "dot", "attached"],
+    tones: ["neutral", "product", "info", "success", "warning", "error"],
+    sizes: ["sm", "md"],
   },
   Image: {
-    props: ["src", "alt", "ratio", "fit", "loading", "error", "caption"],
+    props: ["src", "alt", "ratio", "fit", "loading", "error", "caption", "placeholder"],
+    variants: ["image", "loading", "default-placeholder", "error"],
+    sizes: ["1:1", "2:1", "3:1", "3:2", "16:9", "4:3", "3:4", "2:3"],
   },
   Breadcrumb: {
     props: ["items", "maxItems"],
@@ -212,7 +236,20 @@ const canonical = {
   },
   Empty: {
     props: ["variant", "title", "description", "action"],
-    variants: ["noData", "noResult", "noPermission", "firstUse", "error", "processing", "disabled"],
+    variants: ["noData", "noResult", "noPermission", "notFound", "network", "firstUse", "error", "processing", "disabled"],
+  },
+  Upload: {
+    props: ["label", "helperText", "error", "accept", "multiple", "maxFiles", "maxSize", "disabled", "files", "onChange", "onRemove"],
+    variants: ["drag-drop", "text-list"],
+    tones: ["neutral", "danger"],
+    sizes: ["md"],
+    states: ["default", "uploading", "done", "error", "disabled", "drag-over"],
+    figmaProperties: {
+      variant: ["drag-drop", "text-list"],
+      tone: ["neutral", "danger"],
+      state: ["default", "uploading", "done", "error", "disabled", "drag-over"],
+      multiple: ["single", "multiple"],
+    },
   },
 };
 
@@ -355,37 +392,39 @@ const componentRules = {
   Tag: {
     anatomy: ["可选状态点或图标", "标签文字", "可选关闭入口"],
     usage: "用于分类、属性和轻量状态展示；语义色必须与状态含义一致。",
-    avoid: "不要把 Tag 当按钮，也不要用品牌红表达错误或危险状态。",
-    interaction: "可关闭标签提供独立可访问关闭按钮；选择型标签应使用专门交互组件。",
-    content: "文字优先名词或短状态，保持单行；同一组使用一致的语法和语义。",
+    avoid: "不要把 Tag 当按钮；coral 与 red 不作为分类 tone，错误状态固定使用 error。",
+    responsive: "标签自身保持单行并由父容器换行；长标签在可用宽度内截断。移动端可关闭标签的关闭按钮热区不小于 44px。",
+    accessibility: "标签必须包含可读文字；状态不能只依赖颜色；可关闭标签提供可见 focus-visible 和明确关闭名称。",
+    interaction: "可关闭标签提供独立关闭按钮，禁用时不可操作；选择型标签应使用专门交互组件。",
+    content: "分类使用 amber、orange、pink、magenta、purple、indigo、blue、green 或 neutral；状态使用 success、warning、error、info。后台默认使用 sm，md 不放大字号且仅用于少量宽松场景；文字保持单行且同一业务分类固定 tone。",
   },
   Empty: {
     anatomy: ["情境图形", "状态标题", "解释说明", "可选主操作"],
-    usage: "用于无数据、无结果、首次使用、无权限、错误和处理中等明确空白情境。",
-    avoid: "不要用同一套“暂无数据”覆盖所有原因，也不要提供与恢复任务无关的操作。",
+    usage: "用于无数据、无结果、无权限、页面不存在、网络异常、首次使用和处理中等明确空白情境。",
+    avoid: "不要混用五类状态插图，不要用同一套“暂无数据”覆盖所有原因，也不要提供与恢复任务无关的操作。",
     interaction: "操作按钮直接解决当前空态；处理中状态不可伪装成可点击内容。",
-    content: "标题先说明发生了什么，描述解释原因，操作给出下一步。",
+    content: "插图固定映射暂无数据、无结果、无权限、页面不存在和网络异常；标题说明发生了什么，描述解释原因，操作给出下一步。",
   },
   Image: {
     anatomy: ["媒体容器", "图片内容", "占位或错误状态", "可选说明与预览入口"],
-    usage: "用于材料图片、证书、图谱和业务媒体内容，保持明确比例与加载策略。",
-    avoid: "不要省略 alt 策略，也不要让失败图片破坏布局或暴露无权限资源。",
+    usage: "用于材料图片、证书、图谱和业务媒体内容，使用 1:1、2:1、3:1、3:2、16:9、4:3、3:4 或 2:3 固定比例。",
+    avoid: "不要按单张原图临时改变列表比例，不要把默认图、加载缓冲和错误态混用，也不要省略 alt 策略。",
     interaction: "可预览图片使用明确按钮并支持键盘；加载失败提供重试或替代说明。",
-    content: "信息图片提供描述性 alt，纯装饰图片使用空 alt；caption 不重复 alt。",
+    content: "信息图片提供描述性 alt，纯装饰图片使用空 alt；未配置时可暂用默认图，上线前应尽可能替换为真实配图；caption 不重复 alt。",
   },
   Avatar: {
-    anatomy: ["头像容器", "图片或姓名首字", "可选在线状态", "可访问名称"],
-    usage: "用于人员、组织或智能体身份识别，图片缺失时稳定回退为首字。",
-    avoid: "不要仅凭头像区分用户，也不要把状态点作为唯一状态说明。",
+    anatomy: ["头像容器", "灰色默认占位、图片头像或姓名缩写", "可选在线状态", "可访问名称"],
+    usage: "用于人员、组织或系统身份识别。先选择 default、image 或 initial，再按身份语义选择 circle 或 square。",
+    avoid: "不要使用 Math.random 在每次渲染时更换头像，不要仅凭头像区分用户，也不要在头像上叠加消息徽标。",
     interaction: "头像本身不默认可点击；作为入口时由外层语义控件承担交互。",
-    content: "提供完整姓名作为可访问名称；群组展示控制数量并提供剩余计数。",
+    content: "提供完整姓名作为可访问名称；default 保持灰色人物占位，后台实名用户未上传头像时使用 image 并由 fallbackKey 从 10 张图片中稳定分配，用户图片覆盖系统分配；中文两字名显示全名，三字及以上取末两字，英文取前两个词首字母；人员默认圆形，组织或系统可使用方形；群组控制展示数量并提供剩余计数。",
   },
   Badge: {
     anatomy: ["宿主内容", "数字或状态点", "可访问状态说明"],
     usage: "用于未读数量、待处理数量和轻量状态提醒。",
-    avoid: "不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。",
+    avoid: "不要使用分类标签色或品牌红表达业务状态，不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。",
     interaction: "Badge 不独立承担点击；宿主控件负责焦点和操作语义。",
-    content: "超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。",
+    content: "颜色复用语义 Token：info、success、warning、error 与 neutral；超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。",
   },
   Breadcrumb: {
     anatomy: ["路径项", "分隔符", "当前页", "可选折叠入口"],
@@ -457,7 +496,10 @@ for (const component of manifest.components) {
   component.contract = { ...defaultRules(component), ...(componentRules[component.name] || {}) };
   component.propDefinitions = (component.props || []).map((prop) => {
     const [type, description] = propCatalog[prop] || ["unknown", `${prop} 的组件合同字段；实现与文档必须保持一致。`];
-    return { name: prop, type, description };
+    const resolvedDescription = component.name === "Tag" && prop === "tone"
+      ? "标签的颜色语义；分类使用 8 种分类色或 neutral，状态使用 success、warning、error、info。"
+      : description;
+    return { name: prop, type, description: resolvedDescription };
   });
   component.delivery = {
     ...(previousDelivery || {}),

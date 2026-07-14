@@ -1,6 +1,16 @@
 import { useId, useRef, useState } from "react";
 import type { DragEvent, HTMLAttributes } from "react";
-import { CloudArrowUp, File, Trash, XCircle } from "@phosphor-icons/react";
+import { Trash, UploadSimple, XCircle } from "@phosphor-icons/react";
+import apiFileIcon from "../../assets/file-types/api.svg";
+import archiveFileIcon from "../../assets/file-types/archive.svg";
+import csvFileIcon from "../../assets/file-types/csv.svg";
+import databaseFileIcon from "../../assets/file-types/database.svg";
+import excelFileIcon from "../../assets/file-types/excel.svg";
+import imageFileIcon from "../../assets/file-types/image.svg";
+import otherFileIcon from "../../assets/file-types/other.svg";
+import pdfFileIcon from "../../assets/file-types/pdf.svg";
+import powerpointFileIcon from "../../assets/file-types/powerpoint.svg";
+import wordFileIcon from "../../assets/file-types/word.svg";
 
 export type UploadFile = {
   id: string;
@@ -24,13 +34,26 @@ export type UploadProps = Omit<HTMLAttributes<HTMLDivElement>, "onChange"> & {
   files?: UploadFile[];
   onChange?: (files: UploadFile[]) => void;
   onRemove?: (file: UploadFile) => void;
-  listType?: "text" | "card";
 };
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function getFileTypeIcon(fileName: string) {
+  const extension = fileName.split(".").pop()?.toLowerCase() ?? "";
+  if (["xls", "xlsx"].includes(extension)) return excelFileIcon;
+  if (extension === "csv") return csvFileIcon;
+  if (extension === "pdf") return pdfFileIcon;
+  if (["doc", "docx"].includes(extension)) return wordFileIcon;
+  if (["ppt", "pptx"].includes(extension)) return powerpointFileIcon;
+  if (["png", "jpg", "jpeg", "gif", "webp", "svg"].includes(extension)) return imageFileIcon;
+  if (["zip", "rar", "7z", "tar", "gz"].includes(extension)) return archiveFileIcon;
+  if (["json", "xml", "yaml", "yml"].includes(extension)) return apiFileIcon;
+  if (["sql", "db", "sqlite", "sqlite3"].includes(extension)) return databaseFileIcon;
+  return otherFileIcon;
 }
 
 let fileIdCounter = 0;
@@ -51,7 +74,6 @@ export function Upload({
   files: controlledFiles,
   onChange,
   onRemove,
-  listType = "text",
   className = "",
   id,
   ...props
@@ -63,6 +85,11 @@ export function Upload({
 
   const [internalFiles, setInternalFiles] = useState<UploadFile[]>([]);
   const currentFiles = controlledFiles ?? internalFiles;
+  const constraintText = [
+    helperText,
+    accept ? `支持格式：${accept}` : null,
+    maxSize ? `单文件不超过 ${formatSize(maxSize)}` : null,
+  ].filter(Boolean).join("；");
 
   const setFiles = (next: UploadFile[]) => {
     if (!controlledFiles) setInternalFiles(next);
@@ -118,13 +145,13 @@ export function Upload({
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
         className={[
-          "flex flex-col items-center justify-center rounded-[var(--radius-sm)] border-2 border-dashed p-6 transition-colors",
+          "flex flex-col items-center justify-center rounded-[var(--radius-sm)] border border-dashed p-6 transition-colors",
           disabled
             ? "cursor-not-allowed border-[var(--neutral-200)] bg-[var(--neutral-50)]"
             : dragOver
               ? "cursor-pointer border-[var(--product-blue-500)] bg-[var(--product-blue-50)]"
               : error
-                ? "cursor-pointer border-[var(--error-text)] bg-[var(--error-bg)]"
+                ? "cursor-pointer border-[var(--error-solid)] bg-[var(--neutral-50)]"
                 : "cursor-pointer border-[var(--neutral-300)] bg-[var(--neutral-50)] hover:border-[var(--product-blue-400)] hover:bg-[var(--product-blue-50)]",
           "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring-color)]",
         ].join(" ")}
@@ -134,13 +161,11 @@ export function Upload({
         onClick={() => { if (!disabled) inputRef.current?.click(); }}
         onKeyDown={(e) => { if (!disabled && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); inputRef.current?.click(); } }}
       >
-        <CloudArrowUp className={["mb-2 h-8 w-8", error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"].join(" ")} />
+        <UploadSimple size={40} weight="regular" aria-hidden="true" className="mb-2 text-[var(--text-tertiary)]" />
         <p className="text-sm text-[var(--text-secondary)]">
           拖拽文件到此处，或<span className="text-[var(--product-blue-500)]">点击上传</span>
         </p>
-        {helperText ? <p className="mt-1 text-xs text-[var(--text-tertiary)]">{helperText}</p> : null}
-        {accept ? <p className="mt-1 text-xs text-[var(--text-tertiary)]">支持格式：{accept}</p> : null}
-        {maxSize ? <p className="mt-1 text-xs text-[var(--text-tertiary)]">单文件不超过 {formatSize(maxSize)}</p> : null}
+        {constraintText ? <p className="mt-1 text-xs text-[var(--text-tertiary)]">{constraintText}</p> : null}
         <input
           ref={inputRef}
           type="file"
@@ -154,51 +179,38 @@ export function Upload({
       {error ? <p className="mt-1.5 text-xs leading-[var(--type-caption-line-height)] text-[var(--error-text)]">{error}</p> : null}
 
       {currentFiles.length > 0 && (
-        <ul className={["mt-3 space-y-2", listType === "card" ? "grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 space-y-0" : ""].join(" ")}>
+        <ul className="mt-3 space-y-2">
           {currentFiles.map((file) => (
             <li
               key={file.id}
               className={[
                 "flex items-center gap-3 rounded-[var(--radius-sm)] border bg-white p-3",
-                file.status === "error" ? "border-[var(--error-text)]" : "border-[var(--neutral-200)]",
-                listType === "card" ? "flex-col items-center text-center" : "",
+                file.status === "error" ? "border-[var(--error-solid)]" : "border-[var(--neutral-200)]",
               ].join(" ")}>
-              {listType === "card" ? (
-                <>
-                  {file.status === "error" ? (
-                    <XCircle className="h-8 w-8 text-[var(--error-text)]" />
-                  ) : (
-                    <File className="h-8 w-8 text-[var(--text-tertiary)]" />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-[var(--text-body)]" title={file.name}>{file.name}</p>
-                    <p className="mt-0.5 text-xs text-[var(--text-tertiary)]">{formatSize(file.size)}</p>
-                    {file.status === "error" && file.errorMessage ? (
-                      <p className="mt-0.5 text-xs text-[var(--error-text)]">{file.errorMessage}</p>
-                    ) : null}
-                  </div>
-                </>
+              {file.status === "error" ? (
+                <XCircle className="h-5 w-5 shrink-0 text-[var(--error-text)]" />
+              ) : file.status === "uploading" ? (
+                <svg className="h-5 w-5 shrink-0 animate-spin text-[var(--product-blue-500)]" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
+                  <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                </svg>
               ) : (
-                <>
-                  {file.status === "error" ? (
-                    <XCircle className="h-5 w-5 shrink-0 text-[var(--error-text)]" />
-                  ) : file.status === "uploading" ? (
-                    <svg className="h-5 w-5 shrink-0 animate-spin text-[var(--product-blue-500)]" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2.5" opacity="0.25" />
-                      <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
-                  ) : (
-                    <File className="h-5 w-5 shrink-0 text-[var(--text-tertiary)]" />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm text-[var(--text-body)]" title={file.name}>{file.name}</p>
-                    <p className="text-xs text-[var(--text-tertiary)]">{formatSize(file.size)}</p>
-                    {file.status === "error" && file.errorMessage ? (
-                      <p className="text-xs text-[var(--error-text)]">{file.errorMessage}</p>
-                    ) : null}
-                  </div>
-                </>
+                <img src={getFileTypeIcon(file.name)} alt="" aria-hidden="true" className="h-5 w-5 shrink-0" />
               )}
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm text-[var(--neutral-900)]" title={file.name}>{file.name}</p>
+                <p className="text-xs text-[var(--text-tertiary)]">
+                  {formatSize(file.size)}{file.status === "uploading" ? ` · 上传中 ${file.progress ?? 0}%` : ""}
+                </p>
+                {file.status === "uploading" ? (
+                  <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-[var(--neutral-100)]" aria-label={`上传进度 ${file.progress ?? 0}%`}>
+                    <div className="h-full rounded-full bg-[var(--product-blue-500)]" style={{ width: `${file.progress ?? 0}%` }} />
+                  </div>
+                ) : null}
+                {file.status === "error" && file.errorMessage ? (
+                  <p className="text-xs text-[var(--error-text)]">{file.errorMessage}</p>
+                ) : null}
+              </div>
               {!disabled ? (
                 <button
                   type="button"

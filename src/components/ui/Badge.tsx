@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from "react";
 
-type BadgeTone = "neutral" | "brand" | "product" | "danger" | "success" | "warning";
+type BadgeTone = "neutral" | "product" | "error" | "info" | "success" | "warning" | "danger";
 type BadgeSize = "sm" | "md";
 
 export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
@@ -15,11 +15,12 @@ export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 
 const toneClasses: Record<BadgeTone, string> = {
   neutral: "bg-[var(--neutral-700)] text-white",
-  brand: "bg-[var(--brand-600)] text-white",
   product: "bg-[var(--product-blue-500)] text-white",
-  danger: "bg-[var(--error-text)] text-white",
-  success: "bg-[var(--success-text)] text-white",
-  warning: "bg-[var(--warning-text)] text-white",
+  error: "bg-[var(--error-solid)] text-white",
+  danger: "bg-[var(--error-solid)] text-white",
+  info: "bg-[var(--info-dot)] text-white",
+  success: "bg-[var(--success-solid)] text-white",
+  warning: "bg-[var(--warning-solid)] text-white",
 };
 
 const sizeClasses: Record<BadgeSize, string> = {
@@ -31,7 +32,7 @@ export function Badge({
   count,
   dot = false,
   max = 99,
-  tone = "brand",
+  tone = "error",
   size = "md",
   showZero = false,
   children,
@@ -43,7 +44,7 @@ export function Badge({
   const badgeClassName = [
     "inline-flex items-center justify-center rounded-full font-normal",
     dot ? "h-2 w-2" : sizeClasses[size],
-    toneClasses[tone],
+    dot ? ({ neutral: "bg-[var(--neutral-400)]", product: "bg-[var(--product-blue-400)]", error: "bg-[var(--error-dot)]", danger: "bg-[var(--error-dot)]", info: "bg-[var(--info-dot)]", success: "bg-[var(--success-dot)]", warning: "bg-[var(--warning-dot)]" } as Record<BadgeTone, string>)[tone] : toneClasses[tone],
     className,
   ].join(" ");
 

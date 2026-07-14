@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-type EmptyVariant = "noData" | "noResult" | "noPermission" | "firstUse" | "error" | "processing" | "disabled";
+type EmptyVariant = "noData" | "noResult" | "noPermission" | "notFound" | "network" | "firstUse" | "error" | "processing" | "disabled";
 
 withDefaults(
   defineProps<{
@@ -52,6 +52,9 @@ withDefaults(
 .xc-empty--error .xc-empty__icon {
   color: var(--error-text);
 }
+
+.xc-empty--notFound .xc-empty__icon { color: var(--error-text); }
+.xc-empty--network .xc-empty__icon { color: var(--warning-text); }
 
 .xc-empty--noPermission .xc-empty__icon {
   color: var(--warning-text);

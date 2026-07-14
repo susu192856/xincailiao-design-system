@@ -6,20 +6,43 @@ import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/
 import DocsTable from "../../../components/docs/DocsTable";
 import { Upload } from "../../../components/ui/Upload";
 import type { UploadFile } from "../../../components/ui/Upload";
+import apiFileIcon from "../../../assets/file-types/api.svg";
+import archiveFileIcon from "../../../assets/file-types/archive.svg";
+import csvFileIcon from "../../../assets/file-types/csv.svg";
+import databaseFileIcon from "../../../assets/file-types/database.svg";
+import excelFileIcon from "../../../assets/file-types/excel.svg";
+import imageFileIcon from "../../../assets/file-types/image.svg";
+import otherFileIcon from "../../../assets/file-types/other.svg";
+import pdfFileIcon from "../../../assets/file-types/pdf.svg";
+import powerpointFileIcon from "../../../assets/file-types/powerpoint.svg";
+import wordFileIcon from "../../../assets/file-types/word.svg";
+
+const fileTypeIcons = [
+  { name: "API", extensions: "json · xml · yaml", src: apiFileIcon },
+  { name: "CSV", extensions: "csv", src: csvFileIcon },
+  { name: "Excel", extensions: "xls · xlsx", src: excelFileIcon },
+  { name: "数据库", extensions: "sql · db · sqlite", src: databaseFileIcon },
+  { name: "其他", extensions: "未知格式", src: otherFileIcon },
+  { name: "PDF", extensions: "pdf", src: pdfFileIcon },
+  { name: "Word", extensions: "doc · docx", src: wordFileIcon },
+  { name: "PPT", extensions: "ppt · pptx", src: powerpointFileIcon },
+  { name: "图片", extensions: "png · jpg · svg", src: imageFileIcon },
+  { name: "压缩包", extensions: "zip · rar · 7z", src: archiveFileIcon },
+];
 
 const anatomyRows = [
-  ["拖拽区", "2px 虚线边框 + neutral-50 背景；hover 时 product-blue-400 边框 + product-blue-50 背景；error 时 error-text 边框 + error-bg 背景。"],
-  ["上传图标", "CloudArrowUp，h-8 w-8 / text-tertiary；仅视觉引导，aria-hidden=true。"],
+  ["拖拽区", "1px 虚线边框 + neutral-50 背景；hover 时 product-blue-400 边框 + product-blue-50 背景；error 仅将边框改为 error-text。"],
+  ["上传图标", "使用图标规范中的 UploadSimple，40px / text-tertiary；仅视觉引导，aria-hidden=true。"],
   ["引导文案", "14px / text-secondary；点击或拖拽触发文件选择。"],
-  ["格式与大小提示", "12px / text-tertiary；明确支持格式和大小上限。"],
-  ["文件列表", "文本列表（linear）或卡片网格（card）；每种文件状态有对应图标和操作。"],
+  ["格式与大小提示", "12px / text-tertiary；格式、扩展名和大小上限合并为一行。"],
+  ["文件列表", "统一使用文本行列表；按扩展名显示 API、CSV、Excel、数据库、PDF、Word、PPT、图片、压缩包或其他类型图。"],
 ];
 
 const stateRows = [
   ["默认", "neutral-300 虚线边框", "等待用户操作或拖入文件。"],
   ["拖入悬停", "product-blue-400 虚线边框 + product-blue-50 背景", "视觉确认目标区域。"],
   ["已上传", "neutral-200 实线边框 + 文件名/大小/删除按钮", "允许删除。"],
-  ["上传失败", "error-text 边框 + error-text 错误原因", "明确失败原因和解决方式。"],
+  ["上传失败", "error-solid 边框 + error-text 错误原因", "背景与图标保持默认，用鲜亮边框和深色错误文字提示失败。"],
   ["禁用", "cursor-not-allowed + neutral-200 边框 + neutral-50 背景", "当前条件不允许上传。"],
 ];
 
@@ -35,12 +58,11 @@ const uploadProps = [
   ["files", "UploadFile[]", "—", "受控文件列表。"],
   ["onChange", "(files) => void", "—", "文件列表变化回调。"],
   ["onRemove", "(file) => void", "—", "删除文件回调。"],
-  ["listType", "text | card", "text", "文件展示模式。"],
 ];
 
 export default function UploadPage() {
   const [files, setFiles] = useState<UploadFile[]>([
-    { id: "1", name: "材料数据表-2026Q2.xlsx", size: 2457600, status: "done" },
+    { id: "1", name: "材料数据表-2026Q2.xlsx", size: 2457600, status: "uploading", progress: 68 },
     { id: "2", name: "性能参数汇总.pdf", size: 1024000, status: "done" },
   ]);
 
@@ -53,7 +75,7 @@ export default function UploadPage() {
       />
 
       <section>
-        <SectionHeading eyebrow="Anatomy" title="上传结构" description="拖拽区提供明确的视觉引导；文件列表支持文本行和卡片网格两种模式。" />
+        <SectionHeading eyebrow="Anatomy" title="上传结构" description="拖拽区提供明确的视觉引导；上传结果统一使用文本行列表。" />
         <div>
           <ExampleCard title="构成样式">
             <Upload label="上传文件" helperText="支持 PDF、Excel、图片格式" accept=".pdf,.xlsx,.xls,.png,.jpg" />
@@ -76,6 +98,21 @@ export default function UploadPage() {
               </DocsTable>
             </div>
           </ExampleCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="File Types" title="文件类型图标" description="图标统一使用 20×20 文件轮廓、折角结构和清晰的类型色，覆盖后台常见文件格式。" />
+        <div className="grid grid-cols-2 gap-3 bg-white p-5 sm:grid-cols-3 md:grid-cols-5">
+          {fileTypeIcons.map((item) => (
+            <div key={item.name} className="flex min-w-0 items-center gap-3 border border-[var(--neutral-200)] bg-white p-4">
+              <img src={item.src} alt="" aria-hidden="true" className="h-8 w-8 shrink-0 [image-rendering:auto]" />
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-[var(--neutral-900)]">{item.name}</p>
+                <p className="mt-1 truncate text-xs text-[var(--text-tertiary)]" title={item.extensions}>{item.extensions}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -126,29 +163,8 @@ export default function UploadPage() {
             <Upload label="上传文件" disabled helperText="当前不可上传" />
           </ExampleCard>
           <ExampleCard title="错误">
-            <Upload label="上传文件" error="文件格式不符合要求，请重新选择" />
+            <Upload label="上传文件" helperText="支持 PDF、Excel" accept=".pdf,.xlsx,.xls" maxSize={5 * 1024 * 1024} error="文件格式不符合要求，请重新选择" />
           </ExampleCard>
-          <ExampleCard title="卡片列表">
-            <Upload
-              label="材料图片"
-              listType="card"
-              multiple
-              accept=".png,.jpg,.jpeg"
-              files={[
-                { id: "a", name: "样品照片-01.png", size: 512000, status: "done" },
-                { id: "b", name: "检测报告.jpg", size: 890000, status: "done" },
-                { id: "c", name: "超大文件.pdf", size: 10485760, status: "error", errorMessage: "文件大小超过 5MB 限制" },
-              ]}
-            />
-          </ExampleCard>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Do / Don't" title="正确与错误示例" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div className="flex overflow-hidden rounded-[var(--radius-sm)]"><div className="flex min-w-0 flex-1 flex-col"><ExampleCard className="h-full flex-1" title="正确：明确格式和大小限制"><Upload label="上传检测报告" accept=".pdf,.xlsx" maxSize={5 * 1024 * 1024} helperText="支持 PDF、Excel，单文件不超过 5MB。" /></ExampleCard><div className="h-0.5 w-full shrink-0 bg-[var(--success-solid)]" /></div></div>
-          <div className="flex overflow-hidden rounded-[var(--radius-sm)]"><div className="flex min-w-0 flex-1 flex-col"><ExampleCard className="h-full flex-1" title="错误：无任何限制说明"><Upload label="上传文件" /><p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用户不知支持什么格式，失败后才被告知——应提前说明。</p></ExampleCard><div className="h-0.5 w-full shrink-0 bg-[var(--error-solid)]" /></div></div>
         </div>
       </section>
 
@@ -158,7 +174,8 @@ export default function UploadPage() {
           items={[
             "上传区应明确支持的文件格式和大小限制，避免用户上传失败后才获知规则。",
             "批量上传需限制最大文件数，超出时截断并提示。",
-            "文件列表支持文本列表和卡片网格两种展示模式。",
+            "文件列表统一使用文本行展示，不提供卡片网格变体。",
+            "文件类型图按扩展名映射；未知格式使用“其他”，上传失败优先展示错误图标而不是类型图。",
             "上传失败应显示具体原因（格式错误、大小超限、网络异常）。",
             "拖拽上传区有键盘支持（Enter/Space 触发），role=button 且可聚焦。",
             "仅支持前端文件选择和预览，实际上传需结合后端接口。",

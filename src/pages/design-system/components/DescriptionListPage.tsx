@@ -1,7 +1,7 @@
-import { ArrowLeft, ImageSquare } from "@phosphor-icons/react";
+import { ArrowLeft, Code, ImageSquare, Palette } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
-import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { ExampleCard, SectionHeading } from "../../../components/docs/ComponentDoc";
 import { DescriptionList } from "../../../components/ui/DescriptionList";
 import { Tag } from "../../../components/ui/Tag";
 import { Button } from "../../../components/ui/Button";
@@ -35,26 +35,74 @@ const fullDetailItems = [
 export default function DescriptionListPage() {
   return (
     <div className="space-y-16">
-      <PageHeader title="详情与描述列表" description="详情页延续表单的横向扫描逻辑：常规字段默认采用左右标签，密集参数和窄屏才切换为上下结构。" note={<>关联页面：数据先通过 <Link to="/components/input" className="font-medium text-[var(--product-blue-500)]">输入框</Link> 采集，再由 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link> 组合提交，最终进入只读详情视图。</>} />
+      <PageHeader title="详情与描述列表" description="详情页延续表单的横向扫描逻辑：同一页面统一采用左右标签，不因局部分组密度改变字段格式。" note={<>关联页面：数据先通过 <Link to="/components/input" className="font-medium text-[var(--product-blue-500)]">输入框</Link> 采集，再由 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link> 组合提交，最终进入只读详情视图。</>} />
+
+      <section>
+        <SectionHeading
+          eyebrow="Overview"
+          title="基本属性"
+          description="成组展示多个只读字段，一般用于详情页、审核摘要和数据资产信息。参考 Arco Design（设计系统）的分类方式，先区分简单展示与带边框展示，再按内容密度选择排列模式。"
+        />
+        <div className="border border-[var(--neutral-200)] bg-white p-6">
+          <div className="space-y-8">
+            <div>
+              <div className="mb-4">
+                <div>
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">简单展示</h3>
+                  <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">无外边框，以更充足的字段间距组织内容，适合卡片内部、页面摘要和轻量信息组。</p>
+                </div>
+              </div>
+              <DescriptionList bordered={false} columns={2} size="sm" items={materialItems.slice(0, 4)} />
+            </div>
+            <div>
+              <div className="mb-4">
+                <div>
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">带边框展示</h3>
+                  <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">浅灰标签区与白色内容区建立键值层级，适合独立详情模块和对比阅读。</p>
+                </div>
+              </div>
+              <DescriptionList columns={2} size="sm" items={materialItems.slice(0, 4)} />
+            </div>
+          </div>
+          <div className="mt-8 border-l-2 border-[var(--neutral-900)] bg-[var(--neutral-50)] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">规则摘要</p>
+            <div className="mt-4 grid gap-5 md:grid-cols-3 md:gap-0 md:divide-x md:divide-[var(--neutral-200)]">
+              {[
+                ["组件构成", "分组标题（可选）· 字段标签 · 字段值 · 状态或操作（可选）"],
+                ["排列模式", "水平、垂直、行内水平、行内垂直；同一信息组保持一致"],
+                ["尺寸与响应式", "Small 单行参考高度 44px，用于密集信息；Medium 为 54px，用于常规详情；折行时自然增高"],
+              ].map(([title, content]) => (
+                <div key={title} className="border-t border-[var(--neutral-200)] pt-4 md:border-t-0 md:px-5 md:pt-0 md:first:pl-0 md:last:pr-0">
+                  <h3 className="text-xs font-semibold text-[var(--text-primary)]">{title}</h3>
+                  <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">{content}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">
+            标题用于概括整组信息，由页面分组标题承载，不写入每个 DescriptionList 字段网格。分类方式参考{
+            } <a href="https://arco.design/docs/spec/descriptions" target="_blank" rel="noreferrer" className="text-[var(--product-blue-500)] underline underline-offset-4">Arco Design 描述列表</a>，视觉与尺寸继续使用本设计系统 Token。
+          </p>
+        </div>
+      </section>
 
       <section>
         <SectionHeading
           eyebrow="Complete Detail Page"
           title="详情页模式"
-          description="这是 DescriptionList 的上层页面模式，用于说明标题、状态、字段分组和操作栏如何组合；它们不是 DescriptionList 组件本身的 API。"
+          description="这是描述列表（DescriptionList）的上层页面模式，用于说明标题、状态、字段分组和操作栏如何组合；它们不是描述列表组件本身的接口（API）。"
         />
         <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
           {/* 详情页头部 */}
-          <div className="flex items-start justify-between gap-4 border-b border-[var(--neutral-200)] px-6 py-4">
+          <div className="border-b border-[var(--neutral-200)] px-6 py-4">
             <div>
               <h3 className="text-lg font-semibold text-[var(--text-primary)]">GH4169 高温合金</h3>
               <p className="mt-1 text-xs text-[var(--text-tertiary)]">材料编码：MAT-2026-0618-002 · 更新于 2026-06-30</p>
             </div>
-            <Tag variant="success" size="sm">已校验</Tag>
           </div>
 
           {/* 分组一：基础信息 */}
-          <div className="border-b border-[var(--neutral-100)] px-6 py-4">
+          <div className="relative px-6 py-4 after:absolute after:bottom-0 after:left-6 after:right-6 after:h-px after:bg-[var(--neutral-100)]">
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">基础信息</h3>
             <DescriptionList
               bordered={false}
@@ -65,24 +113,24 @@ export default function DescriptionListPage() {
           </div>
 
           {/* 分组二：力学性能 */}
-          <div className="border-b border-[var(--neutral-100)] px-6 py-4">
+          <div className="relative px-6 py-4 after:absolute after:bottom-0 after:left-6 after:right-6 after:h-px after:bg-[var(--neutral-100)]">
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">力学性能</h3>
             <DescriptionList
               bordered={false}
-              columns={4}
+              columns={2}
               size="sm"
-              layout="stacked"
+              layout="inline"
               items={fullDetailItems.slice(5, 9)}
             />
           </div>
 
           {/* 分组三：检测与文件 */}
-          <div className="border-b border-[var(--neutral-100)] px-6 py-4">
+          <div className="relative px-6 py-4 after:absolute after:bottom-0 after:left-6 after:right-6 after:h-px after:bg-[var(--neutral-100)]">
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">检测与文件</h3>
             <DescriptionList
               bordered={false}
               layout="inline"
-              labelWidth={80}
+              labelWidth={88}
               columns={2}
               size="sm"
               items={fullDetailItems.slice(9, 13)}
@@ -90,7 +138,7 @@ export default function DescriptionListPage() {
           </div>
 
           {/* 分组四：治理说明（长文本跨列） */}
-          <div className="border-b border-[var(--neutral-100)] px-6 py-4">
+          <div className="relative px-6 py-4 after:absolute after:bottom-0 after:left-6 after:right-6 after:h-px after:bg-[var(--neutral-100)]">
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">治理记录</h3>
             <DescriptionList
               bordered={false}
@@ -101,7 +149,7 @@ export default function DescriptionListPage() {
           </div>
 
           {/* 详情页底部操作栏 */}
-          <div className="flex items-center justify-between gap-3 px-6 py-3">
+          <div className="mt-4 flex items-center justify-between gap-3 px-6 pb-4">
             <Button variant="ghost" size="sm">返回列表</Button>
             <div className="flex gap-2">
               <Button variant="outline" size="sm">导出报告</Button>
@@ -115,7 +163,7 @@ export default function DescriptionListPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Variants" title="展示结构与混用边界" description="同一详情页允许常规信息使用左右结构、密集参数使用上下结构，但必须按信息分组切换，不能在同一字段组内随意交替。" />
+        <SectionHeading eyebrow="Variants" title="展示结构与使用边界" description="左右与上下结构都是组件能力，但同一详情页面只能选择一种扫描方向；上下结构适用于独立的参数摘要，不与左右结构在同页混用。" />
         <div className="space-y-5">
           <ExampleCard title="标准网格 · 2 列左右结构" description="详情页默认使用 2 列，标签固定宽度并右对齐，延续编辑表单的扫描路径。">
             <DescriptionList items={materialItems} columns={2} />
@@ -123,17 +171,17 @@ export default function DescriptionListPage() {
           <ExampleCard title="长标签 · 统一扩展宽度" description="同一信息组出现长业务标签时，整体扩展标签宽度，不单独调整某一字段。">
             <DescriptionList
               layout="inline"
-              labelWidth={112}
+              labelWidth={152}
               columns={2}
               items={[
-                { label: "数据空间", value: "新材料可信数据空间" },
-                { label: "数据等级", value: <Tag variant="product" size="sm">内部共享</Tag> },
-                { label: "授权方式", value: "合约授权 / 审计追踪" },
-                { label: "有效周期", value: "2026-06-01 至 2026-12-31" },
+                { label: "可信数据空间名称", value: "新材料可信数据空间" },
+                { label: "数据共享等级", value: <Tag variant="product" size="sm">内部共享</Tag> },
+                { label: "数据授权方式", value: "合约授权 / 审计追踪" },
+                { label: "授权有效周期", value: "2026-06-01 至 2026-12-31" },
               ]}
             />
           </ExampleCard>
-          <ExampleCard title="高密度参数 · 4 列上下结构" description="单元格横向空间不足时，按整个参数分组切换为上下结构；不承载状态标签和长文本。">
+          <ExampleCard title="独立参数摘要 · 4 列上下结构" description="用于单独的指标摘要模块，不作为详情页局部空间不足时的回退方式；不承载状态标签和长文本。">
             <DescriptionList
               columns={4}
               size="sm"
@@ -201,10 +249,10 @@ export default function DescriptionListPage() {
               ].map(([name, type, status]) => (
                 <div key={name} className="grid grid-cols-[1fr_auto] gap-4 py-3">
                   <div>
-                    <p className="text-sm leading-5 text-[var(--text-primary)]">{name}</p>
+                    <p className="text-sm font-medium leading-5 text-[var(--text-primary)]">{name}</p>
                     <p className="mt-1 text-xs text-[var(--text-tertiary)]">{type}</p>
                   </div>
-                  <Tag variant={status === "待确认" ? "warning" : "neutral"} size="sm">{status}</Tag>
+                  <Tag variant={status === "待确认" ? "warning" : "neutral"} size="sm" className="self-center">{status}</Tag>
                 </div>
               ))}
             </div>
@@ -214,7 +262,7 @@ export default function DescriptionListPage() {
 
       <section>
         <SectionHeading eyebrow="States" title="后台常见状态" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-5">
           <ExampleCard title="空值与未填写">
             <DescriptionList
               columns={2}
@@ -242,11 +290,12 @@ export default function DescriptionListPage() {
             />
             <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">脱敏字段保留部分信息以供辨识，其余用 * 代替，禁止直接暴露敏感原文。</p>
           </ExampleCard>
-          <ExampleCard title="长文本与跨列">
+          <ExampleCard title="带边框折行与跨列" description="值折行时整行随内容增高，浅灰标签背景同步撑满行高并保持顶部对齐。">
             <DescriptionList
               columns={2}
               items={[
                 { label: "数据治理说明", value: "该数据集经过字段标准化、单位换算、异常值识别和责任部门复核，可用于模型训练和业务分析。", span: 2 },
+                { label: "数据资源标识", value: "urn:xincailiao:trusted-data-space:material-dataset:GH4169:BATCH-2026-0618", span: 2 },
                 { label: "权限说明", value: "外部访问需要经过数据空间合约授权，并记录审计日志。", span: 2 },
               ]}
             />
@@ -255,21 +304,91 @@ export default function DescriptionListPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <SpecList
-          items={[
-            "常规详情字段默认使用 2 列左右结构；性能参数等密集数值可整组切换为 4 列上下结构。",
-            "标签使用 14px Regular、text-tertiary，固定宽度后右对齐；值使用 text-primary，状态值可使用 Tag。",
-            "长文本使用 span 跨列，不要塞入 3 列以上的字段网格。",
-            "左右结构默认 label 88px、间隔 8px；同组长标签统一扩展到 96–120px，不逐项设置不同宽度。",
-            "图文资料作为同一信息组：图片/附件在左（160px），关键字段在右紧随。",
-            "空值统一显示 '未填写' 或 '--'，不直接留空；敏感字段按业务规则脱敏，保留格式前缀。",
-            "完整详情页结构：标题 → 状态标签 → 分组描述列表 → 底部操作栏。",
-            "分组区块纵向内边距统一 py-4，区块标题使用 text-xs uppercase + 字间距 0.16em。",
-            "同页允许按信息组混用左右和上下结构，但同一分组内保持一致；窄屏统一降级为上下结构。",
-            "示例与导航图标统一来自 @phosphor-icons/react，常规图标使用 16px regular。",
-          ]}
-        />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" description="先阅读不可违反的核心规则，再按角色查看实施要求；低频内容规则默认收起。" />
+        <div className="space-y-5">
+          <div className="border-l-2 border-[var(--neutral-900)] bg-[var(--neutral-50)] p-5">
+            <div className="flex items-center gap-2">
+              <span className="border border-[var(--warning-border)] bg-[var(--warning-bg)] px-2 py-0.5 text-xs font-semibold text-[var(--warning-text)]">重点必读</span>
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">所有角色必读</h3>
+            </div>
+            <ol className="mt-4 grid gap-3 md:grid-cols-2">
+              {[
+                "同一详情页统一使用 2 列左右结构，不因字段数量或局部空间切换扫描方向。",
+                "标签和值统一使用 14px；标签宽度按信息组统一设置，不能逐项变化。",
+                "左右与上下结构不可在同一详情页混用；窄屏时由整页统一降级。",
+                "值允许折行且不能产生横向溢出；折行后标签背景必须与内容行等高。",
+              ].map((item, index) => (
+                <li key={item} className="flex gap-3 text-sm leading-6 text-[var(--text-secondary)]">
+                  <span className="shrink-0 font-semibold tabular-nums text-[var(--text-primary)]">0{index + 1}</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {[
+              {
+                label: "设计师须知",
+                description: "用于确定视觉类型、密度与页面扫描路径。",
+                icon: <Palette size={16} weight="regular" aria-hidden="true" />,
+                iconClass: "bg-[var(--product-blue-50)] text-[var(--product-blue-600)]",
+                items: [
+                  "无边框样式使用 12px 标签值间距、20–24px 纵向留白和 40px 列间距。",
+                  "带边框样式使用浅灰标签背景、白色内容背景和 1px 行分隔线。",
+                  "Small 单行参考高度 44px；Medium 54px，同页保持同一尺寸。",
+                  "长标签按同组最长项统一扩展到 120–160px；长文本优先跨列。",
+                  "分组线左右缩进 24px；底部操作区与最后一组保持 16px 间距。",
+                ],
+              },
+              {
+                label: "开发必看",
+                description: "用于保证语义、响应式与内容边界一致。",
+                icon: <Code size={16} weight="regular" aria-hidden="true" />,
+                iconClass: "bg-[var(--neutral-100)] text-[var(--text-primary)]",
+                items: [
+                  "使用 DescriptionList 的 dl / dt / dd 语义，不用普通 div 模拟键值关系。",
+                  "labelWidth 包含单元格内边距；同一实例只传一个统一值。",
+                  "无空格链接和标识使用安全换行；值容器必须 min-width: 0。",
+                  "折行由内容自然撑高，带边框标签区与内容区保持 stretch 等高。",
+                  "窄屏按组件断点整体切换单列，不根据单个字段宽度改变 layout。",
+                ],
+              },
+            ].map((group) => (
+              <div key={group.label} className="border border-[var(--neutral-200)] bg-white p-5">
+                <div className="flex items-start gap-3">
+                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center ${group.iconClass}`}>{group.icon}</div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">{group.label}</h3>
+                    <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">{group.description}</p>
+                  </div>
+                </div>
+                <ul className="mt-4 space-y-3">
+                  {group.items.map((item) => (
+                    <li key={item} className="flex gap-2 text-sm leading-6 text-[var(--text-secondary)]">
+                      <span className="mt-2 h-1 w-1 shrink-0 bg-[var(--neutral-400)]" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <details className="group border border-[var(--neutral-200)] bg-white">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]">
+              <span>补充规则 · 内容与业务场景</span>
+              <span className="text-xs font-normal text-[var(--text-tertiary)] group-open:hidden">展开查看</span>
+              <span className="hidden text-xs font-normal text-[var(--text-tertiary)] group-open:inline">收起</span>
+            </summary>
+            <div className="hidden gap-3 border-t border-[var(--neutral-200)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)] group-open:grid md:grid-cols-2">
+              <p>空值统一显示“未填写”或“--”；敏感字段按业务规则脱敏并保留可辨识格式。</p>
+              <p>图文资料作为同一信息组：图片或附件在左侧，关键字段在右侧紧随。</p>
+              <p>完整详情页按“标题 → 分组描述列表 → 底部操作栏”组织，不重复展示同一状态。</p>
+              <p>空值、脱敏和折行等边界示例使用上下通栏卡片，避免文档分栏干扰组件宽度。</p>
+            </div>
+          </details>
+        </div>
       </section>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">

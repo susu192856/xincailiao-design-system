@@ -7,6 +7,7 @@ import { SectionHeading, SubsectionHeading } from "../../components/docs/Compone
 import DocsTable from "../../components/docs/DocsTable";
 import { chartColorFamilies } from "../../data/chartColors";
 import PageHeader from "../../components/docs/PageHeader";
+import { Tag, type TagVariant } from "../../components/ui/Tag";
 
 type ColorToken = {
   name: string;
@@ -21,6 +22,7 @@ type SemanticColor = {
   text: string;
   background: string;
   border: string;
+  dot: string;
   usage: string;
   sample: string;
 };
@@ -48,7 +50,8 @@ function SemanticCard({ color }: { color: SemanticColor }) {
 
         <div className="mt-5 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
           {[
-            ["文字 / 图标", color.text],
+            ["状态前景色", color.text],
+            ["状态圆点色", color.dot],
             ["浅背景", color.background],
             ["边框", color.border],
           ].map(([role, value]) => (
@@ -112,10 +115,22 @@ export default function ColorsPage() {
   ];
 
   const semanticColors: SemanticColor[] = [
-    { name: "success", text: "#009A29", background: "#E8FFEA", border: "#AFF0B5", label: "成功状态", usage: "用于保存成功、流程完成、校验通过等正向反馈。", sample: "操作成功" },
-    { name: "warning", text: "#FF7D00", background: "#FFF7E8", border: "#FFE4BA", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。", sample: "需要关注" },
-    { name: "error", text: "#F53F3F", background: "#FFECE8", border: "#FDCDC5", label: "错误 / 危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。", sample: "操作失败" },
-    { name: "info", text: "#3491FA", background: "#E8F7FF", border: "#C3E7FE", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。", sample: "系统通知" },
+    { name: "success", text: "#007A20", dot: "#00B42A", background: "#E8FFEA", border: "#AFF0B5", label: "成功状态", usage: "用于保存成功、流程完成、校验通过等正向反馈。", sample: "操作成功" },
+    { name: "warning", text: "#A64B00", dot: "#FF7D00", background: "#FFF7E8", border: "#FFE4BA", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。", sample: "需要关注" },
+    { name: "error", text: "#C62828", dot: "#F53F3F", background: "#FFECE8", border: "#FDCDC5", label: "错误 / 危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。", sample: "操作失败" },
+    { name: "info", text: "#0057A8", dot: "#3491FA", background: "#E8F7FF", border: "#C3E7FE", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。", sample: "系统通知" },
+  ];
+
+  const categoryColors = [
+    ["琥珀分类", "amber", "#FDF4E5", "#FADFB2", "#45310F", "data-amber"],
+    ["橙色分类", "orange", "#FDF2EC", "#FAD9C7", "#823618", "data-orange"],
+    ["粉色分类", "pink", "#FDF1F3", "#F9D5DC", "#861E29", "data-pink"],
+    ["品红分类", "magenta", "#FCF0FA", "#F5D3EF", "#691A58", "data-magenta"],
+    ["紫色分类", "purple", "#F5F3FE", "#E2DAFC", "#3C13BE", "data-purple"],
+    ["靛蓝分类", "indigo", "#F2F5FE", "#D9E0FC", "#1F3188", "data-indigo"],
+    ["蓝色分类", "blue", "#EFF7FE", "#CEE8FD", "#1C4062", "data-blue"],
+    ["绿色分类", "green", "#EDF8F4", "#C8EADF", "#204838", "data-green"],
+    ["中性分类", "neutral", "#F7F8FA", "#E6E9EE", "#4B5563", "neutral"],
   ];
 
   const coreColorRules = [
@@ -205,7 +220,7 @@ export default function ColorsPage() {
     <div className="space-y-20">
       <PageHeader
         title="色彩系统"
-        description="色彩系统以中性灰建立信息秩序，以 task 黑色推进提交、确认、发布和创建等任务，以 product 蓝色承载分析、生成、连接、筛选和导出等产品能力。品牌红仅用于品牌识别与关键转化，错误与风险使用独立语义色。"
+        description="色彩系统以中性灰建立信息秩序，以任务色（Task）黑色推进提交、确认、发布和创建，以产品色（Product）蓝色承载分析、生成、连接、筛选和导出。品牌红仅用于品牌识别与关键转化，错误与风险使用独立语义色。"
       />
 
       <section>
@@ -236,7 +251,7 @@ export default function ColorsPage() {
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">product-blue-500 · #006DEA</p>
               <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：产品功能语言</strong>——标记可交互、可操作的元素。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于功能按钮、链接、分析生成能力、数据图表，以及 Radio、Checkbox、Switch 的选中状态。所有表单控件的 Focus 使用中性黑，避免把状态蓝与键盘焦点混为一体。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于功能按钮、链接、分析生成能力、数据图表，以及单选框（Radio）、复选框（Checkbox）、开关（Switch）的选中状态。所有表单控件的聚焦态（Focus）使用中性黑，避免把状态蓝与键盘焦点混为一体。</p>
             </div>
           </div>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
@@ -248,7 +263,7 @@ export default function ColorsPage() {
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">neutral-900 · #1A1A1A</p>
               <p className="text-sm leading-6 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">角色：任务推进与结构骨架</strong>——表达确定性并贯穿所有场景。</p>
-              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于提交、确认、保存和发布等结果型操作，也用于正文、标题、导航以及所有表单控件的边框与 Focus 建立结构秩序。黑色强调确定性，不与产品蓝的选中状态混用。</p>
+              <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">用于提交、确认、保存和发布等结果型操作，也用于正文、标题、导航以及所有表单控件的边框与聚焦态（Focus）建立结构秩序。黑色强调确定性，不与产品蓝的选中状态混用。</p>
             </div>
           </div>
         </div>
@@ -262,27 +277,27 @@ export default function ColorsPage() {
         <SectionHeading
           eyebrow="Color Scales"
           title="色阶系统"
-          description="色阶用于背景、悬停、按下、标签、弱强调等状态。优先使用已有 token，不临时创造相近色。"
+          description="色阶用于背景、悬停、按下、标签、弱强调等状态。优先使用已有设计变量（Token），不临时创造相近色。"
         />
         <div className="space-y-10">
           <div>
             <SubsectionHeading eyebrow="Brand" title="品牌红色阶" tone="brand" />
-            <div className="overflow-x-auto bg-white p-4">
-              <ColorScaleGrid colors={brandColors} className="min-w-[980px]" />
+            <div className="bg-white p-4">
+              <ColorScaleGrid colors={brandColors} />
             </div>
           </div>
 
           <div>
             <SubsectionHeading eyebrow="Product" title="产品蓝色阶" tone="product" />
-            <div className="overflow-x-auto bg-white p-4">
-              <ColorScaleGrid colors={productColors} className="min-w-[980px]" />
+            <div className="bg-white p-4">
+              <ColorScaleGrid colors={productColors} />
             </div>
           </div>
 
           <div>
             <SubsectionHeading eyebrow="Neutral" title="中性灰色阶" />
-            <div className="overflow-x-auto bg-white p-4">
-              <ColorScaleGrid colors={neutralColors} className="min-w-[980px]" />
+            <div className="bg-white p-4">
+              <ColorScaleGrid colors={neutralColors} />
             </div>
           </div>
         </div>
@@ -321,10 +336,10 @@ export default function ColorsPage() {
       <section>
         <SectionHeading
           eyebrow="Decision Guide"
-          title="任务黑 vs 产品蓝 — 如何选择"
+          title="任务黑与产品蓝 — 如何选择"
           description="这是新材道色彩模型中最需要判断力的一层：两个都可以用在按钮上，但承担的「语气」不同。以下场景帮助快速决策。"
         />
-        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="bg-white">
           <DocsTable>
             <thead>
               <tr>
@@ -340,7 +355,7 @@ export default function ColorsPage() {
                 ["查看详情 / 了解更多 / 跳转链接", "蓝色（Product）", "引导探索，不改变数据状态。"],
                 ["筛选 / 搜索 / 下载 / 导出", "蓝色（Product）", "产品功能操作，不改变业务结果。"],
                 ["新建 / 创建 / 生成", "黑色（Task）", "新增是一条业务流程的起点，需要明确触发。"],
-                ["取消 / 返回 / 关闭（不改变数据）", "灰色（Ghost）", "用 outline 或文字按钮，保持操作层级合理。"],
+                ["取消 / 返回 / 关闭（不改变数据）", "灰色（Ghost）", "用描边型（outline）或文字按钮，保持操作层级合理。"],
                 ["删除 / 不可逆操作", "语义红色（Error）", "严禁用品牌红或黑色替代。红色 + 二次确认。"],
               ].map(([scenario, choice, reason]) => (
                 <tr key={scenario}>
@@ -354,7 +369,7 @@ export default function ColorsPage() {
         </div>
         <div className="mt-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">简单记法：</strong>
-          黑色 = "我决定了一件事"；蓝色 = "我想看看 / 用用这个功能"。如果按钮同时改变数据又引导探索（少数情况），优先按"是否改变业务结果"来判断。
+          黑色（Task）= "我决定了一件事"；蓝色（Product）= "我想看看 / 用用这个功能"。如果按钮同时改变数据又引导探索（少数情况），优先按"是否改变业务结果"来判断。
         </div>
       </section>
 
@@ -362,13 +377,38 @@ export default function ColorsPage() {
         <SectionHeading
           eyebrow="Semantic Colors"
           title="语义色"
-          description="语义色用于状态反馈。尤其注意：错误/危险使用 error，不使用品牌红，避免品牌识别和风险提示混淆。"
+          description="语义色用于状态反馈。错误或危险使用错误语义（error），不使用品牌红，避免品牌识别和风险提示混淆。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {semanticColors.map((color) => (
             <SemanticCard key={color.name} color={color} />
           ))}
         </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Category Tag Colors"
+          title="分类标签色"
+          description="8 种有色分类标签与数据可视化共用色相来源，只承担类别区分，不表达成功、警告或错误。珊瑚和红色保留给图表、品牌及错误语义，不用于分类标签。背景由色系 0 阶按 14% 与白色混合，边框按 42% 混合，文字由 6 阶混入 18% 中性黑。无需颜色区分时使用 neutral。"
+        />
+        <DocsTable>
+          <thead>
+            <tr><th>类别</th><th>颜色语义（tone）</th><th>色相来源</th><th>背景</th><th>边框</th><th>文字</th></tr>
+          </thead>
+          <tbody>
+            {categoryColors.map(([label, tone, background, border, text, source]) => (
+              <tr key={tone}>
+                <td><Tag variant={tone as TagVariant} size="sm">{label}</Tag></td>
+                <td className="font-token">{tone}</td>
+                <td className="font-token">{source === "neutral" ? "neutral-50 / 200 / 700" : `${source}-0 / 6`}</td>
+                <td><ColorChip color={background} /></td>
+                <td><ColorChip color={border} /></td>
+                <td><ColorChip color={text} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
 
       <section>
@@ -417,7 +457,7 @@ export default function ColorsPage() {
             <li><strong className="text-[var(--text-primary)]">序列数 ≤ 6：</strong>从 10 个色系中选取不同色系，相邻系列避免使用同一色系的近似层级。</li>
             <li><strong className="text-[var(--text-primary)]">序列数 ≥ 7：</strong>配合线型、点型、透明度或图例分组，不只依赖颜色区分。</li>
             <li><strong className="text-[var(--text-primary)]">面积图 / 饼图：</strong>颜色超过 6 类时应合并为"其他"，避免大量颜色削弱可读性。</li>
-            <li><strong className="text-[var(--text-primary)]">风险与阈值：</strong>优先使用 <span className="font-semibold">error-text</span> 或 <span className="font-semibold">warning-text</span> 标注异常和阈值线，不占用普通数据序列的颜色。</li>
+            <li><strong className="text-[var(--text-primary)]">风险与阈值：</strong>优先使用错误强调色（<span className="font-token">--error-text</span>）或警告强调色（<span className="font-token">--warning-text</span>）标注异常和阈值线，不占用普通数据序列的颜色。</li>
             <li><strong className="text-[var(--text-primary)]">品牌红在图表中：</strong>仅用于标注关键阈值、异常结果或业务重点，不作为普通序列色。</li>
           </ul>
         </div>

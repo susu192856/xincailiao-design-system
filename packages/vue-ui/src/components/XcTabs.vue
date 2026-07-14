@@ -37,7 +37,7 @@ const props = withDefaults(
   defineProps<{
     items: XcTabItem[];
     modelValue?: string;
-    variant?: "line" | "card" | "segment";
+    variant?: "line" | "page" | "card" | "segment" | "text";
     size?: "sm" | "md" | "lg";
   }>(),
   {
@@ -67,6 +67,7 @@ function selectTab(value: string) {
 
 .xc-tabs__list {
   display: flex;
+  gap: 16px;
   border-bottom: 1px solid var(--neutral-200);
   overflow-x: auto;
 }
@@ -95,6 +96,13 @@ function selectTab(value: string) {
   background: var(--neutral-100);
   padding: 4px;
 }
+.xc-tabs--page .xc-tabs__list { gap: 0; border: 0; background: #fff; padding: 0 8px; }
+.xc-tabs--page .xc-tabs__trigger { position: relative; border: 0; }
+.xc-tabs--page .xc-tabs__trigger:not(:last-child)::after { position: absolute; top: 50%; right: 0; width: 1px; height: 16px; background: var(--neutral-200); content: ""; transform: translateY(-50%); }
+.xc-tabs--page .xc-tabs__trigger--active { font-weight: 600; }
+.xc-tabs--text .xc-tabs__list { width: fit-content; gap: 12px; border: 0; }
+.xc-tabs--text .xc-tabs__trigger { border: 0; padding-right: 8px; padding-left: 8px; }
+.xc-tabs--text .xc-tabs__trigger--active { font-weight: 600; }
 .xc-tabs--segment .xc-tabs__trigger { border: 0; border-radius: var(--radius-sm); }
 .xc-tabs--segment .xc-tabs__trigger--active { background: #fff; box-shadow: var(--shadow-xs); }
 .xc-tabs--card .xc-tabs__list { gap: 4px; border: 0; }

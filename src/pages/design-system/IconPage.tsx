@@ -509,14 +509,14 @@ export default function IconPage() {
     <div className="space-y-20">
       <PageHeader
         title="图标系统"
-        description="新材道优先复用 Phosphor Icons 作为基础功能图标来源，但不受限于其完整图库；当业务语义没有合适图标时，可按统一规则设计自定义功能图标，并以自有装饰性图标补充品牌表达与模块识别。"
+        description="新材道优先复用 Phosphor Icons（图标库）作为基础功能图标来源，但不受限于其完整图库；当业务语义没有合适图标时，可按统一规则设计自定义功能图标，并以自有装饰性图标补充品牌表达与模块识别。"
       />
 
       <section>
         <SectionHeading
           eyebrow="Icon Sizes"
           title="图标尺寸"
-          description="以编辑图标为统一样本，直观比较不同尺寸的实际视觉比例。这里的尺寸指 SVG 画布的宽高，包含 Phosphor Icons 图形自带的安全留白；后台产品优先使用 16px / 20px 画布，展示场景可使用更大尺寸。"
+          description="以编辑图标为统一样本，直观比较不同尺寸的实际视觉比例。这里的尺寸指可缩放矢量图（SVG）画布的宽高，包含 Phosphor Icons（图标库）图形自带的安全留白；后台产品优先使用 16px / 20px 画布，展示场景可使用更大尺寸。"
         />
         <div className="grid grid-cols-2 gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)] md:grid-cols-3 xl:grid-cols-6">
           {iconSizes.map((item) => (
@@ -540,7 +540,7 @@ export default function IconPage() {
         <SectionHeading
           eyebrow="Custom Icon Design"
           title="图标设计规范"
-          description="这套规范覆盖从提出需求、制作图标到页面接入的全过程。设计师可直接按 24px 画布操作，无需换算 SVG 内部坐标。"
+          description="这套规范覆盖从提出需求、制作图标到页面接入的全过程。设计师可直接按 24px 画布操作，无需换算可缩放矢量图（SVG）内部坐标。"
         />
         <div className="grid grid-cols-1 overflow-hidden border border-[var(--neutral-200)] bg-white lg:grid-cols-[minmax(280px,0.9fr)_minmax(360px,1.1fr)]">
           <CustomIconRuleDiagram />
@@ -734,7 +734,7 @@ import { Icon } from "@/components/ui";
                   <button
                     type="button"
                     onClick={() => downloadDecorativeSvg(item)}
-                    title="下载 SVG"
+                    title="下载可缩放矢量图（SVG）"
                     aria-label="下载 SVG"
                     className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
                   >
@@ -759,9 +759,9 @@ import { Icon } from "@/components/ui";
         <SectionHeading eyebrow="Governance" title="维护与交付原则" />
         <div className="bg-white p-6">
           <ul className="space-y-3 text-sm leading-relaxed text-[var(--text-secondary)]">
-            <li>• <strong className="text-[var(--text-primary)]">Codex 维护：</strong>常用图标使用显式白名单，每项同时维护中文语义、Phosphor 组件名和组件引用；删除图标时同步删除对应导入，不保留隐藏候选项或占位 SVG。</li>
+            <li>• <strong className="text-[var(--text-primary)]">Codex（代码协作工具）维护：</strong>常用图标使用显式白名单，每项同时维护中文语义、Phosphor 组件名和组件引用；删除图标时同步删除对应导入，不保留隐藏候选项或占位可缩放矢量图（SVG）。</li>
             <li>• <strong className="text-[var(--text-primary)]">前端使用：</strong>基础功能图标从 <code className="font-mono text-xs">@phosphor-icons/react</code> 引入，通过 <code className="font-mono text-xs">SystemIcon</code> 或业务组件传入；颜色跟随 <code className="font-mono text-xs">currentColor</code>，交互图标必须提供可访问名称。</li>
-            <li>• <strong className="text-[var(--text-primary)]">Figma 导入：</strong>Phosphor 图标优先从官方 Figma 资源取得；自定义图标仅在确认 24 × 24px 画布、轮廓化描边、无背景层和多余蒙版、名称一致后导入。本页面不会自动执行 Figma 导入。</li>
+            <li>• <strong className="text-[var(--text-primary)]">Figma（设计工具）导入：</strong>Phosphor 图标优先从官方 Figma（设计工具）资源取得；自定义图标仅在确认 24 × 24px 画布、轮廓化描边、无背景层和多余蒙版、名称一致后导入。本页面不会自动执行 Figma 导入。</li>
             <li>• <strong className="text-[var(--text-primary)]">新增前检查：</strong>先检索 Phosphor Icons 和当前白名单；只有没有准确语义时才新增自定义图标，并在 16 / 20 / 24px 页面环境中完成视觉检查。</li>
           </ul>
         </div>

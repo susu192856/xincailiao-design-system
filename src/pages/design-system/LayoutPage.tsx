@@ -478,7 +478,7 @@ export default function LayoutPage() {
                 </div>
                 <SubsectionHeading eyebrow="Backend" title="后台 / 应用平台" tone="product" />
               </div>
-              <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向数据空间、材库、AI 应用和后台管理，布局应优先服务长时间操作、快速筛选和状态判断。</p>
+              <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向数据空间、材库、人工智能（AI）应用和后台管理，布局应优先服务长时间操作、快速筛选和状态判断。</p>
             </div>
             <div className="mb-8 flex gap-7">
               {[["设计稿宽度","1440px"],["内容区宽度","100% 自适应"],["顶部操作栏","64px"],["侧边栏","200-240px / 56px"]].map(([label, value]) => (
@@ -503,12 +503,12 @@ export default function LayoutPage() {
         <SectionHeading
           eyebrow="Website Skeleton"
           title="官网 / 门户页面骨架"
-          description="使用白色或 neutral-50 作为页面背景。品牌标识和产品名称固定在通栏顶栏左侧，搜索在导航右侧仅用于门户。登录与用户状态展示在右侧。Hero 使用面向宽屏的三级响应高度。"
+          description="使用白色或中性浅灰（neutral-50）作为页面背景。品牌标识和产品名称固定在通栏顶栏左侧，搜索在导航右侧仅用于门户。登录与用户状态展示在右侧。首屏区（Hero）使用面向宽屏的三级响应高度。"
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <SkeletonCard kind="website-home" title="一级页面 · 官网首页" description="Logo、全局导航、登录、居中 Hero 文案、能力卡片和页脚。" />
-          <SkeletonCard kind="portal-home" title="一级页面 · 聚合门户" description="搜索、用户入口、门户 Hero、200px 分类菜单、数据卡片和页脚。一级门户不默认展示面包屑。" />
-          <SkeletonCard kind="website-product" title="二级页面 · 产品介绍" description="产品 Hero、居中标题、描述文本、内容区和页脚。适合产品能力说明。" />
+          <SkeletonCard kind="website-home" title="一级页面 · 官网首页" description="品牌标识（Logo）、全局导航、登录、居中首屏区（Hero）文案、能力卡片和页脚。" />
+          <SkeletonCard kind="portal-home" title="一级页面 · 聚合门户" description="搜索、用户入口、门户首屏区（Hero）、200px 分类菜单、数据卡片和页脚。一级门户不默认展示面包屑。" />
+          <SkeletonCard kind="website-product" title="二级页面 · 产品介绍" description="产品首屏区（Hero）、居中标题、描述文本、内容区和页脚。适合产品能力说明。" />
           <SkeletonCard kind="website-section" title="二级页面 · 栏目聚合" description="二级面包屑、栏目标题、筛选标签和内容卡片列表。用于承接一级入口后的聚合浏览。" />
           <SkeletonCard kind="website-detail" title="三级页面 · 图文详情" description="三级面包屑、左侧快速导航和右侧结构化正文区域。" />
         </div>
@@ -518,7 +518,7 @@ export default function LayoutPage() {
         <SectionHeading
           eyebrow="Backend Skeleton"
           title="后台 / 应用平台页面骨架"
-          description="使用白色或 neutral-50 工作框架。品牌标识和完整产品名称固定在通栏顶栏，侧栏只承载页面导航。侧栏展开 200px-240px，收起 56px。示例图按比例缩小，生产字号和尺寸以 Token 与复制骨架为准。"
+          description="使用白色或中性浅灰（neutral-50）工作框架。品牌标识和完整产品名称固定在通栏顶栏，侧栏只承载页面导航。侧栏展开 200px-240px，收起 56px。示例图按比例缩小，生产字号和尺寸以设计变量（Token）与复制骨架为准。"
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <SkeletonCard kind="backend-dashboard" title="工作台 · 数据总览" description="全面通栏品牌顶栏、240px 侧栏、指标卡片和图表区域的仪表盘。" />
@@ -554,7 +554,7 @@ export default function LayoutPage() {
                 <span>外边距</span><span>1400px 居中容器 · 12 列</span><span>外边距</span>
               </div>
             </div>
-            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">桌面列间距建议 24px-32px；平板切换 8 列，移动端切换 4 列。Hero 可通栏，正文和核心模块进入容器。</p>
+            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">桌面列间距建议 24px-32px；平板切换 8 列，移动端切换 4 列。首屏区（Hero）可通栏，正文和核心模块进入容器。</p>
           </SectionCard>
           <SectionCard className="p-4">
             <SubsectionHeading eyebrow="Backend" title="后台 / 应用平台" tone="product" />
@@ -627,8 +627,8 @@ export default function LayoutPage() {
       <section>
         <SectionHeading
           eyebrow="Layout Tokens"
-          title="布局 Token"
-          description="以下 CSS 变量可直接在开发中使用，保持官网与后台布局的一致性。"
+          title="布局设计变量（Token）"
+          description="以下层叠样式表变量（CSS Variables）可直接在开发中使用，保持官网与后台布局的一致性。"
         />
         <DocsTable>
           <thead>

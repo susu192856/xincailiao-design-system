@@ -70,14 +70,14 @@ export default function TypographyPage() {
     <div className="space-y-20">
       <PageHeader
         title="字体"
-        description="用字号、行高、字重与文字颜色建立稳定的信息层级。先看真实页面效果，再查具体 Token。"
+        description="用字号、行高、字重与文字颜色建立稳定的信息层级。先看真实页面效果，再查具体设计变量（Token）。"
       />
 
       <section>
         <SectionHeading
           eyebrow="Font Family"
           title="字体家族"
-          description="中文优先使用系统字体，减少加载与跨平台差异；英文与普通数字使用 Inter，特殊数字使用 D-DIN-Pro。"
+          description="中文优先使用系统字体，减少加载与跨平台差异；英文与普通数字使用 Inter（英文字体），特殊数字使用 D-DIN-Pro（数据字体）。"
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <FontCard icon={<Desktop size={20} />} title="中文界面" sample="新材料可信数据空间" note='PingFang SC / Microsoft YaHei / Source Han Sans CN' />
@@ -90,7 +90,7 @@ export default function TypographyPage() {
         <SectionHeading
           eyebrow="Type Scale"
           title="字号与行高"
-          description="字号与行高成对使用，不单独缩放其中一项。产品正文默认 Body/M，阅读型正文默认 Body/L。"
+          description="字号与行高成对使用，不单独缩放其中一项。产品正文默认中号正文（Body/M），阅读型正文默认大号正文（Body/L）。"
         />
         <DocsTable>
           <thead>

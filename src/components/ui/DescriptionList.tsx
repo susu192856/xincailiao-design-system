@@ -33,13 +33,13 @@ const spanClasses: Record<1 | 2 | 3 | 4, string> = {
 
 const sizeClasses = {
   sm: {
-    item: "p-3",
-    label: "text-xs leading-4",
+    padding: "p-3",
+    label: "text-sm leading-5",
     value: "mt-1 text-sm leading-5",
   },
   md: {
-    item: "p-4",
-    label: "text-xs leading-[var(--type-caption-line-height)]",
+    padding: "p-4",
+    label: "text-sm leading-[var(--type-body-m-line-height)]",
     value: "mt-1 text-sm leading-[var(--type-body-m-line-height)]",
   },
 };
@@ -65,7 +65,9 @@ export function DescriptionList({
       className={[
         "grid rounded-[var(--radius-sm)] text-sm",
         columnClasses[columns],
-        bordered ? "gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)]" : "gap-x-8 gap-y-4 bg-white",
+        bordered
+          ? "gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)]"
+          : `bg-white ${size === "sm" ? "gap-x-10 gap-y-5" : "gap-x-10 gap-y-6"}`,
         className,
       ].join(" ")}
       {...props}
@@ -77,15 +79,22 @@ export function DescriptionList({
             key={item.key ?? index}
             className={[
               spanClasses[effectiveSpan],
-              bordered ? `bg-white ${sizing.item}` : "",
-              layout === "inline" ? "block md:flex md:items-start md:gap-2" : "",
+              bordered ? "bg-white" : "",
+              layout === "inline"
+                ? `block md:flex ${bordered ? "md:items-stretch md:gap-0" : "md:items-baseline md:gap-3"}`
+                : "",
             ].join(" ")}
           >
             <dt
               className={[
                 sizing.label,
                 "shrink-0 text-[var(--text-tertiary)]",
-                layout === "inline" ? "mb-1 w-auto pt-0.5 md:mb-0 md:w-[var(--description-label-width)] md:text-right" : "",
+                bordered ? `${sizing.padding} bg-[var(--neutral-50)]` : "",
+                layout === "inline"
+                  ? bordered
+                    ? "w-auto md:w-[var(--description-label-width)] md:text-right"
+                    : "mb-1 w-auto md:mb-0 md:w-[var(--description-label-width)] md:text-right"
+                  : "",
               ].join(" ")}
               style={labelStyle}
             >
@@ -93,8 +102,9 @@ export function DescriptionList({
             </dt>
             <dd
               className={[
-                layout === "inline" ? sizing.value.replace("mt-1 ", "") : sizing.value,
-                "min-w-0 text-[var(--text-primary)]",
+                layout === "inline" || bordered ? sizing.value.replace("mt-1 ", "") : sizing.value,
+                bordered ? `${sizing.padding} bg-white` : "",
+                "min-w-0 flex-1 [overflow-wrap:anywhere] text-[var(--text-primary)]",
               ].join(" ")}
             >
               {item.value ?? <span className="text-[var(--neutral-400)]">{emptyText}</span>}

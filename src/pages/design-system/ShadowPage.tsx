@@ -188,7 +188,7 @@ export default function ShadowPage() {
           </div>
           <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="text-sm font-semibold text-[var(--neutral-900)]">浮层与弹窗</h3>
-            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">Dropdown、Popover、Tooltip 使用 MD / LG；Modal 和全屏预览使用 XL / 2XL。</p>
+            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">下拉菜单（Dropdown）、气泡弹窗（Popover）、文字提示（Tooltip）使用中或大阴影（MD / LG）；弹窗（Modal）和全屏预览使用特大阴影（XL / 2XL）。</p>
           </div>
           <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="text-sm font-semibold text-[var(--neutral-900)]">静态卡片</h3>

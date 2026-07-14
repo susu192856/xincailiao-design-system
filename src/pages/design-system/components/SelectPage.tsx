@@ -362,7 +362,7 @@ export default function SelectPage() {
     <div className="space-y-16">
       <PageHeader
         title="选择器"
-        description="选择器用于从固定范围选值，覆盖单选、多选、搜索和级联选择。与输入框共用字段结构、标签布局和状态 Token，但只接受预设选项，不承担自由文本录入。"
+        description="选择器用于从固定范围选值，覆盖单选、多选、搜索和级联选择。与输入框共用字段结构、标签布局和状态设计变量（Token），但只接受预设选项，不承担自由文本录入。"
         note={<>关联页面：选择器与 <Link to="/components/input" className="font-medium text-[var(--product-blue-500)]">输入框</Link> 共用字段结构，由 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link> 组织提交；日期录入见 <Link to="/components/date-picker" className="font-medium text-[var(--product-blue-500)]">日期选择</Link>。</>}
       />
 
@@ -406,7 +406,7 @@ export default function SelectPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Types" title="选择器类型" description="按值的数量和数据结构选择组件模式。级联选择仍归入 Select 的层级面板变体，暂不单独拆页。" />
+        <SectionHeading eyebrow="Types" title="选择器类型" description="按值的数量和数据结构选择组件模式。级联选择仍归入选择器（Select）的层级面板变体，暂不单独拆页。" />
         <SectionCard className="md:p-6">
           <div className="max-w-[492px] space-y-4">
             <Select labelPosition="left" labelWidth={96} label="常规选择" defaultValue="metal" options={materialOptions} />
@@ -428,7 +428,7 @@ export default function SelectPage() {
 
       <section>
         <SectionHeading eyebrow="Sizes" title="选择器尺寸" description="尺寸控制控件高度，不改变文字层级和状态语义。" />
-        <ExampleCard title="Small / Medium / Large">
+        <ExampleCard title="小 / 中 / 大（Small / Medium / Large）">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             <Select size="sm" label="Small · 28px" placeholder="请选择" options={materialOptions} helperText="表格筛选、紧凑工具栏。" />
             <Select size="md" label="Medium · 32px" placeholder="请选择" options={materialOptions} helperText="后台表单默认尺寸。" />
@@ -443,7 +443,7 @@ export default function SelectPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="States" title="选择器状态" description="状态必须通过边框、背景、文字和可操作性共同表达；颜色不能是唯一的信号。Hover 和 Focus 为静态展示，实际由浏览器交互触发。" />
+        <SectionHeading eyebrow="States" title="选择器状态" description="状态必须通过边框、背景、文字和可操作性共同表达；颜色不能是唯一的信号。悬停（Hover）和聚焦（Focus）为静态展示，实际由浏览器交互触发。" />
         <SectionCard className="md:p-6">
           <div className="grid max-w-[672px] grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             <Select labelPosition="left" labelWidth={64} label="默认" placeholder="请选择" options={materialOptions} />
@@ -483,7 +483,7 @@ export default function SelectPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Panels" title="展开面板与选项状态" description="面板直接展开比较；Hover 使用 neutral 底色，选中使用 neutral-100 底 + neutral-900 文字。这里的级联示例展示两级路径；三级路径在即时体验中验证。" />
+        <SectionHeading eyebrow="Panels" title="展开面板与选项状态" description="面板直接展开比较；悬停（Hover）使用中性（neutral）底色，选中使用 neutral-100 背景加 neutral-900 文字。这里的级联示例展示两级路径；三级路径在即时体验中验证。" />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <ExampleCard title="默认"><div className="pb-[132px]"><Select label="材料类型" defaultValue="polymer" open options={materialOptions} /></div></ExampleCard>
           <ExampleCard title="搜索"><div className="pb-[196px]"><Select label="材料牌号" searchable defaultValue="ta15" open options={searchableOptions} /></div></ExampleCard>
@@ -493,7 +493,7 @@ export default function SelectPage() {
         <div className="mt-5 grid grid-cols-1 gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 text-sm text-[var(--text-secondary)] md:grid-cols-3">
           <p><strong className="block text-[var(--text-primary)]">面板宽度</strong>跟随触发器，限制在 180–480px。</p>
           <p><strong className="block text-[var(--text-primary)]">高度</strong>每行至少 32px，单列最多完整显示 6 行；超过 6 行时该列纵向滚动，列间分割线贯穿当前面板高度。</p>
-          <p><strong className="block text-[var(--text-primary)]">状态</strong>Hover 使用 neutral 底色；路径激活和末级选中使用 neutral-100 底 + neutral-900 文字。</p>
+          <p><strong className="block text-[var(--text-primary)]">状态</strong>悬停态（Hover）使用中性（neutral）底色；路径激活和末级选中使用 neutral-100 背景加 neutral-900 文字。</p>
         </div>
         <CodeBlock lang="tsx" label="展开面板" code={`// 默认单选
 <Select label="材料类型" options={options} />

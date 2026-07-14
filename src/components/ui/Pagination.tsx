@@ -1,4 +1,4 @@
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { CaretDown, CaretLeft, CaretRight } from "@phosphor-icons/react";
 
 export type PaginationProps = {
   page: number;
@@ -170,22 +170,25 @@ export function Pagination({
         </span>
       ) : null}
       {pageSizeOptions && pageSizeOptions.length > 0 ? (
-        <select
-          disabled={disabled}
-          value={pageSize}
-          onChange={(event) => onPageSizeChange?.(Number(event.target.value))}
-          className={[
-            "pagination-extension ml-2 shrink-0 rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-[var(--text-secondary)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
-            size === "sm" ? "h-7 text-xs" : "h-8 text-sm",
-          ].join(" ")}
-          aria-label="每页条数"
-        >
-          {pageSizeOptions.map((option) => (
-            <option key={option} value={option}>
-              {option} 条 / 页
-            </option>
-          ))}
-        </select>
+        <span className="pagination-extension relative ml-2 shrink-0">
+          <select
+            disabled={disabled}
+            value={pageSize}
+            onChange={(event) => onPageSizeChange?.(Number(event.target.value))}
+            className={[
+              "appearance-none rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white pl-2 pr-8 text-[var(--text-secondary)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+              size === "sm" ? "h-7 text-xs" : "h-8 text-sm",
+            ].join(" ")}
+            aria-label="每页条数"
+          >
+            {pageSizeOptions.map((option) => (
+              <option key={option} value={option}>
+                {option} 条 / 页
+              </option>
+            ))}
+          </select>
+          <CaretDown className="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-tertiary)]" aria-hidden="true" />
+        </span>
       ) : null}
     </nav>
   );

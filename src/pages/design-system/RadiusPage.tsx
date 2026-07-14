@@ -65,7 +65,7 @@ export default function RadiusPage() {
       <section>
         <SectionHeading
           eyebrow="Radius Tokens"
-          title="圆角 Token"
+          title="圆角设计变量（Token）"
           description="圆角用于控制界面气质。后台与数据产品优先使用 0-4px，交互控件统一使用 2px，卡片与弹窗内容区优先使用 4px；8px 以上只用于官网展示或大面积品牌容器。同一组件类型应保持圆角一致。"
         />
         <DocsTable>

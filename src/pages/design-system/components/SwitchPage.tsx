@@ -38,7 +38,7 @@ export default function SwitchPage() {
         <SectionHeading
           eyebrow="Sizes"
           title="开关尺寸"
-          description="开关保留 Small 和 Medium 两档。尺寸改变轨道与滑块，不改变文字层级。"
+          description="开关保留小尺寸（Small）和中尺寸（Medium）两档。尺寸改变轨道与滑块，不改变文字层级。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {sizeRows.map((item) => (
@@ -83,19 +83,19 @@ export default function SwitchPage() {
           description="三个示例分别展示个人偏好、后台自动化和受权限限制的即时设置。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <ExampleCard title="通知偏好" description="Medium · 低风险 · 切换后立即生效">
+          <ExampleCard title="通知偏好" description="中尺寸（Medium）· 低风险 · 切换后立即生效">
             <div className="flex flex-col gap-4">
               <Switch label="任务完成通知" description="任务完成后推送站内消息。" defaultChecked />
               <Switch label="审批结果邮件" description="审批结束后发送邮件提醒。" />
             </div>
           </ExampleCard>
-          <ExampleCard title="自动化设置" description="Medium · 后台任务 · 明确运行频率">
+          <ExampleCard title="自动化设置" description="中尺寸（Medium）· 后台任务 · 明确运行频率">
             <div className="flex flex-col gap-4">
               <Switch label="允许数据自动同步" description="开启后每 10 分钟同步一次。" defaultChecked />
               <Switch label="自动生成质量报告" description="数据更新后重新生成报告。" />
             </div>
           </ExampleCard>
-          <ExampleCard title="权限限制" description="Medium · 保留禁用项 · 说明恢复条件">
+          <ExampleCard title="权限限制" description="中尺寸（Medium）· 保留禁用项 · 说明恢复条件">
             <div className="flex flex-col gap-4">
               <Switch label="外部组织访问" description="完成访问审批后可开启。" disabled />
               <Switch label="开放外部下载" description="获得空间管理员权限后可开启。" disabled />

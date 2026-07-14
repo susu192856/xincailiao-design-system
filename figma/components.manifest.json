@@ -22,19 +22,19 @@
       "props": [
         "name",
         "src",
+        "fallbackKey",
+        "variant",
+        "shape",
         "size",
         "status",
         "disabled"
       ],
       "variants": [
+        "default",
         "image",
         "initial"
       ],
-      "tones": [
-        "neutral",
-        "product",
-        "brand"
-      ],
+      "tones": [],
       "sizes": [
         "sm",
         "md",
@@ -55,16 +55,16 @@
       "contract": {
         "anatomy": [
           "头像容器",
-          "图片或姓名首字",
+          "灰色默认占位、图片头像或姓名缩写",
           "可选在线状态",
           "可访问名称"
         ],
-        "usage": "用于人员、组织或智能体身份识别，图片缺失时稳定回退为首字。",
-        "avoid": "不要仅凭头像区分用户，也不要把状态点作为唯一状态说明。",
+        "usage": "用于人员、组织或系统身份识别。先选择 default、image 或 initial，再按身份语义选择 circle 或 square。",
+        "avoid": "不要使用 Math.random 在每次渲染时更换头像，不要仅凭头像区分用户，也不要在头像上叠加消息徽标。",
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "头像本身不默认可点击；作为入口时由外层语义控件承担交互。",
-        "content": "提供完整姓名作为可访问名称；群组展示控制数量并提供剩余计数。",
+        "content": "提供完整姓名作为可访问名称；default 保持灰色人物占位，后台实名用户未上传头像时使用 image 并由 fallbackKey 从 10 张图片中稳定分配，用户图片覆盖系统分配；中文两字名显示全名，三字及以上取末两字，英文取前两个词首字母；人员默认圆形，组织或系统可使用方形；群组控制展示数量并提供剩余计数。",
         "examples": {
           "basic": "Avatar 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Avatar 场景",
@@ -82,6 +82,21 @@
           "name": "src",
           "type": "string",
           "description": "图片资源地址。"
+        },
+        {
+          "name": "fallbackKey",
+          "type": "string",
+          "description": "默认头像池的稳定分配键，后台应传用户唯一标识。"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "description": "组件的结构或视觉层级；不得承载业务颜色语义。"
+        },
+        {
+          "name": "shape",
+          "type": "'circle' | 'square'",
+          "description": "头像外形；人员默认圆形，组织或系统身份可使用方形。"
         },
         {
           "name": "size",
@@ -111,13 +126,13 @@
       },
       "figmaProperties": {
         "variant": [
+          "default",
           "image",
           "initial"
         ],
-        "tone": [
-          "neutral",
-          "product",
-          "brand"
+        "shape": [
+          "circle",
+          "square"
         ],
         "size": [
           "sm",
@@ -142,24 +157,25 @@
       "reactSource": "src/components/ui/Badge.tsx",
       "vueSource": "packages/vue-ui/src/components/XcBadge.vue",
       "props": [
-        "tone",
         "count",
-        "max",
         "dot",
+        "max",
+        "tone",
+        "size",
         "showZero"
       ],
       "variants": [
-        "dot",
         "count",
-        "status"
+        "dot",
+        "attached"
       ],
       "tones": [
         "neutral",
         "product",
-        "brand",
-        "danger",
+        "info",
+        "success",
         "warning",
-        "success"
+        "error"
       ],
       "sizes": [
         "sm",
@@ -181,11 +197,11 @@
           "可访问状态说明"
         ],
         "usage": "用于未读数量、待处理数量和轻量状态提醒。",
-        "avoid": "不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。",
+        "avoid": "不要使用分类标签色或品牌红表达业务状态，不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。",
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "使用正确语义结构；图片或装饰内容必须提供合适的替代文本策略。",
         "interaction": "Badge 不独立承担点击；宿主控件负责焦点和操作语义。",
-        "content": "超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。",
+        "content": "颜色复用语义 Token：info、success、warning、error 与 neutral；超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。",
         "examples": {
           "basic": "Badge 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Badge 场景",
@@ -195,14 +211,14 @@
       },
       "propDefinitions": [
         {
-          "name": "tone",
-          "type": "string",
-          "description": "组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。"
-        },
-        {
           "name": "count",
           "type": "number",
           "description": "徽标数字。"
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "description": "仅显示状态点。"
         },
         {
           "name": "max",
@@ -210,9 +226,14 @@
           "description": "徽标最大显示数字。"
         },
         {
-          "name": "dot",
-          "type": "boolean",
-          "description": "仅显示状态点。"
+          "name": "tone",
+          "type": "string",
+          "description": "组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "showZero",
@@ -548,22 +569,21 @@
         "loading"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.3.0",
+      "contractVersion": "0.2.0",
       "status": "stable",
       "contract": {
         "anatomy": [
-          "Card 容器",
-          "CardHeader 标题与摘要",
-          "CardContent 主体内容",
-          "CardFooter 补充信息或主操作",
-          "CardActions 标题区辅助操作"
+          "容器",
+          "标题与摘要",
+          "主体内容",
+          "状态或操作区"
         ],
-        "usage": "用于组织可独立理解、重复排列、整体移动或操作的信息单元；数据资产、功能入口和状态摘要属于业务模式，不是组件 Variant。",
-        "avoid": "页面大分区、连续阅读内容和单纯视觉分隔不使用 Card；整卡交互与内部按钮或链接不能并存。",
-        "responsive": "卡片网格在窄屏改为单列，内部内容按需纵向排列，页面不得因固定卡片宽度产生横向溢出。",
-        "accessibility": "整体可交互卡片提供 role=button、可见 focus-visible，并支持 Enter 与 Space；禁用和加载状态退出 Tab 顺序。",
-        "interaction": "整体可点击与内部多操作二选一；批量选择显示 Checkbox，互斥方案显示 Radio，整卡选中样式只作为辅助反馈。",
-        "content": "标题明确对象，描述控制在两到三行，主操作不超过一个；状态线不能替代标题、标签或状态说明。",
+        "usage": "用于组织一个主题的信息摘要、入口或可比较对象。",
+        "avoid": "不要把所有内容都放入卡片，也不要同时让卡片整体和内部多个区域争夺主点击行为。",
+        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
+        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
+        "interaction": "可交互卡片提供完整焦点态和键盘触发；禁用、选中、加载状态不能只依赖阴影。",
+        "content": "标题明确对象，描述控制在两到三行；状态、指标和操作按固定位置排列。",
         "examples": {
           "basic": "Card 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Card 场景",
@@ -574,28 +594,28 @@
       "propDefinitions": [
         {
           "name": "variant",
-          "type": "'plain' | 'outlined' | 'muted'",
-          "description": "容器视觉层级，不表示业务场景。"
+          "type": "string",
+          "description": "组件的结构或视觉层级；不得承载业务颜色语义。"
         },
         {
           "name": "size",
-          "type": "'sm' | 'md' | 'lg'",
-          "description": "对应 16、24、32px 内边距。"
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "status",
-          "type": "'default' | 'product' | 'brand' | 'success' | 'warning' | 'error'",
-          "description": "顶部状态线，仅作辅助识别。"
+          "type": "string",
+          "description": "状态语义；不能只依赖颜色表达。"
         },
         {
           "name": "interactive",
           "type": "boolean",
-          "description": "是否允许卡片作为整体交互目标；启用后提供焦点和键盘触发。"
+          "description": "是否允许卡片作为整体交互目标。"
         },
         {
           "name": "selected",
           "type": "boolean",
-          "description": "可选择卡片的辅助选中反馈。"
+          "description": "表格行或可交互容器的选中状态。"
         },
         {
           "name": "disabled",
@@ -895,18 +915,18 @@
       "propDefinitions": [
         {
           "name": "label",
-          "type": "string",
-          "description": "复选项的可见标签。"
+          "type": "ReactNode | string",
+          "description": "组件可见标签。"
         },
         {
           "name": "description",
-          "type": "string",
-          "description": "标签下方的结果、权限或限制说明。"
+          "type": "ReactNode | string",
+          "description": "辅助说明。"
         },
         {
           "name": "size",
-          "type": "sm | md",
-          "description": "控件尺寸；紧凑区域使用 sm，表单默认使用 md。"
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "checked",
@@ -1611,6 +1631,8 @@
         "noData",
         "noResult",
         "noPermission",
+        "notFound",
+        "network",
         "firstUse",
         "error",
         "processing",
@@ -1642,12 +1664,12 @@
           "解释说明",
           "可选主操作"
         ],
-        "usage": "用于无数据、无结果、首次使用、无权限、错误和处理中等明确空白情境。",
-        "avoid": "不要用同一套“暂无数据”覆盖所有原因，也不要提供与恢复任务无关的操作。",
+        "usage": "用于无数据、无结果、无权限、页面不存在、网络异常、首次使用和处理中等明确空白情境。",
+        "avoid": "不要混用五类状态插图，不要用同一套“暂无数据”覆盖所有原因，也不要提供与恢复任务无关的操作。",
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "操作按钮直接解决当前空态；处理中状态不可伪装成可点击内容。",
-        "content": "标题先说明发生了什么，描述解释原因，操作给出下一步。",
+        "content": "插图固定映射暂无数据、无结果、无权限、页面不存在和网络异常；标题说明发生了什么，描述解释原因，操作给出下一步。",
         "examples": {
           "basic": "Empty 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Empty 场景",
@@ -1997,21 +2019,27 @@
         "fit",
         "loading",
         "error",
-        "caption"
+        "caption",
+        "placeholder"
       ],
       "variants": [
-        "square",
-        "wide",
-        "video",
-        "avatar-preview"
+        "image",
+        "loading",
+        "default-placeholder",
+        "error"
       ],
       "tones": [
         "neutral"
       ],
       "sizes": [
-        "sm",
-        "md",
-        "lg"
+        "1:1",
+        "2:1",
+        "3:1",
+        "3:2",
+        "16:9",
+        "4:3",
+        "3:4",
+        "2:3"
       ],
       "states": [
         "default",
@@ -2030,12 +2058,12 @@
           "占位或错误状态",
           "可选说明与预览入口"
         ],
-        "usage": "用于材料图片、证书、图谱和业务媒体内容，保持明确比例与加载策略。",
-        "avoid": "不要省略 alt 策略，也不要让失败图片破坏布局或暴露无权限资源。",
+        "usage": "用于材料图片、证书、图谱和业务媒体内容，使用 1:1、2:1、3:1、3:2、16:9、4:3、3:4 或 2:3 固定比例。",
+        "avoid": "不要按单张原图临时改变列表比例，不要把默认图、加载缓冲和错误态混用，也不要省略 alt 策略。",
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
         "interaction": "可预览图片使用明确按钮并支持键盘；加载失败提供重试或替代说明。",
-        "content": "信息图片提供描述性 alt，纯装饰图片使用空 alt；caption 不重复 alt。",
+        "content": "信息图片提供描述性 alt，纯装饰图片使用空 alt；未配置时可暂用默认图，上线前应尽可能替换为真实配图；caption 不重复 alt。",
         "examples": {
           "basic": "Image 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Image 场景",
@@ -2078,6 +2106,11 @@
           "name": "caption",
           "type": "ReactNode | string",
           "description": "图片说明。"
+        },
+        {
+          "name": "placeholder",
+          "type": "'error' | 'default'",
+          "description": "图片未配置时显示错误占位或系统默认图。"
         }
       ],
       "delivery": {
@@ -2581,7 +2614,7 @@
         "ellipsis"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.3.0",
+      "contractVersion": "0.2.0",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -2593,10 +2626,10 @@
         ],
         "usage": "用于将长列表分段浏览，并保持筛选、排序和选择上下文。",
         "avoid": "不要在数据量较少时显示分页，也不要在移动端强塞完整页码序列。",
-        "responsive": "分页内部禁止折行；分页可用宽度小于 480px 时自动切换紧凑结构，隐藏总数、快速跳转和每页条数等次要信息，翻页按钮触控目标不小于 44px。",
+        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "总页数不超过 7 页使用短分页，超过 7 页使用长分页折叠；窄容器使用紧凑分页。当前页不可重复触发；翻页后焦点与滚动位置按列表场景恢复。",
-        "content": "Small 为 28px，用于紧凑表格；Medium 为 32px，用于常规页面。与表格组合时作为 footer 与数据区共用外边框，通过顶部边框分隔；总数在左、分页在右且保持单行。移动端显示当前页 / 总页数。",
+        "interaction": "当前页不可重复触发；翻页后焦点与滚动位置按列表场景恢复。",
+        "content": "显示总量、当前范围或总页数中的必要信息；移动端优先上一页/下一页。",
         "examples": {
           "basic": "Pagination 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Pagination 场景",
@@ -2628,32 +2661,32 @@
         {
           "name": "compact",
           "type": "boolean",
-          "description": "只显示上一页、当前页 / 总页数和下一页。"
+          "description": "是否使用紧凑分页布局。"
         },
         {
           "name": "size",
-          "type": "'sm' | 'md'",
-          "description": "页码按钮尺寸。"
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "totalItems",
           "type": "number",
-          "description": "数据总条数。"
+          "description": "数据总条数，用于计算总页数和当前展示范围。"
         },
         {
           "name": "showTotal",
           "type": "boolean",
-          "description": "是否显示总条数。"
+          "description": "是否显示总条数或当前展示范围。"
         },
         {
           "name": "showQuickJumper",
           "type": "boolean",
-          "description": "是否显示页码快速跳转。"
+          "description": "是否显示页码快速跳转输入。"
         },
         {
           "name": "pageSizeOptions",
           "type": "number[]",
-          "description": "可选的每页条数。"
+          "description": "可选择的每页条数集合。"
         }
       ],
       "delivery": {
@@ -2875,22 +2908,22 @@
         {
           "name": "name",
           "type": "string",
-          "description": "同组单选框共享的原生 name，用于建立互斥关系。"
+          "description": "可访问名称或表单名称。"
         },
         {
           "name": "label",
-          "type": "string",
-          "description": "单选项的可见标签。"
+          "type": "ReactNode | string",
+          "description": "组件可见标签。"
         },
         {
           "name": "description",
-          "type": "string",
-          "description": "标签下方的结果或限制说明。"
+          "type": "ReactNode | string",
+          "description": "辅助说明。"
         },
         {
           "name": "size",
-          "type": "sm | md",
-          "description": "控件尺寸；紧凑区域使用 sm，表单默认使用 md。"
+          "type": "string",
+          "description": "组件尺寸，必须映射到组件尺寸 Token。"
         },
         {
           "name": "checked",
@@ -3209,27 +3242,18 @@
       "vueSource": "packages/vue-ui/src/components/XcTable.vue",
       "props": [
         "density",
-        "variant",
         "selected",
         "disabled",
         "align",
-        "sticky",
-        "maxHeight",
-        "sortable",
-        "sortDirection",
-        "onSort",
         "TableEmpty",
         "TableSkeletonRows"
       ],
       "variants": [
-        "line",
-        "grid",
+        "basic",
         "selectable",
         "with-toolbar",
         "with-pagination",
-        "wide-scroll",
-        "sticky-header-columns",
-        "expandable"
+        "wide-scroll"
       ],
       "tones": [
         "neutral",
@@ -3259,24 +3283,22 @@
         "filtered"
       ],
       "category": "数据与内容",
-      "contractVersion": "0.3.1",
+      "contractVersion": "0.2.0",
       "status": "stable",
       "contract": {
         "anatomy": [
           "筛选/工具栏",
           "表头",
           "数据行",
-          "固定表头/列",
-          "展开内容行",
           "空态/加载态",
           "分页"
         ],
-        "usage": "用于高密度结构化数据；通栏型为默认，格子型仅用于行列关系明确的参数矩阵；文本、日期时间和操作左对齐，短枚举居中，可比较数字右对齐。",
+        "usage": "用于高密度结构化数据；文本左对齐、可比较数字右对齐、操作右对齐。",
         "avoid": "不要强行压缩大量列；优先保留列宽并允许横向滚动。",
-        "responsive": "宽表格只在 TableContainer 内横向滚动；长表格设置 maxHeight 后纵向滚动并固定表头。列距由相邻单元格水平内边距产生，最小 24px；空间不足时调整列宽或横向滚动，不压缩列距。固定首列与操作列使用实体背景和轻量内侧阴影提示边界；窄屏页面本身不得产生横向溢出。",
-        "accessibility": "排序使用可聚焦按钮并通过 aria-sort 表达方向；选择、展开和图标操作必须提供可访问名称，状态不得只依赖颜色。",
-        "interaction": "筛选控件放在表格上方，表头保持字段标签；仅明确可比较的列增加排序。1 个操作显示高频文字，2 个显示两个短文字；3 个及以上仅在存在明确主操作时保留一个文字入口，否则只显示更多。更多菜单使用文字项，危险操作分组并保留确认步骤。",
-        "content": "通栏型与格子型共用语义对齐规则：名称、描述、日期时间、编号和操作左对齐，状态、布尔值和短枚举居中，可比较数值右对齐；格子型只强化逐格核对，不改变内容方向。正文使用中性色 800 与 Regular，表头使用中性色 600 与 Semibold；内容默认单行省略。列距不使用 gap，而由单元格水平内边距形成：compact 24px、standard 32px、comfortable 40px。",
+        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
+        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
+        "interaction": "定义鼠标、键盘、焦点、禁用与异步状态；触发后必须提供可感知反馈。",
+        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
         "examples": {
           "basic": "Table 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Table 场景",
@@ -3289,11 +3311,6 @@
           "name": "density",
           "type": "'compact' | 'standard' | 'comfortable'",
           "description": "数据密度。"
-        },
-        {
-          "name": "variant",
-          "type": "'line' | 'grid'",
-          "description": "表格分隔形式；line 为默认通栏型，grid 为逐格对照型。"
         },
         {
           "name": "selected",
@@ -3309,31 +3326,6 @@
           "name": "align",
           "type": "'left' | 'center' | 'right'",
           "description": "内容对齐方式。"
-        },
-        {
-          "name": "sticky",
-          "type": "'left' | 'right' | 'top' | 'bottom'",
-          "description": "固定表头、数据行或单元格到滚动容器边缘。"
-        },
-        {
-          "name": "maxHeight",
-          "type": "number | string",
-          "description": "表格容器最大高度；超出后启用纵向滚动。"
-        },
-        {
-          "name": "sortable",
-          "type": "boolean",
-          "description": "表头是否提供键盘可操作的排序入口。"
-        },
-        {
-          "name": "sortDirection",
-          "type": "'asc' | 'desc' | null",
-          "description": "当前排序方向，并同步映射到 aria-sort。"
-        },
-        {
-          "name": "onSort",
-          "type": "(direction) => void",
-          "description": "排序方向变化回调。"
         },
         {
           "name": "TableEmpty",
@@ -3535,16 +3527,18 @@
       ],
       "tones": [
         "neutral",
-        "product",
-        "brand",
-        "danger",
         "warning",
         "success",
+        "error",
         "info",
-        "teal",
-        "violet",
-        "slate",
-        "cyan"
+        "amber",
+        "orange",
+        "pink",
+        "magenta",
+        "purple",
+        "indigo",
+        "blue",
+        "green"
       ],
       "sizes": [
         "sm",
@@ -3566,11 +3560,11 @@
           "可选关闭入口"
         ],
         "usage": "用于分类、属性和轻量状态展示；语义色必须与状态含义一致。",
-        "avoid": "不要把 Tag 当按钮，也不要用品牌红表达错误或危险状态。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
-        "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "可关闭标签提供独立可访问关闭按钮；选择型标签应使用专门交互组件。",
-        "content": "文字优先名词或短状态，保持单行；同一组使用一致的语法和语义。",
+        "avoid": "不要把 Tag 当按钮；coral 与 red 不作为分类 tone，错误状态固定使用 error。",
+        "responsive": "标签自身保持单行并由父容器换行；长标签在可用宽度内截断。移动端可关闭标签的关闭按钮热区不小于 44px。",
+        "accessibility": "标签必须包含可读文字；状态不能只依赖颜色；可关闭标签提供可见 focus-visible 和明确关闭名称。",
+        "interaction": "可关闭标签提供独立关闭按钮，禁用时不可操作；选择型标签应使用专门交互组件。",
+        "content": "分类使用 amber、orange、pink、magenta、purple、indigo、blue、green 或 neutral；状态使用 success、warning、error、info。后台默认使用 sm，md 不放大字号且仅用于少量宽松场景；文字保持单行且同一业务分类固定 tone。",
         "examples": {
           "basic": "Tag 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Tag 场景",
@@ -3587,7 +3581,7 @@
         {
           "name": "tone",
           "type": "string",
-          "description": "组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。"
+          "description": "标签的颜色语义；分类使用 8 种分类色或 neutral，状态使用 success、warning、error、info。"
         },
         {
           "name": "size",
@@ -3633,16 +3627,18 @@
         ],
         "tone": [
           "neutral",
-          "product",
-          "brand",
-          "danger",
           "warning",
           "success",
+          "error",
           "info",
-          "teal",
-          "violet",
-          "slate",
-          "cyan"
+          "orange",
+          "blue",
+          "green",
+          "pink",
+          "magenta",
+          "purple",
+          "amber",
+          "indigo"
         ],
         "size": [
           "sm",
@@ -4307,12 +4303,13 @@
         "maxFiles",
         "maxSize",
         "disabled",
-        "listType"
+        "files",
+        "onChange",
+        "onRemove"
       ],
       "variants": [
-        "text-list",
-        "card-list",
-        "drag-drop"
+        "drag-drop",
+        "text-list"
       ],
       "tones": [
         "neutral",
@@ -4331,9 +4328,8 @@
       ],
       "figmaProperties": {
         "variant": [
-          "text-list",
-          "card-list",
-          "drag-drop"
+          "drag-drop",
+          "text-list"
         ],
         "tone": [
           "neutral",
@@ -4416,9 +4412,19 @@
           "description": "禁用状态；不可交互但仍保留上下文。"
         },
         {
-          "name": "listType",
-          "type": "string",
-          "description": "上传列表的展示形式。"
+          "name": "files",
+          "type": "UploadFile[]",
+          "description": "受控文件列表。"
+        },
+        {
+          "name": "onChange",
+          "type": "function",
+          "description": "值或状态变化回调。"
+        },
+        {
+          "name": "onRemove",
+          "type": "(file: UploadFile) => void",
+          "description": "删除文件后的回调。"
         }
       ],
       "delivery": {

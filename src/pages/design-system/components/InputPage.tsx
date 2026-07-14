@@ -199,7 +199,7 @@ export default function InputPage() {
     <div className="space-y-16">
       <PageHeader
         title="输入框"
-        description="输入框家族用于采集文本、参数和筛选条件，包括单行 Input 与多行 Textarea。先按内容长度选择结构，再统一应用标签、提示、状态和可访问性规则。"
+        description="输入框家族用于采集文本、参数和筛选条件，包括单行输入框（Input）与多行输入框（Textarea）。先按内容长度选择结构，再统一应用标签、提示、状态和可访问性规则。"
         note={<>关联页面：多个输入框如何组成分组、栅格和提交路径见 <Link to="/components/form" className="font-medium text-[var(--product-blue-500)]">表单</Link>；提交后的只读字段呈现见 <Link to="/components/description-list" className="font-medium text-[var(--product-blue-500)]">详情与描述列表</Link>；日期选择见 <Link to="/components/select" className="font-medium text-[var(--product-blue-500)]">选择器与日期选择</Link>。</>}
       />
 
@@ -207,7 +207,7 @@ export default function InputPage() {
         <SectionHeading
           eyebrow="Anatomy"
           title="输入框结构"
-          description="文字、颜色、边框和状态均使用基础规范 Token；页面示例不得用局部硬编码覆盖组件合同。"
+          description="文字、颜色、边框和状态均使用基础设计变量（Token）；页面示例不得用局部硬编码覆盖组件合同。"
         />
         <SectionCard className="md:p-6">
             <div className="relative mx-auto max-w-[448px] py-2 sm:pl-6">
@@ -266,8 +266,8 @@ export default function InputPage() {
       <InteractivePlaygroundSection />
 
       <section>
-        <SectionHeading eyebrow="Sizes" title="输入框尺寸" description="单行 Input 使用固定控件高度，多行 Textarea 使用最小高度；两者文字均为 14px，并共享 Small / Medium / Large 三级语义。" />
-        <ExampleCard title="单行 Input · Small / Medium / Large">
+        <SectionHeading eyebrow="Sizes" title="输入框尺寸" description="单行输入框（Input）使用固定控件高度，多行输入框（Textarea）使用最小高度；两者文字均为 14px，并共享小、中、大（Small / Medium / Large）三级语义。" />
+        <ExampleCard title="单行输入框（Input）· 小 / 中 / 大（Small / Medium / Large）">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
               <Input size="sm" label="Small · 28px" placeholder="表格筛选" />
@@ -284,7 +284,7 @@ export default function InputPage() {
           </div>
         </ExampleCard>
         <div className="mt-5">
-          <ExampleCard title="多行 Textarea · Small / Medium / Large">
+          <ExampleCard title="多行输入框（Textarea）· 小 / 中 / 大（Small / Medium / Large）">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div><Textarea size="sm" label="Small · 80px" placeholder="简短备注" /><p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">1–3 行简短补充。</p></div>
               <div><Textarea size="md" label="Medium · 96px" placeholder="默认说明输入" /><p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">常规说明与审核意见。</p></div>

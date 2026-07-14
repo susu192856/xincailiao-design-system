@@ -22,25 +22,25 @@ export default function CardPage() {
       <PageHeader title="卡片" description="卡片是承载独立信息单元的容器型复合组件，用于可重复、可移动或可整体操作的内容；普通页面分区不默认使用卡片。" />
 
       <section>
-        <SectionHeading eyebrow="Boundary" title="使用边界" description="先判断内容是否能独立理解，再决定是否使用 Card。边框、白底或内边距本身不是使用卡片的理由。" />
+        <SectionHeading eyebrow="Boundary" title="使用边界" description="先判断内容是否能独立理解，再决定是否使用卡片（Card）。边框、白底或内边距本身不是使用卡片的理由。" />
         <div className="grid gap-5 lg:grid-cols-2">
-          <ExampleCard title="适合使用 Card" description="内容可以作为独立对象重复排列、整体移动或进入详情。">
+          <ExampleCard title="适合使用卡片（Card）" description="内容可以作为独立对象重复排列、整体移动或进入详情。">
             <div className="grid gap-3 sm:grid-cols-3">
               {["独立主题", "稳定结构", "可重复排列"].map((item, index) => <div key={item} className="border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4"><span className="text-xs text-[var(--text-tertiary)]">0{index + 1}</span><p className="mt-2 text-sm font-semibold text-[var(--text-primary)]">{item}</p></div>)}
             </div>
           </ExampleCard>
-          <ExampleCard title="不使用 Card" description="内容只是页面章节、视觉分隔或连续阅读的一部分。">
+          <ExampleCard title="不使用卡片（Card）" description="内容只是页面章节、视觉分隔或连续阅读的一部分。">
             <div className="space-y-3 border-l-2 border-[var(--neutral-300)] pl-4 text-sm leading-6 text-[var(--text-secondary)]">
               <p>页面大分区使用 Section 与间距建立层级。</p>
               <p>键值信息使用 DescriptionList，结构化数据使用 Table。</p>
-              <p>仅需背景或边框时使用普通布局容器，不包装成 Card。</p>
+              <p>仅需背景或边框时使用普通布局容器，不包装成卡片（Card）。</p>
             </div>
           </ExampleCard>
         </div>
       </section>
 
       <section>
-        <SectionHeading eyebrow="Anatomy" title="结构" description="Card 提供稳定的容器、间距与状态；Header、Content、Footer 和 Actions 按信息需要组合，不要求全部出现。" />
+        <SectionHeading eyebrow="Anatomy" title="结构" description="卡片（Card）提供稳定的容器、间距与状态；卡片头（Header）、内容区（Content）、底部（Footer）和操作区（Actions）按信息需要组合，不要求全部出现。" />
         <ExampleCard title="标准结构">
           <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
             <Card variant="outlined">
@@ -59,7 +59,7 @@ export default function CardPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Variants & Sizes" title="视觉类型与尺寸" description="组件类型只描述容器层级，业务内容不作为 Variant。后台默认使用 outlined；plain 和 muted 仅在已有清晰层级时使用。" />
+        <SectionHeading eyebrow="Variants & Sizes" title="视觉类型与尺寸" description="组件类型只描述容器层级，业务内容不作为类型属性（variant）。后台默认使用描边型（outlined）；无边框型（plain）和弱背景型（muted）仅在已有清晰层级时使用。" />
         <div className="grid gap-5 md:grid-cols-3">
           {[{ variant: "plain" as const, title: "Plain", description: "父级已有边界时使用。" }, { variant: "outlined" as const, title: "Outlined · 默认", description: "独立卡片和卡片列表。" }, { variant: "muted" as const, title: "Muted", description: "轻量摘要或辅助信息。" }].map((item) => <Card key={item.variant} variant={item.variant}><CardTitle>{item.title}</CardTitle><CardDescription>{item.description}</CardDescription></Card>)}
         </div>
@@ -82,7 +82,7 @@ export default function CardPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Patterns" title="业务使用模式" description="以下是 Card 的内容组合方式，不是组件 Variant；它们复用相同容器、尺寸和状态 API。" />
+        <SectionHeading eyebrow="Patterns" title="业务使用模式" description="以下是卡片（Card）的内容组合方式，不是组件类型属性（variant）；它们复用相同容器、尺寸和状态接口（API）。" />
         <div className="grid gap-5 md:grid-cols-3">
           <Card variant="outlined" status="brand"><CardHeader><div className="mb-4 flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><Database size={18} /></div><CardTitle>数据资产</CardTitle><CardDescription>展示对象摘要、分类与治理状态。</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Tag variant="brand">关键节点</Tag><Tag>已治理</Tag></CardContent></Card>
           <Card variant="outlined" status="product"><CardHeader><div className="mb-4 flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><FileText size={18} /></div><CardTitle>功能入口</CardTitle><CardDescription>用于工作台和聚合首页的能力入口。</CardDescription></CardHeader><CardFooter><Button size="sm" icon={<Plus size={15} />}>进入模块</Button></CardFooter></Card>

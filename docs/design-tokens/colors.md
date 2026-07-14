@@ -47,28 +47,42 @@
 | `--color-action-product-default` | `var(--product-blue-500)` |  |
 | `--color-action-product-hover` | `var(--product-blue-600)` |  |
 | `--color-action-product-active` | `var(--product-blue-700)` |  |
-| `--success-text` | `#009A29` | 成功文字 |
+| `--success-text` | `#007A20` | 成功状态前景色，用于文字、图标和状态控件 |
 | `--success-hover` | `#009A29` |  |
 | `--success-active` | `#008522` |  |
 | `--success-bg` | `#E8FFEA` | 成功背景 |
 | `--success-tag` | `#E8FFEA` | 成功标签 |
 | `--success-border` | `#AFF0B5` |  |
-| `--warning-text` | `#FF7D00` | 警告文字 |
+| `--success-dot` | `#00B42A` | 成功状态圆点，小面积指示使用 |
+| `--warning-text` | `#A64B00` | 警告状态前景色，用于文字、图标和状态控件 |
 | `--warning-hover` | `#D25F00` |  |
 | `--warning-active` | `#B35200` |  |
 | `--warning-bg` | `#FFF7E8` | 警告背景 |
 | `--warning-tag` | `#FFF7E8` | 警告标签 |
 | `--warning-border` | `#FFE4BA` |  |
-| `--error-text` | `#F53F3F` | 错误文字 |
+| `--warning-dot` | `#FF7D00` | 警告状态圆点，小面积指示使用 |
+| `--error-text` | `#C62828` | 错误状态前景色，用于文字、图标和状态控件 |
 | `--error-hover` | `#F53F3F` |  |
 | `--error-active` | `#AF2126` |  |
 | `--error-bg` | `#FFECE8` | 错误背景 |
 | `--error-tag` | `#FFECE8` | 错误标签 |
 | `--error-border` | `#FDCDC5` |  |
-| `--info-text` | `#3491FA` | 信息文字 |
+| `--error-dot` | `#F53F3F` | 错误状态圆点，小面积指示使用 |
+| `--info-text` | `#0057A8` | 信息状态前景色，用于文字、图标和状态控件 |
 | `--info-bg` | `#E8F7FF` | 信息背景 |
 | `--info-tag` | `#E8F7FF` | 信息标签 |
 | `--info-border` | `#C3E7FE` |  |
+| `--info-dot` | `#3491FA` | 信息状态圆点，小面积指示使用 |
+| `--category-amber-bg / border / text` | `#FDF4E5 / #FADFB2 / #45310F` | 来源 `data-amber-0 / 6` |
+| `--category-orange-bg / border / text` | `#FDF2EC / #FAD9C7 / #823618` | 来源 `data-orange-0 / 6` |
+| `--category-pink-bg / border / text` | `#FDF1F3 / #F9D5DC / #861E29` | 来源 `data-pink-0 / 6` |
+| `--category-magenta-bg / border / text` | `#FCF0FA / #F5D3EF / #691A58` | 来源 `data-magenta-0 / 6` |
+| `--category-purple-bg / border / text` | `#F5F3FE / #E2DAFC / #3C13BE` | 来源 `data-purple-0 / 6` |
+| `--category-indigo-bg / border / text` | `#F2F5FE / #D9E0FC / #1F3188` | 来源 `data-indigo-0 / 6` |
+| `--category-blue-bg / border / text` | `#EFF7FE / #CEE8FD / #1C4062` | 来源 `data-blue-0 / 6` |
+| `--category-green-bg / border / text` | `#EDF8F4 / #C8EADF / #204838` | 来源 `data-green-0 / 6` |
+
+分类标签使用 amber、orange、pink、magenta、purple、indigo、blue、green 八种数据色相；coral 与 red 保留给图表、品牌及错误语义。背景取数据色 0 阶与白色混合 14%，边框混合 42%；文字取数据色 6 阶并混入 18% `neutral-900`。无需建立颜色区分时使用 `neutral`。
 | `--success-solid` | `#00B42A` |  |
 | `--success-solid-hover` | `#23C343` |  |
 | `--success-solid-active` | `#009A29` |  |
@@ -280,7 +294,7 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:var(--product-blue-700);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--color-action-product-active` = var(--product-blue-700)
 
-<span style="display:inline-block;width:16px;height:16px;background:#009A29;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-text` = #009A29
+<span style="display:inline-block;width:16px;height:16px;background:#007A20;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-text` = #007A20
 
 <span style="display:inline-block;width:16px;height:16px;background:#009A29;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-hover` = #009A29
 
@@ -292,7 +306,7 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#AFF0B5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-border` = #AFF0B5
 
-<span style="display:inline-block;width:16px;height:16px;background:#FF7D00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-text` = #FF7D00
+<span style="display:inline-block;width:16px;height:16px;background:#A64B00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-text` = #A64B00
 
 <span style="display:inline-block;width:16px;height:16px;background:#D25F00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-hover` = #D25F00
 
@@ -304,7 +318,7 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#FFE4BA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-border` = #FFE4BA
 
-<span style="display:inline-block;width:16px;height:16px;background:#F53F3F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #F53F3F
+<span style="display:inline-block;width:16px;height:16px;background:#C62828;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #C62828
 
 <span style="display:inline-block;width:16px;height:16px;background:#F53F3F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-hover` = #F53F3F
 
@@ -316,7 +330,7 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#FDCDC5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-border` = #FDCDC5
 
-<span style="display:inline-block;width:16px;height:16px;background:#3491FA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-text` = #3491FA
+<span style="display:inline-block;width:16px;height:16px;background:#0057A8;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-text` = #0057A8
 
 <span style="display:inline-block;width:16px;height:16px;background:#E8F7FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-bg` = #E8F7FF
 

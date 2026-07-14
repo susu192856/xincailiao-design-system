@@ -72,6 +72,15 @@ const labelStyle = computed(() => {
 .xc-description-list--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .xc-description-list--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
+.xc-description-list:not(.xc-description-list--bordered) {
+  column-gap: 40px;
+  row-gap: 24px;
+}
+
+.xc-description-list--sm:not(.xc-description-list--bordered) {
+  row-gap: 20px;
+}
+
 .xc-description-list--bordered {
   border: 1px solid var(--neutral-200);
 }
@@ -83,13 +92,19 @@ const labelStyle = computed(() => {
 .xc-description-list--sm .xc-description-list__item { padding: 12px; }
 .xc-description-list--inline .xc-description-list__item {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 12px;
 }
 
 .xc-description-list--bordered .xc-description-list__item {
+  padding: 0;
   border-bottom: 1px solid var(--neutral-200);
   border-right: 1px solid var(--neutral-200);
+}
+
+.xc-description-list--bordered.xc-description-list--inline .xc-description-list__item {
+  align-items: stretch;
+  gap: 0;
 }
 
 .xc-description-list__item--span-2 { grid-column: span 2; }
@@ -98,8 +113,14 @@ const labelStyle = computed(() => {
 .xc-description-list__label {
   flex-shrink: 0;
   color: var(--neutral-500);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.xc-description-list--bordered .xc-description-list__label {
+  box-sizing: border-box;
+  padding: 16px;
+  background: var(--neutral-50);
 }
 
 .xc-description-list__value {
@@ -107,9 +128,27 @@ const labelStyle = computed(() => {
   color: var(--neutral-900);
   font-size: 14px;
   line-height: 22px;
+  overflow-wrap: anywhere;
+}
+
+.xc-description-list--bordered .xc-description-list__value {
+  flex: 1;
+  min-width: 0;
+  margin-top: 0;
+  padding: 16px;
+  background: #fff;
+}
+
+.xc-description-list--bordered.xc-description-list--sm .xc-description-list__label,
+.xc-description-list--bordered.xc-description-list--sm .xc-description-list__value {
+  padding: 12px;
 }
 
 .xc-description-list--sm .xc-description-list__value {
+  line-height: 20px;
+}
+
+.xc-description-list--sm .xc-description-list__label {
   line-height: 20px;
 }
 

@@ -2,6 +2,7 @@
   <figure class="xc-image">
     <div class="xc-image__frame" :class="[`xc-image__frame--${ratio}`, `xc-image__frame--${fit}`]">
       <div v-if="loading" class="xc-image__state xc-image__state--loading" />
+      <img v-else-if="!src && placeholder === 'default'" class="xc-image__media" :src="defaultPlaceholder" :alt="alt || '默认图片'" />
       <div v-else-if="error || !src" class="xc-image__state">{{ fallbackText }}</div>
       <img v-else class="xc-image__media" :src="src" :alt="alt" />
     </div>
@@ -10,7 +11,9 @@
 </template>
 
 <script setup lang="ts">
-type ImageRatio = "square" | "video" | "wide";
+import defaultPlaceholder from "../../../../src/assets/image/default-placeholder.jpg";
+
+type ImageRatio = "1:1" | "2:1" | "3:1" | "3:2" | "16:9" | "4:3" | "3:4" | "2:3" | "square" | "video" | "wide";
 type ImageFit = "cover" | "contain";
 
 withDefaults(
@@ -23,6 +26,7 @@ withDefaults(
     error?: boolean;
     fallbackText?: string;
     caption?: string;
+    placeholder?: "error" | "default";
   }>(),
   {
     alt: "",
@@ -31,6 +35,7 @@ withDefaults(
     loading: false,
     error: false,
     fallbackText: "图片加载失败",
+    placeholder: "error",
   },
 );
 </script>
@@ -52,6 +57,14 @@ withDefaults(
 .xc-image__frame--square { aspect-ratio: 1 / 1; }
 .xc-image__frame--video { aspect-ratio: 16 / 9; }
 .xc-image__frame--wide { aspect-ratio: 3 / 1; }
+.xc-image__frame--1\:1 { aspect-ratio: 1 / 1; }
+.xc-image__frame--2\:1 { aspect-ratio: 2 / 1; }
+.xc-image__frame--3\:1 { aspect-ratio: 3 / 1; }
+.xc-image__frame--3\:2 { aspect-ratio: 3 / 2; }
+.xc-image__frame--16\:9 { aspect-ratio: 16 / 9; }
+.xc-image__frame--4\:3 { aspect-ratio: 4 / 3; }
+.xc-image__frame--3\:4 { aspect-ratio: 3 / 4; }
+.xc-image__frame--2\:3 { aspect-ratio: 2 / 3; }
 
 .xc-image__media {
   width: 100%;

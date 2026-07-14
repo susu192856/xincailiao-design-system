@@ -2,7 +2,6 @@ import { ChartLineUp, ClockCounterClockwise, Database, ShieldCheck } from "@phos
 import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
-import { Badge } from "../../../components/ui/Badge";
 import { Tabs } from "../../../components/ui/Tabs";
 import { Tag } from "../../../components/ui/Tag";
 
@@ -29,9 +28,8 @@ const detailItems = [
   },
   {
     value: "history",
-    label: "流转记录",
+    label: "流转记录（12）",
     icon: <ClockCounterClockwise size={16} />,
-    badge: "12",
     content: (
       <p className="text-sm leading-6 text-[var(--text-tertiary)]">
         展示数据授权、审核、发布、调用和链上存证记录。
@@ -45,26 +43,26 @@ export default function TabsPage() {
 
   return (
     <div className="space-y-16">
-      <PageHeader title="菜单标签页" description="菜单标签页用于在同一页面区域内切换同级内容，适合详情页信息分组、数据看板分区和配置面板。" />
+      <PageHeader title="标签页" description="标签页用于切换同级内容。后台多级使用时必须按影响范围区分一级、二级和三级，不能只靠字号临时区分。" />
 
       <section>
-        <SectionHeading eyebrow="Usage" title="基础切换" />
-        <ExampleCard title="详情页内容分组" description="详情页 Tabs 只承载同级内容，不用于表达流程步骤。">
-          <Tabs value={value} onValueChange={setValue} items={detailItems} />
+        <SectionHeading eyebrow="Hierarchy" title="三级层级" description="层级由内容影响范围决定：整页、当前页分组、局部图表。三级可按强调程度选择强分段或弱文字。" />
+        <ExampleCard title="一级 · 整页内容切换" description="用于业务模块或整页内容切换，置于页面标题下方；同一页面最多保留一个一级标签栏。">
+          <Tabs value={value} onValueChange={setValue} items={detailItems} variant="page" size="lg" listClassName="min-w-full" />
         </ExampleCard>
       </section>
 
       <section>
         <SectionHeading eyebrow="Patterns" title="后台常用模式" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="状态分组">
+          <ExampleCard title="二级 · 当前页状态分组">
             <Tabs
               defaultValue="all"
-              size="sm"
+              size="md"
               items={[
-                { value: "all", label: "全部", badge: <Badge tone="neutral" count={128} size="sm" />, content: <p className="text-sm text-[var(--text-tertiary)]">展示全部数据。</p> },
-                { value: "pending", label: "待审核", badge: <Badge tone="warning" count={8} size="sm" />, content: <p className="text-sm text-[var(--text-tertiary)]">需要人工复核的数据。</p> },
-                { value: "risk", label: "异常", badge: <Badge tone="danger" count={3} size="sm" />, content: <p className="text-sm text-[var(--text-tertiary)]">存在异常或调用失败的数据。</p> },
+                { value: "all", label: "全部（128）", content: <p className="text-sm text-[var(--text-tertiary)]">展示全部数据。</p> },
+                { value: "pending", label: "待审核（8）", content: <p className="text-sm text-[var(--text-tertiary)]">需要人工复核的数据。</p> },
+                { value: "risk", label: "异常（3）", content: <p className="text-sm text-[var(--text-tertiary)]">存在异常或调用失败的数据。</p> },
               ]}
             />
           </ExampleCard>
@@ -82,7 +80,7 @@ export default function TabsPage() {
             />
           </ExampleCard>
 
-          <ExampleCard title="分段切换">
+          <ExampleCard title="三级 · 强分段切换">
             <Tabs
               defaultValue="space"
               variant="segment"
@@ -91,6 +89,18 @@ export default function TabsPage() {
                 { value: "space", label: "数据空间", content: <p className="text-sm text-[var(--text-tertiary)]">偏规则、权限、合约和审计。</p> },
                 { value: "library", label: "材库", content: <p className="text-sm text-[var(--text-tertiary)]">偏数据接入、治理、图谱和资产化。</p> },
                 { value: "ai", label: "AI 应用", content: <p className="text-sm text-[var(--text-tertiary)]">偏预测、推荐、优化和结果决策。</p> },
+              ]}
+            />
+          </ExampleCard>
+
+          <ExampleCard title="三级 · 弱文字切换">
+            <Tabs
+              defaultValue="year"
+              variant="text"
+              size="sm"
+              items={[
+                { value: "year", label: "按年", content: <p className="text-sm text-[var(--text-tertiary)]">按年度汇总图表数据。</p> },
+                { value: "month", label: "按月", content: <p className="text-sm text-[var(--text-tertiary)]">按月份查看变化趋势。</p> },
               ]}
             />
           </ExampleCard>
@@ -120,7 +130,8 @@ export default function TabsPage() {
           items={[
             "Tabs 内容必须是同级关系，不应用于主流程步骤；流程应使用步骤条或状态流转。",
             "详情页推荐 2-5 个标签，超过 5 个时优先改为侧边导航或二级菜单。",
-            "页面级切换优先使用线型 Tabs；卡片内容内部切换可使用 card；小范围条件切换可使用 segment。",
+            "一级使用 page，二级使用 line；三级强切换使用 segment，按年/按月等弱切换使用 text。不要在同一层级混用样式。",
+            "数量属于标签名称时写作“流转记录（12）”；只有异常、提醒等独立状态才使用彩色徽标。",
             "当前激活项默认使用中性黑，不用品牌红；红色只用于异常数量、风险提示等语义状态。",
             "禁用标签必须可见但不可交互，避免用户误以为内容消失。",
           ]}

@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-type BadgeTone = "neutral" | "brand" | "product" | "danger" | "success" | "warning";
+type BadgeTone = "neutral" | "product" | "error" | "info" | "danger" | "success" | "warning";
 type BadgeSize = "sm" | "md";
 
 const props = withDefaults(
@@ -24,7 +24,7 @@ const props = withDefaults(
   {
     dot: false,
     max: 99,
-    tone: "brand",
+    tone: "error",
     size: "md",
     showZero: false,
   },
@@ -82,9 +82,12 @@ const badgeClasses = computed(() => [`xc-badge--${props.tone}`, `xc-badge--${pro
 }
 
 .xc-badge--neutral { background: var(--neutral-700); }
-.xc-badge--brand { background: var(--brand-600); }
 .xc-badge--product { background: var(--product-blue-500); }
-.xc-badge--danger { background: var(--error-text); }
-.xc-badge--success { background: var(--success-text); }
-.xc-badge--warning { background: var(--warning-text); }
+.xc-badge--error, .xc-badge--danger { background: var(--error-solid); }
+.xc-badge--info { background: var(--info-dot); }
+.xc-badge--success { background: var(--success-solid); }
+.xc-badge--warning { background: var(--warning-solid); }
+.xc-badge--dot.xc-badge--error, .xc-badge--dot.xc-badge--danger { background: var(--error-dot); }
+.xc-badge--dot.xc-badge--success { background: var(--success-dot); }
+.xc-badge--dot.xc-badge--warning { background: var(--warning-dot); }
 </style>

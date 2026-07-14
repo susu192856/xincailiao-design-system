@@ -38,7 +38,7 @@ export default function RadioPage() {
         <SectionHeading
           eyebrow="Sizes"
           title="单选框尺寸"
-          description="单选框仅保留 Small 和 Medium 两档。尺寸改变的是控件圆点，不改变文字层级。"
+          description="单选框仅保留小尺寸（Small）和中尺寸（Medium）两档。尺寸改变的是控件圆点，不改变文字层级。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {sizeRows.map((item) => (
@@ -86,7 +86,7 @@ export default function RadioPage() {
           description="三个示例分别展示提交后生效、需要比较后果和选择后即时生效的典型任务。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <ExampleCard title="标准表单" description="Medium · 纵向排列 · 提交后生效">
+          <ExampleCard title="标准表单" description="中尺寸（Medium）· 纵向排列 · 提交后生效">
             <fieldset className="flex flex-col gap-3">
               <legend className="sr-only">发布方式</legend>
               <Radio name="publish-mode" value="draft" label="保存草稿" description="提交后仅当前编辑者可见。" />
@@ -94,7 +94,7 @@ export default function RadioPage() {
               <Radio name="publish-mode" value="publish" label="直接发布" description="获得发布权限后可选择。" disabled />
             </fieldset>
           </ExampleCard>
-          <ExampleCard title="权限决策" description="Medium · 纵向排列 · 说明选择后果">
+          <ExampleCard title="权限决策" description="中尺寸（Medium）· 纵向排列 · 说明选择后果">
             <fieldset className="flex flex-col gap-3">
               <legend className="sr-only">数据可见范围</legend>
               <Radio name="scope" value="team" label="仅当前团队可见" description="团队外成员无法查看或下载。" />
@@ -102,7 +102,7 @@ export default function RadioPage() {
               <Radio name="scope" value="public" label="公开共享" description="完成数据合规审批后可选择。" disabled />
             </fieldset>
           </ExampleCard>
-          <ExampleCard title="即时筛选" description="Small · 横向排列 · 选择后立即刷新">
+          <ExampleCard title="即时筛选" description="小尺寸（Small）· 横向排列 · 选择后立即刷新">
             <div role="radiogroup" aria-label="处理状态" className="flex flex-wrap gap-x-4 gap-y-3">
               <Radio name="compact-filter" value="all" label="全部" size="sm" defaultChecked />
               <Radio name="compact-filter" value="pending" label="待处理" size="sm" />

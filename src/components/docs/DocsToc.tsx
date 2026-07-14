@@ -54,7 +54,7 @@ export default function DocsToc() {
   if (items.length < 2) return null;
 
   return (
-    <aside className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-48 shrink-0 overflow-y-auto p-4 xl:block">
+    <aside className="sticky top-8 hidden max-h-[calc(100vh-4rem)] w-40 shrink-0 overflow-y-auto p-2 xl:block">
       <nav aria-label="本页目录">
         <ol className="space-y-1 border-l border-[var(--neutral-200)]">
           {items.map((item) => {

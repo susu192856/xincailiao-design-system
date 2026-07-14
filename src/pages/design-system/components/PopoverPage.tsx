@@ -11,7 +11,7 @@ export default function PopoverPage() {
       <PageHeader title="气泡弹窗" description="气泡弹窗用于承载轻量说明、快捷信息和少量操作，适合不打断流程的局部补充。" />
 
       <section>
-        <SectionHeading title="基础结构" eyebrow="Usage" description="Popover 比 Tooltip 承载更多信息，但仍然不是弹窗。内容应短、聚焦、靠近触发对象。" />
+        <SectionHeading title="基础结构" eyebrow="Usage" description="气泡弹窗（Popover）比文字提示（Tooltip）承载更多信息，但仍然不是弹窗。内容应短、聚焦、靠近触发对象。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <ExampleCard title="字段详情">
             <div className="flex min-h-40 items-center">
@@ -52,7 +52,7 @@ export default function PopoverPage() {
       </section>
 
       <section>
-        <SectionHeading title="出现位置" eyebrow="Placement" description="根据触发点位置选择方向，避免遮挡关键数据。后台表格内优先使用 right 或 bottom。" />
+        <SectionHeading title="出现位置" eyebrow="Placement" description="根据触发点位置选择方向，避免遮挡关键数据。后台表格内优先使用右侧（right）或下方（bottom）。" />
         <ExampleCard title="四向位置">
           <div className="grid grid-cols-2 gap-8 py-10 md:grid-cols-4">
             {placements.map((placement) => (
@@ -92,7 +92,7 @@ export default function PopoverPage() {
               </div>
             </div>
           </ExampleCard>
-          <ExampleCard title="AI 推荐解释">
+          <ExampleCard title="人工智能（AI）推荐解释">
             <div className="bg-[var(--neutral-50)] p-4">
               <div className="bg-white p-4">
                 <div className="flex items-start justify-between">

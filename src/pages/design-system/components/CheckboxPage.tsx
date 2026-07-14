@@ -39,7 +39,7 @@ export default function CheckboxPage() {
         <SectionHeading
           eyebrow="Sizes"
           title="复选框尺寸"
-          description="复选框保留 Small 和 Medium 两档。尺寸改变控件方框，不改变文字层级。"
+          description="复选框保留小尺寸（Small）和中尺寸（Medium）两档。尺寸改变控件方框，不改变文字层级。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {sizeRows.map((item) => (
@@ -120,7 +120,7 @@ export default function CheckboxPage() {
           多项可同时选择时使用 Checkbox；同组选项互斥时使用 Radio；设置切换后立即生效时使用 Switch。父级仅在部分子项选中时显示半选，不把半选作为可提交的第三种业务值。
         </RuleCallout>
         <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="键盘与状态" description="每个复选框独立进入焦点，Space 切换当前项。">
+          <ExampleCard title="键盘与状态" description="每个复选框独立进入焦点，空格键（Space）切换当前项。">
             <ul className="space-y-2 text-sm leading-6 text-[var(--text-secondary)]">
               <li>Tab 按页面顺序移动焦点，Space 选中或取消。</li>
               <li>焦点、选中、半选和禁用不能只依赖颜色区分。</li>

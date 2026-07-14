@@ -11,7 +11,7 @@ export default function TooltipPage() {
       <PageHeader title="文字提示" description="文字提示用于解释图标、字段或被截断内容，只承载短文本，不打断当前操作。" />
 
       <section>
-        <SectionHeading title="基础用法" eyebrow="Usage" description="Tooltip 是最轻量的解释层。内容应控制在一到两行，不能放按钮、表单或复杂信息。" />
+        <SectionHeading title="基础用法" eyebrow="Usage" description="文字提示（Tooltip）是最轻量的解释层。内容应控制在一到两行，不能放按钮、表单或复杂信息。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <ExampleCard title="图标解释">
             <div className="flex min-h-28 items-center gap-4">
@@ -78,7 +78,7 @@ export default function TooltipPage() {
               </div>
             </div>
           </ExampleCard>
-          <ExampleCard title="文本省略说明" description="长字段被截断时，可用 Tooltip 展示完整内容。">
+          <ExampleCard title="文本省略说明" description="长字段被截断时，可用文字提示（Tooltip）展示完整内容。">
             <div className="w-full bg-[var(--neutral-50)] p-4">
               <Tooltip content="面向航空发动机热端部件的高温合金材料数据集，已完成工艺与性能字段校准。" open>
                 <p className="max-w-xs truncate text-sm text-[var(--text-body)]">

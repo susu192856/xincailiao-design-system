@@ -35,6 +35,36 @@
   --product-blue-900: #001D47;
 }
 
+/* 分类标签色 (Category Tag Colors)
+ * 统一复用数据可视化色相：浅底/边框由该色系 0 阶与白色混合；文字由 6 阶混入少量中性黑，平衡不同色相的鲜亮度。
+ */
+:root {
+  --category-orange-bg: color-mix(in srgb, var(--data-orange-0) 14%, white);
+  --category-orange-border: color-mix(in srgb, var(--data-orange-0) 42%, white);
+  --category-orange-text: color-mix(in srgb, var(--data-orange-6) 82%, var(--neutral-900));
+  --category-blue-bg: color-mix(in srgb, var(--data-blue-0) 14%, white);
+  --category-blue-border: color-mix(in srgb, var(--data-blue-0) 42%, white);
+  --category-blue-text: color-mix(in srgb, var(--data-blue-6) 82%, var(--neutral-900));
+  --category-green-bg: color-mix(in srgb, var(--data-green-0) 14%, white);
+  --category-green-border: color-mix(in srgb, var(--data-green-0) 42%, white);
+  --category-green-text: color-mix(in srgb, var(--data-green-6) 82%, var(--neutral-900));
+  --category-pink-bg: color-mix(in srgb, var(--data-pink-0) 14%, white);
+  --category-pink-border: color-mix(in srgb, var(--data-pink-0) 42%, white);
+  --category-pink-text: color-mix(in srgb, var(--data-pink-6) 82%, var(--neutral-900));
+  --category-magenta-bg: color-mix(in srgb, var(--data-magenta-0) 14%, white);
+  --category-magenta-border: color-mix(in srgb, var(--data-magenta-0) 42%, white);
+  --category-magenta-text: color-mix(in srgb, var(--data-magenta-6) 82%, var(--neutral-900));
+  --category-purple-bg: color-mix(in srgb, var(--data-purple-0) 14%, white);
+  --category-purple-border: color-mix(in srgb, var(--data-purple-0) 42%, white);
+  --category-purple-text: color-mix(in srgb, var(--data-purple-6) 82%, var(--neutral-900));
+  --category-amber-bg: color-mix(in srgb, var(--data-amber-0) 14%, white);
+  --category-amber-border: color-mix(in srgb, var(--data-amber-0) 42%, white);
+  --category-amber-text: color-mix(in srgb, var(--data-amber-6) 82%, var(--neutral-900));
+  --category-indigo-bg: color-mix(in srgb, var(--data-indigo-0) 14%, white);
+  --category-indigo-border: color-mix(in srgb, var(--data-indigo-0) 42%, white);
+  --category-indigo-text: color-mix(in srgb, var(--data-indigo-6) 82%, var(--neutral-900));
+}
+
 /* 中性色 (Neutral Colors) */
 :root {
   --neutral-50: #F7F8FA;
@@ -67,31 +97,35 @@
 
 /* 语义色 (Semantic Colors) — Arco Design */
 :root {
-  --success-text: #009A29;
+  --success-text: #007A20;
   --success-hover: #009A29;
   --success-active: #008522;
   --success-bg: #E8FFEA;
   --success-tag: #E8FFEA;
   --success-border: #AFF0B5;
+  --success-dot: #00B42A;
 
-  --warning-text: #FF7D00;
+  --warning-text: #A64B00;
   --warning-hover: #D25F00;
   --warning-active: #B35200;
   --warning-bg: #FFF7E8;
   --warning-tag: #FFF7E8;
   --warning-border: #FFE4BA;
+  --warning-dot: #FF7D00;
 
-  --error-text: #F53F3F;
+  --error-text: #C62828;
   --error-hover: #F53F3F;
   --error-active: #AF2126;
   --error-bg: #FFECE8;
   --error-tag: #FFECE8;
   --error-border: #FDCDC5;
+  --error-dot: #F53F3F;
 
-  --info-text: #3491FA;
+  --info-text: #0057A8;
   --info-bg: #E8F7FF;
   --info-tag: #E8F7FF;
   --info-border: #C3E7FE;
+  --info-dot: #3491FA;
 
   /* 语义色的大面积填充（solid 按钮等） */
   --success-solid: #00B42A;

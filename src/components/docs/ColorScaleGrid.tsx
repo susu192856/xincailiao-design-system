@@ -15,8 +15,8 @@ type ColorScaleGridProps = {
 export default function ColorScaleGrid({ colors, className = "" }: ColorScaleGridProps) {
   const hasAlias = colors.some((c) => c.alias);
   const gridCols = hasAlias
-    ? "grid-cols-[48px_minmax(120px,0.8fr)_minmax(120px,0.8fr)_minmax(180px,1fr)_minmax(180px,1fr)]"
-    : "grid-cols-[48px_minmax(120px,0.8fr)_minmax(120px,0.8fr)_minmax(220px,1.6fr)]";
+    ? "grid-cols-[40px_minmax(96px,0.8fr)_minmax(84px,0.7fr)_minmax(120px,1.15fr)_minmax(120px,1fr)]"
+    : "grid-cols-[40px_minmax(96px,0.8fr)_minmax(84px,0.7fr)_minmax(120px,1.4fr)]";
 
   const featuredRowClass = (name: string) => {
     if (name === "brand-600") return "bg-[var(--brand-50)]";

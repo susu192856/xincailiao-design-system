@@ -1,0 +1,14 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="39" y="38" width="82" height="104" rx="2" transform="rotate(-7 39 38)" fill="#1A1A1A"/>
+  <path d="M48 32H103L129 54V139C129 140.657 127.657 142 126 142H48C46.3431 142 45 140.657 45 139V35C45 33.3431 46.3431 32 48 32Z" fill="white" stroke="#1A1A1A" stroke-width="0.5"/>
+  <path d="M103 32V51C103 52.6569 104.343 54 106 54H129" fill="#F3F3F3"/>
+  <path d="M103 32V51C103 52.6569 104.343 54 106 54H129" stroke="#1A1A1A" stroke-width="0.5"/>
+  <rect x="60" y="69" width="27" height="3" rx="1" fill="#FF112D"/>
+  <rect x="60" y="77" width="45" height="8" rx="1" fill="#FF3C4C" fill-opacity="0.2"/>
+  <rect x="60" y="98" width="50" height="4" rx="1" fill="#D4D4D4"/>
+  <rect x="60" y="108" width="50" height="4" rx="1" fill="#D4D4D4"/>
+  <rect x="60" y="118" width="36" height="4" rx="1" fill="#D4D4D4"/>
+  <circle cx="127" cy="126" r="21" fill="white" stroke="#1A1A1A"/>
+  <circle cx="127" cy="126" r="15" fill="#FF112D"/>
+  <path d="M127 119V133M120 126H134" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>

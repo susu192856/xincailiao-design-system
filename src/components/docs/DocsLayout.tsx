@@ -51,7 +51,7 @@ export default function DocsLayout() {
           </button>
           <span className="ml-3 text-sm font-semibold">新材道设计规范</span>
         </div>
-        <div className="docs-content mx-auto flex max-w-[calc(var(--content-docs-width)+12rem)] items-start gap-10 px-5 py-8 md:px-8 md:py-12 xl:px-10">
+        <div className="docs-content mx-auto flex max-w-[calc(var(--content-docs-width)+10rem)] items-start gap-6 px-5 py-8 md:px-8 md:py-12 xl:px-8">
           <article className="docs-article min-w-0 flex-1">
             <Outlet />
           </article>

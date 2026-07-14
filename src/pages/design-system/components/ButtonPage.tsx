@@ -352,7 +352,7 @@ function ButtonPlaygroundSection() {
       <SectionHeading
         eyebrow="Playground"
         title="即时体验"
-        description="调整按钮类型、内容形式、业务语义、尺寸和状态，观察同一 API 如何映射到视觉与交互。"
+        description="调整按钮类型、内容形式、业务语义、尺寸和状态，观察同一接口（API）如何映射到视觉与交互。"
       />
       <SpecCard title="按钮配置" description="选择属性后，预览和代码会同步更新。">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.8fr)]">
@@ -396,14 +396,14 @@ export default function ButtonPage() {
     <div className="space-y-20">
       <PageHeader
         title="按钮"
-        description="按钮用于触发动作。先判断视觉层级，再判断业务语义；页面类型决定 task、product、brand 三色如何进入操作组。"
+        description="按钮用于触发动作。先判断视觉层级，再判断业务语义；页面类型决定任务色（Task）、产品色（Product）、品牌色（Brand）如何进入操作组。"
       />
 
       <section>
         <SectionHeading
           eyebrow="Types"
           title="按钮类型"
-          description="先用类型建立视觉层级，再用 tone 表达业务语义。下面只展示默认样式，避免把状态、尺寸和颜色规则混在一起。"
+          description="先用类型属性（variant）建立视觉层级，再用颜色语义（tone）表达业务含义。下面只展示默认样式，避免把状态、尺寸和颜色规则混在一起。"
         />
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
           {typeCards.map((item) => (
@@ -483,7 +483,7 @@ export default function ButtonPage() {
           description="官网/门户优先可点击性和转化效率，后台/应用平台优先信息密度和操作稳定性。尺寸不要跨场景混用。"
         />
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-          <SpecCard title="官网 / 门户" description="以 lg、xl、2xl 为主，用于导航、Hero 和内容区 CTA。">
+          <SpecCard title="官网 / 门户" description="以大、特大、超大（lg / xl / 2xl）为主，用于导航、首屏区（Hero）和内容区行动入口（CTA）。">
             <div className="space-y-5">
               <ButtonSurface gap="loose">
                 <Button size="lg" tone="brand">预约演示</Button>
@@ -500,7 +500,7 @@ export default function ButtonPage() {
             </div>
           </SpecCard>
 
-          <SpecCard title="后台 / 应用平台" description="以 sm、md、lg 为主。后台任务推进使用 task；应用平台能力调用可使用 product。">
+          <SpecCard title="后台 / 应用平台" description="以小、中、大（sm / md / lg）为主。后台任务推进使用任务色（Task）；应用平台能力调用可使用产品色（Product）。">
             <div className="space-y-5">
               <ButtonSurface gap="tight">
                 <Button size="sm" variant="text" tone="product">查看</Button>
@@ -552,15 +552,15 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Tri-tone Rules"
           title="三色三角使用规则"
-          description="task、product、brand 是平级主操作语义。它们可以出现在同一页面的不同区域，但同一个操作组只能有一个 solid。"
+          description="任务色（Task）、产品色（Product）、品牌色（Brand）是平级主操作语义。它们可以出现在同一页面的不同区域，但同一个操作组只能有一个实色按钮（solid）。"
         />
         <div className="space-y-5">
           <SpecCard title="三色怎么判断">
             <div className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
               <div className="space-y-4 text-sm leading-6 text-[var(--text-secondary)]">
-                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--neutral-900)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">黑色 task：</span>提交、确认、保存、发布、创建。它改变任务状态或推动流程。</p>
-                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--product-blue-500)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">蓝色 product：</span>分析、生成、连接、筛选、导出、预览。它调用产品能力，通常可重复或可撤回。</p>
-                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--brand-600)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">红色 brand：</span>预约演示、立即体验、查看方案。它服务品牌转化，不进入常规后台操作组。</p>
+                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--neutral-900)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">黑色（Task）：</span>提交、确认、保存、发布、创建。它改变任务状态或推动流程。</p>
+                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--product-blue-500)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">蓝色（Product）：</span>分析、生成、连接、筛选、导出、预览。它调用产品能力，通常可重复或可撤回。</p>
+                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--brand-600)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">红色（Brand）：</span>预约演示、立即体验、查看方案。它服务品牌转化，不进入常规后台操作组。</p>
               </div>
               <div className="mt-5 grid grid-cols-1 gap-3 xl:grid-cols-3">
                 <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4">
@@ -578,7 +578,7 @@ export default function ButtonPage() {
                   <Button tone="brand">预约演示</Button>
                   <Button variant="outline" tone="neutral">登录</Button>
                 </ButtonSurface>
-                <MetaText>官网同组以 brand 承担转化；黑色 task 只用于提交资料等事务，避免和品牌 CTA 抢主次。</MetaText>
+                <MetaText>官网同组以品牌色（Brand）承担转化；黑色（Task）只用于提交资料等事务，避免和行动入口（CTA）抢主次。</MetaText>
                 </div>
                 <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4">
                 <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">黑色 + 蓝色</p>
@@ -586,7 +586,7 @@ export default function ButtonPage() {
                   <Button variant="outline" tone="product">预览版本</Button>
                   <Button tone="task">确认发布</Button>
                 </ButtonSurface>
-                <MetaText>后台常见组合：task 做唯一 solid，product 降为 outline 或 text。</MetaText>
+                <MetaText>后台常见组合：任务色（Task）作为唯一实色按钮（solid），产品色（Product）降为描边型（outline）或文字型（text）。</MetaText>
                 </div>
               </div>
             </div>
@@ -621,7 +621,7 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Semantic Buttons"
           title="语义按钮"
-          description="danger、warning、success 是状态语义，不参与三色三角主操作模型。只有当业务状态明确时才使用。"
+          description="危险（Danger）、警告（Warning）、成功（Success）是状态语义，不参与三色三角主操作模型。只有当业务状态明确时才使用。"
         />
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
           <SpecCard title="危险操作" description="用于不可逆或高风险动作，必须配合二次确认。">
@@ -673,7 +673,7 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Semantic Model"
           title="按钮语义模型"
-          description="前端、Figma 和 Codex 都使用同一套模型：variant 表示视觉层级，tone 表示业务语义，size 表示场景密度，state 表示交互状态。"
+          description="前端、Figma（设计工具）和 Codex（代码协作工具）都使用同一套模型：类型属性（variant）表示视觉层级，颜色语义（tone）表示业务含义，尺寸（size）表示场景密度，状态（state）表示交互状态。"
         />
         <div>
           <DocsTable caption="代码、Figma 和页面说明使用同一字段，不新增 secondary、primaryBlue 之类的派生属性。">
@@ -702,7 +702,7 @@ export default function ButtonPage() {
                 <td className="font-token">size</td>
                 <td>尺寸密度</td>
                 <td className="font-token">md</td>
-                <td>后台默认 md，官网 CTA 使用 lg 以上。</td>
+                <td>后台默认中尺寸（md），官网行动入口（CTA）使用大尺寸（lg）以上。</td>
               </tr>
               <tr>
                 <td className="font-token">state</td>

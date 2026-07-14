@@ -49,15 +49,15 @@ const sections = [
     items: [
       { icon: <Dna size={24} weight="regular" />, title: "统一的视觉DNA", desc: "覆盖官网、数据空间、材库、材小模等全线产品" },
       { icon: <StackPlus size={24} weight="regular" />, title: "精准区分与快速搭建", desc: "按页面类型拆分为品牌展示、数据浏览、专业工具、系统管理四种场景，各自使用适合的信息密度和布局方式。" },
-      { icon: <FigmaLogo size={24} weight="regular" />, title: "高还原度交付", desc: "Figma 组件与开发实现保持同一套 Token 体系" },
-      { icon: <FlowArrow size={24} weight="regular" />, title: "持续迭代与同步", desc: "Token 由 Codex 维护，自动生成 .md 和 Figma tokens" },
+      { icon: <FigmaLogo size={24} weight="regular" />, title: "高还原度交付", desc: "Figma（设计工具）组件与开发实现保持同一套设计变量（Token）体系" },
+      { icon: <FlowArrow size={24} weight="regular" />, title: "持续迭代与同步", desc: "设计变量（Token）由 Codex（代码协作工具）维护，自动生成 Markdown（.md）文档和 Figma Tokens（设计变量）" },
     ],
   },
   {
     eyebrow: "Principles",
     title: "设计原则",
     items: [
-      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: <><p className="font-medium text-[var(--text-primary)]">色彩克制</p><p>品牌红仅作为品牌签名出现；产品蓝用于产品能力以及 Radio、Checkbox、Switch 的选中状态；所有表单控件的 Focus 使用中性黑，大面积使用白色和灰阶构建界面。</p><p className="mt-3 font-medium text-[var(--text-primary)]">装饰克制</p><p>以信息传达为优先，减少无关视觉噪声。官网等品牌叙事层允许适度的视觉强化，装饰元素遵循统一数值梯度。</p></> },
+      { icon: <PrincipleIcon type="restraint" />, title: "克制", desc: <><p className="font-medium text-[var(--text-primary)]">色彩克制</p><p>品牌红仅作为品牌签名出现；产品蓝用于产品能力以及单选框（Radio）、复选框（Checkbox）、开关（Switch）的选中状态；所有表单控件的聚焦态（Focus）使用中性黑，大面积使用白色和灰阶构建界面。</p><p className="mt-3 font-medium text-[var(--text-primary)]">装饰克制</p><p>以信息传达为优先，减少无关视觉噪声。官网等品牌叙事层允许适度的视觉强化，装饰元素遵循统一数值梯度。</p></> },
       { icon: <PrincipleIcon type="clarity" />, title: "清晰", desc: <><p className="font-medium text-[var(--text-primary)]">信息层级清晰</p><p>通过严格的字号、字重、灰度体系，确保用户快速建立信息浏览动线。</p><p className="mt-3 font-medium text-[var(--text-primary)]">操作路径清晰</p><p>视觉权重递进明确，用户能无歧义地找到主行动点。</p></> },
       { icon: <PrincipleIcon type="trust" />, title: "可信", desc: <><p className="font-medium text-[var(--text-primary)]">结构可信</p><p>通过稳定结构和明确边界，建立数据治理的可靠感。</p><p className="mt-3 font-medium text-[var(--text-primary)]">反馈可信</p><p>状态反馈及时准确，权限标识清晰可辨，操作结果可预期。</p></> },
       { icon: <PrincipleIcon type="efficiency" />, title: "高效", desc: <><p className="font-medium text-[var(--text-primary)]">操作高效</p><p>面向材料工程师、工艺师、数据运营方等专业用户，减少无效步骤。</p><p className="mt-3 font-medium text-[var(--text-primary)]">信息密度高效</p><p>紧凑而有序地呈现高密度数据，减少不必要的留白和滚动。</p></> },
@@ -92,7 +92,10 @@ export function HomeHero() {
             <span className="text-[var(--text-tertiary)] mr-1.5">2026</span><span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
             新材道设计系统
           </div>
-          <h1 className="mt-5 text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">设计系统</h1>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <h1 className="text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">设计系统</h1>
+            <Tag variant="soft" tone="neutral" size="sm">v2.0</Tag>
+          </div>
           <p className="mt-4 max-w-xl text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">
             覆盖官网门户、可信数据空间、材库、材小模等全线产品的统一设计语言。基于 Token 驱动的色彩、字体、间距、圆角、阴影体系，从 Figma 设计稿到 Vue 3 组件代码保持同一套设计变量，确保品牌识别一致、研发交付高效。
           </p>
@@ -134,6 +137,22 @@ export function HomeHero() {
 export default function HomePage() {
   return (
     <div className="space-y-16">
+
+      <section>
+        <SectionHeading eyebrow="Rules" title="阅读与使用约定" description="页面为阅读者提供中文解释；中文术语后标注英文标识，英文术语后补充中文含义，保证查看时易懂、使用时可直接查找。" />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {[
+            ["中文名称", "先回答“这是什么、何时使用”，标题、说明和业务示例统一使用中文。"],
+            ["英文标识", "中文先出现时写作“浅底模式（soft）”；英文先出现时写作“soft（浅底模式）”。"],
+            ["设计变量（Token）", "变量保留英文代码名并使用等宽字体，例如 --success-text；中文紧邻说明其作用。"],
+          ].map(([title, description]) => (
+            <SectionCard key={title} className="p-5">
+              <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{description}</p>
+            </SectionCard>
+          ))}
+        </div>
+      </section>
 
       {/* Objectives */}
       <section>
@@ -194,7 +213,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <section className="border-t border-[var(--neutral-200)] py-8 text-center text-xs text-[var(--text-tertiary)]">
-        <p>2026 新材道设计系统 · v1.0 · 由 Codex 维护 · 通过 GitHub Pages 发布</p>
+        <p>2026 新材道设计系统 · v2.0 · 由 Codex（代码协作工具）维护 · 通过 GitHub Pages（托管服务）发布</p>
       </section>
     </div>
   );

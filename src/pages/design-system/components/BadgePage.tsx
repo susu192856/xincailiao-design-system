@@ -18,13 +18,13 @@ export default function BadgePage() {
               <Badge count={8} tone="product" />
               <Badge count={128} tone="product" />
               <Badge count={0} tone="neutral" showZero />
-              <Badge count={3} tone="danger" />
+              <Badge count={3} tone="error" />
             </div>
             <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">默认超过 99 显示 99+，0 值默认隐藏，统计场景可显示 0。</p>
           </ExampleCard>
           <ExampleCard title="圆点">
             <div className="flex flex-wrap items-center gap-5">
-              <Badge dot tone="brand" />
+              <Badge dot tone="error" />
               <Badge dot tone="product" />
               <Badge dot tone="warning" />
               <Badge dot tone="success" />
@@ -37,7 +37,7 @@ export default function BadgePage() {
               <Badge count={12} tone="product">
                 <Button variant="ghost" tone="neutral">消息</Button>
               </Badge>
-              <Badge dot tone="danger">
+              <Badge dot tone="error">
                 <Avatar name="王工" />
               </Badge>
             </div>
@@ -53,12 +53,12 @@ export default function BadgePage() {
             <div className="w-72 bg-white p-3">
               {[
                 ["数据审批", 8, "product"],
-                ["异常任务", 2, "danger"],
+                ["异常任务", 2, "error"],
                 ["消息通知", 0, "neutral"],
               ].map(([label, count, tone]) => (
                 <div key={label} className="flex items-center justify-between px-3 py-2">
                   <span className="text-sm text-[var(--text-body)]">{label}</span>
-                  <Badge count={count as number} tone={tone as "product" | "danger" | "neutral"} showZero={label === "消息通知"} />
+                  <Badge count={count as number} tone={tone as "product" | "error" | "neutral"} showZero={label === "消息通知"} />
                 </div>
               ))}
             </div>
@@ -75,7 +75,7 @@ export default function BadgePage() {
               </div>
               <div className="flex items-center justify-between bg-[var(--neutral-50)] p-3">
                 <Tag variant="error" size="sm">异常</Tag>
-                <Badge count={1} tone="danger" />
+                <Badge count={1} tone="error" />
               </div>
               <div className="flex items-center justify-between bg-[var(--neutral-50)] p-3">
                 <Tag variant="success" size="sm">已完成</Tag>
@@ -95,7 +95,7 @@ export default function BadgePage() {
                     <p className="text-sm text-[var(--text-primary)]">{name}</p>
                     <p className="mt-1 text-xs text-[var(--text-tertiary)]">{status}</p>
                   </div>
-                  <Badge count={count as number} tone={count ? "danger" : "neutral"} showZero={count === 0} />
+                  <Badge count={count as number} tone={count ? "error" : "neutral"} showZero={count === 0} />
                 </div>
               ))}
             </div>
@@ -121,7 +121,8 @@ export default function BadgePage() {
         <SpecList
           items={[
             "徽标数只表达数量或轻量提醒，不替代标签、Toast、Alert 或 Modal。",
-            "后台功能入口优先使用产品蓝；危险和异常数量使用错误色；品牌红只用于极少数关键提醒。",
+            "颜色直接复用颜色规范的语义 Token：普通通知使用信息蓝，成功、警告、错误分别使用 success、warning、error；中性计数使用 neutral。",
+            "徽标颜色表达提醒语义，不使用分类标签色，也不使用品牌红代替错误色。",
             "数量超过 99 时显示 99+，避免破坏导航宽度；统计语义需要显示 0 时使用 showZero。",
             "圆点适合提醒“有更新”，数量徽标适合提醒“有多少待处理”。",
           ]}
