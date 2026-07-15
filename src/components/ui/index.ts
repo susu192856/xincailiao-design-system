@@ -65,7 +65,7 @@ export type { TagProps, TagVariant } from "./Tag";
 export { Textarea } from "./Textarea";
 export type { TextareaProps } from "./Textarea";
 export { toast, Toast, ToastContainer } from "./Toast";
-export type { ToastContainerProps, ToastProps, ToastVariant } from "./Toast";
+export type { ToastContainerProps, ToastPresentation, ToastProps, ToastVariant } from "./Toast";
 export { Tooltip } from "./Tooltip";
 export type { TooltipPlacement, TooltipProps } from "./Tooltip";
 export { Transfer } from "./Transfer";

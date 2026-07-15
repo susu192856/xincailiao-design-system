@@ -64,11 +64,11 @@ const feedbackCatalog = [
   {
     module: "反馈与浮层",
     pages: [
-      { label: "弹窗", path: "/components/modal" },
+      { label: "对话框", path: "/components/modal" },
       { label: "抽屉", path: "/components/drawer" },
       { label: "提示", path: "/components/tooltip" },
       { label: "气泡卡片", path: "/components/popover" },
-      { label: "消息提示", path: "/components/toast" },
+      { label: "消息反馈", path: "/components/toast" },
     ],
   },
   {

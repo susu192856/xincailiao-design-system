@@ -22,7 +22,7 @@ const emit = defineEmits<{
 }>();
 
 const sizeMap = {
-  sm: "360px",
+  sm: "400px",
   md: "480px",
   lg: "640px",
   xl: "800px",
@@ -39,15 +39,13 @@ function handleMaskClick(event: MouseEvent) {
   <div v-if="open" class="xc-drawer" :class="`xc-drawer--${placement}`" @mousedown="handleMaskClick">
     <section class="xc-drawer__panel" :style="{ width: sizeMap[size] }" role="dialog" aria-modal="true">
       <header class="xc-drawer__header">
-        <div>
-          <h2 class="xc-drawer__title">{{ title }}</h2>
-          <p v-if="description" class="xc-drawer__description">{{ description }}</p>
-        </div>
+        <h2 class="xc-drawer__title">{{ title }}</h2>
         <button v-if="closeable" class="xc-drawer__close" type="button" aria-label="关闭" @click="emit('close')">
           ×
         </button>
       </header>
-      <div class="xc-drawer__body">
+      <div class="xc-drawer__body" data-drawer-scroll-region>
+        <p v-if="description" class="xc-drawer__description">{{ description }}</p>
         <slot />
       </div>
       <footer v-if="$slots.footer" class="xc-drawer__footer">
@@ -76,7 +74,7 @@ function handleMaskClick(event: MouseEvent) {
 
 .xc-drawer__panel {
   display: flex;
-  max-width: calc(100vw - 32px);
+  max-width: 100%;
   height: 100%;
   flex-direction: column;
   border-right: 1px solid var(--neutral-200);
@@ -84,25 +82,33 @@ function handleMaskClick(event: MouseEvent) {
   background: #fff;
 }
 
+@media (min-width: 640px) {
+  .xc-drawer__panel {
+    max-width: calc(100vw - 48px);
+  }
+}
+
 .xc-drawer__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  border-bottom: 1px solid var(--neutral-200);
-  padding: 20px;
+  min-height: 56px;
+  flex: none;
+  padding: 12px 24px;
+  background: var(--neutral-50);
 }
 
 .xc-drawer__title {
   margin: 0;
   color: var(--neutral-900);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.4;
 }
 
 .xc-drawer__description {
-  margin: 4px 0 0;
+  margin: 0 0 20px;
   color: var(--neutral-600);
   font-size: 14px;
   line-height: 24px;
@@ -130,7 +136,7 @@ function handleMaskClick(event: MouseEvent) {
   min-height: 0;
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 24px;
 }
 
 .xc-drawer__footer {
@@ -138,6 +144,8 @@ function handleMaskClick(event: MouseEvent) {
   justify-content: flex-end;
   gap: 12px;
   border-top: 1px solid var(--neutral-200);
-  padding: 20px;
+  min-height: 54px;
+  flex: none;
+  padding: 11px 28px;
 }
 </style>

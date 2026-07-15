@@ -114,11 +114,11 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
     {
       title: "反馈与浮层",
       items: [
-        { name: "弹窗", path: "/components/modal", icon: <ChatCentered size={16} weight="regular" /> },
+        { name: "对话框", path: "/components/modal", icon: <ChatCentered size={16} weight="regular" /> },
         { name: "抽屉", path: "/components/drawer", icon: <SidebarSimple size={16} weight="regular" /> },
         { name: "文字提示", path: "/components/tooltip", icon: <Question size={16} weight="regular" /> },
         { name: "气泡弹窗", path: "/components/popover", icon: <ChatCentered size={16} weight="regular" /> },
-        { name: "提示反馈", path: "/components/toast", icon: <ChatCentered size={16} weight="regular" /> },
+        { name: "消息反馈", path: "/components/toast", icon: <ChatCentered size={16} weight="regular" /> },
       ],
     },
     {

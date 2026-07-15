@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 import { X } from "@phosphor-icons/react";
 
 export type DrawerProps = {
@@ -18,7 +18,7 @@ export type DrawerProps = {
 };
 
 const sizeClasses: Record<NonNullable<DrawerProps["size"]>, string> = {
-  sm: "w-[360px]",
+  sm: "w-[400px]",
   md: "w-[480px]",
   lg: "w-[640px]",
   xl: "w-[800px]",
@@ -46,12 +46,13 @@ export function Drawer({
   inline = false,
   className,
 }: DrawerProps) {
+  const titleId = useId();
   if (!open) return null;
 
   const panel = (
     <div
       className={[
-        "flex h-full max-w-[calc(100vw-32px)] flex-col bg-white",
+        "flex h-full max-w-full flex-col bg-white sm:max-w-[calc(100vw-48px)]",
         "border-l border-r",
         sizeClasses[size],
         toneClasses[tone],
@@ -60,15 +61,12 @@ export function Drawer({
       ].join(" ")}
       role="dialog"
       aria-modal={!inline}
-      aria-labelledby="drawer-title"
+      aria-labelledby={titleId}
     >
-      <div className="flex items-start justify-between gap-4 border-b border-[var(--neutral-200)] p-5">
-        <div className="min-w-0">
-          <h2 id="drawer-title" className="text-lg font-semibold text-[var(--text-primary)]">
-            {title}
-          </h2>
-          {description ? <p className="mt-1 text-sm leading-6 text-[var(--text-tertiary)]">{description}</p> : null}
-        </div>
+      <div className="flex min-h-[56px] shrink-0 items-center justify-between gap-4 bg-[var(--neutral-50)] px-6 py-3">
+        <h2 id={titleId} className="min-w-0 text-base font-semibold text-[var(--text-primary)]">
+          {title}
+        </h2>
         {closeable ? (
           <button
             type="button"
@@ -80,8 +78,11 @@ export function Drawer({
           </button>
         ) : null}
       </div>
-      <div className="min-h-0 flex-1 overflow-y-auto p-5">{children}</div>
-      {footer ? <div className="flex justify-end gap-3 border-t border-[var(--neutral-200)] p-5">{footer}</div> : null}
+      <div data-drawer-scroll-region className="min-h-0 flex-1 overflow-y-auto p-6">
+        {description ? <p className="mb-5 text-sm leading-6 text-[var(--text-secondary)]">{description}</p> : null}
+        {children}
+      </div>
+      {footer ? <div className="flex min-h-[54px] shrink-0 justify-end gap-3 border-t border-[var(--neutral-200)] px-7 py-[11px]">{footer}</div> : null}
     </div>
   );
 
@@ -98,7 +99,7 @@ export function Drawer({
             }
           }}
         />
-        <div className="relative z-10 h-full">{panel}</div>
+        <div className={["relative z-10 flex h-full w-full", justifyClass].join(" ")}>{panel}</div>
       </div>
     );
   }

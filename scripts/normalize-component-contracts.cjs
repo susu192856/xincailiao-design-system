@@ -79,6 +79,7 @@ const propCatalog = {
   onValueChange: ["function", "受控值变化回调。"],
   duration: ["number", "提示持续时间，默认来自 Toast duration Token。"],
   position: ["string", "提示容器位置。"],
+  presentation: ["'toast' | 'notification' | 'alert'", "消息反馈的展示形态。"],
   alt: ["string", "图片替代文本。"],
   variant: ["string", "组件的结构或视觉层级；不得承载业务颜色语义。"],
   checked: ["boolean", "选择控件的选中状态。"],
@@ -231,8 +232,8 @@ const canonical = {
     props: ["items", "maxItems"],
   },
   Toast: {
-    props: ["tone", "title", "description", "action", "closable", "duration", "position"],
-    variants: ["basic", "with-description", "with-action"],
+    props: ["presentation", "tone", "title", "description", "action", "closable", "duration", "position"],
+    variants: ["toast", "notification", "alert", "with-action"],
   },
   Empty: {
     props: ["variant", "title", "description", "action"],
@@ -290,13 +291,16 @@ const componentRules = {
   },
   Table: {
     anatomy: ["筛选/工具栏", "表头", "数据行", "空态/加载态", "分页"],
-    usage: "用于高密度结构化数据；文本左对齐、可比较数字右对齐、操作右对齐。",
+    usage: "用于高密度结构化数据；文本和操作左对齐、短枚举居中、可比较数字右对齐。",
     avoid: "不要强行压缩大量列；优先保留列宽并允许横向滚动。",
   },
   Modal: {
-    anatomy: ["遮罩", "标题区", "内容区", "底部操作区", "关闭入口"],
-    usage: "用于阻断式确认和必须聚焦处理的任务。",
-    avoid: "不要嵌套多个弹窗，也不要用弹窗承载长时间浏览内容。",
+    anatomy: ["遮罩", "标题区", "内容区", "可选底部操作区", "关闭入口"],
+    usage: "对话框用于阻断式确认和必须聚焦处理的任务；桌面端使用 384/504/720/960px 分档，窄屏按视口安全边距自动收缩。",
+    avoid: "不要嵌套多个对话框，也不要用对话框承载长时间浏览内容。",
+    responsive: "宽度始终保留左右各 24px 安全边距；不设置统一最小高度，由标题、正文和可选操作区自然撑开。最大高度取 864px 与视口高度减 48px中的较小值，仅内容区滚动。",
+    interaction: "保留触发后展开的真实交互；基础对话框根据任务区分带操作按钮与无操作按钮两种变体，无操作按钮变体通过右上角或点击对话框外灰色区域退出。普通任务可通过右上角关闭、取消按钮或点击外部区域退出。高风险决策对话框必须通过语义明确的底部按钮做出选择，不提供其他跳过方式。文档和交付可使用 inline 展开形态核对完整结构。",
+    content: "普通对话框标题区只保留标题、可选语义图标与关闭入口，并使用中性灰背景；标题区常规高度约 56px。决策与结果反馈对话框使用 384px 紧凑尺寸，图标和标题居中且标题区保持白色，不设置标题描述或底部操作分割线；决策对话框提供两个语义明确的选择，结果反馈通常只保留一个确认按钮。正文只保留核心后果和必要补充。键值信息复用 DescriptionList；对话框内紧凑详情行间距使用 12px，说明与详情间距使用 16px。对话框统一使用 8px 圆角。",
   },
   Form: {
     anatomy: ["表单标题与说明", "字段分组", "校验与状态反馈", "操作区"],
@@ -358,6 +362,7 @@ const componentRules = {
     anatomy: ["遮罩", "标题区", "内容区", "操作区", "关闭入口"],
     usage: "用于保留当前页面上下文的详情查看和中等复杂度编辑。",
     avoid: "不要用于必须强制确认的危险任务，也不要在窄抽屉中放置宽表格。",
+    responsive: "桌面端宽度为 400–800px，面板贴合页面一侧并至少保留 48px 主页面上下文；移动端允许全宽。",
     interaction: "打开后焦点进入抽屉，Esc 按规则关闭，关闭后焦点返回触发点；移动端优先全宽。",
     content: "标题说明对象和任务；长内容分组，底部操作保持稳定且不遮挡正文。",
   },
@@ -449,9 +454,9 @@ const componentRules = {
   },
   Toast: {
     anatomy: ["语义图标", "标题", "可选说明", "可选操作", "关闭入口"],
-    usage: "用于操作结果和系统状态的非阻断反馈，语义色与文字必须一致。",
-    avoid: "不要用 Toast 承载必须确认的信息，也不要堆叠大量重复消息。",
-    interaction: "默认时长来自 Token；可操作或需阅读的消息延长时长并支持暂停与关闭。",
+    usage: "消息反馈组件族包含顶部轻提示、通知提示和页面提示，按影响范围与阅读时长选择形态。",
+    avoid: "不要用消息反馈承载必须确认的信息，也不要把页面内提示误当作全局浮层。",
+    interaction: "顶部轻提示默认自动消失；通知可手动关闭；页面提示默认常驻。",
     content: "标题直接说明结果，描述补充对象或恢复方法；错误消息避免只写“失败”。",
   },
 };

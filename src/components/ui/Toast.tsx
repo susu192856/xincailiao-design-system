@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { CheckCircle, Info, SpinnerGap, Warning, WarningCircle, X, XCircle } from "@phosphor-icons/react";
 
 export type ToastVariant = "success" | "error" | "warning" | "info" | "loading";
+export type ToastPresentation = "toast" | "notification" | "alert";
 
 type ToastItem = {
   id: string;
@@ -12,6 +13,7 @@ type ToastItem = {
   duration?: number;
   action?: ReactNode;
   closable?: boolean;
+  presentation?: ToastPresentation;
 };
 
 type ToastRequest = Omit<ToastItem, "id" | "tone"> & {
@@ -28,10 +30,10 @@ export type ToastProps = HTMLAttributes<HTMLDivElement> & Omit<ToastItem, "id" |
 };
 
 let toastId = 0;
-let addToastFn: ((t: ToastRequest) => void) | null = null;
+const toastListeners = new Set<(toastItem: ToastRequest) => void>();
 
 export function toast(props: ToastRequest) {
-  addToastFn?.(props);
+  toastListeners.forEach((listener) => listener(props));
 }
 
 const iconMap: Record<ToastVariant, { icon: typeof CheckCircle; color: string }> = {
@@ -42,6 +44,14 @@ const iconMap: Record<ToastVariant, { icon: typeof CheckCircle; color: string }>
   loading: { icon: SpinnerGap, color: "var(--product-blue-500)" },
 };
 
+const alertToneClasses: Record<ToastVariant, string> = {
+  success: "bg-[var(--success-bg)]",
+  error: "bg-[var(--error-bg)]",
+  warning: "bg-[var(--warning-bg)]",
+  info: "bg-[var(--info-bg)]",
+  loading: "bg-[var(--info-bg)]",
+};
+
 export function Toast({
   tone,
   variant,
@@ -49,6 +59,7 @@ export function Toast({
   description,
   action,
   closable = true,
+  presentation = "toast",
   onClose,
   className = "",
   ...props
@@ -57,25 +68,35 @@ export function Toast({
   return (
     <div
       className={[
-        "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4 shadow-[var(--shadow-md)] animate-slide-in-up",
+        "flex gap-3 rounded-[4px] animate-slide-in-up",
+        description || action ? "items-start" : "items-center",
+        presentation === "toast" ? "w-fit min-w-[220px] max-w-[360px] bg-white px-3 py-2.5 shadow-[var(--shadow-md)]" : "",
+        presentation === "notification" ? "w-full max-w-[360px] bg-white p-4 shadow-[var(--shadow-lg)]" : "",
+        presentation === "alert" ? `w-full px-3 py-2 shadow-none ${alertToneClasses[resolvedTone]}` : "",
         className,
       ].join(" ")}
-      role="status"
+      role={resolvedTone === "error" ? "alert" : "status"}
+      data-presentation={presentation}
       {...props}
     >
       {(() => {
         const IconComp = iconMap[resolvedTone].icon;
         const iconColor = iconMap[resolvedTone].color;
         return resolvedTone === "loading" ? (
-          <SpinnerGap className="mt-1 h-4 w-4 shrink-0 animate-spin" style={{ color: iconColor }} weight="regular" />
+          <SpinnerGap className="mt-0.5 h-4 w-4 shrink-0 animate-spin" style={{ color: iconColor }} weight="regular" />
         ) : (
-          <IconComp className="mt-1 h-4 w-4 shrink-0" style={{ color: iconColor }} weight="regular" />
+          <IconComp className="mt-0.5 h-4 w-4 shrink-0" style={{ color: iconColor }} weight="regular" />
         );
       })()}
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-[var(--neutral-900)]">{title}</p>
+        <p
+          className={["text-sm", presentation === "notification" || description ? "font-semibold" : "font-normal"].join(" ")}
+          style={{ color: "var(--neutral-900)" }}
+        >
+          {title}
+        </p>
         {description ? (
-          <p className="mt-0.5 text-xs leading-5 text-[var(--text-tertiary)]">{description}</p>
+          <p className={["mt-1 text-[var(--text-secondary)]", presentation === "toast" ? "text-xs leading-5" : "text-sm leading-6"].join(" ")}>{description}</p>
         ) : null}
         {action ? <div className="mt-3">{action}</div> : null}
       </div>
@@ -83,7 +104,7 @@ export function Toast({
         <button
           type="button"
           onClick={onClose}
-          className="-mr-1 -mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center text-[var(--neutral-400)] hover:text-[var(--text-tertiary)]"
+          className="-mr-1 inline-flex h-5 w-5 shrink-0 items-center justify-center text-[var(--neutral-400)] hover:text-[var(--text-tertiary)]"
           aria-label="关闭"
         >
           <X size={14} weight="regular" />
@@ -101,7 +122,7 @@ export function ToastContainer({ position = "top-center" }: ToastContainerProps)
   const [items, setItems] = useState<ToastItem[]>([]);
 
   useEffect(() => {
-    addToastFn = (t) => {
+    const addToast = (t: ToastRequest) => {
       const id = String(++toastId);
       const { variant, tone, ...content } = t;
       setItems((prev) => [...prev, { ...content, id, tone: tone ?? variant ?? "info" }]);
@@ -109,7 +130,8 @@ export function ToastContainer({ position = "top-center" }: ToastContainerProps)
         setItems((prev) => prev.filter((i) => i.id !== id));
       }, t.duration ?? (Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue("--toast-duration-default"), 10) || 4000));
     };
-    return () => { addToastFn = null; };
+    toastListeners.add(addToast);
+    return () => { toastListeners.delete(addToast); };
   }, []);
 
   if (items.length === 0) return null;
@@ -117,8 +139,8 @@ export function ToastContainer({ position = "top-center" }: ToastContainerProps)
   return (
     <div
       className={[
-        "fixed z-[var(--z-toast)] flex w-80 flex-col gap-3",
-        position === "top-center" ? "left-1/2 top-6 -translate-x-1/2" : "right-6",
+        "fixed z-[var(--z-toast)] flex w-[min(360px,calc(100vw-48px))] flex-col gap-3",
+        position === "top-center" ? "left-1/2 top-20 -translate-x-1/2 items-center" : "right-6 items-stretch",
         position === "top-right" ? "top-6" : position === "bottom-right" ? "bottom-6" : "",
       ].join(" ")}
     >
@@ -130,6 +152,7 @@ export function ToastContainer({ position = "top-center" }: ToastContainerProps)
           description={item.description}
           action={item.action}
           closable={item.closable ?? false}
+          presentation={item.presentation ?? "toast"}
           className="shadow-[var(--shadow-lg)]"
           onClose={() => setItems((prev) => prev.filter((i) => i.id !== item.id))}
         />

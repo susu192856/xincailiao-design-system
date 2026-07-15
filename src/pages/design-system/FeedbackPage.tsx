@@ -261,7 +261,7 @@ export default function FeedbackPage() {
                     <TableHead>提交日期</TableHead>
                     <TableHead>提交人</TableHead>
                     <TableHead>备注</TableHead>
-                    <TableHead align="right">操作</TableHead>
+                    <TableHead>操作</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -300,9 +300,9 @@ export default function FeedbackPage() {
                       <TableCell className="min-w-[160px] max-w-[240px]">
                         <p className="line-clamp-3 whitespace-normal text-sm leading-5 text-[var(--text-body)]">{entry.note || "无"}</p>
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell>
                         {isAdmin ? (
-                          <div className="flex justify-end gap-2">
+                          <div className="flex justify-start gap-2">
                             <Button
                               variant="text"
                               tone={entry.status === "resolved" ? "neutral" : "success"}
