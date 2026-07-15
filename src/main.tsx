@@ -29,9 +29,13 @@ try {
     "/components/modal", "/components/drawer", "/components/tooltip", "/components/popover", "/components/toast",
     "/delivery", "/feedback",
   ];
+  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
   const currentPath = window.location.pathname;
-  if (currentPath !== "/" && !known.includes(currentPath)) {
-    window.history.replaceState(null, "", "/");
+  const appPath = basePath && currentPath.startsWith(basePath)
+    ? currentPath.slice(basePath.length) || "/"
+    : currentPath;
+  if (appPath !== "/" && !known.includes(appPath)) {
+    window.history.replaceState(null, "", `${basePath}/`);
   }
 } catch (_) { /* ignore */ }
 

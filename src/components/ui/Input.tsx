@@ -170,7 +170,7 @@ export function Input({
         </span>
         {error || helperText ? (
           <span id={messageId} className={`mt-1.5 block text-xs ${error ? "text-[var(--error-text)]" : "text-[var(--text-tertiary)]"}`}>
-            {error ?? helperText}
+            {error || helperText}
           </span>
         ) : null}
       </span>

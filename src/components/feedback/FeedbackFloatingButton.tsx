@@ -317,20 +317,29 @@ export default function FeedbackFloatingButton() {
     }
 
     setSaving(true);
-    const result = await submitFeedbackEntry({
-      module,
-      pageName,
-      pagePath,
-      detail: trimmedDetail,
-      screenshots,
-      submitDate,
-      status: "pending",
-      submitter: submitter.trim() || undefined,
-      note: note.trim() || undefined,
-    });
-    setSource(result.source);
-    setSaving(false);
-    setView("success");
+    setErrors((current) => ({ ...current, submit: "" }));
+    try {
+      const result = await submitFeedbackEntry({
+        module,
+        pageName,
+        pagePath,
+        detail: trimmedDetail,
+        screenshots,
+        submitDate,
+        status: "pending",
+        submitter: submitter.trim() || undefined,
+        note: note.trim() || undefined,
+      });
+      setSource(result.source);
+      setView("success");
+    } catch (error) {
+      setErrors((current) => ({
+        ...current,
+        submit: error instanceof Error ? error.message : "反馈暂时无法提交，请稍后重试。",
+      }));
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -457,6 +466,12 @@ export default function FeedbackFloatingButton() {
                 placeholder="补充优先级、复现条件或相关页面"
                 onChange={(event) => setNote(event.target.value)}
               />
+
+              {errors.submit ? (
+                <p role="alert" className="rounded-[var(--radius-sm)] border border-[var(--error-border)] bg-[var(--error-bg)] px-3 py-2 text-sm leading-6 text-[var(--error-text)]">
+                  {errors.submit}
+                </p>
+              ) : null}
 
               <div className="sticky bottom-0 -mx-5 -mb-5 flex flex-wrap justify-end gap-2 border-t border-[var(--neutral-200)] bg-white px-5 pb-5 pt-4">
                 <Button type="button" variant="ghost" tone="neutral" onClick={resetForm}>清空</Button>

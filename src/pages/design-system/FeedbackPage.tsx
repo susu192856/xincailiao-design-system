@@ -4,7 +4,8 @@ import PageHeader from "../../components/docs/PageHeader";
 import { ExampleCard, SectionCard, SectionHeading } from "../../components/docs/ComponentDoc";
 import { Button } from "../../components/ui/Button";
 import { Empty } from "../../components/ui/Empty";
-import { Select } from "../../components/ui/Select";
+import { Input } from "../../components/ui/Input";
+import { Modal } from "../../components/ui/Modal";
 import { Tabs } from "../../components/ui/Tabs";
 import { Tag } from "../../components/ui/Tag";
 import {
@@ -22,22 +23,13 @@ import {
   deleteFeedbackEntry,
   FEEDBACK_STORAGE_EVENT,
   listFeedbackEntries,
+  sendFeedbackAdminMagicLink,
+  signOutFeedbackAdmin,
+  subscribeToFeedbackAuth,
   updateFeedbackEntryStatus,
   type FeedbackDataSource,
   type FeedbackEntry,
 } from "../../lib/feedback";
-
-const allModules = [
-  { label: "全部模块", value: "all" },
-  { label: "基础规范", value: "基础规范" },
-  { label: "操作与输入", value: "操作与输入" },
-  { label: "数据与内容", value: "数据与内容" },
-  { label: "导航与组织", value: "导航与组织" },
-  { label: "反馈与浮层", value: "反馈与浮层" },
-  { label: "交付与同步", value: "交付与同步" },
-  { label: "页面体验", value: "页面体验" },
-  { label: "其他", value: "其他" },
-];
 
 function formatDateTime(value: string) {
   try {
@@ -69,9 +61,11 @@ function useFeedbackEntries() {
   useEffect(() => {
     void refresh();
     const handleRefresh = () => { void refresh(); };
+    const unsubscribeAuth = subscribeToFeedbackAuth(handleRefresh);
     window.addEventListener(FEEDBACK_STORAGE_EVENT, handleRefresh);
     window.addEventListener("storage", handleRefresh);
     return () => {
+      unsubscribeAuth();
       window.removeEventListener(FEEDBACK_STORAGE_EVENT, handleRefresh);
       window.removeEventListener("storage", handleRefresh);
     };
@@ -82,17 +76,23 @@ function useFeedbackEntries() {
 
 export default function FeedbackPage() {
   const { entries, source, loading, refresh } = useFeedbackEntries();
-  const [moduleFilter, setModuleFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState<FeedbackEntry["status"]>("pending");
+  const [adminEmail, setAdminEmail] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+  const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  const isAdmin = source?.viewer === "admin";
 
-  const moduleFilteredEntries = useMemo(() => (
-    moduleFilter === "all" ? entries : entries.filter((entry) => entry.module === moduleFilter)
-  ), [entries, moduleFilter]);
-  const filteredEntries = useMemo(() => moduleFilteredEntries.filter((entry) => entry.status === statusFilter), [moduleFilteredEntries, statusFilter]);
+  useEffect(() => {
+    if (isAdmin) setAdminLoginOpen(false);
+  }, [isAdmin]);
+
+  const filteredEntries = useMemo(() => entries.filter((entry) => entry.status === statusFilter), [entries, statusFilter]);
 
   const latestEntry = entries[0];
-  const pendingCount = moduleFilteredEntries.filter((entry) => entry.status === "pending").length;
-  const resolvedCount = moduleFilteredEntries.filter((entry) => entry.status === "resolved").length;
+  const pendingCount = entries.filter((entry) => entry.status === "pending").length;
+  const resolvedCount = entries.filter((entry) => entry.status === "resolved").length;
   const moduleCounts = useMemo(() => {
     return entries.reduce<Record<string, number>>((result, entry) => {
       result[entry.module] = (result[entry.module] ?? 0) + 1;
@@ -115,78 +115,114 @@ export default function FeedbackPage() {
     await refresh();
   };
 
+  const handleAdminLogin = async () => {
+    if (!adminEmail.trim()) {
+      setAuthError("请输入管理员邮箱。");
+      setAuthMessage("");
+      return;
+    }
+    setAuthLoading(true);
+    setAuthError("");
+    setAuthMessage("");
+    try {
+      await sendFeedbackAdminMagicLink(adminEmail);
+      setAuthMessage("登录链接已发送，请打开邮箱中的链接完成登录。");
+    } catch (error) {
+      setAuthError(error instanceof Error ? error.message : "登录链接发送失败，请稍后重试。");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleAdminLogout = async () => {
+    setAuthLoading(true);
+    try {
+      await signOutFeedbackAdmin();
+      setAuthMessage("已退出管理员模式。");
+      await refresh();
+    } catch (error) {
+      setAuthMessage(error instanceof Error ? error.message : "退出失败，请稍后重试。");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-16">
       <PageHeader
         title="反馈记录"
-        description="集中查看规范站右下角反馈按钮提交的信息，后续优化页面、组件和交付规则时可按模块归类处理。"
+        description={isAdmin
+          ? "集中查看和处理所有用户从规范站右下角提交的反馈。"
+          : "查看当前浏览器提交的反馈和最新处理状态。"}
         status="review"
+        action={source?.remoteConfigured ? (
+          isAdmin ? (
+            <Button variant="outline" tone="neutral" loading={authLoading} onClick={handleAdminLogout}>退出管理员模式</Button>
+          ) : (
+            <Button variant="outline" tone="neutral" onClick={() => setAdminLoginOpen(true)}>管理员登录</Button>
+          )
+        ) : null}
       />
 
-      <section>
-        <SectionHeading
-          eyebrow="Overview"
-          title="反馈概览"
-          description="配置远程反馈接口后，所有用户的提交会进入共享反馈库；没有配置或接口不可用时，会自动降级到本机浏览器记录。"
-        />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <SectionCard>
-            <p className="text-xs text-[var(--text-tertiary)]">反馈总数</p>
-            <p className="mt-2 text-3xl font-semibold leading-9 text-[var(--text-primary)]">{loading ? "..." : entries.length}</p>
-          </SectionCard>
-          <SectionCard>
-            <p className="text-xs text-[var(--text-tertiary)]">涉及模块</p>
-            <p className="mt-2 text-3xl font-semibold leading-9 text-[var(--text-primary)]">{loading ? "..." : Object.keys(moduleCounts).length}</p>
-          </SectionCard>
-          <SectionCard>
-            <p className="text-xs text-[var(--text-tertiary)]">最新提交</p>
-            <p className="mt-2 text-sm leading-6 text-[var(--text-primary)]">{latestEntry ? formatDateTime(latestEntry.createdAt) : "暂无反馈"}</p>
-          </SectionCard>
-          <SectionCard>
-            <p className="text-xs text-[var(--text-tertiary)]">数据源</p>
-            <p className="mt-2 text-sm font-medium leading-6 text-[var(--text-primary)]">{source?.label ?? "读取中"}</p>
-            <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">{source?.description ?? "正在读取反馈记录。"}</p>
-            {source?.error ? <p className="mt-2 text-xs leading-5 text-[var(--warning-text)]">接口状态：{source.error}</p> : null}
-          </SectionCard>
-        </div>
-      </section>
+      {isAdmin ? (
+        <section>
+          <SectionHeading
+            eyebrow="Overview"
+            title="反馈概览"
+            description="汇总所有用户提交的反馈，帮助管理员快速判断待处理数量和涉及范围。"
+          />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <SectionCard>
+              <p className="text-xs text-[var(--text-tertiary)]">反馈总数</p>
+              <p className="mt-2 text-3xl font-semibold leading-9 text-[var(--text-primary)]">{loading ? "..." : entries.length}</p>
+            </SectionCard>
+            <SectionCard>
+              <p className="text-xs text-[var(--text-tertiary)]">涉及模块</p>
+              <p className="mt-2 text-3xl font-semibold leading-9 text-[var(--text-primary)]">{loading ? "..." : Object.keys(moduleCounts).length}</p>
+            </SectionCard>
+            <SectionCard>
+              <p className="text-xs text-[var(--text-tertiary)]">最新提交</p>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-primary)]">{latestEntry ? formatDateTime(latestEntry.createdAt) : "暂无反馈"}</p>
+            </SectionCard>
+          </div>
+        </section>
+      ) : null}
 
       <section>
         <SectionHeading
           eyebrow="Records"
           title="反馈明细"
-          description="按处理状态和模块筛选后查看页面、描述、截图、日期、提交人和备注。"
+          description={isAdmin
+            ? "按处理状态和模块筛选后查看页面、描述、截图、日期、提交人和备注。"
+            : "查看当前浏览器提交的反馈和处理状态；更换设备或清除浏览器数据后无法找回。"}
         />
-        <ExampleCard title="全部反馈" description="提交后记录会立即出现在这里。">
-          <div className="mb-4 flex flex-col gap-3 border-b border-[var(--neutral-200)] pb-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-col gap-3 md:flex-row md:items-center">
-              <Tabs
-                value={statusFilter}
-                onValueChange={(value) => setStatusFilter(value === "resolved" ? "resolved" : "pending")}
-                variant="segment"
-                size="sm"
-                items={[
-                  { value: "pending", label: "未修改", badge: pendingCount },
-                  { value: "resolved", label: "已修改", badge: resolvedCount },
-                ]}
-              />
-              <Select
-                aria-label="按模块筛选反馈"
-                className="md:w-48"
-                value={moduleFilter}
-                options={allModules}
-                onChange={(value) => setModuleFilter(Array.isArray(value) ? value[0] ?? "all" : value)}
-              />
-            </div>
-            <Button
-              variant="outline"
-              tone="danger"
-              icon={<Trash size={16} />}
-              disabled={!entries.length || loading}
-              onClick={handleClear}
-            >
-              清空记录
-            </Button>
+        <ExampleCard
+          title={isAdmin ? "全部反馈" : "我的反馈"}
+          description={isAdmin ? "所有用户提交的记录会出现在这里。" : "当前浏览器提交的记录和最新处理状态会出现在这里。"}
+        >
+          <div className="relative mb-4">
+            <Tabs
+              className="w-full"
+              listClassName={isAdmin ? "pr-28" : ""}
+              value={statusFilter}
+              onValueChange={(value) => setStatusFilter(value === "resolved" ? "resolved" : "pending")}
+              items={[
+                { value: "pending", label: isAdmin ? "未修改" : "待处理", badge: pendingCount },
+                { value: "resolved", label: isAdmin ? "已修改" : "已处理", badge: resolvedCount },
+              ]}
+            />
+            {isAdmin ? (
+              <Button
+                className="absolute right-0 top-0"
+                variant="outline"
+                tone="danger"
+                icon={<Trash size={16} />}
+                disabled={!entries.length || loading}
+                onClick={handleClear}
+              >
+                清空记录
+              </Button>
+            ) : null}
           </div>
 
           {loading ? (
@@ -250,20 +286,24 @@ export default function FeedbackPage() {
                         <p className="line-clamp-3 text-sm leading-5">{entry.note || "无"}</p>
                       </TableCell>
                       <TableCell align="right">
-                        <div className="flex justify-end gap-2">
-                          <Button
-                            variant="text"
-                            tone={entry.status === "resolved" ? "neutral" : "success"}
-                            size="sm"
-                            className="h-auto px-0 py-0"
-                            onClick={() => handleStatusChange(entry.id, entry.status === "resolved" ? "pending" : "resolved")}
-                          >
-                            {entry.status === "resolved" ? "设为未修改" : "标记已修改"}
-                          </Button>
-                          <Button variant="text" tone="danger" size="sm" className="h-auto px-0 py-0" onClick={() => handleDelete(entry.id)}>
-                            删除
-                          </Button>
-                        </div>
+                        {isAdmin ? (
+                          <div className="flex justify-end gap-2">
+                            <Button
+                              variant="text"
+                              tone={entry.status === "resolved" ? "neutral" : "success"}
+                              size="sm"
+                              className="h-auto px-0 py-0"
+                              onClick={() => handleStatusChange(entry.id, entry.status === "resolved" ? "pending" : "resolved")}
+                            >
+                              {entry.status === "resolved" ? "设为未修改" : "标记已修改"}
+                            </Button>
+                            <Button variant="text" tone="danger" size="sm" className="h-auto px-0 py-0" onClick={() => handleDelete(entry.id)}>
+                              删除
+                            </Button>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-[var(--text-tertiary)]">仅管理员处理</span>
+                        )}
                       </TableCell>
                     </TableRow>
                   )) : (
@@ -281,6 +321,42 @@ export default function FeedbackPage() {
           )}
         </ExampleCard>
       </section>
+
+      <Modal
+        open={adminLoginOpen && !isAdmin}
+        title="管理员登录"
+        description="通过管理员邮箱验证后，可以查看和处理全部用户反馈。"
+        size="sm"
+        onClose={() => {
+          setAdminLoginOpen(false);
+          setAuthError("");
+          setAuthMessage("");
+        }}
+        footer={
+          <>
+            <Button variant="ghost" tone="neutral" onClick={() => setAdminLoginOpen(false)}>取消</Button>
+            <Button tone="task" loading={authLoading} onClick={handleAdminLogin}>登录</Button>
+          </>
+        }
+      >
+        <Input
+          label="管理员邮箱"
+          type="email"
+          value={adminEmail}
+          placeholder="输入管理员邮箱"
+          helperText="普通访客无需填写；仅管理员查看全部反馈时使用。"
+          error={authError}
+          onChange={(event) => {
+            setAdminEmail(event.target.value);
+            if (authError) setAuthError("");
+          }}
+        />
+        {authMessage ? (
+          <p className="mt-4 rounded-[var(--radius-sm)] border border-[var(--success-border)] bg-[var(--success-bg)] px-3 py-2 text-sm leading-6 text-[var(--success-text)]">
+            {authMessage}
+          </p>
+        ) : null}
+      </Modal>
     </div>
   );
 }

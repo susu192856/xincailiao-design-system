@@ -48,21 +48,22 @@ http://127.0.0.1:5173/
 
 ## 反馈收集
 
-规范站每个页面右下角都有反馈入口。默认情况下，反馈记录保存在当前浏览器，便于本机预览和调试；如果需要汇总所有人的提交，需要配置共享反馈接口。
+规范站每个页面右下角都有反馈入口。线上环境使用 Supabase 共享反馈库：访客无需主动登录即可提交，并能在“反馈记录”页面查看当前浏览器提交的内容；管理员通过邮箱登录后可以查看和处理全部反馈。
 
-本地启动反馈接口：
+首次启用时，在 Supabase SQL Editor 中运行：
 
 ```bash
-npm run feedback:server
+supabase/feedback-schema.sql
 ```
 
-再复制 `.env.example` 为 `.env.local`，并设置：
+然后在 Supabase 的 Authentication 设置中启用 Anonymous Sign-Ins，并为本地或生产环境配置：
 
 ```text
-VITE_FEEDBACK_API_URL=http://127.0.0.1:8787/api/feedback
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 ```
 
-生产环境需要把 `scripts/feedback-server.cjs` 或等价接口部署到团队可访问的服务器，并把 `VITE_FEEDBACK_API_URL` 指向该地址。真实反馈数据默认写入 `feedback-data/`，该目录已加入 `.gitignore`，避免误提交用户反馈。
+数据库通过 Row Level Security 控制访问：访客只能读取自己的提交，管理员邮箱可以读取、更新和删除全部记录。Publishable key 可以用于浏览器端；不要把 Secret key 或 `service_role` key 写入项目。
 
 ## 构建
 
