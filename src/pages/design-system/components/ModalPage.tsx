@@ -103,7 +103,12 @@ export default function ModalPage() {
       <section>
         <SectionHeading eyebrow="Usage" title="基础结构" description="基础对话框分为带操作区与无操作区两种。两者都保留点击触发的真实交互，同时展示展开形态供设计与开发复用。" />
         <div className="space-y-5">
-        <ExampleCard title="基础对话框｜带操作按钮" description="用于确认、提交、授权和保存等需要用户完成操作的任务，底部提供取消与主要操作。">
+        <ExampleCard
+          title="基础对话框｜带操作按钮"
+          description="用于确认、提交、授权和保存等需要用户完成操作的任务，底部提供取消与主要操作。点击按钮体验焦点、遮罩与退出。"
+          interactive
+          code={`const [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>发布数据</Button>\n<Modal\n  open={open}\n  title="确认发布数据资产"\n  onClose={() => setOpen(false)}\n  footer={<Button onClick={() => setOpen(false)}>确认发布</Button>}\n>\n  <DescriptionList items={publishDetails} />\n</Modal>`}
+        >
           <div className="mb-5">
             <Button onClick={() => setOpen("publish")}>打开带按钮对话框</Button>
           </div>

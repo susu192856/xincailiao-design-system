@@ -11,6 +11,8 @@ const { parse } = require("@vue/compiler-sfc");
 
 const ROOT = path.resolve(__dirname, "..");
 const COMPONENT_DIR = path.join(ROOT, "packages/vue-ui/src/components");
+const INDEX_FILE = path.join(ROOT, "packages/vue-ui/src/index.ts");
+const README_FILE = path.join(ROOT, "packages/vue-ui/README.md");
 
 function listVueFiles(dir) {
   if (!fs.existsSync(dir)) return [];
@@ -30,6 +32,8 @@ if (files.length === 0) {
 }
 
 let hasError = false;
+const indexSource = fs.readFileSync(INDEX_FILE, "utf-8");
+const readmeSource = fs.readFileSync(README_FILE, "utf-8");
 
 for (const file of files) {
   const source = fs.readFileSync(file, "utf-8");
@@ -41,6 +45,16 @@ for (const file of files) {
     for (const error of result.errors) {
       console.error(`  - ${error.message || String(error)}`);
     }
+  }
+
+  const componentName = path.basename(file, ".vue");
+  if (!indexSource.includes(`as ${componentName}`)) {
+    hasError = true;
+    console.error(`${componentName}: missing from packages/vue-ui/src/index.ts.`);
+  }
+  if (!readmeSource.includes(`\`${componentName}\``) || !readmeSource.includes(`  ${componentName},`)) {
+    hasError = true;
+    console.error(`${componentName}: missing from the README component list or import example.`);
   }
 }
 

@@ -2547,8 +2547,8 @@
         },
         {
           "name": "inline",
-          "type": "unknown",
-          "description": "inline 的组件合同字段；实现与文档必须保持一致。"
+          "type": "boolean",
+          "description": "是否以内嵌模式展示完整结构；仅用于规范示例和受控容器，不作为业务浮层默认方式。"
         }
       ],
       "delivery": {

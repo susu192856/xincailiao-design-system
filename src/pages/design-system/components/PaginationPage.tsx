@@ -38,7 +38,12 @@ export default function PaginationPage() {
           <ExampleCard title="短分页" description="总页数不超过 7 页时直接显示全部页码，适合搜索结果和中小型列表。">
             <Pagination page={2} total={6} />
           </ExampleCard>
-          <ExampleCard title="长分页折叠" description="总页数超过 7 页时保留首尾、当前页邻近页和省略号，适合大型数据表格。">
+          <ExampleCard
+            title="长分页折叠"
+            description={`总页数超过 7 页时保留首尾、当前页邻近页和省略号；当前为第 ${page} 页，可直接切换。`}
+            interactive
+            code={`const [page, setPage] = useState(6);\n\n<Pagination\n  page={page}\n  total={18}\n  onPageChange={setPage}\n/>`}
+          >
             <Pagination page={page} total={18} onPageChange={setPage} />
           </ExampleCard>
           <ExampleCard title="紧凑分页" description="只显示上一页、当前页 / 总页数和下一页，用于窄容器、侧栏及移动端。">

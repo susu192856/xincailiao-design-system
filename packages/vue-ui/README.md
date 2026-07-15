@@ -11,6 +11,7 @@
 - `XcBreadcrumb`
 - `XcButton`
 - `XcCard`
+- `XcChart`
 - `XcCheckbox`
 - `XcCollapse`
 - `XcDatePicker`
@@ -49,6 +50,7 @@ import {
   XcBreadcrumb,
   XcButton,
   XcCard,
+  XcChart,
   XcCheckbox,
   XcCollapse,
   XcDatePicker,

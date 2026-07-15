@@ -74,7 +74,7 @@
 
 ## 可访问性
 
-必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。每个触发按钮使用 `aria-expanded` 暴露当前状态，并通过 `aria-controls` 关联内容区域；展开区域使用 `role="region"` 和 `aria-labelledby` 回指标题。
 
 ## 内容规范
 

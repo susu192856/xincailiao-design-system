@@ -122,7 +122,12 @@ export default function UploadPage() {
           <ExampleCard title="默认上传">
             <Upload label="上传文件" helperText="支持 PDF、Excel、图片格式" accept=".pdf,.xlsx,.xls,.png,.jpg" />
           </ExampleCard>
-          <ExampleCard title="多文件上传">
+          <ExampleCard
+            title="多文件上传"
+            description="可选择文件并删除列表项；文件列表变化会立即反映在当前示例。"
+            interactive
+            code={`const [files, setFiles] = useState<UploadFile[]>([]);\n\n<Upload\n  multiple\n  maxFiles={5}\n  files={files}\n  onChange={setFiles}\n/>`}
+          >
             <Upload
               label="批量上传材料数据"
               multiple

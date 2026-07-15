@@ -1,4 +1,5 @@
 import {
+  ArrowRight,
   BracketsCurly,
   CheckCircle,
   FigmaLogo,
@@ -19,7 +20,7 @@ const deliveryCards = [
     target: "网页规范站",
     source: "src/pages + src/components/docs",
     output: "GitHub Pages",
-    description: "设计师和前端通过浏览器查看颜色、布局、组件状态、示例和验收规则。",
+    description: "任何角色都先通过浏览器查看颜色、布局、组件状态、示例和验收规则。",
   },
   {
     icon: <BracketsCurly size={20} weight="regular" />,
@@ -27,7 +28,7 @@ const deliveryCards = [
     target: "代码组件与文档",
     source: "packages/vue-ui + docs/components",
     output: "Vue 3 源码组件、Markdown 规范、组件合同",
-    description: "前端以 Vue 组件、Token 变量和组件规范为实现依据，不从截图反推样式。",
+    description: "开发实现以 Vue 组件、Token 变量和组件规范为依据，不从截图反推样式。",
   },
   {
     icon: <FigmaLogo size={20} weight="regular" />,
@@ -35,7 +36,7 @@ const deliveryCards = [
     target: "Figma Variables / Components",
     source: "figma/tokens.json + figma/components.manifest.json",
     output: "Figma 变量、文字样式、阴影样式、组件属性",
-    description: "设计师在 Figma 中调用同名组件和变量，状态、尺寸、属性与代码合同保持一致。",
+    description: "Figma 中调用同名组件和变量，状态、尺寸、属性与代码合同保持一致。",
   },
 ];
 
@@ -100,9 +101,49 @@ export default function DeliveryPage() {
 
       <section>
         <SectionHeading
+          eyebrow="Reading Model"
+          title="统一正文，按角色进入细节"
+          description="页面正文先用共同语言说明“是什么、何时用、操作后会发生什么”；角色专属内容只出现在明确标注的执行区，不混入组件定义。"
+        />
+        <div
+          role="img"
+          aria-label="Token 与组件合同经过网页规范站验证后，分别交付给开发代码和 Figma 设计资产"
+          className="mb-5 grid items-stretch gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:p-5"
+        >
+          <div className="border border-[var(--neutral-200)] bg-white p-4">
+            <p className="text-xs text-[var(--text-tertiary)]">唯一规则源</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">设计变量（Token）+ 组件合同</p>
+          </div>
+          <ArrowRight className="hidden self-center text-[var(--text-tertiary)] md:block" size={18} aria-hidden="true" />
+          <div className="border border-[var(--product-blue-200)] bg-[var(--product-blue-50)] p-4">
+            <p className="text-xs text-[var(--product-blue-600)]">共同入口</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--text-primary)]">网页示例 + 规则 + 验收</p>
+          </div>
+          <ArrowRight className="hidden self-center text-[var(--text-tertiary)] md:block" size={18} aria-hidden="true" />
+          <div className="grid gap-2">
+            <div className="border border-[var(--neutral-200)] bg-white px-4 py-2 text-sm text-[var(--text-secondary)]">Vue 3 组件与文档</div>
+            <div className="border border-[var(--neutral-200)] bg-white px-4 py-2 text-sm text-[var(--text-secondary)]">Figma（设计工具）变量与组件</div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {[
+            ["网页访客", "先看即时体验和推荐场景；默认不展开代码，也不要求理解属性名称。"],
+            ["设计与产品", "继续查看结构、尺寸、状态、响应式和 Figma 属性映射。"],
+            ["开发与维护", "展开最小代码，核对属性、可访问性、Vue 源码和验证命令。"],
+          ].map(([title, description]) => (
+            <SectionCard key={title}>
+              <SubsectionHeading title={title} />
+              <p className="text-sm leading-6 text-[var(--text-secondary)]">{description}</p>
+            </SectionCard>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
           eyebrow="Source Map"
           title="规则源头与产物映射"
-          description="前端、设计师和 Codex（代码协作工具）都必须引用这些源头，避免出现网页、代码和 Figma（设计工具）各自维护一套样式的情况。"
+          description="所有交付角色都引用这些源头，避免网页、代码和 Figma（设计工具）各自维护一套样式。"
         />
         <DocsTable caption="说明型表格统一使用 DocsTable；表头、单元格和代码列字号由全局样式控制。">
           <thead>
@@ -152,7 +193,7 @@ export default function DeliveryPage() {
             </p>
           </ExampleCard>
 
-          <ExampleCard title="每轮交付必须完成" description="设计师在 Codex（代码协作工具）中发起任务时，按这四步验收。">
+          <ExampleCard title="每轮交付必须完成" description="任何角色发起维护任务时，都按同一组证据验收。">
             <SpecList
               items={[
                 "网页规范站能直观看到规则、状态和示例，桌面与 375px 移动端无页面级横向溢出。",
@@ -168,8 +209,8 @@ export default function DeliveryPage() {
       <section>
         <SectionHeading
           eyebrow="Workflow"
-          title="设计师在 Codex（代码协作工具）中的维护方式"
-          description="把设计反馈写成页面组、问题类型和验收视口，Codex（代码协作工具）才能稳定修复并持续维护。"
+          title="维护任务怎么写"
+          description="把反馈写成页面组、问题类型和验收视口，Codex（代码协作工具）才能稳定修复并持续维护。"
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <ExampleCard title="推荐描述" tone="recommended">
@@ -188,7 +229,7 @@ export default function DeliveryPage() {
               帮我全盘检查一下有没有问题。
             </div>
             <p className="mt-3 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">
-              这类任务没有页面边界和验收标准，容易只检查代码通过，而漏掉设计师真正关心的视觉细节。
+              这类任务没有页面边界和验收标准，容易只检查代码通过，而漏掉真实交互、视觉细节和角色使用条件。
             </p>
           </ExampleCard>
         </div>

@@ -13,9 +13,14 @@ export default function TooltipPage() {
       <section>
         <SectionHeading title="基础用法" eyebrow="Usage" description="文字提示（Tooltip）是最轻量的解释层。内容应控制在一到两行，不能放按钮、表单或复杂信息。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="图标解释">
+          <ExampleCard
+            title="图标解释"
+            description="将指针移入图标或使用键盘聚焦，提示会即时出现；移出或失焦后消失。"
+            interactive
+            code={`<Tooltip content="字段来自数据空间授权目录">\n  <button type="button" aria-label="字段来源说明">\n    <Info />\n  </button>\n</Tooltip>`}
+          >
             <div className="flex min-h-40 items-center justify-center bg-[var(--neutral-50)] p-6">
-              <Tooltip content="字段来自数据空间授权目录" open>
+              <Tooltip content="字段来自数据空间授权目录">
                 <button className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]" type="button" aria-label="说明">
                   <Info size={18} weight="regular" />
                 </button>

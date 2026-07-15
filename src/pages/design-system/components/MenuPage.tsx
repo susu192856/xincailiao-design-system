@@ -1,4 +1,5 @@
 import { Bell, ChartBar, Database, GearSix, HouseSimple, Table, UserCircle } from "@phosphor-icons/react";
+import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import { Menu } from "../../../components/ui/Menu";
@@ -37,6 +38,8 @@ const groupedItems = [
 ];
 
 export default function MenuPage() {
+  const [activeMenu, setActiveMenu] = useState("data");
+
   return (
     <div className="space-y-16">
       <PageHeader title="菜单" description="菜单用于承载产品导航和功能入口，后台侧栏优先保证当前模块、层级和可访问状态清晰。" />
@@ -44,8 +47,13 @@ export default function MenuPage() {
       <section>
         <SectionHeading eyebrow="Variants" title="菜单类型" description="菜单激活态使用中性黑；普通数量作为名称的一部分显示为“名称（数量）”，不使用彩色徽标。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="侧边菜单" description="后台主导航，适合长期工作台和管理系统。">
-            <Menu items={primaryItems} activeKey="data" />
+          <ExampleCard
+            title="侧边菜单"
+            description={`后台主导航，适合长期工作台和管理系统；当前入口为“${primaryItems.find((item) => item.key === activeMenu)?.label}”。`}
+            interactive
+            code={`const [activeKey, setActiveKey] = useState("data");\n\n<Menu\n  items={items}\n  value={activeKey}\n  onValueChange={setActiveKey}\n/>`}
+          >
+            <Menu items={primaryItems} value={activeMenu} onValueChange={setActiveMenu} />
           </ExampleCard>
           <ExampleCard title="顶部菜单" description="门户、轻量后台或内容栏目切换。">
             <div className="space-y-5">

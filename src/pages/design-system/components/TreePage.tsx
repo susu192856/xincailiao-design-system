@@ -51,7 +51,12 @@ export default function TreePage() {
       <section>
         <SectionHeading eyebrow="Variants" title="层级结构" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <ExampleCard title="材料目录树">
+          <ExampleCard
+            title="材料目录树"
+            description="点击箭头展开层级，点击节点切换当前位置。"
+            interactive
+            code={`<Tree\n  nodes={materialNodes}\n  defaultExpandedKeys={["materials", "metal"]}\n  defaultSelectedKey="titanium"\n/>`}
+          >
             <Tree nodes={materialNodes} defaultExpandedKeys={["materials", "metal"]} defaultSelectedKey="titanium" />
           </ExampleCard>
           <ExampleCard title="权限树">

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 
 type CollapseItem = {
@@ -42,6 +42,7 @@ export function Collapse({
   variant = "outlined",
   className = "",
 }: CollapseProps) {
+  const collapseId = useId();
   const [internalOpenKeys, setInternalOpenKeys] = useState(defaultOpenKeys);
   const currentOpenKeys = openKeys ?? internalOpenKeys;
   const sizing = sizeClasses[size];
@@ -64,11 +65,17 @@ export function Collapse({
     >
       {items.map((item) => {
         const isOpen = currentOpenKeys.includes(item.key);
+        const safeKey = item.key.replace(/[^a-zA-Z0-9_-]/g, "-");
+        const triggerId = `${collapseId}-${safeKey}-trigger`;
+        const panelId = `${collapseId}-${safeKey}-panel`;
         return (
           <div key={item.key}>
             <button
               type="button"
+              id={triggerId}
               disabled={item.disabled}
+              aria-expanded={isOpen}
+              aria-controls={panelId}
               onClick={() => toggle(item.key)}
               className={[
                 "flex w-full items-center justify-between gap-3 text-left text-[var(--text-primary)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
@@ -85,7 +92,16 @@ export function Collapse({
                 />
               </span>
             </button>
-            {isOpen ? <div className={[sizing.content, "text-[var(--text-tertiary)]"].join(" ")}>{item.children}</div> : null}
+            {isOpen ? (
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={triggerId}
+                className={[sizing.content, "text-[var(--text-tertiary)]"].join(" ")}
+              >
+                {item.children}
+              </div>
+            ) : null}
           </div>
         );
       })}

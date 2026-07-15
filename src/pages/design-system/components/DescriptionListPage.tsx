@@ -329,7 +329,7 @@ export default function DescriptionListPage() {
           <div className="grid gap-5 md:grid-cols-2">
             {[
               {
-                label: "设计师须知",
+                label: "视觉执行要点",
                 description: "用于确定视觉类型、密度与页面扫描路径。",
                 icon: <Palette size={16} weight="regular" aria-hidden="true" />,
                 iconClass: "bg-[var(--product-blue-50)] text-[var(--product-blue-600)]",

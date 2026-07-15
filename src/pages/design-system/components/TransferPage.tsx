@@ -32,7 +32,12 @@ export default function TransferPage() {
       <section>
         <SectionHeading eyebrow="Variants" title="典型场景" />
         <div className="space-y-5">
-          <ExampleCard title="字段授权" description="数据空间与材库常需要按角色配置可见字段。">
+          <ExampleCard
+            title="字段授权"
+            description="选择字段、在左右集合间移动并确认授权，结果会即时保留在当前示例中。"
+            interactive
+            code={`const [targetKeys, setTargetKeys] = useState(["composition"]);\n\n<Transfer\n  showSearch\n  items={fieldItems}\n  targetKeys={targetKeys}\n  onChange={setTargetKeys}\n/>`}
+          >
             <div className="space-y-3">
               <Transfer
                 showSearch

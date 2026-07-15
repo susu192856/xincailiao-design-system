@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import CodeBlock from "./CodeBlock";
 
 export function SectionHeading({
   eyebrow,
@@ -79,12 +80,18 @@ export function ExampleCard({
   children,
   tone = "default",
   className = "",
+  interactive = false,
+  code,
+  codeLabel,
 }: {
   title: string;
   description?: string;
   children: ReactNode;
   tone?: "default" | "recommended" | "avoid";
   className?: string;
+  interactive?: boolean;
+  code?: string;
+  codeLabel?: string;
 }) {
   const toneClass = {
     default: "border-[var(--neutral-200)]",
@@ -93,10 +100,18 @@ export function ExampleCard({
   }[tone];
 
   return (
-    <div className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass, className].join(" ")}>
+    <div
+      className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass, className].join(" ")}
+      data-docs-interactive={interactive ? "true" : undefined}
+    >
       <div className="mb-5">
         <div className="flex items-center gap-2">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
+          {interactive ? (
+            <span className="rounded-[var(--radius-sm)] border border-[var(--product-blue-200)] bg-[var(--product-blue-50)] px-1.5 py-0.5 text-xs font-medium text-[var(--product-blue-600)]">
+              可直接操作
+            </span>
+          ) : null}
           {tone !== "default" ? (
             <span className={[
               "rounded-[var(--radius-sm)] px-1.5 py-0.5 text-xs font-medium",
@@ -111,6 +126,7 @@ export function ExampleCard({
         {description ? <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{description}</p> : null}
       </div>
       {children}
+      {code ? <CodeBlock code={code} label={codeLabel} /> : null}
     </div>
   );
 }

@@ -13,10 +13,14 @@ export default function PopoverPage() {
       <section>
         <SectionHeading title="基础结构" eyebrow="Usage" description="气泡弹窗（Popover）比文字提示（Tooltip）承载更多信息，但仍然不是弹窗。内容应短、聚焦、靠近触发对象。" />
         <div className="space-y-5">
-          <ExampleCard title="字段详情">
+          <ExampleCard
+            title="字段详情"
+            description="将指针移入按钮，或用键盘聚焦按钮，查看真实出现与退出行为。"
+            interactive
+            code={`<Popover\n  title="数据来源"\n  content="该字段来自可信数据空间授权目录。"\n>\n  <Button variant="outline">查看来源</Button>\n</Popover>`}
+          >
             <div className="flex min-h-72 items-start justify-center bg-[var(--neutral-50)] px-6 pb-36 pt-8">
               <Popover
-                open
                 title="数据来源"
                 content="该字段来自可信数据空间授权目录，已完成字段映射和权限校验。"
               >

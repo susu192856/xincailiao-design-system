@@ -74,7 +74,13 @@ export default function ToastPage() {
             ))}
           </div>
         </ExampleCard>
-        <ExampleCard className="mt-5" title="真实触发" description="容器固定在页面顶部居中 80px；相同操作短时间重复触发时应合并，避免堆叠。">
+        <ExampleCard
+          className="mt-5"
+          title="真实触发"
+          description="点击任一按钮查看即时反馈。容器固定在页面顶部居中 80px；相同操作短时间重复触发时应合并。"
+          interactive
+          code={`<Button onClick={() => toast({ tone: "success", title: "保存成功" })}>\n  保存\n</Button>\n<ToastContainer />`}
+        >
           <div className="flex flex-wrap gap-3">
             <Button onClick={() => toast({ tone: "success", title: "保存成功" })}>成功提示</Button>
             <Button variant="outline" onClick={() => toast({ tone: "info", title: "任务已创建" })}>信息提示</Button>

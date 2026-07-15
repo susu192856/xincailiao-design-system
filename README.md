@@ -77,7 +77,7 @@ npm run build
 npm run verify
 ```
 
-它会先检查 `packages/vue-ui` 中的 Vue SFC 组件是否能被 Vue 编译器解析，再运行网页规范站构建。
+它会检查组件合同、页面交互与折叠代码覆盖、视觉治理、Figma 准备度、Vue SFC 解析和网页构建。
 
 构建产物输出到 `dist`，GitHub Pages 由 `.github/workflows/deploy.yml` 自动部署。
 
@@ -98,7 +98,7 @@ https://www.figma.com/design/KjkKSAd9eufpg9eFR9xZVX/%E6%96%B0%E6%9D%90%E9%81%93%
 
 旧文件 `8nsNC3DOyRpk3fA7mEmBwl` 仅作历史参考，不再作为同步目标。
 
-当前仓库已经提供 `figma/tokens.json`，可作为 Figma Tokens / Tokens Studio 的导入来源。组件层面的 Figma 同步以 `figma/components.manifest.json` 和 `figma/sync-state.json` 为准：
+当前仓库已经提供 `figma/tokens.json`，可作为 Figma Tokens / Tokens Studio 的导入来源。组件层面的 Figma 同步以 `figma/components.manifest.json` 和 `figma/sync-state.json` 为准；在规范完成并通过成熟度与视觉验收前，不执行组件写入：
 
 - Figma Variables：颜色、字号、间距、圆角、阴影
 - Figma Components：按钮、输入框、选择器、表格、卡片、弹窗等
@@ -121,7 +121,7 @@ https://www.figma.com/design/KjkKSAd9eufpg9eFR9xZVX/%E6%96%B0%E6%9D%90%E9%81%93%
 
 ## 当前架构边界
 
-当前仓库已经适合作为“网页规范站”和“规范内容维护仓库”，并已经具备 Vue 3 组件包的最小起点，但还不等同于完整的 Vue 3 组件库或完整 Figma 组件库。
+当前仓库已经适合作为“网页规范站”和“规范内容维护仓库”，并具备 32 个 Vue 3 源码组件、Token 导入文件与 Figma 组件合同；但在发布构建、组件测试和 Figma 实体组件完成前，还不等同于可直接安装的正式组件库或完整 Figma 组件库。
 
 建议下一阶段优先补齐：
 

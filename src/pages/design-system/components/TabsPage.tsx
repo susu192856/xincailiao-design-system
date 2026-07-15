@@ -69,7 +69,12 @@ export default function TabsPage() {
 
       <section>
         <SectionHeading eyebrow="Hierarchy" title="三级层级" description="层级由内容影响范围决定：整页、当前页分组、局部图表。先确定切换范围，再选择视觉样式。" />
-        <ExampleCard title="层级样式与使用边界" description="一级不替代顶部主导航；二级不改变页面标题和工具栏；三级只控制当前图表或局部视图。">
+        <ExampleCard
+          title="层级样式与使用边界"
+          description="一级不替代顶部主导航；二级不改变页面标题和工具栏；三级只控制当前图表或局部视图。可直接切换一级标签观察内容变化。"
+          interactive
+          code={`const [value, setValue] = useState("overview");\n\n<Tabs\n  value={value}\n  onValueChange={setValue}\n  items={detailItems}\n  variant="page"\n/>`}
+        >
           <div className="space-y-6">
             <div>
               <h3 className="text-sm font-semibold text-[var(--neutral-900)]">一级 · 整页内容切换</h3>
@@ -206,12 +211,12 @@ export default function TabsPage() {
       <section>
         <SectionHeading eyebrow="Guidelines" title="最佳实践" description="按产品决策和视觉执行分组，减少与上方示例重复。" />
         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <RuleGroup title="产品经理必定规则">
+          <RuleGroup title="产品与内容规则">
             <p>Tabs 只能切换同级内容，不能承担流程步骤；流程使用步骤条或状态流转。</p>
             <p>交付时必须写明影响范围、默认项、状态保持、URL、数量更新和权限策略。</p>
             <p>一级不替代主导航；详情页 2–5 项最佳，超过上限优先调整架构。</p>
           </RuleGroup>
-          <RuleGroup title="设计师视觉规则">
+          <RuleGroup title="视觉与交付规则">
             <p>一级使用 page，二级使用 line，三级按差异强弱使用 segment 或 text，同层不得混用。</p>
             <p>一级 40px/16px，左右合计 28px；二级使用 32px 短指示线；三级分段整体高 28px。</p>
             <p>激活项使用中性黑或产品蓝；品牌红仅用于异常、风险等语义状态。</p>

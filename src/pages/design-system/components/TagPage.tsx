@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
 import DocsTable from "../../../components/docs/DocsTable";
@@ -51,6 +52,8 @@ const statusMapping = [
 ] as const;
 
 export default function TagPage() {
+  const [filters, setFilters] = useState(["热处理", "数据空间", "关键结论"]);
+
   return (
     <div className="space-y-16">
       <PageHeader title="标签" description="标签用于表达分类、状态、属性和轻量提示，帮助用户快速识别数据对象的关键属性。色彩含义参见颜色页" />
@@ -208,13 +211,30 @@ export default function TagPage() {
               <p className="text-xs text-[var(--neutral-400)]">中尺寸（md）仍使用 12px 常规字重，只增加高度与水平留白。后台详情和卡片通常继续使用 sm，仅在版面明显宽松且需要更大点击容器时采用。</p>
             </div>
           </ExampleCard>
-          <ExampleCard title="可关闭标签">
-            <div className="flex flex-wrap gap-3">
-              <Tag size="sm" closable>热处理</Tag>
-              <Tag size="sm" variant="blue" closable>数据空间</Tag>
-              <Tag size="sm" variant="purple" closable>关键结论</Tag>
-            </div>
-            <p className="mt-3 text-xs text-[var(--neutral-400)]">用于筛选条件和已选项，点击 × 移除。不用于普通状态展示。</p>
+          <ExampleCard
+            title="可关闭标签"
+            description="点击关闭按钮会立即移除当前筛选；全部移除后仍保留清晰的空结果说明。"
+            interactive
+            code={`const [filters, setFilters] = useState(["热处理", "数据空间"]);\n\n{filters.map((filter) => (\n  <Tag\n    key={filter}\n    closable\n    onClose={() => setFilters((items) => items.filter((item) => item !== filter))}\n  >\n    {filter}\n  </Tag>\n))}`}
+          >
+            {filters.length ? (
+              <div className="flex flex-wrap gap-3">
+                {filters.map((filter, index) => (
+                  <Tag
+                    key={filter}
+                    size="sm"
+                    variant={index === 1 ? "blue" : index === 2 ? "purple" : "soft"}
+                    closable
+                    onClose={() => setFilters((items) => items.filter((item) => item !== filter))}
+                  >
+                    {filter}
+                  </Tag>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[var(--text-tertiary)]">暂无已选筛选条件</p>
+            )}
+            <p className="mt-3 text-xs text-[var(--neutral-400)]">用于筛选条件和已选项，不用于普通状态展示。</p>
           </ExampleCard>
           <ExampleCard title="禁用态">
             <div className="flex flex-wrap gap-3">

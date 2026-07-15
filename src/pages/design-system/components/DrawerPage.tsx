@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
-import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { ExampleCard, SectionHeading, SpecList, SubsectionHeading } from "../../../components/docs/ComponentDoc";
 import { Button } from "../../../components/ui/Button";
 import { DescriptionList } from "../../../components/ui/DescriptionList";
 import { Drawer, type DrawerProps } from "../../../components/ui/Drawer";
@@ -29,10 +29,7 @@ const reviewDetails = [
 function DetailSection({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h3 className="mb-4 flex items-center gap-3 text-sm font-semibold leading-6 text-[var(--text-primary)]">
-        <span className="h-3 w-0.5 shrink-0 bg-[var(--brand-600)]" aria-hidden="true" />
-        {title}
-      </h3>
+      <SubsectionHeading title={title} />
       {children}
     </section>
   );
@@ -147,7 +144,12 @@ export default function DrawerPage() {
       <section>
         <SectionHeading eyebrow="Usage" title="基础结构" description="基础抽屉分为带操作区与无操作区两种。标题区只说明当前对象，补充描述和业务内容统一放在内容区。" />
         <div className="space-y-5">
-          <ExampleCard title="基础抽屉｜带操作按钮" description="用于编辑、配置或需要继续进入详情页的任务，底部操作区固定显示。">
+          <ExampleCard
+            title="基础抽屉｜带操作按钮"
+            description="用于编辑、配置或需要继续进入详情页的任务，底部操作区固定显示。点击按钮体验打开、关闭与操作区。"
+            interactive
+            code={`const [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>查看申请</Button>\n<Drawer\n  open={open}\n  title="申请详情"\n  onClose={() => setOpen(false)}\n  footer={<Button onClick={() => setOpen(false)}>确认</Button>}\n>\n  <ApplicationDetails />\n</Drawer>`}
+          >
             <div className="mb-5">
               <Button onClick={() => setOpen("detail")}>打开带按钮抽屉</Button>
             </div>

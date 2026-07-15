@@ -29,7 +29,12 @@ export default function CollapsePage() {
       <section>
         <SectionHeading eyebrow="Variants" title="基础类型" />
         <div className="space-y-5">
-          <ExampleCard title="多项展开" description="适合材料参数、数据治理结果、审计信息等可并行阅读的内容。">
+          <ExampleCard
+            title="多项展开"
+            description="适合材料参数、数据治理结果、审计信息等可并行阅读的内容。点击标题可立即体验展开与收起。"
+            interactive
+            code={`<Collapse\n  defaultOpenKeys={["composition"]}\n  items={[\n    { key: "composition", title: "成分参数", children: <ParameterContent /> },\n    { key: "process", title: "工艺参数", children: "工艺条件说明" },\n  ]}\n/>`}
+          >
             <Collapse
               defaultOpenKeys={["composition"]}
               items={[

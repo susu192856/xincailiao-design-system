@@ -70,15 +70,22 @@ export default function CardPage() {
 
       <section>
         <SectionHeading eyebrow="Interaction" title="交互与状态" description="整体可点击卡片必须可聚焦并支持 Enter、Space；卡片内部存在按钮或链接时，不再把整个卡片设为交互目标。" />
-        <div className="grid gap-5 md:grid-cols-3">
+        <ExampleCard
+          title="状态即时体验"
+          description="点击第一张卡片或使用键盘切换选择状态；加载与禁用状态用于对照。"
+          interactive
+          code={`const [selected, setSelected] = useState(false);\n\n<Card\n  interactive\n  selected={selected}\n  onClick={() => setSelected((value) => !value)}\n>\n  <CardTitle>可选择卡片</CardTitle>\n</Card>`}
+        >
+          <div className="grid gap-5 md:grid-cols-3">
           <Card variant="outlined" interactive selected={selected} onClick={() => setSelected((value) => !value)} aria-label={`${selected ? "取消选择" : "选择"} TC4 数据集`}>
             <CardHeader><CardTitle>可选择卡片</CardTitle><CardDescription>点击或使用键盘切换选择。</CardDescription></CardHeader>
             <CardContent><Tag variant={selected ? "brand" : "neutral"}>{selected ? "已选中" : "未选中"}</Tag></CardContent>
           </Card>
           <Card variant="outlined" loading aria-label="数据计算卡片，加载中"><CardHeader><CardTitle>加载状态</CardTitle><CardDescription>保留结构并阻止重复操作。</CardDescription></CardHeader><CardContent><div className="h-16 bg-[var(--neutral-50)]" /></CardContent></Card>
           <Card variant="muted" disabled><CardHeader><div className="mb-3 flex h-9 w-9 items-center justify-center bg-white text-[var(--text-tertiary)]"><LockKey size={18} /></div><CardTitle>禁用状态</CardTitle><CardDescription>保留上下文，但不可进入或操作。</CardDescription></CardHeader></Card>
-        </div>
-        <p className="mt-4 border-l-2 border-[var(--neutral-300)] bg-[var(--neutral-50)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">选择规则：</strong>批量选择或多选必须显示 Checkbox；互斥方案必须显示 Radio。只有选择关系已由上下文明确时，才能使用整卡选中样式作为辅助反馈。</p>
+          </div>
+          <p className="mt-4 border-l-2 border-[var(--neutral-300)] bg-[var(--neutral-50)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">选择规则：</strong>批量选择或多选必须显示 Checkbox；互斥方案必须显示 Radio。只有选择关系已由上下文明确时，才能使用整卡选中样式作为辅助反馈。</p>
+        </ExampleCard>
       </section>
 
       <section>

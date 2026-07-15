@@ -1,12 +1,26 @@
 <template>
   <div class="xc-collapse" :class="[`xc-collapse--${variant}`, `xc-collapse--${size}`]">
     <div v-for="item in items" :key="item.key" class="xc-collapse__item" :class="{ 'xc-collapse__item--disabled': item.disabled }">
-      <button class="xc-collapse__trigger" type="button" :disabled="item.disabled" @click="toggle(item.key)">
+      <button
+        :id="triggerId(item.key)"
+        class="xc-collapse__trigger"
+        type="button"
+        :disabled="item.disabled"
+        :aria-expanded="isOpen(item.key)"
+        :aria-controls="panelId(item.key)"
+        @click="toggle(item.key)"
+      >
         <span class="xc-collapse__chevron" :class="{ 'xc-collapse__chevron--open': isOpen(item.key) }">›</span>
         <span class="xc-collapse__title">{{ item.title }}</span>
         <span v-if="item.extra" class="xc-collapse__extra">{{ item.extra }}</span>
       </button>
-      <div v-if="isOpen(item.key)" class="xc-collapse__panel">
+      <div
+        v-if="isOpen(item.key)"
+        :id="panelId(item.key)"
+        class="xc-collapse__panel"
+        role="region"
+        :aria-labelledby="triggerId(item.key)"
+      >
         {{ item.content }}
       </div>
     </div>
@@ -14,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, useId, watch } from "vue";
 
 type CollapseSize = "sm" | "md";
 type CollapseVariant = "outlined" | "plain";
@@ -47,6 +61,20 @@ const props = withDefaults(
 const emit = defineEmits<{
   "update:modelValue": [keys: string[]];
 }>();
+
+const collapseId = useId();
+
+function safeKey(key: string) {
+  return key.replace(/[^a-zA-Z0-9_-]/g, "-");
+}
+
+function triggerId(key: string) {
+  return `${collapseId}-${safeKey(key)}-trigger`;
+}
+
+function panelId(key: string) {
+  return `${collapseId}-${safeKey(key)}-panel`;
+}
 
 const openKeys = ref<string[]>(props.modelValue ?? props.defaultOpenKeys);
 
