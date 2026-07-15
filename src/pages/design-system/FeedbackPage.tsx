@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChatCentered, Trash } from "@phosphor-icons/react";
+import { ChatCentered, Trash, X } from "@phosphor-icons/react";
 import PageHeader from "../../components/docs/PageHeader";
 import { ExampleCard, SectionCard, SectionHeading } from "../../components/docs/ComponentDoc";
 import { Button } from "../../components/ui/Button";
@@ -82,11 +82,26 @@ export default function FeedbackPage() {
   const [authError, setAuthError] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
   const [adminLoginOpen, setAdminLoginOpen] = useState(false);
+  const [selectedScreenshot, setSelectedScreenshot] = useState<FeedbackEntry["screenshots"][number] | null>(null);
   const isAdmin = source?.viewer === "admin";
 
   useEffect(() => {
     if (isAdmin) setAdminLoginOpen(false);
   }, [isAdmin]);
+
+  useEffect(() => {
+    if (!selectedScreenshot) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedScreenshot(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedScreenshot]);
 
   const filteredEntries = useMemo(() => entries.filter((entry) => entry.status === statusFilter), [entries, statusFilter]);
 
@@ -173,7 +188,6 @@ export default function FeedbackPage() {
       {isAdmin ? (
         <section>
           <SectionHeading
-            eyebrow="Overview"
             title="反馈概览"
             description="汇总所有用户提交的反馈，帮助管理员快速判断待处理数量和涉及范围。"
           />
@@ -196,7 +210,6 @@ export default function FeedbackPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Records"
           title="反馈明细"
           description={isAdmin
             ? "按处理状态和模块筛选后查看页面、描述、截图、日期、提交人和备注。"
@@ -204,7 +217,7 @@ export default function FeedbackPage() {
         />
         <ExampleCard
           title={isAdmin ? "全部反馈" : "我的反馈"}
-          description={isAdmin ? "所有用户提交的记录会出现在这里。" : "当前浏览器提交的记录和最新处理状态会出现在这里。"}
+          description={isAdmin ? "所有用户提交的记录会出现在这里。" : "当前为访客模式，您提交的反馈仅本人和管理员可见，其他访客无法查看。"}
         >
           <div className="relative mb-4">
             <Tabs
@@ -237,14 +250,14 @@ export default function FeedbackPage() {
             </div>
           ) : entries.length ? (
             <TableContainer>
-              <Table density="compact">
+              <Table density="compact" className="min-w-[1180px]">
                 <TableHeader>
                   <TableRow>
                     <TableHead>模块</TableHead>
                     <TableHead>页面</TableHead>
-                    <TableHead>状态</TableHead>
                     <TableHead>描述详情</TableHead>
                     <TableHead>截图</TableHead>
+                    <TableHead align="center">状态</TableHead>
                     <TableHead>提交日期</TableHead>
                     <TableHead>提交人</TableHead>
                     <TableHead>备注</TableHead>
@@ -254,42 +267,38 @@ export default function FeedbackPage() {
                 <TableBody>
                   {filteredEntries.length ? filteredEntries.map((entry) => (
                     <TableRow key={entry.id}>
-                      <TableCell><Tag size="sm" tone="product">{entry.module}</Tag></TableCell>
-                      <TableCell className="min-w-[160px]">
-                        <p className="text-sm text-[var(--text-primary)]">{entry.pageName}</p>
-                        <p className="mt-1 font-mono text-xs text-[var(--text-tertiary)]">{entry.pagePath}</p>
-                      </TableCell>
-                      <TableCell>
-                        <Tag size="sm" tone={entry.status === "resolved" ? "success" : "warning"}>{entry.status === "resolved" ? "已修改" : "未修改"}</Tag>
-                      </TableCell>
+                      <TableCell>{entry.module}</TableCell>
+                      <TableCell className="min-w-[140px]">{entry.pageName}</TableCell>
                       <TableCell className="min-w-[220px] max-w-[320px]">
-                        <p className="line-clamp-3 text-sm leading-5 text-[var(--text-secondary)]">{entry.detail}</p>
-                        <p className="mt-2 text-xs text-[var(--text-tertiary)]">创建：{formatDateTime(entry.createdAt)}</p>
+                        <p className="line-clamp-3 whitespace-normal text-sm leading-5 text-[var(--text-body)]">{entry.detail}</p>
                       </TableCell>
                       <TableCell>
                         {entry.screenshots.length ? (
                           <div className="flex max-w-[180px] flex-wrap gap-2">
                             {entry.screenshots.map((screenshot) => (
-                              <a
+                              <button
+                                type="button"
                                 key={`${entry.id}-${screenshot.name}`}
-                                href={screenshot.dataUrl}
-                                target="_blank"
-                                rel="noreferrer"
                                 className="block h-12 w-16 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)]"
                                 title={screenshot.name}
+                                aria-label={`放大查看${screenshot.name}`}
+                                onClick={() => setSelectedScreenshot(screenshot)}
                               >
                                 <img src={screenshot.dataUrl} alt={screenshot.name} className="h-full w-full object-cover" />
-                              </a>
+                              </button>
                             ))}
                           </div>
                         ) : (
-                          <span className="text-xs text-[var(--text-tertiary)]">未上传</span>
+                          <span className="text-sm text-[var(--text-body)]">未上传</span>
                         )}
                       </TableCell>
-                      <TableCell>{entry.submitDate}</TableCell>
+                      <TableCell align="center">
+                        <Tag size="sm" dot tone={entry.status === "resolved" ? "success" : "warning"}>{entry.status === "resolved" ? "已修改" : "未修改"}</Tag>
+                      </TableCell>
+                      <TableCell className="tabular-nums">{entry.submitDate}</TableCell>
                       <TableCell>{entry.submitter ?? "匿名"}</TableCell>
                       <TableCell className="min-w-[160px] max-w-[240px]">
-                        <p className="line-clamp-3 text-sm leading-5">{entry.note || "无"}</p>
+                        <p className="line-clamp-3 whitespace-normal text-sm leading-5 text-[var(--text-body)]">{entry.note || "无"}</p>
                       </TableCell>
                       <TableCell align="right">
                         {isAdmin ? (
@@ -308,12 +317,12 @@ export default function FeedbackPage() {
                             </Button>
                           </div>
                         ) : (
-                          <span className="text-xs text-[var(--text-tertiary)]">仅管理员处理</span>
+                          <span className="text-sm text-[var(--text-body)]">仅管理员处理</span>
                         )}
                       </TableCell>
                     </TableRow>
                   )) : (
-                    <TableEmpty colSpan={9} title="没有匹配的反馈" description="切换状态或筛选模块后再查看。" />
+                    <TableEmpty colSpan={9} title="没有匹配的反馈" description="切换处理状态后再查看。" />
                   )}
                 </TableBody>
               </Table>
@@ -359,6 +368,33 @@ export default function FeedbackPage() {
           </p>
         ) : null}
       </Modal>
+
+      {selectedScreenshot ? (
+        <div
+          className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center bg-black/80 p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label="截图预览"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setSelectedScreenshot(null);
+          }}
+        >
+          <button
+            type="button"
+            className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-black/50 text-white hover:bg-black/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            aria-label="关闭截图预览"
+            title="关闭"
+            onClick={() => setSelectedScreenshot(null)}
+          >
+            <X size={20} />
+          </button>
+          <img
+            src={selectedScreenshot.dataUrl}
+            alt={selectedScreenshot.name}
+            className="max-h-full max-w-full object-contain"
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
