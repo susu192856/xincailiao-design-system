@@ -291,7 +291,10 @@ export async function sendFeedbackAdminMagicLink(email: string) {
   const redirectUrl = new URL(`${import.meta.env.BASE_URL}feedback`, window.location.origin).toString();
   const { error } = await getSupabaseClient().auth.signInWithOtp({
     email: email.trim(),
-    options: { emailRedirectTo: redirectUrl },
+    options: {
+      emailRedirectTo: redirectUrl,
+      shouldCreateUser: false,
+    },
   });
   if (error) throw new Error(error.message);
 }

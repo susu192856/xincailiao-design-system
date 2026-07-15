@@ -126,12 +126,18 @@ export default function FeedbackPage() {
     setAuthMessage("");
     try {
       await sendFeedbackAdminMagicLink(adminEmail);
-      setAuthMessage("登录链接已发送，请打开邮箱中的链接完成登录。");
+      setAuthMessage("登录链接已发送。请在当前电脑的当前浏览器中打开邮箱并点击链接；若在手机或其他浏览器打开，只会登录那个设备。");
     } catch (error) {
-      setAuthError(error instanceof Error ? error.message : "登录链接发送失败，请稍后重试。");
+      setAuthError(error instanceof Error ? error.message : "管理员验证失败，请稍后重试。");
     } finally {
       setAuthLoading(false);
     }
+  };
+
+  const closeAdminLogin = () => {
+    setAdminLoginOpen(false);
+    setAuthError("");
+    setAuthMessage("");
   };
 
   const handleAdminLogout = async () => {
@@ -327,14 +333,10 @@ export default function FeedbackPage() {
         title="管理员登录"
         description="通过管理员邮箱验证后，可以查看和处理全部用户反馈。"
         size="sm"
-        onClose={() => {
-          setAdminLoginOpen(false);
-          setAuthError("");
-          setAuthMessage("");
-        }}
+        onClose={closeAdminLogin}
         footer={
           <>
-            <Button variant="ghost" tone="neutral" onClick={() => setAdminLoginOpen(false)}>取消</Button>
+            <Button variant="ghost" tone="neutral" onClick={closeAdminLogin}>取消</Button>
             <Button tone="task" loading={authLoading} onClick={handleAdminLogin}>登录</Button>
           </>
         }
@@ -344,7 +346,7 @@ export default function FeedbackPage() {
           type="email"
           value={adminEmail}
           placeholder="输入管理员邮箱"
-          helperText="普通访客无需填写；仅管理员查看全部反馈时使用。"
+          helperText="普通访客无需填写；登录链接必须在当前电脑的当前浏览器中打开。"
           error={authError}
           onChange={(event) => {
             setAdminEmail(event.target.value);
