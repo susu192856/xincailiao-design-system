@@ -8,6 +8,7 @@
         class="xc-tabs__trigger"
         :class="{ 'xc-tabs__trigger--active': item.value === currentValue }"
         :disabled="item.disabled"
+        :title="item.disabled ? item.disabledReason : undefined"
         role="tab"
         :aria-selected="item.value === currentValue"
         @click="selectTab(item.value)"
@@ -31,6 +32,7 @@ export type XcTabItem = {
   label: string;
   value: string;
   disabled?: boolean;
+  disabledReason?: string;
 };
 
 const props = withDefaults(
@@ -73,8 +75,9 @@ function selectTab(value: string) {
 }
 
 .xc-tabs__trigger {
+  position: relative;
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 0;
   background: transparent;
   color: var(--neutral-600);
   cursor: pointer;
@@ -86,6 +89,17 @@ function selectTab(value: string) {
     color 0.15s ease;
 }
 
+.xc-tabs:not(.xc-tabs--page):not(.xc-tabs--card):not(.xc-tabs--segment):not(.xc-tabs--text) .xc-tabs__trigger--active::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 32px;
+  height: 2px;
+  background: var(--neutral-900);
+  content: "";
+  transform: translateX(-50%);
+}
+
 .xc-tabs--sm .xc-tabs__trigger { padding: 6px 12px; font-size: 12px; }
 .xc-tabs--lg .xc-tabs__trigger { padding: 10px 20px; font-size: 16px; }
 .xc-tabs--segment .xc-tabs__list {
@@ -94,16 +108,19 @@ function selectTab(value: string) {
   border: 0;
   border-radius: var(--radius-sm);
   background: var(--neutral-100);
-  padding: 4px;
+  padding: 2px;
 }
-.xc-tabs--page .xc-tabs__list { gap: 0; border: 0; background: #fff; padding: 0 8px; }
-.xc-tabs--page .xc-tabs__trigger { position: relative; border: 0; }
+.xc-tabs--page .xc-tabs__list { display: inline-grid; width: fit-content; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0; border: 0; border-radius: var(--radius-sm); background: var(--neutral-100); }
+.xc-tabs--page .xc-tabs__trigger { position: relative; width: 100%; height: 40px; justify-content: center; border: 0; padding: 6px 14px; font-size: 16px; }
 .xc-tabs--page .xc-tabs__trigger:not(:last-child)::after { position: absolute; top: 50%; right: 0; width: 1px; height: 16px; background: var(--neutral-200); content: ""; transform: translateY(-50%); }
-.xc-tabs--page .xc-tabs__trigger--active { font-weight: 600; }
+.xc-tabs--page .xc-tabs__trigger--active { background: #fff; font-weight: 500; }
 .xc-tabs--text .xc-tabs__list { width: fit-content; gap: 12px; border: 0; }
 .xc-tabs--text .xc-tabs__trigger { border: 0; padding-right: 8px; padding-left: 8px; }
-.xc-tabs--text .xc-tabs__trigger--active { font-weight: 600; }
+.xc-tabs--text .xc-tabs__trigger:not(:last-child)::after { position: absolute; top: 50%; right: -6px; width: 1px; height: 12px; background: var(--neutral-300); content: ""; transform: translateY(-50%); }
+.xc-tabs--text .xc-tabs__trigger { position: relative; }
+.xc-tabs--text .xc-tabs__trigger--active { color: var(--product-blue-600); font-weight: 400; }
 .xc-tabs--segment .xc-tabs__trigger { border: 0; border-radius: var(--radius-sm); }
+.xc-tabs--segment.xc-tabs--sm .xc-tabs__trigger { height: 24px; padding: 0 8px; }
 .xc-tabs--segment .xc-tabs__trigger--active { background: #fff; box-shadow: var(--shadow-xs); }
 .xc-tabs--card .xc-tabs__list { gap: 4px; border: 0; }
 .xc-tabs--card .xc-tabs__trigger { border: 1px solid var(--neutral-200); }
@@ -124,5 +141,11 @@ function selectTab(value: string) {
 
 .xc-tabs__panel {
   padding-top: 16px;
+}
+
+.xc-tabs--page .xc-tabs__panel {
+  min-height: 48px;
+  background: var(--neutral-50);
+  padding: 16px;
 }
 </style>

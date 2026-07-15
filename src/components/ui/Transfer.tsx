@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { CaretLeft, CaretRight, MagnifyingGlass } from "@phosphor-icons/react";
+import { Checkbox } from "./Checkbox";
+import { Input } from "./Input";
 
 export type TransferItem = {
   key: string;
@@ -18,6 +20,7 @@ export type TransferProps = {
   emptyText?: string;
   showSearch?: boolean;
   disabled?: boolean;
+  targetActions?: ReactNode;
   className?: string;
   onChange?: (targetKeys: string[]) => void;
 };
@@ -31,6 +34,7 @@ export function Transfer({
   emptyText = "暂无数据",
   showSearch = false,
   disabled = false,
+  targetActions,
   className = "",
   onChange,
 }: TransferProps) {
@@ -89,35 +93,36 @@ export function Transfer({
       <div className="min-w-64 flex-1 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
         <div className="flex items-center justify-between border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-3 py-2 text-sm text-[var(--text-primary)]">
           <span>{title}</span>
-          <span className="text-xs text-[var(--text-tertiary)]">{data.length} 项</span>
+          <span className="flex items-center gap-1.5">
+            <span className="text-xs text-[var(--text-tertiary)]">{data.length} 项</span>
+            {side === "target" ? targetActions : null}
+          </span>
         </div>
         {showSearch ? (
-          <label className="flex h-9 items-center gap-2 border-b border-[var(--neutral-200)] px-3 text-xs text-[var(--text-tertiary)]">
-            <MagnifyingGlass size={14} weight="regular" />
-            <input
+          <div className="border-b border-[var(--neutral-200)] px-3 py-2">
+            <Input
+              size="sm"
+              aria-label={`搜索${title}`}
               value={keyword}
               disabled={disabled}
               onChange={(event) => onKeywordChange(event.target.value)}
+              prefix={<MagnifyingGlass size={14} weight="regular" />}
               placeholder="搜索"
-              className="min-w-0 flex-1 bg-transparent text-sm text-[var(--text-primary)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed"
             />
-          </label>
+          </div>
         ) : null}
         <div className="min-h-52 divide-y divide-[var(--neutral-100)]">
           {data.length > 0 ? data.map((item) => (
-            <label key={item.key} className="flex cursor-pointer gap-2 px-3 py-2 text-sm text-[var(--text-secondary)] has-[:disabled]:cursor-not-allowed has-[:disabled]:text-[var(--neutral-400)]">
-              <input
-                type="checkbox"
-                disabled={disabled || item.disabled}
-                checked={selectedKeys.includes(item.key)}
-                onChange={() => toggleSelected(item.key, side)}
-                className="mt-1 accent-[var(--neutral-900)]"
-              />
-              <span>
-                <span className="block">{item.label}</span>
-                {item.description ? <span className="block text-xs text-[var(--text-tertiary)]">{item.description}</span> : null}
-              </span>
-            </label>
+            <Checkbox
+              key={item.key}
+              size="sm"
+              label={item.label}
+              description={item.description}
+              disabled={disabled || item.disabled}
+              checked={selectedKeys.includes(item.key)}
+              onChange={() => toggleSelected(item.key, side)}
+              className="px-3 py-2 text-[var(--text-secondary)]"
+            />
           )) : (
             <div className="flex min-h-52 items-center justify-center text-sm text-[var(--neutral-400)]">{emptyText}</div>
           )}
@@ -133,7 +138,8 @@ export function Transfer({
         <button
           type="button"
           disabled={disabled || selectedSourceKeys.length === 0}
-          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-900)] text-white transition-colors hover:bg-[var(--neutral-800)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-200)] disabled:text-[var(--neutral-400)]"
+          aria-label="移至已授权字段"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--product-blue-500)] bg-white text-[var(--product-blue-500)] transition-colors hover:bg-[var(--product-blue-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring-color)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:bg-[var(--neutral-50)] disabled:text-[var(--neutral-400)]"
           onClick={() => move("right")}
         >
           <CaretRight size={14} weight="regular" />
@@ -141,7 +147,8 @@ export function Transfer({
         <button
           type="button"
           disabled={disabled || selectedTargetKeys.length === 0}
-          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--neutral-300)] text-[var(--text-secondary)] transition-colors hover:bg-[var(--neutral-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:text-[var(--neutral-300)]"
+          aria-label="移回未授权字段"
+          className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--product-blue-500)] bg-white text-[var(--product-blue-500)] transition-colors hover:bg-[var(--product-blue-50)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--focus-ring-color)] disabled:cursor-not-allowed disabled:border-[var(--neutral-200)] disabled:bg-[var(--neutral-50)] disabled:text-[var(--neutral-400)]"
           onClick={() => move("left")}
         >
           <CaretLeft size={14} weight="regular" />

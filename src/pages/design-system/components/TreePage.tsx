@@ -1,5 +1,6 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Input } from "../../../components/ui/Input";
 import { Tag } from "../../../components/ui/Tag";
 import { Tree } from "../../../components/ui/Tree";
@@ -70,16 +71,21 @@ export default function TreePage() {
         <SectionHeading eyebrow="Backend States" title="后台常见组合" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="带搜索的目录树">
-            <div className="space-y-3">
-              <Input size="sm" placeholder="搜索材料分类或数据集" />
-              <Tree nodes={materialNodes} defaultExpandedKeys={["materials"]} />
+            <div className="w-full max-w-[336px] space-y-3">
+              <Input
+                label="搜索目录"
+                size="sm"
+                prefix={<MagnifyingGlass size={16} weight="regular" />}
+                placeholder="搜索材料分类或数据集"
+              />
+              <Tree className="!w-full" nodes={materialNodes} defaultExpandedKeys={["materials"]} />
             </div>
           </ExampleCard>
           <ExampleCard title="树节点说明">
             <div className="space-y-3 text-sm text-[var(--text-secondary)]">
               <div className="flex items-center justify-between rounded-sm bg-[var(--neutral-50)] px-3 py-2">
                 <span>当前选中</span>
-                <Tag variant="product" size="sm">产品蓝浅背景</Tag>
+                <Tag variant="neutral" size="sm">中性灰背景</Tag>
               </div>
               <div className="flex items-center justify-between rounded-sm bg-[var(--neutral-50)] px-3 py-2">
                 <span>不可选择</span>
@@ -109,7 +115,7 @@ export default function TreePage() {
         <SpecList
           items={[
             "层级超过 4 级时应提供搜索或筛选，避免用户逐层展开。",
-            "当前选中项使用产品蓝浅背景，避免和侧栏主导航混淆。",
+            "当前选中项使用 neutral-100 中性灰背景；产品蓝仅用于键盘焦点与可操作提示。",
             "禁用节点需要说明无权限、不可选或流程条件未满足的原因。",
             "权限树可开启 checkable，目录树默认只做选中与展开。",
             "异步加载必须提供 loading 和 empty，避免用户误判权限为空。",

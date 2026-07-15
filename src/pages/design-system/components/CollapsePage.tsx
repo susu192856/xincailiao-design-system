@@ -28,7 +28,7 @@ export default function CollapsePage() {
 
       <section>
         <SectionHeading eyebrow="Variants" title="基础类型" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="space-y-5">
           <ExampleCard title="多项展开" description="适合材料参数、数据治理结果、审计信息等可并行阅读的内容。">
             <Collapse
               defaultOpenKeys={["composition"]}
@@ -55,13 +55,13 @@ export default function CollapsePage() {
 
       <section>
         <SectionHeading eyebrow="Backend States" title="后台组合状态" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="space-y-5">
           <ExampleCard title="高级筛选收纳" description="列表页默认只露出高频筛选，更多条件放入折叠面板。">
             <div className="space-y-4">
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <Input size="sm" placeholder="材料名称 / 牌号" />
-                <Select size="sm" placeholder="治理状态" options={[{ label: "已校验", value: "checked" }, { label: "待复核", value: "pending" }]} />
-                <Button size="sm" className="w-full md:w-auto md:min-w-20">查询</Button>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_80px] md:items-end">
+                <Input label="材料名称 / 牌号" labelPosition="left" labelWidth={96} size="sm" placeholder="输入名称或牌号" />
+                <Select label="治理状态" labelPosition="left" labelWidth={64} size="sm" placeholder="全部状态" options={[{ label: "已校验", value: "checked" }, { label: "待复核", value: "pending" }]} />
+                <Button tone="product" size="sm" className="w-full md:min-w-20">查询</Button>
               </div>
               <Collapse
                 size="sm"
@@ -77,9 +77,9 @@ export default function CollapsePage() {
                     extra: <Tag size="sm" variant="neutral">高级</Tag>,
                     children: (
                       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                        <Input size="sm" placeholder="数据来源" />
-                        <Input size="sm" placeholder="创建部门" />
-                        <Select size="sm" placeholder="权限范围" options={[{ label: "团队可见", value: "team" }, { label: "空间可见", value: "space" }]} />
+                        <Input label="数据来源" size="sm" placeholder="输入数据来源" />
+                        <Input label="创建部门" size="sm" placeholder="输入创建部门" />
+                        <Select label="权限范围" size="sm" placeholder="选择权限范围" options={[{ label: "团队可见", value: "team" }, { label: "空间可见", value: "space" }]} />
                       </div>
                     ),
                   },

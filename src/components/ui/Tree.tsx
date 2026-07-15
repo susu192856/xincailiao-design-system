@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { CaretRight } from "@phosphor-icons/react";
+import { Checkbox } from "./Checkbox";
 
 export type TreeNode = {
   key: string;
@@ -46,39 +47,48 @@ function TreeItem({ node, level, expandedKeys, selectedKey, checkedKeys, checkab
         className={[
           "flex h-8 w-full items-center gap-1.5 rounded-[var(--radius-sm)] pr-2 text-left text-sm disabled:text-[var(--neutral-400)]",
           node.disabled ? "text-[var(--neutral-400)]" : "",
-          selected ? "bg-[var(--product-blue-50)] text-[var(--product-blue-600)]" : "text-[var(--text-secondary)] hover:bg-[var(--neutral-50)]",
+          selected ? "bg-[var(--neutral-100)] text-[var(--text-primary)]" : "text-[var(--text-secondary)] hover:bg-[var(--neutral-50)]",
         ].join(" ")}
         style={{ paddingLeft: 8 + level * 16 }}
       >
-        <button
-          type="button"
-          disabled={node.disabled}
-          onClick={() => {
-            onSelect(node.key, node);
-            if (hasChildren) onToggle(node.key);
-          }}
-          className="flex min-w-0 flex-1 items-center gap-1.5 text-left disabled:cursor-not-allowed"
-        >
+        {hasChildren ? (
+          <button
+            type="button"
+            disabled={node.disabled}
+            aria-label={`${expanded ? "收起" : "展开"}${typeof node.label === "string" ? node.label : "树节点"}`}
+            aria-expanded={expanded}
+            onClick={() => onToggle(node.key)}
+            className="flex h-5 w-[13px] shrink-0 items-center justify-center disabled:cursor-not-allowed"
+          >
           <CaretRight
             size={13}
             weight="regular"
             className={[
-              "shrink-0 text-[var(--neutral-400)] transition-transform",
+              "shrink-0 transition-transform",
+              node.disabled ? "text-[var(--neutral-400)]" : "text-[var(--text-secondary)]",
               hasChildren && expanded ? "rotate-90" : "",
-              !hasChildren ? "opacity-0" : "",
             ].join(" ")}
           />
-          <span className="truncate">{node.label}</span>
-        </button>
+          </button>
+        ) : <span className="w-[13px] shrink-0" aria-hidden="true" />}
         {checkable ? (
-          <input
-            type="checkbox"
+          <Checkbox
+            size="sm"
             checked={checked}
             disabled={node.disabled}
+            aria-label={`选择${typeof node.label === "string" ? node.label : "树节点"}`}
             onChange={() => onCheck(node.key, node)}
-            className="h-3.5 w-3.5 accent-[var(--neutral-900)]"
+            className="shrink-0"
           />
         ) : null}
+        <button
+          type="button"
+          disabled={node.disabled}
+          onClick={() => onSelect(node.key, node)}
+          className="min-w-0 flex-1 truncate text-left disabled:cursor-not-allowed"
+        >
+          {node.label}
+        </button>
       </div>
       {hasChildren && expanded ? (
         <div>

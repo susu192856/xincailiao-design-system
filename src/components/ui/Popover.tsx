@@ -12,17 +12,17 @@ export type PopoverProps = HTMLAttributes<HTMLSpanElement> & {
 };
 
 const popoverPositionClasses: Record<PopoverPlacement, string> = {
-  top: "bottom-full left-1/2 mb-3 -translate-x-1/2",
-  right: "left-full top-1/2 ml-3 -translate-y-1/2",
-  bottom: "left-1/2 top-full mt-3 -translate-x-1/2",
-  left: "right-full top-1/2 mr-3 -translate-y-1/2",
+  top: "bottom-full left-1/2 mb-2 -translate-x-1/2",
+  right: "left-full top-1/2 ml-2 -translate-y-1/2",
+  bottom: "left-1/2 top-full mt-2 -translate-x-1/2",
+  left: "right-full top-1/2 mr-2 -translate-y-1/2",
 };
 
 const popoverArrowClasses: Record<PopoverPlacement, string> = {
-  top: "left-1/2 top-full -translate-x-1/2 -translate-y-1/2",
-  right: "right-full top-1/2 -translate-y-1/2 translate-x-1/2",
-  bottom: "bottom-full left-1/2 -translate-x-1/2 translate-y-1/2",
-  left: "left-full top-1/2 -translate-x-1/2 -translate-y-1/2",
+  top: "left-1/2 top-full -mt-1 -translate-x-1/2 border-b border-r",
+  right: "right-full top-1/2 -mr-1 -translate-y-1/2 border-b border-l",
+  bottom: "bottom-full left-1/2 -mb-1 -translate-x-1/2 border-l border-t",
+  left: "left-full top-1/2 -ml-1 -translate-y-1/2 border-r border-t",
 };
 
 export function Popover({
@@ -54,7 +54,7 @@ export function Popover({
         <span
           aria-hidden="true"
           className={[
-            "absolute h-2.5 w-2.5 rotate-45 border border-[var(--neutral-200)] bg-white",
+            "absolute h-2.5 w-2.5 rotate-45 border-[var(--neutral-200)] bg-white",
             popoverArrowClasses[placement],
           ].join(" ")}
         />

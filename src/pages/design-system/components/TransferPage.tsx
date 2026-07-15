@@ -1,5 +1,7 @@
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { useState } from "react";
+import { Button } from "../../../components/ui/Button";
 import { Tag } from "../../../components/ui/Tag";
 import { Transfer } from "../../../components/ui/Transfer";
 
@@ -20,6 +22,9 @@ const roleItems = [
 ];
 
 export default function TransferPage() {
+  const [authorizedFieldKeys, setAuthorizedFieldKeys] = useState(["composition", "property"]);
+  const [authorizationSaved, setAuthorizationSaved] = useState(false);
+
   return (
     <div className="space-y-16">
       <PageHeader title="穿梭框" description="穿梭框用于在两个集合之间移动对象，适合权限分配、字段选择、数据集配置和批量对象选择。" />
@@ -28,13 +33,37 @@ export default function TransferPage() {
         <SectionHeading eyebrow="Variants" title="典型场景" />
         <div className="space-y-5">
           <ExampleCard title="字段授权" description="数据空间与材库常需要按角色配置可见字段。">
-            <Transfer
-              showSearch
-              sourceTitle="未授权字段"
-              targetTitle="已授权字段"
-              defaultTargetKeys={["composition", "property"]}
-              items={fieldItems}
-            />
+            <div className="space-y-3">
+              <Transfer
+                showSearch
+                sourceTitle="未授权字段"
+                targetTitle="已授权字段"
+                targetKeys={authorizedFieldKeys}
+                onChange={(keys) => {
+                  setAuthorizedFieldKeys(keys);
+                  setAuthorizationSaved(false);
+                }}
+                targetActions={
+                  <Button
+                    variant="text"
+                    tone="danger"
+                    size="sm"
+                    disabled={authorizedFieldKeys.length === 0}
+                    onClick={() => {
+                      setAuthorizedFieldKeys([]);
+                      setAuthorizationSaved(false);
+                    }}
+                  >
+                    清空
+                  </Button>
+                }
+                items={fieldItems}
+              />
+              <div className="flex items-center justify-end gap-3">
+                {authorizationSaved ? <span className="text-xs text-[var(--success-text)]">已确认授权</span> : null}
+                <Button tone="task" size="sm" onClick={() => setAuthorizationSaved(true)}>确认授权</Button>
+              </div>
+            </div>
           </ExampleCard>
           <ExampleCard title="角色权限配置" description="权限项需要写清楚动作结果，不要只显示抽象编号。">
             <Transfer

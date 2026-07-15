@@ -12,9 +12,9 @@ export default function TooltipPage() {
 
       <section>
         <SectionHeading title="基础用法" eyebrow="Usage" description="文字提示（Tooltip）是最轻量的解释层。内容应控制在一到两行，不能放按钮、表单或复杂信息。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="图标解释">
-            <div className="flex min-h-28 items-center gap-4">
+            <div className="flex min-h-40 items-center justify-center bg-[var(--neutral-50)] p-6">
               <Tooltip content="字段来自数据空间授权目录" open>
                 <button className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]" type="button" aria-label="说明">
                   <Info size={18} weight="regular" />
@@ -23,7 +23,7 @@ export default function TooltipPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="禁用原因">
-            <div className="flex min-h-28 items-center gap-4">
+            <div className="flex min-h-40 items-center justify-center bg-[var(--neutral-50)] p-6">
               <Tooltip content="当前账号没有发布权限，请联系管理员。" open placement="bottom">
                 <span>
                   <Button disabled>发布数据</Button>
@@ -31,8 +31,8 @@ export default function TooltipPage() {
               </Tooltip>
             </div>
           </ExampleCard>
-          <ExampleCard title="风险说明">
-            <div className="flex min-h-28 items-center gap-4">
+          <ExampleCard title="风险说明" className="md:col-span-2">
+            <div className="flex min-h-40 items-center bg-[var(--neutral-50)] px-8 py-6">
               <Tooltip content="该操作会影响下游模型训练结果。" open placement="right">
                 <Tag variant="warning" size="sm" icon={<WarningCircle size={14} weight="regular" />}>需复核</Tag>
               </Tooltip>
@@ -44,9 +44,17 @@ export default function TooltipPage() {
       <section>
         <SectionHeading title="出现位置" eyebrow="Placement" description="默认优先向上展示；当顶部空间不足时，再选择右、下、左。" />
         <ExampleCard title="四向位置">
-          <div className="grid grid-cols-2 gap-8 py-8 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {placements.map((placement) => (
-              <div key={placement} className="flex min-h-24 items-center justify-center bg-[var(--neutral-50)]">
+              <div
+                key={placement}
+                className={[
+                  "flex min-h-40 items-center bg-[var(--neutral-50)] p-6",
+                  placement === "right" ? "justify-start pl-8" : "",
+                  placement === "left" ? "justify-end pr-8" : "",
+                  placement === "top" || placement === "bottom" ? "justify-center" : "",
+                ].join(" ")}
+              >
                 <Tooltip content={`${placement} 方向提示`} placement={placement} open>
                   <Button variant="outline" tone="neutral">{placement}</Button>
                 </Tooltip>
@@ -60,11 +68,11 @@ export default function TooltipPage() {
         <SectionHeading title="后台常见场景" eyebrow="Scenarios" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="表格字段说明" description="用于字段口径、计算公式、权限来源等短解释。">
-            <div className="bg-[var(--neutral-50)] p-4">
+            <div className="min-h-44 bg-[var(--neutral-50)] p-4">
               <div className="grid grid-cols-[1fr_120px_120px] border-b border-[var(--neutral-200)] pb-2 text-xs text-[var(--text-tertiary)]">
                 <div className="flex items-center gap-1">
                   数据资产
-                  <Tooltip content="完成标准化、清洗和权限绑定的数据集合。" open placement="right">
+                  <Tooltip content="完成标准化、清洗和权限绑定的数据集合。" open placement="bottom">
                     <Question size={14} weight="regular" />
                   </Tooltip>
                 </div>
@@ -79,8 +87,8 @@ export default function TooltipPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="文本省略说明" description="长字段被截断时，可用文字提示（Tooltip）展示完整内容。">
-            <div className="w-full bg-[var(--neutral-50)] p-4">
-              <Tooltip content="面向航空发动机热端部件的高温合金材料数据集，已完成工艺与性能字段校准。" open>
+            <div className="min-h-32 w-full bg-[var(--neutral-50)] p-4">
+              <Tooltip content="面向航空发动机热端部件的高温合金材料数据集，已完成工艺与性能字段校准。" open placement="bottom">
                 <p className="max-w-xs truncate text-sm text-[var(--text-body)]">
                   面向航空发动机热端部件的高温合金材料数据集，已完成工艺与性能字段校准。
                 </p>

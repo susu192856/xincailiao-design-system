@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 
 type TabItem = {
   value: string;
@@ -7,6 +7,7 @@ type TabItem = {
   disabled?: boolean;
   badge?: ReactNode;
   icon?: ReactNode;
+  disabledReason?: string;
 };
 
 export type TabsProps = {
@@ -32,16 +33,16 @@ function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean
     "inline-flex items-center gap-1.5 whitespace-nowrap transition-colors",
     "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)]",
     "disabled:cursor-not-allowed disabled:opacity-50",
-    sizeClass[size],
+    variant === "page" ? "" : sizeClass[size],
   ];
 
   if (variant === "page") {
     base.push(
-      "relative border-0",
+      "relative h-10 w-full justify-center border-0 px-3.5 py-1.5 text-base",
       "after:absolute after:right-0 after:h-4 after:w-px after:bg-[var(--neutral-200)] last:after:hidden",
       active
-        ? "bg-white font-semibold text-[var(--neutral-900)]"
-        : "bg-white text-[var(--text-tertiary)] hover:text-[var(--neutral-900)]",
+        ? "bg-white font-medium text-[var(--neutral-900)]"
+        : "bg-transparent text-[var(--text-tertiary)] hover:bg-[var(--neutral-50)] hover:text-[var(--neutral-900)]",
     );
   } else if (variant === "card") {
     base.push(
@@ -53,23 +54,24 @@ function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean
   } else if (variant === "segment") {
     base.push(
       "rounded-[var(--radius-sm)]",
+      size === "sm" ? "h-6 px-2 py-0" : "",
       active
         ? "bg-white text-[var(--text-primary)] shadow-[var(--shadow-xs)]"
         : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
     );
   } else if (variant === "text") {
     base.push(
-      "border-0 px-2",
+      "relative border-0 px-2 after:absolute after:-right-1.5 after:h-3 after:w-px after:bg-[var(--neutral-300)] last:after:hidden",
       active
-        ? "font-semibold text-[var(--neutral-900)]"
+        ? "font-normal text-[var(--product-blue-600)]"
         : "text-[var(--text-tertiary)] hover:text-[var(--neutral-900)]",
     );
   } else {
     base.push(
-      "border-b-2",
+      "relative border-0 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:-translate-x-1/2",
       active
-        ? "border-[var(--neutral-900)] text-[var(--text-primary)]"
-        : "border-transparent text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
+        ? "text-[var(--text-primary)] after:w-8 after:bg-[var(--neutral-900)]"
+        : "text-[var(--text-tertiary)] after:w-0 hover:text-[var(--text-primary)]",
     );
   }
 
@@ -88,6 +90,7 @@ export function Tabs({
   panelClassName = "",
 }: TabsProps) {
   const [internalValue, setInternalValue] = useState(defaultValue ?? items[0]?.value ?? "");
+  const instanceId = useId().replace(/:/g, "");
   const currentValue = value ?? internalValue;
   const activeItem = items.find((item) => item.value === currentValue) ?? items[0];
 
@@ -104,8 +107,8 @@ export function Tabs({
         className={[
           "flex overflow-x-auto",
           variant === "line" ? "gap-4 border-b border-[var(--neutral-200)]" : "",
-          variant === "page" ? "gap-0 bg-white px-2" : "",
-          variant === "segment" ? "w-fit rounded-[var(--radius-sm)] bg-[var(--neutral-100)] p-1" : "",
+          variant === "page" ? "inline-grid w-fit grid-flow-col auto-cols-fr gap-0 rounded-[var(--radius-sm)] bg-[var(--neutral-100)]" : "",
+          variant === "segment" ? "w-fit rounded-[var(--radius-sm)] bg-[var(--neutral-100)] p-0.5" : "",
           variant === "text" ? "w-fit gap-3" : "",
           variant === "card" ? "gap-1" : "",
           listClassName,
@@ -119,10 +122,13 @@ export function Tabs({
               key={item.value}
               type="button"
               disabled={item.disabled}
+              title={item.disabled ? item.disabledReason : undefined}
               onClick={() => handleChange(item.value)}
               className={getTabClass(variant, active, size)}
               role="tab"
               aria-selected={active}
+              aria-controls={`${instanceId}-${item.value}-panel`}
+              id={`${instanceId}-${item.value}-tab`}
             >
               {item.icon}
               {item.label}
@@ -131,7 +137,19 @@ export function Tabs({
           );
         })}
       </div>
-      {activeItem?.content ? <div className={["pt-4", panelClassName].join(" ")}>{activeItem.content}</div> : null}
+      {activeItem?.content ? (
+        <div
+          role="tabpanel"
+          id={`${instanceId}-${activeItem.value}-panel`}
+          aria-labelledby={`${instanceId}-${activeItem.value}-tab`}
+          className={[
+            variant === "page" ? "min-h-12 bg-[var(--neutral-50)] p-4" : "pt-4",
+            panelClassName,
+          ].join(" ")}
+        >
+          {activeItem.content}
+        </div>
+      ) : null}
     </div>
   );
 }

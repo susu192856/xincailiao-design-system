@@ -11,6 +11,7 @@ type ToastItem = {
   description?: string;
   duration?: number;
   action?: ReactNode;
+  closable?: boolean;
 };
 
 type ToastRequest = Omit<ToastItem, "id" | "tone"> & {
@@ -33,19 +34,11 @@ export function toast(props: ToastRequest) {
   addToastFn?.(props);
 }
 
-const borderColorMap: Record<ToastVariant, string> = {
-  success: "border-l-[var(--success-text)]",
-  error: "border-l-[var(--error-text)]",
-  warning: "border-l-[var(--warning-text)]",
-  info: "border-l-[var(--info-text)]",
-  loading: "border-l-[var(--product-blue-500)]",
-};
-
 const iconMap: Record<ToastVariant, { icon: typeof CheckCircle; color: string }> = {
-  success: { icon: CheckCircle, color: "var(--success-text)" },
-  error: { icon: XCircle, color: "var(--error-text)" },
-  warning: { icon: Warning, color: "var(--warning-text)" },
-  info: { icon: Info, color: "var(--info-text)" },
+  success: { icon: CheckCircle, color: "var(--success-dot)" },
+  error: { icon: XCircle, color: "var(--error-dot)" },
+  warning: { icon: Warning, color: "var(--warning-dot)" },
+  info: { icon: Info, color: "var(--info-dot)" },
   loading: { icon: SpinnerGap, color: "var(--product-blue-500)" },
 };
 
@@ -64,8 +57,7 @@ export function Toast({
   return (
     <div
       className={[
-        "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] border-l-2 bg-white p-4 shadow-[var(--shadow-sm)] animate-slide-in-up",
-        borderColorMap[resolvedTone],
+        "flex w-full items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4 shadow-[var(--shadow-md)] animate-slide-in-up",
         className,
       ].join(" ")}
       role="status"
@@ -81,7 +73,7 @@ export function Toast({
         );
       })()}
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-normal text-[var(--text-primary)]">{title}</p>
+        <p className="text-sm font-semibold text-[var(--neutral-900)]">{title}</p>
         {description ? (
           <p className="mt-0.5 text-xs leading-5 text-[var(--text-tertiary)]">{description}</p>
         ) : null}
@@ -105,7 +97,7 @@ export type ToastContainerProps = {
   position?: "top-right" | "top-center" | "bottom-right";
 };
 
-export function ToastContainer({ position = "bottom-right" }: ToastContainerProps) {
+export function ToastContainer({ position = "top-center" }: ToastContainerProps) {
   const [items, setItems] = useState<ToastItem[]>([]);
 
   useEffect(() => {
@@ -137,6 +129,7 @@ export function ToastContainer({ position = "bottom-right" }: ToastContainerProp
           title={item.title}
           description={item.description}
           action={item.action}
+          closable={item.closable ?? false}
           className="shadow-[var(--shadow-lg)]"
           onClose={() => setItems((prev) => prev.filter((i) => i.id !== item.id))}
         />

@@ -41,7 +41,7 @@ export default function BreadcrumbPage() {
 
       <section>
         <SectionHeading eyebrow="States" title="后台常见状态" description="面包屑不是装饰导航，必须在复杂后台路径中稳定、简短、可判断。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="space-y-5">
           <ExampleCard title="长路径折叠">
             <div className="space-y-4">
               <div className="flex h-10 items-center rounded-sm bg-[var(--neutral-50)] px-3">

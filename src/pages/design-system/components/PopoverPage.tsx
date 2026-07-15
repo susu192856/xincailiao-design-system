@@ -12,9 +12,9 @@ export default function PopoverPage() {
 
       <section>
         <SectionHeading title="基础结构" eyebrow="Usage" description="气泡弹窗（Popover）比文字提示（Tooltip）承载更多信息，但仍然不是弹窗。内容应短、聚焦、靠近触发对象。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="space-y-5">
           <ExampleCard title="字段详情">
-            <div className="flex min-h-40 items-center">
+            <div className="flex min-h-72 items-start justify-center bg-[var(--neutral-50)] px-6 pb-36 pt-8">
               <Popover
                 open
                 title="数据来源"
@@ -25,7 +25,7 @@ export default function PopoverPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="权限说明">
-            <div className="flex min-h-40 items-center">
+            <div className="flex min-h-64 items-center bg-[var(--neutral-50)] px-8 py-8">
               <Popover
                 open
                 placement="right"
@@ -37,7 +37,7 @@ export default function PopoverPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="快捷操作">
-            <div className="flex min-h-40 items-center">
+            <div className="flex min-h-80 items-start justify-center bg-[var(--neutral-50)] px-6 pb-40 pt-8">
               <Popover
                 open
                 title="批量任务"
@@ -54,9 +54,18 @@ export default function PopoverPage() {
       <section>
         <SectionHeading title="出现位置" eyebrow="Placement" description="根据触发点位置选择方向，避免遮挡关键数据。后台表格内优先使用右侧（right）或下方（bottom）。" />
         <ExampleCard title="四向位置">
-          <div className="grid grid-cols-2 gap-8 py-10 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5">
             {placements.map((placement) => (
-              <div key={placement} className="flex min-h-32 items-center justify-center bg-[var(--neutral-50)]">
+              <div
+                key={placement}
+                className={[
+                  "flex bg-[var(--neutral-50)] px-8",
+                  placement === "top" ? "min-h-72 items-end justify-center pb-8 pt-36" : "",
+                  placement === "bottom" ? "min-h-72 items-start justify-center pb-36 pt-8" : "",
+                  placement === "right" ? "min-h-64 items-center justify-start py-8" : "",
+                  placement === "left" ? "min-h-64 items-center justify-end py-8" : "",
+                ].join(" ")}
+              >
                 <Popover
                   open
                   placement={placement}
@@ -73,9 +82,9 @@ export default function PopoverPage() {
 
       <section>
         <SectionHeading title="业务场景" eyebrow="Scenarios" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div className="space-y-5">
           <ExampleCard title="数据空间审计信息">
-            <div className="bg-[var(--neutral-50)] p-4">
+            <div className="min-h-72 bg-[var(--neutral-50)] p-4">
               <div className="flex items-center justify-between bg-white p-4">
                 <div>
                   <p className="text-sm font-semibold text-[var(--text-primary)]">合同数据流转记录</p>
@@ -93,8 +102,8 @@ export default function PopoverPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="人工智能（AI）推荐解释">
-            <div className="bg-[var(--neutral-50)] p-4">
-              <div className="bg-white p-4">
+            <div className="min-h-72 bg-[var(--neutral-50)] p-4">
+              <div className="bg-white px-4 pb-4 pt-8">
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="text-sm font-semibold text-[var(--text-primary)]">推荐材料：GH4169</p>
@@ -102,6 +111,7 @@ export default function PopoverPage() {
                   </div>
                   <Popover
                     open
+                    placement="left"
                     title="推荐依据"
                     content="模型综合考虑成分、工艺、组织和性能四类变量，并过滤了不可用供应状态。"
                   >

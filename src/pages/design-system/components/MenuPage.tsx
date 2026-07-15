@@ -1,7 +1,6 @@
 import { Bell, ChartBar, Database, GearSix, HouseSimple, Table, UserCircle } from "@phosphor-icons/react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
-import { Badge } from "../../../components/ui/Badge";
 import { Menu } from "../../../components/ui/Menu";
 import { Tag } from "../../../components/ui/Tag";
 
@@ -19,7 +18,7 @@ const groupedItems = [
     type: "group" as const,
     label: "数据资产",
     children: [
-      { key: "datasets", label: "数据集", icon: <Database size={16} weight="regular" />, badge: <Badge count={8} tone="product" size="sm" /> },
+      { key: "datasets", label: "数据集（8）", icon: <Database size={16} weight="regular" /> },
       { key: "tables", label: "材料表格", icon: <Table size={16} weight="regular" /> },
       { key: "dashboard", label: "数据看板", icon: <ChartBar size={16} weight="regular" /> },
     ],
@@ -31,7 +30,7 @@ const groupedItems = [
     label: "系统管理",
     children: [
       { key: "member", label: "成员权限", icon: <UserCircle size={16} weight="regular" /> },
-      { key: "approval", label: "待办审批", icon: <Bell size={16} weight="regular" />, badge: <Badge count={12} tone="info" size="sm" /> },
+      { key: "approval", label: "待办审批（12）", icon: <Bell size={16} weight="regular" /> },
       { key: "config", label: "系统配置", icon: <GearSix size={16} weight="regular" />, disabled: true },
     ],
   },
@@ -43,7 +42,7 @@ export default function MenuPage() {
       <PageHeader title="菜单" description="菜单用于承载产品导航和功能入口，后台侧栏优先保证当前模块、层级和可访问状态清晰。" />
 
       <section>
-        <SectionHeading eyebrow="Variants" title="菜单类型" description="菜单激活态使用中性黑，产品蓝只用于功能焦点、数量提醒和局部行为，不作为默认菜单背景。" />
+        <SectionHeading eyebrow="Variants" title="菜单类型" description="菜单激活态使用中性黑；普通数量作为名称的一部分显示为“名称（数量）”，不使用彩色徽标。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="侧边菜单" description="后台主导航，适合长期工作台和管理系统。">
             <Menu items={primaryItems} activeKey="data" />
@@ -88,7 +87,7 @@ export default function MenuPage() {
             <div className="space-y-4">
               <Menu
                 items={[
-                  { key: "approval", label: "待办审批", icon: <Bell size={16} weight="regular" />, badge: <Badge count={12} tone="info" size="sm" /> },
+                  { key: "approval", label: "待办审批（12）", icon: <Bell size={16} weight="regular" /> },
                   { key: "member", label: "成员权限", icon: <UserCircle size={16} weight="regular" /> },
                   { key: "config", label: "系统配置", icon: <GearSix size={16} weight="regular" />, disabled: true },
                 ]}
@@ -111,10 +110,9 @@ export default function MenuPage() {
             <div className="min-h-72 bg-white p-5">
               <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-[var(--text-primary)]">数据资产</h3>
+                  <h3 className="text-base font-semibold text-[var(--text-primary)]">数据资产（8）</h3>
                   <p className="mt-1 text-sm text-[var(--text-tertiary)]">材料数据集、解析任务和治理状态。</p>
                 </div>
-                <Badge count={8} tone="product" />
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {["接入中", "待治理", "已发布"].map((item) => (
@@ -134,7 +132,8 @@ export default function MenuPage() {
         <SpecList
           items={[
             "后台主导航使用 neutral-900 激活态，保证当前位置识别明确。",
-            "产品蓝只用于数量提醒、焦点行为和功能入口，不作为菜单默认激活背景。",
+            "普通菜单数量统一写在名称后并使用全角括号，如“数据资产（8）”；数量继承菜单文字颜色，不单独强调。",
+            "彩色徽标仅用于必须独立识别的异常或紧急提醒，不用于普通导航计数。",
             "禁用菜单需要保留可见性时使用 disabled，不要隐藏关键权限线索。",
           ]}
         />
