@@ -685,19 +685,31 @@
         "showTable",
         "empty",
         "loading",
+        "state",
+        "edgeCase",
+        "trendLine",
+        "benchmarkPoints",
+        "dots",
+        "smoothLine",
         "ariaLabel"
       ],
       "variants": [
         "line",
+        "multi-line",
+        "area",
+        "stacked-area",
         "bar",
+        "grouped-bar",
+        "stacked-bar",
+        "horizontal-bar",
+        "bidirectional-bar",
+        "pie",
         "donut",
+        "semi-donut",
         "waterfall",
         "histogram",
-        "area",
         "candlestick",
-        "heatmap",
-        "stacked-bar",
-        "stacked-area"
+        "heatmap"
       ],
       "tones": [
         "blue",
@@ -718,8 +730,16 @@
       ],
       "states": [
         "default",
-        "hover",
+        "hovered",
         "selected",
+        "low-value",
+        "no-data",
+        "new-data",
+        "partially-unavailable",
+        "trend-line",
+        "benchmark-points",
+        "dots",
+        "smooth-line",
         "empty",
         "loading",
         "with-table",
@@ -728,27 +748,24 @@
       "figmaProperties": {
         "chartType": [
           "line",
+          "multi-line",
+          "area",
+          "stacked-area",
           "bar",
+          "grouped-bar",
+          "stacked-bar",
+          "horizontal-bar",
+          "bidirectional-bar",
+          "pie",
           "donut",
+          "semi-donut",
           "waterfall",
           "histogram",
-          "area",
           "candlestick",
-          "heatmap",
-          "stacked-bar",
-          "stacked-area"
+          "heatmap"
         ],
-        "colorFamily": [
-          "blue",
-          "green",
-          "purple",
-          "amber",
-          "red",
-          "orange",
-          "coral",
-          "pink",
-          "magenta",
-          "indigo"
+        "palette": [
+          "dbs-examples-light"
         ],
         "size": [
           "sm",
@@ -757,16 +774,36 @@
         ],
         "state": [
           "default",
-          "hover",
+          "hovered",
           "selected",
-          "empty",
-          "loading",
-          "with-table",
-          "with-legend"
+          "loading"
+        ],
+        "edgeCase": [
+          "none",
+          "low-value",
+          "no-data",
+          "new-data",
+          "partially-unavailable"
+        ],
+        "trendLine": [
+          "false",
+          "true"
+        ],
+        "benchmarkPoints": [
+          "false",
+          "true"
+        ],
+        "dots": [
+          "false",
+          "true"
+        ],
+        "smoothLine": [
+          "false",
+          "true"
         ]
       },
       "category": "数据与内容",
-      "contractVersion": "0.3.0",
+      "contractVersion": "0.5.0",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -777,16 +814,16 @@
           "工具提示或选中明细",
           "可选等价数据表"
         ],
-        "usage": "用于展示趋势、比较、构成、分布或偏离；先按业务问题选择图表类型，再使用统一 Chart 容器。",
-        "avoid": "不要在页面中重复绘制标题、图例和状态容器；不要仅依赖颜色表达数据，不要截断柱状图零基线。",
+        "usage": "用于展示趋势、比较、构成、分布或偏离；高频图表的浅色视觉配方以 DBS 01 / 05 / 06 / 07 / 08 页面中的 Examples 画板为依据。",
+        "avoid": "不要用近似色替换 DBS Examples 配方，不要混入 Dark Mode Examples；不要仅依赖颜色表达数据，不要截断柱状图零基线。",
         "responsive": "桌面端悬浮整列或切片；窄屏改为点击选中并在图下展示明细，复杂绘图区仅允许容器内部滚动。",
         "accessibility": "图表具有可见标题、键盘可聚焦数据目标和等价数据表；工具提示内容包含名称、数值与单位。",
         "interaction": "悬浮、聚焦和点击同步更新工具提示与选中明细；移动端保持选中状态，点击其他位置或新数据目标后更新。",
         "content": "标题说明业务问题，副标题说明口径、时间与筛选；图例名称、单位、空值和本地化格式必须明确。",
         "examples": {
           "basic": "Chart 默认结构与尺寸",
-          "business": "新材道后台或门户中的真实 Chart 场景",
-          "boundary": "长内容、空数据、禁用、加载或窄屏边界",
+          "business": "柱状图五类、饼图三类和曲线图四类高频 Variant 的 DBS 浅色真实业务场景",
+          "boundary": "悬停、低值、无数据、缺失数据、趋势、基准点、数据点、骨架屏或窄屏边界",
           "wrong": "绕过组件、硬编码数值或仅依赖颜色表达状态"
         }
       },
@@ -840,6 +877,36 @@
           "name": "loading",
           "type": "boolean",
           "description": "异步处理中状态；阻止重复操作。"
+        },
+        {
+          "name": "state",
+          "type": "'default' | 'hovered' | 'selected'",
+          "description": "图表交互状态。"
+        },
+        {
+          "name": "edgeCase",
+          "type": "'none' | 'low-value' | 'no-data' | 'new-data' | 'partially-unavailable'",
+          "description": "DBS 图表边界状态。"
+        },
+        {
+          "name": "trendLine",
+          "type": "boolean",
+          "description": "显示 DBS 趋势线或预算线。"
+        },
+        {
+          "name": "benchmarkPoints",
+          "type": "boolean",
+          "description": "显示 DBS 基准点。"
+        },
+        {
+          "name": "dots",
+          "type": "boolean",
+          "description": "显示 8px 数据点。"
+        },
+        {
+          "name": "smoothLine",
+          "type": "boolean",
+          "description": "使用平滑曲线，不得制造不存在的峰谷。"
         },
         {
           "name": "ariaLabel",
@@ -4232,7 +4299,7 @@
         "empty"
       ],
       "category": "导航与组织",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.2.1",
       "status": "stable",
       "contract": {
         "anatomy": [
@@ -4246,7 +4313,7 @@
         "avoid": "不要用树表达普通分组列表；层级过深或节点过多时需提供搜索与路径定位。",
         "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
         "accessibility": "必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。",
-        "interaction": "方向键移动与展开，Enter 选择；加载、空节点、半选和权限禁用均需有独立状态。",
+        "interaction": "父节点使用实心小三角表示方向，折叠时朝右、展开时朝下，与选择器的线性下拉箭头区分；方向键移动与展开，Enter 选择。",
         "content": "节点名称优先单行；长名称允许省略并提供完整提示，重复名称需补充路径上下文。",
         "examples": {
           "basic": "Tree 默认结构与尺寸",

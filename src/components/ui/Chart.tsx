@@ -2,8 +2,14 @@ import { useId, type ReactNode } from "react";
 
 export type ChartType =
   | "line"
+  | "multi-line"
   | "bar"
+  | "grouped-bar"
+  | "horizontal-bar"
+  | "bidirectional-bar"
+  | "pie"
   | "donut"
+  | "semi-donut"
   | "waterfall"
   | "histogram"
   | "area"
@@ -13,6 +19,8 @@ export type ChartType =
   | "stacked-area";
 
 export type ChartSize = "sm" | "md" | "lg";
+export type ChartInteractionState = "default" | "hovered" | "selected";
+export type ChartEdgeCase = "none" | "low-value" | "no-data" | "new-data" | "partially-unavailable";
 
 export type ChartLegendItem = {
   label: string;
@@ -40,6 +48,12 @@ export type ChartProps = {
   showTable?: boolean;
   empty?: boolean;
   loading?: boolean;
+  state?: ChartInteractionState;
+  edgeCase?: ChartEdgeCase;
+  trendLine?: boolean;
+  benchmarkPoints?: boolean;
+  dots?: boolean;
+  smoothLine?: boolean;
   ariaLabel?: string;
   className?: string;
 };
@@ -64,6 +78,12 @@ export function Chart({
   showTable = false,
   empty = false,
   loading = false,
+  state = "default",
+  edgeCase = "none",
+  trendLine = false,
+  benchmarkPoints = false,
+  dots = false,
+  smoothLine = false,
   ariaLabel,
   className = "",
 }: ChartProps) {
@@ -78,6 +98,12 @@ export function Chart({
       ].join(" ")}
       data-chart-type={chartType}
       data-chart-size={size}
+      data-chart-state={state}
+      data-chart-edge-case={edgeCase}
+      data-chart-trend-line={trendLine || undefined}
+      data-chart-benchmark-points={benchmarkPoints || undefined}
+      data-chart-dots={dots || undefined}
+      data-chart-smooth-line={smoothLine || undefined}
       aria-labelledby={titleId}
       aria-busy={loading || undefined}
     >

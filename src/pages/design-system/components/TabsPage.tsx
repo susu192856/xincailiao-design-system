@@ -12,7 +12,7 @@ const detailItems = [
         {[['数据总量', '128 项'], ['待审核', '8 项'], ['异常数据', '3 项']].map(([label, value]) => (
           <div key={label} className="bg-white px-4 py-3">
             <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
-            <p className="mt-1 text-sm font-semibold text-[var(--neutral-900)]">{value}</p>
+            <p className="mt-1 font-data text-sm font-semibold tabular-nums text-[var(--neutral-900)]">{value}</p>
           </div>
         ))}
       </div>

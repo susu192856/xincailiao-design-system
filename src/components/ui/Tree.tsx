@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { CaretRight } from "@phosphor-icons/react";
 import { Checkbox } from "./Checkbox";
 
 export type TreeNode = {
@@ -60,11 +59,10 @@ function TreeItem({ node, level, expandedKeys, selectedKey, checkedKeys, checkab
             onClick={() => onToggle(node.key)}
             className="flex h-5 w-[13px] shrink-0 items-center justify-center disabled:cursor-not-allowed"
           >
-          <CaretRight
-            size={13}
-            weight="regular"
+          <span
+            aria-hidden="true"
             className={[
-              "shrink-0 transition-transform",
+              "h-0 w-0 shrink-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-current transition-transform",
               node.disabled ? "text-[var(--neutral-400)]" : "text-[var(--text-secondary)]",
               hasChildren && expanded ? "rotate-90" : "",
             ].join(" ")}

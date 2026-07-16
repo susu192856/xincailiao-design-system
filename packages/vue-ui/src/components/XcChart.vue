@@ -2,6 +2,12 @@
   <section
     class="xc-chart"
     :class="[`xc-chart--${size}`, `xc-chart--${chartType}`]"
+    :data-chart-state="state"
+    :data-chart-edge-case="edgeCase"
+    :data-chart-trend-line="trendLine || undefined"
+    :data-chart-benchmark-points="benchmarkPoints || undefined"
+    :data-chart-dots="dots || undefined"
+    :data-chart-smooth-line="smoothLine || undefined"
     :aria-busy="loading || undefined"
     :aria-labelledby="titleId"
   >
@@ -43,8 +49,10 @@
 <script setup lang="ts">
 import { computed, useId } from "vue";
 
-type ChartType = "line" | "bar" | "donut" | "waterfall" | "histogram" | "area" | "candlestick" | "heatmap" | "stacked-bar" | "stacked-area";
+type ChartType = "line" | "multi-line" | "bar" | "grouped-bar" | "stacked-bar" | "horizontal-bar" | "bidirectional-bar" | "pie" | "donut" | "semi-donut" | "waterfall" | "histogram" | "area" | "candlestick" | "heatmap" | "stacked-area";
 type ChartSize = "sm" | "md" | "lg";
+type ChartInteractionState = "default" | "hovered" | "selected";
+type ChartEdgeCase = "none" | "low-value" | "no-data" | "new-data" | "partially-unavailable";
 
 export type ChartLegendItem = {
   label: string;
@@ -64,6 +72,12 @@ const props = withDefaults(
     showTable?: boolean;
     empty?: boolean;
     loading?: boolean;
+    state?: ChartInteractionState;
+    edgeCase?: ChartEdgeCase;
+    trendLine?: boolean;
+    benchmarkPoints?: boolean;
+    dots?: boolean;
+    smoothLine?: boolean;
     ariaLabel?: string;
   }>(),
   {
@@ -75,6 +89,12 @@ const props = withDefaults(
     showTable: false,
     empty: false,
     loading: false,
+    state: "default",
+    edgeCase: "none",
+    trendLine: false,
+    benchmarkPoints: false,
+    dots: false,
+    smoothLine: false,
     ariaLabel: undefined,
   },
 );

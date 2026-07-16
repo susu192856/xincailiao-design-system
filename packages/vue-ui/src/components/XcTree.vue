@@ -2,7 +2,7 @@
   <div class="xc-tree">
     <div v-for="node in nodes" :key="node.key" class="xc-tree__node">
       <button class="xc-tree__row" :class="{ 'xc-tree__row--selected': node.key === selectedKey }" type="button" :disabled="node.disabled" @click="$emit('select', node.key)">
-        <span class="xc-tree__caret">{{ node.children?.length ? "›" : "" }}</span>
+        <span class="xc-tree__caret" :class="{ 'xc-tree__caret--expanded': node.children?.length }" aria-hidden="true" />
         <span class="xc-tree__label">{{ node.label }}</span>
       </button>
       <div v-if="node.children?.length" class="xc-tree__children">
@@ -77,8 +77,21 @@ defineEmits<{
 }
 
 .xc-tree__caret {
-  width: 14px;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid currentColor;
   color: var(--neutral-500);
+}
+
+.xc-tree__caret:not(.xc-tree__caret--expanded) {
+  width: 6px;
+  border: 0;
+}
+
+.xc-tree__caret--expanded {
+  transform: rotate(90deg);
 }
 
 .xc-tree__children {
