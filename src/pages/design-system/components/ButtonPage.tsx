@@ -8,8 +8,9 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import PageHeader from "../../../components/docs/PageHeader";
-import { SectionHeading } from "../../../components/docs/ComponentDoc";
+import { RuleCallout, SectionHeading } from "../../../components/docs/ComponentDoc";
 import CodeBlock from "../../../components/docs/CodeBlock";
 import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
@@ -22,13 +23,15 @@ function SpecCard({
   title,
   description,
   children,
+  className = "",
 }: {
   title: string;
   description?: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 md:p-6">
+    <div className={`rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 md:p-6 ${className}`}>
       <div className="mb-5">
         <h3 className="text-base font-semibold leading-[var(--type-body-l-line-height)] text-[var(--text-primary)]">{title}</h3>
         {description ? <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{description}</p> : null}
@@ -54,7 +57,7 @@ function ButtonSurface({
   }[gap];
 
   return (
-    <div className={`flex min-h-[96px] items-center ${gapClass} rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4 ${className}`}>
+    <div className={`flex min-h-[96px] items-center ${gapClass} rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4 ${className}`}>
       {children}
     </div>
   );
@@ -74,7 +77,7 @@ function ButtonDemoCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4">
+    <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4">
       <div className="mb-4">
         <p className="text-sm font-semibold text-[var(--text-primary)]">{title}</p>
         <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">{description}</p>
@@ -367,7 +370,7 @@ function ButtonPlaygroundSection() {
             <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">尺寸</p><div className="flex flex-wrap gap-2">{(["sm", "md", "lg"] as const).map((item) => <button key={item} type="button" aria-pressed={size === item} onClick={() => setSize(item)} className={optionClass(size === item)}>{item}</button>)}</div></div>
             <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">状态</p><div className="flex flex-wrap gap-2">{(["default", "loading", "disabled"] as const).map((item) => <button key={item} type="button" aria-pressed={state === item} onClick={() => setState(item)} className={optionClass(state === item)}>{item}</button>)}</div></div>
           </div>
-          <div className="flex min-h-48 items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-[var(--neutral-50)] p-6">
+          <div className="flex min-h-48 items-center justify-center rounded-[var(--radius-md)] border border-dashed border-[var(--neutral-300)] bg-[var(--neutral-50)] p-6">
             {content === "icon-only" ? (
               <Button variant={variant} tone={tone} size={size} loading={state === "loading"} disabled={state === "disabled"} icon={<PencilSimple size={16} className="h-4 w-4" weight="regular" />} aria-label="编辑" title="编辑" className={iconOnlyClass} />
             ) : (
@@ -550,20 +553,19 @@ export default function ButtonPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Tri-tone Rules"
-          title="三色三角使用规则"
-          description="任务色（Task）、产品色（Product）、品牌色（Brand）是平级主操作语义。它们可以出现在同一页面的不同区域，但同一个操作组只能有一个实色按钮（solid）。"
+          eyebrow="Tone Composition"
+          title="按钮配色与组合"
+          description="颜色页负责判断任务色（Task）、产品色（Product）与品牌色（Brand）的业务语义；按钮页只规定操作组内的层级、顺序和组合方式。同一个操作组只能有一个实色按钮（solid）。"
         />
         <div className="space-y-5">
-          <SpecCard title="三色怎么判断">
-            <div className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
-              <div className="space-y-4 text-sm leading-6 text-[var(--text-secondary)]">
-                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--neutral-900)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">黑色（Task）：</span>提交、确认、保存、发布、创建。它改变任务状态或推动流程。</p>
-                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--product-blue-500)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">蓝色（Product）：</span>分析、生成、连接、筛选、导出、预览。它调用产品能力，通常可重复或可撤回。</p>
-                <p><span className="relative -top-px inline-block h-2 w-2 rounded-[1px] bg-[var(--brand-600)] ml-1 mr-2" /><span className="font-semibold text-[var(--text-primary)]">红色（Brand）：</span>预约演示、立即体验、查看方案。它服务品牌转化，不进入常规后台操作组。</p>
-              </div>
-              <div className="mt-5 grid grid-cols-1 gap-3 xl:grid-cols-3">
-                <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4">
+          <RuleCallout title="先判断颜色语义" tone="info">
+            任务黑与产品蓝的选择，以及品牌红的使用边界，以
+            <Link className="mx-1 font-semibold text-[var(--product-blue-600)] hover:underline" to="/design-system/colors#task-product-choice">颜色页的任务黑与产品蓝规则</Link>
+            为准。此处不重复维护定义，只展示按钮组合结果。
+          </RuleCallout>
+          <SpecCard title="常用组合" description="先确定唯一主操作，再按弱操作、次操作、主操作的顺序排列。">
+              <div className="grid grid-cols-1 gap-3 xl:grid-cols-3">
+                <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4">
                 <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">主次弱标准排列</p>
                 <ButtonSurface className="min-h-0 flex-nowrap bg-white" gap="normal">
                   <Button variant="ghost" tone="neutral">取消</Button>
@@ -572,7 +574,7 @@ export default function ButtonPage() {
                 </ButtonSurface>
                 <MetaText>从左到右降低风险到推进任务：弱操作、次操作、唯一主操作。</MetaText>
                 </div>
-                <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4">
+                <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4">
                 <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">红色 + 黑色</p>
                 <ButtonSurface className="min-h-0 bg-white" gap="loose">
                   <Button tone="brand">预约演示</Button>
@@ -580,7 +582,7 @@ export default function ButtonPage() {
                 </ButtonSurface>
                 <MetaText>官网同组以品牌色（Brand）承担转化；黑色（Task）只用于提交资料等事务，避免和行动入口（CTA）抢主次。</MetaText>
                 </div>
-                <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-4">
+                <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4">
                 <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">黑色 + 蓝色</p>
                 <ButtonSurface className="min-h-0 flex-nowrap bg-white" gap="normal">
                   <Button variant="outline" tone="product">预览版本</Button>
@@ -589,7 +591,6 @@ export default function ButtonPage() {
                 <MetaText>后台常见组合：任务色（Task）作为唯一实色按钮（solid），产品色（Product）降为描边型（outline）或文字型（text）。</MetaText>
                 </div>
               </div>
-            </div>
           </SpecCard>
 
           <DocsTable caption="页面类型决定颜色语义（tone）的默认选择。例外必须由业务意图解释，而不是由视觉偏好决定。">
@@ -623,8 +624,8 @@ export default function ButtonPage() {
           title="语义按钮"
           description="危险（Danger）、警告（Warning）、成功（Success）是状态语义，不参与三色三角主操作模型。只有当业务状态明确时才使用。"
         />
-        <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
-          <SpecCard title="危险操作" description="用于不可逆或高风险动作，必须配合二次确认。">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+          <SpecCard className="xl:col-span-2" title="危险操作" description="用于不可逆或高风险动作，必须配合二次确认。">
             <ButtonSurface className="flex-wrap">
               <Button tone="danger" icon={<Trash size={16} className="h-4 w-4" weight="regular" />}>永久删除</Button>
               <Button variant="outline" tone="danger">撤销审批</Button>
@@ -653,7 +654,7 @@ export default function ButtonPage() {
                 <th>tone</th>
                 <th>适用动作</th>
                 <th>颜色来源</th>
-                <th>使用规则</th>
+                <th>说明</th>
               </tr>
             </thead>
             <tbody>
@@ -671,7 +672,7 @@ export default function ButtonPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Semantic Model"
+          eyebrow="API"
           title="按钮语义模型"
           description="前端、Figma（设计工具）和 Codex（代码协作工具）都使用同一套模型：类型属性（variant）表示视觉层级，颜色语义（tone）表示业务含义，尺寸（size）表示场景密度，状态（state）表示交互状态。"
         />

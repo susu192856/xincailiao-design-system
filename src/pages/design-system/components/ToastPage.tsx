@@ -17,7 +17,7 @@ export default function ToastPage() {
 
       <section>
         <SectionHeading eyebrow="Overview" title="类型与位置" description="“全局反馈”只适合描述浮层消息，无法覆盖页面内容中的常驻提示，因此统一使用“消息反馈”作为页面名称。" />
-        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           <div className="grid grid-cols-[112px_minmax(0,1fr)] border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3 text-xs font-medium text-[var(--text-secondary)] md:grid-cols-[144px_120px_minmax(0,1fr)_220px]">
             <span>反馈类型</span>
             <span className="hidden md:block">组件</span>
@@ -38,7 +38,7 @@ export default function ToastPage() {
           ))}
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-4">
             <p className="text-sm font-semibold text-[var(--text-primary)]">位置说明</p>
             <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">示意三类消息在桌面端页面中的默认位置，不代表它们可以同时出现。</p>
@@ -65,7 +65,7 @@ export default function ToastPage() {
       <section>
         <SectionHeading eyebrow="Toast" title="顶部轻提示" description="用于操作后的即时结果反馈，不打断当前任务。默认只使用一行结果语，不展示关闭按钮。" />
         <ExampleCard title="语义状态" description="成功、信息、警告和错误必须同时使用图标与明确文案，不能只依赖颜色。">
-          <div className="grid gap-4 rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-6 sm:grid-cols-2 xl:grid-cols-4">
             {feedbackTones.map((item) => (
               <div key={item.tone}>
                 <p className="mb-3 text-xs text-[var(--text-tertiary)]">{item.label}</p>
@@ -102,7 +102,7 @@ export default function ToastPage() {
             ["error", "批量发布失败", "部分数据缺少负责人，请补充后重新发布。"],
           ].map(([tone, title, description]) => (
             <ExampleCard key={tone} title={`${title}示例`}>
-              <div className="flex min-h-40 items-start justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-6">
+              <div className="flex min-h-40 items-start justify-center rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-6">
                 <Toast presentation="notification" tone={tone as ToastVariant} title={title} description={description} onClose={() => {}} />
               </div>
             </ExampleCard>

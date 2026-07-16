@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "新材道设计系统 Vue 3 组件源码包",
+  "scripts": {
+    "build": "vue-tsc && vite build"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./styles.css": "./src/styles.css"

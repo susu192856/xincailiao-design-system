@@ -92,7 +92,7 @@ export default function DescriptionListPage() {
           title="详情页模式"
           description="这是描述列表（DescriptionList）的上层页面模式，用于说明标题、状态、字段分组和操作栏如何组合；它们不是描述列表组件本身的接口（API）。"
         />
-        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           {/* 详情页头部 */}
           <div className="border-b border-[var(--neutral-200)] px-6 py-4">
             <div>
@@ -217,7 +217,7 @@ export default function DescriptionListPage() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <ExampleCard title="材料图片 + 字段" description="材料图、显微组织图和检测附件应与关键字段形成同一信息组，避免图片和参数分离。">
             <div className="grid grid-cols-1 gap-4 md:grid-cols-[160px_1fr]">
-              <div className="flex aspect-[4/3] items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-[var(--neutral-50)]">
+              <div className="flex aspect-[4/3] items-center justify-center rounded-[var(--radius-md)] border border-dashed border-[var(--neutral-300)] bg-[var(--neutral-50)]">
                 <div className="text-center">
                   <div className="mx-auto mb-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--neutral-100)] text-[var(--text-tertiary)]">
                     <ImageSquare size={16} weight="regular" aria-hidden="true" />
@@ -394,7 +394,7 @@ export default function DescriptionListPage() {
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Link
           to="/components/form"
-          className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
+          className="group flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
         >
           <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
           <div>
@@ -405,7 +405,7 @@ export default function DescriptionListPage() {
         </Link>
         <Link
           to="/components/input"
-          className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
+          className="group flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
         >
           <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
           <div>

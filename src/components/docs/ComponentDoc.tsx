@@ -60,6 +60,24 @@ export function SubsectionHeading({
   );
 }
 
+export function MeasurementLabel({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`inline-flex items-center justify-center gap-1 whitespace-nowrap font-data text-[10px] font-semibold leading-none text-[var(--docs-measurement-text)] ${className}`}
+    >
+      <span aria-hidden="true" className="text-[var(--docs-measurement)]">←</span>
+      <span>{children}</span>
+      <span aria-hidden="true" className="text-[var(--docs-measurement)]">→</span>
+    </span>
+  );
+}
+
 export function SectionCard({
   children,
   className = "",
@@ -68,7 +86,7 @@ export function SectionCard({
   className?: string;
 }) {
   return (
-    <div className={`rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 ${className}`}>
+    <div className={`rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 ${className}`}>
       {children}
     </div>
   );
@@ -101,7 +119,7 @@ export function ExampleCard({
 
   return (
     <div
-      className={["rounded-[var(--radius-sm)] border bg-white p-5 md:p-6", toneClass, className].join(" ")}
+      className={["rounded-[var(--radius-md)] border bg-white p-5 md:p-6", toneClass, className].join(" ")}
       data-docs-interactive={interactive ? "true" : undefined}
     >
       <div className="mb-5">
@@ -147,7 +165,7 @@ export function RuleCallout({
   }[tone];
 
   return (
-    <aside className={["rounded-[var(--radius-sm)] border p-4", toneClass].join(" ")}>
+    <aside className={["rounded-[var(--radius-md)] border p-4", toneClass].join(" ")}>
       <h3 className="text-sm font-semibold text-[var(--text-primary)]">{title}</h3>
       <div className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{children}</div>
     </aside>
@@ -158,7 +176,7 @@ export function SpecList({ items }: { items: string[] }) {
   return (
     <div className="space-y-1.5">
       {items.map((item, index) => (
-        <div key={item} className="flex items-start gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-100)] bg-white px-4 py-2.5">
+        <div key={item} className="flex items-start gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-100)] bg-white px-4 py-2.5">
           <span className="shrink-0 font-data text-xs font-medium leading-6 text-[var(--text-tertiary)]">
             {String(index + 1).padStart(2, "0")}
           </span>

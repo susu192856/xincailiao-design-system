@@ -1,6 +1,6 @@
 <template>
   <div class="xc-tabs" :class="[`xc-tabs--${variant}`, `xc-tabs--${size}`]">
-    <div class="xc-tabs__list" role="tablist">
+    <div class="xc-tabs__list" role="tablist" aria-orientation="horizontal">
       <button
         v-for="item in items"
         :key="item.value"
@@ -11,13 +11,22 @@
         :title="item.disabled ? item.disabledReason : undefined"
         role="tab"
         :aria-selected="item.value === currentValue"
+        :aria-controls="`${instanceId}-${item.value}-panel`"
+        :id="`${instanceId}-${item.value}-tab`"
+        :tabindex="item.value === currentValue ? 0 : -1"
         @click="selectTab(item.value)"
+        @keydown="handleKeydown($event, item.value)"
       >
         {{ item.label }}
       </button>
     </div>
 
-    <div class="xc-tabs__panel" role="tabpanel">
+    <div
+      class="xc-tabs__panel"
+      role="tabpanel"
+      :id="`${instanceId}-${currentValue}-panel`"
+      :aria-labelledby="`${instanceId}-${currentValue}-tab`"
+    >
       <slot :value="currentValue">
         <slot :name="currentValue" />
       </slot>
@@ -26,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useId } from "vue";
 
 export type XcTabItem = {
   label: string;
@@ -53,12 +62,35 @@ const emit = defineEmits<{
   change: [value: string];
 }>();
 
+const instanceId = useId().replace(/:/g, "");
 const currentValue = computed(() => props.modelValue || props.items[0]?.value || "");
 
 function selectTab(value: string) {
   if (value === currentValue.value) return;
   emit("update:modelValue", value);
   emit("change", value);
+}
+
+function handleKeydown(event: KeyboardEvent, currentItemValue: string) {
+  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+
+  const enabledItems = props.items.filter((item) => !item.disabled);
+  const currentIndex = enabledItems.findIndex((item) => item.value === currentItemValue);
+  if (currentIndex < 0 || enabledItems.length === 0) return;
+
+  event.preventDefault();
+  let nextIndex = currentIndex;
+  if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % enabledItems.length;
+  if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + enabledItems.length) % enabledItems.length;
+  if (event.key === "Home") nextIndex = 0;
+  if (event.key === "End") nextIndex = enabledItems.length - 1;
+
+  const nextItem = enabledItems[nextIndex];
+  selectTab(nextItem.value);
+
+  const currentButton = event.currentTarget as HTMLButtonElement;
+  const enabledButtons = currentButton.parentElement?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)");
+  enabledButtons?.[nextIndex]?.focus();
 }
 </script>
 

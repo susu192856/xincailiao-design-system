@@ -65,7 +65,7 @@ export default function PaginationPage() {
         <SectionHeading eyebrow="Extensions" title="扩展能力" description="数据量较大时可配合页码跳转和每页条数切换，但不要让分页控件挤占表格主要操作区。" />
         <div className="grid grid-cols-1 gap-5">
           <ExampleCard title="快速跳转">
-            <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+            <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
               <Pagination
                 page={3}
                 total={12}
@@ -78,7 +78,7 @@ export default function PaginationPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="每页条数">
-            <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+            <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
               <Pagination
                 page={page}
                 total={18}

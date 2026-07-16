@@ -32,7 +32,7 @@ export default function ColorScaleGrid({ colors, className = "" }: ColorScaleGri
           background: `linear-gradient(to right, ${colors.map((c) => c.hex).join(", ")})`,
         }}
       />
-      <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+      <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
         <div className={["grid border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-4 py-2.5 text-sm font-semibold text-[var(--text-secondary)]", gridCols].join(" ")}>
           <span>颜色</span>
           <span>变量</span>

@@ -12,8 +12,16 @@ export default function DocsLayout() {
   const isHome = location.pathname === "/";
 
   useLayoutEffect(() => {
+    if (location.hash) {
+      const targetId = decodeURIComponent(location.hash.slice(1));
+      const frame = window.requestAnimationFrame(() => {
+        document.getElementById(targetId)?.scrollIntoView({ block: "start", behavior: "auto" });
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   return (
     <div className="min-h-screen bg-[var(--docs-bg)] text-[var(--text-primary)] lg:flex">

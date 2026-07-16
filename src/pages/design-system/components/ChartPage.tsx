@@ -555,7 +555,7 @@ function CurveChartDemo() {
         <svg className="h-auto w-full" viewBox="0 0 640 280" role="img" aria-label={`${modeMeta.title}，可聚焦月份查看精确值`}>
           {[40, 90, 140, 190, 240].map((y) => <line key={y} x1="50" x2="610" y1={y} y2={y} stroke={y === 240 ? dbsChartStyles.baseline : dbsChartStyles.grid} />)}
           {curveData.labels.map((label, index) => (
-            <text key={label} x={70 + index * 100} y="265" textAnchor="middle" fill="var(--neutral-600)" fontSize="11">{label}</text>
+            <text key={label} x={70 + index * 100} y="265" textAnchor="middle" fill="var(--text-tertiary)" fontSize="11">{label}</text>
           ))}
           {visualState === "skeleton" ? (
             <>

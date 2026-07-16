@@ -8,6 +8,7 @@ import DocsTable from "../../components/docs/DocsTable";
 import { chartColorFamilies } from "../../data/chartColors";
 import PageHeader from "../../components/docs/PageHeader";
 import { Tag, type TagVariant } from "../../components/ui/Tag";
+import { Button } from "../../components/ui/Button";
 
 type ColorToken = {
   name: string;
@@ -39,7 +40,7 @@ function ColorChip({ color, label }: { color: string; label?: string }) {
 
 function SemanticCard({ color }: { color: SemanticColor }) {
   return (
-    <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+    <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
       <div className="p-5">
         <div className="flex items-start justify-between gap-5">
           <div>
@@ -48,7 +49,7 @@ function SemanticCard({ color }: { color: SemanticColor }) {
         </div>
         <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{color.usage}</p>
 
-        <div className="mt-5 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
+        <div className="mt-5 overflow-hidden rounded-[var(--radius-none)] border border-[var(--neutral-200)]">
           {[
             ["状态前景色", color.text],
             ["状态圆点色", color.dot],
@@ -65,7 +66,7 @@ function SemanticCard({ color }: { color: SemanticColor }) {
           ))}
         </div>
 
-        <div className="mt-4 rounded-sm border px-3.5 py-3 text-sm leading-6" style={{ backgroundColor: color.background, borderColor: color.border }}>
+        <div className="mt-4 rounded-[var(--radius-md)] border px-3.5 py-3 text-sm leading-6" style={{ backgroundColor: color.background, borderColor: color.border }}>
           <span className="font-semibold" style={{ color: color.text }}>{color.sample}</span>
           <span className="ml-2 text-[var(--text-secondary)]">状态信息必须配合明确文字，不只依赖颜色。</span>
         </div>
@@ -230,10 +231,10 @@ export default function ColorsPage() {
           description="新材道产品界面的色彩体系由红、蓝、黑三种颜色构成。这不是三套可选配色方案，而是三种颜色的角色分工——红色负责品牌宣告，蓝色承载产品功能，黑色推进关键任务并建立结构秩序。"
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white overflow-hidden">
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
-                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
+                <span className="h-6 w-6 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
                 <h3 className="text-base font-semibold text-[var(--text-primary)]">品牌红</h3>
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">brand-600 · #FF112D</p>
@@ -241,10 +242,10 @@ export default function ColorsPage() {
               <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于官网首页、门户首页、展会、品宣封面、Logo。红色是信号色，不是环境色——少量最强，大面积即是噪音。</p>
             </div>
           </div>
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white overflow-hidden">
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
-                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
+                <span className="h-6 w-6 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
                 <h3 className="text-base font-semibold text-[var(--text-primary)]">产品蓝</h3>
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">product-blue-500 · #006DEA</p>
@@ -252,10 +253,10 @@ export default function ColorsPage() {
               <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">出现于功能按钮、链接、分析生成能力、数据图表，以及单选框（Radio）、复选框（Checkbox）、开关（Switch）的选中状态。所有表单控件的聚焦态（Focus）使用中性黑，避免把状态蓝与键盘焦点混为一体。</p>
             </div>
           </div>
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white overflow-hidden">
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
-                <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
+                <span className="h-6 w-6 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
                 <h3 className="text-base font-semibold text-[var(--text-primary)]">任务黑</h3>
               </div>
               <p className="text-sm text-[var(--text-secondary)] mb-3">neutral-900 · #1A1A1A</p>
@@ -264,7 +265,7 @@ export default function ColorsPage() {
             </div>
           </div>
         </div>
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+        <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">使用决策：</strong>
           用户在官网（红+黑）认识品牌；进入后台/应用平台（蓝+黑），蓝色承载产品能力和选择状态，黑色承担任务型主操作、输入字段框架和结构骨架；红色退到顶栏 Logo。黑色输入框架与蓝色状态反馈共同形成稳重且易识别的交互语言。
         </div>
@@ -330,7 +331,7 @@ export default function ColorsPage() {
         </DocsTable>
       </section>
 
-      <section>
+      <section id="task-product-choice" className="scroll-mt-6">
         <SectionHeading
           eyebrow="Decision Guide"
           title="任务黑与产品蓝 — 如何选择"
@@ -342,29 +343,31 @@ export default function ColorsPage() {
               <tr>
                 <th>如果你要……</th>
                 <th>用这个</th>
+                <th>示例</th>
                 <th>理由</th>
               </tr>
             </thead>
             <tbody>
               {[
-                ["提交表单 / 确认发布 / 保存配置", "黑色（Task）", "改变业务流程的结果——用户需要感到'这件事定了'。"],
-                ["下一步 / 继续 / 完成", "黑色（Task）", "推进流程前进，不是辅助操作。"],
-                ["查看详情 / 了解更多 / 跳转链接", "蓝色（Product）", "引导探索，不改变数据状态。"],
-                ["筛选 / 搜索 / 下载 / 导出", "蓝色（Product）", "产品功能操作，不改变业务结果。"],
-                ["新建 / 创建 / 生成", "黑色（Task）", "新增是一条业务流程的起点，需要明确触发。"],
-                ["取消 / 返回 / 关闭（不改变数据）", "中性弱按钮", "使用描边型（outline）、弱化型（ghost）或文字型（text）按钮，保持操作层级合理。"],
-                ["删除 / 不可逆操作", "语义红色（Error）", "严禁用品牌红或黑色替代。红色 + 二次确认。"],
-              ].map(([scenario, choice, reason]) => (
-                <tr key={scenario}>
-                  <td>{scenario}</td>
-                  <td className="whitespace-nowrap font-semibold">{choice}</td>
-                  <td>{reason}</td>
+                ["提交表单 / 确认发布 / 保存配置", "黑色（Task）", <Button size="sm" tone="task" className="pointer-events-none">提交</Button>, "改变业务流程的结果——用户需要感到'这件事定了'。"],
+                ["下一步 / 继续 / 完成", "黑色（Task）", <Button size="sm" tone="task" className="pointer-events-none">下一步</Button>, "推进流程前进，不是辅助操作。"],
+                ["查看详情 / 了解更多 / 跳转链接", "蓝色（Product）", <Button size="sm" tone="product" className="pointer-events-none">查看详情</Button>, "引导探索，不改变数据状态。"],
+                ["筛选 / 搜索 / 下载 / 导出", "蓝色（Product）", <Button size="sm" variant="outline" tone="product" className="pointer-events-none">导出</Button>, "产品功能操作，不改变业务结果。"],
+                ["新建 / 创建 / 生成", "黑色（Task）", <Button size="sm" tone="task" className="pointer-events-none">新建</Button>, "新增是一条业务流程的起点，需要明确触发。"],
+                ["取消 / 返回 / 关闭（不改变数据）", "中性弱按钮", <Button size="sm" variant="outline" tone="neutral" className="pointer-events-none">取消</Button>, "使用描边型（outline）、弱化型（ghost）或文字型（text）按钮，保持操作层级合理。"],
+                ["删除 / 不可逆操作", "语义红色（Error）", <Button size="sm" tone="danger" className="pointer-events-none">删除</Button>, "严禁用品牌红或黑色替代。红色 + 二次确认。"],
+              ].map(([scenario, choice, example, reason]) => (
+                <tr key={scenario as string}>
+                  <td>{scenario as string}</td>
+                  <td className="whitespace-nowrap font-semibold text-[var(--text-primary)]">{choice as string}</td>
+                  <td>{example as ReactNode}</td>
+                  <td>{reason as string}</td>
                 </tr>
               ))}
             </tbody>
           </DocsTable>
         </div>
-        <div className="mt-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+        <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">简单记法：</strong>
           黑色（Task）= "我决定了一件事"；蓝色（Product）= "我想看看 / 用用这个功能"。如果按钮同时改变数据又引导探索（少数情况），优先按"是否改变业务结果"来判断。
         </div>
@@ -422,7 +425,7 @@ export default function ColorsPage() {
             const right = chartColorFamilies[i + 1];
             rows.push(
               <div key={left.key} className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+                <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">{left.name}</p>
                   <div className="mt-3 flex h-10 overflow-hidden rounded-sm">
                     {left.shades.map((c) => <span key={c} className="flex-1" style={{ backgroundColor: c }} />)}
@@ -432,7 +435,7 @@ export default function ColorsPage() {
                   </div>
                 </div>
                 {right ? (
-                  <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+                  <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">{right.name}</p>
                     <div className="mt-3 flex h-10 overflow-hidden rounded-sm">
                       {right.shades.map((c) => <span key={c} className="flex-1" style={{ backgroundColor: c }} />)}
@@ -448,7 +451,7 @@ export default function ColorsPage() {
           }, [] as ReactNode[])}
         </div>
 
-        <div className="mt-8 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+        <div className="mt-8 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
           <h3 className="text-base font-semibold text-[var(--text-primary)]">使用原则</h3>
           <ul className="mt-3 space-y-2 text-sm leading-6 text-[var(--text-secondary)]">
             <li><strong className="text-[var(--text-primary)]">序列数 ≤ 6：</strong>从 10 个色系中选取不同色系，相邻系列避免使用同一色系的近似层级。</li>
@@ -462,7 +465,7 @@ export default function ColorsPage() {
         <div className="mt-5">
           <Link
             to="/components/chart"
-            className="group flex items-center gap-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
+            className="group flex items-center gap-4 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
           >
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--text-secondary)]">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none">

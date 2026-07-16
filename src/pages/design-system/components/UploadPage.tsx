@@ -108,7 +108,7 @@ export default function UploadPage() {
             <div key={item.name} className="flex min-w-0 items-center gap-3 border border-[var(--neutral-200)] bg-white p-4">
               <img src={item.src} alt="" aria-hidden="true" className="h-8 w-8 shrink-0 [image-rendering:auto]" />
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-[var(--neutral-900)]">{item.name}</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">{item.name}</p>
                 <p className="mt-1 truncate text-xs text-[var(--text-tertiary)]" title={item.extensions}>{item.extensions}</p>
               </div>
             </div>
@@ -213,11 +213,11 @@ export default function UploadPage() {
       </section>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <Link to="/components/switch" className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
+        <Link to="/components/switch" className="group flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
           <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
           <div><div className="text-xs text-[var(--text-tertiary)]">上一步</div><h3 className="mt-1 text-sm font-semibold text-[var(--text-primary)]">开关</h3></div>
         </Link>
-        <Link to="/components/form" className="group flex items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
+        <Link to="/components/form" className="group flex items-center justify-between gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
           <div><div className="text-xs text-[var(--text-tertiary)]">下一步</div><h3 className="mt-1 text-sm font-semibold text-[var(--text-primary)]">表单</h3></div>
           <ArrowRight size={18} weight="regular" className="text-[var(--text-tertiary)]" />
         </Link>

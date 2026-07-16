@@ -97,7 +97,7 @@ export function InputNumber({
             onChange={handleChange}
             aria-invalid={Boolean(error)}
             aria-describedby={error || helperText ? messageId : undefined}
-            className={`input-number-field min-w-0 flex-1 bg-transparent px-2 text-center font-normal text-[var(--text-primary)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)] ${className}`}
+            className={`input-number-field min-w-0 flex-1 bg-transparent px-2 text-center font-normal text-[var(--text-primary)] outline-none placeholder:text-[var(--neutral-400)] disabled:cursor-not-allowed disabled:text-[var(--text-disabled)] ${className}`}
           />
           {suffix ? <span className="flex shrink-0 items-center px-1 text-xs text-[var(--text-tertiary)]">{suffix}</span> : null}
           <button type="button" aria-label={`增加${label ?? "数值"}`} disabled={disabled || readOnly || atMax} onClick={() => adjust(1)} className="flex w-8 shrink-0 items-center justify-center border-l border-[var(--neutral-200)] text-[var(--text-secondary)] hover:bg-[var(--neutral-50)] disabled:cursor-not-allowed disabled:text-[var(--neutral-300)]"><Plus size={16} weight="regular" aria-hidden="true" /></button>

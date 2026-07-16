@@ -87,20 +87,18 @@ export function HomeHero() {
         }}
       />
       <div className="relative z-10 mx-auto flex min-h-[450px] max-w-[calc(var(--content-docs-width)+12rem)] items-start gap-10 px-5 pt-20 md:px-8 xl:px-10">
-        <div className="min-w-0 flex-1">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-tertiary)]">
-            <span className="text-[var(--text-tertiary)] mr-1.5">2026</span><span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
-            新材道设计系统v2.0
-          </div>
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <h1 className="text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">设计系统</h1>
+        <div className="min-w-0 flex-1 pt-10">
+          <h1 className="text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">设计系统</h1>
+          <div className="mt-4 flex flex-wrap items-center gap-2" aria-label="版本信息">
+            <Tag variant="neutral" size="sm">2026</Tag>
+            <Tag variant="neutral" size="sm">v2.0</Tag>
             <Tag variant="success" size="sm">测试版</Tag>
           </div>
           <p className="mt-4 max-w-xl text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">
             覆盖官网门户、可信数据空间、材库、材小模等全线产品的统一设计语言。色彩、字体、间距、圆角和阴影均由设计变量（Token）驱动，从 Figma（设计工具）设计稿到 Vue 3 组件代码保持同一套规则，确保品牌识别一致、研发交付高效。
           </p>
         </div>
-        <div className="hidden w-[360px] shrink-0 rounded-sm border border-white/20 bg-white/40 backdrop-blur-lg p-5 lg:block">
+        <div className="hidden w-[360px] shrink-0 rounded-[var(--radius-lg)] border border-white/20 bg-white/40 backdrop-blur-lg p-5 lg:block">
           <div className="mb-4 flex items-center border-b border-[var(--neutral-200)] pb-4">
             <img src={xincailiaoLogo} alt="新材道 XINCAILIAO" className="h-9 w-auto object-contain" />
           </div>

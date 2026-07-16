@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading } from "../../../components/docs/ComponentDoc";
+import DocsTable from "../../../components/docs/DocsTable";
 import { Tabs } from "../../../components/ui/Tabs";
 
 const detailItems = [
@@ -12,7 +13,7 @@ const detailItems = [
         {[['数据总量', '128 项'], ['待审核', '8 项'], ['异常数据', '3 项']].map(([label, value]) => (
           <div key={label} className="bg-white px-4 py-3">
             <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
-            <p className="mt-1 font-data text-sm font-semibold tabular-nums text-[var(--neutral-900)]">{value}</p>
+            <p className="mt-1 font-data text-sm font-semibold tabular-nums text-[var(--text-primary)]">{value}</p>
           </div>
         ))}
       </div>
@@ -23,8 +24,8 @@ const detailItems = [
     label: "工艺参数",
     content: (
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <div className="bg-white px-4 py-3 text-sm text-[var(--neutral-900)]">热处理温度：650℃</div>
-        <div className="bg-white px-4 py-3 text-sm text-[var(--neutral-900)]">保温时间：4h</div>
+        <div className="bg-white px-4 py-3 text-sm text-[var(--text-primary)]">热处理温度：650℃</div>
+        <div className="bg-white px-4 py-3 text-sm text-[var(--text-primary)]">保温时间：4h</div>
       </div>
     ),
   },
@@ -32,7 +33,7 @@ const detailItems = [
     value: "history",
     label: "流转记录（12）",
     content: (
-      <div className="space-y-2 bg-white px-4 py-3 text-sm text-[var(--neutral-900)]">
+      <div className="space-y-2 bg-white px-4 py-3 text-sm text-[var(--text-primary)]">
         <p>09:30 数据审核通过</p>
         <p>10:15 已提交发布</p>
       </div>
@@ -50,7 +51,7 @@ const statusItems = [
 function RuleGroup({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="border border-[var(--neutral-200)] bg-white p-4">
-      <h3 className="text-sm font-semibold text-[var(--neutral-900)]">{title}</h3>
+      <h3 className="text-sm font-semibold text-[var(--text-primary)]">{title}</h3>
       <div className="mt-3 space-y-2 text-sm leading-6 text-[var(--text-secondary)]">{children}</div>
     </div>
   );
@@ -77,23 +78,23 @@ export default function TabsPage() {
         >
           <div className="space-y-6">
             <div>
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">一级 · 整页内容切换</h3>
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">一级 · 整页内容切换</h3>
               <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">16px，用于同一业务页面内的模块切换；同页最多一个，不承担跨产品导航。</p>
               <Tabs value={value} onValueChange={setValue} items={detailItems} variant="page" size="lg" className="mt-3 bg-[var(--neutral-50)]" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-[var(--neutral-900)]">二级 · 当前页状态分组</h3>
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">二级 · 当前页状态分组</h3>
               <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">14px 短下划线样式，只改变当前模块的数据集合，不改变标题、工具栏和一级标签。</p>
               <Tabs defaultValue="all" className="mt-3" items={statusItems.map((item) => ({ ...item, content: null }))} />
             </div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <div>
-                <h3 className="text-sm font-semibold text-[var(--neutral-900)]">三级 · 强分段切换</h3>
+                <h3 className="text-sm font-semibold text-[var(--text-primary)]">三级 · 强分段切换</h3>
                 <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">28px 高；切换后指标、图形结构或视图模式有明显差异。</p>
                 <Tabs defaultValue="count" variant="segment" size="sm" className="mt-3" items={[{ value: "count", label: "数量", content: null }, { value: "capacity", label: "容量", content: null }]} />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-[var(--neutral-900)]">三级 · 弱文字切换</h3>
+                <h3 className="text-sm font-semibold text-[var(--text-primary)]">三级 · 弱文字切换</h3>
                 <p className="mt-1 text-xs leading-5 text-[var(--text-tertiary)]">只改变时间粒度、排序或展示口径；当前项为产品蓝，选项之间使用短分隔线。</p>
                 <Tabs defaultValue="year" variant="text" size="sm" className="mt-3" items={[{ value: "year", label: "按年", content: null }, { value: "month", label: "按月", content: null }, { value: "week", label: "按周", content: null, disabled: true, disabledReason: "当前数据不支持按周汇总" }]} />
               </div>
@@ -122,7 +123,7 @@ export default function TabsPage() {
                 {scenarioPage === "assets" ? (
                   <>
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <h3 className="text-base font-semibold text-[var(--neutral-900)]">材料数据资产</h3>
+                      <h3 className="text-base font-semibold text-[var(--text-primary)]">材料数据资产</h3>
                       <p className="text-xs text-[var(--text-tertiary)]">一级切换后保留当前筛选</p>
                     </div>
                     <Tabs
@@ -135,7 +136,7 @@ export default function TabsPage() {
                     <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
                       <div className="bg-[var(--neutral-50)] p-4">
                         <div className="flex items-start justify-between gap-4">
-                          <h3 className="text-sm font-semibold text-[var(--neutral-900)]">资产类型分布</h3>
+                          <h3 className="text-sm font-semibold text-[var(--text-primary)]">资产类型分布</h3>
                           <Tabs value={metric} onValueChange={setMetric} variant="segment" size="sm" items={[{ value: "count", label: "数量", content: null }, { value: "capacity", label: "容量", content: null }]} />
                         </div>
                         <div className="mt-5 flex h-28 items-end gap-3 border-b border-l border-[var(--neutral-200)] px-4">
@@ -144,7 +145,7 @@ export default function TabsPage() {
                       </div>
                       <div className="bg-[var(--neutral-50)] p-4">
                         <div className="flex items-start justify-between gap-4">
-                          <h3 className="text-sm font-semibold text-[var(--neutral-900)]">资产增长趋势</h3>
+                          <h3 className="text-sm font-semibold text-[var(--text-primary)]">资产增长趋势</h3>
                           <Tabs value={period} onValueChange={setPeriod} variant="text" size="sm" items={[{ value: "year", label: "按年", content: null }, { value: "month", label: "按月", content: null }]} />
                         </div>
                         <div className="mt-5 flex h-28 items-end gap-2 border-b border-l border-[var(--neutral-200)] px-4">
@@ -155,16 +156,16 @@ export default function TabsPage() {
                   </>
                 ) : scenarioPage === "governance" ? (
                   <div>
-                    <h3 className="text-base font-semibold text-[var(--neutral-900)]">治理任务</h3>
+                    <h3 className="text-base font-semibold text-[var(--text-primary)]">治理任务</h3>
                     <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                      {['待领取 6', '处理中 14', '已完成 86'].map((item) => <div key={item} className="bg-[var(--neutral-50)] p-4 text-sm text-[var(--neutral-900)]">{item}</div>)}
+                      {['待领取 6', '处理中 14', '已完成 86'].map((item) => <div key={item} className="bg-[var(--neutral-50)] p-4 text-sm text-[var(--text-primary)]">{item}</div>)}
                     </div>
                   </div>
                 ) : (
                   <div>
-                    <h3 className="text-base font-semibold text-[var(--neutral-900)]">流转记录</h3>
+                    <h3 className="text-base font-semibold text-[var(--text-primary)]">流转记录</h3>
                     <div className="mt-4 divide-y divide-[var(--neutral-200)] bg-[var(--neutral-50)] px-4">
-                      {['数据审核通过', '发布至可信空间', '完成链上存证'].map((item, index) => <p key={item} className="py-3 text-sm text-[var(--neutral-900)]">{index + 1}. {item}</p>)}
+                      {['数据审核通过', '发布至可信空间', '完成链上存证'].map((item, index) => <p key={item} className="py-3 text-sm text-[var(--text-primary)]">{index + 1}. {item}</p>)}
                     </div>
                   </div>
                 )}
@@ -178,9 +179,10 @@ export default function TabsPage() {
         <SectionHeading eyebrow="Behavior" title="切换行为与数据规则" description="产品需在交付前确定状态是否保留、是否写入 URL，以及数量和溢出的处理方式。" />
         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
           <RuleGroup title="状态保持与 URL">
-            <p><strong className="text-[var(--neutral-900)]">一级：</strong>推荐写入 URL，例如 <code>?module=assets</code>，支持刷新、分享和返回。</p>
-            <p><strong className="text-[var(--neutral-900)]">二级：</strong>筛选型分组写入查询参数；切换一级时默认保留，业务冲突时才重置并明确提示。</p>
-            <p><strong className="text-[var(--neutral-900)]">三级：</strong>仅保留在当前会话，不改变分页和页面滚动位置。</p>
+            <p><strong className="text-[var(--text-primary)]">一级：</strong>推荐写入 URL，例如 <code>?module=assets</code>，支持刷新、分享和返回。</p>
+            <p><strong className="text-[var(--text-primary)]">二级：</strong>筛选型分组写入查询参数；切换一级时默认保留，业务冲突时才重置并明确提示。</p>
+            <p><strong className="text-[var(--text-primary)]">三级：</strong>仅保留在当前会话，不改变分页和页面滚动位置。</p>
+            <p><strong className="text-[var(--text-primary)]">键盘：</strong>Tab 只进入当前激活项；左右方向键循环切换，Home/End 跳到首尾，并自动跳过禁用项。</p>
           </RuleGroup>
           <RuleGroup title="数量、上限与溢出">
             <p>数量属于标签名称，统一写作“名称（12）”；为 0 时仍显示“（0）”，不隐藏入口。</p>
@@ -200,9 +202,9 @@ export default function TabsPage() {
           </ExampleCard>
           <ExampleCard title="内容区结果状态">
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <div className="bg-[var(--neutral-50)] p-3"><p className="text-sm font-medium text-[var(--neutral-900)]">加载中</p><div className="mt-3 h-2 w-20 animate-pulse bg-[var(--neutral-200)]" /></div>
-              <div className="bg-[var(--neutral-50)] p-3"><p className="text-sm font-medium text-[var(--neutral-900)]">暂无数据</p><p className="mt-2 text-xs text-[var(--text-tertiary)]">保留当前标签。</p></div>
-              <div className="bg-[var(--neutral-50)] p-3"><p className="text-sm font-medium text-[var(--neutral-900)]">无查看权限</p><p className="mt-2 text-xs text-[var(--text-tertiary)]">说明申请路径。</p></div>
+              <div className="bg-[var(--neutral-50)] p-3"><p className="text-sm font-medium text-[var(--text-primary)]">加载中</p><div className="mt-3 h-2 w-20 animate-pulse bg-[var(--neutral-200)]" /></div>
+              <div className="bg-[var(--neutral-50)] p-3"><p className="text-sm font-medium text-[var(--text-primary)]">暂无数据</p><p className="mt-2 text-xs text-[var(--text-tertiary)]">保留当前标签。</p></div>
+              <div className="bg-[var(--neutral-50)] p-3"><p className="text-sm font-medium text-[var(--text-primary)]">无查看权限</p><p className="mt-2 text-xs text-[var(--text-tertiary)]">说明申请路径。</p></div>
             </div>
           </ExampleCard>
         </div>
@@ -222,6 +224,35 @@ export default function TabsPage() {
             <p>激活项使用中性黑或产品蓝；品牌红仅用于异常、风险等语义状态。</p>
           </RuleGroup>
         </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="API" title="属性与实现边界" description="标签由 items 数组驱动；受控/非受控二选一，不要同时混用 value 和 defaultValue。" />
+        <DocsTable>
+          <thead>
+            <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            {[
+              ["items", "TabItem[]", "—", "标签项数组，含 value、label、content、disabled、badge、icon。"],
+              ["value", "string", "—", "受控激活值。"],
+              ["defaultValue", "string", "—", "非受控初始激活值。"],
+              ["onValueChange", "(value: string) => void", "—", "切换回调。"],
+              ["variant", "line | page | card | segment | text", "line", "视觉层级；一级 page，二级 line，三级 segment/text。"],
+              ["size", "sm | md | lg", "md", "标签尺寸。"],
+              ["className", "string", "—", "外层容器 class。"],
+              ["listClassName", "string", "—", "标签列表容器 class。"],
+              ["panelClassName", "string", "—", "内容面板 class。"],
+            ].map(([name, type, defaultValue, desc]) => (
+              <tr key={name}>
+                <td className="font-token">{name}</td>
+                <td className="font-token text-[var(--text-secondary)]">{type}</td>
+                <td className="font-token text-[var(--text-secondary)]">{defaultValue}</td>
+                <td className="text-[var(--text-secondary)]">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
     </div>
   );

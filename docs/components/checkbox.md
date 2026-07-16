@@ -27,6 +27,9 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
+| `label` | `ReactNode | string` | `—` | 组件可见标签。 |
+| `description` | `ReactNode | string` | `—` | 辅助说明。 |
+| `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
 | `checked` | `boolean` | `false` | 选择控件的选中状态。 |
 | `indeterminate` | `boolean` | `false` | 复选框半选状态。 |
 | `disabled` | `boolean` | `false` | 禁用状态；不可交互但仍保留上下文。 |
@@ -49,6 +52,7 @@
 
 ### Sizes
 
+- `sm`
 - `md`
 
 ### States
@@ -77,7 +81,7 @@
 
 ## 内容规范
 
-选择项使用可独立理解的短句；协议文案说明责任和操作后果。
+选择项使用可独立理解的短句；协议文案说明责任和操作后果；选中、半选与悬停使用产品蓝，Focus 使用中性黑，默认与禁用使用中性灰，品牌红不进入常规选择控件。
 
 ## 示例要求
 
@@ -107,8 +111,6 @@ import "@xincailiao/vue-ui/styles.css";
 | Token | 来源 |
 |-------|------|
 | `--radius-sm` | 圆角 Token |
-| `--product-blue-600` | 颜色 Token（按下） |
-| `--product-blue-500` | 颜色 Token（选中 / 半选 / 悬停） |
 | `--neutral-900` | 颜色 Token |
 | `--neutral-800` | 颜色 Token |
 | `--neutral-700` | 颜色 Token |

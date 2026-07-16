@@ -2,6 +2,7 @@ import { ChartLine, Database, FileText, LockKey, Plus } from "@phosphor-icons/re
 import { useState } from "react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import DocsTable from "../../../components/docs/DocsTable";
 import { Badge } from "../../../components/ui/Badge";
 import { Button } from "../../../components/ui/Button";
 import { Card, CardActions, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/Card";
@@ -99,8 +100,36 @@ export default function CardPage() {
       </section>
 
       <section>
-        <SectionHeading eyebrow="Guidelines" title="使用规则" />
-        <SpecList items={["Card 是容器型复合组件，不是页面分区的默认样式。", "业务模式不等于组件 Variant；统一复用 plain、outlined、muted 和尺寸属性。", "整体可点击与内部多操作二选一，避免嵌套交互目标。", "后台卡片优先使用边框和间距建立层级，不使用大阴影和大圆角。", "主操作不超过一个；状态颜色必须同时配合文字、标签或图标。", "Card 可组合 DescriptionList、Tag、Button 等组件，但不替代这些组件自身的语义。"]} />
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
+        <SpecList items={["Card 是容器型复合组件，不是页面分区的默认样式。", "业务模式不等于组件 Variant；统一复用 plain、outlined、muted 和尺寸属性。", "整体可点击与内部多操作二选一，避免嵌套交互目标。", "标准内容卡片统一使用中圆角（radius-md，4px）；品牌展示大卡片可使用大圆角（radius-lg，8px），后台不使用更大圆角。", "后台卡片优先使用边框和间距建立层级，不使用大阴影。", "主操作不超过一个；状态颜色必须同时配合文字、标签或图标。", "Card 可组合 DescriptionList、Tag、Button 等组件，但不替代这些组件自身的语义。"]} />
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="API" title="属性与实现边界" description="卡片是容器型复合组件，不限制子组件类型；业务模式由组合方式体现，不作为类型属性（variant）。" />
+        <DocsTable>
+          <thead>
+            <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            {[
+              ["variant", "plain | outlined | muted", "plain", "视觉容器类型；不承载业务语义。"],
+              ["size", "sm | md | lg", "md", "卡片内边距尺寸。"],
+              ["status", "default | product | brand | success | warning | error", "default", "顶部 2px 状态线；辅助快速识别，不替代文字表达。"],
+              ["interactive", "boolean", "false", "悬停时提升视觉反馈。"],
+              ["selected", "boolean", "false", "选中态；边框 + 淡蓝背景。"],
+              ["disabled", "boolean", "false", "降低透明度并禁用交互。"],
+              ["loading", "boolean", "false", "异步加载中状态。"],
+              ["className", "string", "—", "透传至外层容器。"],
+            ].map(([name, type, defaultValue, desc]) => (
+              <tr key={name}>
+                <td className="font-token">{name}</td>
+                <td className="font-token text-[var(--text-secondary)]">{type}</td>
+                <td className="font-token text-[var(--text-secondary)]">{defaultValue}</td>
+                <td className="text-[var(--text-secondary)]">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
     </div>
   );

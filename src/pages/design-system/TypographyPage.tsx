@@ -11,17 +11,17 @@ import PageHeader from "../../components/docs/PageHeader";
 import { SectionHeading } from "../../components/docs/ComponentDoc";
 import DocsTable from "../../components/docs/DocsTable";
 
-const typeTokens = [
-  ["Display/L", "56 / 64", "700", "首页主视觉、关键数据"],
-  ["Heading/H1", "40 / 48", "600", "页面一级标题"],
-  ["Heading/H2", "32 / 40", "600", "页面模块标题"],
-  ["Heading/H3", "24 / 32", "500", "卡片与内容区标题"],
-  ["Heading/H4", "20 / 28", "500", "产品页面标题"],
-  ["Heading/H5", "18 / 26", "500", "产品模块标题"],
-  ["Body/L", "16 / 24", "400", "官网正文、重要说明"],
-  ["Body/M", "14 / 22", "400", "后台正文、表单、表格"],
-  ["Body/S", "13 / 20", "400", "辅助信息"],
-  ["Caption", "12 / 18", "400", "时间、图例、短标注"],
+const typeTokens: [string, string, string, string, string][] = [
+  ["Display/L", "56 / 64", "700", "首页主视觉、关键数据", "--type-display-l"],
+  ["Heading/H1", "40 / 48", "600", "页面一级标题", "--type-heading-h1"],
+  ["Heading/H2", "32 / 40", "600", "页面模块标题", "--type-heading-h2"],
+  ["Heading/H3", "24 / 32", "500", "卡片与内容区标题", "--type-heading-h3"],
+  ["Heading/H4", "20 / 28", "500", "产品页面标题", "--type-heading-h4"],
+  ["Heading/H5", "18 / 26", "500", "产品模块标题", "--type-heading-h5"],
+  ["Body/L", "16 / 24", "400", "官网正文、重要说明", "--type-body-l"],
+  ["Body/M", "14 / 22", "400", "后台正文、表单、表格", "--type-body-m"],
+  ["Body/S", "13 / 20", "400", "辅助信息", "--type-body-s"],
+  ["Caption", "12 / 18", "400", "时间、图例、短标注", "--type-caption"],
 ];
 
 function FontCard({
@@ -38,7 +38,7 @@ function FontCard({
   sampleFont?: string;
 }) {
   return (
-    <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
+    <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
       <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--neutral-100)] text-[var(--text-primary)]">
         {icon}
       </div>
@@ -92,22 +92,35 @@ export default function TypographyPage() {
           title="字号与行高"
           description="字号与行高成对使用，不单独缩放其中一项。产品正文默认中号正文（Body/M），阅读型正文默认大号正文（Body/L）。"
         />
-        <DocsTable>
+        <DocsTable className="[&_table]:min-w-[980px] [&_th]:whitespace-nowrap [&_td]:whitespace-nowrap [&_th:nth-child(5)]:min-w-[360px] [&_td:nth-child(5)]:min-w-[360px]">
           <thead>
             <tr>
               <th>Token</th>
               <th>字号 / 行高</th>
               <th>字重</th>
               <th>推荐用途</th>
+              <th>实际效果</th>
             </tr>
           </thead>
           <tbody>
-            {typeTokens.map(([token, metrics, weight, usage]) => (
+            {typeTokens.map(([token, metrics, weight, usage, cssVar]) => (
               <tr key={token}>
                 <td className="font-token">{token}</td>
                 <td>{metrics}px</td>
                 <td>{weight}</td>
                 <td>{usage}</td>
+                <td>
+                  <span
+                    style={{
+                      fontSize: `var(${cssVar}-size)`,
+                      lineHeight: `var(${cssVar}-line-height)`,
+                      fontWeight: `var(${cssVar}-weight)`,
+                    }}
+                    className="tabular-nums"
+                  >
+                    材料可信数据空间
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -121,7 +134,7 @@ export default function TypographyPage() {
           description="不要只比较两段孤立文字；应在标题、摘要、数据和辅助信息共同出现的页面里判断节奏。"
         />
         <div className="grid grid-cols-1 gap-5">
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-6">
             <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]"><Rows size={18} /> 阅读型详情示例</div>
             <article className="max-w-[680px]">
               <h3 className="text-2xl font-semibold leading-8 text-[var(--text-primary)]">材料数据如何支持研发决策</h3>
@@ -130,7 +143,7 @@ export default function TypographyPage() {
               <p className="mt-4 text-base leading-6 text-[var(--text-body)]">当内容进入参数、编号或对比数据时，再切换为表格和等宽数字，而不是继续堆叠长段落。</p>
             </article>
           </div>
-          <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-6">
             <h3 className="text-base font-semibold text-[var(--text-primary)]">判断标准</h3>
             <div className="mt-5 space-y-4">
               <RuleBadge ok>标题行高约 1.2–1.35，正文约 1.5–1.75。</RuleBadge>
@@ -141,7 +154,7 @@ export default function TypographyPage() {
             </div>
           </div>
         </div>
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+        <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--info-border)] bg-[var(--info-bg)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">行长推荐值：</strong>
           正文舒适阅读宽度为 <span className="font-semibold text-[var(--text-primary)]">640px–700px</span>（约 32–45 个汉字）；页面说明容器上限为 <span className="font-semibold text-[var(--text-primary)]">760px</span>，不作为长正文的推荐行长。表格、代码和栅格示例不受此限制。
         </div>

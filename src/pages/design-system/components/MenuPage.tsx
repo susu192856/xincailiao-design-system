@@ -75,7 +75,7 @@ export default function MenuPage() {
         <ExampleCard title="分组菜单">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-[260px_1fr]">
             <Menu items={groupedItems} activeKey="datasets" className="w-full" />
-            <div className="rounded-sm bg-[var(--neutral-50)] p-5">
+            <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-5">
               <h3 className="text-base font-semibold text-[var(--text-primary)]">数据集</h3>
               <p className="mt-2 text-sm leading-6 text-[var(--text-tertiary)]">
                 当前入口属于“数据资产”分组。分组标题使用弱文字，真正可点击入口仍保持明确图标、标题和状态提示。
@@ -115,8 +115,8 @@ export default function MenuPage() {
 
       <section>
         <SectionHeading eyebrow="Composition" title="产品侧栏示例" description="侧栏宽度、收起宽度和内容区关系需要稳定，避免切换时破坏页面主任务。" />
-        <div className="rounded-sm bg-white p-6">
-          <div className="grid overflow-hidden rounded-sm border border-[var(--neutral-200)] md:grid-cols-[224px_1fr]">
+        <div className="rounded-[var(--radius-md)] bg-white p-6">
+          <div className="grid overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] md:grid-cols-[224px_1fr]">
             <div className="border-r border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
               <div className="mb-3 px-3 text-sm font-semibold text-[var(--text-primary)]">材库管理</div>
               <Menu items={primaryItems} activeKey="data" className="w-full bg-transparent p-0" />
@@ -130,7 +130,7 @@ export default function MenuPage() {
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {["接入中", "待治理", "已发布"].map((item) => (
-                  <div key={item} className="rounded-sm bg-[var(--neutral-50)] p-4">
+                  <div key={item} className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
                     <div className="h-2 w-16 bg-[var(--neutral-900)]" />
                     <p className="mt-4 text-sm text-[var(--text-secondary)]">{item}</p>
                   </div>

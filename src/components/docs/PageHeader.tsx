@@ -16,7 +16,7 @@ export default function PageHeader({
   note,
 }: PageHeaderProps) {
   return (
-    <header className="docs-surface relative mb-12 overflow-hidden rounded-[var(--radius-sm)] px-6 py-7 md:px-8 md:py-8">
+    <header className="docs-surface relative mb-12 overflow-hidden rounded-[var(--radius-md)] px-6 py-7 md:px-8 md:py-8">
       <div className="pointer-events-none absolute right-0 top-0 h-32 w-32 translate-x-6 -translate-y-8 rounded-full bg-[var(--brand-500)]/15 blur-2xl" aria-hidden="true" />
       <div className="pointer-events-none absolute bottom-0 right-24 h-20 w-20 translate-y-10 rounded-full bg-[var(--product-blue-500)]/10 blur-2xl" aria-hidden="true" />
       <div className="relative flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

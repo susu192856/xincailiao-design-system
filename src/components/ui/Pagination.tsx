@@ -84,7 +84,7 @@ export function Pagination({
         pages.map((item, index) => {
           if (item === "...") {
             return (
-              <span key={`ellipsis-${index}`} className={[buttonSize, "px-2 text-center leading-8 text-[var(--neutral-400)]"].join(" ")}>
+              <span key={`ellipsis-${index}`} className={[buttonSize, "px-2 text-center leading-8 text-[var(--text-disabled)]"].join(" ")}>
               ...
               </span>
             );
@@ -161,7 +161,7 @@ export function Pagination({
               if (Number.isFinite(nextPage)) onJump?.(Math.min(Math.max(nextPage, 1), total));
             }}
             className={[
-              "rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-center text-[var(--text-primary)] outline-none transition-colors focus:border-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+              "rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white px-2 text-center text-[var(--text-primary)] outline-none transition-colors focus:border-[var(--neutral-900)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--text-disabled)]",
               inputSize,
             ].join(" ")}
             aria-label="跳转页码"
@@ -176,7 +176,7 @@ export function Pagination({
             value={pageSize}
             onChange={(event) => onPageSizeChange?.(Number(event.target.value))}
             className={[
-              "appearance-none rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white pl-2 pr-8 text-[var(--text-secondary)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--neutral-400)]",
+              "appearance-none rounded-[var(--radius-sm)] border border-[var(--neutral-300)] bg-white pl-2 pr-8 text-[var(--text-secondary)] outline-none transition-colors focus:border-[var(--neutral-900)] disabled:cursor-not-allowed disabled:bg-[var(--neutral-100)] disabled:text-[var(--text-disabled)]",
               size === "sm" ? "h-7 text-xs" : "h-8 text-sm",
             ].join(" ")}
             aria-label="每页条数"

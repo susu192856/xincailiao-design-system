@@ -12,6 +12,8 @@
 | `--shadow-lg` | `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)` | 较重（弹窗） |
 | `--shadow-xl` | `0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)` | 重（大浮层） |
 | `--shadow-2xl` | `0 25px 50px -12px rgba(0, 0, 0, 0.25)` | 最重（特殊强调） |
+| `--table-sticky-shadow-left` | `3px 0 6px -4px rgba(17, 24, 39, 0.28)` |  |
+| `--table-sticky-shadow-right` | `-3px 0 6px -4px rgba(17, 24, 39, 0.28)` |  |
 
 ## CSS 使用方式
 

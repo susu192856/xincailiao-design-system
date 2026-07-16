@@ -18,7 +18,7 @@ export default function CodeBlock({ code, lang = "tsx", label }: CodeBlockProps)
   };
 
   return (
-    <div className="group/code relative my-4 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+    <div className="group/code relative my-4 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
       <button
         type="button"
         aria-expanded={open}

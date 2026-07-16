@@ -44,8 +44,8 @@ function TreeItem({ node, level, expandedKeys, selectedKey, checkedKeys, checkab
     <div>
       <div
         className={[
-          "flex h-8 w-full items-center gap-1.5 rounded-[var(--radius-sm)] pr-2 text-left text-sm disabled:text-[var(--neutral-400)]",
-          node.disabled ? "text-[var(--neutral-400)]" : "",
+          "flex h-8 w-full items-center gap-1.5 rounded-[var(--radius-sm)] pr-2 text-left text-sm disabled:text-[var(--text-disabled)]",
+          node.disabled ? "text-[var(--text-disabled)]" : "",
           selected ? "bg-[var(--neutral-100)] text-[var(--text-primary)]" : "text-[var(--text-secondary)] hover:bg-[var(--neutral-50)]",
         ].join(" ")}
         style={{ paddingLeft: 8 + level * 16 }}
@@ -63,7 +63,7 @@ function TreeItem({ node, level, expandedKeys, selectedKey, checkedKeys, checkab
             aria-hidden="true"
             className={[
               "h-0 w-0 shrink-0 border-y-[4px] border-y-transparent border-l-[6px] border-l-current transition-transform",
-              node.disabled ? "text-[var(--neutral-400)]" : "text-[var(--text-secondary)]",
+              node.disabled ? "text-[var(--text-disabled)]" : "text-[var(--text-secondary)]",
               hasChildren && expanded ? "rotate-90" : "",
             ].join(" ")}
           />

@@ -26,6 +26,30 @@
 | `--product-blue-700` | `#00449A` | Active |
 | `--product-blue-800` | `#00306F` | 深色重点 |
 | `--product-blue-900` | `#001D47` | 深色背景 |
+| `--category-orange-bg` | `color-mix(in srgb, var(--data-orange-0) 14%, white)` |  |
+| `--category-orange-border` | `color-mix(in srgb, var(--data-orange-0) 42%, white)` |  |
+| `--category-orange-text` | `color-mix(in srgb, var(--data-orange-6) 82%, var(--neutral-900))` |  |
+| `--category-blue-bg` | `color-mix(in srgb, var(--data-blue-0) 14%, white)` |  |
+| `--category-blue-border` | `color-mix(in srgb, var(--data-blue-0) 42%, white)` |  |
+| `--category-blue-text` | `color-mix(in srgb, var(--data-blue-6) 82%, var(--neutral-900))` |  |
+| `--category-green-bg` | `color-mix(in srgb, var(--data-green-0) 14%, white)` |  |
+| `--category-green-border` | `color-mix(in srgb, var(--data-green-0) 42%, white)` |  |
+| `--category-green-text` | `color-mix(in srgb, var(--data-green-6) 82%, var(--neutral-900))` |  |
+| `--category-pink-bg` | `color-mix(in srgb, var(--data-pink-0) 14%, white)` |  |
+| `--category-pink-border` | `color-mix(in srgb, var(--data-pink-0) 42%, white)` |  |
+| `--category-pink-text` | `color-mix(in srgb, var(--data-pink-6) 82%, var(--neutral-900))` |  |
+| `--category-magenta-bg` | `color-mix(in srgb, var(--data-magenta-0) 14%, white)` |  |
+| `--category-magenta-border` | `color-mix(in srgb, var(--data-magenta-0) 42%, white)` |  |
+| `--category-magenta-text` | `color-mix(in srgb, var(--data-magenta-6) 82%, var(--neutral-900))` |  |
+| `--category-purple-bg` | `color-mix(in srgb, var(--data-purple-0) 14%, white)` |  |
+| `--category-purple-border` | `color-mix(in srgb, var(--data-purple-0) 42%, white)` |  |
+| `--category-purple-text` | `color-mix(in srgb, var(--data-purple-6) 82%, var(--neutral-900))` |  |
+| `--category-amber-bg` | `color-mix(in srgb, var(--data-amber-0) 14%, white)` |  |
+| `--category-amber-border` | `color-mix(in srgb, var(--data-amber-0) 42%, white)` |  |
+| `--category-amber-text` | `color-mix(in srgb, var(--data-amber-6) 82%, var(--neutral-900))` |  |
+| `--category-indigo-bg` | `color-mix(in srgb, var(--data-indigo-0) 14%, white)` |  |
+| `--category-indigo-border` | `color-mix(in srgb, var(--data-indigo-0) 42%, white)` |  |
+| `--category-indigo-text` | `color-mix(in srgb, var(--data-indigo-6) 82%, var(--neutral-900))` |  |
 | `--neutral-50` | `#F7F8FA` | 页面底色 |
 | `--neutral-100` | `#F1F3F5` | 卡片背景 |
 | `--neutral-200` | `#E6E9EE` | 分割线/边框 |
@@ -36,6 +60,7 @@
 | `--neutral-700` | `#4B5563` | 次标题 |
 | `--neutral-800` | `#2B313A` | 主正文 |
 | `--neutral-900` | `#1A1A1A` | 标题/主行动 |
+| `--neutral-950` | `#0F1319` |  |
 | `--text-primary` | `var(--neutral-900)` |  |
 | `--text-body` | `var(--neutral-800)` |  |
 | `--text-secondary` | `var(--neutral-700)` |  |
@@ -47,42 +72,32 @@
 | `--color-action-product-default` | `var(--product-blue-500)` |  |
 | `--color-action-product-hover` | `var(--product-blue-600)` |  |
 | `--color-action-product-active` | `var(--product-blue-700)` |  |
-| `--success-text` | `#007A20` | 成功状态前景色，用于文字、图标和状态控件 |
+| `--success-text` | `#007A20` | 成功文字 |
 | `--success-hover` | `#009A29` |  |
 | `--success-active` | `#008522` |  |
 | `--success-bg` | `#E8FFEA` | 成功背景 |
 | `--success-tag` | `#E8FFEA` | 成功标签 |
 | `--success-border` | `#AFF0B5` |  |
-| `--success-dot` | `#00B42A` | 成功状态圆点，小面积指示使用 |
-| `--warning-text` | `#A64B00` | 警告状态前景色，用于文字、图标和状态控件 |
+| `--success-dot` | `#00B42A` |  |
+| `--warning-text` | `#A64B00` | 警告文字 |
 | `--warning-hover` | `#D25F00` |  |
 | `--warning-active` | `#B35200` |  |
 | `--warning-bg` | `#FFF7E8` | 警告背景 |
 | `--warning-tag` | `#FFF7E8` | 警告标签 |
 | `--warning-border` | `#FFE4BA` |  |
-| `--warning-dot` | `#FF7D00` | 警告状态圆点，小面积指示使用 |
-| `--error-text` | `#C62828` | 错误状态前景色，用于文字、图标和状态控件 |
+| `--warning-dot` | `#FF7D00` |  |
+| `--error-text` | `#C62828` | 错误文字 |
 | `--error-hover` | `#F53F3F` |  |
 | `--error-active` | `#AF2126` |  |
 | `--error-bg` | `#FFECE8` | 错误背景 |
 | `--error-tag` | `#FFECE8` | 错误标签 |
 | `--error-border` | `#FDCDC5` |  |
-| `--error-dot` | `#F53F3F` | 错误状态圆点，小面积指示使用 |
-| `--info-text` | `#0057A8` | 信息状态前景色，用于文字、图标和状态控件 |
+| `--error-dot` | `#F53F3F` |  |
+| `--info-text` | `#0057A8` | 信息文字 |
 | `--info-bg` | `#E8F7FF` | 信息背景 |
 | `--info-tag` | `#E8F7FF` | 信息标签 |
 | `--info-border` | `#C3E7FE` |  |
-| `--info-dot` | `#3491FA` | 信息状态圆点，小面积指示使用 |
-| `--category-amber-bg / border / text` | `#FDF4E5 / #FADFB2 / #45310F` | 来源 `data-amber-0 / 6` |
-| `--category-orange-bg / border / text` | `#FDF2EC / #FAD9C7 / #823618` | 来源 `data-orange-0 / 6` |
-| `--category-pink-bg / border / text` | `#FDF1F3 / #F9D5DC / #861E29` | 来源 `data-pink-0 / 6` |
-| `--category-magenta-bg / border / text` | `#FCF0FA / #F5D3EF / #691A58` | 来源 `data-magenta-0 / 6` |
-| `--category-purple-bg / border / text` | `#F5F3FE / #E2DAFC / #3C13BE` | 来源 `data-purple-0 / 6` |
-| `--category-indigo-bg / border / text` | `#F2F5FE / #D9E0FC / #1F3188` | 来源 `data-indigo-0 / 6` |
-| `--category-blue-bg / border / text` | `#EFF7FE / #CEE8FD / #1C4062` | 来源 `data-blue-0 / 6` |
-| `--category-green-bg / border / text` | `#EDF8F4 / #C8EADF / #204838` | 来源 `data-green-0 / 6` |
-
-分类标签使用 amber、orange、pink、magenta、purple、indigo、blue、green 八种数据色相；coral 与 red 保留给图表、品牌及错误语义。背景取数据色 0 阶与白色混合 14%，边框混合 42%；文字取数据色 6 阶并混入 18% `neutral-900`。无需建立颜色区分时使用 `neutral`。
+| `--info-dot` | `#3491FA` |  |
 | `--success-solid` | `#00B42A` |  |
 | `--success-solid-hover` | `#23C343` |  |
 | `--success-solid-active` | `#009A29` |  |
@@ -165,41 +180,6 @@
 | `--data-green-4` | `#40906E` |  |
 | `--data-green-5` | `#317156` |  |
 | `--data-green-6` | `#21523F` |  |
-| `--type-display-l-size` | `56px` | display l size |
-| `--type-display-l-line-height` | `64px` | display l line height |
-| `--type-display-l-weight` | `700` | display l weight |
-| `--type-heading-h1-size` | `40px` | heading h1 size |
-| `--type-heading-h1-line-height` | `48px` | heading h1 line height |
-| `--type-heading-h1-weight` | `600` | heading h1 weight |
-| `--type-heading-h2-size` | `32px` | heading h2 size |
-| `--type-heading-h2-line-height` | `40px` | heading h2 line height |
-| `--type-heading-h2-weight` | `600` | heading h2 weight |
-| `--type-heading-h3-size` | `24px` | heading h3 size |
-| `--type-heading-h3-line-height` | `32px` | heading h3 line height |
-| `--type-heading-h3-weight` | `500` | heading h3 weight |
-| `--type-heading-h4-size` | `20px` | heading h4 size |
-| `--type-heading-h4-line-height` | `28px` | heading h4 line height |
-| `--type-heading-h4-weight` | `500` | heading h4 weight |
-| `--type-heading-h5-size` | `18px` | heading h5 size |
-| `--type-heading-h5-line-height` | `26px` | heading h5 line height |
-| `--type-heading-h5-weight` | `500` | heading h5 weight |
-| `--type-body-l-size` | `16px` | body l size |
-| `--type-body-l-line-height` | `24px` | body l line height |
-| `--type-body-l-weight` | `400` | body l weight |
-| `--type-body-m-size` | `14px` | body m size |
-| `--type-body-m-line-height` | `22px` | body m line height |
-| `--type-body-m-weight` | `400` | body m weight |
-| `--type-body-s-size` | `13px` | body s size |
-| `--type-body-s-line-height` | `20px` | body s line height |
-| `--type-body-s-weight` | `400` | body s weight |
-| `--type-caption-size` | `12px` | caption size |
-| `--type-caption-line-height` | `18px` | caption line height |
-| `--type-caption-weight` | `400` | caption weight |
-| `--type-body-l-weight-semibold` | `600` | body l weight semibold |
-| `--type-body-m-weight-medium` | `500` | body m weight medium |
-| `--type-body-m-weight-semibold` | `600` | body m weight semibold |
-| `--type-body-s-weight-semibold` | `600` | body s weight semibold |
-| `--type-caption-weight-semibold` | `600` | caption weight semibold |
 
 ## CSS 使用方式
 
@@ -252,6 +232,54 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#001D47;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--product-blue-900` = #001D47
 
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-orange-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-orange-bg` = color-mix(in srgb, var(--data-orange-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-orange-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-orange-border` = color-mix(in srgb, var(--data-orange-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-orange-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-orange-text` = color-mix(in srgb, var(--data-orange-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-blue-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-blue-bg` = color-mix(in srgb, var(--data-blue-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-blue-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-blue-border` = color-mix(in srgb, var(--data-blue-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-blue-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-blue-text` = color-mix(in srgb, var(--data-blue-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-green-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-green-bg` = color-mix(in srgb, var(--data-green-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-green-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-green-border` = color-mix(in srgb, var(--data-green-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-green-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-green-text` = color-mix(in srgb, var(--data-green-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-pink-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-pink-bg` = color-mix(in srgb, var(--data-pink-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-pink-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-pink-border` = color-mix(in srgb, var(--data-pink-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-pink-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-pink-text` = color-mix(in srgb, var(--data-pink-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-magenta-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-magenta-bg` = color-mix(in srgb, var(--data-magenta-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-magenta-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-magenta-border` = color-mix(in srgb, var(--data-magenta-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-magenta-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-magenta-text` = color-mix(in srgb, var(--data-magenta-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-purple-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-purple-bg` = color-mix(in srgb, var(--data-purple-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-purple-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-purple-border` = color-mix(in srgb, var(--data-purple-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-purple-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-purple-text` = color-mix(in srgb, var(--data-purple-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-amber-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-amber-bg` = color-mix(in srgb, var(--data-amber-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-amber-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-amber-border` = color-mix(in srgb, var(--data-amber-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-amber-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-amber-text` = color-mix(in srgb, var(--data-amber-6) 82%, var(--neutral-900))
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-indigo-0) 14%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-indigo-bg` = color-mix(in srgb, var(--data-indigo-0) 14%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-indigo-0) 42%, white);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-indigo-border` = color-mix(in srgb, var(--data-indigo-0) 42%, white)
+
+<span style="display:inline-block;width:16px;height:16px;background:color-mix(in srgb, var(--data-indigo-6) 82%, var(--neutral-900));border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--category-indigo-text` = color-mix(in srgb, var(--data-indigo-6) 82%, var(--neutral-900))
+
 <span style="display:inline-block;width:16px;height:16px;background:#F7F8FA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-50` = #F7F8FA
 
 <span style="display:inline-block;width:16px;height:16px;background:#F1F3F5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-100` = #F1F3F5
@@ -271,6 +299,8 @@
 <span style="display:inline-block;width:16px;height:16px;background:#2B313A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-800` = #2B313A
 
 <span style="display:inline-block;width:16px;height:16px;background:#1A1A1A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-900` = #1A1A1A
+
+<span style="display:inline-block;width:16px;height:16px;background:#0F1319;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--neutral-950` = #0F1319
 
 <span style="display:inline-block;width:16px;height:16px;background:var(--neutral-900);border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--text-primary` = var(--neutral-900)
 
@@ -306,6 +336,8 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#AFF0B5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-border` = #AFF0B5
 
+<span style="display:inline-block;width:16px;height:16px;background:#00B42A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-dot` = #00B42A
+
 <span style="display:inline-block;width:16px;height:16px;background:#A64B00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-text` = #A64B00
 
 <span style="display:inline-block;width:16px;height:16px;background:#D25F00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-hover` = #D25F00
@@ -317,6 +349,8 @@
 <span style="display:inline-block;width:16px;height:16px;background:#FFF7E8;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-tag` = #FFF7E8
 
 <span style="display:inline-block;width:16px;height:16px;background:#FFE4BA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-border` = #FFE4BA
+
+<span style="display:inline-block;width:16px;height:16px;background:#FF7D00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-dot` = #FF7D00
 
 <span style="display:inline-block;width:16px;height:16px;background:#C62828;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #C62828
 
@@ -330,6 +364,8 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#FDCDC5;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-border` = #FDCDC5
 
+<span style="display:inline-block;width:16px;height:16px;background:#F53F3F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-dot` = #F53F3F
+
 <span style="display:inline-block;width:16px;height:16px;background:#0057A8;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-text` = #0057A8
 
 <span style="display:inline-block;width:16px;height:16px;background:#E8F7FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-bg` = #E8F7FF
@@ -337,6 +373,8 @@
 <span style="display:inline-block;width:16px;height:16px;background:#E8F7FF;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-tag` = #E8F7FF
 
 <span style="display:inline-block;width:16px;height:16px;background:#C3E7FE;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-border` = #C3E7FE
+
+<span style="display:inline-block;width:16px;height:16px;background:#3491FA;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--info-dot` = #3491FA
 
 <span style="display:inline-block;width:16px;height:16px;background:#00B42A;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--success-solid` = #00B42A
 
@@ -501,73 +539,3 @@
 <span style="display:inline-block;width:16px;height:16px;background:#317156;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-green-5` = #317156
 
 <span style="display:inline-block;width:16px;height:16px;background:#21523F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--data-green-6` = #21523F
-
-<span style="display:inline-block;width:16px;height:16px;background:56px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-display-l-size` = 56px
-
-<span style="display:inline-block;width:16px;height:16px;background:64px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-display-l-line-height` = 64px
-
-<span style="display:inline-block;width:16px;height:16px;background:700;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-display-l-weight` = 700
-
-<span style="display:inline-block;width:16px;height:16px;background:40px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h1-size` = 40px
-
-<span style="display:inline-block;width:16px;height:16px;background:48px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h1-line-height` = 48px
-
-<span style="display:inline-block;width:16px;height:16px;background:600;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h1-weight` = 600
-
-<span style="display:inline-block;width:16px;height:16px;background:32px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h2-size` = 32px
-
-<span style="display:inline-block;width:16px;height:16px;background:40px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h2-line-height` = 40px
-
-<span style="display:inline-block;width:16px;height:16px;background:600;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h2-weight` = 600
-
-<span style="display:inline-block;width:16px;height:16px;background:24px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h3-size` = 24px
-
-<span style="display:inline-block;width:16px;height:16px;background:32px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h3-line-height` = 32px
-
-<span style="display:inline-block;width:16px;height:16px;background:500;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h3-weight` = 500
-
-<span style="display:inline-block;width:16px;height:16px;background:20px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h4-size` = 20px
-
-<span style="display:inline-block;width:16px;height:16px;background:28px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h4-line-height` = 28px
-
-<span style="display:inline-block;width:16px;height:16px;background:500;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h4-weight` = 500
-
-<span style="display:inline-block;width:16px;height:16px;background:18px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h5-size` = 18px
-
-<span style="display:inline-block;width:16px;height:16px;background:26px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h5-line-height` = 26px
-
-<span style="display:inline-block;width:16px;height:16px;background:500;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-heading-h5-weight` = 500
-
-<span style="display:inline-block;width:16px;height:16px;background:16px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-l-size` = 16px
-
-<span style="display:inline-block;width:16px;height:16px;background:24px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-l-line-height` = 24px
-
-<span style="display:inline-block;width:16px;height:16px;background:400;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-l-weight` = 400
-
-<span style="display:inline-block;width:16px;height:16px;background:14px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-m-size` = 14px
-
-<span style="display:inline-block;width:16px;height:16px;background:22px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-m-line-height` = 22px
-
-<span style="display:inline-block;width:16px;height:16px;background:400;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-m-weight` = 400
-
-<span style="display:inline-block;width:16px;height:16px;background:13px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-s-size` = 13px
-
-<span style="display:inline-block;width:16px;height:16px;background:20px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-s-line-height` = 20px
-
-<span style="display:inline-block;width:16px;height:16px;background:400;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-s-weight` = 400
-
-<span style="display:inline-block;width:16px;height:16px;background:12px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-caption-size` = 12px
-
-<span style="display:inline-block;width:16px;height:16px;background:18px;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-caption-line-height` = 18px
-
-<span style="display:inline-block;width:16px;height:16px;background:400;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-caption-weight` = 400
-
-<span style="display:inline-block;width:16px;height:16px;background:600;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-l-weight-semibold` = 600
-
-<span style="display:inline-block;width:16px;height:16px;background:500;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-m-weight-medium` = 500
-
-<span style="display:inline-block;width:16px;height:16px;background:600;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-m-weight-semibold` = 600
-
-<span style="display:inline-block;width:16px;height:16px;background:600;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-body-s-weight-semibold` = 600
-
-<span style="display:inline-block;width:16px;height:16px;background:600;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--type-caption-weight-semibold` = 600

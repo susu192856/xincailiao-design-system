@@ -78,7 +78,7 @@ export function Collapse({
               aria-controls={panelId}
               onClick={() => toggle(item.key)}
               className={[
-                "flex w-full items-center justify-between gap-3 text-left text-[var(--text-primary)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--neutral-400)]",
+                "flex w-full items-center justify-between gap-3 text-left text-[var(--text-primary)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--neutral-900)] disabled:cursor-not-allowed disabled:text-[var(--text-disabled)]",
                 sizing.trigger,
               ].join(" ")}
             >

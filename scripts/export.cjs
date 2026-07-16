@@ -1129,7 +1129,7 @@ function generateFigmaTokens(categories) {
   for (const [key, val] of Object.entries(typeTokens)) {
     tokens[`typography/${key.replace(/\//g, ".")}`] = {
       value: {
-        fontFamily: "PingFang SC",
+        fontFamily: "Noto Sans SC",
         fontSize: val.fontSize,
         lineHeight: val.lineHeight,
         fontWeight: val.fontWeight,

@@ -8,7 +8,7 @@ type DocsTableProps = {
 
 export default function DocsTable({ children, caption, className = "" }: DocsTableProps) {
   return (
-    <div className={`docs-table overflow-hidden rounded-[var(--radius-sm)] border border-[var(--docs-border)] bg-white ${className}`}>
+    <div className={`docs-table overflow-x-auto overflow-y-hidden rounded-[var(--radius-none)] border border-[var(--docs-border)] bg-white ${className}`}>
       <table data-docs-table="true">{children}</table>
       {caption ? (
         <p className="border-t border-[var(--neutral-100)] px-4 py-2 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">

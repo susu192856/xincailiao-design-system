@@ -61,7 +61,7 @@ export default function TagPage() {
       <section>
         <SectionHeading eyebrow="Concept" title="分类标签与状态标签" description="先判断标签回答的是“它是什么”还是“它处于什么状态”，再选择颜色。" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3 text-base font-semibold text-[var(--text-primary)]">分类标签</h3>
             <p className="mb-4 text-sm leading-6 text-[var(--text-secondary)]">表达类型或归属，例如材料品类、数据来源和业务板块。</p>
             <div className="flex flex-wrap gap-1.5">
@@ -80,7 +80,7 @@ export default function TagPage() {
               <p><strong className="text-[var(--text-secondary)]">中性：</strong>无需颜色区分时使用 neutral；coral / red 不用于分类。</p>
             </div>
           </div>
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
             <h3 className="mb-3 text-base font-semibold text-[var(--text-primary)]">状态标签</h3>
             <p className="mb-4 text-sm leading-6 text-[var(--text-secondary)]">表达当前阶段或结果，例如审批中、已通过、异常和已归档。</p>
             <div className="flex flex-wrap gap-1.5">
@@ -100,7 +100,7 @@ export default function TagPage() {
 
       <section>
         <SectionHeading eyebrow="Display" title="圆点模式与浅底模式" description="表格状态列使用圆点模式（dot）；详情页和卡片中的独立状态使用浅底模式（soft）。" />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-4">
+        <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4">
           <p className="text-sm leading-6 text-[var(--text-secondary)]">分类和状态同屏时，状态统一使用圆点模式，避免两个彩色标签争夺注意力。</p>
           <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
             <div>
@@ -276,8 +276,8 @@ export default function TagPage() {
 
       <section>
         <SectionHeading eyebrow="Composition" title="后台筛选组合" description="筛选条件标签需要支持清除、换行和批量清空；不要把所有字段都标签化。" />
-        <div className="rounded-sm bg-white p-6">
-          <div className="rounded-sm border border-[var(--neutral-200)] p-4">
+        <div className="rounded-[var(--radius-md)] bg-white p-6">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] p-4">
             <div className="mb-3 text-sm font-semibold text-[var(--text-primary)]">已选条件</div>
             <div className="flex flex-wrap gap-2">
               <Tag size="sm" closable>材料类型：钛合金</Tag>
@@ -306,6 +306,34 @@ export default function TagPage() {
             "颜色不能是唯一的信息区分方式，必须配合文字描述。",
           ]}
         />
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="API" title="属性与实现边界" description="分类和状态的颜色语义由语义属性（tone）控制，类型属性（variant）作为迁移兼容字段保留。" />
+        <DocsTable>
+          <thead>
+            <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            {[
+              ["variant", "TagVariant (迁移兼容)", "—", "旧版颜色快捷字段；新版优先使用 tone。"],
+              ["tone", "neutral | brand | product | success | warning | danger | error | info | amber | orange | pink | magenta | purple | indigo | blue | green", "neutral", "业务颜色语义；分类使用 8 种数据色相，状态使用 4 种语义色。"],
+              ["size", "sm | md", "sm", "sm 用于表格/详情/筛选；md 仅用于宽松展示。"],
+              ["dot", "boolean", "false", "圆点模式；必须与可读状态文字同时出现。"],
+              ["icon", "ReactNode", "—", "标签内图标。"],
+              ["closable", "boolean", "false", "是否可关闭。"],
+              ["disabled", "boolean", "false", "禁用状态。"],
+              ["onClose", "() => void", "—", "关闭回调。"],
+            ].map(([name, type, defaultValue, desc]) => (
+              <tr key={name}>
+                <td className="font-token">{name}</td>
+                <td className="font-token text-[var(--text-secondary)]">{type}</td>
+                <td className="font-token text-[var(--text-secondary)]">{defaultValue}</td>
+                <td className="text-[var(--text-secondary)]">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
     </div>
   );

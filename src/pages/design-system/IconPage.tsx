@@ -70,7 +70,7 @@ import {
 import type { Icon as PhosphorIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import DocsTable from "../../components/docs/DocsTable";
-import { SectionHeading } from "../../components/docs/ComponentDoc";
+import { MeasurementLabel, SectionHeading } from "../../components/docs/ComponentDoc";
 import CodeBlock from "../../components/docs/CodeBlock";
 import PageHeader from "../../components/docs/PageHeader";
 import { Icon as SystemIcon, Button } from "../../components/ui";
@@ -184,10 +184,10 @@ const menuIcons: CommonIconItem[] = [
 ];
 
 const statusIcons = [
-  { name: "CheckCircle", zhName: "操作完成", icon: CheckCircle, tone: "success" as const },
-  { name: "WarningCircle", zhName: "检查配置", icon: WarningCircle, tone: "warning" as const },
-  { name: "XCircle", zhName: "提交失败", icon: XCircle, tone: "danger" as const },
-  { name: "Info", zhName: "系统提示", icon: Info, tone: "product" as const },
+  { name: "CheckCircle", zhName: "操作完成", icon: CheckCircle, color: "var(--success-solid)" },
+  { name: "WarningCircle", zhName: "提示信息", icon: WarningCircle, color: "var(--warning-solid)" },
+  { name: "XCircle", zhName: "提交失败", icon: XCircle, color: "var(--error-solid)" },
+  { name: "Info", zhName: "系统提示", icon: Info, color: "var(--product-blue-500)" },
 ];
 
 const functionIcons: CommonIconItem[] = [
@@ -373,8 +373,8 @@ function CustomIconRuleDiagram() {
         <div className="flex h-full w-full items-center justify-center border border-dashed border-[var(--success-border)] bg-white text-[var(--text-body)]">
           <PencilSimple size={152} weight="regular" className="shrink-0" aria-label="编辑图标规范示例" />
         </div>
-        <span className="absolute left-2 top-2 text-[10px] font-semibold text-[var(--product-blue-700)]">24 × 24px</span>
-        <span className="absolute bottom-4 right-4 text-[10px] font-semibold text-[var(--success-text)]">2px 安全区</span>
+        <MeasurementLabel className="absolute left-2 top-2">24 × 24px</MeasurementLabel>
+        <MeasurementLabel className="absolute bottom-4 right-4">2px 安全区</MeasurementLabel>
       </div>
     </div>
   );
@@ -521,7 +521,7 @@ export default function IconPage() {
         <div className="grid grid-cols-2 gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)] md:grid-cols-3 xl:grid-cols-6">
           {iconSizes.map((item) => (
             <article key={item.size} className="flex min-h-56 flex-col bg-white">
-              <div className="flex min-h-32 flex-1 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-body)]">
+              <div className="flex h-32 shrink-0 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-body)]">
                 <PencilSimple size={item.size} weight="regular" aria-hidden="true" />
               </div>
               <div className="border-t border-[var(--neutral-100)] p-4">
@@ -647,7 +647,7 @@ export default function IconPage() {
               <div>
                 <h3 className="text-lg font-semibold text-[var(--text-primary)]">状态图标</h3>
                 <p className="mt-1 text-xs leading-relaxed text-[var(--text-tertiary)]">
-                  按实际规格展示：20px 图标置于 36 × 36px 灰色背景；必须与文字配合，不以颜色作为唯一信息载体。
+                  按实际规格展示：20px 图标使用高亮语义填充与白色镂空；必须与文字配合，不以颜色作为唯一信息载体。
                 </p>
               </div>
               <span className="text-xs text-[var(--text-tertiary)]">{statusIcons.length} 个</span>
@@ -655,8 +655,8 @@ export default function IconPage() {
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {statusIcons.map((item) => (
                 <div key={item.name} className="flex items-center gap-3 bg-white p-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[var(--neutral-50)]">
-                    <SystemIcon as={item.icon} size={20} weight="regular" tone={item.tone} label={item.zhName} />
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center">
+                    <SystemIcon as={item.icon} size={20} weight="fill" tone="inherit" label={item.zhName} style={{ color: item.color }} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="truncate text-xs font-medium text-[var(--text-primary)]">{item.zhName}</div>

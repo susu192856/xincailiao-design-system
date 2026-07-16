@@ -217,7 +217,13 @@
   --data-green-4: #40906E;
   --data-green-5: #317156;
   --data-green-6: #21523F;
+}
 
+/* ============================================
+   字体 (Typography)
+   ============================================ */
+
+:root {
   /* Display */
   --type-display-l-size: 56px;
   --type-display-l-line-height: 64px;
@@ -468,6 +474,8 @@
   --docs-active-bg: var(--neutral-900);
   --docs-active-fg: #FFFFFF;
   --docs-accent: var(--brand-600);
+  --docs-measurement: #F3B348;
+  --docs-measurement-text: #6A4B15;
   --docs-code-bg: var(--neutral-50);
   --docs-panel-shadow: none;
   --docs-soft-shadow: none;

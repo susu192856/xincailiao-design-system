@@ -86,7 +86,7 @@ export default function ImagePage() {
                 <div className="flex min-w-0 items-center gap-4">
                   <Image ratio="square" src={micrographSrc} alt="附件缩略图" className="w-20 shrink-0" />
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-[var(--neutral-900)]">热处理组织图.png</p>
+                    <p className="truncate text-sm font-semibold text-[var(--text-primary)]">热处理组织图.png</p>
                     <p className="mt-1 text-xs text-[var(--text-tertiary)]">上传于 2026-06-04 · 2.4MB</p>
                   </div>
                 </div>
@@ -96,7 +96,7 @@ export default function ImagePage() {
                 <div className="flex min-w-0 items-center gap-4">
                   <Image ratio="square" isError fallbackText="文件失效" className="w-20 shrink-0" />
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-[var(--neutral-900)]">来源证明.pdf</p>
+                    <p className="truncate text-sm font-semibold text-[var(--text-primary)]">来源证明.pdf</p>
                     <p className="mt-1 text-xs text-[var(--text-tertiary)]">文件链接已失效，需要重新上传。</p>
                   </div>
                 </div>

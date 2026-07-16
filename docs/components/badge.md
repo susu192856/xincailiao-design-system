@@ -15,7 +15,7 @@
 
 **适用：** 用于未读数量、待处理数量和轻量状态提醒。
 
-**避免：** 不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。
+**避免：** 不要使用分类标签色或品牌红表达业务状态，不要展示没有上下文的数字，也不要让超大数值撑开宿主布局。
 
 ## 结构 Anatomy
 
@@ -26,28 +26,29 @@
 
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `tone` | `string` | `neutral` | 组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。 |
 | `count` | `number` | `—` | 徽标数字。 |
-| `max` | `number` | `—` | 徽标最大显示数字。 |
 | `dot` | `boolean` | `—` | 仅显示状态点。 |
+| `max` | `number` | `—` | 徽标最大显示数字。 |
+| `tone` | `string` | `neutral` | 组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。 |
+| `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
 | `showZero` | `boolean` | `—` | 数字为零时是否显示。 |
 
 ## 变体、语义、尺寸与状态
 
 ### Variants
 
-- `dot`
 - `count`
-- `status`
+- `dot`
+- `attached`
 
 ### Tones
 
 - `neutral`
 - `product`
-- `brand`
-- `danger`
-- `warning`
+- `info`
 - `success`
+- `warning`
+- `error`
 
 ### Sizes
 
@@ -78,7 +79,7 @@
 
 ## 内容规范
 
-超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。
+颜色复用语义 Token：info、success、warning、error 与 neutral；超过上限显示 max+；零值是否显示由业务决定，状态点必须有文字替代。
 
 ## 示例要求
 

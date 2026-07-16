@@ -15,7 +15,7 @@ export default function BreadcrumbPage() {
           <ExampleCard title="二级页面" description="用于列表页、管理页和模块首页。">
             <div className="space-y-4">
               <Breadcrumb items={[{ label: "首页", href: "/" }, { label: "材料数据", current: true }]} />
-              <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+              <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
                 <h3 className="text-base font-semibold text-[var(--text-primary)]">材料数据</h3>
                 <p className="mt-2 text-sm text-[var(--text-tertiary)]">统一接入、治理和查看材料数据资产。</p>
               </div>
@@ -30,7 +30,7 @@ export default function BreadcrumbPage() {
                   { label: "TC4 钛合金", current: true },
                 ]}
               />
-              <div className="rounded-sm bg-[var(--neutral-50)] p-4">
+              <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
                 <h3 className="text-base font-semibold text-[var(--text-primary)]">TC4 钛合金</h3>
                 <p className="mt-2 text-sm text-[var(--text-tertiary)]">成分、工艺、组织、性能与来源记录。</p>
               </div>
@@ -44,7 +44,7 @@ export default function BreadcrumbPage() {
         <div className="space-y-5">
           <ExampleCard title="长路径折叠">
             <div className="space-y-4">
-              <div className="flex h-10 items-center rounded-sm bg-[var(--neutral-50)] px-3">
+              <div className="flex h-10 items-center rounded-[var(--radius-md)] bg-[var(--neutral-50)] px-3">
                 <Breadcrumb
                   maxItems={4}
                   items={[
@@ -92,8 +92,8 @@ export default function BreadcrumbPage() {
 
       <section>
         <SectionHeading eyebrow="Composition" title="页面组合示例" description="面包屑应服务内容结构，不放在全局顶栏内挤占产品名称、搜索、通知和用户入口。" />
-        <div className="rounded-sm bg-white p-6">
-          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)]">
+        <div className="rounded-[var(--radius-md)] bg-white p-6">
+          <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
             <div className="flex h-12 items-center justify-between border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-4">
               <div className="flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]">
                 <HouseSimple size={16} weight="regular" />

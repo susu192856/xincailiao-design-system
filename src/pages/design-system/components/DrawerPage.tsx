@@ -202,7 +202,7 @@ export default function DrawerPage() {
 
       <section>
         <SectionHeading eyebrow="Size" title="宽度与高度规范" description="先按内容复杂度选择宽度档位，再让抽屉高度跟随视口并保持内容区独立滚动。" />
-        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-4">
             <p className="text-sm font-semibold text-[var(--text-primary)]">选择抽屉宽度</p>
             <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">以下为桌面端推荐宽度，点击任一档位可查看真实内容示例。</p>
@@ -255,7 +255,7 @@ export default function DrawerPage() {
 
       <section>
         <SectionHeading eyebrow="Behavior" title="方向与退出方式" description="右侧是后台任务的默认方向；左侧仅用于临时导航或工具。关闭方式应根据是否存在未保存内容决定。" />
-        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           <div className="grid divide-y divide-[var(--neutral-200)] md:grid-cols-2 md:divide-x md:divide-y-0">
             <div className="p-5 md:p-6">
               <h3 className="text-base font-semibold text-[var(--text-primary)]">右侧抽屉｜默认</h3>
@@ -284,7 +284,7 @@ export default function DrawerPage() {
         </Drawer>
         <Drawer open={open === "left"} placement="left" size="sm" title="快捷工具" description="临时访问当前工作区的低频工具。" onClose={() => setOpen(null)}>
           <div className="space-y-2">
-            {["字段说明", "数据字典", "流转记录"].map((item) => <div key={item} className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] px-4 py-3 text-sm text-[var(--text-primary)]">{item}</div>)}
+            {["字段说明", "数据字典", "流转记录"].map((item) => <div key={item} className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] px-4 py-3 text-sm text-[var(--text-primary)]">{item}</div>)}
           </div>
         </Drawer>
       </section>

@@ -152,7 +152,7 @@ export default function FormPage() {
               </FormGrid>
               <div className="block md:flex md:items-start md:gap-3">
                 <div className="mb-1.5 w-auto shrink-0 pt-1.5 text-sm font-normal text-[var(--text-secondary)] md:mb-0 md:w-[88px] md:text-right">附加权限</div>
-                <div className="min-w-0 flex-1 space-y-3 rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
+                <div className="min-w-0 flex-1 space-y-3 rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
                   <Checkbox label="记录操作日志和审计时间线" description="用于流程追踪和链上存证感的视觉表达。" defaultChecked />
                   <Checkbox label="允许下游业务系统调用" description="开启后可被人工智能（AI）应用和业务系统读取。" />
                 </div>
@@ -283,7 +283,7 @@ export default function FormPage() {
         />
         <div className="grid grid-cols-1 gap-5">
           <ExampleCard title="数据配置页 - 左右标签（label）">
-            <div className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-5">
+            <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-5">
               <Form className="max-w-[960px]">
                 <FormSection title="基础参数" description="适用于数据接入、解析规则、模型参数等字段多、页面宽的后台配置页。" className="p-6">
                   <FormGrid columns={2} className="gap-x-8 gap-y-4">
@@ -319,7 +319,7 @@ export default function FormPage() {
           <div>
             <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">Form</h3>
             <DocsTable>
-              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">说明</th></tr></thead>
               <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
                 {[
                   ["density", "standard | compact", "standard", "标准表单 space-y-6；紧凑筛选 space-y-4。"],
@@ -331,7 +331,7 @@ export default function FormPage() {
           <div>
             <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">FormGrid</h3>
             <DocsTable>
-              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">说明</th></tr></thead>
               <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
                 {[
                   ["columns", "1 | 2 | 3 | 4", "1", "响应式栅格；每行字段数按容器宽度自适应。"],
@@ -343,7 +343,7 @@ export default function FormPage() {
           <div>
             <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">FormSection / FormActions / FormStateBanner</h3>
             <DocsTable>
-              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">组件</th><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">组件</th><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">说明</th></tr></thead>
               <tbody className="divide-y divide-[var(--neutral-100)] bg-white">
                 {[
                   ["FormSection", "title / description", "—", "表单区块标题和说明；替代自由 <h3>。"],
@@ -357,11 +357,11 @@ export default function FormPage() {
       </section>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <Link to="/components/input" className="group flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
+        <Link to="/components/input" className="group flex items-center gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
           <ArrowLeft size={18} weight="regular" className="text-[var(--text-tertiary)]" />
           <div><div className="text-xs text-[var(--text-tertiary)]">上一步</div><h3 className="mt-1 text-sm font-semibold text-[var(--text-primary)]">输入框</h3></div>
         </Link>
-        <Link to="/components/description-list" className="group flex items-center justify-between gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
+        <Link to="/components/description-list" className="group flex items-center justify-between gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]">
           <div><div className="text-xs text-[var(--text-tertiary)]">下一步</div><h3 className="mt-1 text-sm font-semibold text-[var(--text-primary)]">详情与描述列表</h3></div>
           <ArrowRight size={18} className="text-[var(--text-tertiary)]" />
         </Link>

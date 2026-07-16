@@ -108,7 +108,7 @@ export default function DeliveryPage() {
         <div
           role="img"
           aria-label="设计变量与组件合同经过网页规范站验证后，分别交付给开发代码和 Figma（设计工具）设计资产"
-          className="mb-5 grid items-stretch gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:p-5"
+          className="mb-5 grid items-stretch gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:p-5"
         >
           <div className="border border-[var(--neutral-200)] bg-white p-4">
             <p className="text-xs text-[var(--text-tertiary)]">唯一规则源</p>
@@ -182,7 +182,7 @@ export default function DeliveryPage() {
                 ["可同步至 Figma（eligible）", `${eligibleComponents}`],
                 ["基础规范", `${figmaSync.foundations.length}`],
               ].map(([label, value]) => (
-                <div key={label} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4">
+                <div key={label} className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4">
                   <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
                   <p className="mt-1 text-2xl font-semibold leading-8 text-[var(--text-primary)]">{value}</p>
                 </div>
@@ -214,7 +214,7 @@ export default function DeliveryPage() {
         />
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
           <ExampleCard title="推荐描述" tone="recommended">
-            <div className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4 font-mono text-xs leading-6 text-[var(--text-secondary)]">
+            <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4 font-mono text-xs leading-6 text-[var(--text-secondary)]">
               按视觉一致性清单检查「表格组件页」：
               <br />
               只修说明表格字号、组件示例密度、卡片间距和移动端溢出；
@@ -225,7 +225,7 @@ export default function DeliveryPage() {
             </div>
           </ExampleCard>
           <ExampleCard title="不推荐描述" tone="avoid">
-            <div className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4 font-mono text-xs leading-6 text-[var(--text-secondary)]">
+            <div className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4 font-mono text-xs leading-6 text-[var(--text-secondary)]">
               帮我全盘检查一下有没有问题。
             </div>
             <p className="mt-3 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">

@@ -61,42 +61,6 @@ export default function ShadowPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Shadow Tokens"
-          title="阴影规范"
-          description="阴影用于表达界面元素的高度和层级关系。从微交互反馈到模态浮层，等级越高越应克制使用。"
-        />
-
-        <div className="overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-          <div className="grid grid-cols-12 gap-4 border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-6 py-3 text-sm font-semibold text-[var(--text-secondary)]">
-            <div className="col-span-2">阴影名称</div>
-            <div className="col-span-2">高度/模糊</div>
-            <div className="col-span-3">CSS 值</div>
-            <div className="col-span-5">使用场景</div>
-          </div>
-          {shadows.map((shadow, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-12 items-center gap-4 border-b border-[var(--neutral-100)] px-6 py-3.5 text-sm last:border-b-0"
-            >
-              <div className="col-span-2 font-token text-sm text-[var(--text-primary)]">{shadow.name}</div>
-              <div className="col-span-2 text-[var(--text-primary)]">
-                <div className="text-sm">高度: {shadow.elevation}</div>
-                <div className="text-sm text-[var(--text-primary)]">模糊: {shadow.blur}</div>
-              </div>
-              <div
-                className="col-span-3 text-sm text-[var(--text-primary)]"
-                title={shadow.value}
-              >
-                {shadow.value.length > 40 ? shadow.value.substring(0, 40) + "..." : shadow.value}
-              </div>
-              <div className="col-span-5 text-[var(--text-primary)]">{shadow.usage}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
           eyebrow="Shadow Preview"
           title="阴影示例"
           description="可视化展示不同等级阴影的空间深度。后台界面优先使用轻阴影，重要浮层才提升层级。"
@@ -104,15 +68,18 @@ export default function ShadowPage() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {shadows.map((shadow, idx) => (
-            <div key={idx} className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
+            <div key={idx} className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-6">
               <p className="mb-1 text-sm font-semibold text-[var(--text-primary)]">{shadow.name}</p>
               <p className="mb-4 text-xs text-[var(--text-secondary)]">
                 {shadow.elevation} · {shadow.blur}
               </p>
+              <p className="mb-5 min-h-10 text-sm leading-5 text-[var(--text-secondary)]">
+                {shadow.usage}
+              </p>
 
-              <div className="flex min-h-[200px] items-center justify-center rounded-sm bg-[var(--neutral-50)] p-8">
+              <div className="flex min-h-[200px] items-center justify-center rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-8">
                 <div
-                  className="flex h-32 w-40 items-center justify-center rounded-[var(--radius-sm)] bg-white p-6"
+                  className="flex h-32 w-40 items-center justify-center rounded-[var(--radius-md)] bg-white p-6"
                   style={{ boxShadow: shadow.value }}
                 >
                   <div className="text-center">
@@ -147,63 +114,45 @@ export default function ShadowPage() {
               title: "默认承载",
               usage: "普通卡片、表格容器、页面分区",
               rule: "使用 1px 中性边框和白底即可。",
+              shadow: "none",
             },
             {
               level: "XS / SM",
               title: "轻反馈",
               usage: "按钮悬停、输入框聚焦、可点击卡片",
               rule: "只在交互状态出现，避免静态堆叠。",
+              shadow: "var(--shadow-xs)",
             },
             {
               level: "MD / LG",
               title: "常规浮层",
               usage: "下拉菜单（Dropdown）、气泡弹窗（Popover）、文字提示（Tooltip）、抽屉（Drawer）",
               rule: "用于脱离页面流的组件，表达覆盖关系。",
+              shadow: "var(--shadow-md)",
             },
             {
               level: "XL / 2XL",
               title: "最高层级",
               usage: "对话框（Modal）、全屏预览、重要确认浮层",
               rule: "仅用于打断式任务，不进入常规页面模块。",
+              shadow: "var(--shadow-xl)",
             },
           ].map((item) => (
-            <div key={item.level} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+            <div key={item.level} className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
+              <div className="mb-4 flex justify-center">
+                <div
+                  className="h-16 w-16 rounded-[var(--radius-md)] bg-white border border-[var(--neutral-200)]"
+                  style={{ boxShadow: item.shadow }}
+                />
+              </div>
               <p className="text-xs text-[var(--text-tertiary)]">{item.level}</p>
-              <p className="mt-2 text-base font-semibold text-[var(--neutral-900)]">{item.title}</p>
+              <p className="mt-2 text-base font-semibold text-[var(--text-primary)]">{item.title}</p>
               <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">{item.usage}</p>
               <p className="mt-4 border-t border-[var(--neutral-200)] pt-3 text-xs leading-relaxed text-[var(--text-tertiary)]">
                 {item.rule}
               </p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="text-sm font-semibold text-[var(--neutral-900)]">交互反馈</h3>
-            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">按钮悬停、输入框聚焦等微交互使用 XS / SM，状态切换后自动移除。</p>
-          </div>
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="text-sm font-semibold text-[var(--neutral-900)]">浮层与弹窗</h3>
-            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">下拉菜单（Dropdown）、气泡弹窗（Popover）、文字提示（Tooltip）使用中或大阴影（MD / LG）；弹窗（Modal）和全屏预览使用特大阴影（XL / 2XL）。</p>
-          </div>
-          <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-            <h3 className="text-sm font-semibold text-[var(--neutral-900)]">静态卡片</h3>
-            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">列表卡片和数据模块不默认加阴影，优先用 1px 边框和间距建立层级。</p>
-          </div>
-        </div>
-        <div className="mt-4">
-          <SpecList
-            items={[
-              "同一页面中同类组件使用相同等级阴影。",
-              "悬停可提升 1-2 级（如 SM→MD），按下移除或降低。",
-              "从无阴影到高层级逐级过渡，避免跨越式跳过中间等级。",
-              "深色背景下减少阴影不透明度或使用描边替代。",
-            ]}
-          />
         </div>
       </section>
 
@@ -241,6 +190,34 @@ export default function ShadowPage() {
       </section>
 
       <section>
+        <SectionHeading eyebrow="Guidelines" title="最佳实践" />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">交互反馈</h3>
+            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">按钮悬停、输入框聚焦等微交互使用 XS / SM，状态切换后自动移除。</p>
+          </div>
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">浮层与弹窗</h3>
+            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">下拉菜单（Dropdown）、气泡弹窗（Popover）、文字提示（Tooltip）使用中或大阴影（MD / LG）；弹窗（Modal）和全屏预览使用特大阴影（XL / 2XL）。</p>
+          </div>
+          <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">静态卡片</h3>
+            <p className="mt-2 text-xs leading-5 text-[var(--text-secondary)]">列表卡片和数据模块不默认加阴影，优先用 1px 边框和间距建立层级。</p>
+          </div>
+        </div>
+        <div className="mt-4">
+          <SpecList
+            items={[
+              "同一页面中同类组件使用相同等级阴影。",
+              "悬停可提升 1-2 级（如 SM→MD），按下移除或降低。",
+              "从无阴影到高层级逐级过渡，避免跨越式跳过中间等级。",
+              "深色背景下减少阴影不透明度或使用描边替代。",
+            ]}
+          />
+        </div>
+      </section>
+
+      <section>
         <SectionHeading
           eyebrow="Usage Scenarios"
           title="卡片场景示例"
@@ -248,12 +225,12 @@ export default function ShadowPage() {
         />
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)] bg-white">
+          <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
             <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3">
               <h3 className="text-base font-semibold text-[var(--text-primary)]">默认卡片（Shadow/SM）</h3>
             </div>
             <div className="p-5">
-              <div className="rounded-[var(--radius-sm)] bg-white p-6" style={{ boxShadow: shadows[1].value }}>
+              <div className="rounded-[var(--radius-md)] bg-white p-6" style={{ boxShadow: shadows[1].value }}>
                 <h4 className="mb-2 text-base font-semibold text-[var(--text-primary)]">标题文字</h4>
                 <p className="mb-4 text-sm text-[var(--text-secondary)]">
                   这是一个普通卡片的示例，使用 Shadow/SM 提供轻微的悬浮感，适合静态卡片、列表项等场景。
@@ -269,13 +246,13 @@ export default function ShadowPage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)] bg-white">
+          <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
             <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3">
               <h3 className="text-base font-semibold text-[var(--text-primary)]">悬停卡片（Shadow/MD）</h3>
             </div>
             <div className="p-5">
               <div
-                className="cursor-pointer rounded-[var(--radius-sm)] bg-white p-6 transition-shadow hover:shadow-lg"
+                className="cursor-pointer rounded-[var(--radius-md)] bg-white p-6 transition-shadow hover:shadow-lg"
                 style={{ boxShadow: shadows[2].value }}
               >
                 <h4 className="mb-2 text-base font-semibold text-[var(--text-primary)]">可点击卡片</h4>
@@ -293,12 +270,12 @@ export default function ShadowPage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)] bg-white">
+          <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
             <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3">
               <h3 className="text-base font-semibold text-[var(--text-primary)]">强调卡片（Shadow/LG）</h3>
             </div>
             <div className="p-5">
-              <div className="rounded-[var(--radius-sm)] bg-white p-6" style={{ boxShadow: shadows[3].value }}>
+              <div className="rounded-[var(--radius-md)] bg-white p-6" style={{ boxShadow: shadows[3].value }}>
                 <div className="mb-3 flex items-start gap-3">
                   <div className="flex h-5 w-5 shrink-0 items-center text-[var(--error-text)]">
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,12 +305,12 @@ export default function ShadowPage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-sm border border-[var(--neutral-200)] bg-white">
+          <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
             <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-3">
               <h3 className="text-base font-semibold text-[var(--text-primary)]">模态框（Shadow/XL）</h3>
             </div>
             <div className="p-5">
-              <div className="rounded-[var(--radius-sm)] bg-white p-6" style={{ boxShadow: shadows[4].value }}>
+              <div className="rounded-[var(--radius-md)] bg-white p-6" style={{ boxShadow: shadows[4].value }}>
                 <h4 className="mb-3 pb-3 text-base font-semibold text-[var(--text-primary)]">
                   确认发布数据资产
                 </h4>

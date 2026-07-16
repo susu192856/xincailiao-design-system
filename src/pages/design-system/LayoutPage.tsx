@@ -16,7 +16,7 @@ import {
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
 import PageHeader from "../../components/docs/PageHeader";
 import DocsTable from "../../components/docs/DocsTable";
-import { SectionCard, SectionHeading, SubsectionHeading } from "../../components/docs/ComponentDoc";
+import { MeasurementLabel, SectionCard, SectionHeading, SubsectionHeading } from "../../components/docs/ComponentDoc";
 
 type SkeletonKind =
   | "website-home"
@@ -310,7 +310,7 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
             <Line className="mb-3 h-2 w-1/2 bg-[var(--neutral-700)]" />
             <div className="mb-3 grid grid-cols-4 gap-2">
               {[0, 1, 2, 3].map((item) => (
-                <div key={item} className="rounded-sm bg-white p-3">
+                <div key={item} className="rounded-[var(--radius-md)] bg-white p-3">
                   <Line className="mb-1 w-2/3 bg-[var(--neutral-700)]" />
                   <Line className="h-3 w-1/2 bg-[var(--neutral-700)]" />
                 </div>
@@ -394,7 +394,7 @@ function SkeletonPreview({ kind }: { kind: SkeletonKind }) {
             <Line className="mb-3 h-2 w-1/2 bg-[var(--neutral-700)]" />
             <div className="mb-3 grid grid-cols-4 gap-2">
               {[0, 1, 2, 3].map((item) => (
-                <div key={item} className="rounded-sm bg-white p-3">
+                <div key={item} className="rounded-[var(--radius-md)] bg-white p-3">
                   <Line className="mb-1 w-2/3 bg-[var(--neutral-700)]" />
                   <Line className="h-3 w-1/2 bg-[var(--neutral-700)]" />
                 </div>
@@ -538,7 +538,7 @@ export default function LayoutPage() {
           <SectionCard className="p-4">
             <SubsectionHeading eyebrow="Website / Portal" title="官网 / 门户" tone="brand" />
             <p className="mt-1 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1920px 设计画布 · 1400px 居中容器 · 桌面端 12 列</p>
-            <div className="mt-4 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
+            <div className="mt-4 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
               {/* 外边距区 */}
               <div className="flex h-14">
                 <span className="shrink-0 bg-[var(--neutral-100)]" style={{ width: "13.5%" }} />
@@ -550,8 +550,10 @@ export default function LayoutPage() {
                 </div>
                 <span className="shrink-0 bg-[var(--neutral-100)]" style={{ width: "13.5%" }} />
               </div>
-              <div className="flex justify-between border-t border-[var(--neutral-200)] px-2 py-1.5 text-xs text-[var(--neutral-400)]">
-                <span>外边距</span><span>1400px 居中容器 · 12 列</span><span>外边距</span>
+              <div className="grid grid-cols-[1fr_minmax(0,2.7fr)_1fr] items-center border-t border-[var(--neutral-200)] px-2 py-2">
+                <MeasurementLabel>260px</MeasurementLabel>
+                <MeasurementLabel>1400px · 12 列</MeasurementLabel>
+                <MeasurementLabel>260px</MeasurementLabel>
               </div>
             </div>
             <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">桌面列间距建议 24px-32px；平板切换 8 列，移动端切换 4 列。首屏区（Hero）可通栏，正文和核心模块进入容器。</p>
@@ -559,7 +561,7 @@ export default function LayoutPage() {
           <SectionCard className="p-4">
             <SubsectionHeading eyebrow="Backend" title="后台 / 应用平台" tone="product" />
             <p className="mt-1 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1440px 设计画布 · 240px / 56px 侧栏 · 工作区自适应 24 列</p>
-            <div className="mt-4 overflow-hidden rounded-sm border border-[var(--neutral-200)]">
+            <div className="mt-4 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
               <div className="flex h-14">
                 <span className="shrink-0 bg-[var(--neutral-900)]" style={{ width: "16.7%", minWidth: 48 }} />
                 <div className="flex flex-1 gap-[2px] bg-white px-1.5">
@@ -568,8 +570,9 @@ export default function LayoutPage() {
                   ))}
                 </div>
               </div>
-              <div className="flex justify-between border-t border-[var(--neutral-200)] px-2 py-1.5 text-xs text-[var(--neutral-400)]">
-                <span>侧栏 240px</span><span>工作区 24 列</span>
+              <div className="grid grid-cols-[minmax(80px,0.2fr)_1fr] items-center border-t border-[var(--neutral-200)] px-2 py-2">
+                <MeasurementLabel>240px</MeasurementLabel>
+                <MeasurementLabel>24 列 · 16-24px</MeasurementLabel>
               </div>
             </div>
             <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">工作区列间距建议 16px-24px。优先收起侧栏释放空间，不强行压缩表格、图表和字段详情。</p>
@@ -612,7 +615,7 @@ export default function LayoutPage() {
               { label: "Desktop 12列", width: "1440px", cols: 12 },
             ].map((row) => (
               <div key={row.label}>
-                <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--text-tertiary)]"><span>{row.label}</span><span>{row.width}</span></div>
+                <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--text-tertiary)]"><span>{row.label}</span><MeasurementLabel>{row.width}</MeasurementLabel></div>
                 <div className={`grid gap-1 ${row.cols === 4 ? "grid-cols-4" : row.cols === 8 ? "grid-cols-8" : "grid-cols-12"}`}>
                   {Array.from({ length: row.cols }).map((_, index) => (
                     <div key={index} className="h-6 rounded-[1px] bg-[var(--neutral-100)]" />

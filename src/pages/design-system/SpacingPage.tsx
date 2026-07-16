@@ -1,5 +1,5 @@
 import DocsTable from "../../components/docs/DocsTable";
-import { SectionHeading, SpecList } from "../../components/docs/ComponentDoc";
+import { MeasurementLabel, SectionHeading, SpecList } from "../../components/docs/ComponentDoc";
 import PageHeader from "../../components/docs/PageHeader";
 
 const spacingTokens = [
@@ -71,49 +71,15 @@ export default function SpacingPage() {
 
       <section>
         <SectionHeading
-          eyebrow="Spacing Tokens"
-          title="间距设计变量（Token）"
-          description="间距用于建立信息之间的亲疏关系。后台优先保证密度与效率，官网和门户通过更大的区块间距建立叙事节奏。"
-        />
-        <DocsTable>
-          <thead>
-            <tr>
-              <th>Token</th>
-              <th>数值</th>
-              <th>用途</th>
-              <th>使用建议</th>
-            </tr>
-          </thead>
-          <tbody>
-            {spacingTokens.map((item) => (
-              <tr key={item.token}>
-                <td className="whitespace-nowrap font-token">
-                  {item.token}
-                </td>
-                <td className="whitespace-nowrap">
-                  {item.value}
-                </td>
-                <td>{item.usage}</td>
-                <td>
-                  {item.advice}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </DocsTable>
-      </section>
-
-      <section>
-        <SectionHeading
           eyebrow="Spacing Preview"
           title="间距视觉示例"
           description="用横向尺度展示不同间距设计变量（Token）的视觉差异，便于判断组件内部留白和页面区块节奏。"
         />
-        <div className="rounded-sm border border-[var(--neutral-200)] bg-white p-6">
-          <div className="flex items-end gap-4">
+        <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-6">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4 xl:grid-cols-8">
             {spacingTokens.map((item) => (
-              <div key={item.variable} className="flex flex-1 flex-col items-center gap-2">
-                <div className="flex w-full justify-center">
+              <div key={item.variable} className="flex min-w-0 flex-col items-center gap-2">
+                <div className="flex h-3 w-full items-center justify-center">
                   <div
                     className="h-3 bg-[var(--neutral-400)]"
                     style={{ width: `var(${item.variable})`, maxWidth: "100%" }}
@@ -139,7 +105,7 @@ export default function SpacingPage() {
             { grade: "标准", gap: "16px", token: "spacing-md", desc: "适合后台表单、卡片内容", className: "space-y-4" },
             { grade: "宽松", gap: "32px", token: "spacing-xl", desc: "适合官网模块、门户页面", className: "space-y-8" },
           ].map((item) => (
-            <div key={item.grade} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
+            <div key={item.grade} className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
               <div className="mb-3 flex items-center justify-between">
                 <div>
                   <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">{item.grade}</span>
@@ -195,9 +161,54 @@ export default function SpacingPage() {
               ],
             },
           ].map((recipe) => (
-            <div key={recipe.title} className="rounded-sm border border-[var(--neutral-200)] bg-white p-5">
-              <h3 className="text-base font-semibold text-[var(--neutral-900)]">{recipe.title}</h3>
+            <div key={recipe.title} className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5">
+              <h3 className="text-base font-semibold text-[var(--text-primary)]">{recipe.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">{recipe.description}</p>
+              <div className="mt-4 mb-5">
+                {recipe.title === "表单" ? (
+                  <div className="space-y-0 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
+                    <div className="bg-white border border-[var(--neutral-300)] rounded-sm px-2 py-1.5 text-xs text-[var(--text-secondary)]">标签 / 输入框</div>
+                    <div className="flex items-center justify-center" style={{ height: "16px" }}><MeasurementLabel>16px</MeasurementLabel></div>
+                    <div className="bg-white border border-[var(--neutral-300)] rounded-sm px-2 py-1.5 text-xs text-[var(--text-secondary)]">标签 / 输入框</div>
+                    <div className="flex items-center justify-center" style={{ height: "24px", borderLeft: "1px dashed var(--docs-measurement)", marginLeft: "8px" }}><MeasurementLabel>24px（分组）</MeasurementLabel></div>
+                    <div className="bg-white border border-[var(--neutral-300)] rounded-sm px-2 py-1.5 text-xs text-[var(--text-secondary)]">标签 / 输入框</div>
+                    <div className="flex items-center justify-center" style={{ height: "12px" }}><MeasurementLabel>12px</MeasurementLabel></div>
+                    <div className="flex justify-end gap-2">
+                      <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-3 py-1 text-xs text-[var(--text-secondary)]">取消</span>
+                      <span className="rounded-sm bg-[var(--neutral-900)] px-3 py-1 text-xs text-white">提交</span>
+                    </div>
+                  </div>
+                ) : recipe.title === "列表" ? (
+                  <div className="space-y-0 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
+                    <div className="flex gap-1.5" style={{ marginBottom: "12px" }}>
+                      <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-2 py-1 text-[10px] text-[var(--text-secondary)]">筛选A</span>
+                      <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-2 py-1 text-[10px] text-[var(--text-secondary)]">筛选B</span>
+                    </div>
+                    <div className="flex items-center justify-center" style={{ height: "14px" }}><MeasurementLabel>12-16px</MeasurementLabel></div>
+                    <div className="border border-[var(--neutral-300)] bg-white rounded-[var(--radius-none)]">
+                      <div className="border-b border-[var(--neutral-200)] px-2 py-1 text-[10px] text-[var(--text-secondary)]">表头</div>
+                      <div className="px-2 py-1 text-[10px] text-[var(--text-secondary)]">数据行</div>
+                      <div className="px-2 py-1 text-[10px] text-[var(--text-secondary)]">数据行</div>
+                    </div>
+                    <div className="flex items-center justify-center" style={{ height: "16px" }}><MeasurementLabel>16px</MeasurementLabel></div>
+                    <div className="flex justify-end gap-1.5">
+                      <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-2 py-1 text-[10px] text-[var(--text-secondary)]">1 2 3 …</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-0 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
+                    <div className="bg-white border border-[var(--neutral-300)] rounded-[var(--radius-md)] px-2 py-1.5 text-xs font-semibold text-[var(--text-primary)]">页面标题</div>
+                    <div className="flex items-center justify-center" style={{ height: "18px" }}><MeasurementLabel>16-24px</MeasurementLabel></div>
+                    <div className="bg-white border border-[var(--neutral-200)] rounded-[var(--radius-md)] px-2 py-1.5 text-xs text-[var(--text-secondary)]">正文段落内容……</div>
+                    <div className="flex items-center justify-center" style={{ height: "28px" }}><MeasurementLabel>24-32px（卡片间距）</MeasurementLabel></div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="h-8 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white" />
+                      <div className="h-8 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white" />
+                      <div className="h-8 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white" />
+                    </div>
+                  </div>
+                )}
+              </div>
               <div className="mt-5 divide-y divide-[var(--neutral-100)] border-y border-[var(--neutral-200)]">
                 {recipe.rows.map(([label, value]) => (
                   <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-3 text-sm">
@@ -209,6 +220,40 @@ export default function SpacingPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Spacing Tokens"
+          title="间距设计变量（Token）"
+          description="间距用于建立信息之间的亲疏关系。后台优先保证密度与效率，官网和门户通过更大的区块间距建立叙事节奏。"
+        />
+        <DocsTable>
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>数值</th>
+              <th>用途</th>
+              <th>使用建议</th>
+            </tr>
+          </thead>
+          <tbody>
+            {spacingTokens.map((item) => (
+              <tr key={item.token}>
+                <td className="whitespace-nowrap font-token">
+                  {item.token}
+                </td>
+                <td className="whitespace-nowrap">
+                  {item.value}
+                </td>
+                <td>{item.usage}</td>
+                <td>
+                  {item.advice}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
 
       <section>

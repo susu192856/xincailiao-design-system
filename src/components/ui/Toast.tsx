@@ -90,8 +90,7 @@ export function Toast({
       })()}
       <div className="min-w-0 flex-1">
         <p
-          className={["text-sm", presentation === "notification" || description ? "font-semibold" : "font-normal"].join(" ")}
-          style={{ color: "var(--neutral-900)" }}
+          className={["text-sm text-[var(--text-primary)]", presentation === "notification" || description ? "font-semibold" : "font-normal"].join(" ")}
         >
           {title}
         </p>

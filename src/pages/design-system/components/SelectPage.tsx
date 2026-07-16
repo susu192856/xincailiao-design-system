@@ -224,7 +224,7 @@ function CascaderPreview({
     disabled
       ? "cursor-not-allowed text-[var(--text-disabled)]"
       : active
-        ? "bg-[var(--neutral-100)] text-[var(--neutral-900)]"
+        ? "bg-[var(--neutral-100)] text-[var(--text-primary)]"
         : "text-[var(--text-secondary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)]",
   ].join(" ");
 
@@ -284,7 +284,7 @@ function CascaderPreview({
                 <div className={leafColumnClass}>
                   {thirdOptions.map((item) => (
                     <button key={item.value} type="button" className={optionClass(item.value === leafValue)} onClick={() => { if (!canInteract) return; setLeafValue(item.value); onOpenChange?.(false); }}>
-                      <span>{item.label}</span>{item.value === leafValue ? <Check size={14} className="shrink-0 text-[var(--neutral-900)]" /> : null}
+                      <span>{item.label}</span>{item.value === leafValue ? <Check size={14} className="shrink-0 text-[var(--text-primary)]" /> : null}
                     </button>
                   ))}
                 </div>
@@ -350,7 +350,7 @@ function SelectPlaygroundSection() {
             <div className="border-t border-[var(--neutral-200)] pt-5"><h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">外观</h4><div className="space-y-4"><div><div className="mb-2 text-xs text-[var(--text-secondary)]">尺寸</div><div className="flex gap-2">{([['sm','Small'],['md','Medium'],['lg','Large']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={size===key} onClick={()=>setSize(key)} className={optionClass(size===key)}>{label}</button>)}</div></div><div><div className="mb-2 text-xs text-[var(--text-secondary)]">标签布局</div><div className="flex gap-2">{([['top','上下标签'],['left','左右标签']] as const).map(([key,label])=><button key={key} type="button" aria-pressed={layout===key} onClick={()=>setLayout(key)} className={optionClass(layout===key)}>{label}</button>)}</div></div></div></div>
             <div className="border-t border-[var(--neutral-200)] pt-5"><h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)]">状态</h4><div className="flex flex-wrap gap-2">{([['default','默认'],['error','错误'],['disabled','禁用'],['loading','加载']] as const).map(([key,label])=><button id={`select-play-state-${key}`} key={key} type="button" aria-pressed={state===key} onClick={()=>{setState(key);if(key==="disabled"||key==="loading")setOpen(false);}} className={optionClass(state===key)}>{label}</button>)}</div><Checkbox className="mt-4" id="select-play-open" size="sm" checked={open} onChange={(e)=>setOpen(e.target.checked)} label="展开预览面板" description="用于比较选项面板状态" /></div>
           </div>
-          <div className="bg-[var(--neutral-50)] p-5 md:p-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold text-[var(--text-primary)]">实时预览</h4><p className="mt-1 text-xs text-[var(--text-tertiary)]">可直接打开面板并选择结果。</p></div><div className="flex flex-wrap gap-1.5">{summary.map(item=><span key={item} className="rounded-full border border-[var(--neutral-200)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-secondary)]">{item}</span>)}</div></div><div className="flex min-h-[420px] items-start justify-center overflow-x-auto rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-white p-8"><div key={`${mode}-preview`} className="w-full transition-all duration-[var(--motion-duration-slow)] ease-[var(--motion-easing-standard)] animate-scale-in"><div className={`w-full max-w-[492px] ${open ? "pb-[220px]" : ""}`}>{preview}</div></div></div>{mode === "cascader" ? <div className="mt-4 rounded-[var(--radius-sm)] border border-[var(--product-blue-200)] bg-[var(--info-bg)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">级联选择：</strong>适合省市区、材料分类到牌号等层级稳定的数据。需要选到末级后才提交结果；异步节点和远程搜索应升级为独立业务选择器。</div> : null}</div>
+          <div className="bg-[var(--neutral-50)] p-5 md:p-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold text-[var(--text-primary)]">实时预览</h4><p className="mt-1 text-xs text-[var(--text-tertiary)]">可直接打开面板并选择结果。</p></div><div className="flex flex-wrap gap-1.5">{summary.map(item=><span key={item} className="rounded-full border border-[var(--neutral-200)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-secondary)]">{item}</span>)}</div></div><div className="flex min-h-[420px] items-start justify-center overflow-x-auto rounded-[var(--radius-md)] border border-dashed border-[var(--neutral-300)] bg-white p-8"><div key={`${mode}-preview`} className="w-full transition-all duration-[var(--motion-duration-slow)] ease-[var(--motion-easing-standard)] animate-scale-in"><div className={`w-full max-w-[492px] ${open ? "pb-[220px]" : ""}`}>{preview}</div></div></div>{mode === "cascader" ? <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--product-blue-200)] bg-[var(--info-bg)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">级联选择：</strong>适合省市区、材料分类到牌号等层级稳定的数据。需要选到末级后才提交结果；异步节点和远程搜索应升级为独立业务选择器。</div> : null}</div>
         </div>
       </SectionCard>
     </section>
@@ -380,7 +380,7 @@ export default function SelectPage() {
           </div>
           <div className="mt-6 grid grid-cols-1 gap-3 border-t border-[var(--neutral-200)] pt-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {anatomyRows.map(([name, rule], index) => (
-              <div key={name} className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
+              <div key={name} className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
                 <div className="flex items-start gap-2"><span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[var(--product-blue-500)] bg-[var(--product-blue-500)] font-data text-[10px] font-medium text-white">{index + 1}</span><h3 className="text-sm font-semibold text-[var(--text-primary)]">{name}</h3></div>
                 <p className="mt-1.5 text-xs leading-5 text-[var(--text-secondary)]">{rule}</p>
               </div>
@@ -490,7 +490,7 @@ export default function SelectPage() {
           <ExampleCard title="多标签 · 超过 6 行滚动"><div className="pb-[212px]"><Select label="数据标签" multiple defaultValue={["heat", "aviation"]} open options={tagOptions} /></div></ExampleCard>
           <ExampleCard title="级联 · 两级路径"><div className="pb-[232px]"><CascaderPreview label="材料目录" open maxDepth={2} /></div></ExampleCard>
         </div>
-        <div className="mt-5 grid grid-cols-1 gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 text-sm text-[var(--text-secondary)] md:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 gap-3 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 text-sm text-[var(--text-secondary)] md:grid-cols-3">
           <p><strong className="block text-[var(--text-primary)]">面板宽度</strong>跟随触发器，限制在 180–480px。</p>
           <p><strong className="block text-[var(--text-primary)]">高度</strong>每行至少 32px，单列最多完整显示 6 行；超过 6 行时该列纵向滚动，列间分割线贯穿当前面板高度。</p>
           <p><strong className="block text-[var(--text-primary)]">状态</strong>悬停态（Hover）使用中性（neutral）底色；路径激活和末级选中使用 neutral-100 背景加 neutral-900 文字。</p>
@@ -520,7 +520,7 @@ export default function SelectPage() {
           "错误必须给出原因和修正方式；禁用与只读不能混用。",
           "选项文本保持一行，过长时使用缩略 + 完整解释的辅助文字。",
         ]} />
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
+        <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">常见错误：</strong>
           用选择器处理大量动态数据（应改用搜索式 Input）、只用红色边框表达错误而不给修正文字——这两种做法会让用户无法定位选项，也无法知道如何修正。
         </div>
@@ -536,7 +536,7 @@ export default function SelectPage() {
 
       <Link
         to="/components/date-picker"
-        className="group flex items-center justify-between gap-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
+        className="group flex items-center justify-between gap-4 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
       >
         <div>
           <div className="text-xs font-medium text-[var(--text-tertiary)]">下一步</div>

@@ -76,7 +76,7 @@
 
 ## 内容规范
 
-标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果。
+标签描述设置本身，状态文案使用已开启/已关闭或具体业务结果；开启使用产品蓝，Focus 使用中性黑，关闭与禁用使用中性灰，品牌红不进入常规开关。
 
 ## 示例要求
 
@@ -106,8 +106,6 @@ import "@xincailiao/vue-ui/styles.css";
 | Token | 来源 |
 |-------|------|
 | `--radius-sm` | 圆角 Token |
-| `--product-blue-600` | 颜色 Token（开启悬停） |
-| `--product-blue-500` | 颜色 Token（开启） |
 | `--neutral-900` | 颜色 Token |
 | `--neutral-800` | 颜色 Token |
 | `--neutral-700` | 颜色 Token |

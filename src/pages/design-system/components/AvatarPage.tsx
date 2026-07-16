@@ -151,7 +151,7 @@ export default function AvatarPage() {
             <div className="flex items-center gap-3 bg-white p-3">
               <Avatar name="王工" fallbackKey="user-1001" variant="image" size="lg" />
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-[var(--neutral-900)]">王工</p>
+                <p className="truncate text-sm font-semibold text-[var(--text-primary)]">王工</p>
                 <p className="mt-1 truncate text-xs text-[var(--text-tertiary)]">材料工程师</p>
               </div>
             </div>
@@ -160,7 +160,7 @@ export default function AvatarPage() {
             <div className="flex flex-col items-center gap-3 bg-white p-3 text-center">
               <Avatar name="李明" fallbackKey="user-1002" variant="image" size="xl" />
               <div>
-                <p className="text-sm font-semibold text-[var(--neutral-900)]">李明</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">李明</p>
                 <p className="mt-1 text-xs text-[var(--text-tertiary)]">数据运营</p>
               </div>
             </div>

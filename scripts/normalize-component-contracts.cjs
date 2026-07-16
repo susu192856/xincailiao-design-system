@@ -10,6 +10,7 @@ const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
 const manifestPath = path.join(ROOT, "figma/components.manifest.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+const existingManifest = structuredClone(manifest);
 
 const groups = {
   "操作与输入": ["Button", "Icon", "Input", "Textarea", "Form", "Select", "DatePicker", "Upload", "Radio", "Checkbox", "Switch"],
@@ -20,7 +21,7 @@ const groups = {
 
 const propCatalog = {
   variant: ["string", "组件的结构或视觉层级；不得承载业务颜色语义。"],
-  tone: ["string", "组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。"],
+  tone: ["string", "组件的操作或业务颜色语义；不同组件支持不同 tone 子集。"],
   size: ["string", "组件尺寸，必须映射到组件尺寸 Token。"],
   disabled: ["boolean", "禁用状态；不可交互但仍保留上下文。"],
   loading: ["boolean", "异步处理中状态；阻止重复操作。"],
@@ -81,7 +82,6 @@ const propCatalog = {
   position: ["string", "提示容器位置。"],
   presentation: ["'toast' | 'notification' | 'alert'", "消息反馈的展示形态。"],
   alt: ["string", "图片替代文本。"],
-  variant: ["string", "组件的结构或视觉层级；不得承载业务颜色语义。"],
   checked: ["boolean", "选择控件的选中状态。"],
   indeterminate: ["boolean", "复选框半选状态。"],
   count: ["number", "徽标数字。"],
@@ -122,6 +122,12 @@ const propCatalog = {
   colors: ["string[]", "图表数据系列颜色。"],
   showTable: ["boolean", "是否同时提供可访问的数据表格。"],
   empty: ["boolean", "是否展示空数据状态。"],
+  state: ["'default' | 'hovered' | 'selected'", "图表当前的交互演示状态。"],
+  edgeCase: ["'none' | 'low-value' | 'no-data' | 'new-data' | 'partially-unavailable'", "图表数据边界场景。"],
+  trendLine: ["boolean", "是否显示趋势线。"],
+  benchmarkPoints: ["boolean", "是否显示基准点。"],
+  dots: ["boolean", "折线图是否显示数据点。"],
+  smoothLine: ["boolean", "折线是否使用平滑曲线。"],
   ariaLabel: ["string", "图表或控件的可访问名称。"],
   orientation: ["'vertical' | 'horizontal'", "菜单或导航的排列方向。"],
   collapsed: ["boolean", "是否收起文字并使用紧凑图标导航。"],
@@ -140,6 +146,7 @@ const propCatalog = {
   defaultOpenKeys: ["string[]", "默认展开的面板键值。"],
   openKeys: ["string[]", "受控展开的面板键值。"],
   accordion: ["boolean", "是否限制同时只展开一个面板。"],
+  inline: ["boolean", "是否在文档或布局容器内以内嵌方式呈现浮层。"],
 };
 
 const canonical = {
@@ -293,6 +300,7 @@ const componentRules = {
     anatomy: ["筛选/工具栏", "表头", "数据行", "空态/加载态", "分页"],
     usage: "用于高密度结构化数据；文本和操作左对齐、短枚举居中、可比较数字右对齐。",
     avoid: "不要强行压缩大量列；优先保留列宽并允许横向滚动。",
+    content: "内容必须定义长文本、空值、截断、换行和本地化边界。表格与数据网格统一使用 radius-none（0px），通过边框和分隔线建立精确秩序。",
   },
   Modal: {
     anatomy: ["遮罩", "标题区", "内容区", "可选底部操作区", "关闭入口"],
@@ -342,7 +350,7 @@ const componentRules = {
     usage: "用于组织一个主题的信息摘要、入口或可比较对象。",
     avoid: "不要把所有内容都放入卡片，也不要同时让卡片整体和内部多个区域争夺主点击行为。",
     interaction: "可交互卡片提供完整焦点态和键盘触发；禁用、选中、加载状态不能只依赖阴影。",
-    content: "标题明确对象，描述控制在两到三行；状态、指标和操作按固定位置排列。",
+    content: "标题明确对象，描述控制在两到三行；状态、指标和操作按固定位置排列。标准内容卡片使用 radius-md（4px），品牌展示大卡片可使用 radius-lg（8px），后台不使用更大圆角。",
   },
   Menu: {
     anatomy: ["菜单容器", "分组标题", "菜单项", "图标与展开指示", "选中标记"],
@@ -355,6 +363,7 @@ const componentRules = {
     anatomy: ["标签列表", "激活指示", "可选数量或状态", "内容面板"],
     usage: "用于同一上下文中的并列视图切换，切换后不改变任务层级。",
     avoid: "不要用标签页代替步骤流程，也不要嵌套多层标签页。",
+    responsive: "桌面端按层级使用规定尺寸；窄屏保持单行并横向滚动，标签禁止换行或纵向堆叠。触控场景优先使用 md 或 lg，紧凑的 sm 仅用于桌面局部视图切换。",
     interaction: "方向键切换焦点，Enter 或自动激活需统一；内容面板与 tab 通过 aria 属性关联。",
     content: "标签名称简短且互斥；数量变化时避免造成标签宽度明显跳动。",
   },
@@ -497,7 +506,9 @@ for (const component of manifest.components) {
   Object.assign(component, canonical[component.name] || {});
   component.category = groupFor(component.name);
   component.contractVersion = "0.2.0";
-  component.status = "stable";
+  // Preserve existing status from manifest; default to "draft" only for new components
+  const existing = existingManifest?.components?.find((c) => c.name === component.name);
+  component.status = (existing && existing.status) || "draft";
   component.contract = { ...defaultRules(component), ...(componentRules[component.name] || {}) };
   component.propDefinitions = (component.props || []).map((prop) => {
     const [type, description] = propCatalog[prop] || ["unknown", `${prop} 的组件合同字段；实现与文档必须保持一致。`];

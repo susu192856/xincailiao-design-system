@@ -96,7 +96,7 @@ const cardClasses = computed(() => [
 <style scoped>
 .xc-card {
   position: relative;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   background: #fff;
   color: var(--neutral-800);
 }

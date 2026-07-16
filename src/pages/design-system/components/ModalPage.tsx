@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CheckCircle, ShieldWarning, WarningCircle } from "@phosphor-icons/react";
 import PageHeader from "../../../components/docs/PageHeader";
 import { ExampleCard, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import DocsTable from "../../../components/docs/DocsTable";
 import { Button } from "../../../components/ui/Button";
 import { DescriptionList } from "../../../components/ui/DescriptionList";
 import { Modal, type ModalProps } from "../../../components/ui/Modal";
@@ -174,7 +175,7 @@ export default function ModalPage() {
 
       <section>
         <SectionHeading eyebrow="Size" title="宽度与高度规范" description="先按任务复杂度选择宽度档位，再由实际内容自然决定高度。" />
-        <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
+        <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           <div className="border-b border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-4">
             <p className="text-sm font-semibold text-[var(--text-primary)]">选择对话框宽度</p>
             <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">以下数值为桌面端推荐宽度，点击任一档位可查看真实内容示例。</p>
@@ -339,6 +340,41 @@ export default function ModalPage() {
             "按钮顺序保持取消在左、确认在右，减少误操作。",
           ]}
         />
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="API" title="属性与实现边界" description="远程数据、权限过滤和跨字段校验由业务层管理。" />
+        <DocsTable>
+          <thead>
+            <tr><th>属性</th><th>类型</th><th>默认值</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            {[
+              ["open", "boolean", "—", "受控打开状态。"],
+              ["title", "ReactNode | string", "—", "对话框标题。"],
+              ["description", "ReactNode | string", "—", "辅助说明文字。"],
+              ["children", "ReactNode", "—", "对话框主体内容。"],
+              ["footer", "ReactNode", "—", "底部操作区；未传入时无底部。"],
+              ["onClose", "() => void", "—", "关闭回调。"],
+              ["size", "sm | md | lg | xl", "md", "对话框最大宽度。"],
+              ["variant", "default | decision", "default", "default 承载信息与交互；decision 承载决策与风险确认。"],
+              ["tone", "neutral | danger | warning | success", "neutral", "语义颜色；影响顶部条和图标。"],
+              ["icon", "ReactNode", "—", "标题上方图标。"],
+              ["closeable", "boolean", "true", "是否显示关闭按钮。"],
+              ["maskClosable", "boolean", "true", "点击遮罩是否关闭。"],
+              ["footerAlign", "start | end | between", "end", "底部按钮对齐方式。"],
+              ["inline", "boolean", "false", "内联模式；不渲染背景遮罩。"],
+              ["className", "string", "—", "外层容器自定义 class。"],
+            ].map(([name, type, defaultValue, desc]) => (
+              <tr key={name}>
+                <td className="font-token">{name}</td>
+                <td className="font-token text-[var(--text-secondary)]">{type}</td>
+                <td className="font-token text-[var(--text-secondary)]">{defaultValue}</td>
+                <td className="text-[var(--text-secondary)]">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </DocsTable>
       </section>
     </div>
   );

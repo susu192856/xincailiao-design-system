@@ -26,7 +26,7 @@
 | `--docs-active-bg` | `var(--neutral-900)` | active bg |
 | `--docs-active-fg` | `#FFFFFF` | active fg |
 | `--docs-accent` | `var(--brand-600)` | accent |
-| `--docs-code-bg` | `var(--neutral-100)` | code bg |
+| `--docs-code-bg` | `var(--neutral-50)` | code bg |
 | `--docs-panel-shadow` | `none` | panel shadow |
 | `--docs-soft-shadow` | `none` | soft shadow |
 

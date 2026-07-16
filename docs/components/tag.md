@@ -15,7 +15,7 @@
 
 **适用：** 用于分类、属性和轻量状态展示；语义色必须与状态含义一致。
 
-**避免：** 不要把 Tag 当按钮，也不要用品牌红表达错误或危险状态。
+**避免：** 不要把 Tag 当按钮；coral 与 red 不作为分类 tone，错误状态固定使用 error。
 
 ## 结构 Anatomy
 
@@ -27,7 +27,7 @@
 | 属性 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | `variant` | `string` | `default` | 组件的结构或视觉层级；不得承载业务颜色语义。 |
-| `tone` | `string` | `neutral` | 组件的操作或业务颜色语义；Button 中 task 推进任务，product 调用产品能力。 |
+| `tone` | `string` | `neutral` | 标签的颜色语义；分类使用 8 种分类色或 neutral，状态使用 success、warning、error、info。 |
 | `size` | `string` | `md` | 组件尺寸，必须映射到组件尺寸 Token。 |
 | `disabled` | `boolean` | `false` | 禁用状态；不可交互但仍保留上下文。 |
 | `closable` | `boolean` | `—` | 是否提供明确关闭入口。 |
@@ -45,16 +45,18 @@
 ### Tones
 
 - `neutral`
-- `product`
-- `brand`
-- `danger`
 - `warning`
 - `success`
+- `error`
 - `info`
-- `teal`
-- `violet`
-- `slate`
-- `cyan`
+- `amber`
+- `orange`
+- `pink`
+- `magenta`
+- `purple`
+- `indigo`
+- `blue`
+- `green`
 
 ### Sizes
 
@@ -77,15 +79,15 @@
 
 ## 响应式
 
-桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。
+标签自身保持单行并由父容器换行；长标签在可用宽度内截断。移动端可关闭标签的关闭按钮热区不小于 44px。
 
 ## 可访问性
 
-必须提供可见 focus-visible、键盘操作和不依赖颜色的状态表达。
+标签必须包含可读文字；状态不能只依赖颜色；可关闭标签提供可见 focus-visible 和明确关闭名称。
 
 ## 内容规范
 
-文字优先名词或短状态，保持单行；同一组使用一致的语法和语义。
+分类使用 amber、orange、pink、magenta、purple、indigo、blue、green 或 neutral；状态使用 success、warning、error、info。后台默认使用 sm，md 不放大字号且仅用于少量宽松场景；文字保持单行且同一业务分类固定 tone。
 
 ## 示例要求
 

@@ -176,7 +176,7 @@ function InteractivePlaygroundSection() {
           </div>
           <div className="bg-[var(--neutral-50)] p-5 md:p-8">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3"><div><h4 className="text-sm font-semibold text-[var(--text-primary)]">实时预览</h4><p className="mt-1 text-xs text-[var(--text-tertiary)]">可直接在下方输入框中体验。</p></div><div className="flex flex-wrap gap-1.5">{[sizeLabel,positionLabel,prefixLabel,extraLabel,stateLabel].filter(Boolean).map(item=><span key={item} className="rounded-full border border-[var(--neutral-200)] bg-white px-2.5 py-1 text-[11px] text-[var(--text-secondary)]">{item}</span>)}</div></div>
-            <div className="flex min-h-[360px] items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--neutral-300)] bg-white p-6 md:p-10">
+            <div className="flex min-h-[360px] items-center justify-center rounded-[var(--radius-md)] border border-dashed border-[var(--neutral-300)] bg-white p-6 md:p-10">
               <div className="w-full max-w-[480px]">
                 {extra === "stepper" ? (
                   <InputNumber label={labelText||undefined} placeholder={placeholder} size={size} labelPosition={labelPos} labelWidth={88} defaultValue={0.5} min={0} max={10} step={0.5} suffix="°C" {...stateProps[state]} />
@@ -231,7 +231,7 @@ export default function InputPage() {
             </div>
             <div className="mt-6 grid grid-cols-1 gap-3 border-t border-[var(--neutral-200)] pt-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
               {anatomyRows.map(([name, rule], index) => (
-                <div key={name} className="rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
+                <div key={name} className="rounded-[var(--radius-md)] bg-[var(--neutral-50)] p-4">
                   <div className="flex items-start gap-2">
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[var(--product-blue-500)] bg-[var(--product-blue-500)] font-data text-[10px] font-medium text-white">{index + 1}</span>
                     <h3 className="text-sm font-semibold text-[var(--text-primary)]">{name}</h3>
@@ -345,7 +345,7 @@ export default function InputPage() {
 
       <section>
           <SectionHeading eyebrow="Label Layout" title="标签结构" description="按容器角色选择上下或左右标签；同一字段组保持一致。" />
-        <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 md:p-6">
+        <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 md:p-6">
           <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
             <ExampleCard title="上下标签 - 局部例外"><div className="max-w-[360px] space-y-4"><Input label="材料名称" placeholder="请输入材料名称" helperText="适合弹窗、窄卡片、移动端或需要强调的独立字段。" /><Textarea label="补充说明" placeholder="补充材料来源或用途" /></div></ExampleCard>
             <ExampleCard title="左右标签 - 项目默认"><div className="max-w-[640px] space-y-4"><Input labelPosition="left" labelWidth={88} label="名称" placeholder="请输入材料名称" required /><Input labelPosition="left" labelWidth={88} label="材料数据来源" placeholder="实验采集 / 企业上传" helperText="不同长度标签使用同一宽度并右对齐；移动端自动回到上下结构。" /></div></ExampleCard>
@@ -398,7 +398,7 @@ export default function InputPage() {
             </div>
           </ExampleCard>
         </div>
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
+        <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">边界提醒：</strong>
           文本域不承载富文本排版、代码校验、语法高亮、公式编辑或结构化 JSON 配置——这些是专用编辑器的职责。
         </div>
@@ -442,7 +442,7 @@ export default function InputPage() {
           "Textarea 的 Small / Medium / Large 最小高度为 80 / 96 / 120px，长内容允许纵向滚动或缩放。",
           "帮助文字、错误信息和字符计数必须与对应控件保持关联，状态不能只依赖颜色。",
         ]} />
-        <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
+        <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--warning-border)] bg-[var(--warning-bg)] p-4 text-sm leading-6 text-[var(--text-secondary)]">
           <strong className="text-[var(--text-primary)]">常见错误：</strong>
           只用 placeholder 替代 label、只用红色边框表示错误而不给修正文字——这两种做法会让用户在输入后失去上下文，也无法知道如何修正。
         </div>
@@ -454,14 +454,14 @@ export default function InputPage() {
           <div>
             <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">Input</h3>
             <DocsTable>
-              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">说明</th></tr></thead>
               <tbody className="divide-y divide-[var(--neutral-100)] bg-white">{inputProps.map(([name, type, defaultValue, rule]) => <tr key={name}><td className="px-6 py-4 text-sm text-[var(--text-primary)]">{name}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{type}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{defaultValue}</td><td className="px-6 py-4 text-sm leading-6 text-[var(--text-secondary)]">{rule}</td></tr>)}</tbody>
             </DocsTable>
           </div>
           <div>
             <h3 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">Textarea</h3>
             <DocsTable>
-              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">规则</th></tr></thead>
+              <thead className="bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-primary)]"><tr className="border-b border-[var(--neutral-200)]"><th className="px-6 py-3 font-semibold">属性</th><th className="px-6 py-3 font-semibold">类型</th><th className="px-6 py-3 font-semibold">默认值</th><th className="px-6 py-3 font-semibold">说明</th></tr></thead>
               <tbody className="divide-y divide-[var(--neutral-100)] bg-white">{textareaProps.map(([name, type, defaultValue, rule]) => <tr key={name}><td className="px-6 py-4 text-sm text-[var(--text-primary)]">{name}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{type}</td><td className="px-6 py-4 text-sm text-[var(--text-secondary)]">{defaultValue}</td><td className="px-6 py-4 text-sm leading-6 text-[var(--text-secondary)]">{rule}</td></tr>)}</tbody>
             </DocsTable>
           </div>
@@ -470,7 +470,7 @@ export default function InputPage() {
 
       <Link
         to="/components/form"
-        className="group flex items-center justify-between gap-4 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
+        className="group flex items-center justify-between gap-4 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-5 transition-all hover:border-[var(--neutral-300)] hover:bg-[var(--neutral-50)]"
       >
         <div>
           <div className="text-xs font-medium text-[var(--text-tertiary)]">下一步</div>

@@ -245,7 +245,7 @@ export default function FeedbackPage() {
           </div>
 
           {loading ? (
-            <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] px-4 py-6 text-sm text-[var(--text-secondary)]">
+            <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] px-4 py-6 text-sm text-[var(--text-secondary)]">
               正在读取反馈记录...
             </div>
           ) : entries.length ? (
@@ -279,7 +279,7 @@ export default function FeedbackPage() {
                               <button
                                 type="button"
                                 key={`${entry.id}-${screenshot.name}`}
-                                className="block h-12 w-16 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)]"
+                                className="block h-12 w-16 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)]"
                                 title={screenshot.name}
                                 aria-label={`放大查看${screenshot.name}`}
                                 onClick={() => setSelectedScreenshot(screenshot)}
@@ -363,7 +363,7 @@ export default function FeedbackPage() {
           }}
         />
         {authMessage ? (
-          <p className="mt-4 rounded-[var(--radius-sm)] border border-[var(--success-border)] bg-[var(--success-bg)] px-3 py-2 text-sm leading-6 text-[var(--success-text)]">
+          <p className="mt-4 rounded-[var(--radius-md)] border border-[var(--success-border)] bg-[var(--success-bg)] px-3 py-2 text-sm leading-6 text-[var(--success-text)]">
             {authMessage}
           </p>
         ) : null}

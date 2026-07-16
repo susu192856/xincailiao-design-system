@@ -59,7 +59,7 @@ const alignClass: Record<TableCellAlign, string> = {
 export function TableContainer({ className = "", maxHeight, style, ...props }: TableContainerProps) {
   return (
     <div
-      className={["overflow-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white", className].join(" ")}
+      className={["overflow-auto rounded-[var(--radius-none)] border border-[var(--neutral-200)] bg-white", className].join(" ")}
       style={{ maxHeight, ...style }}
       {...props}
     />
@@ -98,7 +98,7 @@ export function TableRow({ className = "", selected = false, disabled = false, s
       className={[
         "border-b border-[var(--neutral-200)] last:border-b-0",
         selected ? "bg-[var(--product-blue-50)]" : "",
-        disabled ? "text-[var(--neutral-400)] opacity-70" : "",
+        disabled ? "text-[var(--text-disabled)] opacity-70" : "",
         sticky ? "bg-white" : "",
         className,
       ].join(" ")}
@@ -125,7 +125,7 @@ export function TableHead({ className = "", align = "left", sortable = false, so
   return (
     <th
       className={[
-        "whitespace-nowrap bg-[var(--neutral-50)] px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-sm font-semibold text-[var(--neutral-600)]",
+        "whitespace-nowrap bg-[var(--neutral-50)] px-[var(--table-cell-x)] py-[var(--table-cell-y)] text-sm font-semibold text-[var(--text-tertiary)]",
         sortable ? "select-none" : "",
         alignClass[align],
         className,

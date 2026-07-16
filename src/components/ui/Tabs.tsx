@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from "react";
+import { useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 
 type TabItem = {
   value: string;
@@ -41,8 +41,8 @@ function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean
       "relative h-10 w-full justify-center border-0 px-3.5 py-1.5 text-base",
       "after:absolute after:right-0 after:h-4 after:w-px after:bg-[var(--neutral-200)] last:after:hidden",
       active
-        ? "bg-white font-medium text-[var(--neutral-900)]"
-        : "bg-transparent text-[var(--text-tertiary)] hover:bg-[var(--neutral-50)] hover:text-[var(--neutral-900)]",
+        ? "bg-white font-medium text-[var(--text-primary)]"
+        : "bg-transparent text-[var(--text-tertiary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)]",
     );
   } else if (variant === "card") {
     base.push(
@@ -64,7 +64,7 @@ function getTabClass(variant: NonNullable<TabsProps["variant"]>, active: boolean
       "relative border-0 px-2 after:absolute after:-right-1.5 after:h-3 after:w-px after:bg-[var(--neutral-300)] last:after:hidden",
       active
         ? "font-normal text-[var(--product-blue-600)]"
-        : "text-[var(--text-tertiary)] hover:text-[var(--neutral-900)]",
+        : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
     );
   } else {
     base.push(
@@ -90,15 +90,35 @@ export function Tabs({
   panelClassName = "",
 }: TabsProps) {
   const [internalValue, setInternalValue] = useState(defaultValue ?? items[0]?.value ?? "");
+  const tabRefs = useRef(new Map<string, HTMLButtonElement>());
   const instanceId = useId().replace(/:/g, "");
   const currentValue = value ?? internalValue;
-  const activeItem = items.find((item) => item.value === currentValue) ?? items[0];
+  const activeItem = items.find((item) => item.value === currentValue) ?? items.find((item) => !item.disabled) ?? items[0];
 
   function handleChange(nextValue: string) {
     if (value === undefined) {
       setInternalValue(nextValue);
     }
     onValueChange?.(nextValue);
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>, currentItemValue: string) {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+
+    const enabledItems = items.filter((item) => !item.disabled);
+    const currentIndex = enabledItems.findIndex((item) => item.value === currentItemValue);
+    if (currentIndex < 0 || enabledItems.length === 0) return;
+
+    event.preventDefault();
+    let nextIndex = currentIndex;
+    if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % enabledItems.length;
+    if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + enabledItems.length) % enabledItems.length;
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = enabledItems.length - 1;
+
+    const nextItem = enabledItems[nextIndex];
+    handleChange(nextItem.value);
+    tabRefs.current.get(nextItem.value)?.focus();
   }
 
   return (
@@ -114,6 +134,7 @@ export function Tabs({
           listClassName,
         ].join(" ")}
         role="tablist"
+        aria-orientation="horizontal"
       >
         {items.map((item) => {
           const active = item.value === activeItem.value;
@@ -129,6 +150,12 @@ export function Tabs({
               aria-selected={active}
               aria-controls={`${instanceId}-${item.value}-panel`}
               id={`${instanceId}-${item.value}-tab`}
+              tabIndex={active ? 0 : -1}
+              ref={(node) => {
+                if (node) tabRefs.current.set(item.value, node);
+                else tabRefs.current.delete(item.value);
+              }}
+              onKeyDown={(event) => handleKeyDown(event, item.value)}
             >
               {item.icon}
               {item.label}

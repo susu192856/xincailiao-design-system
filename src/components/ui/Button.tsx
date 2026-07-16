@@ -53,9 +53,9 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
   },
   ghost: {
     task:
-      "bg-[var(--neutral-100)] text-[var(--color-action-task-default)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)] disabled:text-[var(--neutral-500)]",
+      "bg-[var(--neutral-100)] text-[var(--color-action-task-default)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)] disabled:text-[var(--text-disabled)]",
     neutral:
-      "bg-[var(--neutral-100)] text-[var(--text-primary)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)] disabled:text-[var(--neutral-500)]",
+      "bg-[var(--neutral-100)] text-[var(--text-primary)] hover:bg-[var(--neutral-200)] active:bg-[var(--neutral-300)] disabled:text-[var(--text-disabled)]",
     product:
       "bg-[var(--product-blue-50)] text-[var(--product-blue-500)] hover:bg-[var(--product-blue-100)] active:bg-[var(--product-blue-200)] disabled:text-[var(--product-blue-300)]",
     brand:
@@ -67,8 +67,8 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
       "bg-[var(--warning-bg)] text-[var(--warning-text)] hover:bg-[var(--warning-border)] active:bg-[var(--warning-border)] disabled:text-[var(--warning-text-light)]",
   },
   text: {
-    task: "text-[var(--color-action-task-default)] hover:bg-[var(--neutral-50)] hover:text-[var(--color-action-task-default)] active:bg-[var(--neutral-100)] active:text-[var(--color-action-task-default)] disabled:text-[var(--neutral-500)]",
-    neutral: "text-[var(--text-primary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)] active:bg-[var(--neutral-100)] active:text-[var(--text-primary)] disabled:text-[var(--neutral-500)]",
+    task: "text-[var(--color-action-task-default)] hover:bg-[var(--neutral-50)] hover:text-[var(--color-action-task-default)] active:bg-[var(--neutral-100)] active:text-[var(--color-action-task-default)] disabled:text-[var(--text-disabled)]",
+    neutral: "text-[var(--text-primary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)] active:bg-[var(--neutral-100)] active:text-[var(--text-primary)] disabled:text-[var(--text-disabled)]",
     product:
       "text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] hover:text-[var(--product-blue-500)] active:bg-[var(--product-blue-100)] active:text-[var(--product-blue-500)] disabled:text-[var(--product-blue-300)]",
     brand: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] hover:text-[var(--brand-600)] active:bg-[var(--brand-100)] active:text-[var(--brand-600)] disabled:text-[var(--brand-300)]",
