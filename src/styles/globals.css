@@ -258,8 +258,10 @@ pre {
   letter-spacing: -0.005em;
 }
 
-.docs-article p {
-  color: var(--text-secondary);
+@layer base {
+  .docs-article p {
+    color: var(--text-secondary);
+  }
 }
 
 .docs-article table:not([data-docs-table]):not([data-table-variant]) thead,

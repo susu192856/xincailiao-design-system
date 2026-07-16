@@ -81,7 +81,7 @@ export default function TypographyPage() {
         />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <FontCard icon={<Desktop size={20} />} title="中文界面" sample="新材料可信数据空间" note='PingFang SC / Microsoft YaHei / Source Han Sans CN' />
-          <FontCard icon={<TextAa size={20} />} title="英文与普通数字" sample="Material ID 2026-001 · 06/25" note="Inter，用于英文、普通数字、编号、日期和 Token。数字密集场景前端启用 tabular-nums。" />
+          <FontCard icon={<TextAa size={20} />} title="英文与普通数字" sample="Material ID 2026-001 · 06/25" note="Inter（英文字体），用于英文、普通数字、编号、日期和设计变量（Token）。数字密集场景前端启用等宽数字特性（tabular-nums）。" />
           <FontCard icon={<Hash size={20} />} title="特殊数字" sample="12,580 · +8.24% · 512 MPa" note="D-DIN-Pro，用于数据、指标、金额、百分比和对比数值" sampleFont="font-data" />
         </div>
       </section>
@@ -120,7 +120,7 @@ export default function TypographyPage() {
           title="行高与可读性"
           description="不要只比较两段孤立文字；应在标题、摘要、数据和辅助信息共同出现的页面里判断节奏。"
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.4fr_1fr]">
+        <div className="grid grid-cols-1 gap-5">
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-6">
             <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-[var(--text-primary)]"><Rows size={18} /> 阅读型详情示例</div>
             <article className="max-w-[680px]">

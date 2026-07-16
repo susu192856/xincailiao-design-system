@@ -69,7 +69,7 @@ export default function CheckboxPage() {
         <div className="mt-5">
           <CodeBlock
             lang="tsx"
-            label="Checkbox"
+            label="复选框（Checkbox）"
             code={`<Checkbox label="允许查看材料数据" />
 <Checkbox label="允许下载报告" defaultChecked />
 <Checkbox label="全选当前页" checked={false} indeterminate readOnly />

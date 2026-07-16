@@ -297,10 +297,10 @@ const stateRows: Array<{
   tone: ButtonTone;
   icon?: React.ReactNode;
 }> = [
-  { type: "主按钮", description: "solid 承载最高层级操作。", label: "提交审核", variant: "solid", tone: "task" },
-  { type: "次按钮", description: "outline 与主按钮配对。", label: "导出数据", variant: "outline", tone: "product" },
-  { type: "弱按钮", description: "ghost 降低视觉干扰。", label: "取消", variant: "ghost", tone: "neutral" },
-  { type: "文字按钮", description: "text 用于轻量操作和跳转。", label: "查看详情", variant: "text", tone: "product" },
+  { type: "主按钮", description: "实心型（solid）承载最高层级操作。", label: "提交审核", variant: "solid", tone: "task" },
+  { type: "次按钮", description: "描边型（outline）与主按钮配对。", label: "导出数据", variant: "outline", tone: "product" },
+  { type: "弱按钮", description: "弱化型（ghost）降低视觉干扰。", label: "取消", variant: "ghost", tone: "neutral" },
+  { type: "文字按钮", description: "文字型（text）用于轻量操作和跳转。", label: "查看详情", variant: "text", tone: "product" },
   { type: "图标 + 文字", description: "状态变化跟随按钮主体。", label: "导出数据", variant: "outline", tone: "product", icon: <DownloadSimple size={16} className="h-4 w-4" weight="regular" /> },
 ];
 
@@ -592,7 +592,7 @@ export default function ButtonPage() {
             </div>
           </SpecCard>
 
-          <DocsTable caption="页面类型决定 tone 的默认选择。例外必须由业务意图解释，而不是由视觉偏好决定。">
+          <DocsTable caption="页面类型决定颜色语义（tone）的默认选择。例外必须由业务意图解释，而不是由视觉偏好决定。">
             <thead>
               <tr>
                 <th>页面类型</th>
@@ -676,7 +676,7 @@ export default function ButtonPage() {
           description="前端、Figma（设计工具）和 Codex（代码协作工具）都使用同一套模型：类型属性（variant）表示视觉层级，颜色语义（tone）表示业务含义，尺寸（size）表示场景密度，状态（state）表示交互状态。"
         />
         <div>
-          <DocsTable caption="代码、Figma 和页面说明使用同一字段，不新增 secondary、primaryBlue 之类的派生属性。">
+          <DocsTable caption="代码、Figma（设计工具）和页面说明使用同一字段，不新增 secondary、primaryBlue 之类的派生属性。">
             <thead>
               <tr>
                 <th>字段</th>

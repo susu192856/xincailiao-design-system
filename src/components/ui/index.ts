@@ -8,6 +8,8 @@ export { Button } from "./Button";
 export type { ButtonProps } from "./Button";
 export { Card, CardActions, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./Card";
 export type { CardProps } from "./Card";
+export { Chart } from "./Chart";
+export type { ChartLegendItem, ChartProps, ChartRenderContext, ChartSize, ChartType } from "./Chart";
 export { Checkbox } from "./Checkbox";
 export type { CheckboxProps } from "./Checkbox";
 export { Collapse } from "./Collapse";

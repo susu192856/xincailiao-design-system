@@ -5,13 +5,13 @@ import { Switch } from "../../../components/ui/Switch";
 
 const sizeRows = [
   {
-    title: "Small · 36×20px",
+    title: "小尺寸（Small）· 36×20px",
     scene: "表格行内、紧凑设置、工具栏",
     desc: "用于信息密度较高的区域，标签保持 14px Regular，不承载长说明。",
     size: "sm" as const,
   },
   {
-    title: "Medium · 44×24px",
+    title: "中尺寸（Medium）· 44×24px",
     scene: "设置页、表单、功能配置",
     desc: "用于常规设置和配置页面，可搭配说明文字，是后台页面默认尺寸。",
     size: "md" as const,
@@ -68,7 +68,7 @@ export default function SwitchPage() {
         <div className="mt-5">
           <CodeBlock
             lang="tsx"
-            label="Switch"
+            label="开关（Switch）"
             code={`<Switch label="开启消息通知" />
 <Switch label="允许数据自动同步" defaultChecked />
 <Switch label="外部组织访问" disabled />`}

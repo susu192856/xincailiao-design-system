@@ -76,13 +76,15 @@ function renderItems({
             ? collapsed
               ? `${sizeClass[size].vertical} w-full justify-center px-0`
               : `${sizeClass[size].vertical} w-full px-3`
-            : `${sizeClass[size].horizontal} px-4`,
+            : `${sizeClass[size].horizontal} shrink-0 whitespace-nowrap px-4`,
           !collapsed && mode === "vertical" && depth > 0 ? "pl-8" : "",
           active
             ? mode === "horizontal"
               ? "border-b-2 border-[var(--neutral-900)] text-[var(--text-primary)]"
               : "bg-[var(--neutral-900)] text-white"
-            : "text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]",
+            : mode === "horizontal"
+              ? "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              : "text-[var(--text-secondary)] hover:bg-[var(--neutral-100)]",
         ].join(" ")}
       >
         {item.icon}
@@ -119,7 +121,7 @@ export function Menu({
           ? collapsed
             ? "w-14 space-y-1 bg-[var(--neutral-50)] p-2"
             : "w-56 space-y-1 bg-[var(--neutral-50)] p-2"
-          : "flex gap-1 border-b border-[var(--neutral-200)]",
+          : "flex max-w-full gap-1 overflow-x-auto border-b border-[var(--neutral-200)]",
         className,
       ].join(" ")}
     >

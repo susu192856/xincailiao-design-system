@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { List, X } from "@phosphor-icons/react";
 import DocsSidebar from "./DocsSidebar";
@@ -10,6 +10,10 @@ export default function DocsLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-[var(--docs-bg)] text-[var(--text-primary)] lg:flex">

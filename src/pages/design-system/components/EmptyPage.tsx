@@ -13,7 +13,7 @@ export default function EmptyPage() {
         <SectionHeading
           eyebrow="Illustrations"
           title="五类基础空状态"
-          description="基础插图提取自既有 Figma（设计工具）空状态页并固定映射。通栏展示用于同时核对插图、文案和操作，不将插图作为独立装饰使用。"
+          description="基础插图已纳入本规范资产并建立固定映射，验收后按规范版本同步到 Figma（设计工具）。通栏展示用于同时核对插图、文案和操作，不将插图作为独立装饰使用。"
         />
         <div className="grid grid-cols-1 gap-5">
           <ExampleCard title="暂无数据">

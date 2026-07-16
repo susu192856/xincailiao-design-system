@@ -110,14 +110,14 @@ const customIconStandards = [
   {
     index: "03",
     title: "命名规则",
-    description: "代码名称使用大驼峰，例如 PencilSimple；SVG 文件名使用小写连字符，例如 ic-pencil-simple.svg。",
+    description: "代码名称使用大驼峰，例如 PencilSimple；可缩放矢量图（SVG）文件名使用小写连字符，例如 ic-pencil-simple.svg。",
   },
 ];
 
 const iconCreationPaths = [
   {
     index: "A",
-    title: "通过 Codex 对话生成",
+    title: "通过 Codex（代码协作工具）对话生成",
     suitable: "适合规则明确、几何简单、需要快速补齐的功能图标。",
     steps: [
       "说明图标语义、使用场景、目标尺寸和参考图标。",
@@ -129,7 +129,7 @@ const iconCreationPaths = [
   },
   {
     index: "B",
-    title: "Figma 设计后交给 Codex 接入",
+    title: "Figma（设计工具）设计后交给 Codex（代码协作工具）接入",
     suitable: "适合业务专属、形态复杂或需要设计师精细校正的图标。",
     steps: [
       "设计师在 24 × 24px 画布中完成源组件，并保留可编辑描边版本。",
@@ -137,7 +137,7 @@ const iconCreationPaths = [
       "提供 Figma 节点或 SVG 文件，并说明中文名、组件名和使用场景。",
       "Codex 统一 viewBox、currentColor、可访问名称并接入页面，再回传预览确认。",
     ],
-    handoff: "交付内容：Figma 源组件 + 轮廓化 SVG + 中英文名称 + 使用场景。",
+    handoff: "交付内容：Figma（设计工具）源组件 + 轮廓化可缩放矢量图（SVG）+ 中英文名称 + 使用场景。",
   },
 ];
 
@@ -250,9 +250,9 @@ const functionIcons: CommonIconItem[] = [
 const decorativeIconStandards = [
   { item: "制作画布", standard: "48px × 48px，图形主体控制在 32px–36px 内，四周保留约 6px 安全边距。" },
   { item: "线条风格", standard: "黑色线性几何轮廓，默认描边 2px，端点尽量使用方形或平直收口。" },
-  { item: "品牌点缀", standard: "每个图标仅保留 1 个红色点缀，使用 brand-600 (#FF112D)，面积控制在整体 5% 以内，不作为状态色使用。" },
+  { item: "品牌点缀", standard: "每个图标仅保留 1 个红色点缀，使用品牌红变量（brand-600，#FF112D），面积控制在整体 5% 以内，不作为状态色使用。" },
   { item: "使用场景", standard: "用于首页、设计原则、空状态、模块入口、品牌展示等低频表达，不作为功能操作图标。" },
-  { item: "输出格式", standard: "优先输出 SVG，保持可编辑、可缩放；进入 Figma 后需保持图层命名和同尺寸画板。" },
+  { item: "输出格式", standard: "优先输出可缩放矢量图（SVG），保持可编辑、可缩放；进入 Figma（设计工具）后需保持图层命名和同尺寸画板。" },
 ];
 
 const decorativeIcons: DecorativeIconItem[] = [
@@ -392,7 +392,7 @@ function UsageExamplesSection() {
           <Button size="md" variant="ghost" icon={<SystemIcon as={GearSix} size={20} weight="regular" tone="neutral" label="设置" />} aria-label="设置" title="设置" className="h-11 w-11 px-0 md:h-9 md:w-9" />
         </div>
       ),
-      rule: "常规独立图标使用 20px：桌面端按钮背景为 36 × 36px，触屏点击热区为 44 × 44px。必须提供 Tooltip、title 或 aria-label。",
+      rule: "常规独立图标使用 20px：桌面端按钮背景为 36 × 36px，触屏点击热区为 44 × 44px。必须提供文字提示（Tooltip）、标题属性（title）或可访问名称（aria-label）。",
     },
     {
       index: "02",
@@ -735,7 +735,7 @@ import { Icon } from "@/components/ui";
                     type="button"
                     onClick={() => downloadDecorativeSvg(item)}
                     title="下载可缩放矢量图（SVG）"
-                    aria-label="下载 SVG"
+                    aria-label="下载可缩放矢量图"
                     className="flex h-11 w-11 items-center justify-center rounded-sm bg-white text-[var(--text-tertiary)] hover:text-[var(--text-primary)] md:h-7 md:w-7"
                   >
                     <DownloadSimple size={14} weight="regular" />

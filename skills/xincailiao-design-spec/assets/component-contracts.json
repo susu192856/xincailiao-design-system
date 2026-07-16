@@ -672,7 +672,7 @@
       "name": "Chart",
       "figmaName": "Chart",
       "route": "/components/chart",
-      "reactSource": "src/pages/design-system/components/ChartPage.tsx",
+      "reactSource": "src/components/ui/Chart.tsx",
       "vueSource": "packages/vue-ui/src/components/XcChart.vue",
       "props": [
         "chartType",
@@ -718,6 +718,8 @@
       ],
       "states": [
         "default",
+        "hover",
+        "selected",
         "empty",
         "loading",
         "with-table",
@@ -755,6 +757,8 @@
         ],
         "state": [
           "default",
+          "hover",
+          "selected",
           "empty",
           "loading",
           "with-table",
@@ -762,20 +766,23 @@
         ]
       },
       "category": "数据与内容",
-      "contractVersion": "0.2.0",
+      "contractVersion": "0.3.0",
       "status": "stable",
       "contract": {
         "anatomy": [
-          "根容器",
-          "主要内容",
-          "可选辅助内容"
+          "标题与口径说明",
+          "局部操作区",
+          "图例",
+          "绘图区",
+          "工具提示或选中明细",
+          "可选等价数据表"
         ],
-        "usage": "用于Chart对应的标准场景，优先复用组件而不是在页面内重新绘制。",
-        "avoid": "不要绕过 Token、组件合同或可访问性要求制作局部特例。",
-        "responsive": "桌面端按规范尺寸展示；窄屏时允许内容换行或纵向排列，交互目标不小于 44px。",
-        "accessibility": "使用正确语义结构；图片或装饰内容必须提供合适的替代文本策略。",
-        "interaction": "组件本身不承担交互时，不得伪装成可点击元素。",
-        "content": "内容必须定义长文本、空值、截断、换行和本地化边界。",
+        "usage": "用于展示趋势、比较、构成、分布或偏离；先按业务问题选择图表类型，再使用统一 Chart 容器。",
+        "avoid": "不要在页面中重复绘制标题、图例和状态容器；不要仅依赖颜色表达数据，不要截断柱状图零基线。",
+        "responsive": "桌面端悬浮整列或切片；窄屏改为点击选中并在图下展示明细，复杂绘图区仅允许容器内部滚动。",
+        "accessibility": "图表具有可见标题、键盘可聚焦数据目标和等价数据表；工具提示内容包含名称、数值与单位。",
+        "interaction": "悬浮、聚焦和点击同步更新工具提示与选中明细；移动端保持选中状态，点击其他位置或新数据目标后更新。",
+        "content": "标题说明业务问题，副标题说明口径、时间与筛选；图例名称、单位、空值和本地化格式必须明确。",
         "examples": {
           "basic": "Chart 默认结构与尺寸",
           "business": "新材道后台或门户中的真实 Chart 场景",

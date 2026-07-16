@@ -447,8 +447,8 @@ export default function SelectPage() {
         <SectionCard className="md:p-6">
           <div className="grid max-w-[672px] grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
             <Select labelPosition="left" labelWidth={64} label="默认" placeholder="请选择" options={materialOptions} />
-            <Select labelPosition="left" labelWidth={64} label="Hover" defaultValue="metal" options={materialOptions} className="!border-[var(--field-border-hover)]" />
-            <Select labelPosition="left" labelWidth={64} label="Focus" defaultValue="polymer" options={materialOptions} className="!border-[var(--field-border-focus)]" />
+            <Select labelPosition="left" labelWidth={96} label="悬停（Hover）" defaultValue="metal" options={materialOptions} className="!border-[var(--field-border-hover)]" />
+            <Select labelPosition="left" labelWidth={96} label="聚焦（Focus）" defaultValue="polymer" options={materialOptions} className="!border-[var(--field-border-focus)]" />
             <Select labelPosition="left" labelWidth={64} label="必填" placeholder="请选择" options={materialOptions} required />
             <Select labelPosition="left" labelWidth={64} label="错误" placeholder="请选择" options={materialOptions} error="请选择材料类型" />
             <Select labelPosition="left" labelWidth={64} label="禁用" defaultValue="metal" options={materialOptions} disabled />

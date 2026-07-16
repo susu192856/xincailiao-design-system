@@ -17,7 +17,7 @@ export default function ImagePage() {
       <PageHeader title="图片" description="图片组件用于产品展示、材料图像、相图、头像和数据预览场景，必须保证比例稳定、加载状态清晰、异常状态可识别。" />
 
       <section>
-        <SectionHeading eyebrow="Ratios" title="图片比例" description="比例来自既有 Figma（设计工具）规范；业务组件选择固定比例，不跟随原图尺寸自由伸缩。" />
+        <SectionHeading eyebrow="Ratios" title="图片比例" description="图片比例由 Codex（代码协作工具）维护的本规范统一定义，验收后同步到 Figma（设计工具）；业务组件选择固定比例，不跟随原图尺寸自由伸缩。" />
         <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
           {[
             ["1:1", "头像、方形缩略图"], ["2:1", "重要横向视觉"], ["3:1", "页面 Banner"], ["3:2", "新闻与卡片横图"],

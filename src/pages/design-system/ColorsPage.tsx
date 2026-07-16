@@ -95,8 +95,8 @@ export default function ColorsPage() {
     { name: "product-blue-300", hex: "#8BBEFF", label: "浅交互态" },
     { name: "product-blue-400", hex: "#5A9FFF", label: "辅助功能" },
     { name: "product-blue-500", hex: "#006DEA", label: "功能主色" },
-    { name: "product-blue-600", hex: "#0058C2", label: "Hover" },
-    { name: "product-blue-700", hex: "#00449A", label: "Active" },
+    { name: "product-blue-600", hex: "#0058C2", label: "悬停（Hover）" },
+    { name: "product-blue-700", hex: "#00449A", label: "按下（Active）" },
     { name: "product-blue-800", hex: "#00306F", label: "深色重点" },
     { name: "product-blue-900", hex: "#001D47", label: "深色背景" },
   ];
@@ -105,7 +105,7 @@ export default function ColorsPage() {
     { name: "neutral-50", hex: "#F7F8FA", label: "页面底色/大面积背景", alias: "page-bg" },
     { name: "neutral-100", hex: "#F1F3F5", label: "卡片背景/浅容器", alias: "card-bg / row-divider" },
     { name: "neutral-200", hex: "#E6E9EE", label: "分割线/弱边框", alias: "border / divider" },
-    { name: "neutral-300", hex: "#D5DAE1", label: "输入框边框/Disabled", alias: "field-border" },
+    { name: "neutral-300", hex: "#D5DAE1", label: "输入框边框 / 禁用（Disabled）", alias: "field-border" },
     { name: "neutral-400", hex: "#B8C0CC", label: "边框、骨架和非文字装饰", alias: "decorative" },
     { name: "neutral-500", hex: "#97A0AD", label: "禁用文字或非必要信息", alias: "text-disabled" },
     { name: "neutral-600", hex: "#6F7785", label: "三级说明文字", alias: "text-tertiary" },
@@ -204,7 +204,7 @@ export default function ColorsPage() {
       display: "product-blue-500",
       variable: "color/action/product",
       context: "链接/功能操作",
-      usage: "链接、分析、生成、连接、下载和功能型操作使用产品蓝；Radio、Checkbox、Switch 的选中状态也使用产品蓝。",
+      usage: "链接、分析、生成、连接、下载和功能型操作使用产品蓝；单选框（Radio）、复选框（Checkbox）、开关（Switch）的选中状态也使用产品蓝。",
     },
     {
       semantic: "品牌强调",
@@ -231,7 +231,6 @@ export default function ColorsPage() {
         />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-1 bg-[var(--brand-600)]" />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--brand-600)" }} />
@@ -243,7 +242,6 @@ export default function ColorsPage() {
             </div>
           </div>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-1 bg-[var(--product-blue-500)]" />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--product-blue-500)" }} />
@@ -255,7 +253,6 @@ export default function ColorsPage() {
             </div>
           </div>
           <div className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white overflow-hidden">
-            <div className="h-1 bg-[var(--neutral-900)]" />
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="h-4 w-4 rounded-sm" style={{ backgroundColor: "var(--neutral-900)" }} />
@@ -355,7 +352,7 @@ export default function ColorsPage() {
                 ["查看详情 / 了解更多 / 跳转链接", "蓝色（Product）", "引导探索，不改变数据状态。"],
                 ["筛选 / 搜索 / 下载 / 导出", "蓝色（Product）", "产品功能操作，不改变业务结果。"],
                 ["新建 / 创建 / 生成", "黑色（Task）", "新增是一条业务流程的起点，需要明确触发。"],
-                ["取消 / 返回 / 关闭（不改变数据）", "灰色（Ghost）", "用描边型（outline）或文字按钮，保持操作层级合理。"],
+                ["取消 / 返回 / 关闭（不改变数据）", "中性弱按钮", "使用描边型（outline）、弱化型（ghost）或文字型（text）按钮，保持操作层级合理。"],
                 ["删除 / 不可逆操作", "语义红色（Error）", "严禁用品牌红或黑色替代。红色 + 二次确认。"],
               ].map(([scenario, choice, reason]) => (
                 <tr key={scenario}>

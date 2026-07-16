@@ -49,7 +49,7 @@ const spacingTokens = [
     token: "spacing-3xl",
     variable: "--spacing-3xl",
     value: "64px",
-    usage: "官网首页大区块间距、Hero 与内容区分隔",
+    usage: "官网首页大区块间距、首屏区（Hero）与内容区分隔",
     advice: "适合官网和门户页面的大段落节奏控制。",
   },
   {
@@ -215,9 +215,9 @@ export default function SpacingPage() {
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
-            "组件内部优先使用 spacing-xs、spacing-sm、spacing-md。",
-            "内容模块内部使用 spacing-lg，页面区块之间使用 spacing-xl 或 spacing-2xl。",
-            "官网和门户的大型视觉区块可以使用 spacing-3xl、spacing-4xl 拉开节奏。",
+            "组件内部优先使用极小、小和中等间距（spacing-xs、spacing-sm、spacing-md）。",
+            "内容模块内部使用大间距（spacing-lg），页面区块之间使用特大间距（spacing-xl 或 spacing-2xl）。",
+            "官网和门户的大型视觉区块可以使用展示级间距（spacing-3xl、spacing-4xl）拉开节奏。",
             "同一页面中应保持间距等级稳定，避免相近层级出现过多不同数值。",
           ]}
         />

@@ -426,11 +426,11 @@ function SkeletonCard({ kind, title, description }: { kind: SkeletonKind; title:
 
 export default function LayoutPage() {
   const breakpoints = [
-    { name: "Mobile", size: "375px - 767px", cols: "4列", gutter: "16px", margin: "16px", usage: "移动端适配" },
-    { name: "Tablet", size: "768px - 1023px", cols: "8列", gutter: "20px", margin: "24px", usage: "平板设备" },
-    { name: "Desktop", size: "1024px - 1439px", cols: "12列", gutter: "24px", margin: "32px", usage: "桌面端标准" },
-    { name: "Large", size: "1440px - 1919px", cols: "12列", gutter: "24px", margin: "48px", usage: "大屏幕" },
-    { name: "XLarge", size: "≥ 1920px", cols: "12列", gutter: "24px", margin: "自适应", usage: "超大屏" },
+    { name: "移动端（Mobile）", size: "375px - 767px", cols: "4列", gutter: "16px", margin: "16px", usage: "手机与窄屏设备" },
+    { name: "平板端（Tablet）", size: "768px - 1023px", cols: "8列", gutter: "20px", margin: "24px", usage: "平板设备" },
+    { name: "桌面端（Desktop）", size: "1024px - 1439px", cols: "12列", gutter: "24px", margin: "32px", usage: "桌面端标准" },
+    { name: "大屏（Large）", size: "1440px - 1919px", cols: "12列", gutter: "24px", margin: "48px", usage: "大屏幕" },
+    { name: "超大屏（XLarge）", size: "≥ 1920px", cols: "12列", gutter: "24px", margin: "自适应", usage: "超大屏幕" },
   ];
 
   return (
@@ -443,7 +443,7 @@ export default function LayoutPage() {
           title="布局策略"
           description="官网与后台在布局目标上不同：官网优先品牌叙事和转化引导，后台优先信息密度和操作效率。先判断页面类型，再套用对应的密度、容器和首屏规则。"
         />
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5">
           <SectionCard className="p-6">
             <div className="mb-8">
               <div className="flex items-start gap-4">
@@ -454,11 +454,11 @@ export default function LayoutPage() {
               </div>
               <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向品牌传播、产品展示和转化入口，布局应先建立信任和价值认知，再引导用户进入产品。</p>
             </div>
-            <div className="mb-8 flex gap-8">
-              {[["设计稿宽度","1920px"],["内容最大宽度","1400px 居中"],["顶部导航","64px"],["Hero 高度","500/650/800px"]].map(([label, value]) => (
-                <div key={label} className="shrink-0">
-                  <p className="whitespace-nowrap text-xs text-[var(--text-tertiary)]">{label}</p>
-                  <p className="mt-1 whitespace-nowrap text-sm font-medium text-[var(--text-primary)]">{value}</p>
+            <div className="mb-8 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
+              {[["设计稿宽度","1920px"],["内容最大宽度","1400px 居中"],["顶部导航","64px"],["首屏区高度（Hero）","500/650/800px"]].map(([label, value]) => (
+                <div key={label} className="min-w-0">
+                  <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
+                  <p className="mt-1 text-sm font-medium text-[var(--text-primary)]">{value}</p>
                 </div>
               ))}
             </div>
@@ -480,11 +480,11 @@ export default function LayoutPage() {
               </div>
               <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向数据空间、材库、人工智能（AI）应用和后台管理，布局应优先服务长时间操作、快速筛选和状态判断。</p>
             </div>
-            <div className="mb-8 flex gap-7">
+            <div className="mb-8 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
               {[["设计稿宽度","1440px"],["内容区宽度","100% 自适应"],["顶部操作栏","64px"],["侧边栏","200-240px / 56px"]].map(([label, value]) => (
-                <div key={label} className="shrink-0">
-                  <p className="whitespace-nowrap text-xs text-[var(--text-tertiary)]">{label}</p>
-                  <p className="mt-1 whitespace-nowrap text-sm font-medium text-[var(--text-primary)]">{value}</p>
+                <div key={label} className="min-w-0">
+                  <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
+                  <p className="mt-1 text-sm font-medium text-[var(--text-primary)]">{value}</p>
                 </div>
               ))}
             </div>
@@ -587,7 +587,7 @@ export default function LayoutPage() {
           {breakpoints.map((bp) => (
             <SectionCard key={bp.name} className="p-4">
               <div className="mb-4 flex items-start justify-between"><div><p className="text-xs text-[var(--text-tertiary)]">{bp.name}</p><h3 className="mt-1 text-xl font-medium leading-7 text-[var(--text-primary)]">{bp.cols}</h3></div><span className="mt-1 h-1.5 w-1.5 bg-[var(--neutral-900)]" /></div>
-              <div className="space-y-1.5 text-xs leading-5 text-[var(--text-tertiary)]"><p>{bp.size}</p><p>Gutter {bp.gutter}</p><p>Margin {bp.margin}</p><p className="pt-2 font-medium text-[var(--text-tertiary)]">{bp.usage}</p></div>
+              <div className="space-y-1.5 text-xs leading-5 text-[var(--text-tertiary)]"><p>{bp.size}</p><p>列间距（Gutter）{bp.gutter}</p><p>页面边距（Margin）{bp.margin}</p><p className="pt-2 font-medium text-[var(--text-tertiary)]">{bp.usage}</p></div>
             </SectionCard>
           ))}
         </div>

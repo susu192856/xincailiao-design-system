@@ -28,20 +28,20 @@ const deliveryCards = [
     target: "代码组件与文档",
     source: "packages/vue-ui + docs/components",
     output: "Vue 3 源码组件、Markdown 规范、组件合同",
-    description: "开发实现以 Vue 组件、Token 变量和组件规范为依据，不从截图反推样式。",
+    description: "开发实现以 Vue 组件、设计变量（Token）和组件规范为依据，不从截图反推样式。",
   },
   {
     icon: <FigmaLogo size={20} weight="regular" />,
-    title: "Figma 可调用",
-    target: "Figma Variables / Components",
+    title: "Figma（设计工具）可调用",
+    target: "Figma 变量与组件（Variables / Components）",
     source: "figma/tokens.json + figma/components.manifest.json",
     output: "Figma 变量、文字样式、阴影样式、组件属性",
-    description: "Figma 中调用同名组件和变量，状态、尺寸、属性与代码合同保持一致。",
+    description: "Figma（设计工具）中调用同名组件和变量，状态、尺寸、属性与代码合同保持一致。",
   },
 ];
 
 const sourceRows = [
-  ["设计 Token", "src/styles/tokens.css", "figma/tokens.json、docs/design-tokens、Skill assets", "颜色、字号、间距、圆角、阴影等精确数值"],
+  ["设计变量（Token）", "src/styles/tokens.css", "figma/tokens.json、docs/design-tokens、Skill assets", "颜色、字号、间距、圆角、阴影等精确数值"],
   ["组件合同", "figma/components.manifest.json", "网页组件页、React 示例、Vue 源码、Figma 组件属性", "组件命名、状态、属性、成熟度和同步资格"],
   ["网页版式", "src/components/docs", "规范站所有基础页和组件页", "标题、表格、卡片、示例区、提示区的统一视觉"],
   ["前端组件", "packages/vue-ui", "前端开发可复用源码组件", "Vue 3 项目优先复用的组件起点"],
@@ -107,7 +107,7 @@ export default function DeliveryPage() {
         />
         <div
           role="img"
-          aria-label="Token 与组件合同经过网页规范站验证后，分别交付给开发代码和 Figma 设计资产"
+          aria-label="设计变量与组件合同经过网页规范站验证后，分别交付给开发代码和 Figma（设计工具）设计资产"
           className="mb-5 grid items-stretch gap-3 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] md:p-5"
         >
           <div className="border border-[var(--neutral-200)] bg-white p-4">
@@ -178,8 +178,8 @@ export default function DeliveryPage() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 ["组件总数", `${manifest.components.length}`],
-                ["Stable 组件", `${stableComponents}`],
-                ["Figma eligible", `${eligibleComponents}`],
+                ["稳定组件（stable）", `${stableComponents}`],
+                ["可同步至 Figma（eligible）", `${eligibleComponents}`],
                 ["基础规范", `${figmaSync.foundations.length}`],
               ].map(([label, value]) => (
                 <div key={label} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-4">
@@ -189,7 +189,7 @@ export default function DeliveryPage() {
               ))}
             </div>
             <p className="mt-4 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">
-              成熟度统计：stable {statusCount.stable ?? 0} · review {statusCount.review ?? 0} · draft {statusCount.draft ?? 0}
+              成熟度统计：稳定（stable）{statusCount.stable ?? 0} · 复核中（review）{statusCount.review ?? 0} · 草稿（draft）{statusCount.draft ?? 0}
             </p>
           </ExampleCard>
 
@@ -198,7 +198,7 @@ export default function DeliveryPage() {
               items={[
                 "网页规范站能直观看到规则、状态和示例，桌面与 375px 移动端无页面级横向溢出。",
                 "前端能在 docs/components、packages/vue-ui 和组件合同中找到同名同义的实现依据。",
-                "Figma 同步前确认组件状态为 stable，tokens 与 manifest 没有未同步差异。",
+                "Figma 同步前确认组件状态为稳定（stable），设计变量文件（tokens）与组件清单（manifest）没有未同步差异。",
                 "每轮修改运行 npm run verify，并提供被修改页面的关键截图和剩余未审页面。",
               ]}
             />
@@ -245,7 +245,7 @@ export default function DeliveryPage() {
           {[
             { icon: <CheckCircle size={18} />, title: "逐页视觉验收", text: "按基础页、组件页、模板页顺序修复视觉细节。" },
             { icon: <Package size={18} />, title: "前端包收口", text: "补齐 Vue 组件导出、版本策略和使用文档。" },
-            { icon: <GitBranch size={18} />, title: "Figma 批次同步", text: "稳定组件按批次进入 Figma Variables 和 Components。" },
+            { icon: <GitBranch size={18} />, title: "Figma（设计工具）批次同步", text: "稳定组件按批次进入 Figma（设计工具）变量和组件（Variables / Components）。" },
           ].map((item) => (
             <SectionCard key={item.title}>
               <div className="mb-3 text-[var(--text-primary)]">{item.icon}</div>

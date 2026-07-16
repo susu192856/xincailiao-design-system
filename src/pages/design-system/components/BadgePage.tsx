@@ -34,14 +34,14 @@ export default function BadgePage() {
           </ExampleCard>
           <ExampleCard title="依附元素">
             <div className="flex flex-wrap items-center gap-8">
-              <Badge count={12} tone="product">
+              <Badge count={12} tone="error">
                 <Button variant="ghost" tone="neutral">消息</Button>
               </Badge>
               <Badge dot tone="error">
                 <Avatar name="王工" />
               </Badge>
             </div>
-            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">依附元素时徽标固定在右上角，避免遮挡文字主体。</p>
+            <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">依附元素时徽标贴合右上角并保留白色分隔环，避免遮挡主体；未读消息数量使用错误语义红。</p>
           </ExampleCard>
         </div>
       </section>
@@ -54,11 +54,11 @@ export default function BadgePage() {
               {[
                 ["数据审批", 8, "product"],
                 ["异常任务", 2, "error"],
-                ["消息通知", 0, "neutral"],
+                ["消息通知", 12, "error"],
               ].map(([label, count, tone]) => (
                 <div key={label} className="flex items-center justify-between px-3 py-2">
                   <span className="text-sm text-[var(--text-body)]">{label}</span>
-                  <Badge count={count as number} tone={tone as "product" | "error" | "neutral"} showZero={label === "消息通知"} />
+                  <Badge count={count as number} tone={tone as "product" | "error" | "neutral"} />
                 </div>
               ))}
             </div>
@@ -109,7 +109,7 @@ export default function BadgePage() {
                 <Avatar name="审核员" />
               </Badge>
               <Badge dot tone="success">
-                <Avatar name="管理员" status="online" />
+                <Avatar name="管理员" />
               </Badge>
             </div>
           </ExampleCard>
@@ -121,10 +121,12 @@ export default function BadgePage() {
         <SpecList
           items={[
             "徽标数只表达数量或轻量提醒，不替代标签、Toast、Alert 或 Modal。",
-            "颜色直接复用颜色规范的语义 Token：普通通知使用信息蓝，成功、警告、错误分别使用 success、warning、error；中性计数使用 neutral。",
+            "颜色直接复用颜色规范的语义设计变量（Token）：未读消息和需要立即关注的通知使用 error，普通统计使用 product 或 neutral，成功和警告分别使用 success、warning。",
+            "消息数量大于 0 时显示红色徽标；没有未读消息时隐藏徽标，不用红色 0 表示无消息。",
             "徽标颜色表达提醒语义，不使用分类标签色，也不使用品牌红代替错误色。",
             "数量超过 99 时显示 99+，避免破坏导航宽度；统计语义需要显示 0 时使用 showZero。",
             "圆点适合提醒“有更新”，数量徽标适合提醒“有多少待处理”。",
+            "独立圆点直径为 8px；依附元素时贴合右上角并增加 2px 白色分隔环，不与头像自身状态点重复使用。",
           ]}
         />
       </section>

@@ -16,7 +16,7 @@ export default function ShadowPage() {
     {
       name: "Shadow/SM",
       value: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
-      usage: "小阴影，用于卡片、下拉菜单、Tooltip等轻量浮层",
+      usage: "小阴影，用于卡片、下拉菜单、文字提示（Tooltip）等轻量浮层",
       elevation: "1-3px",
       blur: "3px",
       color: "rgba(0, 0, 0, 0.1)",
@@ -157,13 +157,13 @@ export default function ShadowPage() {
             {
               level: "MD / LG",
               title: "常规浮层",
-              usage: "Dropdown、Popover、Tooltip、Drawer",
+              usage: "下拉菜单（Dropdown）、气泡弹窗（Popover）、文字提示（Tooltip）、抽屉（Drawer）",
               rule: "用于脱离页面流的组件，表达覆盖关系。",
             },
             {
               level: "XL / 2XL",
               title: "最高层级",
-              usage: "Modal、全屏预览、重要确认浮层",
+              usage: "对话框（Modal）、全屏预览、重要确认浮层",
               rule: "仅用于打断式任务，不进入常规页面模块。",
             },
           ].map((item) => (
@@ -223,11 +223,11 @@ export default function ShadowPage() {
           </thead>
           <tbody>
             {[
-              ["Shadow/XS", "Button · Input · Select · Switch · Checkbox · Radio", "悬停（Hover）、聚焦（Focus）"],
-              ["Shadow/SM", "Card · Tag · Tooltip · 轻量 Popover", "静态卡片悬浮、可选卡片默认态、轻量浮层"],
-              ["Shadow/MD", "Dropdown · Popover · Tooltip（强调）", "下拉菜单展开、Popover 信息面板、强调浮层"],
-              ["Shadow/LG", "Drawer · 侧边面板 · 通知浮层", "抽屉展开、侧边筛选面板、强调通知卡片"],
-              ["Shadow/XL", "Modal · 重要确认弹窗", "模态框、全局通知、重要警告框"],
+              ["Shadow/XS", "按钮 · 输入框 · 选择器 · 开关 · 复选框 · 单选框", "悬停（Hover）、聚焦（Focus）"],
+              ["Shadow/SM", "卡片 · 标签 · 文字提示 · 轻量气泡弹窗", "静态卡片悬浮、可选卡片默认态、轻量浮层"],
+              ["Shadow/MD", "下拉菜单 · 气泡弹窗 · 强调型文字提示", "下拉菜单展开、气泡信息面板、强调浮层"],
+              ["Shadow/LG", "抽屉 · 侧边面板 · 通知浮层", "抽屉展开、侧边筛选面板、强调通知卡片"],
+              ["Shadow/XL", "对话框 · 重要确认弹窗", "模态框、全局通知、重要警告框"],
               ["Shadow/2XL", "全屏预览 · 视频播放器 · 全局打断浮层", "全屏图片预览、全屏媒体播放、系统级打断弹窗"],
             ].map(([level, components, state]) => (
               <tr key={level}>

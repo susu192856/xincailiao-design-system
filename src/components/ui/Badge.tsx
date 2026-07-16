@@ -44,7 +44,7 @@ export function Badge({
   const badgeClassName = [
     "inline-flex items-center justify-center rounded-full font-normal",
     dot ? "h-2 w-2" : sizeClasses[size],
-    dot ? ({ neutral: "bg-[var(--neutral-400)]", product: "bg-[var(--product-blue-400)]", error: "bg-[var(--error-dot)]", danger: "bg-[var(--error-dot)]", info: "bg-[var(--info-dot)]", success: "bg-[var(--success-dot)]", warning: "bg-[var(--warning-dot)]" } as Record<BadgeTone, string>)[tone] : toneClasses[tone],
+    dot ? ({ neutral: "bg-[var(--neutral-400)]", product: "bg-[var(--product-blue-500)]", error: "bg-[var(--error-dot)]", danger: "bg-[var(--error-dot)]", info: "bg-[var(--info-dot)]", success: "bg-[var(--success-dot)]", warning: "bg-[var(--warning-dot)]" } as Record<BadgeTone, string>)[tone] : toneClasses[tone],
     className,
   ].join(" ");
 
@@ -61,7 +61,8 @@ export function Badge({
       {children}
       <span
         className={[
-          "absolute -right-2 -top-2 inline-flex items-center justify-center rounded-full",
+          "absolute inline-flex items-center justify-center rounded-full",
+          dot ? "-right-0.5 -top-0.5 ring-2 ring-white" : "-right-2 -top-2",
           badgeClassName,
         ].join(" ")}
       >

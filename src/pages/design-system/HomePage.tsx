@@ -47,10 +47,10 @@ const sections = [
     eyebrow: "Objective",
     title: "设计目标",
     items: [
-      { icon: <Dna size={24} weight="regular" />, title: "统一的视觉DNA", desc: "覆盖官网、数据空间、材库、材小模等全线产品" },
+      { icon: <Dna size={24} weight="regular" />, title: "统一的视觉语言", desc: "覆盖官网、数据空间、材库、材小模等全线产品" },
       { icon: <StackPlus size={24} weight="regular" />, title: "精准区分与快速搭建", desc: "按页面类型拆分为品牌展示、数据浏览、专业工具、系统管理四种场景，各自使用适合的信息密度和布局方式。" },
       { icon: <FigmaLogo size={24} weight="regular" />, title: "高还原度交付", desc: "Figma（设计工具）组件与开发实现保持同一套设计变量（Token）体系" },
-      { icon: <FlowArrow size={24} weight="regular" />, title: "持续迭代与同步", desc: "设计变量（Token）由 Codex（代码协作工具）维护，自动生成 Markdown（.md）文档和 Figma Tokens（设计变量）" },
+      { icon: <FlowArrow size={24} weight="regular" />, title: "持续迭代与同步", desc: "设计变量（Token）由 Codex（代码协作工具）维护，并同步生成 Markdown 文档和 Figma 变量文件" },
     ],
   },
   {
@@ -90,14 +90,14 @@ export function HomeHero() {
         <div className="min-w-0 flex-1">
           <div className="mb-3 inline-flex items-center gap-2 rounded-sm border border-[var(--neutral-200)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--text-tertiary)]">
             <span className="text-[var(--text-tertiary)] mr-1.5">2026</span><span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-600)]" />
-            新材道设计系统
+            新材道设计系统v2.0
           </div>
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <h1 className="text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">设计系统</h1>
-            <Tag variant="soft" tone="neutral" size="sm">v2.0</Tag>
+            <Tag variant="success" size="sm">测试版</Tag>
           </div>
           <p className="mt-4 max-w-xl text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">
-            覆盖官网门户、可信数据空间、材库、材小模等全线产品的统一设计语言。基于 Token 驱动的色彩、字体、间距、圆角、阴影体系，从 Figma 设计稿到 Vue 3 组件代码保持同一套设计变量，确保品牌识别一致、研发交付高效。
+            覆盖官网门户、可信数据空间、材库、材小模等全线产品的统一设计语言。色彩、字体、间距、圆角和阴影均由设计变量（Token）驱动，从 Figma（设计工具）设计稿到 Vue 3 组件代码保持同一套规则，确保品牌识别一致、研发交付高效。
           </p>
         </div>
         <div className="hidden w-[360px] shrink-0 rounded-sm border border-white/20 bg-white/40 backdrop-blur-lg p-5 lg:block">
@@ -137,22 +137,6 @@ export function HomeHero() {
 export default function HomePage() {
   return (
     <div className="space-y-16">
-
-      <section>
-        <SectionHeading eyebrow="Rules" title="阅读与使用约定" description="页面为阅读者提供中文解释；中文术语后标注英文标识，英文术语后补充中文含义，保证查看时易懂、使用时可直接查找。" />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {[
-            ["中文名称", "先回答“这是什么、何时使用”，标题、说明和业务示例统一使用中文。"],
-            ["英文标识", "中文先出现时写作“浅底模式（soft）”；英文先出现时写作“soft（浅底模式）”。"],
-            ["设计变量（Token）", "变量保留英文代码名并使用等宽字体，例如 --success-text；中文紧邻说明其作用。"],
-          ].map(([title, description]) => (
-            <SectionCard key={title} className="p-5">
-              <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{description}</p>
-            </SectionCard>
-          ))}
-        </div>
-      </section>
 
       {/* Objectives */}
       <section>

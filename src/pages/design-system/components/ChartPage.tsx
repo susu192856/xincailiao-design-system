@@ -1,682 +1,615 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import CodeBlock from "../../../components/docs/CodeBlock";
+import DocsTable from "../../../components/docs/DocsTable";
 import PageHeader from "../../../components/docs/PageHeader";
-import { SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { RuleCallout, SectionHeading, SpecList } from "../../../components/docs/ComponentDoc";
+import { Chart, type ChartLegendItem } from "../../../components/ui/Chart";
+import { Tabs } from "../../../components/ui/Tabs";
 import { chartColorFamilies } from "../../../data/chartColors";
 
-type 色系键名 = (typeof chartColorFamilies)[number]["key"];
+type ColorFamilyKey = (typeof chartColorFamilies)[number]["key"];
+type BarMode = "single" | "grouped";
+type CurveMode = "line" | "area" | "stacked-area";
 
-type 图例项 = {
-  名称: string;
-  颜色: string;
-  形态?: "线" | "面" | "点";
+const colorFamilyIndex = Object.fromEntries(
+  chartColorFamilies.map((family) => [family.key, family]),
+) as Record<ColorFamilyKey, (typeof chartColorFamilies)[number]>;
+
+function color(family: ColorFamilyKey, shade: number) {
+  return colorFamilyIndex[family].shades[shade];
+}
+
+const barData = [
+  { label: "铝合金", current: 76, previous: 62 },
+  { label: "工程塑料", current: 58, previous: 48 },
+  { label: "铜合金", current: 86, previous: 70 },
+  { label: "复合材料", current: 64, previous: 52 },
+  { label: "特种钢", current: 48, previous: 44 },
+  { label: "陶瓷", current: 34, previous: 28 },
+];
+
+const donutData = [
+  { label: "材料性能", value: 34, amount: "42,860", color: color("blue", 2) },
+  { label: "工艺参数", value: 26, amount: "32,780", color: color("green", 2) },
+  { label: "检测报告", value: 18, amount: "22,690", color: color("purple", 2) },
+  { label: "供应信息", value: 14, amount: "17,640", color: color("amber", 1) },
+  { label: "其他", value: 8, amount: "10,080", color: "var(--neutral-400)" },
+];
+
+const curveData = {
+  labels: ["一月", "二月", "三月", "四月", "五月", "六月"],
+  primary: [34, 52, 46, 68, 62, 82],
+  secondary: [22, 31, 38, 42, 54, 61],
+  tertiary: [14, 20, 26, 34, 39, 48],
 };
 
-const 色系索引 = Object.fromEntries(chartColorFamilies.map((family) => [family.key, family])) as Record<色系键名, (typeof chartColorFamilies)[number]>;
-
-function 取色(色系: 色系键名, 层级: number) {
-  return 色系索引[色系].shades[层级];
-}
-
-const 分类色 = [
-  { 名称: "数据空间", 颜色: 取色("blue", 2) },
-  { 名称: "材料库", 颜色: 取色("green", 2) },
-  { 名称: "智能分析", 颜色: 取色("purple", 2) },
-  { 名称: "采购协同", 颜色: 取色("amber", 1) },
-  { 名称: "风险异常", 颜色: 取色("red", 2) },
-  { 名称: "供应状态", 颜色: 取色("orange", 2) },
-];
-
-const 色彩组合 = [
-  {
-    标题: "分类对比",
-    用途: "比较不同材料、模型、部门或渠道。",
-    规则: "优先使用 2–6 个颜色，超过 6 个合并为“其他”；相邻系列避免使用同一色系的近似层级。",
-    颜色: 分类色.map((item) => item.颜色),
-  },
-  {
-    标题: "连续强弱",
-    用途: "表达热度、强度、完成率、成熟度等从低到高的单向变化。",
-    规则: "只选择一个色系，由浅到深排列；不要混入红、绿等会被理解为状态判断的颜色。",
-    颜色: [0, 1, 2, 3, 4, 5].map((i) => 取色("blue", i)),
-  },
-  {
-    标题: "正负发散",
-    用途: "表达围绕基准线的下降与上升、亏损与收益、低于与高于目标。",
-    规则: "中点必须有清晰业务含义；负向用暖色，正向用冷色，中性区保留灰白缓冲。",
-    颜色: [取色("red", 4), 取色("red", 2), 取色("red", 0), "#F1F3F5", 取色("blue", 0), 取色("blue", 2), 取色("blue", 4)],
-  },
-  {
-    标题: "重点强调",
-    用途: "在一组数据中突出当前项、异常项或推荐项。",
-    规则: "基础数据保持低饱和或浅层级，重点项使用同色系更深层级；异常仍使用语义色标注。",
-    颜色: ["#D5DAE1", "#D5DAE1", 取色("green", 3), "#D5DAE1", "#D5DAE1"],
-  },
-];
-
-const 图表选型 = [
-  ["看趋势", "折线图、面积图", "保留时间顺序，线宽 2 像素；系列超过 4 条时优先拆分。"],
-  ["比大小", "柱状图、横向条形图", "柱状图必须从零基线开始；长名称用横向条形图。"],
-  ["看构成", "堆叠柱、环图", "环图控制在 5 项以内；超过 5 项改为条形图或表格。"],
-  ["看分布", "直方图、箱线图", "分箱间距保持一致，避免用分类色制造无意义差异。"],
-  ["看相关", "散点图、气泡图", "颜色表示类别，大小表示数量；必须配合图例和坐标说明。"],
-  ["看偏离", "发散条形图、阈值线", "以业务基准为中心，颜色只表达正负方向，不表达品牌。"],
-];
-
-const 图表类型样式 = [
-  ["图表元素", "坐标轴、网格线、图例、悬浮提示和明细表", "作为所有图表的基础部件复用，网格线轻、文字清楚、悬浮提示只补充精确值。"],
-  ["柱状图", "比较离散品类、部门、区域或材料类型", "单数据集使用单色；分组柱最多 3 组；柱形从零基线开始。"],
-  ["堆叠柱状图", "比较总量及内部构成", "只在总量和构成都重要时使用；堆叠顺序保持稳定，不临时换色。"],
-  ["瀑布图", "解释总量变化的增加、减少和汇总", "正向、负向、汇总三类颜色必须固定；连接线使用弱分割线。"],
-  ["直方图", "查看数值分布、频次、区间集中度", "分箱宽度一致，柱间距为 0 或极小；不要使用分类色装饰每个箱。"],
-  ["折线图", "查看连续时间变化和多系列趋势", "线条优先直接标注；超过 4 条拆分或使用筛选，不堆叠过密。"],
-  ["面积图", "查看单系列累计趋势或体量变化", "填充透明度低于线条；面积不得遮挡坐标与关键标注。"],
-  ["堆叠面积图", "查看整体趋势中的构成变化", "只用于少量稳定分类；分类过多时改为堆叠柱或表格。"],
-  ["环图与半环图", "查看少量构成、进度或占比", "不超过 5 个切片；小切片合并为“其他”，并配明细表。"],
-  ["地图图表", "查看空间分布、区域热度或覆盖情况", "用连续色表达强弱，不用分类色随机填充地图；必须补区域列表。"],
-  ["开高低收图", "查看价格、指数或行情区间", "适合专业行情，不用普通折线过度简化；必须说明开盘、最高、最低、收盘含义。"],
-];
-
-function 色条({ 颜色 }: { 颜色: string[] }) {
+function DataTable({ columns, rows }: { columns: string[]; rows: string[][] }) {
   return (
-    <div className="flex h-8 overflow-hidden rounded-sm border border-white">
-      {颜色.map((color, index) => (
-        <span key={`${color}-${index}`} className="flex-1" style={{ backgroundColor: color }} />
-      ))}
-    </div>
-  );
-}
-
-function 图例({ items }: { items: 图例项[] }) {
-  return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--text-secondary)]">
-      {items.map((item) => (
-        <span key={item.名称} className="inline-flex items-center gap-1.5">
-          <span
-            className={item.形态 === "线" ? "h-0.5 w-5 rounded-full" : "h-2.5 w-2.5 rounded-sm"}
-            style={{ backgroundColor: item.颜色 }}
-          />
-          {item.名称}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function 图表容器({
-  标题,
-  说明,
-  右侧,
-  图例项,
-  children,
-  表格,
-}: {
-  标题: string;
-  说明: string;
-  右侧?: string;
-  图例项: 图例项[];
-  children: ReactNode;
-  表格?: ReactNode;
-}) {
-  return (
-    <div className="overflow-hidden rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-      <div className="border-b border-[var(--neutral-200)] px-5 py-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <h3 className="text-base font-semibold leading-6 text-[var(--text-primary)]">{标题}</h3>
-            <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">{说明}</p>
-          </div>
-          {右侧 ? <span className="shrink-0 text-xs leading-5 text-[var(--text-secondary)]">{右侧}</span> : null}
-        </div>
-        <div className="mt-4">
-          <图例 items={图例项} />
-        </div>
-      </div>
-      <div className="p-5">
-        {children}
-        {表格 ? <div className="mt-5">{表格}</div> : null}
-      </div>
-    </div>
-  );
-}
-
-function 明细表({
-  columns,
-  rows,
-}: {
-  columns: string[];
-  rows: string[][];
-}) {
-  return (
-    <div className="overflow-x-auto rounded-sm border border-[var(--neutral-200)]">
-      <div className="min-w-[520px]">
-        <div className="grid bg-[var(--neutral-50)] text-sm font-semibold text-[var(--text-secondary)]" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
-          {columns.map((column) => (
-            <div key={column} className="border-r border-[var(--neutral-200)] px-3 py-2.5 last:border-r-0">{column}</div>
+    <DocsTable className="min-w-[560px]">
+        <thead className="bg-[var(--neutral-50)] text-[var(--text-secondary)]">
+          <tr>
+            {columns.map((column) => <th key={column} className="px-3 py-2.5 font-medium">{column}</th>)}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-[var(--neutral-100)]">
+          {rows.map((row) => (
+            <tr key={row.join("-")}>
+              {row.map((cell, index) => (
+                <td key={`${cell}-${index}`} className={index ? "px-3 py-2.5 font-data tabular-nums text-[var(--text-secondary)]" : "px-3 py-2.5 text-[var(--text-primary)]"}>{cell}</td>
+              ))}
+            </tr>
           ))}
-        </div>
-        {rows.map((row) => (
-          <div key={row.join("-")} className="grid border-t border-[var(--neutral-100)] text-sm text-[var(--text-secondary)]" style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
-            {row.map((cell, index) => (
-              <div key={`${cell}-${index}`} className="border-r border-[var(--neutral-100)] px-3 py-2.5 last:border-r-0">{cell}</div>
-            ))}
-          </div>
-        ))}
-      </div>
+        </tbody>
+    </DocsTable>
+  );
+}
+
+function RuleSurface({ title, children, tone }: { title: string; children: ReactNode; tone: "do" | "dont" | "neutral" }) {
+  const toneClass = {
+    do: "border-t-[var(--success-solid)]",
+    dont: "border-t-[var(--error-solid)]",
+    neutral: "border-t-[var(--neutral-900)]",
+  }[tone];
+
+  return (
+    <div className={["border border-[var(--neutral-200)] border-t-2 bg-white p-5", toneClass].join(" ")}>
+      <p className="text-sm font-semibold text-[var(--text-primary)]">{title}</p>
+      <div className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{children}</div>
     </div>
   );
 }
 
-function 坐标文字({ x, y, children }: { x: number; y: number; children: ReactNode }) {
-  return <text x={x} y={y} fill="var(--neutral-600)" fontSize="11">{children}</text>;
-}
-
-function 折线图示例() {
+function RoleCard({ role, task, route }: { role: string; task: string; route: string }) {
   return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="三条材料数据趋势折线图">
-      {[48, 92, 136, 180].map((y) => (
-        <line key={y} x1="56" x2="608" y1={y} y2={y} stroke="var(--neutral-200)" strokeWidth="1" />
-      ))}
-      <line x1="56" x2="608" y1="220" y2="220" stroke="var(--neutral-300)" />
-      <line x1="56" x2="56" y1="32" y2="220" stroke="var(--neutral-300)" />
-      {["一月", "二月", "三月", "四月", "五月", "六月"].map((label, index) => (
-        <坐标文字 key={label} x={72 + index * 98} y={244}>{label}</坐标文字>
-      ))}
-      {["0", "25", "50", "75"].map((label, index) => (
-        <坐标文字 key={label} x={20} y={224 - index * 44}>{label}</坐标文字>
-      ))}
-      <polyline points="74,180 172,150 270,118 368,108 466,82 564,58" fill="none" stroke={取色("blue", 2)} strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
-      <polyline points="74,194 172,166 270,156 368,126 466,116 564,92" fill="none" stroke={取色("green", 2)} strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
-      <polyline points="74,206 172,196 270,174 368,160 466,146 564,134" fill="none" stroke={取色("purple", 2)} strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" />
-      <line x1="56" x2="608" y1="118" y2="118" stroke="var(--warning-text)" strokeDasharray="5 5" />
-      <text x="520" y="110" fill="var(--warning-text)" fontSize="11">目标线</text>
-      {[["74,180", 取色("blue", 2)], ["368,126", 取色("green", 2)], ["564,134", 取色("purple", 2)]].map(([point, color]) => {
-        const [x, y] = point.split(",").map(Number);
-        return <circle key={point} cx={x} cy={y} r="4" fill="white" stroke={color} strokeWidth="2" />;
-      })}
-    </svg>
-  );
-}
-
-function 柱状图示例() {
-  const bars = [
-    { label: "铝材", value: 142, color: 取色("blue", 2) },
-    { label: "铜材", value: 118, color: 取色("green", 2) },
-    { label: "硅材", value: 96, color: 取色("purple", 2) },
-    { label: "树脂", value: 74, color: 取色("amber", 1) },
-    { label: "助剂", value: 58, color: 取色("orange", 2) },
-  ];
-
-  return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="材料品类采购量柱状图">
-      {[52, 94, 136, 178].map((y) => (
-        <line key={y} x1="56" x2="608" y1={y} y2={y} stroke="var(--neutral-200)" strokeWidth="1" />
-      ))}
-      <line x1="56" x2="608" y1="220" y2="220" stroke="var(--neutral-300)" />
-      <line x1="56" x2="56" y1="32" y2="220" stroke="var(--neutral-300)" />
-      {bars.map((bar, index) => {
-        const height = bar.value;
-        const x = 86 + index * 96;
-        const y = 220 - height;
-        return (
-          <g key={bar.label}>
-            <rect x={x} y={y} width="42" height={height} rx="2" fill={bar.color} />
-            <坐标文字 x={x + 4} y={244}>{bar.label}</坐标文字>
-            <text x={x + 6} y={y - 8} fill="var(--neutral-700)" fontSize="11">{bar.value}</text>
-          </g>
-        );
-      })}
-      <坐标文字 x={16} y={224}>0</坐标文字>
-      <坐标文字 x={10} y={138}>100</坐标文字>
-      <坐标文字 x={10} y={54}>200</坐标文字>
-    </svg>
-  );
-}
-
-function 发散图示例() {
-  const rows = [
-    ["华东", -28],
-    ["华南", 18],
-    ["华北", 44],
-    ["西南", -12],
-    ["海外", 31],
-  ] as const;
-
-  return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="区域目标偏离发散条形图">
-      <line x1="320" x2="320" y1="32" y2="224" stroke="var(--neutral-500)" strokeDasharray="4 4" />
-      <坐标文字 x={304} y={244}>基准</坐标文字>
-      {rows.map(([label, value], index) => {
-        const y = 48 + index * 36;
-        const width = Math.abs(value) * 4;
-        const isNegative = value < 0;
-        return (
-          <g key={label}>
-            <坐标文字 x={60} y={y + 14}>{label}</坐标文字>
-            <rect
-              x={isNegative ? 320 - width : 320}
-              y={y}
-              width={width}
-              height="20"
-              rx="2"
-              fill={isNegative ? 取色("red", 3) : 取色("blue", 3)}
-            />
-            <text x={isNegative ? 320 - width - 34 : 320 + width + 8} y={y + 14} fill="var(--neutral-700)" fontSize="11">{value}%</text>
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
-function 环图示例() {
-  const segments = [
-    { 名称: "数据空间", 值: 34, 颜色: 取色("blue", 2) },
-    { 名称: "材料库", 值: 26, 颜色: 取色("green", 2) },
-    { 名称: "智能分析", 值: 18, 颜色: 取色("purple", 2) },
-    { 名称: "采购协同", 值: 14, 颜色: 取色("amber", 1) },
-    { 名称: "其他", 值: 8, 颜色: "var(--neutral-400)" },
-  ];
-  const circumference = 339.292;
-  let offset = 0;
-
-  return (
-    <div className="grid gap-5 md:grid-cols-[260px_minmax(0,1fr)] md:items-center">
-      <svg className="mx-auto h-auto w-full max-w-[260px]" viewBox="0 0 180 180" role="img" aria-label="数据模块占比环图">
-        <circle cx="90" cy="90" r="54" fill="none" stroke="var(--neutral-100)" strokeWidth="28" />
-        {segments.map((item) => {
-          const dash = Math.max((item.值 / 100) * circumference - 2, 0);
-          const dashOffset = -offset;
-          offset += (item.值 / 100) * circumference;
-          return (
-            <circle
-              key={item.名称}
-              cx="90"
-              cy="90"
-              r="54"
-              fill="none"
-              stroke={item.颜色}
-              strokeWidth="28"
-              strokeDasharray={`${dash} ${circumference - dash}`}
-              strokeDashoffset={dashOffset}
-              transform="rotate(-90 90 90)"
-            />
-          );
-        })}
-        <text x="90" y="84" textAnchor="middle" fill="var(--neutral-900)" fontSize="20" fontWeight="700">100%</text>
-        <text x="90" y="105" textAnchor="middle" fill="var(--neutral-600)" fontSize="11">总占比</text>
-      </svg>
-      <div className="space-y-2">
-        {segments.map((item) => (
-          <div key={item.名称} className="grid grid-cols-[12px_1fr_auto] items-center gap-2 text-sm">
-            <span className="h-3 w-3 rounded-sm" style={{ backgroundColor: item.颜色 }} />
-            <span className="text-[var(--text-secondary)]">{item.名称}</span>
-            <span className="font-semibold text-[var(--text-primary)]">{item.值}%</span>
-          </div>
-        ))}
-      </div>
+    <div className="border border-[var(--neutral-200)] bg-white p-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">{role}</p>
+      <p className="mt-3 text-base font-semibold text-[var(--text-primary)]">{route}</p>
+      <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{task}</p>
     </div>
   );
 }
 
-function 热力矩阵示例() {
-  const rows = ["强度", "韧性", "耐温", "成本"];
-  const columns = ["一月", "二月", "三月", "四月", "五月"];
-  const levels = [0, 1, 2, 3, 4, 5, 2, 4, 3, 1, 5, 4, 2, 1, 0, 1, 3, 5, 4, 2];
+function BarChartDemo() {
+  const [mode, setMode] = useState<BarMode>("single");
+  const [activeIndex, setActiveIndex] = useState(2);
+  const active = barData[activeIndex];
+  const max = 100;
+  const legend: ChartLegendItem[] = mode === "single"
+    ? [{ label: "本期数据量", color: "var(--product-blue-500)" }]
+    : [
+        { label: "本期", color: "var(--product-blue-500)" },
+        { label: "上期", color: "var(--product-blue-200)" },
+      ];
+
   return (
-    <div className="overflow-x-auto">
-      <div className="min-w-[520px]">
-        <div className="grid grid-cols-[64px_repeat(5,minmax(0,1fr))] text-sm font-semibold text-[var(--text-secondary)]">
-          <span />
-          {columns.map((column) => <span key={column} className="px-2 py-2 text-center">{column}</span>)}
-        </div>
-        {rows.map((row, rowIndex) => (
-          <div key={row} className="grid grid-cols-[64px_repeat(5,minmax(0,1fr))] items-center gap-1 text-sm">
-            <span className="text-[var(--text-secondary)]">{row}</span>
-            {columns.map((column, columnIndex) => {
-              const level = levels[rowIndex * columns.length + columnIndex];
+    <Chart
+      chartType="bar"
+      title="材料数据量对比"
+      description="按材料类别比较已治理数据量；柱形从零基线开始，选择任一类别查看精确值。"
+      legendItems={legend}
+      actions={(
+        <Tabs
+          value={mode}
+          onValueChange={(value) => setMode(value as BarMode)}
+          variant="segment"
+          size="sm"
+          items={[
+            { value: "single", label: "单系列", content: null },
+            { value: "grouped", label: "分组对比", content: null },
+          ]}
+        />
+      )}
+      showTable
+      table={(
+        <DataTable
+          columns={["材料类别", "本期数据量", "上期数据量", "环比"]}
+          rows={barData.map((item) => [item.label, `${item.current} 万条`, `${item.previous} 万条`, `+${Math.round(((item.current - item.previous) / item.previous) * 100)}%`])}
+        />
+      )}
+      ariaLabel="可交互材料数据量柱状图"
+    >
+      <div className="min-w-[640px]">
+        <div className="relative h-[292px] pb-8 pl-12">
+          {["100", "75", "50", "25", "0"].map((label, index) => (
+            <span key={label} className="absolute left-0 font-data text-xs tabular-nums text-[var(--text-tertiary)]" style={{ top: `${index * 56 - 6}px` }}>{label}</span>
+          ))}
+          <div className="absolute bottom-8 left-12 right-0 top-0 flex flex-col justify-between" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map((line) => <span key={line} className="h-px bg-[var(--neutral-200)]" />)}
+          </div>
+          <div className="absolute bottom-8 left-12 right-0 top-0 grid grid-cols-6">
+            {barData.map((item, index) => {
+              const selected = index === activeIndex;
+              const tooltipAlign = index === 0 ? "left-1" : index === barData.length - 1 ? "right-1" : "left-1/2 -translate-x-1/2";
               return (
-                <span
-                  key={`${row}-${column}`}
-                  className="flex h-10 items-center justify-center rounded-sm font-semibold"
-                  style={{ backgroundColor: 取色("blue", level), color: level > 3 ? "white" : "var(--neutral-900)" }}
+                <button
+                  key={item.label}
+                  type="button"
+                  className={[
+                    "group relative flex h-full items-end justify-center gap-1 px-3 outline-none transition-colors",
+                    selected ? "bg-[var(--neutral-50)]" : "hover:bg-[var(--neutral-50)] focus-visible:bg-[var(--neutral-50)]",
+                  ].join(" ")}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onFocus={() => setActiveIndex(index)}
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`${item.label}：本期 ${item.current} 万条，上期 ${item.previous} 万条`}
+                  aria-pressed={selected}
                 >
-                  {level + 1}
-                </span>
+                  {selected ? (
+                    <span className={["absolute top-2 z-10 w-36 rounded-[var(--radius-sm)] bg-[var(--neutral-900)] px-3 py-2 text-left text-xs leading-5 text-white shadow-[var(--shadow-md)]", tooltipAlign].join(" ")} role="status">
+                      <strong className="block font-medium">{item.label}</strong>
+                      <span className="block text-[var(--neutral-200)]">本期 {item.current} 万条</span>
+                      {mode === "grouped" ? <span className="block text-[var(--neutral-200)]">上期 {item.previous} 万条</span> : null}
+                    </span>
+                  ) : null}
+                  {mode === "grouped" ? (
+                    <span className="w-4 rounded-t-[2px] bg-[var(--product-blue-200)] transition-[height]" style={{ height: `${(item.previous / max) * 70}%` }} aria-hidden="true" />
+                  ) : null}
+                  <span className="w-6 rounded-t-[2px] bg-[var(--product-blue-500)] transition-[height]" style={{ height: `${(item.current / max) * 70}%` }} aria-hidden="true" />
+                  <span className="absolute -bottom-7 left-1/2 w-full -translate-x-1/2 truncate px-1 text-center text-xs text-[var(--text-tertiary)]">{item.label}</span>
+                </button>
               );
             })}
           </div>
-        ))}
+        </div>
+        <div className="mt-3 grid grid-cols-3 gap-3 border-t border-[var(--neutral-100)] pt-4">
+          <div><p className="text-xs text-[var(--text-tertiary)]">当前类别</p><p className="mt-1 text-sm font-medium text-[var(--text-primary)]">{active.label}</p></div>
+          <div><p className="text-xs text-[var(--text-tertiary)]">本期</p><p className="mt-1 font-data text-lg font-semibold tabular-nums text-[var(--text-primary)]">{active.current} 万</p></div>
+          <div><p className="text-xs text-[var(--text-tertiary)]">环比</p><p className="mt-1 font-data text-lg font-semibold tabular-nums text-[var(--success-text)]">+{Math.round(((active.current - active.previous) / active.previous) * 100)}%</p></div>
+        </div>
       </div>
+    </Chart>
+  );
+}
+
+function DonutChartDemo() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = donutData[activeIndex];
+  const circumference = 2 * Math.PI * 62;
+  let offset = 0;
+
+  return (
+    <Chart
+      chartType="donut"
+      title="数据资产构成"
+      description="查看已治理数据按内容类型的构成；不超过 5 个切片，并同步提供精确明细。"
+      actions={<span className="text-xs leading-6 text-[var(--text-tertiary)]">本月 · 共 126,050 条</span>}
+      showTable
+      table={<DataTable columns={["内容类型", "占比", "数据量"]} rows={donutData.map((item) => [item.label, `${item.value}%`, `${item.amount} 条`])} />}
+      ariaLabel="可交互数据资产构成环图"
+    >
+      <div className="grid min-w-[560px] gap-8 md:grid-cols-[300px_minmax(0,1fr)] md:items-center">
+        <svg className="mx-auto h-auto w-full max-w-[300px]" viewBox="0 0 220 220" role="img" aria-label="数据资产构成环图，可聚焦每个切片查看明细">
+          <circle cx="110" cy="110" r="62" fill="none" stroke="var(--neutral-100)" strokeWidth="24" />
+          {donutData.map((item, index) => {
+            const segment = (item.value / 100) * circumference;
+            const dashOffset = -offset;
+            offset += segment;
+            const selected = index === activeIndex;
+            return (
+              <circle
+                key={item.label}
+                cx="110"
+                cy="110"
+                r="62"
+                fill="none"
+                stroke={item.color}
+                strokeWidth={selected ? 30 : 24}
+                strokeDasharray={`${Math.max(segment - 3, 0)} ${circumference - segment + 3}`}
+                strokeDashoffset={dashOffset}
+                transform="rotate(-90 110 110)"
+                className="cursor-pointer outline-none transition-[stroke-width,opacity] focus-visible:opacity-70"
+                opacity={selected ? 1 : 0.72}
+                tabIndex={0}
+                role="button"
+                aria-label={`${item.label}，占比 ${item.value}%`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onFocus={() => setActiveIndex(index)}
+                onClick={() => setActiveIndex(index)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") setActiveIndex(index);
+                }}
+              />
+            );
+          })}
+          <text x="110" y="104" textAnchor="middle" fill="var(--neutral-900)" fontSize="25" fontWeight="600" className="font-data">{active.value}%</text>
+          <text x="110" y="126" textAnchor="middle" fill="var(--neutral-600)" fontSize="12">{active.label}</text>
+        </svg>
+        <div className="space-y-2">
+          {donutData.map((item, index) => (
+            <button
+              key={item.label}
+              type="button"
+              className={[
+                "grid w-full grid-cols-[12px_minmax(0,1fr)_auto_auto] items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2.5 text-left text-sm outline-none transition-colors",
+                index === activeIndex ? "bg-[var(--neutral-100)]" : "hover:bg-[var(--neutral-50)] focus-visible:bg-[var(--neutral-50)]",
+              ].join(" ")}
+              onMouseEnter={() => setActiveIndex(index)}
+              onFocus={() => setActiveIndex(index)}
+              onClick={() => setActiveIndex(index)}
+              aria-pressed={index === activeIndex}
+            >
+              <span className="h-3 w-3 rounded-[2px]" style={{ backgroundColor: item.color }} aria-hidden="true" />
+              <span className="truncate text-[var(--text-primary)]">{item.label}</span>
+              <span className="font-data tabular-nums text-[var(--text-secondary)]">{item.amount}</span>
+              <strong className="w-10 text-right font-data tabular-nums text-[var(--text-primary)]">{item.value}%</strong>
+            </button>
+          ))}
+        </div>
+      </div>
+    </Chart>
+  );
+}
+
+function pointString(values: number[]) {
+  return values.map((value, index) => `${70 + index * 100},${240 - value * 2}`).join(" ");
+}
+
+function areaPath(values: number[]) {
+  const points = values.map((value, index) => `${70 + index * 100} ${240 - value * 2}`).join(" L ");
+  return `M ${points} L 570 240 L 70 240 Z`;
+}
+
+function betweenPath(upper: number[], lower: number[]) {
+  const upperPoints = upper.map((value, index) => `${70 + index * 100} ${240 - value * 2}`).join(" L ");
+  const lowerPoints = lower.map((value, index) => `${70 + (lower.length - 1 - index) * 100} ${240 - lower[lower.length - 1 - index] * 2}`).join(" L ");
+  return `M ${upperPoints} L ${lowerPoints} Z`;
+}
+
+function CurveChartDemo() {
+  const [mode, setMode] = useState<CurveMode>("line");
+  const [activeIndex, setActiveIndex] = useState(3);
+  const x = 70 + activeIndex * 100;
+  const tooltipX = Math.max(12, Math.min(x - 68, 492));
+  const stackedTotal = curveData.primary.map((value, index) => Math.min(value + curveData.secondary[index] * 0.45, 96));
+  const legend: ChartLegendItem[] = mode === "line"
+    ? [
+        { label: "数据空间", color: color("blue", 2), shape: "line" },
+        { label: "材料库", color: color("green", 2), shape: "line" },
+        { label: "智能分析", color: color("purple", 2), shape: "line" },
+      ]
+    : mode === "area"
+      ? [{ label: "数据调用量", color: color("blue", 2), shape: "line" }]
+      : [
+          { label: "数据空间", color: color("blue", 2) },
+          { label: "材料库", color: color("green", 2) },
+        ];
+
+  return (
+    <Chart
+      chartType={mode}
+      title="材料数据调用趋势"
+      description="折线看变化，面积看单系列体量，堆叠面积看稳定分类的构成变化。"
+      legendItems={legend}
+      actions={(
+        <Tabs
+          value={mode}
+          onValueChange={(value) => setMode(value as CurveMode)}
+          variant="segment"
+          size="sm"
+          items={[
+            { value: "line", label: "折线", content: null },
+            { value: "area", label: "面积", content: null },
+            { value: "stacked-area", label: "堆叠面积", content: null },
+          ]}
+        />
+      )}
+      showTable
+      table={(
+        <DataTable
+          columns={["月份", "数据空间", "材料库", "智能分析"]}
+          rows={curveData.labels.map((label, index) => [label, `${curveData.primary[index]} 万次`, `${curveData.secondary[index]} 万次`, `${curveData.tertiary[index]} 万次`])}
+        />
+      )}
+      ariaLabel="可交互材料数据调用趋势图"
+    >
+      <div className="min-w-[640px]">
+        <svg className="h-auto w-full" viewBox="0 0 640 280" role="img" aria-label={`${mode === "line" ? "折线" : mode === "area" ? "面积" : "堆叠面积"}趋势图，可聚焦月份查看精确值`}>
+          {[40, 90, 140, 190, 240].map((y) => <line key={y} x1="50" x2="610" y1={y} y2={y} stroke="var(--neutral-200)" />)}
+          {curveData.labels.map((label, index) => (
+            <text key={label} x={70 + index * 100} y="265" textAnchor="middle" fill="var(--neutral-600)" fontSize="11">{label}</text>
+          ))}
+          {mode === "area" ? (
+            <>
+              <path d={areaPath(curveData.primary)} fill={color("blue", 0)} opacity="0.32" />
+              <polyline points={pointString(curveData.primary)} fill="none" stroke={color("blue", 3)} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+            </>
+          ) : mode === "stacked-area" ? (
+            <>
+              <path d={areaPath(curveData.primary)} fill={color("blue", 1)} opacity="0.72" />
+              <path d={betweenPath(stackedTotal, curveData.primary)} fill={color("green", 1)} opacity="0.72" />
+              <polyline points={pointString(stackedTotal)} fill="none" stroke={color("green", 3)} strokeWidth="2" />
+            </>
+          ) : (
+            <>
+              <polyline points={pointString(curveData.primary)} fill="none" stroke={color("blue", 3)} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+              <polyline points={pointString(curveData.secondary)} fill="none" stroke={color("green", 3)} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+              <polyline points={pointString(curveData.tertiary)} fill="none" stroke={color("purple", 3)} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+            </>
+          )}
+          {curveData.labels.map((label, index) => (
+            <g
+              key={label}
+              role="button"
+              tabIndex={0}
+              aria-label={`${label}：数据空间 ${curveData.primary[index]} 万次，材料库 ${curveData.secondary[index]} 万次，智能分析 ${curveData.tertiary[index]} 万次`}
+              onMouseEnter={() => setActiveIndex(index)}
+              onFocus={() => setActiveIndex(index)}
+              onClick={() => setActiveIndex(index)}
+              className="cursor-pointer outline-none"
+            >
+              <rect x={30 + index * 100} y="24" width="80" height="216" fill={index === activeIndex ? "var(--neutral-100)" : "transparent"} opacity="0.62" />
+              {index === activeIndex ? <line x1={70 + index * 100} x2={70 + index * 100} y1="28" y2="240" stroke="var(--neutral-400)" strokeDasharray="4 4" /> : null}
+            </g>
+          ))}
+          <g transform={`translate(${tooltipX} 34)`} role="status">
+            <rect width="136" height={mode === "line" ? 88 : 66} rx="3" fill="var(--neutral-900)" />
+            <text x="12" y="20" fill="white" fontSize="11" fontWeight="600">{curveData.labels[activeIndex]}</text>
+            <text x="12" y="41" fill="var(--neutral-200)" fontSize="10">数据空间</text>
+            <text x="122" y="41" fill="white" fontSize="11" textAnchor="end">{curveData.primary[activeIndex]} 万</text>
+            {mode === "line" ? (
+              <>
+                <text x="12" y="61" fill="var(--neutral-200)" fontSize="10">材料库</text>
+                <text x="122" y="61" fill="white" fontSize="11" textAnchor="end">{curveData.secondary[activeIndex]} 万</text>
+                <text x="12" y="79" fill="var(--neutral-200)" fontSize="10">智能分析</text>
+                <text x="122" y="79" fill="white" fontSize="11" textAnchor="end">{curveData.tertiary[activeIndex]} 万</text>
+              </>
+            ) : null}
+          </g>
+        </svg>
+      </div>
+    </Chart>
+  );
+}
+
+function InteractionRules({ type }: { type: "bar" | "donut" | "curve" }) {
+  const content = {
+    bar: [
+      ["桌面端", "悬浮整列类别带，而不是只悬浮柱形；工具提示展示类别、系列、精确值和单位。"],
+      ["移动端", "点击柱形后保持选中，并在图下方显示明细；坐标轴可精简，但不能缩小到不可读。"],
+      ["键盘与读屏", "每个类别是可聚焦目标，名称同时播报本期与对比值；明细表提供等价数据。"],
+      ["设计交付", "Figma 提供默认、悬浮、选中、带趋势线、带表格和移动端列表状态。"],
+    ],
+    donut: [
+      ["桌面端", "悬浮切片与对应图例行同步高亮；中心区域显示当前切片名称和占比。"],
+      ["移动端", "点击切片或明细行保持选中，优先通过列表读精确值，不依赖小切片命中。"],
+      ["键盘与读屏", "切片可聚焦并播报名称与占比；同时提供包含数量和占比的明细表。"],
+      ["设计交付", "Figma 将切片、中心值、图例行和选中态拆分为可复用部件。"],
+    ],
+    curve: [
+      ["桌面端", "悬浮整列时间带，工具提示同时显示同一时间点的所有系列，不追逐细小折线。"],
+      ["移动端", "点击时间点后保持选中，图下列表同步显示该时间点明细；复杂序列允许横向滚动。"],
+      ["键盘与读屏", "每个时间点可聚焦；读屏内容包含日期、系列名、数值和单位，表格提供完整历史。"],
+      ["设计交付", "Figma 分离折线、面积、堆叠面积三种类型，不用一个布尔属性临时改变含义。"],
+    ],
+  }[type];
+
+  return (
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      {content.map(([title, text]) => (
+        <RuleSurface key={title} title={title} tone="neutral"><p>{text}</p></RuleSurface>
+      ))}
     </div>
   );
 }
 
-function 瀑布图示例() {
-  const bars = [
-    { label: "期初", value: 90, start: 0, color: "var(--neutral-500)" },
-    { label: "新增", value: 46, start: 90, color: 取色("blue", 3) },
-    { label: "降本", value: 24, start: 136, color: 取色("blue", 2) },
-    { label: "损耗", value: -32, start: 160, color: 取色("red", 3) },
-    { label: "期末", value: 128, start: 0, color: "var(--neutral-900)" },
-  ];
+function BarCategory() {
   return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="成本变化瀑布图">
-      {[58, 98, 138, 178, 218].map((y) => <line key={y} x1="56" x2="608" y1={y} y2={y} stroke="var(--neutral-200)" />)}
-      <line x1="56" x2="608" y1="220" y2="220" stroke="var(--neutral-300)" />
-      {bars.map((bar, index) => {
-        const x = 80 + index * 96;
-        const top = 220 - Math.max(bar.start, bar.start + bar.value);
-        const height = Math.abs(bar.value);
-        return (
-          <g key={bar.label}>
-            <rect x={x} y={top} width="44" height={height} rx="2" fill={bar.color} />
-            <坐标文字 x={x - 2} y={244}>{bar.label}</坐标文字>
-            <text x={x + 4} y={top - 8} fill="var(--neutral-700)" fontSize="11">{bar.value > 0 && index !== 0 && index !== bars.length - 1 ? `+${bar.value}` : bar.value}</text>
-            {index > 0 && index < bars.length - 1 ? <line x1={x - 52} x2={x} y1={220 - bar.start} y2={220 - bar.start} stroke="var(--neutral-300)" strokeDasharray="4 4" /> : null}
-          </g>
-        );
-      })}
-    </svg>
+    <Tabs
+      defaultValue="examples"
+      items={[
+        {
+          value: "examples",
+          label: "案例",
+          content: (
+            <div className="space-y-4">
+              <BarChartDemo />
+              <CodeBlock code={`<Chart\n  chartType="bar"\n  title="材料数据量对比"\n  legendItems={legendItems}\n  showTable\n  table={<DataTable rows={rows} />}\n>\n  <BarPlot data={data} interactive />\n</Chart>`} />
+            </div>
+          ),
+        },
+        {
+          value: "rules",
+          label: "使用规则",
+          content: (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <RuleSurface title="推荐" tone="do"><p>用于离散类别比较，所有柱形从零基线开始；单系列只用一种颜色，分组系列不超过 3 组。</p></RuleSurface>
+                <RuleSurface title="避免" tone="dont"><p>不要截断纵轴夸大差异，不要为每根柱随机配色，也不要把连续时间分布误画成分类柱状图。</p></RuleSurface>
+              </div>
+              <SpecList items={[
+                "竖向柱状图用于短类别名；标签较长或类别超过 8 个时改用横向条形图。",
+                "柱宽随容器密度调整，柱间距至少等于柱宽的 50%；分组内间距小于组间距。",
+                "圆角仅用于顶部两个角，半径固定为 2px，底部保持直角以准确贴合零基线。",
+                "尺寸按 12 / 8 / 4 栅格列宽提供大、中、小三档；小尺寸减少刻度数量，不缩小正文。",
+                "趋势线和基准点必须在图例中说明编码，不与柱形使用同一颜色。",
+              ]} />
+            </div>
+          ),
+        },
+        { value: "interaction", label: "交互与适配", content: <InteractionRules type="bar" /> },
+      ]}
+    />
   );
 }
 
-function 直方图示例() {
-  const values = [18, 42, 76, 112, 146, 132, 104, 68, 36, 22];
+function DonutCategory() {
   return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="材料强度分布直方图">
-      {[52, 94, 136, 178].map((y) => <line key={y} x1="56" x2="608" y1={y} y2={y} stroke="var(--neutral-200)" />)}
-      <line x1="56" x2="608" y1="220" y2="220" stroke="var(--neutral-300)" />
-      <line x1="56" x2="56" y1="32" y2="220" stroke="var(--neutral-300)" />
-      {values.map((value, index) => {
-        const x = 74 + index * 50;
-        const y = 220 - value;
-        return <rect key={index} x={x} y={y} width="46" height={value} fill={取色("blue", 2)} opacity={index === 4 ? 1 : 0.72} />;
-      })}
-      {["0", "20", "40", "60", "80", "100"].map((label, index) => <坐标文字 key={label} x={70 + index * 50} y={244}>{label}</坐标文字>)}
-    </svg>
+    <Tabs
+      defaultValue="examples"
+      items={[
+        { value: "examples", label: "案例", content: <DonutChartDemo /> },
+        {
+          value: "rules",
+          label: "使用规则",
+          content: (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <RuleSurface title="推荐" tone="do"><p>仅表达少量构成或完成度，切片总和必须为 100%；中心区域展示总量或当前切片，不放长段文字。</p></RuleSurface>
+                <RuleSurface title="避免" tone="dont"><p>超过 5 个切片时改为排序条形图或表格；不要使用 3D、爆炸切片或相近颜色制造装饰效果。</p></RuleSurface>
+              </div>
+              <SpecList items={[
+                "完整环图用于构成；半环图仅用于有明确目标上限的进度或区间，不作为普通占比装饰。",
+                "切片按业务顺序或数值降序排列，“其他”固定置于末尾并使用中性灰。",
+                "切片之间保留 2–3px 白色分隔，不用粗描边；最小可见切片不足 3% 时合并为“其他”。",
+                "图例同时显示名称、数量和占比，不能只靠颜色判断类别。",
+                "移动端优先保证明细列表可读，环图可缩小但交互目标不得小于 44px。",
+              ]} />
+            </div>
+          ),
+        },
+        { value: "interaction", label: "交互与适配", content: <InteractionRules type="donut" /> },
+      ]}
+    />
   );
 }
 
-function 面积图示例() {
+function CurveCategory() {
   return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="模型调用面积趋势图">
-      {[52, 94, 136, 178].map((y) => <line key={y} x1="56" x2="608" y1={y} y2={y} stroke="var(--neutral-200)" />)}
-      <line x1="56" x2="608" y1="220" y2="220" stroke="var(--neutral-300)" />
-      <path d="M74 188 L170 172 L266 132 L362 118 L458 82 L564 64 L564 220 L74 220 Z" fill={取色("green", 1)} opacity="0.28" />
-      <path d="M74 188 L170 172 L266 132 L362 118 L458 82 L564 64" fill="none" stroke={取色("green", 3)} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      {["一月", "二月", "三月", "四月", "五月", "六月"].map((label, index) => <坐标文字 key={label} x={72 + index * 98} y={244}>{label}</坐标文字>)}
-      <text x="430" y="72" fill="var(--neutral-700)" fontSize="11">增长趋势</text>
-    </svg>
+    <Tabs
+      defaultValue="examples"
+      items={[
+        { value: "examples", label: "案例", content: <CurveChartDemo /> },
+        {
+          value: "rules",
+          label: "使用规则",
+          content: (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <RuleSurface title="推荐" tone="do"><p>折线用于连续趋势，面积图用于单系列体量，堆叠面积用于少量且稳定的构成随时间变化。</p></RuleSurface>
+                <RuleSurface title="避免" tone="dont"><p>不要用平滑曲线制造不存在的峰谷，不要堆叠会频繁增删的分类，也不要用面积比较精确差值。</p></RuleSurface>
+              </div>
+              <SpecList items={[
+                "折线宽度为 2px；默认不显示全部数据点，仅在悬浮、选中、异常或关键节点显示。",
+                "同图折线不超过 4 条；超过时用筛选、分面小图或拆分视图。",
+                "面积填充透明度低于边界线，确保网格、阈值和标注仍然清楚。",
+                "堆叠面积分类顺序必须稳定，最重要系列靠近基线；不适合比较中间层的精确变化。",
+                "时间轴保持等距；缺失值显示断线或明确缺口，不用零值伪造连续。",
+              ]} />
+            </div>
+          ),
+        },
+        { value: "interaction", label: "交互与适配", content: <InteractionRules type="curve" /> },
+      ]}
+    />
   );
 }
 
-function 开高低收图示例() {
-  const rows = [
-    { x: 100, high: 58, low: 192, open: 132, close: 96, up: true },
-    { x: 172, high: 72, low: 206, open: 108, close: 150, up: false },
-    { x: 244, high: 46, low: 178, open: 138, close: 82, up: true },
-    { x: 316, high: 66, low: 198, open: 96, close: 142, up: false },
-    { x: 388, high: 54, low: 176, open: 130, close: 88, up: true },
-    { x: 460, high: 88, low: 212, open: 118, close: 164, up: false },
-    { x: 532, high: 62, low: 188, open: 152, close: 102, up: true },
-  ];
-  return (
-    <svg className="h-auto w-full" viewBox="0 0 640 260" role="img" aria-label="材料指数开高低收图">
-      {[52, 94, 136, 178, 220].map((y) => <line key={y} x1="56" x2="608" y1={y} y2={y} stroke="var(--neutral-200)" />)}
-      <line x1="56" x2="608" y1="220" y2="220" stroke="var(--neutral-300)" />
-      {rows.map((item, index) => {
-        const color = item.up ? 取色("blue", 3) : 取色("red", 3);
-        const y = Math.min(item.open, item.close);
-        const height = Math.abs(item.open - item.close);
-        return (
-          <g key={index}>
-            <line x1={item.x} x2={item.x} y1={item.high} y2={item.low} stroke={color} strokeWidth="2" />
-            <rect x={item.x - 10} y={y} width="20" height={height} fill="white" stroke={color} strokeWidth="2" />
-          </g>
-        );
-      })}
-      <坐标文字 x={76} y={244}>周一</坐标文字>
-      <坐标文字 x={508} y={244}>周日</坐标文字>
-    </svg>
-  );
-}
+const colorModels = [
+  { title: "分类比较", colors: [color("blue", 2), color("green", 2), color("purple", 2), color("amber", 1)], text: "不同类别使用不同色系，默认不超过 6 类。" },
+  { title: "连续强弱", colors: [0, 1, 2, 3, 4].map((shade) => color("blue", shade)), text: "同一指标从浅到深，表示数值递增。" },
+  { title: "正负发散", colors: [color("red", 4), color("red", 1), "#F1F3F5", color("blue", 1), color("blue", 4)], text: "以明确业务基准为中心区分下降与上升。" },
+  { title: "单项强调", colors: ["#D5DAE1", "#D5DAE1", color("blue", 3), "#D5DAE1", "#D5DAE1"], text: "其余数据降噪，仅突出当前或推荐项。" },
+];
 
 export default function ChartPage() {
   return (
     <div className="space-y-16">
       <PageHeader
         title="图表"
-        description="图表规范用于统一数据色组合、图表结构、标题表头和可视化组件拆解方式。色值与颜色页共用同一数据源，设计稿和代码只维护一套数据色板。"
+        description="图表规范帮助普通浏览者读懂数据、帮助设计师做出正确图表选择，并让开发使用同一套容器、交互、设计变量（Token）和可访问性合同。"
       />
 
       <section>
-        <SectionHeading
-          eyebrow="数据色板"
-          title="数据色板"
-          description="共 10 个色系，每系 7 个深浅层级。色板参考社区数据可视化资源的色系组织方式，在新材道规范中以中文命名和组件化规则落地。"
-        />
-        <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {chartColorFamilies.map((family) => (
-            <div key={family.key} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
-              <div className="flex items-center justify-between gap-4">
-                <p className="text-sm font-semibold text-[var(--text-primary)]">{family.name}</p>
-                <p className="text-xs text-[var(--text-secondary)]">7 个层级</p>
-              </div>
-              <div className="mt-3 flex h-10 overflow-hidden rounded-sm">
-                {family.shades.map((color) => (
-                  <span key={color} className="flex-1" style={{ backgroundColor: color }} />
-                ))}
-              </div>
-              <div className="mt-3 grid grid-cols-7 gap-1 text-center text-sm text-[var(--text-primary)]">
-                {family.shades.map((color) => (
-                  <span key={color} className="truncate" title={color}>{color}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+        <SectionHeading eyebrow="Reading path" title="按角色进入内容" description="默认先看案例；需要做设计决策时切换使用规则，需要实现或验收时切换交互与适配。页面不要求三类角色同时阅读全部内容。" />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <RoleCard role="普通浏览者" route="先看案例" task="通过标题、图例、工具提示和明细表理解数据结论，不需要掌握图表术语。" />
+          <RoleCard role="设计师" route="切换使用规则" task="确认适用场景、错误案例、尺寸、颜色编码、移动端重排和 Figma（设计工具）状态。" />
+          <RoleCard role="开发" route="切换交互与适配" task="核对组件属性、悬浮与键盘行为、空态、加载态、响应式和等价数据表。" />
         </div>
       </section>
 
       <section>
-        <SectionHeading
-          eyebrow="组合规则"
-          title="数据色组合使用规则"
-          description="先判断数据关系，再选择配色模型。不要把 10 个色系当作装饰色随机排列，颜色必须服务于数据比较、顺序、偏离或重点。"
-        />
-        <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
-          {色彩组合.map((item) => (
-            <div key={item.标题} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
-              <h3 className="text-base font-semibold text-[var(--text-primary)]">{item.标题}</h3>
-              <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{item.用途}</p>
-              <div className="mt-4"><色条 颜色={item.颜色} /></div>
-              <p className="mt-4 text-sm leading-6 text-[var(--text-secondary)]">{item.规则}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="图表选型"
-          title="先选问题，再选图表"
-          description="图表不是页面装饰。每个图表必须回答一个明确问题，并能在标题、副标题、图例、坐标和表格明细中被拆解复用。"
-        />
-        <div className="mt-6 overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-          <div className="min-w-[760px]">
-            <div className="grid grid-cols-[160px_220px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
-              <span>业务问题</span>
-              <span>推荐图表</span>
-              <span>使用规则</span>
-            </div>
-            {图表选型.map(([question, chart, rule]) => (
-              <div key={question} className="grid grid-cols-[160px_220px_minmax(0,1fr)] border-t border-[var(--neutral-100)] px-5 py-4 text-sm">
-                <strong className="text-[var(--text-primary)]">{question}</strong>
-                <span className="text-[var(--text-secondary)]">{chart}</span>
-                <span className="leading-6 text-[var(--text-secondary)]">{rule}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="类型样式"
-          title="完整图表类型样式"
-          description="参考文件按图表元素、图表构建器和多个图表类型拆分。新材道规范保留这种可拆解思路，但在页面中统一为中文规则，便于设计师复制和开发复用。"
-        />
-        <div className="mt-6 overflow-x-auto rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white">
-          <div className="min-w-[900px]">
-            <div className="grid grid-cols-[160px_260px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]">
-              <span>类型</span>
-              <span>适用场景</span>
-              <span>样式规则</span>
-            </div>
-            {图表类型样式.map(([type, scene, rule]) => (
-              <div key={type} className="grid grid-cols-[160px_260px_minmax(0,1fr)] border-t border-[var(--neutral-100)] px-5 py-4 text-sm">
-                <strong className="text-[var(--text-primary)]">{type}</strong>
-                <span className="leading-6 text-[var(--text-secondary)]">{scene}</span>
-                <span className="leading-6 text-[var(--text-secondary)]">{rule}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="结构拆解"
-          title="标题、表头与图表容器拆解"
-          description="图表必须被拆成稳定部件，方便设计师复制、前端组件化和移动端重排。"
-        />
-        <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <SectionHeading eyebrow="Selection" title="高频优先，低频按问题查找" description="柱状图、饼图和曲线图进入完整规范；低频图表只保留选型入口，避免默认页面无限增长。" />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {[
-            ["标题区", "标题回答“这张图看什么”，副标题说明口径、时间范围、样本量和筛选条件。右侧放更新时间或局部操作。"],
-            ["图例区", "2 条以内可直接标在线上；3 条以上使用图例。图例只解释数据系列，不承载筛选入口。"],
-            ["绘图区", "坐标轴文字使用说明字号，网格线使用弱分割线，阈值线使用语义色和文字标注。"],
-            ["表头区", "图表下方明细表沿用表格规范：表头浅灰背景、说明字号、字段名短而明确。"],
-            ["空状态", "无数据时保留标题和筛选条件，绘图区替换为空状态，不隐藏整个模块。"],
-            ["移动端", "标题、图例、图表、表格纵向堆叠；复杂图表允许横向滚动，不能压缩到不可读。"],
-          ].map(([title, content]) => (
-            <div key={title} className="rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-white p-5">
-              <h3 className="text-base font-semibold text-[var(--text-primary)]">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">{content}</p>
+            ["柱状图", "比大小", "离散类别、分组对比、长标签横向条形"],
+            ["饼图", "看构成", "少量占比、总量构成、明确目标进度"],
+            ["曲线图", "看趋势", "折线、面积与堆叠面积的连续时间变化"],
+          ].map(([title, question, detail], index) => (
+            <div key={title} className="border border-[var(--neutral-200)] bg-white p-5">
+              <div className="flex items-center justify-between gap-4"><p className="text-base font-semibold text-[var(--text-primary)]">{title}</p><span className="font-data text-xs text-[var(--text-tertiary)]">0{index + 1}</span></div>
+              <p className="mt-3 text-sm font-medium text-[var(--text-primary)]">{question}</p>
+              <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">{detail}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 overflow-x-auto border border-[var(--neutral-200)] bg-white">
+          <div className="grid min-w-[720px] grid-cols-[160px_220px_minmax(0,1fr)] bg-[var(--neutral-50)] px-5 py-3 text-sm font-semibold text-[var(--text-secondary)]"><span>低频问题</span><span>推荐图表</span><span>判断边界</span></div>
+          {[
+            ["看分布", "直方图、箱线图", "用于连续数值分布，不使用分类色装饰每个区间。"],
+            ["解释变化", "瀑布图", "表达期初、增加、减少与期末，三类颜色固定。"],
+            ["看相关与空间", "散点图、地图", "必须说明坐标、大小或区域色阶含义，并提供列表替代。"],
+          ].map(([question, charts, rule]) => (
+            <div key={question} className="grid min-w-[720px] grid-cols-[160px_220px_minmax(0,1fr)] border-t border-[var(--neutral-100)] px-5 py-3.5 text-sm"><strong className="text-[var(--text-primary)]">{question}</strong><span className="text-[var(--text-secondary)]">{charts}</span><span className="text-[var(--text-secondary)]">{rule}</span></div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Patterns" title="高频图表规范" description="先切换图表类别，再在案例、使用规则、交互与适配之间切换。默认只加载当前内容，控制页面长度和阅读负担。" />
+        <Tabs
+          defaultValue="bar"
+          variant="page"
+          size="lg"
+          className="border border-[var(--neutral-200)] bg-[var(--neutral-100)]"
+          panelClassName="bg-[var(--neutral-50)] p-4 md:p-6"
+          items={[
+            { value: "bar", label: "柱状图", content: <BarCategory /> },
+            { value: "donut", label: "饼图", content: <DonutCategory /> },
+            { value: "curve", label: "曲线图", content: <CurveCategory /> },
+          ]}
+        />
+      </section>
+
+      <section>
+        <SectionHeading eyebrow="Color encoding" title="跨图表共享的颜色编码" description="完整数据色板在颜色页维护；图表页只保留选择模型，避免重复展示 70 个色值。" />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {colorModels.map((model) => (
+            <div key={model.title} className="border border-[var(--neutral-200)] bg-white p-5">
+              <p className="text-sm font-semibold text-[var(--text-primary)]">{model.title}</p>
+              <div className="mt-3 flex h-7 overflow-hidden rounded-[var(--radius-sm)]">{model.colors.map((item, index) => <span key={`${item}-${index}`} className="flex-1" style={{ backgroundColor: item }} />)}</div>
+              <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)]">{model.text}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section>
-        <SectionHeading
-          eyebrow="样式示例"
-          title="可复用图表示例"
-          description="以下示例使用同一套容器、标题、图例、坐标标注和明细表结构。图表区域可替换，外围信息结构保持一致。"
-        />
-        <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
-          <图表容器
-            标题="材料数据调用趋势"
-            说明="按月查看数据空间、材料库和智能分析的调用变化。"
-            右侧="近 6 个月"
-            图例项={[
-              { 名称: "数据空间", 颜色: 取色("blue", 2), 形态: "线" },
-              { 名称: "材料库", 颜色: 取色("green", 2), 形态: "线" },
-              { 名称: "智能分析", 颜色: 取色("purple", 2), 形态: "线" },
-            ]}
-          >
-            <折线图示例 />
-          </图表容器>
-
-          <图表容器
-            标题="品类采购量对比"
-            说明="比较不同材料品类的采购量，柱状图从零基线开始。"
-            右侧="单位：吨"
-            图例项={[{ 名称: "采购量", 颜色: 取色("blue", 2) }]}
-            表格={<明细表 columns={["品类", "采购量", "变化"]} rows={[["铝材", "142", "+12%"], ["铜材", "118", "+8%"], ["硅材", "96", "-3%"]]} />}
-          >
-            <柱状图示例 />
-          </图表容器>
-
-          <图表容器
-            标题="区域目标偏离"
-            说明="围绕基准线比较各区域与目标值的偏离方向。"
-            右侧="目标差异"
-            图例项={[
-              { 名称: "低于目标", 颜色: 取色("red", 3) },
-              { 名称: "高于目标", 颜色: 取色("blue", 3) },
-            ]}
-          >
-            <发散图示例 />
-          </图表容器>
-
-          <图表容器
-            标题="模块访问占比"
-            说明="环图只用于少量构成关系，“其他”固定使用中性灰并放在末尾。"
-            右侧="本月"
-            图例项={分类色.slice(0, 4).map((item) => ({ 名称: item.名称, 颜色: item.颜色 })).concat([{ 名称: "其他", 颜色: "var(--neutral-400)" }])}
-          >
-            <环图示例 />
-          </图表容器>
-
-          <div className="xl:col-span-2">
-            <图表容器
-              标题="材料指标热力矩阵"
-              说明="连续色用于表达同一指标的强弱变化，表头和单元格可独立复用。"
-              右侧="评分：1–6"
-              图例项={[
-                { 名称: "低", 颜色: 取色("blue", 0) },
-                { 名称: "中", 颜色: 取色("blue", 3) },
-                { 名称: "高", 颜色: 取色("blue", 5) },
-              ]}
-            >
-              <热力矩阵示例 />
-            </图表容器>
-          </div>
-
-          <图表容器
-            标题="成本变化拆解"
-            说明="瀑布图用于解释从期初到期末的增加、减少和汇总变化。"
-            右侧="单位：万元"
-            图例项={[
-              { 名称: "增加", 颜色: 取色("blue", 3) },
-              { 名称: "减少", 颜色: 取色("red", 3) },
-              { 名称: "汇总", 颜色: "var(--neutral-900)" },
-            ]}
-          >
-            <瀑布图示例 />
-          </图表容器>
-
-          <图表容器
-            标题="材料强度分布"
-            说明="直方图用于查看连续数值的区间分布，所有分箱使用同一色系。"
-            右侧="样本：240"
-            图例项={[{ 名称: "样本频次", 颜色: 取色("blue", 2) }]}
-          >
-            <直方图示例 />
-          </图表容器>
-
-          <图表容器
-            标题="模型调用体量"
-            说明="面积图用于表达单系列趋势和体量变化，填充层只做辅助。"
-            右侧="近 6 个月"
-            图例项={[{ 名称: "调用量", 颜色: 取色("green", 3), 形态: "线" }]}
-          >
-            <面积图示例 />
-          </图表容器>
-
-          <图表容器
-            标题="材料指数波动"
-            说明="开高低收图用于专业行情场景，不能用普通折线过度简化价格区间。"
-            右侧="本周"
-            图例项={[
-              { 名称: "上涨", 颜色: 取色("blue", 3) },
-              { 名称: "下跌", 颜色: 取色("red", 3) },
-            ]}
-          >
-            <开高低收图示例 />
-          </图表容器>
+        <SectionHeading eyebrow="Delivery contract" title="代码与 Figma（设计工具）交付合同" description="本规范是规则源头；网页验收通过后，React、Vue 和 Figma（设计工具）使用同名属性与状态。" />
+        <RuleCallout title="组件合同">
+          <p><code>Chart</code> 统一负责标题、副标题、操作区、图例、绘图区、加载/空状态和可选明细表；具体图形只负责数据编码，不重复绘制容器。</p>
+        </RuleCallout>
+        <div className="mt-4">
+          <SpecList items={[
+            "图表类型属性（chartType）：bar、donut、line、area、stacked-area；低频类型按选型矩阵扩展。",
+            "尺寸属性（size）：sm、md、lg，对应 4 / 8 / 12 栅格列宽，不以缩小文字替代响应式重排。",
+            "状态属性（state）：default、hover、selected、loading、empty、with-table；Figma（设计工具）必须提供可静态检查的关键状态。",
+            "设计变量（Token）：颜色、网格线、文字、圆角和阴影只引用现有变量；数据色不等于业务状态色。",
+            "可访问性：可见标题、键盘焦点、非颜色编码、工具提示与等价数据表缺一不可。",
+            "实现来源：React 使用 src/components/ui/Chart.tsx，Vue 使用 XcChart.vue；页面示例不得另建不兼容容器。",
+          ]} />
         </div>
       </section>
-
     </div>
   );
 }

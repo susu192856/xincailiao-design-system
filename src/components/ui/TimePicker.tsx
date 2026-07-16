@@ -186,16 +186,16 @@ export function TimePicker({
   // Scroll selected into view when opening
   useEffect(() => {
     if (!open) return;
-    // scroll hour column
-    if (hourColRef.current) {
-      const sel = hourColRef.current.querySelector("[aria-pressed='true']") as HTMLElement | null;
-      sel?.scrollIntoView({ block: "center" });
-    }
-    // scroll minute column
-    if (minuteColRef.current) {
-      const sel = minuteColRef.current.querySelector("[aria-pressed='true']") as HTMLElement | null;
-      sel?.scrollIntoView({ block: "center" });
-    }
+
+    const centerSelectedOption = (column: HTMLDivElement | null) => {
+      if (!column) return;
+      const selected = column.querySelector("[aria-pressed='true']") as HTMLElement | null;
+      if (!selected) return;
+      column.scrollTop = Math.max(0, selected.offsetTop - (column.clientHeight - selected.offsetHeight) / 2);
+    };
+
+    centerSelectedOption(hourColRef.current);
+    centerSelectedOption(minuteColRef.current);
   }, [open]);
 
   const handleInputBlur = () => {

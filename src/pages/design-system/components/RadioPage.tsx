@@ -68,7 +68,7 @@ export default function RadioPage() {
         <div className="mt-5">
           <CodeBlock
             lang="tsx"
-            label="Radio"
+            label="单选框（Radio）"
             code={`<fieldset>
   <legend>发布方式</legend>
   <Radio name="publishMode" value="draft" label="保存草稿" />

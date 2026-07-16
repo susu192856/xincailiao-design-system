@@ -130,6 +130,7 @@ export function Select({
 
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const open = controlledOpen ?? internalOpen;
+  const previousOpenRef = useRef(open);
   const setOpen = useCallback((next: boolean | ((previous: boolean) => boolean)) => {
     const resolved = typeof next === "function" ? next(open) : next;
     if (controlledOpen === undefined) setInternalOpen(resolved);
@@ -202,8 +203,11 @@ export function Select({
 
   // Focus search input when opened
   useEffect(() => {
-    if (open && searchable) {
-      requestAnimationFrame(() => searchInputRef.current?.focus());
+    const openedByInteraction = open && !previousOpenRef.current;
+    previousOpenRef.current = open;
+
+    if (openedByInteraction && searchable) {
+      requestAnimationFrame(() => searchInputRef.current?.focus({ preventScroll: true }));
     }
   }, [open, searchable]);
 

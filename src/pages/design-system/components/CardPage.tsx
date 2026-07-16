@@ -49,7 +49,7 @@ export default function CardPage() {
                 <CardActions><Button size="sm" variant="ghost">导出</Button></CardActions>
               </CardHeader>
               <CardContent className="grid grid-cols-3 gap-3">
-                {[["处理中", "12"], ["待复核", "8"], ["已发布", "128"]].map(([label, value]) => <div key={label} className="bg-[var(--neutral-50)] p-3"><p className="text-xl font-semibold text-[var(--text-primary)]">{value}</p><p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p></div>)}
+                {[["处理中", "12"], ["待复核", "8"], ["已发布", "128"]].map(([label, value]) => <div key={label} className="bg-[var(--neutral-50)] p-3"><p className="font-data text-xl font-semibold tabular-nums text-[var(--text-primary)]">{value}</p><p className="mt-1 text-xs text-[var(--text-tertiary)]">{label}</p></div>)}
               </CardContent>
               <CardFooter className="flex items-center justify-between gap-3"><span className="text-xs text-[var(--text-tertiary)]">更新于 10 分钟前</span><Button size="sm" tone="task">查看任务</Button></CardFooter>
             </Card>
@@ -61,7 +61,7 @@ export default function CardPage() {
       <section>
         <SectionHeading eyebrow="Variants & Sizes" title="视觉类型与尺寸" description="组件类型只描述容器层级，业务内容不作为类型属性（variant）。后台默认使用描边型（outlined）；无边框型（plain）和弱背景型（muted）仅在已有清晰层级时使用。" />
         <div className="grid gap-5 md:grid-cols-3">
-          {[{ variant: "plain" as const, title: "Plain", description: "父级已有边界时使用。" }, { variant: "outlined" as const, title: "Outlined · 默认", description: "独立卡片和卡片列表。" }, { variant: "muted" as const, title: "Muted", description: "轻量摘要或辅助信息。" }].map((item) => <Card key={item.variant} variant={item.variant}><CardTitle>{item.title}</CardTitle><CardDescription>{item.description}</CardDescription></Card>)}
+          {[{ variant: "plain" as const, title: "无边框型（plain）", description: "父级已有边界时使用。" }, { variant: "outlined" as const, title: "描边型（outlined）· 默认", description: "独立卡片和卡片列表。" }, { variant: "muted" as const, title: "弱背景型（muted）", description: "轻量摘要或辅助信息。" }].map((item) => <Card key={item.variant} variant={item.variant}><CardTitle>{item.title}</CardTitle><CardDescription>{item.description}</CardDescription></Card>)}
         </div>
         <div className="mt-5 grid gap-px overflow-hidden border border-[var(--neutral-200)] bg-[var(--neutral-200)] md:grid-cols-3">
           {[["Small", "16px", "紧凑入口与小型摘要"], ["Medium · 默认", "24px", "常规业务卡片"], ["Large", "32px", "低频阅读与重点概览"]].map(([name, padding, scene]) => <div key={name} className="bg-white p-5"><p className="text-sm font-semibold text-[var(--text-primary)]">{name}</p><p className="mt-1 text-xs text-[var(--text-tertiary)]">内边距 {padding}</p><div className="mt-4 bg-[var(--neutral-50)] p-3 text-xs text-[var(--text-secondary)]">{scene}</div></div>)}
@@ -84,7 +84,7 @@ export default function CardPage() {
           <Card variant="outlined" loading aria-label="数据计算卡片，加载中"><CardHeader><CardTitle>加载状态</CardTitle><CardDescription>保留结构并阻止重复操作。</CardDescription></CardHeader><CardContent><div className="h-16 bg-[var(--neutral-50)]" /></CardContent></Card>
           <Card variant="muted" disabled><CardHeader><div className="mb-3 flex h-9 w-9 items-center justify-center bg-white text-[var(--text-tertiary)]"><LockKey size={18} /></div><CardTitle>禁用状态</CardTitle><CardDescription>保留上下文，但不可进入或操作。</CardDescription></CardHeader></Card>
           </div>
-          <p className="mt-4 border-l-2 border-[var(--neutral-300)] bg-[var(--neutral-50)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">选择规则：</strong>批量选择或多选必须显示 Checkbox；互斥方案必须显示 Radio。只有选择关系已由上下文明确时，才能使用整卡选中样式作为辅助反馈。</p>
+          <p className="mt-4 border-l-2 border-[var(--neutral-300)] bg-[var(--neutral-50)] px-4 py-3 text-xs leading-5 text-[var(--text-secondary)]"><strong className="text-[var(--text-primary)]">选择规则：</strong>批量选择或多选必须显示复选框（Checkbox）；互斥方案必须显示单选框（Radio）。只有选择关系已由上下文明确时，才能使用整卡选中样式作为辅助反馈。</p>
         </ExampleCard>
       </section>
 
@@ -93,7 +93,7 @@ export default function CardPage() {
         <div className="grid gap-5 md:grid-cols-3">
           <Card variant="outlined" status="brand"><CardHeader><div className="mb-4 flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><Database size={18} /></div><CardTitle>数据资产</CardTitle><CardDescription>展示对象摘要、分类与治理状态。</CardDescription></CardHeader><CardContent className="flex flex-wrap gap-2"><Tag variant="brand">关键节点</Tag><Tag>已治理</Tag></CardContent></Card>
           <Card variant="outlined" status="product"><CardHeader><div className="mb-4 flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><FileText size={18} /></div><CardTitle>功能入口</CardTitle><CardDescription>用于工作台和聚合首页的能力入口。</CardDescription></CardHeader><CardFooter><Button size="sm" icon={<Plus size={15} />}>进入模块</Button></CardFooter></Card>
-          <Card variant="outlined"><CardHeader><div className="mb-4 flex items-center justify-between"><div className="flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><ChartLine size={18} /></div><Badge count={12} tone="product" size="sm" /></div><CardTitle>状态摘要</CardTitle><CardDescription>用于指标、任务和流程概览。</CardDescription></CardHeader><CardContent><p className="text-3xl font-semibold text-[var(--text-primary)]">128</p><p className="mt-1 text-sm text-[var(--text-secondary)]">本周新增数据集</p></CardContent></Card>
+          <Card variant="outlined"><CardHeader><div className="mb-4 flex items-center justify-between"><div className="flex h-9 w-9 items-center justify-center bg-[var(--neutral-50)] text-[var(--text-secondary)]"><ChartLine size={18} /></div><Badge count={12} tone="product" size="sm" /></div><CardTitle>状态摘要</CardTitle><CardDescription>用于指标、任务和流程概览。</CardDescription></CardHeader><CardContent><p className="font-data text-3xl font-semibold tabular-nums text-[var(--text-primary)]">128</p><p className="mt-1 text-sm text-[var(--text-secondary)]">本周新增数据集</p></CardContent></Card>
         </div>
         <p className="mt-4 text-xs leading-5 text-[var(--text-tertiary)]">顶部 2px 状态线仅作快速识别辅助；具体状态仍需由标题、标签或说明文字表达。</p>
       </section>

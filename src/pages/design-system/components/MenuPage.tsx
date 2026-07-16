@@ -13,6 +13,8 @@ const primaryItems = [
   { key: "setting", label: "系统配置", icon: <GearSix size={16} weight="regular" />, disabled: true },
 ];
 
+const topMenuItems = primaryItems.slice(0, 4).map(({ key, label, disabled }) => ({ key, label, disabled }));
+
 const groupedItems = [
   {
     key: "asset-group",
@@ -45,8 +47,8 @@ export default function MenuPage() {
       <PageHeader title="菜单" description="菜单用于承载产品导航和功能入口，后台侧栏优先保证当前模块、层级和可访问状态清晰。" />
 
       <section>
-        <SectionHeading eyebrow="Variants" title="菜单类型" description="菜单激活态使用中性黑；普通数量作为名称的一部分显示为“名称（数量）”，不使用彩色徽标。" />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <SectionHeading eyebrow="Variants" title="菜单类型" description="菜单激活态使用中性黑；普通数量作为名称的一部分显示为“名称（数量）”，不使用彩色徽标。侧边菜单按需要使用图标，顶部菜单默认只使用文字。" />
+        <div className="grid grid-cols-1 gap-5">
           <ExampleCard
             title="侧边菜单"
             description={`后台主导航，适合长期工作台和管理系统；当前入口为“${primaryItems.find((item) => item.key === activeMenu)?.label}”。`}
@@ -55,12 +57,16 @@ export default function MenuPage() {
           >
             <Menu items={primaryItems} value={activeMenu} onValueChange={setActiveMenu} />
           </ExampleCard>
-          <ExampleCard title="顶部菜单" description="门户、轻量后台或内容栏目切换。">
+          <ExampleCard title="顶部菜单" description="用于门户、轻量后台或跨页面栏目导航；默认使用文字，避免与页内标签页混淆。">
             <div className="space-y-5">
-              <Menu items={primaryItems.slice(0, 4)} activeKey="home" mode="horizontal" />
-              <p className="text-xs leading-5 text-[var(--text-tertiary)]">顶部菜单只保留一级入口，复杂功能仍建议进入侧栏或二级导航。</p>
+              <Menu items={topMenuItems} activeKey="home" mode="horizontal" />
+              <p className="text-xs leading-5 text-[var(--text-tertiary)]">顶部菜单只保留一级页面入口，生产实现应更新网址（URL）并标记当前位置；复杂功能仍进入侧栏或二级导航。</p>
             </div>
           </ExampleCard>
+        </div>
+        <div className="mt-5 border border-[var(--neutral-200)] bg-[var(--neutral-50)] px-5 py-4 text-sm leading-6 text-[var(--text-secondary)]">
+          <strong className="text-[var(--text-primary)]">菜单与标签页边界：</strong>
+          切换后进入不同页面、模块或网址时使用菜单；页面标题和网址不变，只替换当前区域内容时使用标签页（Tabs）。两者可以都有激活下划线，但顶部菜单使用整项下划线和导航语义，标签页使用短下划线和标签面板语义。
         </div>
       </section>
 
@@ -140,6 +146,10 @@ export default function MenuPage() {
         <SpecList
           items={[
             "后台主导航使用 neutral-900 激活态，保证当前位置识别明确。",
+            "侧边菜单在需要收起、入口较多或图标能稳定区分模块时使用图标；同级入口应全部有图标或全部无图标，分组标题不加图标。",
+            "顶部菜单默认使用纯文字；只有高度通用且所有同级入口都有一致图标时才保留图标，不用图标装饰栏目名称。",
+            "顶部菜单悬停只增强文字颜色，与线型标签页保持一致；侧边菜单悬停使用浅背景，扩大纵向列表的行反馈。",
+            "跨页面或模块切换使用菜单并更新网址（URL）；同一页面内部切换内容使用标签页（Tabs），不要用顶部菜单模拟标签页。",
             "普通菜单数量统一写在名称后并使用全角括号，如“数据资产（8）”；数量继承菜单文字颜色，不单独强调。",
             "彩色徽标仅用于必须独立识别的异常或紧急提醒，不用于普通导航计数。",
             "禁用菜单需要保留可见性时使用 disabled，不要隐藏关键权限线索。",

@@ -242,7 +242,7 @@ export default function FormPage() {
               <FormGrid columns={1}>
                 <Input labelPosition="left" labelWidth={88} label="企业名称" placeholder="请输入企业名称" />
                 <Input labelPosition="left" labelWidth={88} label="联系人" placeholder="请输入联系人" />
-                <Select labelPosition="left" labelWidth={88} label="应用场景" placeholder="请选择" options={[{ label: "数据空间", value: "space" }, { label: "材库", value: "library" }, { label: "AI 应用", value: "ai" }]} />
+                <Select labelPosition="left" labelWidth={88} label="应用场景" placeholder="请选择" options={[{ label: "数据空间", value: "space" }, { label: "材库", value: "library" }, { label: "人工智能（AI）应用", value: "ai" }]} />
                 <Input labelPosition="left" labelWidth={88} label="联系电话" placeholder="请输入联系电话" />
               </FormGrid>
             </Form>

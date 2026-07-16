@@ -124,11 +124,11 @@ export default function RadiusPage() {
         <SectionHeading eyebrow="Guidelines" title="最佳实践" />
         <SpecList
           items={[
-            "交互控件（按钮、输入框、选择器、标签）统一使用 radius-sm (2px)，保持工业数据产品的精确感。",
-            "后台容器层（卡片、弹窗、抽屉内容区）优先使用 radius-md (4px)，避免大圆角削弱系统秩序。",
-            "radius-xl (12px) 和 radius-2xl (16px) 仅限官网营销展示场景，后台慎用。",
+            "交互控件（按钮、输入框、选择器、标签）统一使用小圆角（radius-sm，2px），保持工业数据产品的精确感。",
+            "后台容器层（卡片、弹窗、抽屉内容区）优先使用中圆角（radius-md，4px），避免大圆角削弱系统秩序。",
+            "大圆角（radius-xl，12px）和特大圆角（radius-2xl，16px）仅限官网营销展示场景，后台慎用。",
             "同一组件类型应保持圆角一致，避免在相同层级中混用多个圆角等级。",
-            "radius-full 仅用于胶囊标签、头像、圆形按钮等明确形态。",
+            "全圆角（radius-full）仅用于胶囊标签、头像、圆形按钮等明确形态。",
           ]}
         />
       </section>

@@ -313,13 +313,13 @@ export default function InputPage() {
           <SectionCard className="md:p-6">
             <div className="max-w-[672px] grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
               <Input labelPosition="left" labelWidth={64} label="默认" placeholder="请输入内容" />
-              <Input labelPosition="left" labelWidth={64} label="Hover" defaultValue="可编辑内容" className="!border-[var(--field-border-hover)]" helperText="仅桌面指针悬停时增强边框。" />
+              <Input labelPosition="left" labelWidth={96} label="悬停（Hover）" defaultValue="可编辑内容" className="!border-[var(--field-border-hover)]" helperText="仅桌面指针悬停时增强边框。" />
               <Input labelPosition="left" labelWidth={64} label="Focus" placeholder="点击或 Tab 聚焦" autoFocus className="!border-[var(--field-border-focus)] [box-shadow:0_0_0_1px_#FFFFFF,_0_0_0_3px_var(--focus-ring-color)]" helperText="键盘和鼠标聚焦均显示清晰焦点。" />
               <Input labelPosition="left" labelWidth={64} label="必填" placeholder="请输入内容" required />
               <Input labelPosition="left" labelWidth={64} label="错误" defaultValue="ABC" error="编号格式应为 MAT-年份-序号" />
               <Input labelPosition="left" labelWidth={64} label="只读" value="系统计算结果" readOnly helperText="可以查看和复制。" />
               <Input labelPosition="left" labelWidth={64} label="禁用" value="等待上一步完成" disabled helperText="当前流程节点不可操作。" />
-              <Input labelPosition="left" labelWidth={64} label="Loading" value="正在校验…" loading helperText="保留已有内容，输入框只读并显示旋转器。" />
+              <Input labelPosition="left" labelWidth={96} label="加载（Loading）" value="正在校验…" loading helperText="保留已有内容，输入框只读并显示旋转器。" />
             </div>
           </SectionCard>
           <CodeBlock
