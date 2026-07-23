@@ -135,7 +135,7 @@ function StateButton({
       neutral: { hover: "bg-[var(--neutral-800)]", active: "bg-[var(--neutral-700)]" },
       product: { hover: "bg-[var(--product-blue-600)]", active: "bg-[var(--product-blue-700)]" },
       brand: { hover: "bg-[var(--brand-700)]", active: "bg-[var(--brand-800)]" },
-      danger: { hover: "bg-[var(--error-solid-hover)]", active: "bg-[var(--error-solid-active)]" },
+      danger: { hover: "bg-[var(--brand-700)]", active: "bg-[var(--brand-800)]" },
       warning: { hover: "bg-[var(--warning-solid-hover)]", active: "bg-[var(--warning-solid-active)]" },
       success: { hover: "bg-[var(--success-solid-hover)]", active: "bg-[var(--success-solid-active)]" },
     },
@@ -144,7 +144,7 @@ function StateButton({
       neutral: { hover: "!bg-[var(--neutral-50)]", active: "!bg-[var(--neutral-100)]" },
       product: { hover: "!bg-[var(--product-blue-50)]", active: "!bg-[var(--product-blue-100)]" },
       brand: { hover: "!bg-[var(--brand-50)]", active: "!bg-[var(--brand-100)]" },
-      danger: { hover: "!bg-[var(--error-bg)]", active: "!bg-[var(--error-border)]" },
+      danger: { hover: "!bg-[var(--brand-50)]", active: "!bg-[var(--brand-100)]" },
       warning: { hover: "!bg-[var(--warning-bg)]", active: "!bg-[var(--warning-border)]" },
       success: { hover: "!bg-[var(--success-bg)]", active: "!bg-[var(--success-border)]" },
     },
@@ -153,7 +153,7 @@ function StateButton({
       neutral: { hover: "!bg-[var(--neutral-200)]", active: "!bg-[var(--neutral-300)]" },
       product: { hover: "!bg-[var(--product-blue-100)]", active: "!bg-[var(--product-blue-200)]" },
       brand: { hover: "!bg-[var(--brand-100)]", active: "!bg-[var(--brand-200)]" },
-      danger: { hover: "!bg-[var(--error-border)]", active: "!bg-[var(--error-border)]" },
+      danger: { hover: "!bg-[var(--brand-100)]", active: "!bg-[var(--brand-200)]" },
       warning: { hover: "!bg-[var(--warning-border)]", active: "!bg-[var(--warning-border)]" },
       success: { hover: "!bg-[var(--success-border)]", active: "!bg-[var(--success-border)]" },
     },
@@ -162,7 +162,7 @@ function StateButton({
       neutral: { hover: "!bg-[var(--neutral-50)]", active: "!bg-[var(--neutral-100)]" },
       product: { hover: "!bg-[var(--product-blue-50)]", active: "!bg-[var(--product-blue-100)]" },
       brand: { hover: "!bg-[var(--brand-50)]", active: "!bg-[var(--brand-100)]" },
-      danger: { hover: "!bg-[var(--error-bg)]", active: "!bg-[var(--error-border)]" },
+      danger: { hover: "!bg-[var(--brand-50)]", active: "!bg-[var(--brand-100)]" },
       warning: { hover: "!bg-[var(--warning-bg)]", active: "!bg-[var(--warning-border)]" },
       success: { hover: "!bg-[var(--success-bg)]", active: "!bg-[var(--success-border)]" },
     },
@@ -315,7 +315,7 @@ const triToneRows = [
 ];
 
 const semanticRows = [
-  ["danger", "删除、撤销、停用等高风险操作", "--error-solid / --error-text / --error-bg", "必须配合二次确认；不要用 brand 红替代 danger。"],
+  ["danger", "删除、撤销、停用等高风险操作", "--brand-600 / --brand-50", "保留 danger 语义并复用品牌红色阶；只进入后台或应用平台，必须配合二次确认。"],
   ["warning", "临界风险确认、即将超时、继续执行", "--warning-solid / --warning-text / --warning-bg", "用于需要用户注意但尚未失败的动作，不用于普通提示。"],
   ["success", "标记完成、确认通过、继续配置", "--success-solid / --success-text / --success-bg", "只在明确正向状态下使用；普通提交仍用 task。"],
 ];
@@ -335,7 +335,7 @@ function ButtonPlaygroundSection() {
   const [state, setState] = useState<"default" | "loading" | "disabled">("default");
   const [content, setContent] = useState<ButtonContent>("text");
   const optionClass = (active: boolean) => `rounded-[var(--radius-sm)] border px-3 py-2 text-xs font-medium transition-colors ${active ? "border-[var(--neutral-900)] bg-[var(--neutral-900)] text-white" : "border-[var(--neutral-200)] bg-white text-[var(--text-secondary)] hover:border-[var(--neutral-400)]"}`;
-  const label = tone === "product" ? "运行分析" : tone === "brand" ? "预约演示" : tone === "danger" ? "删除数据" : "提交审核";
+  const label = tone === "product" ? "运行分析" : tone === "brand" ? "预约演示" : "提交审核";
   const stateProp = state === "loading" ? " loading" : state === "disabled" ? " disabled" : "";
   const contentOptions: { value: ButtonContent; label: string }[] = [
     { value: "text", label: "纯文字" },
@@ -366,7 +366,7 @@ function ButtonPlaygroundSection() {
               <div className="flex flex-wrap gap-2">{contentOptions.map((item) => <button key={item.value} type="button" aria-pressed={content === item.value} onClick={() => setContent(item.value)} className={optionClass(content === item.value)}>{item.label}</button>)}</div>
               <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">选择 text 类型并搭配左右图标，即为无背景的文字 + 图标按钮。</p>
             </div>
-            <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">语义</p><div className="flex flex-wrap gap-2">{(["task", "product", "brand", "danger"] as const).map((item) => <button key={item} type="button" aria-pressed={tone === item} onClick={() => setTone(item)} className={optionClass(tone === item)}>{item}</button>)}</div></div>
+            <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">语义</p><div className="flex flex-wrap gap-2">{(["task", "product", "brand"] as const).map((item) => <button key={item} type="button" aria-pressed={tone === item} onClick={() => setTone(item)} className={optionClass(tone === item)}>{item}</button>)}</div></div>
             <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">尺寸</p><div className="flex flex-wrap gap-2">{(["sm", "md", "lg"] as const).map((item) => <button key={item} type="button" aria-pressed={size === item} onClick={() => setSize(item)} className={optionClass(size === item)}>{item}</button>)}</div></div>
             <div><p className="mb-2 text-xs font-semibold text-[var(--text-secondary)]">状态</p><div className="flex flex-wrap gap-2">{(["default", "loading", "disabled"] as const).map((item) => <button key={item} type="button" aria-pressed={state === item} onClick={() => setState(item)} className={optionClass(state === item)}>{item}</button>)}</div></div>
           </div>
@@ -622,7 +622,7 @@ export default function ButtonPage() {
         <SectionHeading
           eyebrow="Semantic Buttons"
           title="语义按钮"
-          description="危险（Danger）、警告（Warning）、成功（Success）是状态语义，不参与三色三角主操作模型。只有当业务状态明确时才使用。"
+          description="危险（Danger）、警告（Warning）、成功（Success）是状态语义，不参与三色三角主操作模型。危险按钮保留独立语义，但视觉复用品牌红色阶，只在后台或应用平台的高风险操作中出现。"
         />
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
           <SpecCard className="xl:col-span-2" title="危险操作" description="用于不可逆或高风险动作，必须配合二次确认。">

@@ -76,6 +76,7 @@
 
 - 按钮文字使用常规字重；主要、次要、弱按钮、文字按钮是层级，neutral、product、brand、danger 是业务语义。
 - 后台功能操作可使用 product，但不能把蓝色等同于次按钮。
+- danger 保留独立业务语义，但按钮视觉复用品牌红色阶；brand 仅用于官网/门户转化，danger 仅用于后台/应用平台高风险操作。
 - task、product 与 brand 的业务语义以颜色规范为唯一判断来源；按钮规范只维护操作组内的层级、顺序和组合方式。
 - 优先使用现有 token，不新增孤立颜色、字号、圆角或阴影。
 - 后台场景必须考虑禁用、加载、错误、空状态、权限受限和批量操作反馈。
@@ -143,5 +144,3 @@ import "@xincailiao/vue-ui/styles.css";
 | `--brand-600` | 颜色 Token |
 | `--brand-700` | 颜色 Token |
 | `--brand-800` | 颜色 Token |
-| `--error-text` | 语义色 |
-| `--error-bg` | 语义色 |

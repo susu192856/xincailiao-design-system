@@ -85,7 +85,7 @@ export default function ToastPage() {
             <Button onClick={() => toast({ tone: "success", title: "保存成功" })}>成功提示</Button>
             <Button variant="outline" onClick={() => toast({ tone: "info", title: "任务已创建" })}>信息提示</Button>
             <Button variant="outline" onClick={() => toast({ tone: "warning", title: "权限即将到期" })}>警告提示</Button>
-            <Button tone="danger" onClick={() => toast({ tone: "error", title: "提交失败" })}>错误提示</Button>
+            <Button variant="outline" tone="neutral" onClick={() => toast({ tone: "error", title: "提交失败" })}>错误提示</Button>
             <Button variant="outline" onClick={() => toast({ tone: "loading", title: "正在解析文件" })}>处理中</Button>
           </div>
           <ToastContainer />

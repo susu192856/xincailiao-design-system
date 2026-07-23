@@ -51,7 +51,7 @@ export default function TransferPage() {
                 targetActions={
                   <Button
                     variant="text"
-                    tone="danger"
+                    tone="neutral"
                     size="sm"
                     disabled={authorizedFieldKeys.length === 0}
                     onClick={() => {

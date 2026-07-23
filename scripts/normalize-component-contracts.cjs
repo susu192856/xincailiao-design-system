@@ -265,9 +265,9 @@ const componentRules = {
   Button: {
     anatomy: ["容器", "可选图标", "文字标签", "加载指示器"],
     usage: "用于触发明确操作；每个独立操作区域只保留一个主操作。",
-    avoid: "不要用颜色代替层级；同一按钮组禁止同时出现 task 与 product 两个 solid 按钮。",
+    avoid: "不要用颜色代替层级；同一按钮组禁止同时出现 task 与 product 两个 solid 按钮；brand 与 danger 不在同一页面操作组出现。",
     interaction: "Space 或 Enter 触发；loading 时保留原宽度、设置 busy 并阻止重复提交；图标按钮必须提供可访问名称。",
-    content: "task 使用提交、确认、发布、创建等推进任务的动词；product 使用分析、生成、连接、筛选、导出等调用能力的动词。",
+    content: "task 使用提交、确认、发布、创建等推进任务的动词；product 使用分析、生成、连接、筛选、导出等调用能力的动词；danger 保留高风险操作语义并复用品牌红色阶。",
   },
   Input: {
     anatomy: ["标签", "输入容器", "前后缀", "帮助或错误文字"],

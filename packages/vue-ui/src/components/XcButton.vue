@@ -156,16 +156,16 @@ const buttonClasses = computed(() => [
 }
 
 .xc-button--solid.xc-button--danger {
-  background: var(--error-solid);
+  background: var(--brand-600);
   color: white;
 }
 
 .xc-button--solid.xc-button--danger:hover:not(:disabled) {
-  background: var(--error-solid-hover);
+  background: var(--brand-700);
 }
 
 .xc-button--solid.xc-button--danger:active:not(:disabled) {
-  background: var(--error-solid-active);
+  background: var(--brand-800);
 }
 
 .xc-button--solid.xc-button--success {
@@ -221,7 +221,7 @@ const buttonClasses = computed(() => [
 
 .xc-button--outline.xc-button--danger,
 .xc-button--text.xc-button--danger {
-  color: var(--error-text);
+  color: var(--brand-600);
 }
 
 .xc-button--outline.xc-button--success,
@@ -256,7 +256,7 @@ const buttonClasses = computed(() => [
 
 .xc-button--outline.xc-button--danger:hover:not(:disabled),
 .xc-button--text.xc-button--danger:hover:not(:disabled) {
-  background: var(--error-bg);
+  background: var(--brand-50);
 }
 
 .xc-button--outline.xc-button--success:hover:not(:disabled),
@@ -306,12 +306,12 @@ const buttonClasses = computed(() => [
 }
 
 .xc-button--ghost.xc-button--danger {
-  background: var(--error-bg);
-  color: var(--error-text);
+  background: var(--brand-50);
+  color: var(--brand-600);
 }
 
 .xc-button--ghost.xc-button--danger:hover:not(:disabled) {
-  background: var(--error-tag);
+  background: var(--brand-100);
 }
 
 .xc-button--ghost.xc-button--success {

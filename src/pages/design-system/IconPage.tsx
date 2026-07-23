@@ -360,7 +360,7 @@ const decorativeIcons: DecorativeIconItem[] = [
 
 function CustomIconRuleDiagram() {
   return (
-    <div className="relative flex min-h-64 items-center justify-center overflow-hidden bg-[var(--neutral-50)] p-8">
+    <div className="relative flex min-h-72 items-center justify-center overflow-hidden bg-[var(--neutral-50)] p-8">
       <div
         className="absolute inset-0 opacity-50"
         style={{
@@ -369,12 +369,57 @@ function CustomIconRuleDiagram() {
           backgroundSize: "16px 16px",
         }}
       />
-      <div className="relative h-40 w-40 border border-[var(--product-blue-300)] bg-[var(--product-blue-100)] p-[13px]">
-        <div className="flex h-full w-full items-center justify-center border border-dashed border-[var(--success-border)] bg-white text-[var(--text-body)]">
-          <PencilSimple size={152} weight="regular" className="shrink-0" aria-label="编辑图标规范示例" />
+      <div className="relative h-64 w-72" aria-label="24 × 24px 图标画布与 2px 安全区示意">
+        <div
+          className="absolute left-16 top-8 h-px w-48 bg-[var(--docs-measurement)]"
+          data-icon-measure="canvas-width"
+        >
+          <span aria-hidden="true" className="absolute -left-1 -top-[7px] text-xs text-[var(--docs-measurement)]">←</span>
+          <MeasurementLabel showArrows={false} className="absolute left-1/2 top-[-15px] -translate-x-1/2 bg-[var(--neutral-50)] px-1">
+            24px
+          </MeasurementLabel>
+          <span aria-hidden="true" className="absolute -right-1 -top-[7px] text-xs text-[var(--docs-measurement)]">→</span>
         </div>
-        <MeasurementLabel className="absolute left-2 top-2">24 × 24px</MeasurementLabel>
-        <MeasurementLabel className="absolute bottom-4 right-4">2px 安全区</MeasurementLabel>
+
+        <div
+          className="absolute left-8 top-12 h-48 w-px bg-[var(--docs-measurement)]"
+          data-icon-measure="canvas-height"
+        >
+          <span aria-hidden="true" className="absolute -left-[5px] -top-2 text-xs text-[var(--docs-measurement)]">↑</span>
+          <MeasurementLabel showArrows={false} className="absolute left-[-11px] top-1/2 -translate-y-1/2 -rotate-90 bg-[var(--neutral-50)] px-1">
+            24px
+          </MeasurementLabel>
+          <span aria-hidden="true" className="absolute -bottom-2 -left-[5px] text-xs text-[var(--docs-measurement)]">↓</span>
+        </div>
+
+        <div
+          className="absolute left-16 top-12 h-48 w-48 border border-[var(--product-blue-400)] bg-[var(--product-blue-100)]"
+          data-icon-canvas
+        >
+          <div
+            className="absolute inset-[15px] flex items-center justify-center border border-dashed border-[var(--success-border)] bg-white text-[var(--text-body)]"
+            data-icon-safety-zone
+          >
+            <PencilSimple weight="regular" className="h-full w-full" aria-label="编辑图标规范示例" />
+          </div>
+
+          <div
+            className="absolute -right-px top-2 h-5 w-4"
+            data-icon-measure="safety-inset"
+          >
+            <MeasurementLabel showArrows={false} className="absolute left-1/2 top-0 -translate-x-1/2 bg-[var(--product-blue-100)] px-0.5">
+              2px
+            </MeasurementLabel>
+            <span className="absolute bottom-0 left-0 h-px w-full bg-[var(--docs-measurement)]" aria-hidden="true" />
+            <span aria-hidden="true" className="absolute -left-1 bottom-[-6px] text-[10px] text-[var(--docs-measurement)]">←</span>
+            <span aria-hidden="true" className="absolute -right-1 bottom-[-6px] text-[10px] text-[var(--docs-measurement)]">→</span>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-16 flex w-48 items-center justify-center gap-2 text-[10px] font-medium text-[var(--text-secondary)]">
+          <span className="h-3 w-3 border border-dashed border-[var(--success-border)] bg-white" aria-hidden="true" />
+          四边内缩 2px 为安全区
+        </div>
       </div>
     </div>
   );

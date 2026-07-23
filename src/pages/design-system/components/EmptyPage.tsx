@@ -51,7 +51,7 @@ export default function EmptyPage() {
               variant="network"
               title="网络连接异常"
               description="请检查网络连接后重试；如果问题持续出现，请联系系统管理员。"
-              action={<Button variant="outline" tone="danger" size="md">重新加载</Button>}
+              action={<Button variant="outline" tone="product" size="md">重新加载</Button>}
               className="min-h-72"
             />
           </ExampleCard>

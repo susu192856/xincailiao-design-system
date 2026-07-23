@@ -100,7 +100,7 @@ export default function ImagePage() {
                     <p className="mt-1 text-xs text-[var(--text-tertiary)]">文件链接已失效，需要重新上传。</p>
                   </div>
                 </div>
-                <Button className="shrink-0" variant="outline" tone="danger" size="sm">重新上传</Button>
+                <Button className="shrink-0" variant="outline" tone="product" size="sm">重新上传</Button>
               </div>
             </div>
           </ExampleCard>

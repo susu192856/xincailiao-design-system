@@ -123,7 +123,7 @@ export default function ColorsPage() {
   const semanticColors: SemanticColor[] = [
     { name: "success", text: "#007A20", dot: "#00B42A", background: "#E8FFEA", border: "#AFF0B5", label: "成功状态", usage: "用于保存成功、流程完成、校验通过等正向反馈。", sample: "操作成功" },
     { name: "warning", text: "#A64B00", dot: "#FF7D00", background: "#FFF7E8", border: "#FFE4BA", label: "警告提示", usage: "用于风险提示、临界状态、需要用户关注但未阻断的情况。", sample: "需要关注" },
-    { name: "error", text: "#D93636", dot: "#F53F3F", background: "#FFECE8", border: "#FDCDC5", label: "错误 / 危险", usage: "用于删除、失败、不可逆风险操作，不等同于品牌红。", sample: "操作失败" },
+    { name: "error", text: "#D93636", dot: "#F53F3F", background: "#FFECE8", border: "#FDCDC5", label: "错误状态", usage: "用于失败、校验错误和系统异常等状态反馈，不承担危险按钮的操作色。", sample: "操作失败" },
     { name: "info", text: "#0057A8", dot: "#3491FA", background: "#E8F7FF", border: "#C3E7FE", label: "信息提示", usage: "用于系统提示、链接信息、普通通知和可交互提示。", sample: "系统通知" },
   ];
 
@@ -218,7 +218,7 @@ export default function ColorsPage() {
       display: "brand-600",
       variable: "color/action/brand",
       context: "品牌关键节点",
-      usage: "Logo、品牌签名和关键转化小面积使用，不作为错误色或后台常规操作色。",
+      usage: "Logo、品牌签名和关键转化小面积使用；危险按钮通过 danger 语义复用该色阶，但不作为后台常规操作色。",
     },
   ];
 
@@ -226,7 +226,7 @@ export default function ColorsPage() {
     <div className="space-y-20">
       <PageHeader
         title="色彩系统"
-        description="色彩系统以中性灰建立信息秩序，以任务色（Task）黑色推进提交、确认、发布和创建，以产品色（Product）蓝色承载分析、生成、连接、筛选和导出。品牌红仅用于品牌识别与关键转化，错误与风险使用独立语义色。"
+        description="色彩系统以中性灰建立信息秩序，以任务色（Task）黑色推进提交、确认、发布和创建，以产品色（Product）蓝色承载分析、生成、连接、筛选和导出。品牌转化与危险操作按页面类型复用同一红色色阶，但分别使用品牌（Brand）与危险（Danger）语义。"
       />
 
       <section>
@@ -388,7 +388,7 @@ export default function ColorsPage() {
                 ["筛选 / 搜索 / 下载 / 导出", "蓝色（Product）", <Button size="sm" variant="outline" tone="product" className="pointer-events-none">导出</Button>, "产品功能操作，不改变业务结果。"],
                 ["新建 / 创建 / 生成", "黑色（Task）", <Button size="sm" tone="task" className="pointer-events-none">新建</Button>, "新增是一条业务流程的起点，需要明确触发。"],
                 ["取消 / 返回 / 关闭（不改变数据）", "中性弱按钮", <Button size="sm" variant="ghost" tone="neutral" className="pointer-events-none">取消</Button>, "优先使用弱化型（ghost）或文字型（text）；需要保持明显的次级入口时才使用描边型（outline）。"],
-                ["删除 / 不可逆操作", "语义红色（Error）", <Button size="sm" tone="danger" className="pointer-events-none">删除</Button>, "严禁用品牌红或黑色替代。红色 + 二次确认。"],
+                ["删除 / 不可逆操作", "危险语义（Danger）", <Button size="sm" tone="danger" className="pointer-events-none">删除</Button>, "视觉复用品牌红色阶，只在后台或应用平台出现；保留 danger 语义并配合二次确认，不与品牌 CTA 同屏。"],
               ].map(([scenario, choice, example, reason]) => (
                 <tr key={scenario as string}>
                   <td>{scenario as string}</td>
@@ -428,7 +428,7 @@ export default function ColorsPage() {
         <SectionHeading
           eyebrow="Semantic Colors"
           title="语义色"
-          description="语义色用于状态反馈。错误或危险使用错误语义（error），不使用品牌红，避免品牌识别和风险提示混淆。"
+          description="语义色用于状态反馈。错误、失败和校验异常继续使用 error 色；危险按钮保留 danger 语义，但视觉复用品牌红色阶。两者的业务含义不能互换。"
         />
         <div className="overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white">
           <div className="grid grid-cols-1 gap-x-10 gap-y-8 p-5 md:grid-cols-2 md:p-6">

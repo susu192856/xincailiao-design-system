@@ -471,7 +471,7 @@ defineEmits(['click']);
 .variant-solid.tone-product:hover { background: var(--product-blue-600); }
 .variant-solid.tone-brand { background: var(--brand-600); color: #fff; }
 .variant-solid.tone-brand:hover { background: var(--brand-700); }
-.variant-solid.tone-danger { background: var(--error-solid); color: #fff; }
+.variant-solid.tone-danger { background: var(--brand-600); color: #fff; }
 .variant-solid.tone-success { background: var(--success-solid); color: #fff; }
 .variant-solid.tone-warning { background: var(--warning-solid); color: #fff; }
 
@@ -483,7 +483,7 @@ defineEmits(['click']);
 }
 .variant-outline.tone-product { border-color: var(--product-blue-500); color: var(--product-blue-500); }
 .variant-outline.tone-brand { border-color: var(--brand-600); color: var(--brand-600); }
-.variant-outline.tone-danger { border-color: var(--error-text); color: var(--error-text); }
+.variant-outline.tone-danger { border-color: var(--brand-600); color: var(--brand-600); }
 .variant-outline.tone-success { border-color: var(--success-text); color: var(--success-text); }
 .variant-outline.tone-warning { border-color: var(--warning-text); color: var(--warning-text); }
 
@@ -491,7 +491,7 @@ defineEmits(['click']);
 .variant-ghost.tone-neutral { background: var(--neutral-100); color: var(--neutral-900); }
 .variant-ghost.tone-product { background: var(--product-blue-50); color: var(--product-blue-500); }
 .variant-ghost.tone-brand { background: var(--brand-50); color: var(--brand-600); }
-.variant-ghost.tone-danger { background: var(--error-bg); color: var(--error-text); }
+.variant-ghost.tone-danger { background: var(--brand-50); color: var(--brand-600); }
 .variant-ghost.tone-success { background: var(--success-bg); color: var(--success-text); }
 .variant-ghost.tone-warning { background: var(--warning-bg); color: var(--warning-text); }
 
@@ -499,7 +499,7 @@ defineEmits(['click']);
 .variant-text.tone-neutral { background: transparent; color: var(--neutral-900); }
 .variant-text.tone-product { color: var(--product-blue-500); }
 .variant-text.tone-brand { color: var(--brand-600); }
-.variant-text.tone-danger { color: var(--error-text); }
+.variant-text.tone-danger { color: var(--brand-600); }
 .variant-text.tone-success { color: var(--success-text); }
 .variant-text.tone-warning { color: var(--warning-text); }
 .variant-text:hover { background: var(--neutral-50); }
@@ -906,6 +906,7 @@ function getComponentGuidelines(name) {
     Button: [
       "按钮文字使用常规字重；主要、次要、弱按钮、文字按钮是层级，neutral、product、brand、danger 是业务语义。",
       "后台功能操作可使用 product，但不能把蓝色等同于次按钮。",
+      "danger 保留独立业务语义，但按钮视觉复用品牌红色阶；brand 仅用于官网/门户转化，danger 仅用于后台/应用平台高风险操作。",
     ],
     Table: [
       "表格必须优先覆盖后台高密度场景：筛选、排序、选择、空状态、分页、加载和权限受限。",

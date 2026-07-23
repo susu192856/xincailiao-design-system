@@ -253,7 +253,7 @@ export default function ModalPage() {
             />
           </ExampleCard>
           <ExampleCard title="决策对话框" description="适用于高风险操作，要求用户在两个明确选项中做出决定，因此不能通过右上角或点击外部区域跳过。">
-            <Button variant="outline" tone="danger" onClick={() => setOpen("locked")}>查看决策对话框</Button>
+            <Button variant="outline" tone="neutral" onClick={() => setOpen("locked")}>查看决策对话框</Button>
             <Modal
               open={open === "locked"}
               size="sm"

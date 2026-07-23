@@ -127,7 +127,7 @@
 - 辅助文字：`--neutral-500`
 - 任务主操作色：`--color-action-task-default` 或 `--neutral-900`（后台提交、确认、发布、创建默认使用黑色 task）
 - 产品能力色：`--product-blue-500`（仅用于能力按钮、链接文字、表格选中行背景等点缀场景）
-- 不使用品牌红色（`--brand-*`），红色仅用于 danger/error
+- 不使用 `brand` 语义按钮；危险操作可通过 `danger` 语义复用品牌红色阶，错误反馈继续使用 `error` 状态色
 - Checkbox/Radio/Switch 选中态：`--neutral-900`（黑色），不是产品蓝
 - **产品蓝是点缀色，不是铺底色**——页面 95% 以上的面积应该是白色和 neutral 色系
 

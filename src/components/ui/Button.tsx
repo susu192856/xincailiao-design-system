@@ -31,7 +31,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     product:
       "bg-[var(--product-blue-500)] text-white hover:bg-[var(--product-blue-600)] active:bg-[var(--product-blue-700)]",
     brand: "bg-[var(--brand-600)] text-white hover:bg-[var(--brand-700)] active:bg-[var(--brand-800)]",
-    danger: "bg-[var(--error-solid)] text-white hover:bg-[var(--error-solid-hover)] active:bg-[var(--error-solid-active)]",
+    danger: "bg-[var(--brand-600)] text-white hover:bg-[var(--brand-700)] active:bg-[var(--brand-800)]",
     success: "bg-[var(--success-solid)] text-white hover:bg-[var(--success-solid-hover)] active:bg-[var(--success-solid-active)]",
     warning: "bg-[var(--warning-solid)] text-white hover:bg-[var(--warning-solid-hover)] active:bg-[var(--warning-solid-active)]",
   },
@@ -45,7 +45,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     brand:
       "border border-[var(--brand-600)] bg-white text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",
     danger:
-      "border border-[var(--error-text)] bg-white text-[var(--error-text)] hover:bg-[var(--error-bg)] active:bg-[var(--error-border)]",
+      "border border-[var(--brand-600)] bg-white text-[var(--brand-600)] hover:bg-[var(--brand-50)] active:bg-[var(--brand-100)]",
     success:
       "border border-[var(--success-text)] bg-white text-[var(--success-text)] hover:bg-[var(--success-bg)] active:bg-[var(--success-border)]",
     warning:
@@ -60,7 +60,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
       "bg-[var(--product-blue-50)] text-[var(--product-blue-500)] hover:bg-[var(--product-blue-100)] active:bg-[var(--product-blue-200)] disabled:text-[var(--product-blue-300)]",
     brand:
       "bg-[var(--brand-50)] text-[var(--brand-600)] hover:bg-[var(--brand-100)] active:bg-[var(--brand-200)] disabled:text-[var(--brand-300)]",
-    danger: "bg-[var(--error-bg)] text-[var(--error-text)] hover:bg-[var(--error-border)] active:bg-[var(--error-border)] disabled:text-[var(--error-text-light)]",
+    danger: "bg-[var(--brand-50)] text-[var(--brand-600)] hover:bg-[var(--brand-100)] active:bg-[var(--brand-200)] disabled:text-[var(--brand-300)]",
     success:
       "bg-[var(--success-bg)] text-[var(--success-text)] hover:bg-[var(--success-border)] active:bg-[var(--success-border)] disabled:text-[var(--success-text-light)]",
     warning:
@@ -72,7 +72,7 @@ const toneClasses: Record<ButtonVariant, Record<ButtonTone, string>> = {
     product:
       "text-[var(--product-blue-500)] hover:bg-[var(--product-blue-50)] hover:text-[var(--product-blue-500)] active:bg-[var(--product-blue-100)] active:text-[var(--product-blue-500)] disabled:text-[var(--product-blue-300)]",
     brand: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] hover:text-[var(--brand-600)] active:bg-[var(--brand-100)] active:text-[var(--brand-600)] disabled:text-[var(--brand-300)]",
-    danger: "text-[var(--error-text)] hover:bg-[var(--error-bg)] hover:text-[var(--error-text)] active:bg-[var(--error-border)] active:text-[var(--error-text)] disabled:text-[var(--error-text-light)]",
+    danger: "text-[var(--brand-600)] hover:bg-[var(--brand-50)] hover:text-[var(--brand-600)] active:bg-[var(--brand-100)] active:text-[var(--brand-600)] disabled:text-[var(--brand-300)]",
     success: "text-[var(--success-text)] hover:bg-[var(--success-bg)] hover:text-[var(--success-text)] active:bg-[var(--success-border)] active:text-[var(--success-text)] disabled:text-[var(--success-text-light)]",
     warning: "text-[var(--warning-text)] hover:bg-[var(--warning-bg)] hover:text-[var(--warning-text)] active:bg-[var(--warning-border)] active:text-[var(--warning-text)] disabled:text-[var(--warning-text-light)]",
   },
