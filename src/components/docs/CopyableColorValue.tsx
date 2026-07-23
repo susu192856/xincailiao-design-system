@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 
 type CopyableColorValueProps = {
   value: string;
   display?: string;
   className?: string;
+  style?: CSSProperties;
 };
 
 export default function CopyableColorValue({
   value,
   display = value,
   className = "",
+  style,
 }: CopyableColorValueProps) {
   const [copied, setCopied] = useState(false);
 
@@ -26,6 +28,7 @@ export default function CopyableColorValue({
         className,
       ].join(" ")}
       onClick={copyToClipboard}
+      style={style}
     >
       <span>{display}</span>
       {copied ? (

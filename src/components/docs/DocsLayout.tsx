@@ -61,7 +61,7 @@ export default function DocsLayout() {
           >
             <List size={20} />
           </button>
-          <span className="ml-3 text-sm font-semibold">新材道设计规范</span>
+          <span className="ml-3 text-sm font-semibold">新材道UI设计规范</span>
         </div>
         <div className="docs-content mx-auto flex max-w-[calc(var(--content-docs-width)+10rem)] items-start gap-6 px-5 py-8 md:px-8 md:py-12 xl:px-8">
           <article className="docs-article min-w-0 flex-1">

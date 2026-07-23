@@ -551,7 +551,7 @@ export default function ButtonPage() {
         </DocsTable>
       </section>
 
-      <section>
+      <section id="tone-composition" className="scroll-mt-6">
         <SectionHeading
           eyebrow="Tone Composition"
           title="按钮配色与组合"
@@ -564,10 +564,10 @@ export default function ButtonPage() {
             为准。此处不重复维护定义，只展示按钮组合结果。
           </RuleCallout>
           <SpecCard title="常用组合" description="先确定唯一主操作，再按弱操作、次操作、主操作的顺序排列。">
-              <div className="grid grid-cols-1 gap-3 xl:grid-cols-3">
-                <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4">
+              <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">
+                <div className="rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white p-4 xl:col-span-2">
                 <p className="mb-3 text-sm font-semibold text-[var(--text-primary)]">主次弱标准排列</p>
-                <ButtonSurface className="min-h-0 flex-nowrap bg-white" gap="normal">
+                <ButtonSurface className="min-h-0 flex-wrap bg-white" gap="normal">
                   <Button variant="ghost" tone="neutral">取消</Button>
                   <Button variant="outline" tone="product">预览</Button>
                   <Button tone="task">提交审核</Button>

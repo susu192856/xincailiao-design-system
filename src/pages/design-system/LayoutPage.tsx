@@ -16,7 +16,7 @@ import {
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
 import PageHeader from "../../components/docs/PageHeader";
 import DocsTable from "../../components/docs/DocsTable";
-import { MeasurementLabel, SectionCard, SectionHeading, SubsectionHeading } from "../../components/docs/ComponentDoc";
+import { MeasurementLabel, SectionCard, SectionHeading } from "../../components/docs/ComponentDoc";
 
 type SkeletonKind =
   | "website-home"
@@ -31,6 +31,34 @@ type SkeletonKind =
 
 function Line({ className = "" }: { className?: string }) {
   return <span className={`block h-1 bg-[var(--neutral-300)] ${className}`} />;
+}
+
+function DimensionLine({ children }: { children: ReactNode }) {
+  return (
+    <span className="relative block h-8 min-w-0">
+      <MeasurementLabel showArrows={false} className="absolute inset-x-0 top-1 truncate px-1">
+        {children}
+      </MeasurementLabel>
+      <span aria-hidden="true" className="absolute inset-x-0 bottom-1 h-2">
+        <span className="absolute inset-x-1 top-1/2 h-px -translate-y-1/2 bg-[var(--docs-measurement)]" />
+        <span className="absolute left-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[3px] border-r-[5px] border-y-transparent border-r-[var(--docs-measurement)]" />
+        <span className="absolute right-0 top-1/2 h-0 w-0 -translate-y-1/2 border-y-[3px] border-l-[5px] border-y-transparent border-l-[var(--docs-measurement)]" />
+      </span>
+    </span>
+  );
+}
+
+function StrategyFactGrid({ items }: { items: ReadonlyArray<readonly [string, string]> }) {
+  return (
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+      {items.map(([label, text]) => (
+        <div key={label} className="min-w-0 rounded-[var(--radius-sm)] bg-[var(--neutral-50)] p-4">
+          <p className="text-xs font-medium text-[var(--text-primary)]">{label}</p>
+          <p className="mt-2 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">{text}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function BrandMark({ className = "" }: { className?: string }) {
@@ -426,11 +454,11 @@ function SkeletonCard({ kind, title, description }: { kind: SkeletonKind; title:
 
 export default function LayoutPage() {
   const breakpoints = [
-    { name: "移动端（Mobile）", size: "375px - 767px", cols: "4列", gutter: "16px", margin: "16px", usage: "手机与窄屏设备" },
-    { name: "平板端（Tablet）", size: "768px - 1023px", cols: "8列", gutter: "20px", margin: "24px", usage: "平板设备" },
-    { name: "桌面端（Desktop）", size: "1024px - 1439px", cols: "12列", gutter: "24px", margin: "32px", usage: "桌面端标准" },
-    { name: "大屏（Large）", size: "1440px - 1919px", cols: "12列", gutter: "24px", margin: "48px", usage: "大屏幕" },
-    { name: "超大屏（XLarge）", size: "≥ 1920px", cols: "12列", gutter: "24px", margin: "自适应", usage: "超大屏幕" },
+    { name: "移动端（Mobile）", size: "375px - 767px", previewWidth: "375px", cols: 4, gutter: "16px", margin: "16px", usage: "手机与窄屏设备" },
+    { name: "平板端（Tablet）", size: "768px - 1023px", previewWidth: "768px", cols: 8, gutter: "20px", margin: "24px", usage: "平板设备" },
+    { name: "桌面端（Desktop）", size: "1024px - 1439px", previewWidth: "1024px", cols: 12, gutter: "24px", margin: "32px", usage: "桌面端标准" },
+    { name: "大屏（Large）", size: "1440px - 1919px", previewWidth: "1440px", cols: 12, gutter: "24px", margin: "48px", usage: "大屏幕" },
+    { name: "超大屏（XLarge）", size: "≥ 1920px", previewWidth: "1920px", cols: 12, gutter: "24px", margin: "自适应", usage: "超大屏幕" },
   ];
 
   return (
@@ -445,16 +473,16 @@ export default function LayoutPage() {
         />
         <div className="grid grid-cols-1 gap-5">
           <SectionCard className="p-6">
-            <div className="mb-8">
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--brand-50)] text-[var(--brand-600)]">
-                  <Globe size={22} weight="regular" />
-                </div>
-                <SubsectionHeading eyebrow="Website / Portal" title="官网 / 门户" tone="brand" />
+            <div className="mb-8 flex items-start gap-4 sm:items-center">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--brand-50)] text-[var(--brand-600)]">
+                <Globe size={22} weight="regular" />
               </div>
-              <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向品牌传播、产品展示和转化入口，布局应先建立信任和价值认知，再引导用户进入产品。</p>
+              <div className="min-w-0">
+                <h3 className="text-base font-medium leading-[var(--type-body-l-line-height)] text-[var(--text-primary)]">官网 / 门户</h3>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向品牌传播、产品展示和转化入口，布局应先建立信任和价值认知，再引导用户进入产品。</p>
+              </div>
             </div>
-            <div className="mb-8 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
+            <div className="mb-8 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
               {[["设计稿宽度","1920px"],["内容最大宽度","1400px 居中"],["顶部导航","64px"],["首屏区高度（Hero）","500/650/800px"]].map(([label, value]) => (
                 <div key={label} className="min-w-0">
                   <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
@@ -462,25 +490,38 @@ export default function LayoutPage() {
                 </div>
               ))}
             </div>
-            <div className="space-y-3 border-t border-[var(--neutral-200)] pt-4">
-              <div className="grid grid-cols-1 gap-2">
-                {[["内容排布","大板块分区，1-2列为主，图文结合，注重视觉叙事。"],["信息密度","低密度，宽松间距 32-64px，重点突出，营造呼吸感。"],["用户行为","浏览式交互，以滚动为主，停留时间短，需快速抓住注意力。"]].map(([label, text]) => (
-                  <div key={label} className="flex gap-2 text-xs"><span className="shrink-0 font-medium text-[var(--text-secondary)]">{label}</span><span className="leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">{text}</span></div>
-                ))}
+            <div className="mb-3 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
+              <div className="grid h-14 grid-cols-[13.5416667%_72.9166666%_13.5416667%]">
+                <span className="bg-[var(--neutral-100)]" />
+                <div className="grid grid-cols-12 border-x border-dashed border-[var(--neutral-300)] bg-white" style={{ columnGap: "1.7142857%" }}>
+                  {Array.from({ length: 12 }).map((_, index) => (
+                    <span key={index} className="min-w-0 bg-[var(--neutral-100)]" />
+                  ))}
+                </div>
+                <span className="bg-[var(--neutral-100)]" />
+              </div>
+              <div className="grid grid-cols-[13.5416667%_72.9166666%_13.5416667%] items-center border-t border-[var(--neutral-200)] bg-[var(--neutral-50)]">
+                <DimensionLine>260px</DimensionLine>
+                <div className="border-x border-dashed border-[var(--neutral-300)]">
+                  <DimensionLine>1400px · 12 列</DimensionLine>
+                </div>
+                <DimensionLine>260px</DimensionLine>
               </div>
             </div>
+            <p className="mb-4 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1400px 容器由 12 列和 11 个列间距组成。按 24px 列间距计算，单列宽度约为 (1400 - 11 × 24) ÷ 12 = 94.7px；两侧 260px 是画布外边距，不计入栅格。平板切换 8 列，移动端切换 4 列。</p>
+            <StrategyFactGrid items={[["内容排布","大板块分区，1-2列为主，图文结合，注重视觉叙事。"],["信息密度","低密度，宽松间距 32-64px，重点突出，营造呼吸感。"],["用户行为","浏览式交互，以滚动为主，停留时间短，需快速抓住注意力。"]]} />
           </SectionCard>
           <SectionCard className="p-6">
-            <div className="mb-8">
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--product-blue-50)] text-[var(--product-blue-500)]">
-                  <Monitor size={22} weight="regular" />
-                </div>
-                <SubsectionHeading eyebrow="Backend" title="后台 / 应用平台" tone="product" />
+            <div className="mb-8 flex items-start gap-4 sm:items-center">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--product-blue-50)] text-[var(--product-blue-500)]">
+                <Monitor size={22} weight="regular" />
               </div>
-              <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向数据空间、材库、人工智能（AI）应用和后台管理，布局应优先服务长时间操作、快速筛选和状态判断。</p>
+              <div className="min-w-0">
+                <h3 className="text-base font-medium leading-[var(--type-body-l-line-height)] text-[var(--text-primary)]">后台 / 应用平台</h3>
+                <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">面向数据空间、材库、人工智能（AI）应用和后台管理，布局应优先服务长时间操作、快速筛选和状态判断。</p>
+              </div>
             </div>
-            <div className="mb-8 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
+            <div className="mb-8 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
               {[["设计稿宽度","1440px"],["内容区宽度","100% 自适应"],["顶部操作栏","64px"],["侧边栏","200-240px / 56px"]].map(([label, value]) => (
                 <div key={label} className="min-w-0">
                   <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
@@ -488,14 +529,84 @@ export default function LayoutPage() {
                 </div>
               ))}
             </div>
-            <div className="space-y-3 border-t border-[var(--neutral-200)] pt-4">
-              <div className="grid grid-cols-1 gap-2">
-                {[["内容排布","卡片和表格密集排列，3-4列为主，强调数据展示和操作便捷性。"],["信息密度","高密度，紧凑间距 16-24px，减少滚动次数，提升获取效率。"],["用户行为","操作式交互，以点击、筛选、表单提交为主，长时间使用，需功能清晰易找。"]].map(([label, text]) => (
-                  <div key={label} className="flex gap-2 text-xs"><span className="shrink-0 font-medium text-[var(--text-secondary)]">{label}</span><span className="leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">{text}</span></div>
-                ))}
+            <div className="mb-3 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
+              <div className="grid h-14 grid-cols-[16.6666667%_83.3333333%]">
+                <span className="bg-[var(--neutral-900)]" />
+                <div className="grid grid-cols-[2%_96%_2%] bg-[var(--warning-bg)]">
+                  <span />
+                  <div className="grid grid-cols-24 border-x border-dashed border-[var(--neutral-300)] bg-white" style={{ columnGap: "1.3888889%" }}>
+                    {Array.from({ length: 24 }).map((_, index) => (
+                      <span key={index} className="min-w-0 bg-[var(--neutral-100)]" />
+                    ))}
+                  </div>
+                  <span />
+                </div>
+              </div>
+              <div className="grid grid-cols-[16.6666667%_83.3333333%] items-center border-t border-[var(--neutral-200)] bg-[var(--neutral-50)]">
+                <DimensionLine>240px</DimensionLine>
+                <div className="border-l border-dashed border-[var(--neutral-300)]">
+                  <DimensionLine>1200px 工作区</DimensionLine>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-[var(--neutral-200)] bg-white px-3 py-2 font-data text-[10px] leading-4 text-[var(--text-tertiary)]">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-4 border border-[var(--docs-measurement)] bg-[var(--warning-bg)]" aria-hidden="true" />
+                  工作区内边距 24px（左右）
+                </span>
+                <span>栅格 1152px · 24 列 · 列间距 16px</span>
               </div>
             </div>
+            <p className="mb-4 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1440px 画布扣除 240px 侧栏后得到 1200px 工作区；再扣除左右各 24px 内边距，1152px 栅格区域由 24 列和 23 个列间距组成。按 16px 列间距计算，单列宽度约为 (1152 - 23 × 16) ÷ 24 = 32.7px。空间不足时优先收起侧栏，工作区内边距保持不变。</p>
+            <StrategyFactGrid items={[["内容排布","卡片和表格密集排列，3-4列为主，强调数据展示和操作便捷性。"],["信息密度","高密度，紧凑间距 16-24px，减少滚动次数，提升获取效率。"],["用户行为","操作式交互，以点击、筛选、表单提交为主，长时间使用，需功能清晰易找。"]]} />
           </SectionCard>
+        </div>
+      </section>
+
+      <section>
+        <SectionHeading
+          eyebrow="Breakpoints"
+          title="响应式断点"
+          description="基于主流设备分辨率定义断点，确保从移动端到大屏都能获得稳定的信息层级和可用操作空间。"
+        />
+        <div className="mb-5">
+          <DocsTable>
+            <thead>
+              <tr><th>屏幕</th><th>官网</th><th>后台</th></tr>
+            </thead>
+            <tbody>
+              {[["大屏 ≥ 1440px", "保持 12 列与 1400px 居中容器，Hero 可通栏。", "完整展开侧栏、顶部操作栏和批量操作。"],["桌面 1024px - 1439px", "缩小外边距，保留主要图文分栏。", "先收起侧栏，再压缩筛选项和次要字段。"],["平板 768px - 1023px", "从 12 列切换到 8 列，图文可改为上下排布。", "仅保留关键工作流，隐藏低频功能。"],["移动端 < 768px", "单列布局，保留品牌标识、核心内容和主 CTA。", "按需支持核心查询与审批状态操作。"]].map(([screen, website, backend]) => (
+                <tr key={screen}><td>{screen}</td><td>{website}</td><td>{backend}</td></tr>
+              ))}
+            </tbody>
+          </DocsTable>
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {breakpoints.map((bp) => (
+            <SectionCard key={bp.name} className="flex min-h-64 flex-col p-5">
+              <div>
+                <h3 className="text-base font-medium leading-6 text-[var(--text-primary)]">{bp.name}</h3>
+                <p className="mt-1 text-xs text-[var(--text-tertiary)]">{bp.size} · {bp.usage}</p>
+              </div>
+              <div className="mt-5 rounded-[var(--radius-sm)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
+                <div className={`grid gap-1 ${bp.cols === 4 ? "grid-cols-4" : bp.cols === 8 ? "grid-cols-8" : "grid-cols-12"}`}>
+                  {Array.from({ length: bp.cols }).map((_, index) => (
+                    <span key={index} className="h-10 min-w-0 bg-white" />
+                  ))}
+                </div>
+                <div className="mt-1">
+                  <DimensionLine>{bp.previewWidth}</DimensionLine>
+                </div>
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--neutral-200)] pt-4">
+                {[["列数", `${bp.cols}列`], ["列间距", bp.gutter], ["页面边距", bp.margin]].map(([label, value]) => (
+                  <div key={label} className="min-w-0">
+                    <p className="text-xs text-[var(--text-tertiary)]">{label}</p>
+                    <p className="mt-1 text-sm font-medium text-[var(--text-primary)]">{value}</p>
+                  </div>
+                ))}
+              </div>
+            </SectionCard>
+          ))}
         </div>
       </section>
 
@@ -503,7 +614,7 @@ export default function LayoutPage() {
         <SectionHeading
           eyebrow="Website Skeleton"
           title="官网 / 门户页面骨架"
-          description="使用白色或中性浅灰（neutral-50）作为页面背景。品牌标识和产品名称固定在通栏顶栏左侧，搜索在导航右侧仅用于门户。登录与用户状态展示在右侧。首屏区（Hero）使用面向宽屏的三级响应高度。"
+          description="以下骨架用于说明官网与门户一至三级页面的典型信息层级和区域关系，仅作为布局起点，不是固定模板或唯一标准。实际页面可根据业务目标、内容规模、导航深度和终端尺寸调整模块数量、顺序与比例；品牌标识、全局导航和用户入口等公共结构仍需遵循统一规范。示意图按比例缩放，不代表生产尺寸。"
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <SkeletonCard kind="website-home" title="一级页面 · 官网首页" description="品牌标识（Logo）、全局导航、登录、居中首屏区（Hero）文案、能力卡片和页脚。" />
@@ -518,112 +629,13 @@ export default function LayoutPage() {
         <SectionHeading
           eyebrow="Backend Skeleton"
           title="后台 / 应用平台页面骨架"
-          description="使用白色或中性浅灰（neutral-50）工作框架。品牌标识和完整产品名称固定在通栏顶栏，侧栏只承载页面导航。侧栏展开 200px-240px，收起 56px。示例图按比例缩小，生产字号和尺寸以设计变量（Token）与复制骨架为准。"
+          description="以下骨架用于说明后台与应用平台常见工作台、列表页和详情页的典型区域关系，仅作为结构参考，不要求逐项照搬。实际页面可根据任务流程、数据密度、角色权限和操作频率调整侧栏、筛选区、表格、图表与详情区；顶栏、侧栏状态和基础组件仍需遵循统一规范。示意图按比例缩放，不代表生产尺寸。"
         />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <SkeletonCard kind="backend-dashboard" title="工作台 · 数据总览" description="全面通栏品牌顶栏、240px 侧栏、指标卡片和图表区域的仪表盘。" />
           <SkeletonCard kind="backend-collapsed" title="收起态 · 紧凑工作区" description="56px 图标侧栏和完整工作区。适合需要更大内容面积的任务。" />
           <SkeletonCard kind="backend-list" title="列表页 · 筛选表格" description="搜索筛选、新增按钮、批量操作栏、可滚动数据表格和底部分页。" />
           <SkeletonCard kind="backend-detail" title="详情页 · 信息配置" description="三级面包屑、表单字段、操作按钮和流程记录的详情与配置页面。" />
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Grid Container"
-          title="栅格与容器"
-          description="页面骨架负责表达结构，栅格负责约束复用。只保留开发落地必须知道的列数、容器宽度和间距。"
-        />
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <SectionCard className="p-4">
-            <SubsectionHeading eyebrow="Website / Portal" title="官网 / 门户" tone="brand" />
-            <p className="mt-1 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1920px 设计画布 · 1400px 居中容器 · 桌面端 12 列</p>
-            <div className="mt-4 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
-              {/* 外边距区 */}
-              <div className="flex h-14">
-                <span className="shrink-0 bg-[var(--neutral-100)]" style={{ width: "13.5%" }} />
-                {/* 内容容器 1400/1920 ≈ 73% */}
-                <div className="flex flex-1 gap-1 border-x border-dashed border-[var(--neutral-300)] bg-white px-1.5">
-                  {Array.from({ length: 12 }).map((_, index) => (
-                    <span key={index} className="flex-1 rounded-[1px] bg-[var(--neutral-100)]" />
-                  ))}
-                </div>
-                <span className="shrink-0 bg-[var(--neutral-100)]" style={{ width: "13.5%" }} />
-              </div>
-              <div className="grid grid-cols-[1fr_minmax(0,2.7fr)_1fr] items-center border-t border-[var(--neutral-200)] px-2 py-2">
-                <MeasurementLabel>260px</MeasurementLabel>
-                <MeasurementLabel>1400px · 12 列</MeasurementLabel>
-                <MeasurementLabel>260px</MeasurementLabel>
-              </div>
-            </div>
-            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">桌面列间距建议 24px-32px；平板切换 8 列，移动端切换 4 列。首屏区（Hero）可通栏，正文和核心模块进入容器。</p>
-          </SectionCard>
-          <SectionCard className="p-4">
-            <SubsectionHeading eyebrow="Backend" title="后台 / 应用平台" tone="product" />
-            <p className="mt-1 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">1440px 设计画布 · 240px / 56px 侧栏 · 工作区自适应 24 列</p>
-            <div className="mt-4 overflow-hidden rounded-[var(--radius-md)] border border-[var(--neutral-200)]">
-              <div className="flex h-14">
-                <span className="shrink-0 bg-[var(--neutral-900)]" style={{ width: "16.7%", minWidth: 48 }} />
-                <div className="flex flex-1 gap-[2px] bg-white px-1.5">
-                  {Array.from({ length: 24 }).map((_, index) => (
-                    <span key={index} className="flex-1 rounded-[1px] bg-[var(--neutral-100)]" />
-                  ))}
-                </div>
-              </div>
-              <div className="grid grid-cols-[minmax(80px,0.2fr)_1fr] items-center border-t border-[var(--neutral-200)] px-2 py-2">
-                <MeasurementLabel>240px</MeasurementLabel>
-                <MeasurementLabel>24 列 · 16-24px</MeasurementLabel>
-              </div>
-            </div>
-            <p className="mt-3 text-xs leading-[var(--type-caption-line-height)] text-[var(--text-tertiary)]">工作区列间距建议 16px-24px。优先收起侧栏释放空间，不强行压缩表格、图表和字段详情。</p>
-          </SectionCard>
-        </div>
-      </section>
-
-      <section>
-        <SectionHeading
-          eyebrow="Breakpoints"
-          title="响应式断点"
-          description="基于主流设备分辨率定义断点，确保从移动端到大屏都能获得稳定的信息层级和可用操作空间。"
-        />
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
-          {breakpoints.map((bp) => (
-            <SectionCard key={bp.name} className="p-4">
-              <div className="mb-4 flex items-start justify-between"><div><p className="text-xs text-[var(--text-tertiary)]">{bp.name}</p><h3 className="mt-1 text-xl font-medium leading-7 text-[var(--text-primary)]">{bp.cols}</h3></div><span className="mt-1 h-1.5 w-1.5 bg-[var(--neutral-900)]" /></div>
-              <div className="space-y-1.5 text-xs leading-5 text-[var(--text-tertiary)]"><p>{bp.size}</p><p>列间距（Gutter）{bp.gutter}</p><p>页面边距（Margin）{bp.margin}</p><p className="pt-2 font-medium text-[var(--text-tertiary)]">{bp.usage}</p></div>
-            </SectionCard>
-          ))}
-        </div>
-        <div className="mt-5">
-          <DocsTable>
-            <thead>
-              <tr><th>屏幕</th><th>官网</th><th>后台</th></tr>
-            </thead>
-            <tbody>
-              {[["大屏 ≥ 1440px", "保持 12 列与 1400px 居中容器，Hero 可通栏。", "完整展开侧栏、顶部操作栏和批量操作。"],["桌面 1024px - 1439px", "缩小外边距，保留主要图文分栏。", "先收起侧栏，再压缩筛选项和次要字段。"],["平板 768px - 1023px", "从 12 列切换到 8 列，图文可改为上下排布。", "仅保留关键工作流，隐藏低频功能。"],["移动端 < 768px", "单列布局，保留品牌标识、核心内容和主 CTA。", "按需支持核心查询与审批状态操作。"]].map(([screen, website, backend]) => (
-                <tr key={screen}><td>{screen}</td><td>{website}</td><td>{backend}</td></tr>
-              ))}
-            </tbody>
-          </DocsTable>
-        </div>
-        <div className="mt-5">
-          <SubsectionHeading title="响应式布局示例" tone="product" />
-          <div className="space-y-4">
-            {[
-              { label: "Mobile 4列", width: "375px", cols: 4 },
-              { label: "Tablet 8列", width: "768px", cols: 8 },
-              { label: "Desktop 12列", width: "1440px", cols: 12 },
-            ].map((row) => (
-              <div key={row.label}>
-                <div className="mb-1.5 flex items-center justify-between text-xs text-[var(--text-tertiary)]"><span>{row.label}</span><MeasurementLabel>{row.width}</MeasurementLabel></div>
-                <div className={`grid gap-1 ${row.cols === 4 ? "grid-cols-4" : row.cols === 8 ? "grid-cols-8" : "grid-cols-12"}`}>
-                  {Array.from({ length: row.cols }).map((_, index) => (
-                    <div key={index} className="h-6 rounded-[1px] bg-[var(--neutral-100)]" />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

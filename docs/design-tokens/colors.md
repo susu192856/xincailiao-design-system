@@ -86,7 +86,7 @@
 | `--warning-tag` | `#FFF7E8` | 警告标签 |
 | `--warning-border` | `#FFE4BA` |  |
 | `--warning-dot` | `#FF7D00` |  |
-| `--error-text` | `#C62828` | 错误文字 |
+| `--error-text` | `#D93636` | 错误文字 |
 | `--error-hover` | `#F53F3F` |  |
 | `--error-active` | `#AF2126` |  |
 | `--error-bg` | `#FFECE8` | 错误背景 |
@@ -352,7 +352,7 @@
 
 <span style="display:inline-block;width:16px;height:16px;background:#FF7D00;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--warning-dot` = #FF7D00
 
-<span style="display:inline-block;width:16px;height:16px;background:#C62828;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #C62828
+<span style="display:inline-block;width:16px;height:16px;background:#D93636;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-text` = #D93636
 
 <span style="display:inline-block;width:16px;height:16px;background:#F53F3F;border:1px solid #e5e7eb;vertical-align:middle;margin-right:8px;border-radius:2px;"></span> `--error-hover` = #F53F3F
 

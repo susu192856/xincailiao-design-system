@@ -1,4 +1,5 @@
-import { Dna, StackPlus, FigmaLogo, FlowArrow } from "@phosphor-icons/react";
+import { ArrowRight, Dna, StackPlus, FigmaLogo, FlowArrow } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 import { SectionCard, SectionHeading } from "../../components/docs/ComponentDoc";
 import { Tag } from "../../components/ui/Tag";
 import xincailiaoLogo from "../../assets/xincailiao-logo-horizontal.png";
@@ -66,11 +67,11 @@ const sections = [
 ] as const;
 
 const productLayers = [
-  { title: "品牌叙事层", feature: "门户官网，页面少、信息密度低，以品牌传播和转化引导为目标。深色背景 + 品牌红主视觉区 + 大画幅留白。", products: ["新材道官网"], details: "红色使用最充分，5 秒建立品牌第一印象。" },
-  { title: "数据服务层", feature: "数据看板、卡片列表、详情预览，提供数据浏览和轻量操作。白底 + 产品蓝功能元素，模块化卡片布局。", products: ["InterMat 数据空间门户", "材库首页"], details: "InterMat → 节点链路拓扑图 · 数据市场陈列  |  材库 → 材料四面体图谱 · 数据目录树" },
-  { title: "专业工具层", feature: "复杂表单、可视化画布、多步骤流程，面向专业用户深度操作。白底 + 蓝主导 + 红仅 Logo。", products: ["材小模", "智能相图", "智能拆单", "智能选材"], details: "材小模 → 步骤引导式建模流程 · 预测对比图表  |  智能相图 → 交互式相图可视化区  |  智能拆单 → 订单解析→BOM 展开看板" },
-  { title: "系统管理层", feature: "筛选、列表、表单、详情、操作日志，用于后台配置与账号管理。白底 + 经典后台布局，信息密度最大化。", products: ["用户中心", "各产品后台配置", "InterMat 管理后台"], details: "侧边栏+顶栏+内容区结构，表格/表单/筛选/分页为核心形态。" },
-];
+  { title: "品牌叙事层", tone: "brand" as const, density: "低密度", structure: "1–2 列叙事", products: ["新材道官网"], description: "门户官网，页面少、信息密度低，以品牌传播和转化引导为目标。深色背景 + 品牌红主视觉区 + 大画幅留白。" },
+  { title: "数据服务层", tone: "product" as const, density: "中等密度", structure: "浏览与轻操作", products: ["InterMat 数据空间门户"], description: "以数据浏览、检索和详情预览为主；只有可独立理解的数据对象才使用卡片。" },
+  { title: "专业工具层", tone: "indigo" as const, density: "中高密度", structure: "任务流程优先", products: ["材小模", "智能相图", "智能拆单", "质量分级", "区块链中间件"], description: "围绕复杂表单、可视化画布和多步骤流程组织内容，优先保证任务连续性。" },
+  { title: "系统管理层", tone: "info" as const, density: "高密度但可读", structure: "查询与批量操作", products: ["OneID管理平台", "材库数据管理平台", "InterMat管理后台"], description: "使用侧边栏、筛选、表格、表单和操作日志，减少滚动但不压缩字段与数据的可读宽度。" },
+] as const;
 
 export function HomeHero() {
   return (
@@ -88,7 +89,7 @@ export function HomeHero() {
       />
       <div className="relative z-10 mx-auto flex min-h-[450px] max-w-[calc(var(--content-docs-width)+12rem)] items-start gap-10 px-5 pt-20 md:px-8 xl:px-10">
         <div className="min-w-0 flex-1 pt-10">
-          <h1 className="text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">设计系统</h1>
+          <h1 className="text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-[var(--text-primary)]">新材道UI设计规范</h1>
           <div className="mt-4 flex flex-wrap items-center gap-2" aria-label="版本信息">
             <Tag variant="neutral" size="sm">2026</Tag>
             <Tag variant="neutral" size="sm">v2.0</Tag>
@@ -136,17 +137,29 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
 
-      {/* Objectives */}
+      {/* Product Layers */}
       <section>
-        <SectionHeading eyebrow={sections[0].eyebrow} title={sections[0].title} />
+        <SectionHeading
+          eyebrow="Product Layers"
+          title="产品分层设计"
+          description="四类产品共享基础规则，但按照浏览、操作和专业任务的差异选择不同结构与信息密度。"
+        />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {sections[0].items.map((item) => (
-            <SectionCard key={item.title} className="p-8">
-              <div className="mb-3 flex h-8 w-8 items-center text-[var(--text-secondary)]">
-                {item.icon}
+          {productLayers.map((layer) => (
+            <SectionCard key={layer.title} className="p-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h3 className="text-lg font-medium leading-[26px] text-[var(--text-primary)]">{layer.title}</h3>
+                <Tag variant="neutral" size="sm">{layer.density}</Tag>
               </div>
-              <h3 className="text-lg font-medium leading-[26px] text-[var(--text-primary)]">{item.title}</h3>
-              <div className="mt-3 space-y-1 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">{item.desc}</div>
+              <p className="mt-2 text-xs font-medium text-[var(--text-tertiary)]">{layer.structure}</p>
+              <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)]">{layer.description}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {layer.products.map((product) => (
+                  <Tag key={product} tone={layer.tone} size="sm">
+                    {product}
+                  </Tag>
+                ))}
+              </div>
             </SectionCard>
           ))}
         </div>
@@ -172,25 +185,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Product Layers */}
+      {/* Objectives */}
       <section>
-        <SectionHeading eyebrow="Product Layers" title="产品分层设计" />
+        <SectionHeading eyebrow={sections[0].eyebrow} title={sections[0].title} />
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {productLayers.map((layer) => (
-            <SectionCard key={layer.title} className="p-8">
-              <h3 className="text-lg font-medium leading-[26px] text-[var(--text-primary)]">{layer.title}</h3>
-              <p className="mt-1 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">{layer.feature}</p>
-              {layer.details ? <p className="mt-2 text-xs leading-5 text-[var(--text-tertiary)]">{layer.details}</p> : null}
-              <div className="mt-3 flex flex-wrap gap-2">
-                {layer.products.map((product) => (
-                  <Tag key={product} variant="neutral" size="sm">
-                    {product}
-                  </Tag>
-                ))}
+          {sections[0].items.map((item) => (
+            <SectionCard key={item.title} className="p-8">
+              <div className="mb-3 flex h-8 w-8 items-center text-[var(--text-secondary)]">
+                {item.icon}
               </div>
+              <h3 className="text-lg font-medium leading-[26px] text-[var(--text-primary)]">{item.title}</h3>
+              <div className="mt-3 space-y-1 text-sm leading-[var(--type-body-m-line-height)] text-[var(--text-secondary)]">{item.desc}</div>
             </SectionCard>
           ))}
         </div>
+        <Link
+          to="/delivery"
+          className="group mt-5 flex min-h-14 w-full items-center justify-between gap-4 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white px-5 py-4 text-sm font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--neutral-400)] hover:bg-[var(--neutral-50)] hover:text-[var(--brand-600)]"
+        >
+          <span>查看交付门槛与同步流程</span>
+          <ArrowRight size={16} className="shrink-0 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        </Link>
       </section>
 
       {/* Footer */}

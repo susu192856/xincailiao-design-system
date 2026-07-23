@@ -63,17 +63,24 @@ export function SubsectionHeading({
 export function MeasurementLabel({
   children,
   className = "",
+  direction = "horizontal",
+  showArrows = true,
 }: {
   children: ReactNode;
   className?: string;
+  direction?: "horizontal" | "vertical";
+  showArrows?: boolean;
 }) {
+  const startArrow = direction === "vertical" ? "↑" : "←";
+  const endArrow = direction === "vertical" ? "↓" : "→";
+
   return (
     <span
       className={`inline-flex items-center justify-center gap-1 whitespace-nowrap font-data text-[10px] font-semibold leading-none text-[var(--docs-measurement-text)] ${className}`}
     >
-      <span aria-hidden="true" className="text-[var(--docs-measurement)]">←</span>
+      {showArrows ? <span aria-hidden="true" className="text-[var(--docs-measurement)]">{startArrow}</span> : null}
       <span>{children}</span>
-      <span aria-hidden="true" className="text-[var(--docs-measurement)]">→</span>
+      {showArrows ? <span aria-hidden="true" className="text-[var(--docs-measurement)]">{endArrow}</span> : null}
     </span>
   );
 }

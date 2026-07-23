@@ -1,6 +1,7 @@
 import DocsTable from "../../components/docs/DocsTable";
 import { MeasurementLabel, SectionHeading, SpecList } from "../../components/docs/ComponentDoc";
 import PageHeader from "../../components/docs/PageHeader";
+import { Button } from "../../components/ui/Button";
 
 const spacingTokens = [
   {
@@ -168,29 +169,29 @@ export default function SpacingPage() {
                 {recipe.title === "表单" ? (
                   <div className="space-y-0 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
                     <div className="bg-white border border-[var(--neutral-300)] rounded-sm px-2 py-1.5 text-xs text-[var(--text-secondary)]">标签 / 输入框</div>
-                    <div className="flex items-center justify-center" style={{ height: "16px" }}><MeasurementLabel>16px</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "16px" }}><MeasurementLabel direction="vertical">16px</MeasurementLabel></div>
                     <div className="bg-white border border-[var(--neutral-300)] rounded-sm px-2 py-1.5 text-xs text-[var(--text-secondary)]">标签 / 输入框</div>
-                    <div className="flex items-center justify-center" style={{ height: "24px", borderLeft: "1px dashed var(--docs-measurement)", marginLeft: "8px" }}><MeasurementLabel>24px（分组）</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "24px", borderLeft: "1px dashed var(--docs-measurement)", marginLeft: "8px" }}><MeasurementLabel direction="vertical">24px（分组）</MeasurementLabel></div>
                     <div className="bg-white border border-[var(--neutral-300)] rounded-sm px-2 py-1.5 text-xs text-[var(--text-secondary)]">标签 / 输入框</div>
-                    <div className="flex items-center justify-center" style={{ height: "12px" }}><MeasurementLabel>12px</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "12px" }}><MeasurementLabel direction="vertical">12px</MeasurementLabel></div>
                     <div className="flex justify-end gap-2">
-                      <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-3 py-1 text-xs text-[var(--text-secondary)]">取消</span>
-                      <span className="rounded-sm bg-[var(--neutral-900)] px-3 py-1 text-xs text-white">提交</span>
+                      <Button size="sm" variant="ghost" tone="neutral" className="pointer-events-none !h-6 !min-h-0 !px-3 !text-xs">取消</Button>
+                      <Button size="sm" tone="task" className="pointer-events-none !h-6 !min-h-0 !px-3 !text-xs">提交</Button>
                     </div>
                   </div>
                 ) : recipe.title === "列表" ? (
                   <div className="space-y-0 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
-                    <div className="flex gap-1.5" style={{ marginBottom: "12px" }}>
+                    <div className="flex gap-1.5">
                       <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-2 py-1 text-[10px] text-[var(--text-secondary)]">筛选A</span>
                       <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-2 py-1 text-[10px] text-[var(--text-secondary)]">筛选B</span>
                     </div>
-                    <div className="flex items-center justify-center" style={{ height: "14px" }}><MeasurementLabel>12-16px</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "14px" }}><MeasurementLabel direction="vertical">12-16px</MeasurementLabel></div>
                     <div className="border border-[var(--neutral-300)] bg-white rounded-[var(--radius-none)]">
                       <div className="border-b border-[var(--neutral-200)] px-2 py-1 text-[10px] text-[var(--text-secondary)]">表头</div>
                       <div className="px-2 py-1 text-[10px] text-[var(--text-secondary)]">数据行</div>
                       <div className="px-2 py-1 text-[10px] text-[var(--text-secondary)]">数据行</div>
                     </div>
-                    <div className="flex items-center justify-center" style={{ height: "16px" }}><MeasurementLabel>16px</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "16px" }}><MeasurementLabel direction="vertical">16px</MeasurementLabel></div>
                     <div className="flex justify-end gap-1.5">
                       <span className="rounded-sm border border-[var(--neutral-300)] bg-white px-2 py-1 text-[10px] text-[var(--text-secondary)]">1 2 3 …</span>
                     </div>
@@ -198,9 +199,9 @@ export default function SpacingPage() {
                 ) : (
                   <div className="space-y-0 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-[var(--neutral-50)] p-3">
                     <div className="bg-white border border-[var(--neutral-300)] rounded-[var(--radius-md)] px-2 py-1.5 text-xs font-semibold text-[var(--text-primary)]">页面标题</div>
-                    <div className="flex items-center justify-center" style={{ height: "18px" }}><MeasurementLabel>16-24px</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "18px" }}><MeasurementLabel direction="vertical">16-24px</MeasurementLabel></div>
                     <div className="bg-white border border-[var(--neutral-200)] rounded-[var(--radius-md)] px-2 py-1.5 text-xs text-[var(--text-secondary)]">正文段落内容……</div>
-                    <div className="flex items-center justify-center" style={{ height: "28px" }}><MeasurementLabel>24-32px（卡片间距）</MeasurementLabel></div>
+                    <div className="flex items-center justify-center" style={{ height: "28px" }}><MeasurementLabel direction="vertical">24-32px（卡片间距）</MeasurementLabel></div>
                     <div className="grid grid-cols-3 gap-2">
                       <div className="h-8 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white" />
                       <div className="h-8 rounded-[var(--radius-md)] border border-[var(--neutral-200)] bg-white" />

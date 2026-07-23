@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   ArrowsLeftRight,
@@ -130,49 +130,93 @@ export default function DocsSidebar({ className = "", onNavigate }: DocsSidebarP
     },
   ];
 
+  const activeSection =
+    menuData.find((section) =>
+      section.items.some((item) => item.path === location.pathname),
+    )?.title ?? menuData[0].title;
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(
+    () => new Set([activeSection]),
+  );
+
+  useEffect(() => {
+    setExpandedSections((current) => {
+      if (current.has(activeSection)) return current;
+      const next = new Set(current);
+      next.add(activeSection);
+      return next;
+    });
+  }, [activeSection]);
+
+  const toggleSection = (title: string) => {
+    setExpandedSections((current) => {
+      const next = new Set(current);
+      if (next.has(title)) next.delete(title);
+      else next.add(title);
+      return next;
+    });
+  };
+
   return (
-    <aside className={["h-screen w-64 overflow-y-auto border-r border-[var(--neutral-200)] bg-white/92 backdrop-blur", className].join(" ")}>
-      <div className="border-b border-[var(--neutral-200)] bg-white p-5">
-        <Link to="/" className="flex items-center gap-3 text-[var(--text-primary)] hover:text-[var(--brand-600)] transition-colors">
-          <img src={xincailiaoLogo} alt="新材道" className="h-7 w-auto object-contain" />
-          <span className="text-base font-semibold leading-tight">新材道设计规范</span>
+    <aside className={["h-screen w-60 overflow-y-auto border-r border-[var(--neutral-200)] bg-white/92 backdrop-blur", className].join(" ")}>
+      <div className="flex items-center border-b border-[var(--neutral-200)] bg-white p-5">
+        <Link to="/" className="flex min-w-0 flex-1 items-center gap-2 text-[var(--text-primary)] transition-colors hover:text-[var(--brand-600)]">
+          <img src={xincailiaoLogo} alt="新材道" className="h-7 w-auto shrink-0 object-contain" />
+          <span className="whitespace-nowrap text-sm font-semibold leading-tight">新材道UI设计规范</span>
         </Link>
       </div>
 
       <nav className="p-4">
-        {menuData.map((section) => (
-          <div key={section.title} className="mb-6">
-            {section.title ? (
-              <h2 className="mb-3 px-3 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-tertiary)]">
-                {section.title}
+        {menuData.map((section, index) => {
+          const expanded = expandedSections.has(section.title);
+          const regionId = `docs-sidebar-section-${index}`;
+          return (
+            <div key={section.title} className="mb-2">
+              <h2>
+                <button
+                  type="button"
+                  aria-expanded={expanded}
+                  aria-controls={regionId}
+                  onClick={() => toggleSection(section.title)}
+                  className="flex min-h-10 w-full items-center justify-between rounded-[var(--radius-sm)] px-3 text-left text-xs font-semibold tracking-[0.08em] text-[var(--text-tertiary)] hover:bg-[var(--neutral-50)] hover:text-[var(--text-primary)]"
+                >
+                  <span>{section.title}</span>
+                  <CaretDown
+                    size={14}
+                    className={`transition-transform ${expanded ? "rotate-0" : "-rotate-90"}`}
+                    aria-hidden="true"
+                  />
+                </button>
               </h2>
-            ) : null}
-            <ul className="space-y-1">
-              {section.items.map((item) => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <li key={item.path}>
-                    <Link
-                      to={item.path}
-                      onClick={onNavigate}
-                      className={`
-                        flex min-h-9 items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2 text-sm transition-all
-                        ${
-                          isActive
-                            ? "bg-[var(--neutral-900)] !text-white [&_svg]:!text-white"
-                            : "text-[var(--text-secondary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)]"
-                        }
-                      `}
-                    >
-                      {item.icon}
-                      <span>{item.name}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
+              {expanded ? (
+                <ul id={regionId} className="mt-1 space-y-1">
+                  {section.items.map((item) => {
+                    const isActive = location.pathname === item.path;
+                    return (
+                      <li key={item.path}>
+                        <Link
+                          to={item.path}
+                          onClick={onNavigate}
+                          aria-current={isActive ? "page" : undefined}
+                          className={`
+                            flex min-h-9 items-center gap-3 rounded-[var(--radius-sm)] px-3 py-2 text-sm transition-all
+                            ${
+                              isActive
+                                ? "bg-[var(--neutral-900)] !text-white [&_svg]:!text-white"
+                                : "text-[var(--text-secondary)] hover:bg-[var(--neutral-100)] hover:text-[var(--text-primary)]"
+                            }
+                          `}
+                        >
+                          {item.icon}
+                          <span>{item.name}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : null}
+            </div>
+          );
+        })}
       </nav>
     </aside>
   );
